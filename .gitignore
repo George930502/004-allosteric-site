@@ -32,3 +32,6 @@ scratch/
 
 # OS
 .DS_Store
+
+# graphify output — fully reproducible from the corpus
+graphify-out/
