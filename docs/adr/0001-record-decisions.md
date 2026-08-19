@@ -11,7 +11,7 @@ later "fixing" it back to something already ruled out.
 
 ## Decision
 
-Every decision that constrains a later phase gets a short ADR in `docs/decisions/`.
+Every decision that constrains a later phase gets a short ADR in `docs/adr/`.
 Every run that produces a comparable number gets an entry in `experiments/REGISTRY.md`.
 Together these are the project's long-term memory; an agent starting cold reads
 `docs/ROADMAP.md`, then the registry, then the relevant ADRs.

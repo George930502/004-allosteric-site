@@ -49,7 +49,7 @@ exactly where quantum and classical transport diverge.
 
 The exact metric is a research question, not a settled choice — the challenge
 explicitly leaves it to participants. Candidates and their status are tracked in
-[`docs/decisions/0002-quantum-metric-hypothesis.md`](docs/decisions/0002-quantum-metric-hypothesis.md).
+[`docs/adr/0002-quantum-metric-hypothesis.md`](docs/adr/0002-quantum-metric-hypothesis.md).
 
 ## Validation targets
 

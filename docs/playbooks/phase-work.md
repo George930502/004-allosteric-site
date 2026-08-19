@@ -13,7 +13,7 @@ The four research principles (`AGENTS.md` §3) are checked at the points marked
 1. Read `docs/ROADMAP.md` — which phase is current, what its exit criterion is.
 2. Read `experiments/REGISTRY.md` — what has already been tried and what failed.
    Do not re-run a dead end.
-3. Read the relevant ADRs in `docs/decisions/` for the area you are touching.
+3. Read the relevant ADRs in `docs/adr/` for the area you are touching.
 4. Re-read the relevant part of `CHALLENGE.md`. The spec, not your memory of it.
 5. **[R2]** State the task's success criterion as something a command can check. If
    you cannot, the task is underspecified — say so and ask before building.

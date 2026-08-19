@@ -8,7 +8,7 @@ practice as defined in `docs/FIELD.md`).
 
 Load context in this order and keep it tight — read the files, do not dump them:
 `docs/ROADMAP.md` (current phase and exit criterion) → `experiments/REGISTRY.md`
-(what has been tried) → the ADRs in `docs/decisions/` relevant to the area →
+(what has been tried) → the ADRs in `docs/adr/` relevant to the area →
 the relevant section of `CHALLENGE.md`.
 
 Then state, before touching code: the task, its success criterion as a runnable

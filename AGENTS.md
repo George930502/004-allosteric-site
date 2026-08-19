@@ -124,7 +124,7 @@ CHALLENGE.md            the spec — verbatim challenge statement
 AGENTS.md / CLAUDE.md   this file
 docs/FIELD.md           definition of the field, expert practice, known traps (R4)
 docs/ROADMAP.md         phase plan; check current phase before starting work
-docs/decisions/         ADRs — one file per irreversible or contested choice
+docs/adr/         ADRs — one file per irreversible or contested choice
 docs/targets.md         validation targets, pockets, ground-truth policy
 docs/playbooks/         shared procedures for both Claude Code and Codex
 src/allo/               the package (see §5 for layout rules)
@@ -225,3 +225,28 @@ Shared playbooks live in `docs/playbooks/` so both tools follow the same procedu
 Claude Code additionally has a `PostToolUse` hook (`scripts/format-hook.sh`) that runs
 `ruff format` on Python files as they are written, so the check gate never fails on
 whitespace. Codex users get the same effect from `make fmt`.
+
+---
+
+## 12. Agent skills
+
+Per-repo configuration for the installed engineering skills. These files are the
+answer to "where do issues go / what are the labels / where is the domain knowledge",
+so skills do not have to guess per repo.
+
+### Issue tracker
+
+GitHub Issues on `George930502/004-allosteric-site`, via the `gh` CLI. External PRs are
+not treated as a request surface. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+The five canonical roles, with label strings equal to their names: `needs-triage`,
+`needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See
+`docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: `docs/adr/` at the repo root holds the decision record, and
+`CONTEXT.md` will be created lazily by `/domain-modeling` when domain terms actually
+need resolving. See `docs/agents/domain.md`.
