@@ -2,7 +2,7 @@
 
 Every run that produces a comparable number gets a directory here: the config that
 produced it, the metrics it produced, and notes on what it meant. The registry of
-those runs is the project's memory across sessions (see AGENTS.md §7).
+those runs is the project's memory across sessions (see AGENTS.md §8).
 """
 
 from __future__ import annotations

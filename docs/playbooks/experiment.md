@@ -36,4 +36,7 @@ Use whenever a run produces a number worth comparing to another number.
 - Report the negative sets separately: random background residues *and* non-functional
   surface pockets. The challenge scores against both (`CHALLENGE.md` §4.1).
 - State the statistical test and the null. "Higher" is not a result; effect size with
-  a null model is.
+  a null model is (principle R3).
+- Build the null model *before* the method, not after seeing the scores. In this field
+  the null is the real opponent: burial and degree alone will "predict" functional
+  sites (`docs/FIELD.md` §3).

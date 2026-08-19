@@ -16,7 +16,10 @@ site**, computed from quantum information propagation over the residue contact
 network — no MD trajectories anywhere in the pipeline.
 
 The full challenge statement is restated verbatim in [`CHALLENGE.md`](CHALLENGE.md).
-Agent operating rules are in [`AGENTS.md`](AGENTS.md).
+Agent operating rules and the research principles are in [`AGENTS.md`](AGENTS.md);
+the field itself — protein allostery, elastic-network biophysics, quantum transport on
+graphs — is defined in [`docs/FIELD.md`](docs/FIELD.md), together with the known
+intellectual traps in this challenge.
 
 ---
 
@@ -86,8 +89,9 @@ Phase detail and exit criteria: [`docs/ROADMAP.md`](docs/ROADMAP.md).
 
 ```
 CHALLENGE.md         the spec
-AGENTS.md            agent operating contract (CLAUDE.md -> symlink)
-docs/                roadmap, ADRs, targets, methodological report
+AGENTS.md            agent operating contract + research principles (CLAUDE.md -> symlink)
+docs/FIELD.md        the field, expert practice, intellectual traps
+docs/                roadmap, ADRs, targets, playbooks, methodological report
 src/allo/            package, organised by pipeline stage
 experiments/         one directory per run: config, metrics, notes
 results/<target>/    connectivity matrix + top-5 hit list per target

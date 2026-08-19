@@ -3,15 +3,23 @@
 Tool-agnostic. Claude Code reaches it via `/phase`; in Codex, say "follow the
 phase-work playbook".
 
+The four research principles (`AGENTS.md` §3) are checked at the points marked
+**[R1]**–**[R4]** below. They are not a preamble to skim.
+
 ## Before writing code
 
+0. **[R4]** For anything methodological, read `docs/FIELD.md` — what counts as expert
+   practice here, and the traps that produce a confident wrong answer.
 1. Read `docs/ROADMAP.md` — which phase is current, what its exit criterion is.
 2. Read `experiments/REGISTRY.md` — what has already been tried and what failed.
    Do not re-run a dead end.
 3. Read the relevant ADRs in `docs/decisions/` for the area you are touching.
 4. Re-read the relevant part of `CHALLENGE.md`. The spec, not your memory of it.
-5. State the task's success criterion as something a command can check. If you cannot,
-   the task is underspecified — say so and ask before building.
+5. **[R2]** State the task's success criterion as something a command can check. If
+   you cannot, the task is underspecified — say so and ask before building.
+6. **[R1]** For each method you are about to use, state in one sentence what physical
+   quantity it computes and what assumption makes that quantity meaningful here.
+   "It is standard practice" is not a reason.
 
 ## While building
 
@@ -32,7 +40,10 @@ phase-work playbook".
    - new comparable number → `experiments/REGISTRY.md`
    - decision that constrains later phases → new ADR
    - phase exit criterion met → `docs/ROADMAP.md` and the README status table
-4. Report honestly: what passed, what was skipped, what is still open. A partial
+4. **[R3]** Every claim in the writeup names its evidence: an experiment directory, a
+   statistical test with its null, a DOI, or an observation with the code path that
+   produced it.
+5. Report honestly: what passed, what was skipped, what is still open. A partial
    result reported as partial is useful; one reported as complete is a trap.
 
 ## Handoff at end of session
