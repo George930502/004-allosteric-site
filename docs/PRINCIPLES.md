@@ -6,7 +6,7 @@ full statement of each, and is the authority if the two ever disagree.
 
 Enforcement points are marked **[R1]**–**[R4]** in `docs/playbooks/phase-work.md` and
 `docs/playbooks/experiment.md`. The field these principles are practised in is defined
-in `docs/FIELD.md`.
+in `FIELD.md`.
 
 ---
 

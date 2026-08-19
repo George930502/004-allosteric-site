@@ -1,0 +1,169 @@
+# Frozen benchmark — the input layer, fixed.
+#
+# Every knob that changes what a method is scored on lives here and nowhere else.
+# `uv run allo benchmark verify` re-derives every value under `expected:` from the
+# deposited files and fails if anything moved. Rationale, evidence and the audit of
+# the challenge's own assignments: docs/benchmark/README.md.
+#
+# active_site is a *rule*, not a residue list: {from_ligands: [...]} takes the apo entry's
+# own cofactor contacts, {from_motifs: [...]} locates conserved catalytic motifs by sequence.
+# Deriving it means `benchmark verify` actually checks it. A pinned list would only be
+# compared against itself — and would be wrong the moment an entry uses another numbering
+# convention, which ABL1 entries do.
+#
+# tier:
+#   mandated  - exactly as CHALLENGE.md Table 1 specifies. Reported because the
+#               challenge requires it, whatever its defects.
+#   corrected - the scientifically defensible pair for the same biological target.
+#               Pre-registered here BEFORE any method is run, so the choice cannot
+#               be tuned to a result.
+#   sensitivity - an alternative that tests whether a conclusion survives a
+#               different structure of the same target.
+#
+# status:
+#   excluded    - no ground truth can be derived; carried in the manifest and reported
+#                 as unscoreable, never frozen.
+#   provisional - frozen and scoreable, but a known defect in the pair is recorded in
+#                 its note and a replacement is named. Do not lead with its numbers.
+
+version: 1
+frozen_on: 2026-08-20
+source: CHALLENGE.md section 6, Table 1
+
+defaults:
+  # Pocket = protein residues with any heavy atom within cutoff of any ligand heavy
+  # atom. Cutoff is the knob the field varies most; 4.5 A is the working value.
+  # 4.0 and 5.0 are frozen alongside it (see labels_by_cutoff in frozen.json) so a
+  # later run cannot quietly report whichever cutoff flatters a method.
+  contact_cutoff_angstrom: 4.5
+  cutoff_sensitivity: [4.0, 5.0]
+  atom_selection: heavy
+  model: 1
+  seed: 0
+
+targets:
+
+  # ---------------------------------------------------------------- KRAS G12C
+  - id: kras_g12c_mandated
+    tier: mandated
+    protein: KRAS
+    pocket: Switch-II pocket (S-IIP)
+    apo:  {pdb: 4OBE, chain: A}
+    holo: {pdb: 6OIM, chain: A, ligand: MOV}
+    active_site: {from_ligands: [GDP, MG]}
+    defect: apo is WILD-TYPE KRAS (Gly12), holo is G12C plus C51S/C80L/C118S
+
+  - id: kras_g12c_corrected
+    tier: corrected
+    protein: KRAS
+    pocket: Switch-II pocket (S-IIP)
+    apo:  {pdb: 4LDJ, chain: A}
+    holo: {pdb: 6OIM, chain: A, ligand: MOV}
+    active_site: {from_ligands: [GDP, MG]}
+    note: same study and release date as 4OBE (doi 10.1073/pnas.1404639111), 1.15 A, actually G12C
+
+  # ---------------------------------------------------------------- BCR-ABL1
+  - id: bcr_abl1_mandated
+    tier: mandated
+    protein: ABL1
+    pocket: myristoyl pocket
+    apo:  {pdb: 1OPL, chain: A}
+    holo: {pdb: 5MO4, chain: A, ligand: AY7}
+    active_site: {from_motifs: [VAIK, HRD, DFG]}
+    defect: >
+      Apo carries myristate (MYR) in the target pocket and an ATP-site inhibitor (P16);
+      MYR+P16 contact 16 of the 20 distal labels, nearest 3.29 A. Apo and holo are the
+      same conformation (1.00 A core, 0.50 A pocket lining). The apo is also not
+      wild-type sequence: 1OPL carries engineered K29R, E30D and D382N.
+
+  - id: bcr_abl1_corrected
+    tier: corrected
+    protein: ABL1
+    pocket: myristoyl pocket
+    apo:  {pdb: 2G2H, chain: A}
+    holo: {pdb: 5MO4, chain: A, ligand: AY7}
+    active_site: {from_motifs: [VAIK, HRD, DFG]}
+    note: >
+      Myristate-free, same ABL1b numbering as the holo; kinase domain only, so 2 of 20
+      labels fall outside the model. Two construct facts a reviewer will find: the ATP
+      site holds PD166326 (P16), and the chain carries the engineered activating mutation
+      H396P in 1a numbering = H415P here, used to trap the Src-like inactive state.
+
+  - id: bcr_abl1_sensitivity
+    tier: sensitivity
+    protein: ABL1
+    pocket: myristoyl pocket
+    apo:  {pdb: 2G1T, chain: A}
+    holo: {pdb: 5MO4, chain: A, ligand: AY7}
+    active_site: {from_motifs: [VAIK, HRD, DFG]}
+    note: >
+      1.80 A and ABL1a numbering, so it exercises the alignment-based label transfer
+      (+19 shift). Its ATP site is NOT empty: an ATP-peptide bisubstrate conjugate on
+      chains E-H (component 112) comes within 2.74 A of chain A's catalytic motif, which
+      is why entry-wide rather than chain-scoped ligand accounting is what clause (ii)
+      checks. The myristoyl pocket is free; nearest occupant 13.15 A.
+
+  # ---------------------------------------------------------------- cardiac myosin
+  - id: cardiac_myosin_mandated
+    tier: mandated
+    status: excluded
+    protein: MYH7
+    pocket: mavacamten site
+    apo:  {pdb: 5TBY, chain: A}
+    holo: {pdb: 6C1H, chain: P, ligand: null}
+    active_site: {from_ligands: []}
+    defect: >
+      Unscoreable. 6C1H is rat unconventional myosin-Ib with actin and calmodulin
+      (Mentes 2018, doi 10.1073/pnas.1718316115); it contains no mavacamten and no
+      cardiac myosin. 5TBY is a 20 A homology model built on a tarantula template
+      and rigid-body fitted (Alamo 2017). No label set can be derived.
+
+  - id: cardiac_myosin_corrected
+    tier: corrected
+    protein: MYH7
+    pocket: mavacamten site
+    apo:  {pdb: 9GZ3, chain: A}
+    holo: {pdb: 9GZ2, chain: A, ligand: XB2}
+    active_site: {from_ligands: [ADP, MG, PO4]}
+    note: >
+      Human MYH7, identical construct, species, primed state and nucleotide (ADP-Mg-Pi);
+      the two entries differ only by the drug - the cleanest matched pair in the set.
+      Cryo-EM 3.4 A (apo) / 2.9 A (holo). Source is now peer-reviewed: McMillan et al.,
+      Sci Adv 2026, doi 10.1126/sciadv.aea9335. Caveat: cryo-EM entries carry no deposited
+      ligand real-space fit score, so the XB2 placement here is less directly validated
+      than the 1.80 A X-ray arm below (RSCC 0.915).
+
+  - id: cardiac_myosin_sensitivity_xray
+    tier: sensitivity
+    protein: MYH7
+    pocket: mavacamten site
+    apo:  {pdb: 8QYP, chain: A}
+    holo: {pdb: 8QYR, chain: B, ligand: XB2}
+    active_site: {from_ligands: [ADP, VO4, MG]}
+    note: >
+      Bovine MYH7 (Q9BE39; same 1935-aa length as human P12883, so numbering is 1:1).
+      Highest-resolution evidence for the site: the HOLO 8QYR is 1.80 A with XB2 at
+      RSCC 0.915. The apo 8QYP is 2.76 A, not 1.80. The pair is not drug-only matched -
+      the nucleotide analogue differs, ADP-VO4 (apo) vs ADP-BeF3 (holo). Auguin et al.,
+      Nat Commun 2024, doi 10.1038/s41467-024-47587-9.
+
+  - id: cardiac_myosin_sensitivity_srx
+    tier: sensitivity
+    protein: MYH7
+    pocket: mavacamten site
+    apo:  {pdb: 9YRG, chain: A}
+    holo: {pdb: 9YR7, chain: A, ligand: XB2}
+    active_site: {from_ligands: [ADP, PO4]}
+    note: >
+      Experimental human folded-back off state - the interacting-heads motif that 5TBY was
+      modelling and the state mavacamten stabilises. Six chains, the coarse-graining test
+      case. Single study, construct-identical, state-identical, nucleotide-identical
+      (ADP-Pi), undocked S2-FH: 3.2 A apo -> 3.0 A holo, Somavarapu et al., Sci Adv 2026,
+      doi 10.1126/sciadv.aed6472. Replaced 8ACT -> 9GZ1 on 2026-08-20, which was NOT a
+      matched pair (different studies, ~230 residues difference in heavy-chain extent,
+      human vs mouse light chains, 11.78 A core RMSD).
+      Two caveats. The heavy chain is a Myosin-7/GCN4/EGFP chimera; the modelled span is
+      4-943 in native MYH7 numbering, so the site (164-774) is native and 1:1 with the
+      other myosin arms, but any residue set must be trimmed to MYH7 before use. And XB2
+      is present in BOTH chains A and B, so the ligand is scoped to its own chain when the
+      pocket is derived - the first frozen target where that scoping matters.

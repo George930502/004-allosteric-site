@@ -1,0 +1,475 @@
+{
+  "provenance": {
+    "audit_date": "2026-08-20",
+    "target": "Cardiac myosin",
+    "assignment_source": "CHALLENGE.md section 6, Table 1; mirrored in docs/targets.md",
+    "assigned_apo": "5TBY",
+    "assigned_holo": "6C1H",
+    "rule": "every field derived programmatically from a named primary source; no value stated from recall",
+    "endpoints": {
+      "coordinates": "https://files.rcsb.org/download/{id}.cif (parsed with Bio.PDB.MMCIF2Dict.MMCIF2Dict)",
+      "entry": "https://data.rcsb.org/rest/v1/core/entry/{id}",
+      "polymer_entity": "https://data.rcsb.org/rest/v1/core/polymer_entity/{id}/{entity_id}",
+      "nonpolymer_entity": "https://data.rcsb.org/rest/v1/core/nonpolymer_entity/{id}/{entity_id}",
+      "chemcomp": "https://data.rcsb.org/rest/v1/core/chemcomp/{comp_id}",
+      "graphql": "https://data.rcsb.org/graphql",
+      "search": "https://search.rcsb.org/rcsbsearch/v2/query",
+      "sifts": "https://www.ebi.ac.uk/pdbe/api/mappings/{id}",
+      "validation_percentiles": "https://www.ebi.ac.uk/pdbe/api/validation/global-percentiles/entry/{id}",
+      "validation_summary": "https://www.ebi.ac.uk/pdbe/api/validation/summary_quality_scores/entry/{id}",
+      "emdb": "https://www.ebi.ac.uk/emdb/api/entry/EMD-{n}"
+    },
+    "methods": {
+      "contacts": "scipy.spatial.cKDTree, all ligand heavy atoms vs all protein heavy atoms, cutoff 4.5 A, auth numbering",
+      "alignment": "Bio.Align.PairwiseAligner, BLOSUM62, open_gap_score=-11, extend_gap_score=-1, on _entity_poly.pdbx_seq_one_letter_code_can",
+      "superposition": "Bio.PDB.Superimposer on CA atoms of common auth_seq_id",
+      "residue_count": "distinct (auth_asym_id, auth_seq_id) with at least one _atom_site record of group_PDB=ATOM"
+    },
+    "scripts": ["scratchpad/parse.py", "scratchpad/contacts.py", "scratchpad/align.py", "scratchpad/xfer.py", "scratchpad/gql.py", "scratchpad/gql3.py"]
+  },
+
+  "headline": {
+    "does_6C1H_contain_mavacamten": false,
+    "mavacamten_chem_comp_id": "XB2",
+    "6C1H_ligands": ["ADP", "MG"],
+    "6C1H_protein_identity": "rat unconventional myosin-Ib (Q05096) + rabbit skeletal alpha-actin (P68135) x5 + calmodulin (P0DP23)",
+    "6C1H_contains_cardiac_myosin": false,
+    "verdict": "unusable",
+    "verdict_reason": "the assigned holo entry contains neither the drug nor the protein; the assigned apo entry is a 20 A homology model with 2nd-percentile geometry"
+  },
+
+  "entries": {
+    "5TBY": {
+      "title": "HUMAN BETA CARDIAC HEAVY MEROMYOSIN INTERACTING-HEADS MOTIF OBTAINED BY HOMOLOGY MODELING (USING SWISS-MODEL) OF HUMAN SEQUENCE FROM APHONOPELMA HOMOLOGY MODEL (PDB-3JBH), RIGIDLY FITTED TO HUMAN BETA-CARDIAC NEGATIVELY STAINED THICK FILAMENT 3D-RECONSTRUCTION (EMD-2240)",
+      "method": "ELECTRON MICROSCOPY",
+      "resolution_angstrom": 20.0,
+      "resolution_method": "FSC 0.5 CUT-OFF",
+      "refine_ls_d_res_high": 20.0,
+      "r_work": null,
+      "r_free": null,
+      "r_factors_note": "not applicable - cryo-EM, no _refine.ls_R_factor_* in file",
+      "deposit_date": "2016-09-13",
+      "release_date": "2017-06-07",
+      "revision_date": "2024-10-23",
+      "primary_citation": {
+        "title": "Effects of myosin variants on interacting-heads motif explain distinct hypertrophic and dilated cardiomyopathy phenotypes.",
+        "journal": "Elife", "volume": "6", "year": 2017,
+        "doi": "10.7554/eLife.24634", "pubmed": "28606303"
+      },
+      "em": {
+        "num_particles": 10700, "symmetry_type": "POINT", "aggregation_state": "FILAMENT",
+        "reconstruction_method": "SINGLE PARTICLE", "microscope": "FEI/PHILIPS CM120T",
+        "ctf_correction_type": "NONE",
+        "fitting_protocol": "RIGID BODY FIT", "fitting_ref_space": "REAL",
+        "fitting_target_criteria": "CORRELATION COEFFICIENT",
+        "initial_model_all_chains": "3JBH",
+        "specimen_details": "A 6 ul aliquot of native purified tarantula thick filaments suspension (Hidalgo et al. 2001).",
+        "specimen_staining_applied": "NO", "specimen_vitrification_applied": "YES",
+        "entity_assembly_name": "MYOSIN THICK FILAMENTS TARANTULA STRIATED MUSCLE",
+        "natural_source_organism": "Aphonopelma", "natural_source_taxid": 6896,
+        "natural_source_organ": "LEG", "natural_source_organelle": "THICK FILAMENTS"
+      },
+      "related": [
+        {"db": "EMDB", "id": "EMD-2240", "content_type": "associated EM volume"},
+        {"db": "EMDB", "id": "EMD-1950", "content_type": "other EM volume"},
+        {"db": "PDB", "id": "3jBH", "content_type": "unspecified"}
+      ],
+      "validation": {
+        "clashscore": 49.95, "clashscore_absolute_percentile": 2.2,
+        "percent_rama_outliers": 5.96, "percent_rama_outliers_absolute_percentile": 2.8,
+        "percent_rota_outliers": 2.05, "percent_rota_outliers_absolute_percentile": 57.2,
+        "bonds_RMSZ": 0.85, "angles_RMSZ": 1.35,
+        "em_Q_score": 0.032, "atom_inclusion_all_atoms": 0.775, "atom_inclusion_backbone": 0.783,
+        "pdbe_overall_quality_percentile": 3.62
+      },
+      "polymer_entities": [
+        {"entity_id": "1", "description": "Myosin-7", "gene_product": "MYH7 beta-cardiac myosin heavy chain",
+         "uniprot": "P12883", "organism": "Homo sapiens", "taxid": 9606,
+         "seqres_length": 1935, "auth_chains": ["A", "B"]},
+        {"entity_id": "2", "description": "Myosin light chain 3", "role": "essential light chain (ELC)",
+         "uniprot": "P08590", "organism": "Homo sapiens", "taxid": 9606,
+         "seqres_length": 195, "auth_chains": ["C", "D"]},
+        {"entity_id": "3", "description": "Myosin regulatory light chain 2, ventricular/cardiac muscle isoform",
+         "role": "regulatory light chain (RLC)",
+         "uniprot": "P10916", "organism": "Homo sapiens", "taxid": 9606,
+         "seqres_length": 166, "auth_chains": ["E", "F"]}
+      ],
+      "light_chains": {"ELC_present": true, "RLC_present": true, "ELC_species": "Homo sapiens", "RLC_species": "Homo sapiens"},
+      "construct_type": "two-headed interacting-heads motif (IHM); S1-length modelled heavy chain (motor + lever arm); no S2 coiled coil modelled despite 'heavy meromyosin' in title",
+      "nonpolymer_entities": [],
+      "hetatm_atom_census": {},
+      "water_count": 0,
+      "modelled_residues": {
+        "per_chain": {"A": {"n": 954, "auth_range": "6-959"}, "B": {"n": 950, "auth_range": "10-959"},
+                      "C": {"n": 152, "auth_range": "44-195"}, "D": {"n": 152, "auth_range": "44-195"},
+                      "E": {"n": 160, "auth_range": "7-166"}, "F": {"n": 160, "auth_range": "7-166"}},
+        "total": 2528,
+        "rcsb_deposited_modeled_polymer_monomer_count": 2528,
+        "deposited_atom_count": 20357
+      },
+      "unmodelled_residues": {
+        "per_chain": {"A": {"n": 981, "ranges": "1-5,960-1935"}, "B": {"n": 985, "ranges": "1-9,960-1935"},
+                      "C": {"n": 43, "ranges": "1-43"}, "D": {"n": 43, "ranges": "1-43"},
+                      "E": {"n": 6, "ranges": "1-6"}, "F": {"n": 6, "ranges": "1-6"}},
+        "total": 2064,
+        "fraction_of_seqres": 0.4495,
+        "internal_gaps_within_modelled_range": "none - every chain is one unbroken run"
+      },
+      "struct_ref_seq_dif": [],
+      "engineered_mutations": [],
+      "expression_tags": [],
+      "fusion_partners": [],
+      "numbering": {
+        "auth_minus_label_offset": {"A": 0, "B": 0, "C": 0, "D": 0, "E": 0, "F": 0},
+        "insertion_codes": [],
+        "altloc_ids": [],
+        "sifts": [
+          {"chain": "A", "uniprot": "P12883", "auth": "1-1935", "unp": "1-1935", "identity": 1.0, "auth_equals_uniprot": true},
+          {"chain": "B", "uniprot": "P12883", "auth": "1-1935", "unp": "1-1935", "identity": 1.0, "auth_equals_uniprot": true},
+          {"chain": "C", "uniprot": "P08590", "auth": "1-195", "unp": "1-195", "identity": 1.0, "auth_equals_uniprot": true},
+          {"chain": "D", "uniprot": "P08590", "auth": "1-195", "unp": "1-195", "identity": 1.0, "auth_equals_uniprot": true},
+          {"chain": "E", "uniprot": "P10916", "auth": "1-166", "unp": "1-166", "identity": 1.0, "auth_equals_uniprot": true},
+          {"chain": "F", "uniprot": "P10916", "auth": "1-166", "unp": "1-166", "identity": 1.0, "auth_equals_uniprot": true}
+        ]
+      },
+      "struct_conn": {
+        "counts": {"covale": 41},
+        "covale_all_inter_chain": true,
+        "covale_distance_angstrom": {"min": 1.08, "max": 1.64, "mean": 1.42},
+        "interpretation": "steric interpenetration between different chains auto-annotated as covalent bonds; not chemistry",
+        "examples": ["A GLN454 CG - B TYR410 CE2", "A LYS803 CD - E PRO108 CB", "A ARG845 CZ - B ARG845 NE", "A MET877 CG - B MET877 CE"]
+      },
+      "assembly": {"id": "1", "details": "author_defined_assembly", "oligomeric_details": "hexameric",
+                   "oligomeric_count": 6, "asym_ids": "A,B,C,D,E,F", "oper_expression": "1",
+                   "stoichiometry": "2 x MYH7 : 2 x MYL3 (ELC) : 2 x MYL2 (RLC)"},
+      "conformational_state": {"name": "interacting-heads motif (IHM)",
+        "evidence": "_struct.title; _struct_keywords.text = 'Myosin interacting-heads motif'; primary citation 10.7554/eLife.24634; deposited reference 10.1016/j.jmb.2016.01.027 on the tarantula super-relaxed state"},
+      "modifications": {"pdbx_struct_mod_residue": [], "nonstandard_residues": [], "hetatm_in_polymer": []}
+    },
+
+    "6C1H": {
+      "title": "High-Resolution Cryo-EM Structures of Actin-bound Myosin States Reveal the Mechanism of Myosin Force Sensing",
+      "method": "ELECTRON MICROSCOPY",
+      "resolution_angstrom": 3.9,
+      "resolution_method": "FSC 0.143 CUT-OFF",
+      "refine_ls_d_res_high": null,
+      "r_work": null, "r_free": null,
+      "r_factors_note": "not applicable - cryo-EM",
+      "deposit_date": "2018-01-04",
+      "release_date": "2018-01-31",
+      "revision_date": "2025-05-28",
+      "primary_citation": {
+        "title": "High-resolution cryo-EM structures of actin-bound myosin states reveal the mechanism of myosin force sensing.",
+        "journal": "Proc Natl Acad Sci U S A", "volume": "115", "pages": "1292-1297", "year": 2018,
+        "doi": "10.1073/pnas.1718316115", "pubmed": "29358376",
+        "authors": ["Mentes, A.", "Huehn, A.", "Liu, X.", "Zwolak, A.", "Dominguez, R.", "Shuman, H.", "Ostap, E.M.", "Sindelar, C.V."],
+        "subject": "myosin-I force sensing on actin filaments; no mention of cardiac myosin, mavacamten, or the super-relaxed state"
+      },
+      "em": {"num_particles": 62000, "symmetry_type": "HELICAL", "aggregation_state": "HELICAL ARRAY",
+             "reconstruction_method": "HELICAL", "microscope": "FEI TITAN KRIOS",
+             "model_refinement_software": "PHENIX",
+             "entity_assembly_name": "Complex of actin, myosin-1b, and calmodulin with ADP"},
+      "related": [{"db": "EMDB", "id": "EMD-7331", "content_type": "associated EM volume"},
+                  {"db": "EMDB", "id": "EMD-7329", "content_type": "other EM volume"},
+                  {"db": "EMDB", "id": "EMD-7330", "content_type": "other EM volume"}],
+      "sibling_entries_same_paper": ["5V7X", "6C1D", "6C1G", "6C1H"],
+      "validation": {
+        "clashscore": 6.0, "clashscore_absolute_percentile": 49.9,
+        "percent_rama_outliers": 0.04, "percent_rama_outliers_absolute_percentile": 100.0,
+        "percent_rota_outliers": 1.06, "percent_rota_outliers_absolute_percentile": 74.4,
+        "bonds_RMSZ": 0.23, "angles_RMSZ": 0.57,
+        "em_Q_score": 0.32, "atom_inclusion_all_atoms": 0.801, "atom_inclusion_backbone": 0.962,
+        "pdbe_overall_quality_percentile": 69.0
+      },
+      "polymer_entities": [
+        {"entity_id": "1", "description": "Actin, alpha skeletal muscle", "uniprot": "P68135",
+         "organism": "Oryctolagus cuniculus", "taxid": 9986, "seqres_length": 375,
+         "auth_chains": ["A", "B", "C", "D", "E"]},
+        {"entity_id": "2", "description": "Unconventional myosin-Ib", "uniprot": "Q05096",
+         "organism": "Rattus norvegicus", "taxid": 10116, "seqres_length": 729, "auth_chains": ["P"]},
+        {"entity_id": "3", "description": "Calmodulin", "uniprot": "P0DP23",
+         "uniprot_source": "SIFTS only - _struct_ref.db_name in file is 'PDB', accession '6C1H'",
+         "organism": "unidentified", "taxid": 32644, "seqres_length": 148, "auth_chains": ["R"]}
+      ],
+      "light_chains": {"ELC_present": false, "RLC_present": false,
+        "note": "no MYL3 and no MYL2; the light chain present is calmodulin, the class-I myosin light chain"},
+      "construct_type": "class-I myosin motor + one IQ/calmodulin, decorating a five-subunit F-actin segment; not an S1 of myosin II, not an HMM, not an IHM",
+      "nonpolymer_entities": [
+        {"entity_id": "4", "comp_id": "ADP", "name": "ADENOSINE-5'-DIPHOSPHATE",
+         "formula": "C10 H15 N5 O10 P2", "formula_weight": 427.201, "count": 5,
+         "auth_chains": ["A", "B", "C", "D", "E"], "all_on_actin": true},
+        {"entity_id": "5", "comp_id": "MG", "name": "MAGNESIUM ION", "formula": "Mg",
+         "formula_weight": 24.305, "count": 5, "auth_chains": ["A", "B", "C", "D", "E"], "all_on_actin": true}
+      ],
+      "hetatm_atom_census": {"ADP": 135, "MG": 5},
+      "water_count": 0,
+      "modelled_residues": {
+        "per_chain": {"A": {"n": 375, "auth_range": "1-375"}, "B": {"n": 375, "auth_range": "1-375"},
+                      "C": {"n": 375, "auth_range": "1-375"}, "D": {"n": 375, "auth_range": "1-375"},
+                      "E": {"n": 375, "auth_range": "1-375"}, "P": {"n": 729, "auth_range": "6-734"},
+                      "R": {"n": 148, "auth_range": "1-148"}},
+        "total": 2752,
+        "rcsb_deposited_modeled_polymer_monomer_count": 2752,
+        "deposited_atom_count": 20966
+      },
+      "unmodelled_residues": {"total": 0, "note": "no _pdbx_unobs_or_zero_occ_residues category; every SEQRES residue modelled"},
+      "struct_ref_seq_dif": [
+        {"chain": "P", "auth_seq_id": 729, "mon_id": "GLY", "db_mon_id": null, "details": "expression tag"},
+        {"chain": "P", "auth_seq_id": 730, "mon_id": "LEU", "db_mon_id": null, "details": "expression tag"},
+        {"chain": "P", "auth_seq_id": 731, "mon_id": "ASN", "db_mon_id": null, "details": "expression tag"},
+        {"chain": "P", "auth_seq_id": 732, "mon_id": "ASP", "db_mon_id": null, "details": "expression tag"},
+        {"chain": "P", "auth_seq_id": 733, "mon_id": "ILE", "db_mon_id": null, "details": "expression tag"},
+        {"chain": "P", "auth_seq_id": 734, "mon_id": "PHE", "db_mon_id": null, "details": "expression tag"}
+      ],
+      "engineered_mutations": [],
+      "fusion_partners": [],
+      "numbering": {
+        "auth_minus_label_offset": {"A": 0, "B": 0, "C": 0, "D": 0, "E": 0, "P": 5, "R": 0},
+        "insertion_codes": [], "altloc_ids": [],
+        "sifts": [
+          {"chain": "A", "uniprot": "P68135", "auth": "1-375", "unp": "3-377", "identity": 1.0,
+           "auth_equals_uniprot": false, "auth_minus_unp": -2},
+          {"chain": "P", "uniprot": "Q05096", "auth": "6-728", "unp": "6-728", "identity": 0.99,
+           "auth_equals_uniprot": true, "note": "auth 729-734 have no UniProt counterpart (expression tag)"},
+          {"chain": "R", "uniprot": "P0DP23", "auth": "1-148", "unp": "2-149", "identity": 1.0,
+           "auth_equals_uniprot": false, "auth_minus_unp": -1}
+        ]
+      },
+      "struct_conn": {"counts": {"metalc": 15}, "covale_count": 0},
+      "assembly": {"id": "1", "details": "author_defined_assembly", "oligomeric_details": "heptameric",
+                   "oligomeric_count": 7, "asym_ids": "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q", "oper_expression": "1",
+                   "stoichiometry": "5 x actin : 1 x Myo1b : 1 x calmodulin (+ 5 ADP, 5 Mg)"},
+      "conformational_state": {
+        "name_in_entry": null,
+        "derived": "nucleotide-free (rigor-like) myosin",
+        "evidence": "no ADP or MG on chain P; minimum heavy-atom distance from any ligand to chain P is 6.7 A; sibling entry 6C1D from the same paper does carry ADP+MG on its chain P",
+        "unresolved_conflict": "associated map EMD-7331 is titled 'Complex of actin, myosin-1b, and calmodulin with ADP', which conflicts with the deposited coordinates for the myosin"
+      },
+      "modifications": {"pdbx_struct_mod_residue": [], "nonstandard_residues": [], "hetatm_in_polymer": []}
+    }
+  },
+
+  "ligand_contacts_4.5A": {
+    "cutoff_angstrom": 4.5,
+    "6C1H": {
+      "ADP": {
+        "copies": 5, "chains": ["A", "B", "C", "D", "E"], "residues_per_copy": [18, 18, 17, 18, 19],
+        "union_residue_numbers": [12, 13, 14, 15, 16, 18, 137, 156, 157, 182, 210, 213, 214, 301, 302, 303, 305, 306, 336, 339],
+        "chain_A_detail": ["ASN12", "GLY13", "SER14", "GLY15", "LEU16", "LYS18", "GLN137", "GLY156", "ASP157", "GLY182", "ARG210", "LYS213", "GLU214", "GLY302", "THR303", "MET305", "TYR306", "LYS336"],
+        "site": "canonical actin nucleotide cleft",
+        "on_protein": "rabbit skeletal alpha-actin (P68135)"
+      },
+      "MG": {"copies": 5, "residues_per_copy": [3, 3, 3, 3, 4],
+             "residues": ["GLN137", "GLY156", "VAL339", "GLY302"], "on_protein": "rabbit skeletal alpha-actin"},
+      "contacts_on_myosin_chain_P": 0,
+      "contacts_on_calmodulin_chain_R": 0,
+      "min_ligand_to_chain_P_angstrom": 6.7,
+      "min_ligand_to_chain_R_angstrom": 83.3,
+      "consequence": "the docs/targets.md 4.5 A pocket rule applied to 6C1H yields 20 rabbit actin residues and zero myosin residues"
+    },
+    "5TBY": {"ligands": [], "note": "zero HETATM records; no nucleotide, sulfate, metal, drug or water"}
+  },
+
+  "mavacamten": {
+    "chem_comp_id": "XB2",
+    "chem_comp_name": "Mavacamten",
+    "formula": "C15 H19 N3 O2",
+    "formula_weight": 273.33,
+    "synonyms": ["MYK-461", "6-[[(1S)-1-phenylethyl]amino]-3-propan-2-yl-1H-pyrimidine-2,4-dione"],
+    "cross_refs": {"DrugBank": "DB14921", "PubChem": "117761397", "CAS": "1642288-47-8", "ChEMBL": "CHEMBL4297517"},
+    "entries_containing_XB2": ["8QYQ", "8QYR", "9GZ1", "9GZ2", "9YP9", "9YR7"],
+    "entries_containing_XB2_count": 6,
+    "6C1H_in_that_list": false,
+    "fulltext_mavacamten_entries": ["8QYP", "8QYQ", "8QYR", "8QYU", "9GZ1", "9GZ2", "9GZ3", "9YP9", "9YR7"],
+    "pocket": {
+      "numbering": "UniProt P12883 canonical (auth == UniProt in every entry listed; bovine Q9BE39 numbering is 1:1 with P12883)",
+      "core_consensus_all_9_copies": [164, 167, 168, 666, 710, 711, 712, 713, 774],
+      "core_consensus_named": ["TYR164", "THR167", "ASP168", "HIS666", "PRO710", "ASN711", "ARG712", "ILE713", "GLU774"],
+      "union_all_copies": [120, 163, 164, 167, 168, 170, 497, 500, 666, 710, 711, 712, 713, 721, 722, 770, 774],
+      "union_named": ["LEU120", "GLN163", "TYR164", "THR167", "ASP168", "GLU170", "GLU497", "GLU500", "HIS666", "PRO710", "ASN711", "ARG712", "ILE713", "ARG721", "TYR722", "LEU770", "GLU774"],
+      "per_entry": {
+        "8QYR:B": [120, 163, 164, 167, 168, 170, 666, 710, 711, 712, 713, 721, 722, 770, 774],
+        "8QYQ:A": [164, 167, 168, 666, 710, 711, 712, 713, 721, 722, 770, 774],
+        "8QYQ:B": [164, 167, 168, 666, 710, 711, 712, 713, 721, 722, 770, 774],
+        "9GZ1:A": [163, 164, 167, 168, 497, 500, 666, 710, 711, 712, 713, 774],
+        "9GZ1:B": [164, 167, 168, 666, 710, 711, 712, 713, 721, 722, 770, 774],
+        "9GZ2:A": [164, 167, 168, 666, 710, 711, 712, 713, 721, 722, 770, 774],
+        "9YP9:A": [164, 167, 168, 666, 710, 711, 712, 713, 721, 722, 770, 774],
+        "9YP9:B": [120, 164, 167, 168, 170, 666, 710, 711, 712, 713, 721, 722, 770, 774],
+        "9YR7:A": [164, 167, 168, 666, 710, 711, 712, 713, 721, 722, 770, 774],
+        "9YR7:B": [164, 167, 168, 170, 666, 710, 711, 712, 713, 721, 722, 770, 774]
+      },
+      "cross_validation_omecamtiv_8QYU_2OW": [146, 147, 160, 164, 167, 170, 168, 492, 497, 666, 710, 711, 712, 713, 721, 722, 770, 771, 774],
+      "distality": {
+        "min_heavy_atom_distance_to_ADP_angstrom": {"8QYR": 25.1, "9GZ2": 25.7, "9GZ1": 27.3},
+        "centroid_distance_angstrom": {"8QYR": 30.8, "9GZ2": 31.3, "9GZ1": 31.3},
+        "conclusion": "genuinely distal allosteric site; the target objective is well posed"
+      }
+    },
+    "transfer_to_5TBY": {
+      "pocket_residues_modelled_in_5TBY_chain_A": 17,
+      "pocket_residues_modelled_in_5TBY_chain_B": 17,
+      "core_residues_modelled_in_5TBY_chain_A": 9,
+      "residue_identity_mismatches_vs_9GZ2": [],
+      "numbering_compatible": true,
+      "superposition_9GZ2_A_onto_5TBY_A": {
+        "common_CA": 761, "auth_range": "6-796",
+        "global_rmsd_angstrom": 5.02,
+        "pocket_local_rmsd_angstrom": 2.57,
+        "core_local_rmsd_angstrom": 2.02,
+        "max_per_residue_deviation_angstrom": {"R721": 5.05, "Y722": 5.05, "E774": 3.82, "L770": 3.25}
+      }
+    }
+  },
+
+  "apo_holo_comparability": {
+    "same_protein": false,
+    "same_species": false,
+    "same_isoform": false,
+    "apo_heavy_chain": {"uniprot": "P12883", "name": "MYH7", "class": "myosin II", "organism": "Homo sapiens"},
+    "holo_myosin_chain": {"uniprot": "Q05096", "name": "MYO1B", "class": "myosin I", "organism": "Rattus norvegicus"},
+    "sequence_identity": {
+      "MYH7_vs_MYO1B_local": {"percent": 39.6, "aligned_columns": 692, "identities": 274},
+      "MYH7_vs_MYO1B_global": {"percent": 40.8, "aligned_columns": 713, "identities": 291},
+      "MYL3_ELC_vs_CaM_local": {"percent": 47.1, "aligned_columns": 140, "identities": 66},
+      "MYL2_RLC_vs_CaM_local": {"percent": 39.4, "aligned_columns": 137, "identities": 54}
+    },
+    "extra_chains_in_holo_absent_from_apo": {"actin_copies": 5, "actin_residues": 1875},
+    "holo_ligand_contact_residues_with_apo_counterpart": {"count": 0, "of_total": 20,
+      "reason": "all 20 are rabbit actin residues; 5TBY contains no actin"}
+  },
+
+  "pipeline_breakers": [
+    {"rank": 1, "severity": "fatal", "finding": "6C1H is the wrong protein",
+     "mechanism": "ground-truth builder either throws, aligns MYH7 to MYO1B at ~40% identity producing a wrong residue mapping across the motor domain, or selects actin; every downstream metric for this target is computed against a label set that does not describe cardiac myosin, and pooled project-wide enrichment statistics inherit the contamination"},
+    {"rank": 2, "severity": "fatal", "finding": "mavacamten (XB2) is absent from 6C1H",
+     "mechanism": "the docs/targets.md step-1 chem-comp lookup returns nothing; a fallback to 'the only ligand present' silently emits the 20-residue actin nucleotide cleft as the allosteric site of cardiac myosin, with no exception raised"},
+    {"rank": 3, "severity": "fatal", "finding": "apo-holo alignment is undefined (39.6% identity, different species, different myosin class)",
+     "mechanism": "docs/targets.md step 3 maps holo numbering onto apo by sequence alignment; at 40% identity the alignment places gaps through surface loops and shifts residue correspondences by several positions exactly where allosteric pockets live"},
+    {"rank": 4, "severity": "fatal for a contact-network method", "finding": "5TBY is a SWISS-MODEL homology model, not an experimental structure",
+     "mechanism": "constraint C6 makes contact topology the entire physical content of the model; in 5TBY that topology is a side-chain packing prediction templated on tarantula 3JBH and rigid-body fitted into a 20 A envelope (Q-score 0.032, CTF correction NONE), so a quantum walk on that graph measures the modelling protocol rather than human cardiac myosin"},
+    {"rank": 5, "severity": "high", "finding": "5TBY geometry poisons the contact graph",
+     "mechanism": "clashscore 49.95 (2.2nd percentile), 5.96% Ramachandran outliers (2.8th percentile), PDBe quality percentile 3.62, and 41 inter-chain atom pairs at 1.08-1.64 A auto-annotated as covale; any builder reading _struct_conn gains 41 spurious covalent edges, and a distance-cutoff contact map inherits unphysically short inter-chain contacts concentrated at the head-head and head-RLC interfaces - precisely the IHM interface that mediates the super-relaxed state"},
+    {"rank": 6, "severity": "medium", "finding": "5TBY has no ligand, so the active site has no apo-derived anchor",
+     "mechanism": "docs/targets.md prefers 'nucleotide-binding residues from the apo structure's own ligand' as the apo-only active-site rule; 5TBY has zero HETATM records, so a different target-specific rule (conserved P-loop / switch-I / switch-II motif detection) is required and needs its own ADR"},
+    {"rank": 7, "severity": "medium", "finding": "SEQRES/ATOM mismatch will mis-size the qubit budget",
+     "mechanism": "5TBY declares 4592 SEQRES residues and models 2528 (45% unmodelled, all of 960-1935 in both heavy chains); Phase-4 sizing that reads entity_poly length overstates the compression requirement by ~1.8x"},
+    {"rank": 8, "severity": "low", "finding": "6C1H chain P residues 729-734 are a non-native expression tag",
+     "mechanism": "would need excluding from any network built on that chain; moot given ranks 1-3"}
+  ],
+
+  "replacement_candidates": {
+    "holo": [
+      {"pdb": "8QYR", "method": "X-RAY DIFFRACTION", "resolution": 1.80, "r_work": 0.187, "r_free": 0.227,
+       "release_date": "2023-12-13",
+       "heavy_chain_uniprot": "Q9BE39", "species": "Bos taurus", "beta_cardiac": true,
+       "ligands": ["XB2", "ADP", "BEF", "MG", "EDO", "SO4"], "modelled_residues": 709, "auth_range": "34-781",
+       "doi": "10.1101/2023.11.15.567213", "pubmed": "38014327",
+       "title": "Beta-cardiac myosin motor domain in the pre-powerstroke state complexed to Mavacamten",
+       "pdbe_quality_percentile": 42.8,
+       "tradeoff": "bovine not human, but 95.9% identity, numbering 1:1 with P12883 (no indels in 1-781) and all 17 pocket residues identical; motor domain only, no light chains"},
+      {"pdb": "9GZ2", "method": "ELECTRON MICROSCOPY", "resolution": 2.90, "release_date": "2025-03-12",
+       "heavy_chain_uniprot": "P12883", "species": "Homo sapiens", "beta_cardiac": true,
+       "ligands": ["XB2", "ADP", "MG", "PO4"], "modelled_residues": 764, "auth_range": "3-796",
+       "doi": "10.1101/2025.02.12.637875", "pubmed": "39990378",
+       "title": "Beta-cardiac heavy meromyosin motor domain in the primed state complexed to mavacamten",
+       "pdbe_quality_percentile": 92.76, "clashscore": 1.78, "percent_rama_outliers": 0.0,
+       "tradeoff": "single head, no light chains; preprint DOI"},
+      {"pdb": "9GZ1", "method": "ELECTRON MICROSCOPY", "resolution": 3.70, "release_date": "2025-03-12",
+       "heavy_chain_uniprot": "P12883", "species": "Homo sapiens", "beta_cardiac": true,
+       "light_chains": ["P05977 (mouse MYL1)", "P97457 (mouse MYL11)"],
+       "ligands": ["XB2", "ADP", "MG", "PO4"], "modelled_residues": 2383,
+       "doi": "10.1101/2025.02.12.637875", "pubmed": "39990378",
+       "title": "Beta-cardiac myosin interacting heads motif complexed to mavacamten",
+       "pdbe_quality_percentile": 31.6,
+       "tradeoff": "3.7 A; light chains are mouse, not human MYL3/MYL2; but this is the drug bound to the exact IHM assembly the super-relaxed state is about"},
+      {"pdb": "9YP9", "method": "ELECTRON MICROSCOPY", "resolution": 3.00, "release_date": "2026-04-08",
+       "heavy_chain_uniprot": "P12883", "species": "Homo sapiens", "beta_cardiac": true,
+       "ligands": ["XB2", "ADP", "PO4"], "modelled_residues": 2468,
+       "doi": "10.1126/sciadv.aed6472", "pubmed": "42054467",
+       "title": "human beta-cardiac myosin bound to mavacamten in the interacting-heads motif and S2-FH docked state",
+       "tradeoff": "GCN4 + eGFP fusion at auth 1017-1292 (entirely unmodelled; modelled range 4-943 is pure native MYH7); mouse light chains; released after the challenge statement was drafted"},
+      {"pdb": "9YR7", "method": "ELECTRON MICROSCOPY", "resolution": 3.00, "release_date": "2026-04-08",
+       "heavy_chain_uniprot": "P12883", "species": "Homo sapiens", "beta_cardiac": true,
+       "ligands": ["XB2", "ADP", "PO4"], "modelled_residues": 2454,
+       "doi": "10.1126/sciadv.aed6472", "pubmed": "42054467",
+       "title": "human beta-cardiac myosin bound to mavacamten in the interacting-heads motif and S2-FH undocked state",
+       "tradeoff": "as 9YP9"}
+    ],
+    "apo": [
+      {"pdb": "8ACT", "method": "ELECTRON MICROSCOPY", "resolution": 3.60, "release_date": "2023-06-07",
+       "entities": ["P12883 MYH7 (human) x2", "P08590 MYL3 ELC (human) x2", "P10916 MYL2 RLC (human) x2"],
+       "ligands": ["ADP", "PO4", "MG"], "drug": null,
+       "modelled_residues": 2318,
+       "per_chain": {"A": 871, "B": 855, "C": 157, "D": 157, "E": 138, "F": 140},
+       "auth_equals_uniprot": true,
+       "modified_residues": [{"comp": "M3L", "chains": ["A", "B"], "auth_seq_ids": [129, 549]}],
+       "doi": "10.1038/s41467-023-38698-w", "pubmed": "37258552",
+       "title": "structure of the human beta-cardiac myosin folded-back off state",
+       "why": "the experimental structure 5TBY was trying to be: same IHM/SRX biology, same human light chains, same species, measured rather than homology-modelled; all 17 mavacamten-pocket residues fall inside its modelled ranges",
+       "tradeoff": "3.6 A; M3L must be mapped to LYS; internal gaps at 129, 199-213, 549, 625-644"},
+      {"pdb": "9GZ3", "method": "ELECTRON MICROSCOPY", "resolution": 3.40, "release_date": "2025-03-12",
+       "entities": ["P12883 MYH7 (human)"], "ligands": ["ADP", "MG", "PO4"], "drug": null,
+       "modelled_residues": 764, "auth_range": "3-796", "auth_equals_uniprot": true,
+       "doi": "10.1101/2025.02.12.637875",
+       "title": "Beta-cardiac heavy meromyosin motor domain in the primed state",
+       "why": "matched drug-free control for 9GZ2: same lab, construct and map series, so the only difference between input and validation structure is the drug",
+       "tradeoff": "single head, no light chains; 3.4 A"},
+      {"pdb": "9I8P", "method": "X-RAY DIFFRACTION", "resolution": 2.601, "release_date": "2025-10-22",
+       "entities": ["P12883 MYH7 (human)"], "ligands": ["ADP", "VO4", "MG", "SO4", "EDO", "GOL"], "drug": null,
+       "modelled_residues": 704, "auth_range": "30-780",
+       "title": "Human beta-cardiac myosin wild type motor domain in the pre-powerstroke state, MgADP.VO4 form",
+       "why": "highest-resolution human wild-type apo motor domain",
+       "tradeoff": "motor domain only; cryo-additives EDO/GOL/SO4 must be filtered under C5"},
+      {"pdb": "8QYP", "method": "X-RAY DIFFRACTION", "resolution": 2.759, "r_work": 0.1897, "r_free": 0.2478,
+       "release_date": "2023-12-13", "entities": ["Q9BE39 MYH7 (bovine)"],
+       "ligands": ["ADP", "VO4", "MG"], "drug": null,
+       "modelled_residues": 704, "auth_range": "32-780",
+       "doi": "10.1101/2023.11.15.567213",
+       "title": "Beta-cardiac myosin motor domain in the pre-powerstroke state",
+       "why": "matched drug-free control for 8QYR/8QYQ from the same paper and construct",
+       "tradeoff": "bovine, not human (numbering still 1:1 with P12883)"},
+      {"pdb": "4P7H", "method": "X-RAY DIFFRACTION", "resolution": 3.20, "release_date": "2014-05-21",
+       "entities": ["P12883 MYH7 (human)", "P42212 GFP"], "ligands": ["SO4"], "drug": null,
+       "modelled_residues": 1925,
+       "title": "Structure of Human beta-Cardiac Myosin Motor Domain::GFP chimera",
+       "why": "the only genuinely nucleotide-free human option",
+       "tradeoff": "GFP chimera construct; 3.2 A"}
+    ],
+    "recommended_pairings": [
+      {"rank": 1, "apo": "8QYP", "holo": "8QYR",
+       "why": "2.76 A apo, 1.80 A holo, same lab / construct / species, numbering identical to human P12883; best data quality by a wide margin",
+       "cost": "bovine sequence (95.9% identity; mavacamten pocket 100% conserved)"},
+      {"rank": 2, "apo": "9GZ3", "holo": "9GZ2",
+       "why": "3.4 A apo, 2.9 A holo, human MYH7, identical construct; best confound-free human pair",
+       "cost": "single head, no light chains"},
+      {"rank": 3, "apo": "8ACT", "holo": "9GZ1",
+       "alternative_holo": ["9YP9", "9YR7"],
+       "why": "human IHM apo -> human IHM + mavacamten; the only pairing that preserves the challenge's stated super-relaxed-state framing, with human ELC/RLC on the apo side",
+       "cost": "3.6 / 3.7 A; mouse light chains on the holo side"},
+      {"rank": 4, "apo": "5TBY", "holo": "9GZ1 or 9GZ2 or 8QYR",
+       "why": "mechanically viable - all 17 pocket residues are modelled in 5TBY with correct residue types and P12883 numbering",
+       "cost": "NOT RECOMMENDED: pipeline-breakers 4 and 5 mean the resulting network is a property of SWISS-MODEL and 3JBH, not of human cardiac myosin"}
+    ],
+    "process_note": "any substitution deviates from CHALLENGE.md section 6 Table 1 and requires an ADR under docs/adr/ plus an update to docs/targets.md"
+  },
+
+  "verdict": {
+    "status": "unusable",
+    "holo_side": "6C1H contains neither mavacamten nor cardiac myosin nor any human protein; the ground-truth procedure in docs/targets.md cannot be executed against it and if executed carelessly returns 20 rabbit-actin residues with no error raised",
+    "apo_side": "5TBY is a SWISS-MODEL homology model templated on tarantula 3JBH, rigid-body fitted into a 20 A envelope, clashscore in the 2nd percentile of the PDB, with 41 inter-chain atom pairs at bond-length distance clustered on the head-head interface; under constraint C6 any connectivity result is an artefact of the modelling protocol",
+    "what_survives": [
+      "the target objective is sound: the mavacamten site is real, well-determined and 25-27 A from the nucleotide pocket",
+      "matched replacement pairs exist for both sides from the same labs and constructs"
+    ],
+    "recommendation": "replace both sides, write the ADR, and report the defect to the challenge organisers - the 6C1H assignment is a factual error in the challenge statement, not a judgement call"
+  },
+
+  "could_not_determine": [
+    "R-work / R-free for either entry - both are cryo-EM; the category is absent by construction, not missing",
+    "which map 5TBY's coordinates were actually fitted into: _struct.title names the human negative-stain reconstruction EMD-2240, while the _em_* block describes the tarantula cryo-EM experiment (staining_applied NO, vitrification_applied YES, specimen = tarantula thick filaments, natural source Aphonopelma taxid 6896)",
+    "6C1H's conformational state as the depositors would name it: no struct field names one; nucleotide-free myosin is derived from coordinates, but the associated map EMD-7331 is annotated 'with ADP'",
+    "full text of the primary citations - only deposited _citation / _citation_author records were read",
+    "whether the challenge organisers intended a different PDB ID; 6C1H is what CHALLENGE.md section 6 Table 1 says, verbatim"
+  ]
+}

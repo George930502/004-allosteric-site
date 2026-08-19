@@ -66,7 +66,10 @@ produce a confident but hollow submission: `docs/FIELD.md`. Enforcement checkpoi
 
 ## Required deliverables (what "done" means for the project)
 
-Per target — KRAS G12C `4OBE`, BCR-ABL1 `1OPL`, cardiac myosin `5TBY`, c-Myc `1NKP`:
+Per target — KRAS G12C `4OBE`, BCR-ABL1 `1OPL`, cardiac myosin `5TBY`, c-Myc `1NKP`.
+All three mandated apo/holo pairs are defective and are scored in tiers; the cardiac
+myosin pair is unscoreable as assigned. See `docs/benchmark/README.md` before using any
+of these accessions:
 
 1. **N x N connectivity matrix** (`results/<target>/connectivity.npz`)
 2. **Top-5 ranked allosteric residue hit list** (`results/<target>/hits.csv`)
@@ -92,6 +95,7 @@ condition fires, not to browse.
 | `docs/playbooks/constraint-audit.md` | Diff touches the prediction path, ground truth, or a quantum method. `/audit`, or the `constraint-auditor` subagent |
 | `docs/FIELD.md` | Choosing or defending a method; writing anything for the report |
 | `docs/PRINCIPLES.md` | The one-liners above are not enough to settle a call |
+| `docs/benchmark/README.md` | Any question about what a method is scored on. `frozen.json` is the authority for every residue count, label set and active site — never quote one from prose |
 | `docs/targets.md` | Touching a specific protein, its chains, or its ground-truth labels |
 | `docs/adr/` | Before choosing between credible alternatives; write one when the choice would be expensive to reverse. `README.md` there gives the format |
 | `src/allo/AGENTS.md` | Adding or moving a module — package layout and the dependency rule that enforces C1 |

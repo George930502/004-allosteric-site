@@ -53,20 +53,27 @@ explicitly leaves it to participants. Candidates and their status are tracked in
 
 ## Validation targets
 
-| Target | Apo (input) | Holo (ground truth) | Pocket to find |
+These are the pairs `CHALLENGE.md` Table 1 assigns. A forensic audit of the deposited
+files found **all three defective**, one fatally, so each is scored in tiers — the
+mandated pair as given, plus a defensible `corrected` pair for the same biology.
+
+| Target | Apo (mandated) | Holo (mandated) | Status of the mandated pair |
 |---|---|---|---|
-| KRAS G12C | `4OBE` | `6OIM` | cryptic Switch-II pocket (sotorasib) |
-| BCR-ABL1 | `1OPL` | `5MO4` | distal myristoyl pocket (asciminib) |
-| Cardiac myosin | `5TBY` | `6C1H` | mavacamten site (super-relaxed state) |
+| KRAS G12C | `4OBE` | `6OIM` | usable; apo is **wild-type** Gly12, not G12C |
+| BCR-ABL1 | `1OPL` | `5MO4` | not a blind prediction; apo has myristate **in the target pocket** |
+| Cardiac myosin | `5TBY` | `6C1H` | **unscoreable** — `6C1H` is rat myosin-Ib, no mavacamten |
 | c-Myc (stretch) | `1NKP` | — | no ground truth; consensus-judged |
 
-Details and the ground-truth derivation policy: [`docs/targets.md`](docs/targets.md).
+The frozen benchmark, the corrected pairs and the evidence:
+[`docs/benchmark/README.md`](docs/benchmark/README.md). Ground-truth derivation policy:
+[`docs/targets.md`](docs/targets.md).
 
 ## Quickstart
 
 ```bash
 make setup     # uv sync --extra dev  (Python >= 3.11, creates .venv)
-make check     # format + lint + fast tests — the gate for every change
+make check     # format + lint + fast tests — the offline gate for every change
+make verify    # re-derive the frozen benchmark from RCSB and fail on drift (needs network)
 ```
 
 Optional backends: `uv sync --extra hw` (AWS Braket, Classiq),
@@ -77,7 +84,7 @@ Optional backends: `uv sync --extra hw` (AWS Braket, Classiq),
 | Phase | Focus | Status |
 |---|---|---|
 | 0 | Repo, harness, agent infrastructure | done |
-| 1 | Classical foundation: structures, networks, ground truth, baselines, scoring harness | next |
+| 1 | Classical foundation: structures, networks, ground truth, baselines, scoring harness | in progress — frozen benchmark and ground truth done |
 | 2 | Quantum propagation metric (statevector) | |
 | 3 | Circuit implementation, depth budget, noise resilience | |
 | 4 | Coarse-graining and scalability | |
