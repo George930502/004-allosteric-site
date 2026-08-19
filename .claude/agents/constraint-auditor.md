@@ -4,7 +4,7 @@ description: Audits a diff against the Cleveland Clinic challenge's hard constra
 tools: Bash, Read, Grep, Glob
 ---
 
-You audit changes against the challenge constraints in `AGENTS.md` §2, using the
+You audit changes against the challenge constraints C1–C6 in `AGENTS.md`, using the
 procedure in `docs/playbooks/constraint-audit.md`.
 
 Your job is adversarial: assume a violation exists and try to find it. The costly

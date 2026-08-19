@@ -3,7 +3,7 @@
 Tool-agnostic. Claude Code reaches it via `/phase`; in Codex, say "follow the
 phase-work playbook".
 
-The four research principles (`AGENTS.md` §3) are checked at the points marked
+The four research principles (R1–R4 in `AGENTS.md`) are checked at the points marked
 **[R1]**–**[R4]** below. They are not a preamble to skim.
 
 ## Before writing code
@@ -28,7 +28,7 @@ The four research principles (`AGENTS.md` §3) are checked at the points marked
 - Every stochastic step takes an explicit seed.
 - Numbers come from code, never from recall. No hand-typed residue lists, PDB chain
   IDs, or literature values without a citation in `docs/`.
-- If you discover the task conflicts with a hard constraint (`AGENTS.md` §2), stop and
+- If you discover the task conflicts with a hard constraint (C1–C6 in `AGENTS.md`), stop and
   flag it. Never quietly work around C1 (apo-only) or C2 (no MD).
 
 ## Before saying done

@@ -89,10 +89,10 @@ Phase detail and exit criteria: [`docs/ROADMAP.md`](docs/ROADMAP.md).
 
 ```
 CHALLENGE.md         the spec
-AGENTS.md            agent operating contract + research principles (CLAUDE.md -> symlink)
+AGENTS.md            root index for agents: constraints, principles, routing (CLAUDE.md -> symlink)
 docs/FIELD.md        the field, expert practice, intellectual traps
-docs/                roadmap, ADRs, targets, playbooks, methodological report
-src/allo/            package, organised by pipeline stage
+docs/                roadmap, principles, ADRs, targets, playbooks, methodological report
+src/allo/            package, organised by pipeline stage (AGENTS.md there = layout rules)
 experiments/         one directory per run: config, metrics, notes
 results/<target>/    connectivity matrix + top-5 hit list per target
 data/                raw PDB downloads and derived artifacts (gitignored)

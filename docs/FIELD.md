@@ -1,6 +1,7 @@
 # The field: what expertise looks like here
 
-Rule 4 of this project's research principles (`AGENTS.md` §3) says to work like a
+Rule 4 of this project's research principles (R4 in `AGENTS.md`, in full in
+`docs/PRINCIPLES.md`) says to work like a
 frontier researcher who is expert in this field. This file defines the field so that
 instruction is executable rather than aspirational.
 

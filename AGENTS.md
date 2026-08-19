@@ -1,11 +1,12 @@
-# AGENTS.md — operating contract for coding agents
+# AGENTS.md — operating contract for agents
 
-Read this before touching anything. It is the single source of truth for both
-Claude Code and Codex (`CLAUDE.md` is a symlink to this file).
+Root index for both Claude Code and Codex (`CLAUDE.md` is a symlink to this file).
+It is always in context, so it holds only what is needed **every** session; everything
+else is one hop away and named below with the condition for opening it.
 
 ---
 
-## 1. What this repo is
+## What this repo is
 
 A research codebase for the **Global Quantum + AI Challenge 2026 — Cleveland Clinic**
 statement: *"Unlocking undruggable targets: quantum simulation of allosteric signal
@@ -21,7 +22,7 @@ Read it once at the start of any non-trivial task. It is the spec.
 
 ---
 
-## 2. Hard constraints — violating any of these invalidates the submission
+## Hard constraints — violating any of these invalidates the submission
 
 These come from the challenge statement, not from us. Never trade them away for
 convenience, and flag it loudly if a task appears to require breaking one.
@@ -37,73 +38,33 @@ convenience, and flag it loudly if a task appears to require breaking one.
 
 Leakage from C1 is the easiest mistake to make and the hardest to notice. Any code
 that loads a holo PDB lives under `src/allo/groundtruth/` and is never imported by
-prediction code. Enforced by a test (`tests/test_no_leakage.py`, added in Phase 1).
+prediction code. Enforced by `tests/test_no_leakage.py` (added in Phase 1).
 
 ---
 
-## 3. Research principles
+## Research principles
 
 Standing instructions from the principal investigator. They govern *how* the research
-is conducted, in the same way §2 governs what the result is allowed to be. They apply
-to every task, not only to the ones that look scientific.
+is conducted, in the same way the constraints govern what the result may be.
 
-### R1 — First-principles thinking
+- **R1 — First principles.** Reason from the physics and the biology, not from what a
+  similar repo did. State what a method computes and what assumption makes it
+  meaningful here. "It is standard practice" is not a reason.
+- **R2 — Executable phases.** Every unit of work has an exit criterion a command can
+  check. Never start a task whose success condition is a feeling.
+- **R3 — Evidence.** Claims rest on repo experiments, statistics with a stated null,
+  literature with a DOI, or recorded observation — in that order of preference. A
+  recalled number is not evidence. Where evidence is absent, write "unknown".
+- **R4 — Frontier expertise.** Work as an expert in this field would. Search for best
+  practice, then judge it against R1 rather than copying it.
 
-Reason from the physics and the biology, not from what a similar repo did. Before
-adopting any method, be able to state: what physical quantity it computes, what
-assumption makes that quantity meaningful here, and what would make it break. If a
-step exists only because it is conventional, it is not yet justified.
+Full statements: `docs/PRINCIPLES.md`. What "this field" means, and the traps that
+produce a confident but hollow submission: `docs/FIELD.md`. Enforcement checkpoints
+`[R1]`–`[R4]` are marked inline in `docs/playbooks/phase-work.md`.
 
-Practically: derive before you cite; when a paper's result is used, state the mechanism
-in one sentence in your own terms. If you cannot, you do not yet understand it well
-enough to build on it. "This is standard practice" is not a reason.
+---
 
-### R2 — Decompose into executable phases
-
-Every unit of work reduces to phases with an **exit criterion that a command can
-check**. Never start a task whose success condition is a feeling. If a task cannot be
-decomposed that way, that is the finding — say so and reduce scope until it can be.
-
-The project-level decomposition lives in `docs/ROADMAP.md`; the task-level version is
-step 5 of `docs/playbooks/phase-work.md`. Both are load-bearing, not paperwork.
-
-### R3 — Ground every claim in evidence
-
-Four admissible kinds, in the order we prefer them when they conflict:
-
-1. **Quantitative experimental results** produced in this repo, reproducible from a
-   committed config (`experiments/`).
-2. **Statistical analysis** of those results: effect size against a stated null model,
-   with the test named. A ranking without a null is not evidence.
-3. **Literature** with a DOI, read rather than recalled. Its claim is reported with its
-   conditions — the protein class, the system size, the regime it was shown in.
-4. **Observational / empirical** notes on structures and data — what the PDB file
-   actually contains, what the network actually looks like. Recorded as observations,
-   with the code path that produced them.
-
-Not admissible as evidence: an LLM's recollection of a residue number, a plausible
-mechanism nobody measured, or a number whose provenance cannot be named. When there is
-no evidence yet, write "unknown" — an honest gap is cheaper than a confident guess that
-someone later builds on.
-
-### R4 — Work like a frontier researcher in this field
-
-The field is defined explicitly in [`docs/FIELD.md`](docs/FIELD.md): protein allostery
-and ensemble dynamics, elastic-network biophysics, and quantum transport on graphs,
-applied to early-stage target validation. Read it before non-trivial work — it also
-lists the known intellectual traps in this specific challenge, including the ones that
-produce an impressive-looking but hollow submission.
-
-Expert behaviour that is expected here: build the null model before the method; treat
-the classical baselines as serious opponents rather than strawmen; distinguish pocket
-from allosteric site from communication pathway; report in the units a medicinal
-chemist uses; state the limits of a claim in the same breath as the claim.
-
-Searching for best practice is encouraged — and it means finding what expert groups in
-*these* fields actually do and why, then judging it, not copying the first tutorial
-that runs. An adopted practice that cannot be justified under R1 is not adopted.
-
-## 4. Required deliverables (what "done" means for the project)
+## Required deliverables (what "done" means for the project)
 
 Per target — KRAS G12C `4OBE`, BCR-ABL1 `1OPL`, cardiac myosin `5TBY`, c-Myc `1NKP`:
 
@@ -117,136 +78,81 @@ comparison, circuit-resource analysis.
 
 ---
 
-## 5. Repo map
+## Where things are, and when to open them
 
-```
-CHALLENGE.md            the spec — verbatim challenge statement
-AGENTS.md / CLAUDE.md   this file
-docs/FIELD.md           definition of the field, expert practice, known traps (R4)
-docs/ROADMAP.md         phase plan; check current phase before starting work
-docs/adr/         ADRs — one file per irreversible or contested choice
-docs/targets.md         validation targets, pockets, ground-truth policy
-docs/playbooks/         shared procedures for both Claude Code and Codex
-src/allo/               the package (see §5 for layout rules)
-tests/                  fast by default; mark slow/network tests
-experiments/            one dir per run: config + metrics + notes (§7)
-results/<target>/       the scored deliverable artifacts
-data/raw/               downloaded PDB files (gitignored, reproducible)
-data/processed/         derived networks/labels (gitignored)
-scripts/check.sh        the verification gate
-```
+Start every task with the first two rows. The rest are on-demand — open one when its
+condition fires, not to browse.
 
-## 6. Package layout rules
+| Open this | When |
+|---|---|
+| `docs/ROADMAP.md` | Always, first. Which phase is current and what its exit criterion is |
+| `experiments/REGISTRY.md` | Always, second. What has been tried, and what failed — do not re-run a dead end |
+| `docs/playbooks/phase-work.md` | Starting or finishing any unit of work. `/phase` in Claude Code |
+| `docs/playbooks/experiment.md` | About to produce a number worth comparing to another number. `/exp` |
+| `docs/playbooks/constraint-audit.md` | Diff touches the prediction path, ground truth, or a quantum method. `/audit`, or the `constraint-auditor` subagent |
+| `docs/FIELD.md` | Choosing or defending a method; writing anything for the report |
+| `docs/PRINCIPLES.md` | The one-liners above are not enough to settle a call |
+| `docs/targets.md` | Touching a specific protein, its chains, or its ground-truth labels |
+| `docs/adr/` | Before choosing between credible alternatives; write one when the choice would be expensive to reverse. `README.md` there gives the format |
+| `src/allo/AGENTS.md` | Adding or moving a module — package layout and the dependency rule that enforces C1 |
+| `experiments/README.md` | Setting up a run directory |
+| `docs/agents/` | An installed engineering skill needs the issue tracker, triage labels, or domain-doc layout |
+| `CHALLENGE.md` | Any question about what the challenge actually requires. It is the spec; do not answer from memory |
 
-`src/allo/` is organised by pipeline stage, not by abstraction:
+Not in context and not worth loading: `Cleveland-Clinic-Challenge-Statement-vF.pdf`
+(4.2 MB — `CHALLENGE.md` is the complete restatement), and anything under `data/raw/`
+(parse it with code and print a summary; never read a PDB into context).
 
-```
-structure/    PDB fetch/parse -> coordinates, residue indexing
-network/      contact graph / elastic network construction, coarse-graining
-quantum/      Hamiltonians, propagation metrics, circuits, noise models
-classical/    baselines (GNM/ANM, random walk, betweenness, perturbation response)
-scoring/      ranking, enrichment statistics, decoy generation
-groundtruth/  holo-derived labels ONLY — never imported by prediction code (C1)
-viz/          2D plots and 3D structure rendering
-cli.py        `allo <stage> ...` entry point
-```
+---
 
-Add a module when a stage needs one, not before. No interface with one
-implementation, no config knob for a value that never changes.
+## Working agreement
 
-## 7. Working agreement
+The mechanics that make the principles enforceable.
 
-The mechanics that make §3 enforceable.
-
-- **Run `make check` before reporting any task complete.** It is fast, offline, and
-  is the same gate CI runs. "It should work" is not a status.
+- **Run `make check` before reporting any task complete.** Fast, offline, the same gate
+  CI runs. "It should work" is not a status.
 - **State assumptions up front.** If two readings of a task give materially different
   work, ask before building.
 - **Surgical diffs.** Every changed line traces to the request. Don't reformat or
   "improve" adjacent code.
-- **Determinism.** Every stochastic step takes an explicit `seed`. Default seed `0`.
-  A rerun of a committed experiment must reproduce its metrics bit-for-bit on the
-  same machine, or the config is incomplete.
+- **Determinism.** Every stochastic step takes an explicit `seed`, default `0`. A rerun
+  of a committed experiment must reproduce its metrics bit-for-bit, or the config is
+  incomplete.
 - **Numbers come from code, never from memory.** Residue indices, pocket definitions,
-  PDB chain IDs and literature values are derived programmatically or cited to a
-  source in `docs/`. Do not hand-type a residue list you "know".
-- **Cite when you claim.** Any biological or algorithmic claim in docs carries a DOI
-  or a `CHALLENGE.md` reference number.
-- **Negative results are results.** A method that underperforms gets written up in
-  its experiment notes, not deleted.
-
-## 8. Experiment protocol
-
-Any run that produces a number worth comparing goes through `experiments/`:
-
-```
-uv run allo new-experiment "ctqw time-averaged transfer"
-# -> experiments/<date>-ctqw-time-averaged-transfer/{config.yaml,notes.md}
-```
-
-Fill `config.yaml` (all knobs, incl. seed), run it, write `metrics.json`, then add one
-line to `experiments/REGISTRY.md`. The registry is the project's memory: an agent
-starting fresh reads it to learn what has already been tried and what failed.
-
-## 9. Context discipline for agents
-
-- Start a task by reading: `docs/ROADMAP.md` (current phase) then
-  `experiments/REGISTRY.md` (what has been tried). Both are short by design. Add
-  `docs/FIELD.md` for anything methodological — it is where R1 and R4 get concrete.
-- Prefer `rg`/`grep` over reading whole files. Never read `data/raw/*.pdb` into
-  context — parse it with code and print a summary.
-- The challenge PDF is 4.2 MB. Read `CHALLENGE.md` instead; it is complete.
-- When you finish a phase, update `docs/ROADMAP.md` and write an ADR for any choice
-  that would be expensive to reverse.
-
-## 10. Environment
-
-```
-make setup      # uv sync --extra dev  -> .venv, Python >= 3.11
-make check      # format + lint + fast tests
-make test       # fast tests only
-```
-
-Cloud backends (AWS Braket, Classiq) are optional extras: `uv sync --extra hw`.
-Credentials come from environment variables listed in `env.example` — never commit
-secrets, never print them.
-
-## 11. The harness
-
-Shared playbooks live in `docs/playbooks/` so both tools follow the same procedure:
-
-| Playbook | Claude Code | Codex |
-|---|---|---|
-| `phase-work.md` — start and finish a unit of phase work | `/phase <task>` | "follow the phase-work playbook" |
-| `experiment.md` — run something that produces a comparable number | `/exp <question>` | "follow the experiment playbook" |
-| `constraint-audit.md` — check a diff against C1–C6 | `/audit` or the `constraint-auditor` subagent | "run the constraint audit playbook" |
-| handoff (section of `phase-work.md`) | `/handoff` | "do the handoff checklist" |
-
-Claude Code additionally has a `PostToolUse` hook (`scripts/format-hook.sh`) that runs
-`ruff format` on Python files as they are written, so the check gate never fails on
-whitespace. Codex users get the same effect from `make fmt`.
+  PDB chain IDs and literature values are derived programmatically or cited to a source
+  in `docs/`. Do not hand-type a residue list you "know".
+- **Cite when you claim.** Any biological or algorithmic claim in docs carries a DOI or
+  a `CHALLENGE.md` reference number.
+- **Negative results are results.** A method that underperforms is written up in its
+  experiment notes, not deleted.
+- **Leave the memory updated.** A new comparable number → `experiments/REGISTRY.md`. A
+  decision that constrains later phases → an ADR. A phase closed → `docs/ROADMAP.md`.
 
 ---
 
-## 12. Agent skills
+## Environment
 
-Per-repo configuration for the installed engineering skills. These files are the
-answer to "where do issues go / what are the labels / where is the domain knowledge",
-so skills do not have to guess per repo.
+`make setup` once, `make check` before every handoff. Targets are defined in the
+`Makefile` — read it rather than trusting a copy here. Python ≥ 3.11 via `uv`; cloud
+backends are the optional `hw` extra. Credentials come from the environment variables
+listed in `env.example`; never commit or print them.
+
+---
+
+## Agent skills
+
+Per-repo configuration the installed engineering skills read.
 
 ### Issue tracker
 
-GitHub Issues on `George930502/004-allosteric-site`, via the `gh` CLI. External PRs are
-not treated as a request surface. See `docs/agents/issue-tracker.md`.
+GitHub Issues on `George930502/004-allosteric-site` via `gh`; external PRs are not a
+request surface. See `docs/agents/issue-tracker.md`.
 
 ### Triage labels
 
-The five canonical roles, with label strings equal to their names: `needs-triage`,
-`needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See
+The five canonical roles, label strings equal to their names. See
 `docs/agents/triage-labels.md`.
 
 ### Domain docs
 
-Single-context: `docs/adr/` at the repo root holds the decision record, and
-`CONTEXT.md` will be created lazily by `/domain-modeling` when domain terms actually
-need resolving. See `docs/agents/domain.md`.
+Single-context; `docs/adr/` is the decision record. See `docs/agents/domain.md`.
