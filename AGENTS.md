@@ -143,3 +143,18 @@ make test       # fast tests only
 Cloud backends (AWS Braket, Classiq) are optional extras: `uv sync --extra hw`.
 Credentials come from environment variables listed in `env.example` — never commit
 secrets, never print them.
+
+## 10. The harness
+
+Shared playbooks live in `docs/playbooks/` so both tools follow the same procedure:
+
+| Playbook | Claude Code | Codex |
+|---|---|---|
+| `phase-work.md` — start and finish a unit of phase work | `/phase <task>` | "follow the phase-work playbook" |
+| `experiment.md` — run something that produces a comparable number | `/exp <question>` | "follow the experiment playbook" |
+| `constraint-audit.md` — check a diff against C1–C6 | `/audit` or the `constraint-auditor` subagent | "run the constraint audit playbook" |
+| handoff (section of `phase-work.md`) | `/handoff` | "do the handoff checklist" |
+
+Claude Code additionally has a `PostToolUse` hook (`scripts/format-hook.sh`) that runs
+`ruff format` on Python files as they are written, so the check gate never fails on
+whitespace. Codex users get the same effect from `make fmt`.
