@@ -38,48 +38,89 @@ Enforced by `tests/test_no_leakage.py`.
 
 ---
 
-## Per-target facts to establish in Phase 1
+## Per-target facts — established 2026-08-20
 
-Everything below is an open item to resolve *from the actual files*, not an assertion.
-Record answers here with the code path that produced them.
+Derived programmatically from the deposited mmCIF files and RCSB/SIFTS, never recalled.
+Regenerate with `uv run allo benchmark show`. Full dossiers: `docs/benchmark/audit/`.
+The audit found that **all three challenge-assigned pairs are defective**, one fatally;
+the frozen benchmark and the corrected pairs are in `docs/benchmark/`.
 
-**All targets**
-- Chain selection and catalytic-domain residue range (C5: catalytic domains only).
-- Whether the deposited structure has gaps, alternate conformations, or multiple
-  copies in the asymmetric unit — and which copy we use.
-- **Active-site definition** — the propagation source. Needs a defensible, apo-only
-  rule per target (e.g. nucleotide-binding residues from the apo structure's own
-  ligand, or a conserved catalytic motif). This choice materially drives the ranking;
-  it deserves an ADR.
+| Pair | Verdict | The finding |
+|---|---|---|
+| KRAS `4OBE` → `6OIM` | usable with caveats | `4OBE` is **wild-type** KRAS (Gly12), not G12C |
+| BCR-ABL1 `1OPL` → `5MO4` | not blind | `1OPL` carries myristate **in the target pocket**; apo and holo are the same conformation (1.00 Å) |
+| Cardiac myosin `5TBY` → `6C1H` | **unscoreable** | `6C1H` is rat myosin-Ib + actin, no mavacamten; `5TBY` is a 20 Å homology model |
 
-**KRAS G12C (`4OBE` → `6OIM`)**
-- Nucleotide state of the apo structure and whether the nucleotide is kept as a simple
-  node or dropped (C5).
-- Sotorasib chemical component ID in `6OIM`; it is covalently bound to Cys12 — confirm
-  the covalent linkage is handled correctly by the contact selection.
+### KRAS G12C (`4OBE` → `6OIM`)
 
-**BCR-ABL1 (`1OPL` → `5MO4`)**
-- ⚠️ `1OPL` is the autoinhibited c-Abl structure and is reported to carry an
-  N-terminal myristoyl group occupying the myristoyl pocket. **Verify this against the
-  file.** If the pocket is occupied in our "apo" input, decide and document the
-  treatment (drop the myristoyl as an excluded modification per C5, and check whether
-  the resulting network still hides the pocket — otherwise the prediction is not blind
-  in spirit even if it is in letter). This is the most important correctness question
-  in the target set.
-- Domain content of `1OPL` (SH3, SH2, kinase) vs. `5MO4` (kinase domain only) — the
-  alignment step in the ground-truth pipeline must handle the mismatch.
+- `4OBE`: X-ray 1.24 Å, chains A and B, GDP + Mg only, `_struct_ref_seq_dif` lists **no
+  mutation** — residue 12 is GLY in both chains. `6OIM`: G12C **plus** C51S/C80L/C118S,
+  sotorasib as comp `MOV`, covalently linked `CYS12.SG–MOV303.C25`. 166/170 identical.
+- Numbering: both auth 1–169 ↔ UniProt P01116 1–169, **offset 0**.
+- Nucleotide state: GDP·Mg in apo and holo. Kept as a simple node or dropped — see the ADR.
+- The pocket is **genuinely cryptic**: transplanting `MOV` into the apo frame leaves its
+  closest atom 0.75 Å from protein and 14 of 41 ligand atoms clashing below 2.5 Å.
+- Corrected apo: **`4LDJ`** — same study (doi 10.1073/pnas.1404639111), same release day,
+  1.15 Å, one chain, and actually G12C. `4OBE`'s own `_pdbx_database_related` names it.
 
-**Cardiac myosin (`5TBY` → `6C1H`)**
-- Large structure; likely needs coarse-graining before any quantum treatment. Record
-  the residue count early, since it sets the Phase 4 compression requirement.
-- Light chains present? Included or excluded, and why.
+### BCR-ABL1 (`1OPL` → `5MO4`)
 
-**c-Myc (`1NKP`)**
-- Myc/Max heterodimer bound to DNA. DNA is not protein: exclude, or model as simple
-  nodes (C5) — decide and document.
-- Largely helical/disordered coiled coil; the contact network will look nothing like a
-  globular domain. Expect the method to behave differently and say so in the report
-  rather than quietly reporting a number.
+- ⚠️ resolved: `1OPL` **does** contain myristate (`MYR`, chain A only) occupying the
+  myristoyl pocket, plus an ATP-site inhibitor (`P16`) in both chains. The 16 `MYR`
+  contact residues are a strict subset of asciminib's 20 in `5MO4`.
+- Deleting `MYR` as an excluded modification (C5) does not restore blindness: the pocket
+  walls stay in the ligand-bound conformation. Apo↔holo Cα RMSD is **1.00 Å** over 409 paired
+  residues and **0.50 Å** across the pocket lining — there is no conformational change to predict.
+- ⚠️ resolved: the numbering offset between the two entries is **zero**. Both use ABL1
+  **isoform 1b** numbering (gatekeeper 334, DFG 400–402). The hazard is real but sits
+  elsewhere: `1OPL`'s deposited `_struct_ref_seq` wrongly claims auth = UniProt, so
+  normalising through that record shifts it by 19. SIFTS corrects it. The ABL corpus is
+  split between 1a and 1b conventions (`2G1T`, `2HYY`, `4WA9`, `1M52` are 1a), so the
+  convention is resolved **per entry**, never assumed.
+- `5MO4` is a **ternary** complex: asciminib (`AY7`) in the myristoyl pocket **and** nilotinib
+  (`NIL`) in the ATP site, on a T334I/D382N background. The holo is not singly liganded.
+- ⚠️ corrected: `5MO4` is **not** kinase-domain-only. It models auth 83–531 continuously —
+  SH3, SH2 and kinase, the same architecture as `1OPL`. The alignment step does not break.
+- `1OPL` quality: 3.42 Å, R-free 0.315, 22.2 % RSRZ outliers (0.4th percentile). Chains A
+  and B differ by 23 Å globally; chain B lacks the myristate and the αI helix.
+- The myristoyl pocket is **not cryptic**, and the literature says so: Paladini et al.
+  (*eLife* 2024) describe `1M52` as having an "empty myristoyl binding pocket" with a
+  straight αI helix; Wylie 2017 calls it "vacant". Asciminib transplants into every myristate-free
+  apo candidate with ≤ 4 of 31 atoms clashing (`1M52`, `2G1T`, `2G2H`, `4WA9`). It is an
+  allosteric site — 12–30 Å from the ATP site — but a pre-formed cavity.
+
+### Cardiac myosin (`5TBY` → `6C1H`) — fatal
+
+- `6C1H` is **rat unconventional myosin-Ib** (Q05096) with rabbit skeletal actin (P68135)
+  and calmodulin, cryo-EM 3.9 Å, ligands ADP and Mg only, all five in the **actin**
+  nucleotide clefts (Mentes 2018, doi 10.1073/pnas.1718316115). It contains no mavacamten
+  and no cardiac myosin. MYH7 vs MYO1B is 39.6 % identical — different gene, class and
+  species. No label set can be derived.
+- `5TBY` is a SWISS-MODEL homology model of the human sequence on a **tarantula** template
+  (`3JBH`), rigid-body fitted; the entry records 20 Å and its source map `EMD-2240` is 28 Å
+  (Alamo 2017). It is cited by challenge reference [23] (Anderson 2018), which explains the
+  apo choice; `6C1H` has no such provenance anywhere in the challenge's bibliography. Clashscore 49.95
+  (2.2nd percentile). It is a model of a model, not an experimental structure.
+- Mavacamten's chemical component ID is **`XB2`**. It appears in exactly six PDB entries:
+  `8QYQ`, `8QYR` (bovine, X-ray, Auguin 2024 doi 10.1038/s41467-024-47587-9), `9GZ1`,
+  `9GZ2` (human, cryo-EM), `9YP9`, `9YR7` (human, cryo-EM).
+- The site is reproducible across all six copies: **Tyr164, Thr167, Asp168, His666, Pro710,
+  Asn711, Arg712, Ile713, Glu774** in every one, plus Arg721, Tyr722, Leu770 in most.
+  Minimum Cα distance from a label to the active site is 13.3 Å (`8QYP`), 16.5 Å (`9GZ3`)
+  and 18.3 Å (`9YRG`), maxima 31.0–35.6 Å — genuinely distal in every arm.
+- Corrected pair: **`9GZ3` → `9GZ2`** (human MYH7, identical construct and primed state,
+  764 modelled residues each, differing only by the drug). Sensitivity arms: `8QYP` → `8QYR`
+  (bovine; the holo is 1.80 Å, the apo 2.76 Å) and `9YRG` → `9YR7` (experimental human
+  folded-back off state — the interacting-heads motif `5TBY` was trying to model; single
+  study, construct-identical, 0.88 Å core RMSD at 100 % identity).
+
+### c-Myc (`1NKP`)
+
+- Myc/Max heterodimer on DNA: 4 DNA chains, two copies of the dimer. Not addressed in this
+  phase; the target is the final stage.
+- Numbering hazard recorded now: the two Myc copies carry **different arbitrary offsets** —
+  chain A auth 897–984 and chain D auth 499–581 both map to UniProt P01106 353–434. Any hit
+  list must be reported in canonical MYC numbering, not author numbering.
 
 ---
 
