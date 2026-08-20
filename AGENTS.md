@@ -33,7 +33,7 @@ convenience, and flag it loudly if a task appears to require breaking one.
 | C2  | **No classical MD trajectories as input.** Dynamics must be predicted _ab initio_ from topology. No GROMACS/AMBER/OpenMM trajectories, no MD-derived covariance matrices, no MD-trained ML weights in the prediction path.         |
 | C3  | **Near-term hardware viability.** Circuit depth, qubit count, and connectivity must be reported for every quantum method. Deep unoptimised circuits are explicitly penalised. Every quantum claim needs a stated resource cost.    |
 | C4  | **Credible quantum execution path.** Gate-based, quantum-inspired, and hybrid are all allowed, but a quantum-inspired method must state how it maps to hardware.                                                                   |
-| C5  | **Scope:** catalytic domains only. Waters, co-factors and PTMs excluded unless modelled as simple nodes.                                                                                                                           |
+| C5  | **Scope:** catalytic domains only. Waters, co-factors and PTMs excluded unless modelled as simple nodes. Read as scoping the _system_, not as trimming a chain — the node set is every modelled residue of the frozen chain (ADR 0010, accepted).                                                                                                                           |
 | C6  | **Elastic network hypothesis** is the modelling assumption: contact topology drives propagation; atomic force fields are abstracted away.                                                                                          |
 
 Leakage from C1 is the easiest mistake to make and the hardest to notice. Any code

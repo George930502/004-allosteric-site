@@ -286,6 +286,11 @@ model and are reported as unmapped rather than silently dropped. N counts every 
 residue including modified ones — the `8QYP` total includes two trimethyl-lysines, which
 the ATOM/HETATM flag would have dropped.
 
+**N is the whole modelled chain, never a trimmed catalytic domain** (ADR 0010, accepted).
+On `1OPL` that is 451 residues including SH3 and SH2, against 272 for the kinase-only
+`2G2H` — so the mandated ABL1 arm's harder chance line is mostly construct extent, not the
+myristate defect its tier exists to expose, and the two must not be compared as if it were.
+
 The N, |GT| and prevalence columns are read back from `frozen.json` by
 `tests/test_benchmark.py`, so they cannot drift from the freeze. The remaining columns are
 in `frozen.json` but are not yet compared against this prose.
