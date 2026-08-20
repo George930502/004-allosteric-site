@@ -47,6 +47,7 @@ targets:
     tier: mandated
     protein: KRAS
     site: Switch-II pocket (S-IIP)
+    site_id: kras_switch_ii
     apo:  {pdb: 4OBE, chain: A, sha256: bc5738721380320d37c216a8f4412ddd3f66fad375c60fc0d0626bc6c277e5d7}
     holo: {pdb: 6OIM, chain: A, ligand: MOV}
     allosteric_evidence:
@@ -86,6 +87,7 @@ targets:
     tier: corrected
     protein: KRAS
     site: Switch-II pocket (S-IIP)
+    site_id: kras_switch_ii
     apo:  {pdb: 4LDJ, chain: A, sha256: 4315c16c13a29ad80752637725e046f233f44b26fc3fb58067d9c24f50eb4152}
     holo: {pdb: 6OIM, chain: A, ligand: MOV}
     allosteric_evidence:
@@ -126,6 +128,7 @@ targets:
     tier: mandated
     protein: ABL1
     site: myristoyl pocket
+    site_id: abl1_myristoyl
     apo:  {pdb: 1OPL, chain: A, sha256: af3a6348cbf0748243503f3aeec85f8cf0fa37a4989696cbfb4afa7424a97f6a}
     holo: {pdb: 5MO4, chain: A, ligand: AY7}
     allosteric_evidence:
@@ -158,6 +161,7 @@ targets:
     tier: corrected
     protein: ABL1
     site: myristoyl pocket
+    site_id: abl1_myristoyl
     apo:  {pdb: 2G2H, chain: A, sha256: c0fe887407d0a53dafd6c8fd17a12b4ea12ed5fbf626f0c58eba7a36bfd4888a}
     holo: {pdb: 5MO4, chain: A, ligand: AY7}
     allosteric_evidence:
@@ -190,6 +194,7 @@ targets:
     tier: sensitivity
     protein: ABL1
     site: myristoyl pocket
+    site_id: abl1_myristoyl
     apo:  {pdb: 2G1T, chain: A, sha256: 828af0981afae710313d4a53d6b64946b95b5216b269a415ba297b2d8a54cbaa}
     holo: {pdb: 5MO4, chain: A, ligand: AY7}
     allosteric_evidence:
@@ -225,6 +230,7 @@ targets:
     status: excluded
     protein: MYH7
     site: mavacamten site
+    site_id: myh7_site1
     apo:  {pdb: 5TBY, chain: A}
     holo: {pdb: 6C1H, chain: P, ligand: null}
     allosteric_evidence:
@@ -284,6 +290,7 @@ targets:
     tier: corrected
     protein: MYH7
     site: mavacamten site
+    site_id: myh7_site1
     apo:  {pdb: 9GZ3, chain: A, sha256: 8e581782a0e4388e2d9773945c582a2a988bf0bedc534f83e3df163cddafe01d}
     holo: {pdb: 9GZ2, chain: A, ligand: XB2}
     allosteric_evidence:
@@ -345,6 +352,7 @@ targets:
     tier: sensitivity
     protein: MYH7
     site: mavacamten site
+    site_id: myh7_site1
     apo:  {pdb: 8QYP, chain: A, sha256: 304400a2176723668262aeb67b1c8dc314cbff2f03f820ae6d766a3a1216f20f}
     holo: {pdb: 8QYR, chain: B, ligand: XB2}
     allosteric_evidence:
@@ -405,6 +413,7 @@ targets:
     tier: sensitivity
     protein: MYH7
     site: mavacamten site
+    site_id: myh7_site1
     apo:  {pdb: 9YRG, chain: A, sha256: fc62f7442a5042d043e359cbd1fe5fb0e534836efb96cf37a5b98a9e0b52b960}
     holo: {pdb: 9YR7, chain: A, ligand: XB2}
     allosteric_evidence:
@@ -472,6 +481,7 @@ targets:
     tier: sensitivity
     protein: MYH7
     site: mavacamten/omecamtiv pocket (Site 1)
+    site_id: myh7_site1
     apo:  {pdb: 8QYP, chain: A, sha256: 304400a2176723668262aeb67b1c8dc314cbff2f03f820ae6d766a3a1216f20f}
     holo: {pdb: 8QYU, chain: A, ligand: 2OW}
     active_site: {from_ligands: [ADP, VO4, MG]}
@@ -502,6 +512,7 @@ targets:
     tier: corrected
     protein: MYH7
     site: blebbistatin/aficamten pocket (Site 2)
+    site_id: myh7_site2
     apo:  {pdb: 8QYP, chain: A, sha256: 304400a2176723668262aeb67b1c8dc314cbff2f03f820ae6d766a3a1216f20f}
     holo: {pdb: 9F6C, chain: A, ligand: 6I6}
     active_site: {from_ligands: [ADP, VO4, MG]}

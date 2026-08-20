@@ -485,9 +485,16 @@ describe the same construct as **T315I / D363N** (ABL **1a** numbering). Both de
 protein: the gatekeeper mutation and the catalytic-aspartate (kinase-dead) mutation. This is
 precisely the trap C6(c) is about.
 
-**Consequences for the benchmark.** The holo structure (i) is a **kinase domain only**, against
-an apo (`1OPL`) that carries **SH3-SH2-kinase plus the myristoylated cap** — the alignment step
-must handle a large domain-content mismatch; (ii) carries **two point mutations** including one
+**Consequences for the benchmark.** (i) ~~The holo structure is a kinase domain only, against
+an apo (`1OPL`) that carries SH3-SH2-kinase plus the myristoylated cap — the alignment step
+must handle a large domain-content mismatch~~ — **withdrawn 2026-08-20.** `5MO4` models auth
+**83–531** on chain A (429 residues), RCSB aligns its polymer entity to P00519 **27–515**, and
+SIFTS Pfam places SH3 at 86–132: it is N-cap + SH3 + SH2 + kinase, the **same architecture as
+`1OPL`**, not a kinase domain. There is no large domain-content mismatch for the alignment to
+handle, which is good news rather than bad. Corrected in `docs/targets.md` and
+`evidence/target-prior-art.md` (Discrepancy 2) at the time; this paragraph was missed and a
+second adversarial review found it still asserting the withdrawn claim. (ii) carries **two
+point mutations** including one
 that alters the ATP site; (iii) contains a **second drug** (nilotinib) at the ATP site, so a
 naive "residues within 4.5 Å of any ligand" rule would label the ATP site as allosteric ground
 truth. The ligand must be selected as `AY7` specifically.

@@ -41,15 +41,30 @@ is examined, and frozen as a list of accessions before a single hyperparameter i
    UniProt-level orthology: no RAS superfamily GTPase (removes HRAS `4DLR` and NRAS), no
    ABL/SRC-family tyrosine kinase, no myosin of any class. Family, not sequence identity —
    a 30 % identity cut is what the field uses and it is exactly what fails to separate KRAS
-   from HRAS.
+   from HRAS. **Operationally:** reject if the candidate's UniProt accession maps, via
+   InterPro/Pfam at a **release pinned and recorded in the artifact**, to any clan containing
+   `PF00071` (Ras), `PF07714` (PK_Tyr_Ser-Thr) narrowed to the ABL/SRC branch by its
+   InterPro/PANTHER family assignment, or `PF00063` (Myosin_head).
 3. **Homologous site.** No record whose curated site is the structural equivalent of a
    primary site in _any_ protein — no myristoyl/SH3-clamp pocket, no switch-II or
    helix-3/loop-7 pocket, no myosin N-terminal/converter or blebbistatin site — even in an
-   unrelated fold.
+   unrelated fold. **"Structural equivalent" was undefined in this ADR's first version and is
+   the clause a second adversarial review correctly called unenforceable.** It now has a
+   metric: reject if the candidate site's pocket-lining shell superposes onto a primary site
+   at **TM-align TM-score ≥ 0.5 with pocket-centroid separation ≤ 5 Å** after global
+   superposition, or if its ASD/CASBench annotation names the same modulator chemotype as a
+   primary site. Both are computable, and both go into the artifact with their numbers.
 4. **Residue overlap.** After 2 and 3, no candidate whose curated site residues transfer,
    through pairwise alignment to a primary apo chain, onto ≥ 2 of that arm's frozen labels.
    This is the check that caught HRAS and it is cheap to run; it is the backstop for a
    homology the first three clauses miss.
+
+**The filter is an artifact, not a promise.** `allo select build` writes
+`docs/benchmark/selection.json`: every candidate considered, each clause's pass/fail with the
+number that decided it, the pinned InterPro/Pfam/ASD release strings, and a `seed`. Rerunning
+it must reproduce the file byte-for-byte. **A candidate absent from that file cannot enter
+the selection set**, and a test asserts the frozen selection set equals the file's admitted
+rows. Without it this ADR is a paragraph nobody can check.
 
 **Anything selected outside this set is fixed a priori and declared**, with the reasoning,
 before the primary targets are run. "We used the usual value" is a declaration; "we tried a
@@ -72,6 +87,12 @@ and never looked at until the method is frozen.
   **excluded**, not admitted on a partial check.
 - This constrains Phase 1.7 (build the selection set) and Phase 2 (choose the quantum
   metric's parameters on it). Both must cite this ADR.
+- **Not yet enforceable, and that is its status rather than a closed item.** No `allo select`
+  command exists; the primary freeze is uncontaminated only because the selection set does not
+  exist yet. **Phase 1.7 may not close until `selection.json` exists, reproduces, and each of
+  the four clauses has a test.** Adopting the rule before the tooling is deliberate — it fixes
+  the criterion while nobody knows which candidates it will exclude, which is the only point at
+  which a rule like this is credible.
 - **Risk accepted.** ASD2023 ran AlloSitePro over all 20,386 human proteins and predicted
   66,589 sites, MYH7 among them (§7). No exclusion rule can remove a _predicted_ pocketome
   from a method's training history. This ADR bounds curated leakage; it does not bound that,

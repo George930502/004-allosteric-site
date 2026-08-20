@@ -474,7 +474,7 @@ candidate set runs from 10.8 % (`kras_g12c_corrected`, 16/148) to
 1.4 % (`cardiac_myosin_site1_sensitivity_srx`, 12/886) -- a **8.0x** span.
 Simulating a _fixed_ real signal (d = 0.8, 2000 draws, seed 0; regenerate with
 `uv run allo benchmark stats`) across that range gives AUC-ROC **0.716** / **0.713** /
-**0.714** -- flat -- while AUC-PR falls **0.292** -> **0.208** -> **0.066**, a 4.4x span. AUC-ROC is
+**0.713** -- flat -- while AUC-PR falls **0.292** -> **0.208** -> **0.066**, a 4.4x span. AUC-ROC is
 blind to the imbalance, so a single ROC number would present myosin as an equally solved
 problem when its retrieval task is far harder. The field's own results show the same gap on
 the same predictor: CryptoBench reports AUC 0.86 against AUPRC 0.36
@@ -535,17 +535,31 @@ construction ([10.1038/ncomms12477](https://doi.org/10.1038/ncomms12477)) and co
 
 **The null is the opponent, and it is not the rank-sum null.** Residue scores are spatially
 autocorrelated and the label set is a single contiguous patch, so residues are nowhere near
-independent draws. We use a **matched patch null**: sample B = 10,000 connected patches of
-the same size as the label set by nearest-neighbour growth on the contact graph, drawn from
-the candidate set, recompute the statistic on each, and take the empirical p-value. Four
-properties are matched, and the fourth was missing until an adversarial review found the
-paragraph above promising it and this one not delivering it:
+independent draws. We use a **matched patch null**: sample B = 10,000 connected patches
+from the **candidate set** matched to the **scoreable** label set — the set the endpoint is
+computed on, not the full label set — recompute the statistic on each, and take the empirical
+p-value. Four properties are matched, and the fourth was missing until an adversarial review
+found the paragraph above promising it and this one not delivering it:
 
-1. **size** — same residue count as the label set;
+1. **size** — same residue count as the scoreable label set;
 2. **contiguity** — connected on the contact graph, by nearest-neighbour growth;
 3. **surface exposure** — seeds drawn from the surface set;
 4. **distance to the active site** — the patch's distance-to-source distribution must match
-   the label patch's, seeds accepted by rejection sampling against it.
+   the scoreable label patch's, seeds accepted by rejection sampling against it.
+
+**Matched to the _scoreable_ set, and that qualifier is load-bearing.** Matching against the
+full label set is not merely different, it is impossible: on KRAS and Site 2 the full set
+contains source residues at 0 Å that are not in the candidate set, so no candidate patch can
+reproduce that distance distribution and every draw would be rejected. The endpoint and its
+null must be computed on the same set or the p-value answers a question nobody asked.
+
+**Every knob is frozen in `manifest.yaml` under `null:` before the null is run**, because a
+null with free parameters is a place to keep trying until a result appears. The frozen list,
+and nothing may be added to it later: graph (which contact cutoff builds the adjacency),
+surface rule (the definition and threshold that make a residue a legal seed), distance
+statistic (which summary of the patch's distance-to-source distribution is matched),
+tolerance (how close counts as matched), growth algorithm, `B`, and `seed`. Values are chosen
+in Phase 1.6 from the calibration below — never from a method's score.
 
 Without (4) the null is **anti-conservative on exactly our proximal arms**. KRAS labels sit
 at 0 Å from the source and Site 2's median is low; uniformly seeded patches are farther away,
@@ -554,11 +568,15 @@ clears the null. Matching (1)–(3) controls the confound `docs/FIELD.md` §3 na
 residue score correlates with burial and degree; matching (4) controls the one this benchmark
 creates for itself by keeping proximal labels (ADR 0007).
 
-**The null is not frozen until it is calibrated.** Before it is used to report any p-value, a
-**distance-only score and a degree-only score must be run through it on every arm and must
-fail to reach significance**. A null whose type-I error has not been measured is a claim, not
-a control. That calibration is a Phase 1.6 exit criterion, and until it passes no p-value
-from this benchmark is quotable.
+**The null is not frozen until it is calibrated, and the acceptance criterion is stated
+here so it cannot be chosen afterwards.** Two null scores — **distance to the active site**
+and **degree in the contact graph** — are run through it on every arm. Acceptance: the
+empirical type-I error at α = 0.05 must fall in **[0.02, 0.08]** on each, across 1,000
+independent replicates per arm. Outside that band the null is miscalibrated and the
+parameters are re-chosen *on the calibration scores only*, never on a real method's output;
+each re-choice is recorded in `experiments/REGISTRY.md` with what moved and why. A null whose
+type-I error has not been measured is a claim, not a control. This is a Phase 1.6 exit
+criterion, and until it passes no p-value from this benchmark is quotable.
 
 **The matched-patch idea has one clear precedent, and it is the canonical paper.** CryptoSite
 builds its dataset as 84 cryptic sites, 92 binding pockets **and 705 concave surface
@@ -615,9 +633,9 @@ endpoint's universe (ADR 0011), per frozen target:
 | `bcr_abl1_corrected` | 272 | 11 | 261 | 18 | 18 | 6.9 % | 0.34 | **0.302** | 0.040 |
 | `bcr_abl1_sensitivity` | 271 | 11 | 260 | 18 | 18 | 6.9 % | 0.35 | **0.303** | 0.040 |
 | `cardiac_myosin_site1_corrected` | 764 | 21 | 743 | 12 | 12 | 1.6 % | 0.08 | **0.078** | 0.002 |
-| `cardiac_myosin_site1_sensitivity_xray` | 706 | 47 | 659 | 15 | 15 | 2.3 % | 0.11 | **0.109** | 0.005 |
+| `cardiac_myosin_site1_sensitivity_xray` | 706 | 42 | 664 | 15 | 15 | 2.3 % | 0.11 | **0.108** | 0.005 |
 | `cardiac_myosin_site1_sensitivity_srx` | 912 | 26 | 886 | 12 | 12 | 1.4 % | 0.07 | **0.066** | 0.002 |
-| `cardiac_myosin_site1_omecamtiv` | 706 | 44 | 662 | 18 | 18 | 2.7 % | 0.14 | **0.129** | 0.007 |
+| `cardiac_myosin_site1_omecamtiv` | 706 | 42 | 664 | 18 | 18 | 2.7 % | 0.14 | **0.129** | 0.007 |
 | `cardiac_myosin_site2_corrected` | 706 | 44 | 662 | 21 | 18 | 2.7 % | 0.14 | **0.129** | 0.007 |
 
 **One hit in the top five means very different things across targets** — close to a
@@ -643,9 +661,16 @@ is two endpoints and this section previously promised "one primary metric" witho
 which.** The full hypothesis family, fixed before any method runs:
 
 - **Confirmatory: AUC-PR on the `corrected` arm of each target, against the matched patch
-  null. Three tests, Holm-corrected across the three.** AUC-PR because prevalence is the
-  thing that varies across these arms and ROC is blind to it; the `corrected` arm because it
-  is the defensible pair for the biology, which is what the tier exists to be.
+  null. Four tests, Holm-corrected across the four.** AUC-PR because prevalence is the thing
+  that varies across these arms and ROC is blind to it; the `corrected` arm because it is the
+  defensible pair for the biology, which is what the tier exists to be. **Four, not three:**
+  a target is a protein *plus a site* (ADR 0008), so myosin contributes both Site 1 and
+  Site 2 — `kras_g12c_corrected`, `bcr_abl1_corrected`, `cardiac_myosin_site1_corrected`,
+  `cardiac_myosin_site2_corrected`. An earlier version of this rule said three, counting
+  proteins; that would have silently dropped Site 2 from the family or under-corrected it.
+  The family is derived from the freeze by `allo benchmark stats`, not counted by hand, and
+  `test_the_confirmatory_family_is_every_corrected_arm` fails if an arm is added or retiered
+  without the family moving with it.
 - **AUC-ROC is reported for every arm and tested nowhere.** It is the effect size that makes
   AUC-PR readable, and it is identical to the Mann-Whitney statistic, so testing both would
   be counting one experiment twice.
@@ -840,9 +865,17 @@ in Table 1 with no basis anywhere in the document's bibliography. How it got the
   C5 is to be read.** "Catalytic domains only" taken strictly would trim `1OPL` from 451
   residues to the kinase domain alone, and we have declined that (ADR 0010, accepted) because
   it deletes the SH3–SH2 clamp the myristoyl pocket acts through. That is a defensible
-  reading, not a ruling. Until one exists, the whole-chain node set is the primary and **a
-  trimmed-domain arm is run as a declared sensitivity analysis on ABL1**, so the answer is
-  reported either way rather than depending on which reading a judge holds.
+  reading, not a ruling.
+  **The trimmed-domain arm does not exist yet, and an earlier version of this bullet said it
+  "is run".** It does not: no arm carries a residue-range field, and the kinase-only arms
+  (`2G2H`, `2G1T`) are *different structures*, so they cannot isolate the effect of trimming
+  from the effect of changing the crystal. Until the arm exists the benchmark answers the C5
+  question one way only. Building it is specified and blocked, not vague: per ADR 0010
+  clause 4 it is an explicit `apo.residue_range` on a new `bcr_abl1_trimmed` arm over the
+  **same `1OPL`:A input**, plus a re-freeze — and the boundary must come from a **cited
+  domain assignment** (UniProt P00519 / Pfam PF07714, version pinned), never from us picking
+  a number, because that is exactly the knob ADR 0010 refuses. Blocking Phase 1.0's C5
+  closure; tracked in `docs/ROADMAP.md`.
 - **The second negative set blocks scoring, not just reporting.** §5 class 2 needs a geometric
   pocket detector; none is installed. Choosing one after seeing method results would make the
   detector a hyperparameter — which detector, what surface definition, how pockets merge, what

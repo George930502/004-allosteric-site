@@ -166,7 +166,7 @@ def test_sibling_functional_sites_leave_the_background(manifest):
 
     frozen = json.loads(benchmark.FROZEN.read_text())
     where = {
-        s["id"]: (s.get("site"), s["apo"]["pdb"], s["apo"]["chain"]) for s in manifest["targets"]
+        s["id"]: (s["site_id"], s["apo"]["pdb"], s["apo"]["chain"]) for s in manifest["targets"]
     }
     checked = 0
     for target, derived in frozen["targets"].items():
@@ -181,6 +181,58 @@ def test_sibling_functional_sites_leave_the_background(manifest):
                 f"{target}: {other}'s labels {sorted(foreign - excluded)} are scored as negatives"
             )
     assert checked, "no sibling-site pair found; this test would pass vacuously"
+    # The converse, which is where the free-text bug lived: two arms on the *same* site must
+    # never mask each other. Site 1's XB2 and 2OW arms share `8QYP`:A and share `myh7_site1`.
+    for target, derived in frozen["targets"].items():
+        for other, other_derived in frozen["targets"].items():
+            if other == target or where[other] != where[target]:
+                continue
+            own = set(other_derived["label_residues"]) - set(derived["label_residues"])
+            assert not (own & set(derived["excluded_from_scoring"])), (
+                f"{target}: excludes {sorted(own & set(derived['excluded_from_scoring']))}, "
+                f"which are {other}'s labels for the *same* site"
+            )
+
+
+def test_the_confirmatory_family_is_every_corrected_arm(manifest):
+    """Section 5 Holm-corrects across the confirmatory family. Its size must not be hand-typed.
+
+    It was, once: "three tests" counted proteins, but a target is a protein *plus a site*
+    (ADR 0008), so myosin's two sites make four corrected arms. Either Site 2 was being
+    dropped from the family or the family-wise error rate was under-corrected.
+    """
+    computed = benchmark.stats()
+    corrected = {s["id"] for s in manifest["targets"] if s.get("tier") == "corrected"}
+    assert set(computed["confirmatory_family"]) == corrected, (
+        f"stats() family {sorted(computed['confirmatory_family'])} != corrected arms "
+        f"{sorted(corrected)}"
+    )
+    readme = (benchmark.ROOT / "docs" / "benchmark" / "README.md").read_text()
+    spelled = {2: "Two", 3: "Three", 4: "Four", 5: "Five"}[computed["family_size"]]
+    assert f"{spelled} tests, Holm-corrected across the {spelled.lower()}" in readme, (
+        f"README section 5 does not say '{spelled} tests' for a family of {computed['family_size']}"
+    )
+
+
+def test_site_identity_is_canonical_not_free_text(manifest):
+    """ADR 0011's sibling rule keys on `site_id`, because `site` is a display string.
+
+    It once keyed on `site`, and the two halves of myosin Site 1 read "mavacamten site" and
+    "mavacamten/omecamtiv pocket (Site 1)" -- so they masked each other's labels as if they
+    were different pockets and both candidate counts were wrong. A benchmark invariant may
+    not depend on how a label happened to be worded.
+    """
+    for spec in manifest["targets"]:
+        site_id = spec.get("site_id", "")
+        assert re.fullmatch(r"[a-z0-9_]+", site_id), f"{spec['id']}: site_id {site_id!r}"
+    # Arms of the same site must agree, arms of different sites must not collide.
+    by_id: dict[str, set[str]] = {}
+    for spec in manifest["targets"]:
+        by_id.setdefault(spec["site_id"], set()).add(spec["site"])
+    assert by_id["myh7_site1"] > {"mavacamten site"}, (
+        "the two spellings of Site 1 no longer differ; this test has stopped testing anything"
+    )
+    assert len(by_id) == 4, f"expected 4 distinct sites across the freeze, got {sorted(by_id)}"
 
 
 def test_the_manifest_pins_the_same_apo_bytes_as_the_freeze(manifest):

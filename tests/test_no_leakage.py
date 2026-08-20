@@ -156,7 +156,9 @@ def test_the_manifest_reaches_prediction_code_with_the_answer_key_stripped():
         assert not leaked, f"{target['id']}: prediction path can see {sorted(leaked)}"
     # Allow-list, not deny-list: a field added to the manifest tomorrow must be redacted by
     # default. If this fires, decide whether the new field is apo-side and add it explicitly.
-    known_apo_side = {"id", "tier", "protein", "site", "apo", "active_site", "status"}
+    known_apo_side = {
+        "id", "tier", "protein", "site", "site_id", "apo", "active_site", "status",
+    }  # fmt: skip
     for target in redacted["targets"]:
         assert set(target) <= known_apo_side, (
             f"{target['id']}: unreviewed field(s) {sorted(set(target) - known_apo_side)} "
@@ -224,15 +226,69 @@ def test_the_manifest_guard_would_catch_the_route_it_missed(graph):
             assert reaches(graph, module, GROUND_TRUTH) is None, module
 
 
-def test_experiment_scripts_never_read_the_frozen_label_sets():
-    """The same data route, one directory over. `experiments/` is where a run lives,
-    and nothing there imports through `src/allo`, so the import graph cannot see it."""
+# Every directory outside `src/allo` that can execute a prediction. The import graph does
+# not reach them -- nothing in `src/allo` imports an experiment -- so they get walked
+# directly, with the same AST, against the same rule.
+OUTSIDE_THE_PACKAGE = ("experiments", "scripts")
+
+# Naming these is the whole point: `allo.benchmark` is allow-listed *inside* the package
+# because it is the evaluation entry point, and it re-exports `load` (the unredacted
+# manifest) and `FROZEN` (the label sets). A run script that imports it has the answer key,
+# by a route with no `groundtruth` and no `frozen.json` anywhere in its text.
+FORBIDDEN_OUTSIDE = (GROUND_TRUTH, "allo.benchmark")
+
+
+def test_run_scripts_never_import_the_evaluation_side():
+    """The hole a string search left open, found by an adversarial review.
+
+    The old guard grepped `experiments/*.py` for `frozen.json` or `groundtruth`. Neither
+    string appears in `from allo import benchmark`, and `benchmark.load()` returns the
+    unredacted manifest while `benchmark.FROZEN` points at the labels. A run script could
+    read both with every leakage test green.
+    """
+    offenders = []
+    for directory in OUTSIDE_THE_PACKAGE:
+        for path in sorted((ROOT / directory).rglob("*.py")):
+            imports = direct_imports(path, package="")
+            hit = {
+                name
+                for name in imports
+                for bad in FORBIDDEN_OUTSIDE
+                if name == bad or name.startswith(bad + ".")
+            }
+            if hit:
+                offenders.append(f"{path.relative_to(ROOT)} -> {sorted(hit)}")
+    assert not offenders, "run scripts reaching the evaluation side:\n" + "\n".join(offenders)
+
+
+def test_run_scripts_never_name_the_frozen_files_either():
+    """Belt to the import guard's braces: a bare `open()` needs no import at all."""
     offenders = [
-        p.relative_to(ROOT)
-        for p in sorted((ROOT / "experiments").rglob("*.py"))
-        if "frozen.json" in (text := p.read_text()) or "groundtruth" in text
+        path.relative_to(ROOT)
+        for directory in OUTSIDE_THE_PACKAGE
+        for path in sorted((ROOT / directory).rglob("*.py"))
+        if any(
+            token in path.read_text()
+            for token in ("frozen.json", "FROZEN", "manifest.yaml", "MANIFEST", "groundtruth")
+        )
     ]
-    assert not offenders, f"experiment scripts reaching holo-derived data: {offenders}"
+    assert not offenders, f"run scripts naming a frozen file directly: {offenders}"
+
+
+def test_the_run_script_guard_would_catch_a_violation(tmp_path):
+    """A guard that cannot fail is not a guard."""
+    for source in (
+        "from allo import benchmark",
+        "from allo.benchmark import FROZEN",
+        "import allo.benchmark as b",
+        "from allo.groundtruth.manifest import read_manifest",
+    ):
+        probe = tmp_path / "run.py"
+        probe.write_text(source)
+        found = direct_imports(probe, package="")
+        assert any(
+            name == bad or name.startswith(bad + ".") for name in found for bad in FORBIDDEN_OUTSIDE
+        ), f"detector missed: {source!r} -> {found}"
 
 
 def test_the_detector_sees_every_import_form(tmp_path):

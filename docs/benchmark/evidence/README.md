@@ -22,7 +22,7 @@ disagrees with `frozen.json`, the freeze wins.
 | `prior-prediction-attempts.md`       | The same question from the cryptic-pocket side — deliberately not repeated in the file above. Includes Grant 2011, who predicted the S-IIP two years before Ostrem                                                  |
 | `target-prior-art.md`                | Working on one target's biology. What the literature says about each of the three pockets                                                                                                                           |
 | `myosin-structural-landscape.md`     | Anything myosin. The exhaustive RCSB sweep that found the replacement pairs after `6C1H` failed, and the ligand-centroid geometry separating Site 1 from Site 2                                                     |
-| `allosteric-pair-audit.md`           | Asking what a high benchmark score actually demonstrates. Tests every frozen arm for an active-site response to the effector — and finds none, which is why the claim is site identification, not coupling recovery |
+| `allosteric-pair-audit.md`           | Asking what a high benchmark score actually demonstrates. Tests **eight of the ten** frozen arms for an active-site response to the effector — and finds none, which is why the claim is site identification, not coupling recovery. Its tables predate ADR 0008's Site 1/Site 2 split; the reproduction script was repaired 2026-08-20 and now covers all ten, but has not been re-run |
 | `claim-verification.md`              | Checking the challenge statement itself. Seven claims from `CHALLENGE.md` §6 Table 1 against independent records                                                                                                    |
 
 ## How to read them
