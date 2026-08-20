@@ -99,7 +99,6 @@ condition fires, not to browse.
 | `docs/benchmark/README.md`           | Any question about what a method is scored on. `frozen.json` is the authority for every residue count, label set and active site — never quote one from prose. `n_residues` is what a method **receives**; `n_candidates` is what it is **scored against**, and they are not the same number (ADR 0011)  |
 | `docs/targets.md`                    | Touching a specific protein, its chains, or its ground-truth labels                                                                                                                   |
 | `docs/adr/`                          | Before choosing between credible alternatives; write one when the choice would be expensive to reverse. `README.md` there gives the format                                            |
-| `src/allo/AGENTS.md`                 | Adding or moving a module — package layout and the dependency rule that enforces C1                                                                                                   |
 | `experiments/README.md`              | Setting up a run directory                                                                                                                                                            |
 | `docs/agents/`                       | An installed engineering skill needs the issue tracker, triage labels, or domain-doc layout                                                                                           |
 | `CHALLENGE.md`                       | Any question about what the challenge actually requires. It is the spec; do not answer from memory                                                                                    |
@@ -107,6 +106,52 @@ condition fires, not to browse.
 Not in context and not worth loading: `Cleveland-Clinic-Challenge-Statement-vF.pdf`
 (4.2 MB — `CHALLENGE.md` is the complete restatement), and anything under `data/raw/`
 (parse it with code and print a summary; never read a PDB into context).
+
+---
+
+## Package layout
+
+`src/allo/` is organised by pipeline stage, not by abstraction. Add a module when a stage
+needs one, not before.
+
+```
+structure/    PDB fetch/parse -> coordinates, residue indexing
+network/      contact graph / elastic network construction, coarse-graining
+quantum/      Hamiltonians, propagation metrics, circuits, noise models
+classical/    baselines (GNM/ANM, random walk, betweenness, perturbation response)
+scoring/      ranking, enrichment statistics, decoy generation
+groundtruth/  holo-derived labels ONLY — never imported by prediction code (C1)
+viz/          2D plots and 3D structure rendering
+inputs.py     the one prediction-path module that opens the manifest
+benchmark.py  the freeze and its verification — evaluation side
+cli.py        `allo <stage> ...` entry point
+```
+
+**`groundtruth/` is a sink.** Nothing imports from it except scoring and reporting. This is
+C1 expressed in the import graph: holo structures, ligand contacts and label sets enter the
+repo only through it. If anything on the prediction path imports it — directly or
+transitively — the blind prediction is compromised and the submission is invalid.
+
+**Two data routes bypass the import graph, and both are guarded separately.**
+`docs/benchmark/frozen.json` holds the label sets, and no prediction-path module may name it.
+`docs/benchmark/manifest.yaml` holds the holo accessions, the effector component IDs and —
+in `blind.why`, `defect` and `note` — label residue numbers written out in prose.
+`allo.inputs` is the **only** prediction-path module permitted to open it, and `load()`
+rebuilds the result from two allow-lists, so a field added later is redacted by default. The
+unredacted read is `allo.groundtruth.manifest.read_manifest`, behind the import guard.
+`allo.inputs` must never regain a verbatim reader. All of it is enforced by
+`tests/test_no_leakage.py`; an import trace cannot see the `frozen.json` route, so the
+file-read and content tests are what does.
+
+Dependencies point inward toward the network/propagation logic, never outward toward I/O,
+cloud backends or plotting. `quantum/` must be callable without Braket credentials,
+`network/` without a PDB fetch. Pass the capability in.
+
+**Conventions.** Residue identity is **author numbering plus chain ID**, preserved end to
+end — a hit list indexed by matrix row is not readable by a medicinal chemist and is not a
+deliverable (`docs/FIELD.md`). Every stochastic function takes an explicit `seed`. Any
+function returning a residue score returns it alongside the residue identity, never as a
+bare array whose ordering the caller must reconstruct.
 
 ---
 

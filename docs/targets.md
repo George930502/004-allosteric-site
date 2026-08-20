@@ -100,6 +100,11 @@ the frozen benchmark and the corrected pairs are in `docs/benchmark/`.
 - `1OPL` quality: 3.42 Å, R-free 0.315, **6.50 % RSRZ outliers** (wwPDB validation report,
   `percent-RSRZ-outliers`; an earlier 22.2 % here was a percentile read as a percentage). Chains A
   and B differ by 23 Å globally; chain B lacks the myristate and the αI helix.
+- Strict-C5 sensitivity: `bcr_abl1_trimmed` uses the same `1OPL`:A bytes and admits only
+  residues 261–512. The range is derived in code from UniProtKB P00519 release 2026_02:
+  canonical kinase 242–493 plus the P00519-2 isoform's +19 deposited-number offset. It has
+  252 nodes and 17 labels; myristate still contacts 13, so scope trimming does not repair the
+  mandated pair's site-apo defect.
 - The myristoyl pocket is **not cryptic**, and the literature says so: Paladini et al.
   (*eLife* 2024) describe `1M52` as having an "empty myristoyl binding pocket" with a
   straight αI helix; Wylie 2017 calls it "vacant". Asciminib transplants into every myristate-free

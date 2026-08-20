@@ -421,7 +421,7 @@ Endpoints used, all 2026-08-20:
   UniProt refs, source organism, length) and `nonpolymer_entities` (chem-comp id/name/weight).
 - `GET https://data.rcsb.org/rest/v1/core/chemcomp/{id}` — names, synonyms, formula, SMILES.
 - `GET https://files.rcsb.org/download/{id}.cif` — all coordinate geometry, via
-  `allo.structure.pdb.fetch_mmcif`.
+  evaluation-side `allo.groundtruth.structures.fetch_mmcif`.
 - `GET https://www.ebi.ac.uk/europepmc/webservices/rest/search` — depositing-paper abstracts
   (NCBI eutils is robots-blocked; see the memory note on literature fetch routes).
 

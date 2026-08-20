@@ -1,6 +1,6 @@
 # 0006 — Cofactors, and modified residues, as network nodes
 
-**Status:** proposed · 2026-08-20
+**Status:** accepted · 2026-08-20
 
 ## Context
 
@@ -38,8 +38,10 @@ protein-only, and every classical baseline we must compare against is defined th
    `M3L` → Lys, `MSE` → Met, and so on. Membership is decided by `label_seq_id`, never by
    the ATOM/HETATM flag (`src/allo/structure/pdb.py`). A trimethyl-lysine is a lysine in
    the chain; dropping it would renumber the chain and break the alignment that carries
-   labels across (ADR 0004). Whether the modification changes a node's _properties_ is out
-   of scope here and is not currently modelled.
+   labels across (ADR 0004). Parent mapping applies to topology as well as the one-letter
+   sequence: before prediction, `M3L` is renamed `LYS` and PTM-only atoms `CM1`, `CM2` and
+   `CM3` are removed. Heavy-atom contact edges therefore come from the parent lysine atom set,
+   not the trimethyl group. Modified node properties are not modelled.
 4. **The residue set the network is built on is `allo.inputs.apo_input(...).residues`**, and
    nothing else. It is the frozen `n_residues` count in `frozen.json`.
 
@@ -57,6 +59,10 @@ protein-only, and every classical baseline we must compare against is defined th
 - Risk accepted: if propagation through the nucleotide turns out to be mechanistically
   important on KRAS, the default understates the signal. That is why the ablation is
   declared now — so running it later is a pre-registered check, not a rescue.
-- Status is **proposed**: the default is what the code will do, but this is a modelling call
-  the principal investigator may want to make differently, and reversing it before Phase 1.2
-  costs nothing.
+- **Accepted.** It was left proposed on the reasoning that reversing it before Phase 1.2
+  costs nothing — but this ADR's own opening says an input-layer question "has to be settled
+  before any method runs or it becomes a knob", and `docs/ROADMAP.md` declares the input
+  layer closed. A reversible node-set decision is not a frozen input layer, and an
+  adversarial review found the two statements contradicting each other. Accepting it is what
+  makes the freeze true; the declared ablation is how the alternative still gets measured,
+  as a pre-registered check rather than a rescue.

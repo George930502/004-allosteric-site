@@ -4,10 +4,12 @@
 
 ## Context
 
-ADR 0007 removed propagation-source residues from the **positive** class, on a rule
-published in this field: AlloPred's "Active site residues were not counted as being in any
-pocket … in order to avoid direct perturbation of the site at which the effect was
-measured" ([10.1186/s12859-015-0771-1](https://doi.org/10.1186/s12859-015-0771-1)).
+ADR 0007 removed propagation-source residues from the **positive** class under this
+repository's anti-circularity policy. AlloPred is a methodological analogy: its
+spring-perturbation procedure did not count active-site residues in candidate pockets, to
+avoid perturbing the site where the effect was measured
+([10.1186/s12859-015-0771-1](https://doi.org/10.1186/s12859-015-0771-1)); it did not define a
+benchmark universe.
 `docs/benchmark/README.md` §5 states the reason in its own words — such a residue "scores
 maximally by construction and therefore measures nothing".
 
@@ -49,37 +51,46 @@ Found by an adversarial review (Codex, `gpt-5.6-sol`), not by us.
    construction rather than by evidence. Two grounds, both frozen:
    - **The propagation source.** Every residue of the frozen active site (ADR 0005). Set
      membership, not distance — the same rule ADR 0007 already applies to the positives.
-   - **Sibling functional sites.** Residues this benchmark itself labels as a _different_
-     functional site on the same apo entry and chain. On `8QYP`:A we freeze both myosin
-     Site 1 and Site 2; scoring Site 1 with Site 2's residues as negatives penalises a
-     method for being right about biology we curated. §5 already excludes sibling sites
-     from the decoys; the background now agrees. Two arms on the _same_ site with different
-     effectors (Site 1 under XB2 and under 2OW) are not siblings.
+   - **Registered functional sites.** Residues in the explicit per-protein registry amended
+     by ADR 0015. Scoring one functional site with another as negatives penalises a method
+     for being right about biology we curated. The registry is independent of the number of
+     arms, and the background and decoy rules use the same authority.
 2. **`n_candidates` and `excluded_from_scoring` are frozen per arm** in `frozen.json`, and
    every hypergeometric baseline, prevalence and simulated AUC in §5 is computed on them.
    The node set `n_residues` stays frozen and reported: it is what a method _receives_
    (ADR 0010), and the two are different quantities that were previously one.
 3. **The exclusion never touches the input.** A method still receives the whole modelled
-   chain, active site included — it needs the source set, that is what it propagates from.
-   This is a scoring-universe rule, not a node-set rule.
+   chain on primary arms, or the explicit manifest-admitted range on a scope sensitivity,
+   active site included — it needs the source set, that is what it propagates from. This is a
+   scoring-universe rule, not a node-set rule.
 4. **Adding a ground for exclusion is a manifest change plus a re-freeze**, never a filter
    applied when a result is read.
 
 ## Consequences
 
 - **Every §5 number moved.** KRAS `P(≥1 hit)` 0.396 → **0.445**, ABL1 corrected 0.292 →
-  **0.302**, myosin Site 1 corrected 0.076 → **0.078**; scoreable prevalence rises on every
+  **0.302**, myosin Site 1 corrected 0.076 → **0.078** (**0.081** once
+  ADR 0015 widened the rule); scoreable prevalence rises on every
   arm (KRAS 9.5 % → **11.0 %**). The baselines got _harder_, which is the correct direction:
   a smaller universe makes a random top-5 more likely to hit.
-- The three `8QYP` arms lose 20–23 further residues to the sibling rule, so myosin Site 1's
-  x-ray arm and Site 2 are now scored on 659 and 662 candidates against 706 nodes.
+- The current registry-backed counts include
+  `_sensitivity_xray` **659**,
+  `_omecamtiv` **662** and
+  `site2_corrected` **662**, against 706 nodes.
+- Because the exclusion is this repository's policy rather than a published benchmark rule,
+  every confirmatory result is also reported over the whole node set with the same scoreable
+  positives. `allo benchmark stats` regenerates both chance lines under
+  `scoring_universe_sensitivity`; the candidate set remains primary.
 - **This is the last moment it was cheap.** It changes the chance line for every claim the
   report will make. Done after a method had been scored, it would have been indistinguishable
   from moving the goalposts.
 - Guarded by `test_the_scoring_universe_excludes_what_scores_by_construction` and
-  `test_sibling_functional_sites_leave_the_background`, so the two halves of the rule cannot
+  `test_same_site_labels_are_not_negatives_in_a_sibling_arm`, so the two halves of the rule cannot
   drift apart again.
-- **Open:** the ASD selection set will contain proteins with several curated sites and no
-  `site` field to separate them. The sibling rule needs a general form before that set is
-  frozen (ROADMAP 1.7).
+- The same explicit registry form applies when the ASD selection set contains several sites.
 - Amends ADR 0007, which stated the positive-class half of this rule and stopped there.
+- **Amended in turn by ADR 0015.** The first amendment replaced the entry-local `site_id`
+  boundary with a same-protein union carried across entries. Round 5 found that union still
+  made an arm depend on how many siblings were curated. ADR 0015 now replaces the union with
+  an explicit per-protein functional-site registry, still carried across entries by
+  alignment. Adding an arm cannot move another arm's universe.

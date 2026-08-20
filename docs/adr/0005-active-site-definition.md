@@ -56,9 +56,9 @@ version of this manifest did exactly that, and carried `1OPL`'s active site unde
   connectivity to the active site will rank those residues top for trivial reasons. The
   evaluation therefore reports enrichment both over the full label set and over the
   **scoreable** label set with the active-site residues removed, and the scoreable
-  figure is the one that answers the challenge's actual question. BCR-ABL1 (10.6 Å minimum on the
-  mandated pair, 10.8 Å corrected and 10.8 Å sensitivity) and cardiac myosin (16.5 Å corrected, 13.3 Å on the X-ray
-  sensitivity arm) have no such overlap.
+  figure is the one that answers the challenge's actual question. BCR-ABL1 and myosin Site 1
+  have no such overlap; myosin Site 2 deliberately does, with three source residues in its
+  full label set.
 - Rule 2 is fold-specific. Extending to an ASD target with a different fold needs a motif
   definition for that fold, or a cofactor-bearing apo entry.
 
@@ -68,8 +68,9 @@ version of this manifest did exactly that, and carried `1OPL`'s active site unde
 **Amendment, 2026-08-20 (ADR 0007).** This ADR originally said the evaluation reports over a
 **distal** label set "with the active-site-adjacent residues removed". Withdrawn on two
 counts. The set is now the **scoreable** label set, and the rule is **set membership, not
-distance**: a label is excluded exactly when it is itself a propagation-source residue, which
-is AlloPred's published rule (doi:10.1186/s12859-015-0771-1) and costs no labels to a
+distance**: a label is excluded exactly when it is itself a propagation-source residue. This
+is the repository's anti-circularity policy; AlloPred is a procedural analogy, not a
+published benchmark-universe rule (doi:10.1186/s12859-015-0771-1). It costs no labels to a
 threshold nobody in the allostery literature states. The earlier 5 Å version discarded KRAS
 residues 10 and 58, neither of which is an active-site residue under this ADR's own rule — a
 second, undeclared criterion operating silently. Proximity is handled in the evaluation layer

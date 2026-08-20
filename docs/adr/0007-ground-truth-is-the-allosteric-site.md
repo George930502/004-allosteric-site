@@ -65,9 +65,10 @@ and would discard valid allosteric pairs for the sin of having an open pocket.
   and "the eight arms". Both became wrong once the work this ADR authorises was carried out.
   `frozen.json` gained `scoreable_label_residues` in place of `distal_label_residues` (KRAS
   14 → 16), a rewritten `apo_site_occupancy`, `labels_beyond_angstrom` in place of
-  `distal_by_threshold`, and `holo_site_occupancy`; and there are **ten** scoreable arms, not
-  eight, because ADR 0008 added myosin Site 2 and the omecamtiv sensitivity arm. The claim
-  that survives is the one about label sets.
+  `distal_by_threshold`, and `holo_site_occupancy`; and that freeze had **ten** scoreable
+  arms, not eight, because ADR 0008 added myosin Site 2 and the omecamtiv sensitivity arm.
+  ADR 0010's later strict-C5 sensitivity adds an eleventh scoreable arm without changing the
+  underlying label definition. The claim that survives is the one about label sets.
 - `docs/benchmark/README.md` §1 must be re-anchored on the allostery literature rather
   than the cryptic-pocket literature, and §4's pass/fail table recast as a difficulty
   table. Tracked as the work this ADR authorises.

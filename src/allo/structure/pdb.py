@@ -10,26 +10,27 @@ benchmark freeze checkable — see docs/benchmark/README.md.
 from __future__ import annotations
 
 import hashlib
-import urllib.request
 from dataclasses import dataclass
 from pathlib import Path
 
 import numpy as np
 from Bio.PDB.MMCIF2Dict import MMCIF2Dict
 
-RCSB_FILE = "https://files.rcsb.org/download/{pdb_id}.cif"
-_UA = {"User-Agent": "allo-benchmark/0.1 (+https://github.com/George930502/004-allosteric-site)"}
+APO_STRUCTURES = Path(__file__).resolve().parents[3] / "structures" / "apo"
 
 
 def fetch_mmcif(pdb_id: str, dest_dir: Path) -> Path:
-    """Download `pdb_id`'s mmCIF into `dest_dir` unless it is already there."""
-    dest_dir.mkdir(parents=True, exist_ok=True)
-    path = dest_dir / f"{pdb_id.upper()}.cif"
-    if not path.exists():
-        request = urllib.request.Request(RCSB_FILE.format(pdb_id=pdb_id.upper()), headers=_UA)
-        with urllib.request.urlopen(request, timeout=120) as response:  # noqa: S310
-            path.write_bytes(response.read())
-    return path
+    """Refuse free-form accession resolution on the prediction path.
+
+    A method starts from :func:`allo.inputs.apo_input`, which binds the accession to a
+    repository target and checks its hash. Accepting an arbitrary PDB id here let the same
+    prediction-side module restore tracked holo coordinates without importing ground truth.
+    Evaluation-side resolution lives in :mod:`allo.groundtruth.structures`.
+    """
+    del pdb_id, dest_dir
+    raise PermissionError(
+        "free-form structure resolution is unavailable; use allo.inputs.apo_input"
+    )
 
 
 def sha256(path: Path) -> str:
@@ -42,7 +43,7 @@ class Structure:
     """First model of one mmCIF entry, as parallel per-atom arrays.
 
     `chain`/`seq_id` are *author* numbering: the units a medicinal chemist reads
-    (src/allo/AGENTS.md). `hetatm` marks non-polymer atoms, so ligands can be
+    (AGENTS.md). `hetatm` marks non-polymer atoms, so ligands can be
     selected without a second parse.
     """
 
