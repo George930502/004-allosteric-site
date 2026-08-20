@@ -53,11 +53,13 @@ later number believable.
    gone stale against the code, and §5's AUC line no longer regenerated. All corrected, and
    each class now has a test or a derived field behind it rather than a promise. Two decisions
    were forced out into the open: **ADR 0009** (resolution is a selection rule, so it binds the
-   ASD set and not the hand-specified primary arms) and **ADR 0010, proposed** (the node set is
-   the modelled chain, not a trimmed catalytic domain — worth the PI's explicit call, since the
-   strict C5 reading would shrink the mandated ABL1 arm by ~40 %). One real C1 leak *surface*
-   was closed: `manifest.yaml` carries label residue numbers in prose, so `allo.inputs.load()`
-   now redacts the holo half by allow-list and two new tests hold it there.
+   ASD set and not the hand-specified primary arms) and **ADR 0010, accepted** (the node set is
+   the modelled chain, not a trimmed catalytic domain; the strict C5 reading would have shrunk
+   the mandated ABL1 arm by ~40 % and deleted the SH3–SH2 clamp the myristoyl pocket acts
+   through, and is declined — now guarded by a test tying `apo_input` to `n_residues`). One
+   real C1 leak *surface* was closed: `manifest.yaml` carries label residue numbers in prose,
+   so `allo.inputs.load()` now redacts the holo half by allow-list and two new tests hold it
+   there.
 
 1. **Structure ingest** — fetch apo PDBs, select catalytic domain / chain, drop
    waters, co-factors and PTMs (C5), index residues canonically (auth numbering,

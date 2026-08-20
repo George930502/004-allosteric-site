@@ -143,6 +143,33 @@ def test_frozen_values_still_derive_from_the_deposited_files():
 
 
 @pytest.mark.network
+def test_methods_and_the_benchmark_agree_on_the_node_set(manifest):
+    """ADR 0010 clause 1: the node set is every modelled residue of the frozen chain.
+
+    Two code paths compute it independently. `allo.inputs.apo_input` is what a *method*
+    receives, and counts modelled polymer residues; `benchmark.derive` sets `n_residues`,
+    the denominator of label prevalence and of every hypergeometric baseline, and counts
+    residues carrying a CA atom. Those are the same set only while every modelled residue
+    has a CA — true on all ten arms today, but nothing made it true.
+
+    If they ever diverge, methods are scored against a denominator that is not the node set
+    they were given, and no other test would notice. This is also the guard on ADR 0010
+    itself: silently trimming a domain inside the loading code fails here.
+    """
+    import json
+
+    frozen = json.loads(benchmark.FROZEN.read_text())
+    from allo.inputs import apo_input
+
+    for target, derived in frozen["targets"].items():
+        given = apo_input(target).residues
+        assert len(given) == derived["n_residues"], (
+            f"{target}: methods receive {len(given)} nodes but the benchmark scores against "
+            f"n_residues={derived['n_residues']}"
+        )
+
+
+@pytest.mark.network
 def test_label_sets_do_not_depend_on_a_minor_conformer(manifest):
     """`parse_mmcif` keeps every altloc and nothing filters by occupancy.
 

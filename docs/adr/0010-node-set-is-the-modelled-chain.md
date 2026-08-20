@@ -1,6 +1,6 @@
 # 0010 — The frozen node set is the modelled chain, not a trimmed catalytic domain
 
-**Status:** proposed · 2026-08-20
+**Status:** accepted · 2026-08-20 (proposed and accepted the same day by the PI)
 
 ## Context
 
@@ -62,10 +62,16 @@ defect the tier exists to expose. The same effect is smaller but present on myos
 
 - **No frozen number changes.** This records what the benchmark already does, which is why
   it is cheap now and expensive after the report quotes an N.
-- Status is **proposed**, not accepted: the strict reading of C5 is a live alternative, and
-  adopting it would shrink the ABL1 mandated arm by ~40 % and change every ABL1 baseline. The
-  choice belongs to the principal investigator, and leaving it unrecorded was the one option
-  with no defence.
+- **Accepted by the PI.** The strict reading of C5 — trim to the catalytic domain — was the
+  live alternative and is now declined. Adopting it would have shrunk the ABL1 mandated arm by
+  ~40 % and changed every ABL1 baseline, and on that arm it would have deleted the SH3–SH2
+  clamp, which is the mechanism the myristoyl pocket acts through. Reopening this is a
+  manifest change plus a re-freeze, not a code default.
+- **Enforced, not just recorded.** `tests/test_benchmark.py::test_methods_and_the_benchmark_agree_on_the_node_set`
+  asserts that what `apo_input` hands a method is exactly the `n_residues` the benchmark
+  scores against. The two are computed by different code paths — modelled polymer residues
+  against residues carrying a Cα — so they agreed by coincidence rather than by construction.
+  Trimming introduced anywhere in the loading path now fails this test.
 - A reviewer applying C5 strictly will ask about `1OPL`'s SH3–SH2. The answer is here rather
   than improvised.
 - The ASD selection set will contain multi-domain proteins where this bites harder than it
