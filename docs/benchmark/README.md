@@ -1,8 +1,17 @@
 # The frozen benchmark
 
-**Status: frozen 2026-08-20.** The input layer is fixed. Every method is scored on
-identical structures, identical residue sets, identical labels and identical negatives, so
-that a difference between two methods is a difference between the methods.
+**Status: input layer and positives frozen 2026-08-20. The negatives are not, and until
+they are, no method may be scored here.** Every method receives identical structures,
+identical residue sets and identical labels, pinned to the byte — `apo_input` refuses a file
+whose sha256 is not the frozen one. What is *not* yet fixed is the second negative class the
+challenge requires (§4.1: enrichment against "non-functional surface pockets") and the
+calibration of the patch null. Both are listed in §7 with the gate they have to clear.
+
+An earlier version of this line said "identical negatives", which was not true and would have
+left the pocket detector's configuration, surface definition and merging rules choosable
+*after* methods had been seen — the exact tuning surface freezing exists to close. **Scoring
+gate: `allo benchmark verify` clean, decoy artifacts committed, and the null calibrated
+(§5) — all three, before any method's number is quotable.**
 
 ```bash
 uv run allo benchmark show      # what is frozen, derived live from the deposited files
@@ -44,7 +53,11 @@ sites are not allosteric (ADR 0007). Full clause-by-clause traces with quotes:
 > functional requirement with a _topographic_ one — the site must be "topographically distinct
 > from the orthosteric functional site" — so this clause narrows ASD rather than restating it,
 > and it does so because ~30 % of CASBench's allosteric sites border the catalytic site.)
-> **(iii) Site-apo.** The _apo_ member contains **no ligand of any kind within that site**.
+> **(iii) Site-apo.** The _apo_ member contains **no ligand of any kind within the
+> _scoreable_ portion of that site** — the labels a method is actually asked to find. Contacts
+> to the full label set are recorded beside it and do not disqualify: where the allosteric and
+> orthosteric sites share a border, the catalytic cofactor touches labels that are *themselves*
+> active-site residues, which is two sites adjoining, not a modulator in the pocket.
 > **(iv) Identity.** Same protein at **≥ 90 % sequence identity**, differences enumerated.
 > **(v) Assembly.** Same oligomeric state. (The second half of this clause — that the modelled
 > state should _be_ the biological assembly — is **ours**; Amor supplies same-oligomeric-state
@@ -64,7 +77,7 @@ Where each clause comes from, and it is worth naming because none of it is ours:
 | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | (i) radius | ASD v2.0 **6 Å** ("residues … automatically extracted … by 6 Å around allosteric modulator"); CASBench **5 Å** (verbatim). Two weaker entries, marked because they are often quoted as peers of the first two: **ASBench 4 Å** is _not_ in ASBench's paper — it is Wu et al.'s reading of ASBench's files, its construction rules being in the paywalled SI; and **Amor 3.5 Å** is a caspase-1 result ("residues within 3.5 Å of the allosteric **site** of caspase-1"), not a set-wide convention. Our 4.5 Å matches none exactly and is declared at first use |
 | (ii)       | ASD v1 requires "at least three cases of experimental evidence … inactive mutation of allosteric residue, cooperativity of kinetic effect from two ligands and uncompetitive-binding assay"                                          |
-| (iii)      | ⚠️ **borrowed.** ASD's "apo" is _modulator_-relative. No allostery source states the site-relative reading; see the paragraph below                                                                                                  |
+| (iii)      | ⚠️ **borrowed, and narrowed by us twice.** ASD's "apo" is _modulator_-relative; no allostery source states the site-relative reading. The **scoreable-portion** qualifier is ours too — it is the only reading under which a benchmark that deliberately keeps proximal labels (ADR 0007) can have any site-apo clause at all, since the cofactor would otherwise disqualify every arm whose sites adjoin. Both narrowings are stated rather than assumed; see the paragraph below |
 | (iv)       | ESSA — "at least 90% sequence identity". The field's **only** published pairing threshold                                                                                                                                            |
 | (v)        | Amor et al. exclude on "a mismatch between the oligomeric state of the active and inactive structures"; Wu et al. flag ASBench entries that are one part of a multimer "where the effect of cooperativity might play a crucial role" |
 | (vii)      | AlloPred — "Active site residues were not counted as being in any pocket … in order to avoid direct perturbation of the site at which the effect was measured"                                                                       |
@@ -75,6 +88,15 @@ fluctuation entropy with no mean-coordinate signature. No allostery source state
 requirement in either direction; the only state-aware criterion in the reviewed corpus is
 Amor's oligomeric one. So pocket-lining change is reported as a diagnostic and never used as
 an inclusion filter.
+
+**Clause (iii) is checked over the scoreable set, and an earlier version of this document
+said "no ligand of any kind within that site" while the code checked the narrower thing.**
+The wording is now what `derive()` does. The narrowing is defensible — on `4OBE` the five
+contacted labels are all active-site residues, so the clause would otherwise reject a pair
+for the very geometry ADR 0007 chose to keep — but it uses a *scoring* construct to make a
+*structural* admission, and that is worth seeing rather than discovering. The full-set counts
+stay in the table below so the decision can be re-litigated on the numbers. `1OPL` fails on
+either reading: none of its 16 contacted labels is an active-site residue.
 
 **Selecting the apo entry is not blind to the answer, and that is fine — but the bias runs
 in both directions and an earlier draft claimed only one.** Clause (iii) uses the holo-defined
@@ -291,6 +313,13 @@ On `1OPL` that is 451 residues including SH3 and SH2, against 272 for the kinase
 `2G2H` — so the mandated ABL1 arm's harder chance line is mostly construct extent, not the
 myristate defect its tier exists to expose, and the two must not be compared as if it were.
 
+**N is what a method _receives_, not what it is _scored against_.** The scoring universe is
+the smaller **candidate set** — N minus the propagation source, minus any sibling functional
+site on the same apo chain (ADR 0011) — because a residue that a connectivity score ranks top
+by construction is no more a negative than it is a positive. It runs 146 to 886 against N of
+169 to 912, and every chance line in §5 is computed on it. The input is untouched: a method
+still gets the whole chain, source set included.
+
 The N, |GT| and prevalence columns are read back from `frozen.json` by
 `tests/test_benchmark.py`, so they cannot drift from the freeze. The remaining columns are
 in `frozen.json` but are not yet compared against this prose.
@@ -440,11 +469,12 @@ ground-truth pocket residues against background residues**, each reported with t
 line (0.5 for ROC; the label prevalence for PR). AUC is simultaneously the test statistic
 and the effect size, which avoids reporting significance without magnitude.
 
-**Both, because one is not enough at this prevalence.** Distal-label prevalence runs from
-9.4 % (`kras_g12c_corrected`, 16/170) to 1.3 % (`cardiac_myosin_site1_sensitivity_srx`, 12/912) --
-a **7.1x** span. Simulating a _fixed_ real signal (d = 0.8, 2000 draws, seed 0; regenerate with
-`uv run allo benchmark stats`) across that range gives AUC-ROC **0.711** / **0.712** /
-**0.716** -- flat -- while AUC-PR falls **0.263** -> **0.202** -> **0.065**, a 4.0x span. AUC-ROC is
+**Both, because one is not enough at this prevalence.** Scoreable-label prevalence over the
+candidate set runs from 10.8 % (`kras_g12c_corrected`, 16/148) to
+1.4 % (`cardiac_myosin_site1_sensitivity_srx`, 12/886) -- a **8.0x** span.
+Simulating a _fixed_ real signal (d = 0.8, 2000 draws, seed 0; regenerate with
+`uv run allo benchmark stats`) across that range gives AUC-ROC **0.716** / **0.713** /
+**0.714** -- flat -- while AUC-PR falls **0.292** -> **0.208** -> **0.066**, a 4.4x span. AUC-ROC is
 blind to the imbalance, so a single ROC number would present myosin as an equally solved
 problem when its retrieval task is far harder. The field's own results show the same gap on
 the same predictor: CryptoBench reports AUC 0.86 against AUPRC 0.36
@@ -468,6 +498,27 @@ AlloPred's, published in this field — "Active site residues were not counted a
 pocket … in order to avoid direct perturbation of the site at which the effect was measured"
 ([10.1186/s12859-015-0771-1](https://doi.org/10.1186/s12859-015-0771-1)).
 
+**…and against the _candidate_ set, not the node set. Those residues leave the negatives
+too** (ADR 0011). An earlier version of this protocol removed them from the positives and
+left them in the background, which is not a neutral half-measure — it is a handicap aimed at
+one method class. The challenge asks for connectivity **to an active site**; a method that
+computes it ranks the source set top *because that is the quantity*, and every one of those
+residues then scores as a false positive. A geometric detector takes no such hit. At a fixed
+real effect the cost is **44–62 % of AUC-PR** across these arms, on identical signal:
+
+| arm                              | AUC-ROC geo → conn | AUC-PR geo → conn | AUC-PR lost |
+| -------------------------------- | ------------------ | ----------------- | ----------: |
+| `kras_g12c_mandated`             | 0.799 → 0.679      | 0.386 → 0.146     |    **62 %** |
+| `bcr_abl1_corrected`             | 0.799 → 0.765      | 0.314 → 0.165     |    **47 %** |
+| `cardiac_myosin_site1_corrected` | 0.809 → 0.787      | 0.146 → 0.057     |    **61 %** |
+
+Excluded from both classes, frozen per arm as `excluded_from_scoring` / `n_candidates`: the
+**propagation source** (2.4–13.6 % of the node set; 23 of 169 residues on KRAS), and any
+**sibling functional site** — residues this benchmark labels as a *different* site on the
+same apo chain, which is the three `8QYP` arms where Site 1 and Site 2 are both frozen. The
+rule below for the decoy set was always this; the background now matches it. **The input is
+untouched:** a method still receives the whole modelled chain, source set included.
+
 It bites on exactly two arms. KRAS drops 21 → **16** (residues 11, 12, 13, 16, 34 are
 active-site residues under the frozen `{from_ligands: [GDP, MG]}` rule), and Site 2 on myosin
 drops 21 → **18**. Every other arm is unaffected. Both sets are pinned in `frozen.json`.
@@ -484,12 +535,30 @@ construction ([10.1038/ncomms12477](https://doi.org/10.1038/ncomms12477)) and co
 
 **The null is the opponent, and it is not the rank-sum null.** Residue scores are spatially
 autocorrelated and the label set is a single contiguous patch, so residues are nowhere near
-independent draws. We use a **matched patch null**: sample B = 10,000 connected surface
-patches of the same size as the label set by nearest-neighbour growth on the contact graph
-from a uniformly drawn surface seed, recompute the statistic on each, and take the empirical
-p-value. This preserves size, contiguity and surface exposure, and so controls the confound
-`docs/FIELD.md` §3 names — that any residue score correlates with burial and degree, and
-"buried and well connected" already predicts functional sites.
+independent draws. We use a **matched patch null**: sample B = 10,000 connected patches of
+the same size as the label set by nearest-neighbour growth on the contact graph, drawn from
+the candidate set, recompute the statistic on each, and take the empirical p-value. Four
+properties are matched, and the fourth was missing until an adversarial review found the
+paragraph above promising it and this one not delivering it:
+
+1. **size** — same residue count as the label set;
+2. **contiguity** — connected on the contact graph, by nearest-neighbour growth;
+3. **surface exposure** — seeds drawn from the surface set;
+4. **distance to the active site** — the patch's distance-to-source distribution must match
+   the label patch's, seeds accepted by rejection sampling against it.
+
+Without (4) the null is **anti-conservative on exactly our proximal arms**. KRAS labels sit
+at 0 Å from the source and Site 2's median is low; uniformly seeded patches are farther away,
+so a bare *distance-to-active-site* score — which contains no allosteric information at all —
+clears the null. Matching (1)–(3) controls the confound `docs/FIELD.md` §3 names, that any
+residue score correlates with burial and degree; matching (4) controls the one this benchmark
+creates for itself by keeping proximal labels (ADR 0007).
+
+**The null is not frozen until it is calibrated.** Before it is used to report any p-value, a
+**distance-only score and a degree-only score must be run through it on every arm and must
+fail to reach significance**. A null whose type-I error has not been measured is a claim, not
+a control. That calibration is a Phase 1.6 exit criterion, and until it passes no p-value
+from this benchmark is quotable.
 
 **The matched-patch idea has one clear precedent, and it is the canonical paper.** CryptoSite
 builds its dataset as 84 cryptic sites, 92 binding pockets **and 705 concave surface
@@ -535,29 +604,30 @@ ligand was crystallised here", so three classes are reported separately and neve
 
 **Secondary endpoints.** Precision@5 and P(≥1 true residue in the top 5) — the top-5 hit
 list is the scored artifact. Exact hypergeometric baselines under a uniform random ranking,
-computed on the **scoreable** label set that is the primary endpoint, per frozen target:
+computed on the **scoreable** label set against the **candidate** set that is the primary
+endpoint's universe (ADR 0011), per frozen target:
 
-| Target                                  | N   | \|GT\| | \|scoreable\| | E[hits@5] | P(≥1 hit) | P(≥2 hits) |
-| --------------------------------------- | --- | ------ | ------------- | --------- | --------- | ---------- |
-| `kras_g12c_mandated`                    | 169 | 21     | 16            | 0.47      | **0.396** | 0.071      |
-| `kras_g12c_corrected`                   | 170 | 21     | 16            | 0.47      | **0.394** | 0.070      |
-| `bcr_abl1_mandated`                     | 451 | 20     | 20            | 0.22      | **0.204** | 0.017      |
-| `bcr_abl1_corrected`                    | 272 | 18     | 18            | 0.33      | **0.292** | 0.037      |
-| `bcr_abl1_sensitivity`                  | 271 | 18     | 18            | 0.33      | **0.293** | 0.037      |
-| `cardiac_myosin_site1_corrected`        | 764 | 12     | 12            | 0.08      | **0.076** | 0.002      |
-| `cardiac_myosin_site1_sensitivity_xray` | 706 | 15     | 15            | 0.11      | **0.102** | 0.004      |
-| `cardiac_myosin_site1_sensitivity_srx`  | 912 | 12     | 12            | 0.07      | **0.064** | 0.002      |
-| `cardiac_myosin_site1_omecamtiv`        | 706 | 18     | 18            | 0.13      | **0.121** | 0.006      |
-| `cardiac_myosin_site2_corrected`        | 706 | 21     | 18            | 0.13      | **0.121** | 0.006      |
+| Target                                  | N   | excluded | candidates | \|GT\| | \|scoreable\| | prevalence | E[hits@5] | P(≥1 hit) | P(≥2 hits) |
+| --------------------------------------- | --- | -------- | ---------- | ------ | ------------- | ---------- | --------- | --------- | ---------- |
+| `kras_g12c_mandated` | 169 | 23 | 146 | 21 | 16 | 11.0 % | 0.55 | **0.445** | 0.093 |
+| `kras_g12c_corrected` | 170 | 22 | 148 | 21 | 16 | 10.8 % | 0.54 | **0.440** | 0.091 |
+| `bcr_abl1_mandated` | 451 | 11 | 440 | 20 | 20 | 4.5 % | 0.23 | **0.208** | 0.018 |
+| `bcr_abl1_corrected` | 272 | 11 | 261 | 18 | 18 | 6.9 % | 0.34 | **0.302** | 0.040 |
+| `bcr_abl1_sensitivity` | 271 | 11 | 260 | 18 | 18 | 6.9 % | 0.35 | **0.303** | 0.040 |
+| `cardiac_myosin_site1_corrected` | 764 | 21 | 743 | 12 | 12 | 1.6 % | 0.08 | **0.078** | 0.002 |
+| `cardiac_myosin_site1_sensitivity_xray` | 706 | 47 | 659 | 15 | 15 | 2.3 % | 0.11 | **0.109** | 0.005 |
+| `cardiac_myosin_site1_sensitivity_srx` | 912 | 26 | 886 | 12 | 12 | 1.4 % | 0.07 | **0.066** | 0.002 |
+| `cardiac_myosin_site1_omecamtiv` | 706 | 44 | 662 | 18 | 18 | 2.7 % | 0.14 | **0.129** | 0.007 |
+| `cardiac_myosin_site2_corrected` | 706 | 44 | 662 | 21 | 18 | 2.7 % | 0.14 | **0.129** | 0.007 |
 
-**One hit in the top five means very different things across targets** — better than a
-1-in-3 coin flip on KRAS, roughly 13:1 on myosin. Reporting "we found the pocket in the top
+**One hit in the top five means very different things across targets** — close to a
+1-in-2 coin flip on KRAS, roughly 14:1 against on myosin's srx arm. Reporting "we found the pocket in the top
 5" without this table would be reporting a coin flip as a discovery. Two hits is the level
 at which a single target carries evidence on its own.
 
 **Power, honestly.** Treating residues as independent, a rank-sum test at α = 0.05
 one-sided and 80 % power detects, on the scoreable label sets that are the primary endpoint,
-AUC ≈ 0.689 (KRAS), 0.675 (ABL1 corrected), 0.709 (myosin Site 1 corrected) -- all from
+AUC ≈ 0.69 (KRAS), 0.675 (ABL1 corrected), 0.709 (myosin Site 1 corrected) -- all from
 `uv run allo benchmark stats`. Under the patch null those numbers are optimistic by a wide
 margin, and the honest figure is starker than a number: if the pocket contributes **one**
 effectively independent observation rather than twelve, the Noether bound has **no solution
@@ -568,13 +638,44 @@ a labelled upper bound on the evidence.**
 p-value (`docs/FIELD.md` trap 5). Significance lives within a target; the cross-target
 statement is qualitative and is reported as such.
 
-**Multiplicity.** One primary metric per method per target, fixed in advance. When claiming
-one method beats another, Holm correction across the methods compared.
+**Multiplicity — one confirmatory rule, declared here, because "AUC-ROC _and_ AUC-PR" above
+is two endpoints and this section previously promised "one primary metric" without saying
+which.** The full hypothesis family, fixed before any method runs:
+
+- **Confirmatory: AUC-PR on the `corrected` arm of each target, against the matched patch
+  null. Three tests, Holm-corrected across the three.** AUC-PR because prevalence is the
+  thing that varies across these arms and ROC is blind to it; the `corrected` arm because it
+  is the defensible pair for the biology, which is what the tier exists to be.
+- **AUC-ROC is reported for every arm and tested nowhere.** It is the effect size that makes
+  AUC-PR readable, and it is identical to the Mann-Whitney statistic, so testing both would
+  be counting one experiment twice.
+- **`mandated` and `sensitivity` arms are supportive, never confirmatory.** They are reported
+  with p-values labelled *descriptive*. A conclusion that holds on `corrected` and fails on
+  `sensitivity` is reported as not robust — that is what the sensitivity tier is for — but
+  the reverse never rescues a failed confirmatory test.
+- **Arms are not independent and are never pooled.** Five arms share `8QYP`; three share
+  `5MO4`. Holm across the three confirmatory tests is valid without an independence
+  assumption, which is why it is Holm and not Fisher.
+- **When claiming one method beats another**, Holm extends across the methods compared as
+  well, and the comparison is declared before the methods are run.
+
+Effect size is reported always; significance only for the three confirmatory tests.
 
 **No tuning on this benchmark.** Any hyperparameter selected by looking at enrichment here
 is test-set fitting even with no holo import (`docs/playbooks/constraint-audit.md`).
 Selection happens on the ASD generalisability set and is frozen before the primary targets
 are touched; anything not selected that way is fixed a priori and declared.
+
+**And the selection set has to be disjoint from the primary targets, which raw ASD is not**
+(ADR 0012). §7 records that ASD curates the myristoyl pocket twice and that one of those
+records lists `1OPL`/`MYR` as a related complex — our mandated apo is itself an ASD entry —
+while ASBench's HRAS record carries 4 of our 5 KRAS label residues past any 30–40 % identity
+dedup. Selecting hyperparameters on that set is tuning on the answers by a longer route, and
+there is no blind arm left to absorb it. A candidate is admitted only if it is disjoint from
+every primary target on **accession, protein family, homologous site, and residue overlap**
+— the four clauses of ADR 0012, applied as a pre-filter and frozen as a list before a single
+parameter is chosen. The generalisability number in Phase 5 comes from a further set,
+disjoint from both and unopened until the method is frozen.
 
 ---
 
@@ -734,4 +835,17 @@ in Table 1 with no basis anywhere in the document's bibliography. How it got the
   record checksums of whatever we download, since the transport is unauthenticated.
 - c-Myc (`1NKP`) is out of scope for this phase. Hazard already recorded: its two Myc copies
   carry different arbitrary numbering offsets (`docs/targets.md`).
-- Whether to notify the organisers about `6C1H`, and in what form.
+- **Two questions for the organisers, and `6C1H` is only the first.** (a) `6C1H` carries
+  mavacamten on actin, not myosin — the mandated Site 1 pair has no ground truth. (b) **How
+  C5 is to be read.** "Catalytic domains only" taken strictly would trim `1OPL` from 451
+  residues to the kinase domain alone, and we have declined that (ADR 0010, accepted) because
+  it deletes the SH3–SH2 clamp the myristoyl pocket acts through. That is a defensible
+  reading, not a ruling. Until one exists, the whole-chain node set is the primary and **a
+  trimmed-domain arm is run as a declared sensitivity analysis on ABL1**, so the answer is
+  reported either way rather than depending on which reading a judge holds.
+- **The second negative set blocks scoring, not just reporting.** §5 class 2 needs a geometric
+  pocket detector; none is installed. Choosing one after seeing method results would make the
+  detector a hyperparameter — which detector, what surface definition, how pockets merge, what
+  is excluded — so the choice, its version and its full configuration go into `manifest.yaml`
+  and are frozen before any method is scored. Same for the patch null: §5 now requires a
+  distance-only and a degree-only score to fail against it before any p-value from it counts.

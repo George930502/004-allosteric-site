@@ -84,3 +84,12 @@ and would discard valid allosteric pairs for the sin of having an open pocket.
   visibly the pocket opens. That shortcut correlates with allostery only weakly, and a
   benchmark built on it would have measured pocket detection while claiming to measure
   allosteric prediction.
+
+## Amendment, 2026-08-20 (ADR 0011)
+
+This ADR removed propagation-source residues from the **positive** class and stopped there,
+leaving them in the negative class. That is not neutral: it costs a connectivity-to-active-site
+method 44–62 % of its AUC-PR at a fixed real effect and costs a geometric detector nothing.
+The reason given here — such a residue "scores maximally by construction and therefore
+measures nothing" — removes it from **both** classes. Superseded on that point by
+[ADR 0011](0011-scoring-universe-is-the-candidate-set.md); everything else here stands.

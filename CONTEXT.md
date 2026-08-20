@@ -69,11 +69,23 @@ A label set minus the labels that are themselves propagation-source residues. A
 non-allosteric: a label inside the source set scores maximally by construction and so
 measures nothing. The rule is **set membership, not distance** — no minimum separation
 convention exists in the allostery literature (AlloPred, doi:10.1186/s12859-015-0771-1).
-This is the set the primary endpoint is computed on, and the frozen key is
-`scoreable_label_residues`.
+This is the **positive class** of the primary endpoint, and the frozen key is
+`scoreable_label_residues`. The negative class is the *candidate set*, below — not the rest
+of the chain.
 _Avoid_: **distal label set** (this repo's earlier name for it, withdrawn — it invited a
 distance reading of what is a membership rule), "the real allosteric residues", "distal
 regulatory residues" as a derived set.
+
+**Candidate set**:
+The **scoring universe**: every node minus the residues that score by construction rather
+than by evidence — the propagation source, and any sibling functional site frozen on the same
+apo chain. The same argument that removes a source residue from the positives removes it from
+the negatives; leaving it in penalises connectivity methods and no others (ADR 0011). Frozen
+as `n_candidates` / `excluded_from_scoring`. **Not** the node set: a method still receives the
+whole chain, so `N` (what it sees) and `n_candidates` (what it is scored against) are two
+numbers and must not be swapped.
+_Avoid_: "background", "the negatives" for the whole chain, using `n_residues` as a
+denominator for prevalence or a chance line.
 
 **Target**:
 One benchmark instance = one protein **plus one allosteric site**. A protein with two

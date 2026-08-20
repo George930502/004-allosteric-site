@@ -21,7 +21,7 @@ from pathlib import Path
 import numpy as np
 import yaml
 
-from allo.structure.pdb import Structure, contacts, fetch_mmcif, parse_mmcif
+from allo.structure.pdb import Structure, contacts, fetch_mmcif, parse_mmcif, sha256
 
 ROOT = Path(__file__).resolve().parents[2]
 MANIFEST = ROOT / "docs" / "benchmark" / "manifest.yaml"
@@ -57,22 +57,17 @@ def load(path: Path = MANIFEST) -> dict:
     prediction-path module that has to open the manifest at all — it needs the chain and
     the active-site rule — so it is also the place the answer key has to be stripped, and
     it strips by allow-list so a field added later is redacted by default rather than
-    leaked by default. The unredacted read lives in `allo.benchmark`, which sits behind
-    the `allo.groundtruth` import guard (`tests/test_no_leakage.py`).
+    leaked by default. The verbatim read is `allo.groundtruth.manifest.read_manifest`,
+    behind the import guard; this module never exposes one (`tests/test_no_leakage.py`).
 
     `site` survives redaction deliberately: it is a human label ("Switch-II pocket"), and
     `CHALLENGE.md` Table 1 gives it to every participant, so it is not ours to withhold.
     """
-    manifest = read_manifest(path)
+    manifest = yaml.safe_load(path.read_text())
     manifest["targets"] = [
         {k: v for k, v in target.items() if k not in _HOLO_SIDE} for target in manifest["targets"]
     ]
     return manifest
-
-
-def read_manifest(path: Path = MANIFEST) -> dict:
-    """The manifest verbatim, holo half included. Evaluation path only — see `load`."""
-    return yaml.safe_load(path.read_text())
 
 
 def one_letter(residues: list[tuple[str, int, str]]) -> str:
@@ -130,7 +125,22 @@ def apo_input(target: str, manifest: dict | None = None, raw: Path = RAW) -> Apo
         raise ValueError(f"{target} is excluded from the freeze: {spec.get('defect', '')}")
     cutoff = manifest["defaults"]["contact_cutoff_angstrom"]
     chain = spec["apo"]["chain"]
-    apo = parse_mmcif(fetch_mmcif(spec["apo"]["pdb"], raw), spec["apo"]["pdb"])
+    path = fetch_mmcif(spec["apo"]["pdb"], raw)
+    # Fail closed on the bytes, not just on the accession. `data/raw/` is gitignored and
+    # `fetch_mmcif` returns whatever is already cached, so a clean clone after an RCSB
+    # revision -- or a stale cache -- would silently run a method on different coordinates
+    # and only `allo benchmark verify`, a command a method run never invokes, would notice.
+    # A frozen input layer that re-downloads its input is not frozen.
+    expected = spec["apo"].get("sha256")
+    if not expected:
+        raise ValueError(f"{target}: manifest pins no apo sha256; refusing to run unpinned")
+    if (actual := sha256(path)) != expected:
+        raise ValueError(
+            f"{target}: {spec['apo']['pdb']} is not the frozen file -- expected {expected}, "
+            f"got {actual}. RCSB may have re-versioned it; re-freeze deliberately or delete "
+            f"{path} and refetch."
+        )
+    apo = parse_mmcif(path, spec["apo"]["pdb"])
     return ApoInput(
         target=target,
         pdb_id=spec["apo"]["pdb"],

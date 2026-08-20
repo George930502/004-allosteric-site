@@ -137,6 +137,79 @@ def test_stats_regenerate_the_protocol_numbers():
             )
 
 
+def test_the_scoring_universe_excludes_what_scores_by_construction():
+    """ADR 0011. Nothing that a connectivity score ranks top by construction is a negative.
+
+    Removing propagation-source residues from the positives and leaving them in the
+    negatives penalises the method class the challenge asked for -- 44-62 % of AUC-PR at a
+    fixed real effect -- and penalises no other. Both classes lose them, or neither does.
+    """
+    import json
+
+    frozen = json.loads(benchmark.FROZEN.read_text())
+    for target, derived in frozen["targets"].items():
+        excluded = set(derived["excluded_from_scoring"])
+        assert set(derived["active_site"]) <= excluded, (
+            f"{target}: active-site residues {sorted(set(derived['active_site']) - excluded)} "
+            "are still scored as negatives"
+        )
+        assert not excluded & set(derived["scoreable_label_residues"]), (
+            f"{target}: a residue is in both the positives and the excluded set"
+        )
+        assert derived["n_candidates"] == derived["n_residues"] - len(excluded)
+        assert derived["n_candidates"] > len(derived["scoreable_label_residues"])
+
+
+def test_sibling_functional_sites_leave_the_background(manifest):
+    """The cross-arm half of the same rule: our own Site 2 labels are not Site 1 negatives."""
+    import json
+
+    frozen = json.loads(benchmark.FROZEN.read_text())
+    where = {
+        s["id"]: (s.get("site"), s["apo"]["pdb"], s["apo"]["chain"]) for s in manifest["targets"]
+    }
+    checked = 0
+    for target, derived in frozen["targets"].items():
+        site, pdb, chain = where[target]
+        for other, other_derived in frozen["targets"].items():
+            if other == target or where[other][1:] != (pdb, chain) or where[other][0] == site:
+                continue
+            checked += 1
+            excluded = set(derived["excluded_from_scoring"])
+            foreign = set(other_derived["label_residues"]) - set(derived["label_residues"])
+            assert foreign <= excluded, (
+                f"{target}: {other}'s labels {sorted(foreign - excluded)} are scored as negatives"
+            )
+    assert checked, "no sibling-site pair found; this test would pass vacuously"
+
+
+def test_the_manifest_pins_the_same_apo_bytes_as_the_freeze(manifest):
+    """`apo_input` fails closed on the manifest hash, so it has to equal the frozen one.
+
+    Two records of the same fact drift. This is the cheapest way to notice.
+    """
+    import json
+
+    frozen = json.loads(benchmark.FROZEN.read_text())
+    for spec in manifest["targets"]:
+        if spec.get("status") == "excluded":
+            continue
+        pdb = spec["apo"]["pdb"]
+        assert spec["apo"].get("sha256") == frozen["targets"][spec["id"]]["hashes"][pdb], (
+            f"{spec['id']}: manifest and freeze disagree on {pdb}'s bytes"
+        )
+
+
+def test_apo_input_refuses_a_structure_that_is_not_the_frozen_one(tmp_path, manifest):
+    """A guard that cannot fail is not a guard: plant a wrong file and watch it refuse."""
+    from allo.inputs import apo_input
+
+    spec = next(s for s in manifest["targets"] if s["id"] == "kras_g12c_mandated")
+    (tmp_path / f"{spec['apo']['pdb']}.cif").write_text("data_NOT_THE_FROZEN_FILE")
+    with pytest.raises(ValueError, match="not the frozen file"):
+        apo_input("kras_g12c_mandated", raw=tmp_path)
+
+
 @pytest.mark.network
 def test_frozen_values_still_derive_from_the_deposited_files():
     assert benchmark.verify() == []

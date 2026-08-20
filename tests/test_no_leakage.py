@@ -146,7 +146,8 @@ def test_the_manifest_reaches_prediction_code_with_the_answer_key_stripped():
 
     `allo.inputs.load` therefore redacts, and this is the test that says so.
     """
-    from allo.inputs import load, read_manifest
+    from allo.groundtruth.manifest import read_manifest
+    from allo.inputs import load
 
     redacted, full = load(), read_manifest()
     forbidden = {"holo", "defect", "note", "blind", "allosteric_evidence", "state"}
@@ -180,6 +181,47 @@ def test_only_the_boundary_module_reads_the_manifest():
         and ("manifest.yaml" in (text := p.read_text()) or "MANIFEST" in text)
     ]
     assert not offenders, f"prediction-path modules reading the manifest directly: {offenders}"
+
+
+def test_no_prediction_module_can_reach_an_unredacted_manifest():
+    """The hole the two tests above left open, found by an adversarial review.
+
+    `allo.inputs` used to expose `read_manifest` beside `load`. Every guard stayed green
+    for a prediction module that imported it: the import trace only watches
+    `allo.groundtruth`, and the file-read test greps for `manifest.yaml`/`MANIFEST` --
+    neither string appears in `from allo.inputs import read_manifest`. One import returned
+    holo accessions, effector IDs and the prose naming label residues.
+
+    The repair is structural rather than another special case: the verbatim read moved to
+    `allo.groundtruth.manifest`, so the import guard already covers it. This test holds the
+    boundary module clean, because putting it back is a one-line change nothing else sees.
+    """
+    import allo.inputs
+
+    exported = {
+        name
+        for name in dir(allo.inputs)
+        if not name.startswith("_") and callable(getattr(allo.inputs, name))
+    }
+    assert "read_manifest" not in exported, (
+        "allo.inputs exposes an unredacted manifest reader again -- prediction code can "
+        "import it without tripping the import guard or the file-read guard"
+    )
+    # And what it does export must not carry the holo half through by another name.
+    holo_side = {"holo", "defect", "note", "blind", "allosteric_evidence", "state"}
+    for target in allo.inputs.load()["targets"]:
+        assert not holo_side & set(target), f"{target['id']}: holo fields on the prediction path"
+
+
+def test_the_manifest_guard_would_catch_the_route_it_missed(graph):
+    """A planted prediction module reaching the unredacted manifest must fail the guard."""
+    planted = {"allo.rank": {"allo.groundtruth.manifest"}}
+    assert is_prediction_path("allo.rank")
+    assert reaches(planted, "allo.rank", GROUND_TRUTH) is not None
+    # and the real graph is clean on that same route
+    for module in graph:
+        if is_prediction_path(module):
+            assert reaches(graph, module, GROUND_TRUTH) is None, module
 
 
 def test_experiment_scripts_never_read_the_frozen_label_sets():
