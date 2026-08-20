@@ -78,12 +78,14 @@ regulatory residues" as a derived set.
 
 **Candidate set**:
 The **scoring universe**: every node minus the residues that score by construction rather
-than by evidence — the propagation source, and any sibling functional site frozen on the same
-apo chain. The same argument that removes a source residue from the positives removes it from
-the negatives; leaving it in penalises connectivity methods and no others (ADR 0011). Frozen
-as `n_candidates` / `excluded_from_scoring`. **Not** the node set: a method still receives the
-whole chain, so `N` (what it sees) and `n_candidates` (what it is scored against) are two
-numbers and must not be swapped.
+than by evidence — the propagation source, and the protein's explicit registered functional
+sites. The registry is fixed independently of how many benchmark arms exist, so adding an arm
+cannot move another arm's universe (ADR 0015). The same argument that removes a source residue
+from the positives removes it from the negatives; leaving it in penalises connectivity
+methods and no others (ADR 0011). Frozen as `n_candidates` /
+`excluded_from_scoring`. **Not** the node set: a method still receives the whole chain, so `N`
+(what it sees) and `n_candidates` (what it is scored against) are two numbers and must not be
+swapped.
 _Avoid_: "background", "the negatives" for the whole chain, using `n_residues` as a
 denominator for prevalence or a chance line.
 

@@ -111,10 +111,10 @@ all / 0.33 Å core", and the `srx` arm's predecessor (`8ACT`→`9GZ1`) was rejec
 apo↔holo core RMSD. Choosing the apo frame that sits closest to the holo selects apo
 structures already near the bound conformation, which makes the pocket **easier**, not harder.
 
-Both are defensible — one is a leakage filter, the other is pair-matching quality control
-without which the pair measures the wrong thing (§4) — and both are pre-registered before any
-method ran. Stating the direction of each is what makes them admissible; claiming only the
-conservative one is what would not.
+This is answer-informed benchmark selection even though it never enters the prediction path.
+It can inflate confirmatory performance and disclosure alone does not remove the bias. ADR
+0013 is **accepted**: the three `8QYP` arms remain frozen for description but are excluded
+from both claim-bearing and robustness families until apo-only re-selection is complete.
 
 Two consequences we apply without exception:
 
@@ -164,12 +164,21 @@ which ligand is meant. ASD's holo is _allosteric-modulator_-bound; AlloReverse d
 RAE "between the apo and orthosteric ligand-bound (holo) states". We always name the
 component ID.
 
+**Catalytic-state matching is contact-scoped, not an entry-component equality test.** Only
+components within 4.5 Å of mapped active-site residues are classified, using the manifest's
+explicit `state_components` and `additives` vocabularies; the named allosteric effector is a
+third, separate category. This keeps ADP·VO4→ADP·BeF unmatched on the myosin x-ray arm, while
+SO4 there and DMS on the omecamtiv arm are recorded additives rather than false state changes.
+An unclassified contacting component makes the freeze fail. The derived per-arm inventory is
+in `frozen.json` under `orthosteric_state` and is reproduced in
+[`evidence/allosteric-pair-audit.md`](evidence/allosteric-pair-audit.md) §2.
+
 **What the apo structures actually contain.** Measured, not assumed -- heavy atoms, 4.5 A,
 via `allo.structure.pdb`, and reported **per arm rather than per entry**, because occupancy is
 a property of a structure *and a site*: `8QYP` is the apo of three arms and answers differently
 for each. None of the eight distinct apo entries is globally ligand-free, so under the
 Wankowicz reading this benchmark would have no apo members at all. Under clause (iii) exactly
-one arm fails.
+two arms fail, both views of the same occupied `1OPL` structure.
 
 Two columns, because they answer different questions and only the second decides the clause.
 Over the **full** label set the catalytic cofactor registers as an occupant wherever the
@@ -183,6 +192,7 @@ actually asked to find -- those contacts vanish and only a genuine occupant surv
 | `bcr_abl1_mandated` | `1OPL` | **MYR**, P16 | **3.29 A** | **16** | **3.29 A** | **16 of 20** | **FAILS** |
 | `bcr_abl1_corrected` | `2G2H` | P16 | 16.27 A | 0 | 16.27 A | 0 | passes |
 | `bcr_abl1_sensitivity` | `2G1T` | 112 (chain E), MG | 13.15 A | 0 | 13.15 A | 0 | passes |
+| `bcr_abl1_trimmed` | `1OPL` residues 261–512 | **MYR**, P16 | **3.47 A** | **13** | **3.47 A** | **13 of 17** | **FAILS** |
 | `cardiac_myosin_site1_corrected` | `9GZ3` | ADP, MG, PO4 | 20.52 A | 0 | 20.52 A | 0 | passes |
 | `cardiac_myosin_site1_sensitivity_xray` | `8QYP` | ADP, MG, VO4 | 18.83 A | 0 | 18.83 A | 0 | passes |
 | `cardiac_myosin_site1_sensitivity_srx` | `9YRG` | ADP, PO4 | 20.03 A | 0 | 20.03 A | 0 | passes |
@@ -195,8 +205,9 @@ contacts KRAS labels **11, 12, 13, 16 and 34**; ADP-VO4 contacts myosin Site 2 l
 frozen rule, so what the first column is detecting is the two sites sharing a border -- not a
 modulator sitting in the pocket. Those residues leave the scoreable set for exactly that
 reason (section 5), and over the scoreable set both arms are clean at 4.57-4.58 A.
-`1OPL` is the opposite: **none** of its 16 contacted labels is an active-site residue, and the
-count does not move between the two columns.
+`1OPL` is the opposite: none of the contacted labels is an active-site residue, and the
+count does not move between the two columns. The strict-domain arm retains 13 such labels;
+the whole-chain arm retains 16, as regenerated in the table.
 
 An earlier version of this table was per-entry and quoted 5.35 A / 0 for `4OBE`. Those were
 scoreable-set numbers computed under a since-withdrawn definition, printed under a full-set
@@ -266,8 +277,8 @@ call, and is worth reporting upstream. The other two are defensible-but-suboptim
 ### 2b. Dimensions checked beyond ligand identity
 
 An audit that only reads the ligand list misses the ways a pair fails quietly. Re-audit
-2026-08-20 swept the following, all from RCSB records and the deposited coordinates. Six of
-eight came back clean; the two that did not are recorded rather than smoothed over.
+2026-08-20 swept the following, all from RCSB records and the deposited coordinates. The
+failures are recorded rather than smoothed over.
 
 | Dimension                                       | Method                                                                               | Result                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | ----------------------------------------------- | ------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -296,6 +307,7 @@ method was run**.
 | bcr_abl1_mandated                     | mandated    | —      | `1OPL`:A | `5MO4`:A | AY7      | 451 | 20     | 20        | 4.4 %      | ❌ not blind                         |
 | bcr_abl1_corrected                    | corrected   | —      | `2G2H`:A | `5MO4`:A | AY7      | 272 | 18     | 18        | 6.6 %      | ❌ not blind                         |
 | bcr_abl1_sensitivity                  | sensitivity | —      | `2G1T`:A | `5MO4`:A | AY7      | 271 | 18     | 18        | 6.6 %      | ❌ not blind                         |
+| bcr_abl1_trimmed                      | sensitivity | —      | `1OPL`:A, 261–512 | `5MO4`:A | AY7 | 252 | 17 | 17 | 6.8 % | ❌ not blind |
 | cardiac_myosin_site1_mandated         | mandated    | Site 1 | `5TBY`   | `6C1H`   | —        | —   | —      | —         | —          | **excluded: no ground truth exists** |
 | cardiac_myosin_site1_corrected        | corrected   | Site 1 | `9GZ3`:A | `9GZ2`:A | XB2      | 764 | 12     | 12        | 1.6 %      | ❌ not blind                             |
 | cardiac_myosin_site1_sensitivity_xray | sensitivity | Site 1 | `8QYP`:A | `8QYR`:B | XB2      | 706 | 15     | 15        | 2.1 %      | ❌ not blind                             |
@@ -308,17 +320,35 @@ model and are reported as unmapped rather than silently dropped. N counts every 
 residue including modified ones — the `8QYP` total includes two trimethyl-lysines, which
 the ATOM/HETATM flag would have dropped.
 
-**N is the whole modelled chain, never a trimmed catalytic domain** (ADR 0010, accepted).
-On `1OPL` that is 451 residues including SH3 and SH2, against 272 for the kinase-only
-`2G2H` — so the mandated ABL1 arm's harder chance line is mostly construct extent, not the
-myristate defect its tier exists to expose, and the two must not be compared as if it were.
+**N is the manifest-admitted node set.** It is the whole modelled chain on every primary arm
+(ADR 0010, accepted); `bcr_abl1_trimmed` is the explicit strict-C5 sensitivity required by
+ADR 0010 clause 4. UniProtKB P00519 release 2026_02 annotates the canonical kinase domain as
+242–493. Code derives the deposited P00519-2 offset from the 26-residue→45-residue isoform
+substitution, verifies +19, and admits deposited residues 261–512. Thus the same `1OPL`:A
+coordinates are compared at N=451 and N=252 without silently changing the loader default.
+
+**The trim also cuts the site.** Deposited 513–531 falls outside the annotated kinase
+domain and carries three of the twenty myristoyl-pocket labels — 521, 525, 529 — so
+`bcr_abl1_trimmed` is scored on 17 positives, not 20 (`frozen.json`
+`labels_outside_node_set`; the same two residues already leave `bcr_abl1_corrected` for the
+same reason). A `bcr_abl1_mandated` vs `bcr_abl1_trimmed` baseline gap therefore mixes
+node-set scope with a 15 % smaller positive set, and on this target the two cannot be
+separated: the strict reading of C5 deletes part of the site it is asked to find.
 
 **N is what a method _receives_, not what it is _scored against_.** The scoring universe is
-the smaller **candidate set** — N minus the propagation source, minus any sibling functional
-site on the same apo chain (ADR 0011) — because a residue that a connectivity score ranks top
-by construction is no more a negative than it is a positive. It runs 146 to 886 against N of
-169 to 912, and every chance line in §5 is computed on it. The input is untouched: a method
-still gets the whole chain, source set included.
+the smaller **candidate set** — N minus the propagation source, minus the protein's explicit
+functional-site registry (ADR 0011) — because a residue that a connectivity score ranks top
+by construction is no more a negative than it is a positive, and neither is a residue the
+benchmark registers as functional (ADR 0015). It runs 146 to 861 against N of
+169 to 912, and every chance line in §5 is computed on it. The propagation source remains in
+the supplied node set.
+
+**A method never receives the deposited mmCIF object.** `apo_input()` first derives the
+legitimate active-site source from the full apo entry (GDP/Mg contacts on KRAS require that),
+then returns a purpose-built immutable `Structure` containing only heavy polymer atoms from
+the selected chain and exactly the admitted node set. Ligands, waters, other chains and
+cofactors are absent; frozen invariants check the singular chain, residue equality, empty
+ligand/water masks and read-only arrays.
 
 The N, |GT| and prevalence columns are read back from `frozen.json` by
 `tests/test_benchmark.py`, so they cannot drift from the freeze. The remaining columns are
@@ -360,6 +390,7 @@ reported precisely so that it cannot be quietly ignored.
 | `bcr_abl1_mandated`                     |      1.00 |      **0.50** |   1.0 |               0/31 |         10.6 |            18.3 |
 | `bcr_abl1_corrected`                    |      1.72 |      **2.38** |   9.6 |               2/31 |         10.8 |            17.5 |
 | `bcr_abl1_sensitivity`                  |      2.56 |      **2.28** |   9.0 |               2/31 |         10.8 |            17.6 |
+| `bcr_abl1_trimmed`                      |      1.04 |      **0.37** |   0.9 |               0/31 |         10.6 |            17.3 |
 | `cardiac_myosin_site1_corrected`        |      1.18 |      **1.10** |   1.9 |               0/20 |         16.5 |            27.6 |
 | `cardiac_myosin_site1_sensitivity_xray` |      1.22 |      **1.79** |   3.4 |               0/20 |         13.3 |            22.2 |
 | `cardiac_myosin_site1_sensitivity_srx`  |      0.88 |      **0.46** |   0.8 |               0/20 |         18.3 |            24.1 |
@@ -418,7 +449,12 @@ that is the finding.
 **What a high score here does and does not demonstrate.** The label set is a **binding-site**
 label set, not a coupling label set — it is the residue shell around an effector whose
 allosteric action is established by the cited assay, not a set of residues measured to carry
-signal. An audit of **eight of the ten frozen arms** (`evidence/allosteric-pair-audit.md`, which predates ADR 0008 and so covers neither `cardiac_myosin_site1_omecamtiv` nor `cardiac_myosin_site2_corrected`) finds **no active-site response attributable to the allosteric ligand** in any of them: in six of those eight the active site is the most rigid part of the chain. That is consistent with the ensemble view of allostery —
+signal. The current audit of **all 11 scoreable arms**
+([`evidence/allosteric-pair-audit.md`](evidence/allosteric-pair-audit.md)) finds no isolated
+structural comparison that identifies an allosteric-ligand effect at the active site. Five
+arms show a scoreable-site response; the active-site rule passes only in three ABL1 arms,
+where the catalytic occupant and other structural factors also change. That is consistent
+with the ensemble view of allostery —
 coupling can proceed through fluctuation entropy with no mean-coordinate signature — and it is
 not grounds to reject a pair. It does mean a high benchmark score demonstrates **site
 identification, not coupling recovery**, and the report must not claim the latter from the
@@ -444,10 +480,10 @@ priority. Stating this ourselves is worth more than having a reviewer state it.
 regulatory residues", but distance is not what makes a site allosteric: CASBench reports ~30 %
 of catalogued allosteric sites overlapping or bordering the catalytic site
 ([10.32607/20758251-2019-11-1-74-80](https://doi.org/10.32607/20758251-2019-11-1-74-80)), so
-this is a descriptor of each target, not an admission criterion (ADR 0007). CASBench's 30 % is quoted often enough here to need its own limit stated: the sentence immediately before it reads "In all the CASBench annotations, different sites are topologically independent from each other (i.e., they are represented by separate cavities in the enzyme structure)", and the paper gives **no distance or geometric criterion** for "overlap or share a common border". So it establishes that the field applies **no minimum separation convention** -- which is all we use it for -- and it does *not* license treating a residue that is itself an active-site residue as an ordinary label. That case is handled by AlloPred's set-membership rule instead. Minimum Cα distance from a
+this is a descriptor of each target, not an admission criterion (ADR 0007). CASBench's 30 % is quoted often enough here to need its own limit stated: the sentence immediately before it reads "In all the CASBench annotations, different sites are topologically independent from each other (i.e., they are represented by separate cavities in the enzyme structure)", and the paper gives **no distance or geometric criterion** for "overlap or share a common border". So it establishes that the field applies **no minimum separation convention** -- which is all we use it for -- and it does *not* license treating a residue that is itself an active-site residue as an ordinary label. That case is handled by this repository's anti-circularity policy instead. Minimum Cα distance from a
 label residue to the active site is 10.6 Å for `bcr_abl1_mandated`, 10.8 Å for
 `bcr_abl1_corrected` and 16.5 Å for `cardiac_myosin_site1_corrected`; medians run 17–28 Å.
-(The ABL1 minima moved from 12.1/12.7 Å when all three ABL1 arms adopted the catalytic-motif
+(The ABL1 minima moved from 12.1/12.7 Å when the ABL1 arms adopted the catalytic-motif
 source rule ADR 0005 prescribes; the drug-footprint source they previously used was larger
 and sat further from the myristoyl pocket.) KRAS is the
 exception and needs care: **5 of its 21 label residues (11, 12, 13, 16, 34) are themselves
@@ -471,10 +507,10 @@ and the effect size, which avoids reporting significance without magnitude.
 
 **Both, because one is not enough at this prevalence.** Scoreable-label prevalence over the
 candidate set runs from 10.8 % (`kras_g12c_corrected`, 16/148) to
-1.4 % (`cardiac_myosin_site1_sensitivity_srx`, 12/886) -- a **8.0x** span.
+1.4 % (`cardiac_myosin_site1_sensitivity_srx`, 12/861) -- a **7.8x** span.
 Simulating a _fixed_ real signal (d = 0.8, 2000 draws, seed 0; regenerate with
-`uv run allo benchmark stats`) across that range gives AUC-ROC **0.716** / **0.713** /
-**0.713** -- flat -- while AUC-PR falls **0.292** -> **0.208** -> **0.066**, a 4.4x span. AUC-ROC is
+`uv run allo benchmark stats`) across that range gives AUC-ROC **0.714** / **0.713** /
+**0.716** -- flat -- while AUC-PR falls **0.290** -> **0.208** -> **0.069**, a 4.2x span. AUC-ROC is
 blind to the imbalance, so a single ROC number would present myosin as an equally solved
 problem when its retrieval task is far harder. The field's own results show the same gap on
 the same predictor: CryptoBench reports AUC 0.86 against AUPRC 0.36
@@ -493,10 +529,12 @@ and effect size of a single test, and never as two independent lines of evidence
 
 **The primary endpoint is computed on the _scoreable_ label set** — every label that is not
 itself a propagation-source residue. This is set membership, not distance: a label that is in
-the source set scores maximally by construction and therefore measures nothing. The rule is
-AlloPred's, published in this field — "Active site residues were not counted as being in any
-pocket … in order to avoid direct perturbation of the site at which the effect was measured"
-([10.1186/s12859-015-0771-1](https://doi.org/10.1186/s12859-015-0771-1)).
+the source set scores maximally by construction and therefore measures nothing. This is the
+repository's **anti-circularity policy**, not a published benchmark-universe convention.
+AlloPred is a methodological analogy only: during its spring-perturbation procedure it did
+not count active-site residues in candidate pockets, to avoid perturbing the site where the
+effect was measured ([10.1186/s12859-015-0771-1](https://doi.org/10.1186/s12859-015-0771-1)).
+It did not redefine positives and negatives for an external benchmark.
 
 **…and against the _candidate_ set, not the node set. Those residues leave the negatives
 too** (ADR 0011). An earlier version of this protocol removed them from the positives and
@@ -514,12 +552,31 @@ real effect the cost is **44–62 % of AUC-PR** across these arms, on identical 
 
 Excluded from both classes, frozen per arm as `excluded_from_scoring` / `n_candidates`: the
 **propagation source** (2.4–13.6 % of the node set; 23 of 169 residues on KRAS), and any
-**sibling functional site** — residues this benchmark labels as a *different* site on the
-same apo chain, which is the three `8QYP` arms where Site 1 and Site 2 are both frozen. The
-rule below for the decoy set was always this; the background now matches it. **The input is
-untouched:** a method still receives the whole modelled chain, source set included.
+**registered functional sites** — the explicit per-protein residue sets under
+`manifest.yaml:functional_sites`, carried between entries by sequence alignment. These sets
+were initialized from the frozen functional evidence but no longer derive from however many
+arms happen to exist: adding an arm cannot move another arm's universe. The rule below for
+the decoy set is the same. **The input is untouched:** a method still receives the
+manifest-admitted node set, source included.
 
-It bites on exactly two arms. KRAS drops 21 → **16** (residues 11, 12, 13, 16, 34 are
+Because that universe is our policy choice, every confirmatory result is reported again on
+the **whole node set** with the same scoreable positives. Before method scores exist, the
+regenerable chance-line sensitivity is:
+
+| Corrected arm | candidate set: N / prevalence / P(≥1 hit) | whole node set: N / prevalence / P(≥1 hit) |
+|---|---:|---:|
+| `bcr_abl1_corrected` | 261 / 6.90 % / 0.302 | 272 / 6.62 % / 0.292 |
+| `cardiac_myosin_site1_corrected` | 716 / 1.68 % / 0.081 | 764 / 1.57 % / 0.076 |
+| `kras_g12c_corrected` | 148 / 10.81 % / 0.440 | 170 / 9.41 % / 0.394 |
+
+`cardiac_myosin_site2_corrected` is a `corrected` arm and is absent here because ADR
+0013 quarantines it; its numbers are in the §5 table with every other frozen arm.
+
+These values regenerate as `scoring_universe_sensitivity` from
+`uv run allo benchmark stats`; the eventual AUC-ROC, AUC-PR and top-5 results must be shown
+under both universes, with the candidate set remaining primary unless ADR 0011 is superseded.
+
+It bites on exactly three arms: both KRAS arms drop 21 → **16** (residues 11, 12, 13, 16, 34 are
 active-site residues under the frozen `{from_ligands: [GDP, MG]}` rule), and Site 2 on myosin
 drops 21 → **18**. Every other arm is unaffected. Both sets are pinned in `frozen.json`.
 
@@ -544,8 +601,12 @@ found the paragraph above promising it and this one not delivering it:
 1. **size** — same residue count as the scoreable label set;
 2. **contiguity** — connected on the contact graph, by nearest-neighbour growth;
 3. **surface exposure** — seeds drawn from the surface set;
-4. **distance to the active site** — the patch's distance-to-source distribution must match
-   the scoreable label patch's, seeds accepted by rejection sampling against it.
+4. **distance to the active site** — three summaries of the patch's distance-to-source set
+   must match the scoreable label patch's, each within **1.0 Å**: the **median**, **minimum**
+   and **25th percentile** (`q25_min_ca_distance_to_active_site`). The third is load-bearing:
+   minimum and median alone permit `[1,2,3,20,…]` and `[1,19,19,20,…]`, despite three versus
+   one residues in the near-source tail. The rule constrains the centre, nearest approach
+   and lower quartile. It does **not** determine or claim to match the full distribution.
 
 **Matched to the _scoreable_ set, and that qualifier is load-bearing.** Matching against the
 full label set is not merely different, it is impossible: on KRAS and Site 2 the full set
@@ -555,11 +616,15 @@ null must be computed on the same set or the p-value answers a question nobody a
 
 **Every knob is frozen in `manifest.yaml` under `null:` before the null is run**, because a
 null with free parameters is a place to keep trying until a result appears. The frozen list,
-and nothing may be added to it later: graph (which contact cutoff builds the adjacency),
-surface rule (the definition and threshold that make a residue a legal seed), distance
-statistic (which summary of the patch's distance-to-source distribution is matched),
-tolerance (how close counts as matched), growth algorithm, `B`, and `seed`. Values are chosen
-in Phase 1.6 from the calibration below — never from a method's score.
+and nothing may be added to it later: a 4.5 Å heavy-atom contact graph; surface seeds in the
+lower half of contact degree; median, minimum and 25th-percentile per-residue minimum Cα
+distance to the active site, each matched within 1.0 Å; uniform contact-frontier growth;
+B=10,000; seed=0; and the upper-tail plus-one empirical p-value. The manifest also pins the
+calibration α, replicate count and coverage. The schema test rejects a missing, extra or
+mistyped field. These values are frozen
+but **not yet validated**: Phase 1.6 must run the calibration below before a p-value is
+quotable, and any calibration-driven change requires a re-freeze and a registry entry before
+a real method is scored.
 
 Without (4) the null is **anti-conservative on exactly our proximal arms**. KRAS labels sit
 at 0 Å from the source and Site 2's median is low; uniformly seeded patches are farther away,
@@ -568,12 +633,14 @@ clears the null. Matching (1)–(3) controls the confound `docs/FIELD.md` §3 na
 residue score correlates with burial and degree; matching (4) controls the one this benchmark
 creates for itself by keeping proximal labels (ADR 0007).
 
-**The null is not frozen until it is calibrated, and the acceptance criterion is stated
-here so it cannot be chosen afterwards.** Two null scores — **distance to the active site**
-and **degree in the contact graph** — are run through it on every arm. Acceptance: the
-empirical type-I error at α = 0.05 must fall in **[0.02, 0.08]** on each, across 1,000
-independent replicates per arm. Outside that band the null is miscalibrated and the
-parameters are re-chosen *on the calibration scores only*, never on a real method's output;
+**The configuration is frozen now, but the null is not admitted until it is calibrated.**
+Two null scores — **distance to the active site** and **degree in the contact graph** — are
+run through it on every arm. The acceptance criterion is the central equal-tailed 95 %
+prediction interval under
+`K ~ Binomial(n=1000, p=0.05)`: `binom.ppf([0.025, 0.975], n=1000, p=0.05) / 1000`
+gives accepted counts **37–64**, hence rates **[0.037, 0.064]**. Outside that band the null
+is miscalibrated. The previous ad hoc [0.02, 0.08] band is withdrawn. Parameters may be
+re-chosen *on the calibration scores only*, never on a real method's output;
 each re-choice is recorded in `experiments/REGISTRY.md` with what moved and why. A null whose
 type-I error has not been measured is a claim, not a control. This is a Phase 1.6 exit
 criterion, and until it passes no p-value from this benchmark is quotable.
@@ -612,8 +679,8 @@ ligand was crystallised here", so three classes are reported separately and neve
 1. **Random background residues.**
 2. **Geometric surface pockets on the apo input**, excluding the true site, **the active
    site** (it is a pocket, it does not overlap the true site, and a connectivity-to-active-site
-   score ranks it top by construction), and any documented sibling functional site — every
-   target has at least one, and scoring those as decoys penalises a method for being right.
+   score ranks it top by construction), and every residue in the protein's registered
+   functional-site set; scoring those as decoys penalises a method for being right.
 3. **Cryptic non-allosteric sites**, the discriminating control: it holds crypticity fixed and
    varies function, which is the only way to show a method finds coupling rather than
    cavity-opening. Vajda 2018 Table 1 supplies **eleven** with named apo/holo pairs -- nine orthosteric (five of them enzyme active sites) plus two protein-protein interfaces. Note that class 2
@@ -632,10 +699,11 @@ endpoint's universe (ADR 0011), per frozen target:
 | `bcr_abl1_mandated` | 451 | 11 | 440 | 20 | 20 | 4.5 % | 0.23 | **0.208** | 0.018 |
 | `bcr_abl1_corrected` | 272 | 11 | 261 | 18 | 18 | 6.9 % | 0.34 | **0.302** | 0.040 |
 | `bcr_abl1_sensitivity` | 271 | 11 | 260 | 18 | 18 | 6.9 % | 0.35 | **0.303** | 0.040 |
-| `cardiac_myosin_site1_corrected` | 764 | 21 | 743 | 12 | 12 | 1.6 % | 0.08 | **0.078** | 0.002 |
-| `cardiac_myosin_site1_sensitivity_xray` | 706 | 42 | 664 | 15 | 15 | 2.3 % | 0.11 | **0.108** | 0.005 |
-| `cardiac_myosin_site1_sensitivity_srx` | 912 | 26 | 886 | 12 | 12 | 1.4 % | 0.07 | **0.066** | 0.002 |
-| `cardiac_myosin_site1_omecamtiv` | 706 | 42 | 664 | 18 | 18 | 2.7 % | 0.14 | **0.129** | 0.007 |
+| `bcr_abl1_trimmed` | 252 | 11 | 241 | 17 | 17 | 7.0 % | 0.35 | **0.309** | 0.041 |
+| `cardiac_myosin_site1_corrected` | 764 | 48 | 716 | 12 | 12 | 1.7 % | 0.08 | **0.081** | 0.003 |
+| `cardiac_myosin_site1_sensitivity_xray` | 706 | 47 | 659 | 15 | 15 | 2.3 % | 0.11 | **0.109** | 0.005 |
+| `cardiac_myosin_site1_sensitivity_srx` | 912 | 51 | 861 | 12 | 12 | 1.4 % | 0.07 | **0.068** | 0.002 |
+| `cardiac_myosin_site1_omecamtiv` | 706 | 44 | 662 | 18 | 18 | 2.7 % | 0.14 | **0.129** | 0.007 |
 | `cardiac_myosin_site2_corrected` | 706 | 44 | 662 | 21 | 18 | 2.7 % | 0.14 | **0.129** | 0.007 |
 
 **One hit in the top five means very different things across targets** — close to a
@@ -660,31 +728,37 @@ statement is qualitative and is reported as such.
 is two endpoints and this section previously promised "one primary metric" without saying
 which.** The full hypothesis family, fixed before any method runs:
 
-- **Confirmatory: AUC-PR on the `corrected` arm of each target, against the matched patch
-  null. Four tests, Holm-corrected across the four.** AUC-PR because prevalence is the thing
-  that varies across these arms and ROC is blind to it; the `corrected` arm because it is the
-  defensible pair for the biology, which is what the tier exists to be. **Four, not three:**
-  a target is a protein *plus a site* (ADR 0008), so myosin contributes both Site 1 and
-  Site 2 — `kras_g12c_corrected`, `bcr_abl1_corrected`, `cardiac_myosin_site1_corrected`,
-  `cardiac_myosin_site2_corrected`. An earlier version of this rule said three, counting
-  proteins; that would have silently dropped Site 2 from the family or under-corrected it.
-  The family is derived from the freeze by `allo benchmark stats`, not counted by hand, and
-  `test_the_confirmatory_family_is_every_corrected_arm` fails if an arm is added or retiered
-  without the family moving with it.
+- **Claim-bearing: AUC-PR on the `corrected` arm of each target, against the matched patch
+  null. Three tests, Holm-corrected across the three:** `bcr_abl1_corrected`,
+  `cardiac_myosin_site1_corrected`, `kras_g12c_corrected`. AUC-PR because prevalence is the
+  thing that varies across these arms and ROC is blind to it; the `corrected` arm because it
+  is the defensible pair for the biology, which is what the tier exists to be. A target is a
+  protein *plus a site* (ADR 0008), so myosin's two sites are two candidates for the family
+  — but **`cardiac_myosin_site2_corrected` is quarantined** (ADR 0013, accepted): its apo
+  `8QYP` was chosen by comparing candidates against holo-defined pocket geometry, which makes
+  its difficulty answer-informed in the anti-conservative direction. It stays frozen and
+  reported and carries no claim. Family membership has two sources, both in `manifest.yaml`:
+  `tier: corrected` and the absence of `quarantine`. `allo benchmark stats` exposes this as
+  `claim_bearing_family`; it intersects manifest arms with the freeze rather than inferring a
+  tier from an id suffix.
 - **AUC-ROC is reported for every arm and tested nowhere.** It is the effect size that makes
   AUC-PR readable, and it is identical to the Mann-Whitney statistic, so testing both would
   be counting one experiment twice.
-- **`mandated` and `sensitivity` arms are supportive, never confirmatory.** They are reported
-  with p-values labelled *descriptive*. A conclusion that holds on `corrected` and fails on
-  `sensitivity` is reported as not robust — that is what the sensitivity tier is for — but
-  the reverse never rescues a failed confirmatory test.
-- **Arms are not independent and are never pooled.** Five arms share `8QYP`; three share
-  `5MO4`. Holm across the three confirmatory tests is valid without an independence
+- **`mandated` arms are descriptive; unquarantined `sensitivity` arms form the robustness
+  family:** `bcr_abl1_sensitivity`, `bcr_abl1_trimmed`,
+  `cardiac_myosin_site1_sensitivity_srx`. A conclusion that holds on the claim-bearing family
+  and fails on one of those is reported as not robust, but the reverse never rescues a failed
+  confirmatory test. `cardiac_myosin_site1_sensitivity_xray`,
+  `cardiac_myosin_site1_omecamtiv`, and `cardiac_myosin_site2_corrected` are quarantined and
+  appear in neither family. `allo benchmark stats` exposes the former as `robustness_family`.
+- **Arms are not independent and are never pooled.** Three arms share `8QYP`; four share
+  `5MO4`. Holm across the confirmatory family is valid without an independence
   assumption, which is why it is Holm and not Fisher.
 - **When claiming one method beats another**, Holm extends across the methods compared as
   well, and the comparison is declared before the methods are run.
 
-Effect size is reported always; significance only for the three confirmatory tests.
+Effect size is reported always; significance only for the manifest-derived claim-bearing
+family. Robustness language is restricted to the manifest-derived robustness family.
 
 **No tuning on this benchmark.** Any hyperparameter selected by looking at enrichment here
 is test-set fitting even with no holo import (`docs/playbooks/constraint-audit.md`).
@@ -706,6 +780,13 @@ disjoint from both and unopened until the method is frozen.
 
 ## 6. Provenance of every structure used
 
+`manifest.yaml:structure_provenance` pins the exact wwPDB version label, versioned URL and
+decompressed SHA-256 for all 15 entries that contribute to `frozen.json`. The archive test
+downloads every URL and rechecks byte identity. The 17-entry tracked corpus also retains the
+two excluded mandated-pair structures and is partitioned as `structures/apo/` and
+`structures/holo/`; prediction code has no free-form accession resolver and receives bytes
+only through target-bound `allo.inputs.apo_input`.
+
 | PDB            | What it is                                                                           | Primary citation as deposited                                                                            |
 | -------------- | ------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------- |
 | `4OBE`, `4LDJ` | KRAS WT and G12C, GDP·Mg                                                             | Hunter et al., _PNAS_ 2014, doi:10.1073/pnas.1404639111                                                  |
@@ -715,7 +796,8 @@ disjoint from both and unopened until the method is frozen.
 | `5MO4`         | ABL1 **ternary**: asciminib (`AY7`) **and** nilotinib (`NIL`), T334I/D382N           | Wylie et al., _Nature_ 2017, doi:10.1038/nature21702                                                     |
 | `5TBY`         | homology model of the human IHM                                                      | Alamo et al., _eLife_ 2017                                                                               |
 | `6C1H`         | rat myosin-Ib + actin + calmodulin                                                   | Mentes et al., _PNAS_ 2018, doi:10.1073/pnas.1718316115                                                  |
-| `8QYP`, `8QYR` | bovine MYH7 motor domain ± mavacamten (`XB2`)                                        | bioRxiv 2023 → Auguin et al., _Nat Commun_ 2024, doi:10.1038/s41467-024-47587-9                          |
+| `8QYP`, `8QYR`, `8QYU` | bovine MYH7 motor domain apo / mavacamten (`XB2`) / omecamtiv (`2OW`)        | bioRxiv 2023 → Auguin et al., _Nat Commun_ 2024, doi:10.1038/s41467-024-47587-9                          |
+| `9F6C`         | cardiac myosin motor domain + aficamten (`6I6`)                                      | Hartman et al., _Nat Cardiovasc Res_ 2024, doi:10.1038/s44161-024-00505-0                               |
 | `9GZ1`–`9GZ3`  | human MYH7 ± mavacamten                                                              | bioRxiv 2025 (deposited citation is a preprint) → McMillan et al., _Sci Adv_ 2026                        |
 | `8ACT`         | human β-cardiac myosin folded-back off state                                         | Grinzato et al., _Nat Commun_ 2023, doi:10.1038/s41467-023-38698-w — **considered and replaced**, see §7 |
 | `9YRG`, `9YR7` | human β-cardiac myosin IHM (undocked S2-FH) ± mavacamten, Myosin-7/GCN4/EGFP chimera | Somavarapu et al., _Sci Adv_ 2026, doi:10.1126/sciadv.aed6472                                            |
@@ -748,7 +830,7 @@ in Table 1 with no basis anywhere in the document's bibliography. How it got the
   this bullet claimed myosin Site 1 was, and called it "the benchmark's only clean
   measurement". It is not. Every ASD/ASBench record below was re-pulled live rather than
   recalled; the per-arm verdict is the `blind:` field in `manifest.yaml` and the last column
-  of §3, now `false` on all eleven.
+  of §3, now `false` on all twelve manifest arms (11 scoreable plus the excluded mandate).
   - **BCR-ABL1 — not blind.** ASD curates the myristoyl pocket **twice** (`AS001006501`,
     `3PYY`, DPH activator; `AS002023501`, `3K5V`, GNF-2 analogue `STJ`, inhibitor — note the
     second record is *mouse* P00520), so every ASD-trained method has seen it. It is also an
@@ -796,15 +878,15 @@ in Table 1 with no basis anywhere in the document's bibliography. How it got the
   qualitative case studies and Chennubhotla & Bahar 2007 has no ranking task.
 - **Decoy surface pockets** need a geometric detector; none is installed. Blocks the second
   negative set the challenge requires.
-- **Modified residues** in the chain (trimethyl-lysine `M3L` at 129 and 549 in `8QYP`) are
-  kept as polymer nodes and mapped to their parent amino acid, because `label_seq_id` — not
-  the ATOM/HETATM flag — decides chain membership. Settled in ADR 0006; whether they carry
-  _modified properties_ as network nodes is explicitly out of scope there.
+- **Modified residues** in the chain (trimethyl-lysine `M3L` at 129 and 549 in `8QYP`) remain
+  polymer nodes but are normalized to parent Lys before prediction: the residue name becomes
+  `LYS` and PTM-only atoms `CM1`/`CM2`/`CM3` are removed. Thus heavy-atom edges cannot arise
+  from the trimethyl group while the node and author numbering remain intact (ADR 0006).
 - **Alternate conformations are ignored, not handled — but no longer on trust.**
   `parse_mmcif` keeps every altloc atom and no code filters by `label_alt_id` or occupancy,
   so a residue could enter a label set through a 0.25-occupancy conformer. Four holo entries
   carry altlocs (`5MO4`, `8QYR`, `8QYU`, `9F6C`). Re-deriving every pocket from the primary
-  conformer alone returns **the identical label set on all ten arms**, so the defect is
+  conformer alone returns **the identical label set on all 11 scoreable arms**, so the defect is
   latent rather than live — and that is now `test_label_sets_do_not_depend_on_a_minor_conformer`
   under `make verify`, not a one-off check recorded in prose. It will still bite on the ASD
   selection set, where the parser needs a real occupancy policy.
@@ -866,16 +948,15 @@ in Table 1 with no basis anywhere in the document's bibliography. How it got the
   residues to the kinase domain alone, and we have declined that (ADR 0010, accepted) because
   it deletes the SH3–SH2 clamp the myristoyl pocket acts through. That is a defensible
   reading, not a ruling.
-  **The trimmed-domain arm does not exist yet, and an earlier version of this bullet said it
-  "is run".** It does not: no arm carries a residue-range field, and the kinase-only arms
-  (`2G2H`, `2G1T`) are *different structures*, so they cannot isolate the effect of trimming
-  from the effect of changing the crystal. Until the arm exists the benchmark answers the C5
-  question one way only. Building it is specified and blocked, not vague: per ADR 0010
-  clause 4 it is an explicit `apo.residue_range` on a new `bcr_abl1_trimmed` arm over the
-  **same `1OPL`:A input**, plus a re-freeze — and the boundary must come from a **cited
-  domain assignment** (UniProt P00519 / Pfam PF07714, version pinned), never from us picking
-  a number, because that is exactly the knob ADR 0010 refuses. Blocking Phase 1.0's C5
-  closure; tracked in `docs/ROADMAP.md`.
+  **The trimmed-domain sensitivity now exists.** `bcr_abl1_trimmed` uses the same `1OPL`:A
+  bytes with an explicit manifest `apo.residue_range`. UniProtKB P00519 release 2026_02
+  supplies canonical kinase residues 242–493; the manifest pins the P00519-1/P00519-2
+  substitution and code derives the deposited +19 offset and verifies residues 261–512.
+  This holds the structure fixed and varies only scope — but the domain boundary also
+  amputates labels 521, 525 and 529, so the strict reading is reported at the cost of 15 %
+  of that arm's ground truth and its baseline is not a clean node-set contrast (§3). The
+  organisers' interpretation is still needed; the experimental sensitivity is no longer
+  missing.
 - **The second negative set blocks scoring, not just reporting.** §5 class 2 needs a geometric
   pocket detector; none is installed. Choosing one after seeing method results would make the
   detector a hyperparameter — which detector, what surface definition, how pockets merge, what

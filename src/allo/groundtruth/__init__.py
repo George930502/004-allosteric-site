@@ -1,6 +1,6 @@
 """Holo-derived labels. A sink: nothing on the prediction path may import this (C1).
 
-See src/allo/AGENTS.md for the dependency rule and tests/test_no_leakage.py for
+See AGENTS.md for the dependency rule and tests/test_no_leakage.py for
 its enforcement.
 """
 

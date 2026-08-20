@@ -60,8 +60,9 @@ defect the tier exists to expose. The same effect is smaller but present on myos
 
 ## Consequences
 
-- **No frozen number changes.** This records what the benchmark already does, which is why
-  it is cheap now and expensive after the report quotes an N.
+- **Primary-arm numbers did not change when this decision was accepted.** The later strict-C5
+  sensitivity arm adds a second, explicitly ranged view of `1OPL`; it does not trim the
+  mandated arm silently.
 - **Accepted by the PI.** The strict reading of C5 — trim to the catalytic domain — was the
   live alternative and is now declined. Adopting it would have shrunk the ABL1 mandated arm by
   ~40 % and changed every ABL1 baseline, and on that arm it would have deleted the SH3–SH2
@@ -72,16 +73,18 @@ defect the tier exists to expose. The same effect is smaller but present on myos
   scores against. The two are computed by different code paths — modelled polymer residues
   against residues carrying a Cα — so they agreed by coincidence rather than by construction.
   Trimming introduced anywhere in the loading path now fails this test.
-- A reviewer applying C5 strictly will ask about `1OPL`'s SH3–SH2. The answer is here rather
-  than improvised — but "we decided" is weaker than "we asked". **Two follow-ups, added
-  2026-08-20 after adversarial review:** put the C5 reading to the organisers as a written
-  question, and **build** a trimmed-domain sensitivity arm on ABL1 so the result is reported
-  under both readings instead of depending on which one a judge holds. **Neither is done.** A
-  second review caught this ADR and `README.md` §7 describing the arm as though it existed;
-  it does not, and the kinase-only arms are different structures, so they do not substitute
-  for it. The arm is `bcr_abl1_trimmed`: same `1OPL`:A input, an explicit `apo.residue_range`
-  per clause 4 above, boundary taken from a version-pinned UniProt P00519 / Pfam PF07714
-  assignment rather than chosen by us, and a re-freeze. Until then C5 is answered one way
-  only, and Phase 1.0 stays open on that point.
+- A reviewer applying C5 strictly will ask about `1OPL`'s SH3–SH2. The organiser question is
+  still open, but the experimental follow-up is built: `bcr_abl1_trimmed` uses the same
+  `1OPL`:A bytes with explicit `apo.residue_range`. UniProtKB P00519 release 2026_02 supplies
+  canonical kinase residues 242–493; the manifest pins the P00519-1/P00519-2 substitution,
+  code derives the deposited +19 offset, verifies boundaries 261–512 exist, and freezes 252
+  admitted nodes. This reports both C5 readings without replacing the accepted primary arm.
+- **The trim is not label-neutral, and that is the sharpest argument for decision 1.**
+  Deposited 513–531 lies outside the annotated domain and carries labels 521, 525 and 529, so
+  the arm freezes **17 positives against the mandated arm's 20** (`labels_outside_node_set` in
+  `frozen.json`). A mandated-vs-trimmed baseline gap mixes scope with a 15 % smaller positive
+  set and must not be read as a scope effect alone. Applied to `1OPL`, the strict reading of
+  C5 does not merely drop scaffolding — it deletes part of the myristoyl pocket itself.
+  Guarded by `test_every_arm_accounts_for_the_labels_it_does_not_score`.
 - The ASD selection set will contain multi-domain proteins where this bites harder than it
   does on three hand-picked targets. Revisit before that set is frozen (ROADMAP 1.7).

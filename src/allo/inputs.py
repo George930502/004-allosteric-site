@@ -14,6 +14,7 @@ promise.
 
 from __future__ import annotations
 
+import gzip
 import re
 from dataclasses import dataclass
 from pathlib import Path
@@ -21,7 +22,7 @@ from pathlib import Path
 import numpy as np
 import yaml
 
-from allo.structure.pdb import Structure, contacts, fetch_mmcif, parse_mmcif, sha256
+from allo.structure.pdb import APO_STRUCTURES, Structure, contacts, parse_mmcif, sha256
 
 ROOT = Path(__file__).resolve().parents[2]
 MANIFEST = ROOT / "docs" / "benchmark" / "manifest.yaml"
@@ -42,12 +43,52 @@ _THREE_TO_ONE = {
 }  # fmt: skip
 
 
-# Fields of a manifest target that describe the *answer* rather than the input. Every one
-# of them is holo-derived, and three of them spell out label residue numbers in prose --
-# `blind.why` names KRAS 68/95/96/99, `defect` names "16 of the 20 distal labels", `note`
-# gives Site 2's full label-to-active-site distribution. An import trace cannot see a module
-# that simply calls `load()`, so the redaction is what stops it, not the allow-list.
-_HOLO_SIDE = frozenset({"holo", "defect", "note", "blind", "allosteric_evidence", "state"})
+_LEAF = object()
+_PREDICTION_SCHEMA = {
+    "defaults": {"contact_cutoff_angstrom": _LEAF},
+    "targets": [
+        {
+            "id": _LEAF,
+            "protein": _LEAF,
+            "site": _LEAF,
+            "apo": {
+                "pdb": _LEAF,
+                "chain": _LEAF,
+                "sha256": _LEAF,
+                "residue_range": {
+                    "start": _LEAF,
+                    "end": _LEAF,
+                    "authority": {
+                        "database": _LEAF,
+                        "accession": _LEAF,
+                        "release": _LEAF,
+                        "retrieved_on": _LEAF,
+                        "record_url": _LEAF,
+                        "release_url": _LEAF,
+                        "canonical_isoform": _LEAF,
+                        "deposited_isoform": _LEAF,
+                        "canonical_domain": {"name": _LEAF, "start": _LEAF, "end": _LEAF},
+                        "isoform_substitution": {
+                            "canonical_start": _LEAF,
+                            "canonical_end": _LEAF,
+                            "replacement_length": _LEAF,
+                        },
+                    },
+                },
+            },
+            "active_site": {"from_ligands": _LEAF, "from_motifs": _LEAF},
+        }
+    ],
+}
+
+
+def _project(value, schema):
+    """Copy only exact schema paths; a newly nested key is absent by default."""
+    if schema is _LEAF:
+        return value
+    if isinstance(schema, list):
+        return [_project(item, schema[0]) for item in value]
+    return {key: _project(value[key], child) for key, child in schema.items() if key in value}
 
 
 def load(path: Path = MANIFEST) -> dict:
@@ -55,19 +96,24 @@ def load(path: Path = MANIFEST) -> dict:
 
     C1 says holo data may not reach the prediction path. `allo.inputs` is the one
     prediction-path module that has to open the manifest at all — it needs the chain and
-    the active-site rule — so it is also the place the answer key has to be stripped, and
-    it strips by allow-list so a field added later is redacted by default rather than
-    leaked by default. The verbatim read is `allo.groundtruth.manifest.read_manifest`,
-    behind the import guard; this module never exposes one (`tests/test_no_leakage.py`).
+    the active-site rule — so it is also the place the answer key has to be stripped. It
+    rebuilds the manifest from two allow-lists rather than filtering a deny-list, so a field
+    added later is redacted by default rather than leaked by default. The verbatim read is
+    `allo.groundtruth.manifest.read_manifest`, behind the import guard; this module never
+    exposes one (`tests/test_no_leakage.py`).
 
     `site` survives redaction deliberately: it is a human label ("Switch-II pocket"), and
     `CHALLENGE.md` Table 1 gives it to every participant, so it is not ours to withhold.
     """
     manifest = yaml.safe_load(path.read_text())
-    manifest["targets"] = [
-        {k: v for k, v in target.items() if k not in _HOLO_SIDE} for target in manifest["targets"]
-    ]
-    return manifest
+    # `status`, `tier`, and cutoff sensitivity describe evaluation, not the coordinates a
+    # method receives. Excluded arms have no pinned apo hash and are omitted rather than
+    # carrying their defect/status across C1.
+    manifest = {
+        **manifest,
+        "targets": [target for target in manifest["targets"] if target.get("status") != "excluded"],
+    }
+    return _project(manifest, _PREDICTION_SCHEMA)
 
 
 def one_letter(residues: list[tuple[str, int, str]]) -> str:
@@ -97,6 +143,77 @@ def active_site(apo: Structure, chain: str, rule: dict, cutoff: float) -> list[i
     return sorted(found)
 
 
+def admitted_residue_numbers(apo: Structure, chain: str, apo_spec: dict) -> tuple[int, ...]:
+    """The manifest-declared protein node set, including an authority-backed trim."""
+    available = tuple(number for c, number, _ in apo.residues() if c == chain)
+    residue_range = apo_spec.get("residue_range")
+    if residue_range is None:
+        return available
+
+    authority = residue_range["authority"]
+    domain = authority["canonical_domain"]
+    substitution = authority["isoform_substitution"]
+    replaced_length = substitution["canonical_end"] - substitution["canonical_start"] + 1
+    offset = substitution["replacement_length"] - replaced_length
+    expected = (domain["start"] + offset, domain["end"] + offset)
+    declared = (residue_range["start"], residue_range["end"])
+    if declared != expected:
+        raise ValueError(
+            f"{apo.pdb_id}:{chain} residue range {declared} does not match the "
+            f"authority-derived range {expected}"
+        )
+    if declared[0] not in available or declared[1] not in available:
+        raise ValueError(f"{apo.pdb_id}:{chain} does not model both declared boundaries {declared}")
+    return tuple(number for number in available if declared[0] <= number <= declared[1])
+
+
+def _prediction_structure(apo: Structure, chain: str, residues: tuple[int, ...]) -> Structure:
+    """Copy only admitted protein atoms into an immutable prediction-side structure."""
+    keep = apo.protein & (apo.chain == chain) & np.isin(apo.seq_id, residues)
+
+    # ADR 0006 chooses the parent amino acid representation. M3L's three methyl carbons are
+    # PTM-specific topology, not lysine topology, so remove them before any contact graph can
+    # see them and rename the remaining residue to its parent.
+    m3l = apo.resname == "M3L"
+    keep &= ~(m3l & np.isin(apo.atom, ["CM1", "CM2", "CM3"]))
+
+    def immutable(array: np.ndarray) -> np.ndarray:
+        """Read-only *and* un-unfreezable. Clearing the flag on an owning copy was not:
+        a review called `setflags(write=True)` on it and wrote to `coord` in place. Backing
+        the array with a `bytes` buffer makes NumPy refuse that, on the view and on its base.
+        """
+        selected = array[keep]
+        if array is apo.resname:
+            selected = selected.copy()
+            selected[selected == "M3L"] = "LYS"
+        frozen = np.frombuffer(selected.tobytes(), dtype=selected.dtype)
+        return frozen.reshape(selected.shape)
+
+    structure = Structure(
+        pdb_id=apo.pdb_id,
+        chain=immutable(apo.chain),
+        seq_id=immutable(apo.seq_id),
+        resname=immutable(apo.resname),
+        atom=immutable(apo.atom),
+        element=immutable(apo.element),
+        altloc=immutable(apo.altloc),
+        coord=immutable(apo.coord),
+        hetatm=immutable(apo.hetatm),
+        in_polymer=immutable(apo.in_polymer),
+    )
+    atom_residues = {number for _, number, _ in structure.residues()}
+    if set(structure.chain.tolist()) != {chain}:
+        raise ValueError(f"{apo.pdb_id}: prediction structure is not restricted to chain {chain}")
+    if atom_residues != set(residues):
+        raise ValueError(
+            f"{apo.pdb_id}:{chain} atom residues {sorted(atom_residues)} do not equal nodes "
+            f"{list(residues)}"
+        )
+    if structure.ligand.any() or np.any(structure.resname == "HOH"):
+        raise ValueError(f"{apo.pdb_id}:{chain} prediction structure contains non-protein atoms")
+    return structure
+
+
 @dataclass(frozen=True)
 class ApoInput:
     """What a method receives. Identical for every method, by construction."""
@@ -105,8 +222,8 @@ class ApoInput:
     pdb_id: str
     chain: str
     structure: Structure
-    residues: list[int]
-    active_site: list[int]
+    residues: tuple[int, ...]
+    active_site: tuple[int, ...]
     cutoff: float
 
 
@@ -130,16 +247,20 @@ def apo_input(target: str, raw: Path = RAW) -> ApoInput:
     if target not in specs:
         raise KeyError(f"{target!r} is not a frozen target; have {sorted(specs)}")
     spec = specs[target]
-    if spec.get("status") == "excluded":
-        raise ValueError(f"{target} is excluded from the freeze: {spec.get('defect', '')}")
     cutoff = manifest["defaults"]["contact_cutoff_angstrom"]
     chain = spec["apo"]["chain"]
-    path = fetch_mmcif(spec["apo"]["pdb"], raw)
+    raw.mkdir(parents=True, exist_ok=True)
+    path = raw / f"{spec['apo']['pdb'].upper()}.cif"
+    if not path.exists():
+        archived = APO_STRUCTURES / f"{spec['apo']['pdb'].upper()}.cif.gz"
+        if not archived.exists():
+            raise FileNotFoundError(
+                f"{target}: frozen apo {spec['apo']['pdb']} is absent from the apo store"
+            )
+        path.write_bytes(gzip.decompress(archived.read_bytes()))
     # Fail closed on the bytes, not just on the accession. `data/raw/` is gitignored and
-    # `fetch_mmcif` returns whatever is already cached, so a clean clone after an RCSB
-    # revision -- or a stale cache -- would silently run a method on different coordinates
-    # and only `allo benchmark verify`, a command a method run never invokes, would notice.
-    # A frozen input layer that re-downloads its input is not frozen.
+    # The cache is writable and may be stale or replaced, so the store path alone is not the
+    # boundary. The hash below binds the restored bytes to the target's manifest record.
     expected = spec["apo"].get("sha256")
     if not expected:
         raise ValueError(f"{target}: manifest pins no apo sha256; refusing to run unpinned")
@@ -150,12 +271,19 @@ def apo_input(target: str, raw: Path = RAW) -> ApoInput:
             f"{path} and refetch."
         )
     apo = parse_mmcif(path, spec["apo"]["pdb"])
+    residues = admitted_residue_numbers(apo, chain, spec["apo"])
+    source = tuple(active_site(apo, chain, spec["active_site"], cutoff))
+    if not set(source) <= set(residues):
+        raise ValueError(
+            f"{target}: active-site residues {sorted(set(source) - set(residues))} fall outside "
+            "the admitted node set"
+        )
     return ApoInput(
         target=target,
         pdb_id=spec["apo"]["pdb"],
         chain=chain,
-        structure=apo,
-        residues=sorted(number for c, number, _ in apo.residues() if c == chain),
-        active_site=active_site(apo, chain, spec["active_site"], cutoff),
+        structure=_prediction_structure(apo, chain, residues),
+        residues=residues,
+        active_site=source,
         cutoff=cutoff,
     )

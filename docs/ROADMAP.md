@@ -4,7 +4,10 @@ Each phase has an explicit **exit criterion** — a check that either passes or 
 not. No phase is "done" on vibes. Update the status table in `README.md` and this
 file when a phase closes.
 
-**Current phase: 1 (Classical foundation).** Sub-phase 1.0 (frozen benchmark) closed 2026-08-20.
+**Current phase: 1 (Classical foundation).** Sub-phase 1.0 is frozen and every ADR it
+depends on is accepted (0006, 0013, 0014, 0015 decided 2026-08-20). Phase **1.8** — apo-only
+re-selection of the `8QYP` arms — is booked and is the one thing standing between the
+myosin arms and confirmatory status.
 
 ---
 
@@ -38,10 +41,12 @@ later number believable.
    coordinates and label sets did not change — the entry criterion and the framing did.
    Concretely: the apo/holo definition is now the allostery field's nine clauses; crypticity
    is a reported difficulty axis with no pass/fail; the label set is the scoreable set
-   (labels minus propagation-source residues, AlloPred's rule) with no distance threshold;
+   (labels minus propagation-source residues, this repo's anti-circularity policy, with
+   AlloPred only a methodological analogy) with no distance threshold;
    every target now carries `allosteric_evidence`, `state` and `blind` fields enforced by
    `tests/test_benchmark.py`; and myosin gained a second **target** (Site 2, aficamten) plus
-   a Site 1 sensitivity arm, 11 targets in total. **No** arm in the primary benchmark is blind (corrected 2026-08-20; myosin Site 1 was
+   a Site 1 sensitivity arm, 11 targets at that freeze. Round 3 later added the trimmed ABL1
+   sensitivity arm. **No** arm in the primary benchmark is blind (corrected 2026-08-20; myosin Site 1 was
    wrongly recorded as blind until challenge reference [1] was re-read to its second site). See `CONTEXT.md` for the settled vocabulary.
 
    **Adversarial re-verification 2026-08-20.** Five independent agents re-checked the freeze
@@ -122,15 +127,43 @@ later number believable.
    `evidence/allosteric-pair-audit.md`, which also still carried pre-ADR-0008 arm IDs — repaired,
    with the index claim corrected from "every frozen arm" to "eight of the ten".
 
+   **Codex adversarial review round 3 repair 2026-08-20.** The ten reported findings were
+   rechecked against executable regressions. The prediction boundary now supplies an
+   immutable, ligand-free, single-chain structure with exactly the frozen nodes; the
+   UniProtKB 2026_02-backed `bcr_abl1_trimmed` arm freezes the same 1OPL coordinates over
+   deposited residues 261–512; catalytic-state matching uses contacting manifest vocabulary
+   components and records additives separately; null and multiplicity choices are
+   schema-guarded; real shell/Make/notebook runners are covered by the C1 gate; and the
+   structural audit was rerun over `sorted(frozen)`. The prior round's claimed manifest null
+   did not in fact exist, and its ad hoc type-I band is replaced by the exact binomial
+   prediction interval.
+
+   A fourth round then closed the policy questions and four defects the third round's repair
+   had introduced or left. `load()` was a deny-list with no top-level filter at all, so the
+   whole null model and the orthosteric vocabulary reached prediction code; it is now built
+   from two allow-lists. Prediction-side arrays cleared the WRITEABLE flag, which NumPy lets
+   the owner set back — they are `bytes`-backed and un-unfreezable now. The runner gate could
+   not see a wrapped import. The cut-label test passed on a freeze with every cut erased, and
+   is replaced by an accounting identity across arms sharing a pocket. Decisions taken:
+   **ADR 0006 accepted** (a reversible node-set policy is not a frozen input layer);
+   **ADR 0013 accepted, option 2** — the three `8QYP` arms are quarantined from claims, so the
+   claim-bearing family is three, one arm per protein; **ADR 0014 corrected and accepted,
+   option 1** — all 15 pinned mmCIF are byte-identical to their wwPDB versioned artifacts;
+   exact URLs and version labels are in the manifest, while all 17 entries remain as a
+   5.21 MiB offline mirror partitioned under `structures/apo` and `structures/holo`. The
+   earlier rejection tested the wrong hosts. **ADR 0015 amended** — explicit per-protein
+   functional-site registries, carried across entries by alignment, define exclusions;
+   adding an arm cannot move another arm's universe.
+
    **Still open before any method may be scored:** decoy artifacts committed, the patch null
-   calibrated and its parameters frozen, ADR 0012's `selection.json` built, the
-   `bcr_abl1_trimmed` C5 arm frozen, and two questions put to the organisers (`6C1H`, and how
-   C5 is to be read).
+   calibrated, ADR 0012's `selection.json` built, two questions put to the organisers
+   (`6C1H`, and how C5 is to be read), and Phase 1.8's apo-only re-selection.
 
 1. **Structure ingest** — fetch apo PDBs, select catalytic domain / chain, drop
    waters, co-factors and PTMs (C5), index residues canonically (auth numbering,
    preserved end to end so hit lists are chemist-readable). _Partly done: fetch/parse and
-   ligand-contact selection are in `src/allo/structure/`; domain trimming is open._
+   ligand-contact selection and explicit authority-backed residue ranges are implemented;
+   the default remains the whole modelled chain under ADR 0010._
 2. **Network construction** — Cα (and optionally side-chain centroid) contact graph;
    cutoff and weighting scheme as configurable knobs; verify connectivity and degree
    distribution per target.
@@ -154,6 +187,18 @@ later number believable.
    the frozen primary benchmark, which is test-set fitting even with no holo import
    (`docs/benchmark/README.md` §5, `docs/FIELD.md` trap 4). This is why the ASD set is a
    Phase 1 deliverable and not the Phase 5 nicety an earlier draft made it.
+
+8. **Apo-only re-selection of the `8QYP` arms (ADR 0013, option 1).** `8QYP` was chosen by
+   comparing apo candidates against holo-defined pocket geometry, so the three arms built on
+   it are answer-informed in the anti-conservative direction and are quarantined from every
+   claim until this lands. Enumerate MYH7 apo candidates and rank them on **apo-only**
+   criteria pinned before any holo is opened — construct compatibility, method, resolution,
+   model completeness, apo catalytic-state annotation — with the site-apo occupancy check
+   applied as pass/fail admission and never as a closeness objective. Re-freeze every arm
+   whose apo changes. If no candidate passes, the quarantine stands rather than relaxes.
+
+   **Exit:** `claim_bearing_family()` returns four arms again, and `selection.json`-style
+   provenance records every candidate considered with the clause that decided it.
 
 **Exit:** for all three validation targets, a committed baseline experiment reporting
 enrichment statistics for every classical method, reproducible from its config, with
