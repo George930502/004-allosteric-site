@@ -433,6 +433,16 @@ enters any apo-side quantity, and this file is evidence, never imported by predi
 Save as a scratch file and run `uv run python <file>` from the repo root. It imports one
 private helper (`allo.benchmark._chain_ca`); if that moves, inline it.
 
+> **Repaired 2026-08-20 after a second adversarial review.** The script had rotted twice and
+> nobody had re-run it: it imported `allo.inputs.load`, which since the C1 boundary move
+> returns the manifest **redacted** — so `sp["holo"]` raised `KeyError` — and its arm list
+> still used the pre-ADR-0008 myosin IDs, missing the two arms that split added. The numbers
+> below were computed when **eight** arms existed; §2's tables are unchanged and still hold
+> for those eight, and the two added arms (`cardiac_myosin_site1_omecamtiv`,
+> `cardiac_myosin_site2_corrected`) are **not** covered by them. Any claim that this document
+> audits *every* frozen arm is true of the script as it now stands and not of the tables as
+> written.
+
 ```python
 """Regenerates the derived numbers in docs/benchmark/evidence/allosteric-pair-audit.md."""
 
@@ -447,7 +457,8 @@ from scipy.stats import mannwhitneyu
 
 from allo.benchmark import FROZEN, _chain_ca
 from allo.groundtruth.labels import align_numbering
-from allo.inputs import RAW, load
+from allo.groundtruth.manifest import read_manifest as load  # evaluation side: needs `holo`
+from allo.inputs import RAW
 from allo.structure.pdb import fetch_mmcif, parse_mmcif
 
 ARMS = [
@@ -456,9 +467,11 @@ ARMS = [
     "bcr_abl1_mandated",
     "bcr_abl1_corrected",
     "bcr_abl1_sensitivity",
-    "cardiac_myosin_corrected",
-    "cardiac_myosin_sensitivity_xray",
-    "cardiac_myosin_sensitivity_srx",
+    "cardiac_myosin_site1_corrected",
+    "cardiac_myosin_site1_sensitivity_xray",
+    "cardiac_myosin_site1_sensitivity_srx",
+    "cardiac_myosin_site1_omecamtiv",
+    "cardiac_myosin_site2_corrected",
 ]
 CUT = 4.5
 _seen: dict[str, object] = {}

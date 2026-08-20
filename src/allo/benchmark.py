@@ -363,12 +363,18 @@ def _exclude_sibling_sites(targets: dict[str, dict], manifest: dict) -> None:
     to agree.
 
     `derive` holds one arm and cannot see this, so the cross-arm pass lives here. Sibling =
-    another frozen arm on the same apo entry and chain whose `site` differs. Two arms on the
-    same site with different effectors (Site 1's XB2 and 2OW) are not siblings. Only myosin
-    has a second frozen site, so no other arm moves.
+    another frozen arm on the same apo entry and chain whose **`site_id`** differs. Two arms on
+    the same site with different effectors (Site 1 under XB2 and under 2OW) are not siblings.
+    Only myosin has a second frozen site, so no other arm moves.
+
+    Identity is the canonical `site_id`, never the free-text `site`. Comparing display strings
+    is what an adversarial review caught this doing: the 2OW arm reads
+    "mavacamten/omecamtiv pocket (Site 1)" and the XB2 arms read "mavacamten site", so the two
+    halves of Site 1 masked each other as if they were different pockets and both candidate
+    counts were wrong. A benchmark invariant may not depend on how a label was worded.
     """
     where = {
-        s["id"]: (s.get("site"), s["apo"]["pdb"], s["apo"]["chain"]) for s in manifest["targets"]
+        s["id"]: (s["site_id"], s["apo"]["pdb"], s["apo"]["chain"]) for s in manifest["targets"]
     }
     for target, derived in targets.items():
         site, pdb, chain = where[target]
@@ -465,7 +471,20 @@ def stats(frozen: dict | None = None, seed: int = 0) -> dict:
         return round(float(auc), 3) if auc < 1.0 else None
 
     rng = np.random.default_rng(seed)
-    out = {"seed": seed, "effect_size_d": 0.8, "draws": 2000, "targets": {}}
+    # The confirmatory family, derived rather than counted by hand. Section 5 tests AUC-PR on
+    # the `corrected` arm of every target and Holm-corrects across them; an earlier version
+    # said "three tests", counting *proteins*, which silently dropped myosin Site 2 or
+    # under-corrected the family. A target is a protein plus a site (ADR 0008), so the family
+    # is however many corrected arms the freeze holds -- four today.
+    confirmatory = sorted(t for t in frozen["targets"] if t.endswith("_corrected"))
+    out = {
+        "seed": seed,
+        "effect_size_d": 0.8,
+        "draws": 2000,
+        "confirmatory_family": confirmatory,
+        "family_size": len(confirmatory),
+        "targets": {},
+    }
     for target, derived in frozen["targets"].items():
         n = derived["n_candidates"]
         scoreable = len(derived["scoreable_label_residues"])

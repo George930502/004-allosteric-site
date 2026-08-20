@@ -75,8 +75,13 @@ defect the tier exists to expose. The same effect is smaller but present on myos
 - A reviewer applying C5 strictly will ask about `1OPL`'s SH3–SH2. The answer is here rather
   than improvised — but "we decided" is weaker than "we asked". **Two follow-ups, added
   2026-08-20 after adversarial review:** put the C5 reading to the organisers as a written
-  question, and run a **trimmed-domain sensitivity arm on ABL1** so the result is reported
-  under both readings instead of depending on which one a judge holds. Tracked in
-  `docs/benchmark/README.md` §7.
+  question, and **build** a trimmed-domain sensitivity arm on ABL1 so the result is reported
+  under both readings instead of depending on which one a judge holds. **Neither is done.** A
+  second review caught this ADR and `README.md` §7 describing the arm as though it existed;
+  it does not, and the kinase-only arms are different structures, so they do not substitute
+  for it. The arm is `bcr_abl1_trimmed`: same `1OPL`:A input, an explicit `apo.residue_range`
+  per clause 4 above, boundary taken from a version-pinned UniProt P00519 / Pfam PF07714
+  assignment rather than chosen by us, and a re-freeze. Until then C5 is answered one way
+  only, and Phase 1.0 stays open on that point.
 - The ASD selection set will contain multi-domain proteins where this bites harder than it
   does on three hand-picked targets. Revisit before that set is frozen (ROADMAP 1.7).

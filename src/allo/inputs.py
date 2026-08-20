@@ -110,13 +110,22 @@ class ApoInput:
     cutoff: float
 
 
-def apo_input(target: str, manifest: dict | None = None, raw: Path = RAW) -> ApoInput:
+def apo_input(target: str, raw: Path = RAW) -> ApoInput:
     """Load one frozen target's apo input. The only supported way for a method to start.
 
     Re-deriving the residue list per method is how two methods end up silently scored
     on different node sets; this returns the same list to all of them.
+
+    **There is no `manifest` parameter, deliberately.** It used to take one, and an
+    adversarial review pointed out that the hash check below was then verifying
+    caller-supplied bytes against caller-supplied metadata: hand it a manifest mapping
+    `kras_g12c_mandated` to `4LDJ` with `4LDJ`'s real hash and it returned `4LDJ` as the
+    mandated input, every guard green. "Every method saw identical inputs" has to be true by
+    construction, so the accession, chain, active-site rule, cutoff and hash all come from
+    the repository-pinned manifest and a caller cannot substitute any of them. `raw` stays
+    open because it only says *where to cache*, and the hash check covers the bytes.
     """
-    manifest = manifest or load()
+    manifest = load()
     specs = {s["id"]: s for s in manifest["targets"]}
     if target not in specs:
         raise KeyError(f"{target!r} is not a frozen target; have {sorted(specs)}")

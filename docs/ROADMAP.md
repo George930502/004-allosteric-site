@@ -88,10 +88,44 @@ later number believable.
    on the apo file's sha256; and the header no longer claims "identical negatives", because
    the decoy detector does not exist yet and choosing it later would make it a hyperparameter.
 
+   **Codex adversarial review round 2 (`gpt-5.6-sol`, xhigh).** The same model re-checked its
+   own nine findings rather than trusting the commit that claimed to close them, and audited
+   the files round 1 never opened. It accepted the candidate-denominator arithmetic, the
+   clause (iii) wording and the parser/label outputs; eight findings stood, three of them
+   defects the *repair* introduced.
+   - **The sibling mask keyed on free text.** `_exclude_sibling_sites` compared the display
+     string `site`, and Site 1's two arms read "mavacamten site" and "mavacamten/omecamtiv
+     pocket (Site 1)" — so the two halves of one pocket masked each other and both candidate
+     counts were wrong (47/44 excluded, should be 42/42). Now keyed on a canonical `site_id`,
+     with a test for the converse case that broke.
+   - **The hash check was caller-bypassable.** `apo_input(target, manifest=...)` verified
+     caller-supplied bytes against caller-supplied metadata: hand it a manifest mapping
+     `kras_g12c_mandated` to `4LDJ` and it returned `4LDJ`, every guard green. The parameter is
+     gone; the manifest is always the repository-pinned one.
+   - **The confirmatory family was hand-counted as three** — counting proteins, when a target
+     is a protein *plus a site* (ADR 0008). Four corrected arms exist, so Site 2 was being
+     dropped or the FWER under-corrected. The family is derived by `allo benchmark stats` now.
+   - **Run scripts kept a route to the answer key.** The `experiments/` guard grepped for
+     `frozen.json`/`groundtruth`; `from allo import benchmark` then `benchmark.load()` contains
+     neither string and is outside the import graph. The AST guard now walks `experiments/` and
+     `scripts/` and rejects `allo.benchmark` as well as `allo.groundtruth`.
+   - **A promise written in the present tense.** §7 said a trimmed-domain ABL1 arm "is run".
+     It does not exist, and the kinase-only arms are different structures, so they cannot
+     isolate trimming. Corrected to what is true, with the arm specified (`bcr_abl1_trimmed`,
+     same `1OPL`:A, explicit `residue_range`, boundary from a version-pinned UniProt/Pfam
+     assignment) and marked blocking.
+   Also: the null now matches the **scoreable** set (matching the full set is impossible — it
+   contains 0 Å source residues absent from the candidate set) and freezes its knobs in the
+   manifest with a stated [0.02, 0.08] type-I acceptance band; ADR 0012 gained operational
+   metrics and a required `selection.json` artifact instead of four unenforceable sentences;
+   and the manifest move had broken the audit reproduction script in
+   `evidence/allosteric-pair-audit.md`, which also still carried pre-ADR-0008 arm IDs — repaired,
+   with the index claim corrected from "every frozen arm" to "eight of the ten".
+
    **Still open before any method may be scored:** decoy artifacts committed, the patch null
-   calibrated, and two questions put to the organisers (`6C1H`, and how C5 is to be read —
-   ADR 0010 declines the strict reading and now also commits to a trimmed-domain sensitivity
-   arm on ABL1 so the answer is reported both ways).
+   calibrated and its parameters frozen, ADR 0012's `selection.json` built, the
+   `bcr_abl1_trimmed` C5 arm frozen, and two questions put to the organisers (`6C1H`, and how
+   C5 is to be read).
 
 1. **Structure ingest** — fetch apo PDBs, select catalytic domain / chain, drop
    waters, co-factors and PTMs (C5), index residues canonically (auth numbering,
