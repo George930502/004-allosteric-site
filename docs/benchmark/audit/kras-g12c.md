@@ -1,5 +1,15 @@
 # Forensic structural audit — KRAS G12C (apo `4OBE` → holo `6OIM`)
 
+> **Status: superseded in part, retained as the forensic record.** This dossier is the
+> 2026-08-20 audit that produced ADR 0003 and the tiered benchmark. It is preserved because
+> the *evidence* it gathered is what the tiers rest on, and every fact in it carries its
+> provenance. But it predates **ADR 0007** (ground truth is the allosteric site; crypticity is
+> a difficulty axis, never a validity test) and **ADR 0008** (one target per site), so its
+> framing and some of its recommendations are no longer current.
+> **For anything you intend to rely on, `docs/benchmark/frozen.json` is the authority and
+> `docs/benchmark/README.md` is the current account.** Points where this file has been
+> overtaken are marked `⚠️ SUPERSEDED` inline.
+
 **Audit date:** 2026-08-20
 **Pair source:** `CHALLENGE.md` §6 Table 1; mirrored in `docs/targets.md`.
 **Target pocket:** cryptic Switch-II pocket (S-IIP), bound by sotorasib / AMG 510.
@@ -491,7 +501,13 @@ covalent Cys12 link explicit in `_struct_conn`, and an unambiguous ligand chem c
 
 > ## Usable with documented caveats — but a substitution is strongly recommended.
 
-The blindness requirement is **satisfied**: the Switch-II pocket in `4OBE` is genuinely closed and
+⚠️ **SUPERSEDED — read "blindness" here as clause (iii) _site-apo_, not as the benchmark's
+`blind` field.** Under the settled vocabulary (`CONTEXT.md`) KRAS is **not blind**: ASBench
+curates the HRAS helix-3/loop-7 site whose residues are 4 of 5 in our label set, and Eren 2021
+ran GNM+ANM on `4OBE` itself. What this paragraph correctly establishes is the narrower,
+still-true point that follows.
+
+The site-apo requirement is **satisfied**: the Switch-II pocket in `4OBE` is genuinely closed and
 genuinely ligand-free, and the numbering is directly comparable to `6OIM` with zero offset. No holo
 information leaks into the apo input (C1 is safe).
 
@@ -504,7 +520,9 @@ input.
 
 1. State plainly in the report that `4OBE` is wild-type KRAS. Evidence: `_struct_ref_seq_dif` has
    no mutation row; auth residue 12 is `GLY`.
-2. Exclude residue 12 from the scored label set, or score it separately — its holo identity does
+2. ⚠️ **SUPERSEDED by the scoreable-label rule (ADR 0007).** Residue 12 leaves the scored set,
+   but by *set membership* — it is an active-site residue under the frozen rule, along with 11,
+   13, 16 and 34 — not by this ad-hoc exclusion. Original wording: exclude residue 12, or score it separately — its holo identity does
    not exist in the apo input.
 3. Use **chain A only**; record the choice. Do not load both ASU copies.
 4. Record the treatment of GDP and Mg²⁺ under C5 (dropped, or simple nodes).
@@ -524,7 +542,7 @@ environment perturb the predicted ranking).
 | Constraint | Status |
 |---|---|
 | C1 (apo only) | **Satisfied.** No holo-derived information in `4OBE`; S-IIP closed and unoccupied. |
-| C5 (scope) | **Action required.** Decide and record the treatment of GDP and Mg²⁺. |
+| C5 (scope) | ✅ **Resolved in ADR 0006**: cofactors are not network nodes; the apo entry's own cofactor may locate the propagation source (ADR 0005). |
 | C6 (elastic network) | **Weakened for `4OBE`** by the lattice contacts on switch II. Note as a limitation. |
 
 ---

@@ -1,4 +1,5 @@
 {
+  "_superseded_note": "2026-08-20 audit, retained as the forensic record. Predates ADR 0007/0008. docs/benchmark/frozen.json is the authority; see docs/benchmark/README.md.",
   "provenance": {
     "audit_date": "2026-08-20",
     "target": "KRAS G12C",
@@ -450,10 +451,10 @@
 
   "verdict": {
     "status": "usable with documented caveats - but a substitution is strongly recommended",
-    "one_line": "The blindness requirement is satisfied (the S-IIP is genuinely closed and ligand-free in 4OBE), but 4OBE is wild-type KRAS, not G12C, so the challenge's own apo/holo pair is not two forms of the same protein.",
+    "one_line": "SUPERSEDED FRAMING: read 'blindness' as clause (iii) site-apo, not as the benchmark blind field - KRAS is not blind (ASBench HRAS AS001013301; Eren 2021 on 4OBE itself). The site-apo requirement is satisfied (the S-IIP is genuinely closed and ligand-free in 4OBE), but 4OBE is wild-type KRAS, not G12C, so the challenge's own apo/holo pair is not two forms of the same protein.",
     "if_kept_as_is": [
       "State in the report that 4OBE is wild-type KRAS (evidence: _struct_ref_seq_dif has no mutation row; auth residue 12 is GLY).",
-      "Exclude residue 12 from the scored label set, or score it separately, since its holo identity (CYS) does not exist in the apo input.",
+      "SUPERSEDED by ADR 0007: residue 12 leaves the scoreable set by set membership (it is an active-site residue, with 11/13/16/34), not by ad-hoc exclusion. Its holo identity (CYS) still does not exist in the apo input.",
       "Use chain A only; record the choice. Do not load both ASU copies.",
       "Record the treatment of GDP and Mg2+ under C5.",
       "Report the switch-II crystal-contact exposure (10 of 21 residues) as a limitation of the apo input."
@@ -461,7 +462,7 @@
     "recommended_action": "Run 4LDJ as the primary apo input and keep 4OBE as a documented secondary/control run. Report both. 4LDJ is the same paper, same deposition day, higher resolution, actually G12C, and is named by 4OBE's own _pdbx_database_related record as the G12C structure. Because the challenge text fixes 4OBE, the 4OBE result must still be reported; the 4LDJ result is the scientifically defensible one and the delta between them is itself a result worth writing up.",
     "constraint_impact": {
       "C1_apo_only": "SATISFIED. No holo-derived information is present in 4OBE. The S-IIP is closed and unoccupied.",
-      "C5_scope": "Action required: decide and record whether GDP and Mg2+ become simple nodes.",
+      "C5_scope": "RESOLVED in ADR 0006: cofactors are not network nodes; the apo entry own cofactor may locate the propagation source (ADR 0005).",
       "C6_elastic_network": "Weakened for 4OBE by the lattice contacts on switch II; note as a limitation."
     }
   },

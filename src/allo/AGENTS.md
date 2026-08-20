@@ -30,6 +30,16 @@ Holo structures, ligand contacts and label sets enter the repo only through
 on the prediction path imports it — directly or transitively — the blind prediction is
 compromised and the submission is invalid. `tests/test_no_leakage.py` enforces this.
 
+**Two data routes bypass the import graph, and both are guarded separately.**
+`docs/benchmark/frozen.json` holds the label sets, and no prediction-path module may name
+it. `docs/benchmark/manifest.yaml` holds the holo accessions, the effector component IDs
+and — in `blind.why`, `defect` and `note` — label residue numbers written out in prose.
+`allo.inputs` is the **only** prediction-path module permitted to open it, and its `load()`
+strips every holo-side field by allow-list, so a field added later is redacted by default.
+The unredacted read is `allo.inputs.read_manifest`, used only from `allo.benchmark`, which
+sits behind the `groundtruth` guard. An import trace cannot see either route; the file-read
+and content tests in `tests/test_no_leakage.py` are what does.
+
 The general form: dependencies point inward toward the network/propagation logic, never
 outward toward I/O, cloud backends or plotting. `quantum/` must be callable without
 Braket credentials, `network/` without a PDB fetch. Pass the capability in.

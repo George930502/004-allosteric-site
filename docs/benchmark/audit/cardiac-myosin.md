@@ -1,5 +1,15 @@
 # Benchmark audit — Cardiac myosin (`5TBY` apo → `6C1H` holo)
 
+> **Status: superseded in part, retained as the forensic record.** This dossier is the
+> 2026-08-20 audit that produced ADR 0003 and the tiered benchmark. It is preserved because
+> the *evidence* it gathered is what the tiers rest on, and every fact in it carries its
+> provenance. But it predates **ADR 0007** (ground truth is the allosteric site; crypticity is
+> a difficulty axis, never a validity test) and **ADR 0008** (one target per site), so its
+> framing and some of its recommendations are no longer current.
+> **For anything you intend to rely on, `docs/benchmark/frozen.json` is the authority and
+> `docs/benchmark/README.md` is the current account.** Points where this file has been
+> overtaken are marked `⚠️ SUPERSEDED` inline.
+
 **Verdict up front: UNUSABLE.** `6C1H` does **not** contain mavacamten. It does not contain
 cardiac myosin. It is a rat **unconventional myosin-Ib** motor bound to a rabbit skeletal
 **actin** filament with **calmodulin**; its only ligands are five ADP and five Mg²⁺, all of

@@ -38,7 +38,7 @@ Two families of rule are available, and the targets do not all admit the same on
    **All three ABL1 arms use rule 2.** The first manifest used `P16`'s footprint for two of
    them, contradicting this rule and giving those arms a 21-residue source against the third
    arm's 11 — so the sensitivity arm varied the structure *and* the source at once. Corrected
-   2026-08-20; the distal label sets were unaffected (20/20 and 18/18 either way).
+   2026-08-20; the scoreable label sets were unaffected (20/20 and 18/18 either way).
 
 **The manifest stores the rule, not the result.** `active_site: {from_ligands: [GDP, MG]}`
 or `{from_motifs: [VAIK, HRD, DFG]}`; `derive()` computes the residues. A pinned residue list
@@ -55,9 +55,25 @@ version of this manifest did exactly that, and carried `1OPL`'s active site unde
   pocket abuts the nucleotide site, and sotorasib is anchored at Cys12. A score defined as
   connectivity to the active site will rank those residues top for trivial reasons. The
   evaluation therefore reports enrichment both over the full label set and over the
-  **distal** label set with the active-site-adjacent residues removed, and the distal
+  **scoreable** label set with the active-site residues removed, and the scoreable
   figure is the one that answers the challenge's actual question. BCR-ABL1 (10.6 Å minimum on the
   mandated pair, 10.8 Å corrected and 10.8 Å sensitivity) and cardiac myosin (16.5 Å corrected, 13.3 Å on the X-ray
   sensitivity arm) have no such overlap.
 - Rule 2 is fold-specific. Extending to an ASD target with a different fold needs a motif
   definition for that fold, or a cofactor-bearing apo entry.
+
+
+---
+
+**Amendment, 2026-08-20 (ADR 0007).** This ADR originally said the evaluation reports over a
+**distal** label set "with the active-site-adjacent residues removed". Withdrawn on two
+counts. The set is now the **scoreable** label set, and the rule is **set membership, not
+distance**: a label is excluded exactly when it is itself a propagation-source residue, which
+is AlloPred's published rule (doi:10.1186/s12859-015-0771-1) and costs no labels to a
+threshold nobody in the allostery literature states. The earlier 5 Å version discarded KRAS
+residues 10 and 58, neither of which is an active-site residue under this ADR's own rule — a
+second, undeclared criterion operating silently. Proximity is handled in the evaluation layer
+by a distance-matched null instead. The **decision** of this ADR — active site as a derived
+rule, never a pinned list — is unaffected, and `benchmark.py` already implements the amended
+form. Recorded here because ADR 0007 lists this ADR as "unchanged and explicitly still in
+force", which was true of its decision and not of this paragraph.

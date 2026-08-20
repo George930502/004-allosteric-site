@@ -1,5 +1,15 @@
 # Benchmark audit — BCR-ABL1: apo `1OPL` → holo `5MO4`
 
+> **Status: superseded in part, retained as the forensic record.** This dossier is the
+> 2026-08-20 audit that produced ADR 0003 and the tiered benchmark. It is preserved because
+> the *evidence* it gathered is what the tiers rest on, and every fact in it carries its
+> provenance. But it predates **ADR 0007** (ground truth is the allosteric site; crypticity is
+> a difficulty axis, never a validity test) and **ADR 0008** (one target per site), so its
+> framing and some of its recommendations are no longer current.
+> **For anything you intend to rely on, `docs/benchmark/frozen.json` is the authority and
+> `docs/benchmark/README.md` is the current account.** Points where this file has been
+> overtaken are marked `⚠️ SUPERSEDED` inline.
+
 Target pocket: the distal **myristoyl pocket** bound by **asciminib (ABL001)**
 (`CHALLENGE.md` §6, Table 1, row 2).
 
