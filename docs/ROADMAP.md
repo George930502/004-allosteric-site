@@ -22,8 +22,8 @@ Nothing quantum yet. This phase builds the substrate everything else is measured
 against. Getting the ground truth and the statistics right here is what makes every
 later number believable.
 
-0. **Frozen benchmark ✅ (closed 2026-08-20)** — the input layer is fixed before any
-   method exists, so method comparisons are honest. An audit of the challenge's own
+0. **Frozen benchmark — input layer and positives closed 2026-08-20; negatives still open**
+   — the input layer is fixed before any method exists, so method comparisons are honest. An audit of the challenge's own
    apo/holo assignments found all three defective, one fatally (`6C1H` contains neither
    mavacamten nor cardiac myosin). Response is tiered — mandated / corrected /
    sensitivity — and pre-registered in `docs/benchmark/manifest.yaml`.
@@ -60,6 +60,38 @@ later number believable.
    real C1 leak *surface* was closed: `manifest.yaml` carries label residue numbers in prose,
    so `allo.inputs.load()` now redacts the holo half by allow-list and two new tests hold it
    there.
+
+   **Codex adversarial review 2026-08-20 (`gpt-5.6-sol`, xhigh).** An independent model was
+   pointed at the whole branch precisely because everything above was produced in one
+   self-consistent session. Nine findings, eight of which held; the four that mattered were
+   ones no amount of re-reading by the same author would have surfaced, because each is a
+   contradiction between two paragraphs that were individually right.
+   - **ADR 0011 — the scoring universe.** Propagation-source residues had been removed from
+     the positives and left in the negatives. That is a **44–62 % AUC-PR penalty aimed at
+     connectivity methods and at nothing else** — i.e. at the method class the challenge asks
+     for. They now leave both classes, along with sibling functional sites on the same apo
+     chain. Every chance line in §5 moved.
+   - **The C1 hole next to the one we closed.** `allo.inputs.read_manifest` returned the
+     manifest verbatim from a *prediction-path* module, and no guard saw it — the import trace
+     watches `allo.groundtruth`, the file-read test greps for `manifest.yaml`. Moved to
+     `allo.groundtruth.manifest`, so the existing guard covers it.
+   - **ADR 0012 — the tuning set contained the answers.** §5 sent hyperparameter selection to
+     ASD; §7 records that ASD curates the myristoyl pocket twice, lists `1OPL` as a related
+     complex, and holds an HRAS record carrying 4 of 5 KRAS labels past any identity dedup.
+     Selection now requires disjointness on accession, family, homologous site and residue
+     overlap.
+   - **The null promised distance matching it did not do**, which is anti-conservative on
+     exactly our proximal arms. §5 now matches on distance-to-source and requires a
+     distance-only and degree-only calibration to fail before any p-value is quotable.
+   Also: clause (iii)'s text now matches what `derive()` checks; §5 declares one confirmatory
+   decision rule instead of two primary metrics and a Holm sentence; `apo_input` fails closed
+   on the apo file's sha256; and the header no longer claims "identical negatives", because
+   the decoy detector does not exist yet and choosing it later would make it a hyperparameter.
+
+   **Still open before any method may be scored:** decoy artifacts committed, the patch null
+   calibrated, and two questions put to the organisers (`6C1H`, and how C5 is to be read —
+   ADR 0010 declines the strict reading and now also commits to a trimmed-domain sensitivity
+   arm on ABL1 so the answer is reported both ways).
 
 1. **Structure ingest** — fetch apo PDBs, select catalytic domain / chain, drop
    waters, co-factors and PTMs (C5), index residues canonically (auth numbering,

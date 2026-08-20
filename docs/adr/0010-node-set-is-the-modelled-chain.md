@@ -73,6 +73,10 @@ defect the tier exists to expose. The same effect is smaller but present on myos
   against residues carrying a Cα — so they agreed by coincidence rather than by construction.
   Trimming introduced anywhere in the loading path now fails this test.
 - A reviewer applying C5 strictly will ask about `1OPL`'s SH3–SH2. The answer is here rather
-  than improvised.
+  than improvised — but "we decided" is weaker than "we asked". **Two follow-ups, added
+  2026-08-20 after adversarial review:** put the C5 reading to the organisers as a written
+  question, and run a **trimmed-domain sensitivity arm on ABL1** so the result is reported
+  under both readings instead of depending on which one a judge holds. Tracked in
+  `docs/benchmark/README.md` §7.
 - The ASD selection set will contain multi-domain proteins where this bites harder than it
   does on three hand-picked targets. Revisit before that set is frozen (ROADMAP 1.7).

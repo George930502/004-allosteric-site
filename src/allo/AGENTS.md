@@ -36,9 +36,16 @@ it. `docs/benchmark/manifest.yaml` holds the holo accessions, the effector compo
 and — in `blind.why`, `defect` and `note` — label residue numbers written out in prose.
 `allo.inputs` is the **only** prediction-path module permitted to open it, and its `load()`
 strips every holo-side field by allow-list, so a field added later is redacted by default.
-The unredacted read is `allo.inputs.read_manifest`, used only from `allo.benchmark`, which
-sits behind the `groundtruth` guard. An import trace cannot see either route; the file-read
-and content tests in `tests/test_no_leakage.py` are what does.
+The unredacted read is `allo.groundtruth.manifest.read_manifest`, so the import guard covers
+it like any other holo data. It used to sit on `allo.inputs` beside `load()`, and every guard
+stayed green for a prediction module that imported it: the import trace only watches
+`groundtruth`, and the file-read test greps for `manifest.yaml`/`MANIFEST`, neither of which
+appears in `from allo.inputs import read_manifest`. Found by adversarial review, closed by
+moving the function rather than by adding a special case. **`allo.inputs` must never regain a
+verbatim reader** — `test_no_prediction_module_can_reach_an_unredacted_manifest` holds it.
+
+An import trace cannot see the `frozen.json` route; the file-read and content tests in
+`tests/test_no_leakage.py` are what does.
 
 The general form: dependencies point inward toward the network/propagation logic, never
 outward toward I/O, cloud backends or plotting. `quantum/` must be callable without

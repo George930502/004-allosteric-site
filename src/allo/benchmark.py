@@ -18,8 +18,8 @@ from pathlib import Path
 import numpy as np
 
 from allo.groundtruth.labels import align_numbering, transfer_labels
+from allo.groundtruth.manifest import read_manifest as load
 from allo.inputs import MANIFEST, RAW, ROOT, active_site
-from allo.inputs import read_manifest as load
 from allo.structure.pdb import Structure, fetch_mmcif, parse_mmcif, sha256
 
 FROZEN = ROOT / "docs" / "benchmark" / "frozen.json"
@@ -49,6 +49,8 @@ class Derived:
     label_residues: list[int]
     labels_by_cutoff: dict[str, list[int]]
     scoreable_label_residues: list[int]
+    excluded_from_scoring: list[int]
+    n_candidates: int
     label_prevalence: float
     unmapped: list[str]
     active_site: list[int]
@@ -226,6 +228,22 @@ def derive(
     }
     scoreable = [r for r in label_numbers if r not in set(active)]
 
+    # The scoring universe, and the half of it one arm can see on its own.
+    #
+    # Dropping propagation-source residues from the *positives* and leaving them in the
+    # *negatives* is not a neutral half-measure: it hands a systematic penalty to exactly
+    # the method the challenge asks for. A connectivity-to-active-site score ranks the
+    # source set at the top by construction -- that is what it computes -- so every one of
+    # those residues scores as a false positive, while a geometric pocket detector takes no
+    # such hit. Simulated at a fixed real effect, that costs 44-62 % of AUC-PR across these
+    # arms for no difference in the signal. The reason section 5 gives for removing them
+    # from the labels -- "scores maximally by construction and therefore measures nothing"
+    # -- is a reason to remove them from *both* classes. Section 5 already applies exactly
+    # this rule to the decoy set; this makes the background agree with it.
+    #
+    # Sibling functional sites are excluded too, but only `freeze` can see those.
+    excluded = sorted(r for r in active if r in apo_ca)
+
     # Clause (iii), site-apo: does anything already sit in the site we are about to ask a
     # method to find? This is the check that disqualified 1OPL and is the basis of the
     # corrected tier, so it regenerates rather than living in prose.
@@ -307,6 +325,8 @@ def derive(
         label_residues=label_numbers,
         labels_by_cutoff=by_cutoff,
         scoreable_label_residues=scoreable,
+        excluded_from_scoring=excluded,
+        n_candidates=len(apo_ca) - len(excluded),
         label_prevalence=round(len(label_numbers) / len(apo_ca), 4),
         unmapped=[f"{c}:{n}{i}" for c, i, n in labels.unmapped],
         active_site=active,
@@ -332,19 +352,54 @@ def derive(
     )
 
 
+def _exclude_sibling_sites(targets: dict[str, dict], manifest: dict) -> None:
+    """Widen each arm's excluded set with the other functional sites on its own apo entry.
+
+    A residue that this benchmark itself labels as a functional site is not a negative. On
+    `8QYP`:A we freeze both myosin Site 1 and Site 2, so scoring Site 1 with Site 2's
+    residues in the background penalises a method for finding a site we told it was real --
+    the same error as leaving the propagation source in, one step further out. Section 5
+    already excludes sibling sites from the *decoy* set for this reason; the background has
+    to agree.
+
+    `derive` holds one arm and cannot see this, so the cross-arm pass lives here. Sibling =
+    another frozen arm on the same apo entry and chain whose `site` differs. Two arms on the
+    same site with different effectors (Site 1's XB2 and 2OW) are not siblings. Only myosin
+    has a second frozen site, so no other arm moves.
+    """
+    where = {
+        s["id"]: (s.get("site"), s["apo"]["pdb"], s["apo"]["chain"]) for s in manifest["targets"]
+    }
+    for target, derived in targets.items():
+        site, pdb, chain = where[target]
+        siblings = {
+            residue
+            for other, other_derived in targets.items()
+            if other != target and where[other][1:] == (pdb, chain) and where[other][0] != site
+            for residue in other_derived["label_residues"]
+        }
+        excluded = set(derived["excluded_from_scoring"]) | (
+            siblings - set(derived["label_residues"])
+        )
+        derived["excluded_from_scoring"] = sorted(excluded)
+        derived["n_candidates"] = derived["n_residues"] - len(excluded)
+
+
 def freeze(manifest: dict | None = None, raw: Path = RAW) -> dict:
     """Re-derive every pinned quantity for every scoreable target."""
     manifest = manifest or load()
     cutoff = manifest["defaults"]["contact_cutoff_angstrom"]
     sensitivity = manifest["defaults"].get("cutoff_sensitivity", [])
+    targets = {
+        spec["id"]: asdict(derive(spec, cutoff, raw, tuple(sensitivity)))
+        for spec in manifest["targets"]
+        if spec.get("status") != "excluded"
+    }
+    _exclude_sibling_sites(targets, manifest)
     return {
         "frozen_on": str(manifest["frozen_on"]),
         "contact_cutoff_angstrom": cutoff,
-        "targets": {
-            spec["id"]: asdict(derive(spec, cutoff, raw, tuple(sensitivity)))
-            for spec in manifest["targets"]
-            if spec.get("status") != "excluded"
-        },
+        "targets": targets,
     }
 
 
@@ -385,7 +440,10 @@ def stats(frozen: dict | None = None, seed: int = 0) -> dict:
     instead of living as prose nobody can re-run (AGENTS.md: numbers come from code).
 
     Three quantities, all on the **scoreable** label set that section 5 declares primary
-    (every label that is not itself a propagation-source residue, ADR 0007):
+    (every label that is not itself a propagation-source residue, ADR 0007), against the
+    **candidate set** rather than the whole node set: the propagation source and any sibling
+    functional site leave both classes, because a residue that scores maximally by
+    construction measures nothing whichever class it is filed under (ADR 0011).
 
     - hypergeometric baselines for the top-5 hit list under a uniform random ranking,
       which is the bar "we found it in the top 5" has to clear;
@@ -409,7 +467,7 @@ def stats(frozen: dict | None = None, seed: int = 0) -> dict:
     rng = np.random.default_rng(seed)
     out = {"seed": seed, "effect_size_d": 0.8, "draws": 2000, "targets": {}}
     for target, derived in frozen["targets"].items():
-        n = derived["n_residues"]
+        n = derived["n_candidates"]
         scoreable = len(derived["scoreable_label_residues"])
         rv = hypergeom(n, scoreable, 5)
         # Fixed real signal, varying only prevalence: the reason AUC-PR is co-primary.
@@ -424,7 +482,9 @@ def stats(frozen: dict | None = None, seed: int = 0) -> dict:
             precision = np.cumsum(hit) / np.arange(1, n + 1)
             pr.append(float((precision * hit).sum() / scoreable))
         out["targets"][target] = {
-            "n_residues": n,
+            "n_residues": derived["n_residues"],
+            "n_candidates": n,
+            "n_excluded": len(derived["excluded_from_scoring"]),
             "n_labels": len(derived["label_residues"]),
             "n_scoreable": scoreable,
             "scoreable_prevalence": round(scoreable / n, 4),

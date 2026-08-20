@@ -5,5 +5,6 @@ its enforcement.
 """
 
 from allo.groundtruth.labels import align_numbering, pocket_residues, transfer_labels
+from allo.groundtruth.manifest import read_manifest
 
-__all__ = ["align_numbering", "pocket_residues", "transfer_labels"]
+__all__ = ["align_numbering", "pocket_residues", "read_manifest", "transfer_labels"]
