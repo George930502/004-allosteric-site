@@ -134,6 +134,54 @@ def test_prediction_path_never_reads_the_frozen_label_sets():
     assert not offenders, f"prediction-path modules referencing the frozen labels: {offenders}"
 
 
+def test_the_manifest_reaches_prediction_code_with_the_answer_key_stripped():
+    """C1's second data route, and the one an import trace is blindest to.
+
+    `manifest.yaml` is not just an index of apo entries. It names every holo accession and
+    effector component ID, and three of its prose fields spell out label residues outright:
+    `blind.why` names KRAS 68/95/96/99, `defect` says myristate contacts "16 of the 20"
+    labels, and Site 2's `note` gives the whole label-to-active-site distribution. Any
+    prediction module may `from allo.inputs import load` without touching `allo.groundtruth`
+    and without opening `frozen.json`, so neither existing guard sees it.
+
+    `allo.inputs.load` therefore redacts, and this is the test that says so.
+    """
+    from allo.inputs import load, read_manifest
+
+    redacted, full = load(), read_manifest()
+    forbidden = {"holo", "defect", "note", "blind", "allosteric_evidence", "state"}
+    for target in redacted["targets"]:
+        leaked = forbidden & set(target)
+        assert not leaked, f"{target['id']}: prediction path can see {sorted(leaked)}"
+    # Allow-list, not deny-list: a field added to the manifest tomorrow must be redacted by
+    # default. If this fires, decide whether the new field is apo-side and add it explicitly.
+    known_apo_side = {"id", "tier", "protein", "site", "apo", "active_site", "status"}
+    for target in redacted["targets"]:
+        assert set(target) <= known_apo_side, (
+            f"{target['id']}: unreviewed field(s) {sorted(set(target) - known_apo_side)} "
+            "reaching prediction code -- redact in allo.inputs._HOLO_SIDE or allow here"
+        )
+    # And the redaction has to be doing real work, or it is decoration.
+    assert any(forbidden & set(target) for target in full["targets"])
+
+
+def test_only_the_boundary_module_reads_the_manifest():
+    """`allo.inputs` is the one prediction-path module allowed to open the manifest.
+
+    It has to — it needs the chain and the active-site rule. Everything else on the
+    prediction path must take the redacted result from it rather than re-reading the file
+    and getting the unredacted one.
+    """
+    offenders = [
+        p.relative_to(SRC.parent)
+        for p in sorted(SRC.rglob("*.py"))
+        if is_prediction_path(module_name(p))
+        and module_name(p) != "allo.inputs"
+        and ("manifest.yaml" in (text := p.read_text()) or "MANIFEST" in text)
+    ]
+    assert not offenders, f"prediction-path modules reading the manifest directly: {offenders}"
+
+
 def test_experiment_scripts_never_read_the_frozen_label_sets():
     """The same data route, one directory over. `experiments/` is where a run lives,
     and nothing there imports through `src/allo`, so the import graph cannot see it."""

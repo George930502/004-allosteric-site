@@ -1,4 +1,5 @@
 {
+  "_superseded_note": "2026-08-20 audit, retained as the forensic record. Predates ADR 0007/0008. docs/benchmark/frozen.json is the authority; see docs/benchmark/README.md.",
  "provenance": {
   "generated": "2026-08-20",
   "generator": "Bio.PDB.MMCIF2Dict + scipy.spatial.cKDTree over data/raw/*.cif (uv run python); script was a session scratchpad throwaway",

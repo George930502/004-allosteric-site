@@ -18,19 +18,26 @@ from pathlib import Path
 import numpy as np
 
 from allo.groundtruth.labels import align_numbering, transfer_labels
-from allo.inputs import MANIFEST, RAW, ROOT, active_site, load
+from allo.inputs import MANIFEST, RAW, ROOT, active_site
+from allo.inputs import read_manifest as load
 from allo.structure.pdb import Structure, fetch_mmcif, parse_mmcif, sha256
 
 FROZEN = ROOT / "docs" / "benchmark" / "frozen.json"
 
 __all__ = ["FROZEN", "MANIFEST", "RAW", "ROOT", "derive", "freeze", "load", "verify"]
 
-# A label residue closer than this to the active site is not a *distal* regulatory residue,
-# which is what the challenge asks us to find. See ADR 0005.
-DISTAL_ANGSTROM = 5.0
-
 # Radius of the shell the transplant superposition is fitted on, around the pocket centroid.
 SHELL_ANGSTROM = 20.0
+
+# There is no distance threshold here, and that is deliberate (ADR 0007). An earlier version
+# dropped labels within 5 A of the active site as "not distal"; the allostery literature
+# states no such convention -- CASBench reports ~30 % of allosteric sites overlapping or
+# bordering the catalytic site. What *is* published is AlloPred's rule: "Active site residues
+# were not counted as being in any pocket ... to avoid direct perturbation of the site at
+# which the effect was measured" (doi:10.1186/s12859-015-0771-1). A label that is itself
+# a source residue scores maximally by construction, so it measures nothing. That is set
+# membership, not distance. Proximity is handled in the evaluation layer by a distance-matched
+# null (Amor et al., doi:10.1038/ncomms12477), which costs no labels.
 
 
 @dataclass
@@ -41,19 +48,37 @@ class Derived:
     n_residues: int
     label_residues: list[int]
     labels_by_cutoff: dict[str, list[int]]
-    distal_label_residues: list[int]
+    scoreable_label_residues: list[int]
     label_prevalence: float
     unmapped: list[str]
     active_site: list[int]
     distance_to_active_site: dict[str, float]
-    distal_by_threshold: dict[str, int]
+    labels_beyond_angstrom: dict[str, int]
     apo_site_occupancy: dict[str, object]
+    holo_site_occupancy: dict[str, object]
     sequence_agreement: dict[str, object]
     transplant_min_distance: float
     transplant_clashes: str
     superposition_rmsd: float
     apo_holo_rmsd: dict[str, float]
     hashes: dict[str, str] = field(default_factory=dict)
+
+
+def _components(structure: Structure, chain: str) -> dict[str, object]:
+    """Non-water heteroatom components, plus the entry's polymer chain count.
+
+    The chain count is clause (v): Amor et al. exclude pairs on "a mismatch between the
+    oligomeric state of the active and inactive structures", and Wu et al. flag ASBench
+    entries that are one part of a multimer "where the effect of cooperativity might play
+    a crucial role". Deriving it beats asserting it in a note.
+    """
+    return {
+        "chain_components": sorted(
+            {str(n) for n in structure.resname[structure.ligand & (structure.chain == chain)]}
+        ),
+        "entry_components": sorted({str(n) for n in structure.resname[structure.ligand]}),
+        "polymer_chains": len({str(c) for c in structure.chain[structure.protein]}),
+    }
 
 
 def _chain_ca(structure: Structure, chain: str) -> dict[int, np.ndarray]:
@@ -80,9 +105,13 @@ def _transplant(
     """Crypticity: collide the holo ligand into the apo frame, pocket excluded from the fit.
 
     A cryptic pocket is one the apo structure does not have, so the ligand cannot be
-    placed without clashing. A pre-formed pocket accepts it. This separates a genuine
-    cryptic-site prediction task from a pocket-finding task — a fact about the
-    benchmark that any comparison of methods has to be read against.
+    placed without clashing. A pre-formed pocket accepts it.
+
+    This is a **difficulty axis, not a validity test** (ADR 0007). Crypticity is a
+    structural property and allostery is a functional one; they are orthogonal, and most
+    validated cryptic sites are not allosteric. A pre-formed allosteric site is a harder
+    target for a cavity detector and an easier one for a geometric method, which is worth
+    knowing when reading an aggregate — it is never grounds to reject a pair.
 
     Residues are paired through the sequence alignment, never by author number: apo
     and holo entries of the same protein are routinely deposited under different
@@ -127,8 +156,15 @@ def _apo_holo_rmsd(
     """How far apart the two entries are, globally and across the pocket lining.
 
     Fitted on the non-label residues so the pocket figure measures the pocket rather
-    than being absorbed into the fit. This is the number that says whether there is a
-    conformational change to predict at all: on the mandated BCR-ABL1 pair there is not.
+    than being absorbed into the fit.
+
+    Two uses, only the first of which is a verdict. As **pair-matching quality control**
+    the `core` figure is decisive: it is what caught the 8ACT/9GZ1 mismatch at 11.78 A.
+    As a *pocket* measure it is descriptive only — a small lining change means the site is
+    pre-formed, which under ADR 0007 says the geometric half of the problem is easy, not
+    that there is "nothing to predict". What remains to be predicted on a pre-formed
+    pocket is which of the many pre-formed pockets is the coupled one, and that is the
+    whole task.
     """
     apo_chain, holo_chain = spec["apo"]["chain"], spec["holo"]["chain"]
     apo_ca, holo_ca = _chain_ca(apo, apo_chain), _chain_ca(holo, holo_chain)
@@ -188,35 +224,56 @@ def derive(
         ]
         for c in sorted({cutoff, *sensitivity})
     }
-    distal = [r for r in label_numbers if distances.get(str(r), 0.0) > DISTAL_ANGSTROM]
+    scoreable = [r for r in label_numbers if r not in set(active)]
 
-    # Clause (ii) of the apo/holo definition, as a derived quantity rather than a hand-made
-    # table: does anything already sit in the site we are about to ask a method to find?
-    # This is the check that disqualified 1OPL, and it is the basis of the corrected tier,
-    # so it has to regenerate rather than live in prose (docs/benchmark/README.md 1).
-    from allo.structure.pdb import contacts
-
+    # Clause (iii), site-apo: does anything already sit in the site we are about to ask a
+    # method to find? This is the check that disqualified 1OPL and is the basis of the
+    # corrected tier, so it regenerates rather than living in prose.
+    #
     # Every non-water heteroatom in the entry, not just those deposited on the apo chain.
     # 2G1T is the case that makes the difference: its ATP site is occupied by a bisubstrate
     # conjugate carried on chains E-H, 2.7 A from chain A's catalytic motif. A chain-scoped
     # check reports that entry as holding "MG" and nothing else.
+    #
+    # Reported over BOTH label sets, because they answer different questions and only the
+    # second decides the clause. Over the full label set, the catalytic cofactor registers as
+    # an occupant wherever the allosteric site abuts the active site: GDP-Mg contacts KRAS
+    # labels 11/12/13/16/34 and ADP-VO4 contacts myosin Site 2 labels 242/243/463 -- every
+    # one of which is itself an active-site residue. That is the two sites sharing a border,
+    # not a modulator sitting in the pocket. Over the *scoreable* set -- the residues a method
+    # is actually asked to find -- those contacts vanish and only a genuine occupant survives,
+    # which is why 1OPL is the one arm that fails.
+    from allo.structure.pdb import contacts
+
     apo_ligands = apo.ligand
     occupancy: dict[str, object] = {
-        "chain_components": sorted(
-            {str(n) for n in apo.resname[apo.ligand & (apo.chain == apo_chain)]}
-        ),
-        "entry_components": sorted({str(n) for n in apo.resname[apo_ligands]}),
-        "distal_labels_contacted": 0,
-        "nearest_distal_label_angstrom": None,
+        **_components(apo, apo_chain),
+        "labels_contacted": 0,
+        "nearest_label_angstrom": None,
+        "scoreable_labels_contacted": 0,
+        "nearest_scoreable_label_angstrom": None,
     }
-    if apo_ligands.any() and distal:
-        distal_mask = apo.protein & (apo.chain == apo_chain) & np.isin(apo.seq_id, distal)
-        touched = {n for _, n, _ in contacts(apo, apo_ligands, distal_mask, cutoff)}
+    for residues, count_key, gap_key in (
+        (label_numbers, "labels_contacted", "nearest_label_angstrom"),
+        (scoreable, "scoreable_labels_contacted", "nearest_scoreable_label_angstrom"),
+    ):
+        if not (apo_ligands.any() and residues):
+            continue
+        mask = apo.protein & (apo.chain == apo_chain) & np.isin(apo.seq_id, residues)
         gap = np.linalg.norm(
-            apo.coord[distal_mask][:, None, :] - apo.coord[apo_ligands][None, :, :], axis=-1
+            apo.coord[mask][:, None, :] - apo.coord[apo_ligands][None, :, :], axis=-1
         )
-        occupancy["distal_labels_contacted"] = len(touched)
-        occupancy["nearest_distal_label_angstrom"] = round(float(gap.min()), 2)
+        occupancy[count_key] = len({n for _, n, _ in contacts(apo, apo_ligands, mask, cutoff)})
+        occupancy[gap_key] = round(float(gap.min()), 2)
+
+    # Clause (vi): the orthosteric state has to be recorded for *both* members, or an
+    # apo->holo difference cannot be attributed to the modulator. The cardiac myosin x-ray
+    # arm is the live case -- ADP-VO4 (apo) against ADP-BeF3 (holo), so the members differ
+    # in nucleotide analogue as well as in drug.
+    holo_occupancy = _components(holo, holo_chain)
+    holo_occupancy["matches_apo"] = sorted(
+        set(holo_occupancy["entry_components"]) - {spec["holo"]["ligand"]}
+    ) == sorted(occupancy["entry_components"])
 
     # ADR 0004 excludes a pair whose members are not the same protein, and the KRAS
     # "wrong genotype" defect is exactly a sequence difference inside the label set.
@@ -249,7 +306,7 @@ def derive(
         n_residues=len(apo_ca),
         label_residues=label_numbers,
         labels_by_cutoff=by_cutoff,
-        distal_label_residues=distal,
+        scoreable_label_residues=scoreable,
         label_prevalence=round(len(label_numbers) / len(apo_ca), 4),
         unmapped=[f"{c}:{n}{i}" for c, i, n in labels.unmapped],
         active_site=active,
@@ -258,12 +315,14 @@ def derive(
             "median": round(float(np.median(list(distances.values()))), 1),
             "max": round(max(distances.values()), 1),
         },
-        # The contact cutoff's sensitivity is frozen; the distal threshold's was not, and
-        # it selects the primary endpoint's positive set. Same reasoning, same treatment.
-        distal_by_threshold={
-            f"{t}": sum(1 for v in distances.values() if v > t) for t in (3.0, 4.0, 5.0, 6.0, 7.0)
+        # A pure descriptor, selecting nothing (ADR 0007). It is how the benchmark states
+        # which of its targets are proximal: on KRAS the count collapses with distance,
+        # which is the honest way to say that a rank-by-distance baseline will do well there.
+        labels_beyond_angstrom={
+            f"{t}": sum(1 for v in distances.values() if v > t) for t in (3.0, 5.0, 10.0, 15.0)
         },
         apo_site_occupancy=occupancy,
+        holo_site_occupancy=holo_occupancy,
         sequence_agreement=sequence_agreement,
         transplant_min_distance=round(min_distance, 2),
         transplant_clashes=clashes,
@@ -325,7 +384,8 @@ def stats(frozen: dict | None = None, seed: int = 0) -> dict:
     frozen label sets is computed here, so the protocol's justification regenerates
     instead of living as prose nobody can re-run (AGENTS.md: numbers come from code).
 
-    Three quantities, all on the **distal** label set that section 5 declares primary:
+    Three quantities, all on the **scoreable** label set that section 5 declares primary
+    (every label that is not itself a propagation-source residue, ADR 0007):
 
     - hypergeometric baselines for the top-5 hit list under a uniform random ranking,
       which is the bar "we found it in the top 5" has to clear;
@@ -350,28 +410,28 @@ def stats(frozen: dict | None = None, seed: int = 0) -> dict:
     out = {"seed": seed, "effect_size_d": 0.8, "draws": 2000, "targets": {}}
     for target, derived in frozen["targets"].items():
         n = derived["n_residues"]
-        distal = len(derived["distal_label_residues"])
-        rv = hypergeom(n, distal, 5)
+        scoreable = len(derived["scoreable_label_residues"])
+        rv = hypergeom(n, scoreable, 5)
         # Fixed real signal, varying only prevalence: the reason AUC-PR is co-primary.
         roc, pr = [], []
         for _ in range(out["draws"]):
             scores = rng.standard_normal(n)
-            scores[:distal] += out["effect_size_d"]
+            scores[:scoreable] += out["effect_size_d"]
             order = np.argsort(-scores)
-            hit = (order < distal).astype(float)
+            hit = (order < scoreable).astype(float)
             ranks = np.argsort(np.argsort(scores))
-            roc.append((ranks[:distal].mean() - (distal - 1) / 2) / (n - distal))
+            roc.append((ranks[:scoreable].mean() - (scoreable - 1) / 2) / (n - scoreable))
             precision = np.cumsum(hit) / np.arange(1, n + 1)
-            pr.append(float((precision * hit).sum() / distal))
+            pr.append(float((precision * hit).sum() / scoreable))
         out["targets"][target] = {
             "n_residues": n,
             "n_labels": len(derived["label_residues"]),
-            "n_distal": distal,
-            "distal_prevalence": round(distal / n, 4),
+            "n_scoreable": scoreable,
+            "scoreable_prevalence": round(scoreable / n, 4),
             "expected_hits_at_5": round(float(rv.mean()), 2),
             "p_at_least_1_hit": round(float(1 - rv.pmf(0)), 3),
             "p_at_least_2_hits": round(float(1 - rv.pmf(0) - rv.pmf(1)), 3),
-            "mde_auc_rank_sum": mde(n, distal),
+            "mde_auc_rank_sum": mde(n, scoreable),
             "mde_auc_one_patch": mde(n, 1),
             "simulated_auc_roc": round(float(np.mean(roc)), 3),
             "simulated_auc_pr": round(float(np.mean(pr)), 3),

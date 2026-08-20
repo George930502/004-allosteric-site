@@ -9,8 +9,8 @@ else is one hop away and named below with the condition for opening it.
 ## What this repo is
 
 A research codebase for the **Global Quantum + AI Challenge 2026 — Cleveland Clinic**
-statement: *"Unlocking undruggable targets: quantum simulation of allosteric signal
-propagation."*
+statement: _"Unlocking undruggable targets: quantum simulation of allosteric signal
+propagation."_
 
 We take an **apo** protein structure, build a residue-level elastic/contact network,
 simulate **quantum** signal propagation on that network, and rank residues by dynamic
@@ -27,14 +27,14 @@ Read it once at the start of any non-trivial task. It is the spec.
 These come from the challenge statement, not from us. Never trade them away for
 convenience, and flag it loudly if a task appears to require breaking one.
 
-| # | Rule |
-|---|------|
-| C1 | **Apo input only.** Holo structures are used *exclusively* to build ground-truth labels for scoring. No holo-derived information may enter the prediction path — not coordinates, not pocket residues, not even the residue count. |
-| C2 | **No classical MD trajectories as input.** Dynamics must be predicted *ab initio* from topology. No GROMACS/AMBER/OpenMM trajectories, no MD-derived covariance matrices, no MD-trained ML weights in the prediction path. |
-| C3 | **Near-term hardware viability.** Circuit depth, qubit count, and connectivity must be reported for every quantum method. Deep unoptimised circuits are explicitly penalised. Every quantum claim needs a stated resource cost. |
-| C4 | **Credible quantum execution path.** Gate-based, quantum-inspired, and hybrid are all allowed, but a quantum-inspired method must state how it maps to hardware. |
-| C5 | **Scope:** catalytic domains only. Waters, co-factors and PTMs excluded unless modelled as simple nodes. |
-| C6 | **Elastic network hypothesis** is the modelling assumption: contact topology drives propagation; atomic force fields are abstracted away. |
+| #   | Rule                                                                                                                                                                                                                               |
+| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| C1  | **Apo input only.** Holo structures are used _exclusively_ to build ground-truth labels for scoring. No holo-derived information may enter the prediction path — not coordinates, not pocket residues, not even the residue count. |
+| C2  | **No classical MD trajectories as input.** Dynamics must be predicted _ab initio_ from topology. No GROMACS/AMBER/OpenMM trajectories, no MD-derived covariance matrices, no MD-trained ML weights in the prediction path.         |
+| C3  | **Near-term hardware viability.** Circuit depth, qubit count, and connectivity must be reported for every quantum method. Deep unoptimised circuits are explicitly penalised. Every quantum claim needs a stated resource cost.    |
+| C4  | **Credible quantum execution path.** Gate-based, quantum-inspired, and hybrid are all allowed, but a quantum-inspired method must state how it maps to hardware.                                                                   |
+| C5  | **Scope:** catalytic domains only. Waters, co-factors and PTMs excluded unless modelled as simple nodes.                                                                                                                           |
+| C6  | **Elastic network hypothesis** is the modelling assumption: contact topology drives propagation; atomic force fields are abstracted away.                                                                                          |
 
 Leakage from C1 is the easiest mistake to make and the hardest to notice. Any code
 that loads a holo PDB lives under `src/allo/groundtruth/` and is never imported by
@@ -44,7 +44,7 @@ prediction code. Enforced by `tests/test_no_leakage.py` (added in Phase 1).
 
 ## Research principles
 
-Standing instructions from the principal investigator. They govern *how* the research
+Standing instructions from the principal investigator. They govern _how_ the research
 is conducted, in the same way the constraints govern what the result may be.
 
 - **R1 — First principles.** Reason from the physics and the biology, not from what a
@@ -86,22 +86,23 @@ comparison, circuit-resource analysis.
 Start every task with the first two rows. The rest are on-demand — open one when its
 condition fires, not to browse.
 
-| Open this | When |
-|---|---|
-| `docs/ROADMAP.md` | Always, first. Which phase is current and what its exit criterion is |
-| `experiments/REGISTRY.md` | Always, second. What has been tried, and what failed — do not re-run a dead end |
-| `docs/playbooks/phase-work.md` | Starting or finishing any unit of work. `/phase` in Claude Code |
-| `docs/playbooks/experiment.md` | About to produce a number worth comparing to another number. `/exp` |
-| `docs/playbooks/constraint-audit.md` | Diff touches the prediction path, ground truth, or a quantum method. `/audit`, or the `constraint-auditor` subagent |
-| `docs/FIELD.md` | Choosing or defending a method; writing anything for the report |
-| `docs/PRINCIPLES.md` | The one-liners above are not enough to settle a call |
-| `docs/benchmark/README.md` | Any question about what a method is scored on. `frozen.json` is the authority for every residue count, label set and active site — never quote one from prose |
-| `docs/targets.md` | Touching a specific protein, its chains, or its ground-truth labels |
-| `docs/adr/` | Before choosing between credible alternatives; write one when the choice would be expensive to reverse. `README.md` there gives the format |
-| `src/allo/AGENTS.md` | Adding or moving a module — package layout and the dependency rule that enforces C1 |
-| `experiments/README.md` | Setting up a run directory |
-| `docs/agents/` | An installed engineering skill needs the issue tracker, triage labels, or domain-doc layout |
-| `CHALLENGE.md` | Any question about what the challenge actually requires. It is the spec; do not answer from memory |
+| Open this                            | When                                                                                                                                                                                  |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `docs/ROADMAP.md`                    | Always, first. Which phase is current and what its exit criterion is                                                                                                                  |
+| `experiments/REGISTRY.md`            | Always, second. What has been tried, and what failed — do not re-run a dead end                                                                                                       |
+| `CONTEXT.md`                         | Writing the word "site", "pocket", "target" or "pair" anywhere. The settled vocabulary — cryptic and allosteric are **not** synonyms and the difference decides what we are scored on |
+| `docs/playbooks/phase-work.md`       | Starting or finishing any unit of work. `/phase` in Claude Code                                                                                                                       |
+| `docs/playbooks/experiment.md`       | About to produce a number worth comparing to another number. `/exp`                                                                                                                   |
+| `docs/playbooks/constraint-audit.md` | Diff touches the prediction path, ground truth, or a quantum method. `/audit`, or the `constraint-auditor` subagent                                                                   |
+| `docs/FIELD.md`                      | Choosing or defending a method; writing anything for the report                                                                                                                       |
+| `docs/PRINCIPLES.md`                 | The one-liners above are not enough to settle a call                                                                                                                                  |
+| `docs/benchmark/README.md`           | Any question about what a method is scored on. `frozen.json` is the authority for every residue count, label set and active site — never quote one from prose                         |
+| `docs/targets.md`                    | Touching a specific protein, its chains, or its ground-truth labels                                                                                                                   |
+| `docs/adr/`                          | Before choosing between credible alternatives; write one when the choice would be expensive to reverse. `README.md` there gives the format                                            |
+| `src/allo/AGENTS.md`                 | Adding or moving a module — package layout and the dependency rule that enforces C1                                                                                                   |
+| `experiments/README.md`              | Setting up a run directory                                                                                                                                                            |
+| `docs/agents/`                       | An installed engineering skill needs the issue tracker, triage labels, or domain-doc layout                                                                                           |
+| `CHALLENGE.md`                       | Any question about what the challenge actually requires. It is the spec; do not answer from memory                                                                                    |
 
 Not in context and not worth loading: `Cleveland-Clinic-Challenge-Statement-vF.pdf`
 (4.2 MB — `CHALLENGE.md` is the complete restatement), and anything under `data/raw/`

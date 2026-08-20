@@ -42,7 +42,36 @@ _THREE_TO_ONE = {
 }  # fmt: skip
 
 
+# Fields of a manifest target that describe the *answer* rather than the input. Every one
+# of them is holo-derived, and three of them spell out label residue numbers in prose --
+# `blind.why` names KRAS 68/95/96/99, `defect` names "16 of the 20 distal labels", `note`
+# gives Site 2's full label-to-active-site distribution. An import trace cannot see a module
+# that simply calls `load()`, so the redaction is what stops it, not the allow-list.
+_HOLO_SIDE = frozenset({"holo", "defect", "note", "blind", "allosteric_evidence", "state"})
+
+
 def load(path: Path = MANIFEST) -> dict:
+    """The manifest as **prediction code** may see it: the apo half, and nothing else.
+
+    C1 says holo data may not reach the prediction path. `allo.inputs` is the one
+    prediction-path module that has to open the manifest at all — it needs the chain and
+    the active-site rule — so it is also the place the answer key has to be stripped, and
+    it strips by allow-list so a field added later is redacted by default rather than
+    leaked by default. The unredacted read lives in `allo.benchmark`, which sits behind
+    the `allo.groundtruth` import guard (`tests/test_no_leakage.py`).
+
+    `site` survives redaction deliberately: it is a human label ("Switch-II pocket"), and
+    `CHALLENGE.md` Table 1 gives it to every participant, so it is not ours to withhold.
+    """
+    manifest = read_manifest(path)
+    manifest["targets"] = [
+        {k: v for k, v in target.items() if k not in _HOLO_SIDE} for target in manifest["targets"]
+    ]
+    return manifest
+
+
+def read_manifest(path: Path = MANIFEST) -> dict:
+    """The manifest verbatim, holo half included. Evaluation path only — see `load`."""
     return yaml.safe_load(path.read_text())
 
 

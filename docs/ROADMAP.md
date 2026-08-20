@@ -28,14 +28,41 @@ later number believable.
    mavacamten nor cardiac myosin). Response is tiered — mandated / corrected /
    sensitivity — and pre-registered in `docs/benchmark/manifest.yaml`.
    **Exit (met):** `make verify` (`allo benchmark verify` plus the network-marked tests)
-   exits 0; `make check` passes. `make check` is offline by design, so it does *not*
+   exits 0; `make check` passes. `make check` is offline by design, so it does _not_
    re-derive the freeze — `make verify` is the command that does, and it needs network.
    See `docs/benchmark/README.md`, ADRs 0003–0005.
 
+   **Re-anchored 2026-08-20 (ADR 0007, ADR 0008).** The benchmark had been assembled with
+   the cryptic-pocket literature as its definitional backbone; the challenge asks for
+   **allosteric sites**, which is a functional property, not a structural one. The pairs,
+   coordinates and label sets did not change — the entry criterion and the framing did.
+   Concretely: the apo/holo definition is now the allostery field's nine clauses; crypticity
+   is a reported difficulty axis with no pass/fail; the label set is the scoreable set
+   (labels minus propagation-source residues, AlloPred's rule) with no distance threshold;
+   every target now carries `allosteric_evidence`, `state` and `blind` fields enforced by
+   `tests/test_benchmark.py`; and myosin gained a second **target** (Site 2, aficamten) plus
+   a Site 1 sensitivity arm, 11 targets in total. **No** arm in the primary benchmark is blind (corrected 2026-08-20; myosin Site 1 was
+   wrongly recorded as blind until challenge reference [1] was re-read to its second site). See `CONTEXT.md` for the settled vocabulary.
+
+   **Adversarial re-verification 2026-08-20.** Five independent agents re-checked the freeze
+   against RCSB, the primary literature and the C1–C6 constraints. All 11 structural claims
+   held, including the two the tiering rests on (`6C1H` contains no mavacamten; `1OPL` is holo
+   at the site). What did not hold was the citation and prose layer: three DOIs pointed at
+   unrelated papers, one paper title was attributed to a DOI seven years too early, the
+   aficamten paper was cited under the wrong first author, README §1's occupancy table had
+   gone stale against the code, and §5's AUC line no longer regenerated. All corrected, and
+   each class now has a test or a derived field behind it rather than a promise. Two decisions
+   were forced out into the open: **ADR 0009** (resolution is a selection rule, so it binds the
+   ASD set and not the hand-specified primary arms) and **ADR 0010, proposed** (the node set is
+   the modelled chain, not a trimmed catalytic domain — worth the PI's explicit call, since the
+   strict C5 reading would shrink the mandated ABL1 arm by ~40 %). One real C1 leak *surface*
+   was closed: `manifest.yaml` carries label residue numbers in prose, so `allo.inputs.load()`
+   now redacts the holo half by allow-list and two new tests hold it there.
+
 1. **Structure ingest** — fetch apo PDBs, select catalytic domain / chain, drop
    waters, co-factors and PTMs (C5), index residues canonically (auth numbering,
-   preserved end to end so hit lists are chemist-readable). *Partly done: fetch/parse and
-   ligand-contact selection are in `src/allo/structure/`; domain trimming is open.*
+   preserved end to end so hit lists are chemist-readable). _Partly done: fetch/parse and
+   ligand-contact selection are in `src/allo/structure/`; domain trimming is open._
 2. **Network construction** — Cα (and optionally side-chain centroid) contact graph;
    cutoff and weighting scheme as configurable knobs; verify connectivity and degree
    distribution per target.
@@ -50,10 +77,10 @@ later number believable.
    analogs" the challenge asks us to compare against, and the bar quantum must clear.
 6. **Scoring harness** — the protocol pre-registered in `docs/benchmark/README.md` §5,
    implemented once and called identically by every method: **AUC-ROC and AUC-PR**
-   co-primary (the Mann-Whitney U statistic *is* AUC-ROC rescaled — one procedure, not
+   co-primary (the Mann-Whitney U statistic _is_ AUC-ROC rescaled — one procedure, not
    two), precision@5 and P(≥1 hit) against the exact hypergeometric baseline, and the
    **matched connected-patch permutation null** against both negative sets.
-7. **Selection set (ASD).** A development set of ASD targets, built and frozen *before*
+7. **Selection set (ASD).** A development set of ASD targets, built and frozen _before_
    Phase 2. Every hyperparameter — metric, Hamiltonian, cutoff, coarse-graining ratio —
    is chosen here and nowhere else. Without it, Phase 2's ablations would be selected on
    the frozen primary benchmark, which is test-set fitting even with no holo import
@@ -86,7 +113,7 @@ mechanism (why interference helps here) argued, not just asserted.
 
 Trotterised `exp(-iHt)` in the single-excitation sector; gate counts, depth, qubit
 count and connectivity requirements reported per target (C3). Aer noise models sweeping
-gate error and decoherence; stability of the *ranking*, not just the raw metric, since
+gate error and decoherence; stability of the _ranking_, not just the raw metric, since
 the ranking is the deliverable. Execute a coarse-grained instance on AWS Braket and/or
 via Classiq synthesis.
 

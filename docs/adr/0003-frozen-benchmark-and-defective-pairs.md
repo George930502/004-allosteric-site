@@ -10,9 +10,8 @@ the deposited files (`docs/benchmark/audit/`) found every one of the three defec
 - **KRAS `4OBE` → `6OIM`** — the apo input is **wild-type** KRAS. It does not carry the
   G12C cysteine that the holo inhibitor is covalently bonded to.
 - **BCR-ABL1 `1OPL` → `5MO4`** — the apo input carries myristate **in the pocket we are
-  asked to blind-predict**, plus an ATP-site inhibitor. Apo and holo differ by 1.00 Å
-  over 409 paired residues and 0.50 Å across the pocket lining: there is no conformational
-  change to find.
+  asked to blind-predict**, plus an ATP-site inhibitor. Myristate contacts 16 of the 20
+  label residues at 3.29 Å — the apo input already *is* holo at the site to be predicted.
 - **Cardiac myosin `5TBY` → `6C1H`** — `6C1H` is rat unconventional myosin-Ib bound to
   actin and calmodulin, with no mavacamten and no cardiac myosin in it. `5TBY` is a 20 Å
   homology model built on a tarantula template. **No ground truth can be derived at all.**
@@ -55,3 +54,14 @@ re-versioning an entry.
   the cost of the ASD generalisability set in Phase 5 is small.
 - Risk accepted: if the organisers score only the mandated tier, our best numbers sit in a
   tier they may not read. Mitigation is to lead with the mandated tier and its defects.
+
+---
+
+**Amendment, 2026-08-20 (ADR 0007).** The BCR-ABL1 bullet originally carried a second
+reason: that apo and holo differ by 1.00 Å core and 0.50 Å across the pocket lining, so
+"there is no conformational change to find". That reason is withdrawn. Under an allosteric
+ground truth a pre-formed pocket is not a defect — the ABL1 myristoyl pocket is the field's
+canonical *allosteric but not cryptic* site, and what remains to be predicted is which of
+the many pre-formed pockets is the coupled one. The ligand-occupancy reason above is
+sufficient on its own and is the one that actually bears on C1. The **decision** of this
+ADR — three tiers, freeze before any method runs, report all three — is unaffected.

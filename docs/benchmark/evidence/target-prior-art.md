@@ -461,7 +461,9 @@ from `6HD4` would be extracting a close analogue's pocket. `5MO4` is the right f
 ### B.8 What this implies for our benchmark
 
 This target is where the challenge's design is weakest and our documentation burden is
-highest. The prediction is only blind if the myristate is removed _and_ we can show the
+highest. (⚠️ **"blind" here predates `CONTEXT.md` and means clause (iii) _site-apo_.** In the
+settled sense BCR-ABL1 is not blind either way: ASD curates the myristoyl pocket twice.)
+The prediction is only site-apo if the myristate is removed _and_ we can show the
 resulting network does not still encode an open pocket. Three defensible options, in
 increasing order of cost:
 

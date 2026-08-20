@@ -1,4 +1,10 @@
-"""Derive allosteric-site labels from a holo structure and carry them onto the apo.
+"""Derive the label set from a holo structure and carry it onto the apo.
+
+What this computes is the residue shell lining a bound effector — a **drug footprint**.
+It is not, by itself, a claim that those residues are allosteric: the allostery is
+inherited from the functional experiment cited in the manifest's `allosteric_evidence`
+(ADR 0007), never from the geometry. Call the output a label set, not "allosteric
+residues".
 
 Two steps, kept separate because they fail differently:
 

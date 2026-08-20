@@ -2,6 +2,11 @@
 
 Source: `CHALLENGE.md` §6, Table 1. Four targets are the **minimum submission set**.
 
+> **This file is narrative. `docs/benchmark/frozen.json` is the authority for every residue
+> count, label set, distance and active site, and `docs/benchmark/manifest.yaml` for every
+> choice.** Where the two disagree, the freeze wins and this file is the bug — it is prose and
+> nothing re-derives it. Read `docs/benchmark/README.md` for the frozen benchmark itself.
+
 | Target | Disease area | Class | Apo (input) | Holo (ground truth) | Pocket to find |
 |---|---|---|---|---|---|
 | KRAS G12C | Oncology | GTPase | `4OBE` | `6OIM` | cryptic Switch-II pocket, locked by sotorasib (AMG 510) [18,19] |
@@ -15,8 +20,13 @@ Bracketed numbers are reference indices in `CHALLENGE.md` §10.
 
 ## Ground-truth policy (non-negotiable)
 
-**Ground-truth allosteric residues are derived programmatically from the holo
-structure. They are never hand-typed from memory or from a paper's figure.**
+**The ground-truth label set is derived programmatically from the holo structure. It is
+never hand-typed from memory or from a paper's figure.**
+
+It is the residue shell lining a literature-validated allosteric pocket, identified from
+the holo complex — a drug footprint, whose allosteric status comes from the functional
+experiment cited in `manifest.yaml` under `allosteric_evidence`, not from the geometry
+(ADR 0007).
 
 Procedure (implemented in `src/allo/groundtruth/`, Phase 1):
 
@@ -57,7 +67,8 @@ the frozen benchmark and the corrected pairs are in `docs/benchmark/`.
   mutation** — residue 12 is GLY in both chains. `6OIM`: G12C **plus** C51S/C80L/C118S,
   sotorasib as comp `MOV`, covalently linked `CYS12.SG–MOV303.C25`. 166/170 identical.
 - Numbering: both auth 1–169 ↔ UniProt P01116 1–169, **offset 0**.
-- Nucleotide state: GDP·Mg in apo and holo. Kept as a simple node or dropped — see the ADR.
+- Nucleotide state: GDP·Mg in apo and holo. **Settled in ADR 0006**: cofactors are not network
+  nodes, but the apo entry's own cofactor may *locate* the propagation source (ADR 0005).
 - The pocket is **genuinely cryptic**: transplanting `MOV` into the apo frame leaves its
   closest atom 0.75 Å from protein and 14 of 41 ligand atoms clashing below 2.5 Å.
 - Corrected apo: **`4LDJ`** — same study (doi 10.1073/pnas.1404639111), same release day,
@@ -70,7 +81,12 @@ the frozen benchmark and the corrected pairs are in `docs/benchmark/`.
   contact residues are a strict subset of asciminib's 20 in `5MO4`.
 - Deleting `MYR` as an excluded modification (C5) does not restore blindness: the pocket
   walls stay in the ligand-bound conformation. Apo↔holo Cα RMSD is **1.00 Å** over 409 paired
-  residues and **0.50 Å** across the pocket lining — there is no conformational change to predict.
+  residues and **0.50 Å** across the pocket lining.
+  ⚠️ **The clause "there is no conformational change to predict" stood here and is withdrawn**
+  (ADR 0003 amendment, ADR 0007). A pre-formed pocket is not a defect: the myristoyl pocket is
+  the field's canonical *allosteric but not cryptic* site, and what remains to predict is which
+  of the many pre-formed pockets is the coupled one. The ligand-occupancy reason above is
+  sufficient on its own and is the one that bears on C1.
 - ⚠️ resolved: the numbering offset between the two entries is **zero**. Both use ABL1
   **isoform 1b** numbering (gatekeeper 334, DFG 400–402). The hazard is real but sits
   elsewhere: `1OPL`'s deposited `_struct_ref_seq` wrongly claims auth = UniProt, so
@@ -81,13 +97,15 @@ the frozen benchmark and the corrected pairs are in `docs/benchmark/`.
   (`NIL`) in the ATP site, on a T334I/D382N background. The holo is not singly liganded.
 - ⚠️ corrected: `5MO4` is **not** kinase-domain-only. It models auth 83–531 continuously —
   SH3, SH2 and kinase, the same architecture as `1OPL`. The alignment step does not break.
-- `1OPL` quality: 3.42 Å, R-free 0.315, 22.2 % RSRZ outliers (0.4th percentile). Chains A
+- `1OPL` quality: 3.42 Å, R-free 0.315, **6.50 % RSRZ outliers** (wwPDB validation report,
+  `percent-RSRZ-outliers`; an earlier 22.2 % here was a percentile read as a percentage). Chains A
   and B differ by 23 Å globally; chain B lacks the myristate and the αI helix.
 - The myristoyl pocket is **not cryptic**, and the literature says so: Paladini et al.
   (*eLife* 2024) describe `1M52` as having an "empty myristoyl binding pocket" with a
   straight αI helix; Wylie 2017 calls it "vacant". Asciminib transplants into every myristate-free
   apo candidate with ≤ 4 of 31 atoms clashing (`1M52`, `2G1T`, `2G2H`, `4WA9`). It is an
-  allosteric site — 12–30 Å from the ATP site — but a pre-formed cavity.
+  allosteric site — label→active-site Cα distances of **10.6–29.3 Å** (mandated) and
+  **10.8–30.1 Å** (corrected), per `frozen.json` — but a pre-formed cavity.
 
 ### Cardiac myosin (`5TBY` → `6C1H`) — fatal
 
