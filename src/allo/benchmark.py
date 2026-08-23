@@ -19,23 +19,20 @@ import numpy as np
 
 from allo.groundtruth.labels import align_numbering, transfer_labels
 from allo.groundtruth.manifest import read_manifest as load
-from allo.groundtruth.structures import fetch_mmcif
-from allo.inputs import MANIFEST, RAW, ROOT, active_site, admitted_residue_numbers
-from allo.structure.pdb import Structure, parse_mmcif, sha256
+from allo.groundtruth.structures import EVAL_CACHE, biological_assembly, fetch_mmcif, parse_mmcif
+from allo.inputs import MANIFEST, ROOT, active_site, admitted_residue_numbers
+from allo.structure.pdb import Structure, sha256
 
 FROZEN = ROOT / "docs" / "benchmark" / "frozen.json"
 
 __all__ = [
     "FROZEN",
+    "EVAL_CACHE",
     "MANIFEST",
-    "RAW",
     "ROOT",
-    "claim_bearing_family",
-    "confirmatory_family",
     "derive",
     "freeze",
     "load",
-    "robustness_family",
     "verify",
 ]
 
@@ -68,7 +65,6 @@ class Derived:
     scoreable_label_residues: list[int]
     excluded_from_scoring: list[int]
     n_candidates: int
-    label_prevalence: float
     unmapped: list[str]
     active_site: list[int]
     distance_to_active_site: dict[str, float]
@@ -77,6 +73,7 @@ class Derived:
     holo_site_occupancy: dict[str, object]
     orthosteric_state: dict[str, object]
     sequence_agreement: dict[str, object]
+    assembly_agreement: dict[str, object]
     transplant_min_distance: float
     transplant_clashes: str
     superposition_rmsd: float
@@ -85,19 +82,12 @@ class Derived:
 
 
 def _components(structure: Structure, chain: str) -> dict[str, object]:
-    """Non-water heteroatom components, plus the entry's polymer chain count.
-
-    The chain count is clause (v): Amor et al. exclude pairs on "a mismatch between the
-    oligomeric state of the active and inactive structures", and Wu et al. flag ASBench
-    entries that are one part of a multimer "where the effect of cooperativity might play
-    a crucial role". Deriving it beats asserting it in a note.
-    """
+    """Non-water heteroatom components in the selected chain and full entry."""
     return {
         "chain_components": sorted(
             {str(n) for n in structure.resname[structure.ligand & (structure.chain == chain)]}
         ),
         "entry_components": sorted({str(n) for n in structure.resname[structure.ligand]}),
-        "polymer_chains": len({str(c) for c in structure.chain[structure.protein]}),
     }
 
 
@@ -107,16 +97,6 @@ def _chain_ca(structure: Structure, chain: str) -> dict[int, np.ndarray]:
     for index in np.where(mask)[0]:
         coords.setdefault(int(structure.seq_id[index]), structure.coord[index])
     return coords
-
-
-def _superpose(mobile: dict[int, np.ndarray], target: dict[int, np.ndarray], keys: list[int]):
-    """Transform putting `mobile`'s frame onto `target`'s, fitted on `keys` only."""
-    P = np.array([mobile[k] for k in keys])
-    Q = np.array([target[k] for k in keys])
-    p_bar, q_bar = P.mean(0), Q.mean(0)
-    V, _, W = np.linalg.svd((P - p_bar).T @ (Q - q_bar))
-    rotation = V @ np.diag([1, 1, np.sign(np.linalg.det(V @ W))]) @ W
-    return lambda X: (X - p_bar) @ rotation + q_bar
 
 
 def _transplant(
@@ -293,7 +273,7 @@ def _orthosteric_state(
 def derive(
     spec: dict,
     cutoff: float,
-    raw: Path = RAW,
+    raw: Path = EVAL_CACHE,
     sensitivity: tuple[float, ...] = (),
     orthosteric_vocabulary: dict | None = None,
 ) -> Derived:
@@ -302,6 +282,24 @@ def derive(
     apo = parse_mmcif(paths["apo"], spec["apo"]["pdb"])
     holo = parse_mmcif(paths["holo"], spec["holo"]["pdb"])
     apo_chain, holo_chain = spec["apo"]["chain"], spec["holo"]["chain"]
+    assemblies = {
+        role: biological_assembly(paths[role], spec[role]["chain"]) for role in ("apo", "holo")
+    }
+    target_copies_match = (
+        assemblies["apo"]["selected_chain_entity_copies"]
+        == assemblies["holo"]["selected_chain_entity_copies"]
+    )
+    composition_matches = (
+        assemblies["apo"]["polymer_entity_copies"] == assemblies["holo"]["polymer_entity_copies"]
+    )
+    assembly_exception = spec.get("assembly_exception")
+    if not (target_copies_match and composition_matches) and not assembly_exception:
+        raise ValueError(
+            f"{spec['id']}: apo/holo biological assembly state differs; declare and justify "
+            "assembly_exception before re-freezing"
+        )
+    if target_copies_match and composition_matches and assembly_exception:
+        raise ValueError(f"{spec['id']}: assembly_exception is declared but no mismatch exists")
 
     labels = transfer_labels(holo, apo, spec["holo"]["ligand"], holo_chain, apo_chain, cutoff)
     transferred_labels = [number for _, number, _ in labels.apo_residues]
@@ -379,6 +377,7 @@ def derive(
     apo_ligands = apo.ligand
     occupancy: dict[str, object] = {
         **_components(apo, apo_chain),
+        "biological_assembly": assemblies["apo"],
         "labels_contacted": 0,
         "nearest_label_angstrom": None,
         "scoreable_labels_contacted": 0,
@@ -401,7 +400,10 @@ def derive(
     # apo->holo difference cannot be attributed to the modulator. The cardiac myosin x-ray
     # arm is the live case -- ADP-VO4 (apo) against ADP-BeF3 (holo), so the members differ
     # in nucleotide analogue as well as in drug.
-    holo_occupancy = _components(holo, holo_chain)
+    holo_occupancy = {
+        **_components(holo, holo_chain),
+        "biological_assembly": assemblies["holo"],
+    }
     if orthosteric_vocabulary is None:
         raise ValueError(f"{spec['id']}: orthosteric_vocabulary is required")
     orthosteric = _orthosteric_state(apo, holo, spec, active, cutoff, orthosteric_vocabulary)
@@ -444,7 +446,6 @@ def derive(
         scoreable_label_residues=scoreable,
         excluded_from_scoring=excluded,
         n_candidates=len(apo_ca) - len(excluded),
-        label_prevalence=round(len(label_numbers) / len(apo_ca), 4),
         unmapped=[f"{c}:{n}{i}" for c, i, n in labels.unmapped],
         active_site=active,
         distance_to_active_site={
@@ -462,47 +463,17 @@ def derive(
         holo_site_occupancy=holo_occupancy,
         orthosteric_state=orthosteric,
         sequence_agreement=sequence_agreement,
+        assembly_agreement={
+            "selected_target_copies_match": target_copies_match,
+            "polymer_composition_matches": composition_matches,
+            "exception": assembly_exception,
+        },
         transplant_min_distance=round(min_distance, 2),
         transplant_clashes=clashes,
         superposition_rmsd=round(fit, 2),
         apo_holo_rmsd=rmsd,
         hashes={spec[r]["pdb"]: sha256(paths[r]) for r in ("apo", "holo")},
     )
-
-
-def _exclude_functional_sites(targets: dict[str, dict], manifest: dict, raw: Path) -> None:
-    """Remove manifest-registered functional residues from each arm's negative class.
-
-    ADR 0015 originally derived this set from every arm currently present. That made one
-    arm's candidate universe shrink when a sibling arm was added. The per-protein registry
-    is now explicit in the manifest; adding an arm cannot mutate another arm's universe.
-    Registry numbering is carried from its declared reference entry by sequence alignment.
-    """
-    spec = {s["id"]: s for s in manifest["targets"]}
-    parsed: dict[tuple[str, str], Structure] = {}
-
-    def structure(block: dict) -> tuple[Structure, str]:
-        key = (block["pdb"], block["chain"])
-        if key not in parsed:
-            parsed[key] = parse_mmcif(fetch_mmcif(block["pdb"], raw), block["pdb"])
-        return parsed[key], block["chain"]
-
-    for target, derived in targets.items():
-        mine = spec[target]["apo"]
-        registry = manifest["functional_sites"][spec[target]["protein"]]
-        reference_pdb, reference_chain = registry["reference"].split(":")
-        functional = set(registry["residues"])
-        if (reference_pdb, reference_chain) != (mine["pdb"], mine["chain"]):
-            source, source_chain = structure({"pdb": reference_pdb, "chain": reference_chain})
-            destination, destination_chain = structure(mine)
-            mapping = align_numbering(source, destination, source_chain, destination_chain)
-            functional = {mapping[residue] for residue in functional if residue in mapping}
-
-        excluded = set(derived["excluded_from_scoring"]) | (
-            (functional & set(derived["residue_ids"])) - set(derived["label_residues"])
-        )
-        derived["excluded_from_scoring"] = sorted(excluded)
-        derived["n_candidates"] = derived["n_residues"] - len(excluded)
 
 
 def _label_accounting_problems(targets: dict[str, dict], manifest: dict) -> list[str]:
@@ -532,66 +503,13 @@ def _label_accounting_problems(targets: dict[str, dict], manifest: dict) -> list
 
 
 def _validate_protocol(manifest: dict) -> None:
-    """Fail closed if a null or catalytic-state classification knob is implicit."""
-    null = manifest.get("null")
-    required = {
-        "graph",
-        "surface_rule",
-        "distance_statistics",
-        "growth_algorithm",
-        "replicates",
-        "seed",
-        "p_value",
-        "calibration",
-    }
-    if not isinstance(null, dict) or set(null) != required:
-        raise ValueError(f"manifest null fields must be exactly {sorted(required)}")
-    if null["graph"] != {
-        "atom_selection": "heavy",
-        "contact_cutoff_angstrom": manifest["defaults"]["contact_cutoff_angstrom"],
-    }:
-        raise ValueError("manifest null graph does not match the frozen heavy-atom graph")
-    if null["surface_rule"] != {"statistic": "contact_degree", "maximum_quantile": 0.5}:
-        raise ValueError("manifest null surface_rule is invalid")
-    # Minimum and median do not determine how much mass lies near the source. The lower
-    # quartile constrains that tail explicitly without pretending three summaries determine
-    # the full empirical distribution.
-    expected_statistics = [
-        "median_min_ca_distance_to_active_site",
-        "minimum_min_ca_distance_to_active_site",
-        "q25_min_ca_distance_to_active_site",
-    ]
-    statistics = null["distance_statistics"]
-    if (
-        not isinstance(statistics, list)
-        or [entry.get("statistic") for entry in statistics] != expected_statistics
-    ):
-        raise ValueError(f"manifest null distance_statistics must be exactly {expected_statistics}")
-    for entry in statistics:
-        tolerance = entry.get("tolerance_angstrom")
-        if set(entry) != {"statistic", "tolerance_angstrom"}:
-            raise ValueError(f"null distance statistic {entry} has unexpected fields")
-        if not isinstance(tolerance, float) or not tolerance > 0:
-            raise ValueError(f"null distance tolerance for {entry['statistic']} must be positive")
-    if null["growth_algorithm"] != "uniform_contact_frontier":
-        raise ValueError("manifest null growth_algorithm is invalid")
-    if (
-        not isinstance(null["replicates"], int)
-        or isinstance(null["replicates"], bool)
-        or not (null["replicates"] > 0)
-    ):
-        raise ValueError("manifest null replicates must be a positive integer")
-    if not isinstance(null["seed"], int) or isinstance(null["seed"], bool):
-        raise ValueError("manifest null seed must be an integer")
-    if null["p_value"] != {"tail": "greater_equal", "plus_one_correction": True}:
-        raise ValueError("manifest null p_value rule is invalid")
-    if null["calibration"] != {
-        "alpha": 0.05,
-        "independent_replicates": 1000,
-        "prediction_interval_coverage": 0.95,
-    }:
-        raise ValueError("manifest null calibration rule is invalid")
+    """Fail closed if an input-layer knob is implicit.
 
+    Only the input layer is checked here. How a score is computed -- estimator, null model,
+    multiplicity -- is a separate layer with its own lifecycle and its own document
+    (docs/benchmark/evaluation-protocol.md); pinning it in the input manifest coupled two
+    freezes that move at different rates.
+    """
     vocabulary = manifest.get("orthosteric_vocabulary")
     if not isinstance(vocabulary, dict) or set(vocabulary) != {"state_components", "additives"}:
         raise ValueError("manifest orthosteric_vocabulary fields are invalid")
@@ -605,15 +523,6 @@ def _validate_protocol(manifest: dict) -> None:
     }
     if set(manifest.get("label_footprints", {})) != expected_footprints:
         raise ValueError("manifest label_footprints do not exactly cover scoreable holo pockets")
-    expected_proteins = {spec["protein"] for spec in scoreable}
-    registries = manifest.get("functional_sites", {})
-    if set(registries) != expected_proteins:
-        raise ValueError("manifest functional_sites do not exactly cover scoreable proteins")
-    for protein, registry in registries.items():
-        if set(registry) != {"reference", "residues"}:
-            raise ValueError(f"functional site registry for {protein} has unexpected fields")
-        if registry["residues"] != sorted(set(registry["residues"])):
-            raise ValueError(f"functional site registry for {protein} is not sorted and unique")
 
     named_pinned = {spec[role]["pdb"] for spec in scoreable for role in ("apo", "holo")}
     provenance = manifest.get("structure_provenance", {})
@@ -638,7 +547,7 @@ def _validate_protocol(manifest: dict) -> None:
             raise ValueError(f"{spec['id']}: apo hash differs from structure provenance")
 
 
-def freeze(manifest: dict | None = None, raw: Path = RAW) -> dict:
+def freeze(manifest: dict | None = None, raw: Path = EVAL_CACHE) -> dict:
     """Re-derive every pinned quantity for every scoreable target."""
     manifest = manifest or load()
     _validate_protocol(manifest)
@@ -657,22 +566,26 @@ def freeze(manifest: dict | None = None, raw: Path = RAW) -> dict:
         for spec in manifest["targets"]
         if spec.get("status") != "excluded"
     }
-    _exclude_functional_sites(targets, manifest, raw)
     if problems := _label_accounting_problems(targets, manifest):
         raise ValueError("label accounting failed: " + "; ".join(problems))
+    # `tier` is pinned into the freeze rather than read live from the manifest. It decides
+    # which arm carries a claim, so a post-freeze edit to it would move a result while
+    # `verify` stayed green -- it would be comparing nothing that had changed.
+    for target, derived in targets.items():
+        derived["tier"] = next(s["tier"] for s in manifest["targets"] if s["id"] == target)
     return {
         "frozen_on": str(manifest["frozen_on"]),
         "contact_cutoff_angstrom": cutoff,
-        "null": manifest["null"],
         "orthosteric_vocabulary": manifest["orthosteric_vocabulary"],
         "structure_provenance": manifest["structure_provenance"],
         "label_footprints": manifest["label_footprints"],
-        "functional_sites": manifest["functional_sites"],
         "targets": targets,
     }
 
 
-def verify(manifest: dict | None = None, frozen: dict | None = None, raw: Path = RAW) -> list[str]:
+def verify(
+    manifest: dict | None = None, frozen: dict | None = None, raw: Path = EVAL_CACHE
+) -> list[str]:
     """Differences between the recorded freeze and what the files say today.
 
     An empty list is the exit criterion: the benchmark still is what it claims. A
@@ -711,144 +624,3 @@ def verify(manifest: dict | None = None, frozen: dict | None = None, raw: Path =
 
     compare(frozen, current, "")
     return problems
-
-
-def _tier_family(frozen: dict, tier: str, manifest: dict | None = None) -> list[str]:
-    """Frozen members of one claim tier, excluding every quarantined arm."""
-    manifest = manifest or load()
-    _validate_protocol(manifest)
-    members = {
-        spec["id"]
-        for spec in manifest["targets"]
-        if spec.get("tier") == tier and not spec.get("quarantine")
-    }
-    return sorted(members & set(frozen["targets"]))
-
-
-def claim_bearing_family(frozen: dict, manifest: dict | None = None) -> list[str]:
-    """Corrected arms permitted to carry confirmatory claims (ADR 0013)."""
-    return _tier_family(frozen, "corrected", manifest)
-
-
-def robustness_family(frozen: dict, manifest: dict | None = None) -> list[str]:
-    """Sensitivity arms permitted to support robustness claims (ADR 0013)."""
-    return _tier_family(frozen, "sensitivity", manifest)
-
-
-def confirmatory_family(frozen: dict, manifest: dict | None = None) -> list[str]:
-    """Backward-compatible name for :func:`claim_bearing_family`."""
-    return claim_bearing_family(frozen, manifest)
-
-
-def stats(frozen: dict | None = None, seed: int = 0, manifest: dict | None = None) -> dict:
-    """The benchmark's own difficulty, derived from the freeze rather than asserted.
-
-    Every number in `docs/benchmark/README.md` section 5 that is a pure function of the
-    frozen label sets is computed here, so the protocol's justification regenerates
-    instead of living as prose nobody can re-run (AGENTS.md: numbers come from code).
-
-    Three quantities, all on the **scoreable** label set that section 5 declares primary
-    (every label that is not itself a propagation-source residue, ADR 0007), against the
-    **candidate set** rather than the whole node set: the propagation source and registered
-    functional sites leave both classes, because a residue that scores maximally by
-    construction measures nothing whichever class it is filed under (ADR 0011).
-
-    - hypergeometric baselines for the top-5 hit list under a uniform random ranking,
-      which is the bar "we found it in the top 5" has to clear;
-    - the minimum AUC a rank-sum test could detect at 80 % power (Noether), reported
-      both for the real positive count and for one effectively independent patch --
-      the two ends of the spatial-autocorrelation argument;
-    - AUC-ROC against AUC-PR at a *fixed* real effect, to show how far prevalence alone
-      moves AUC-PR while leaving AUC-ROC unmoved.
-    """
-    from scipy.stats import binom, hypergeom, norm
-
-    frozen = frozen if frozen is not None else json.loads(FROZEN.read_text())
-    manifest = manifest or load()
-    z = norm.ppf(0.95) + norm.ppf(0.80)  # alpha = 0.05 one-sided, power = 0.80
-
-    def mde(n: int, positives: int) -> float | None:
-        """Smallest detectable AUC. None when no effect size suffices at this size."""
-        c = positives / n
-        auc = 0.5 + z / np.sqrt(12 * c * (1 - c) * n)
-        return round(float(auc), 3) if auc < 1.0 else None
-
-    # The confirmatory family, derived rather than counted by hand. Section 5 tests AUC-PR on
-    # the `corrected` arm of every target and Holm-corrects across them; an earlier version
-    # said "three tests", counting *proteins*, which silently dropped myosin Site 2 or
-    # under-corrected the family. A target is a protein plus a site (ADR 0008), so the family
-    # is however many corrected arms the manifest tier and freeze jointly hold.
-    claim_bearing = claim_bearing_family(frozen, manifest)
-    robustness = robustness_family(frozen, manifest)
-    calibration = manifest["null"]["calibration"]
-    tail = (1.0 - calibration["prediction_interval_coverage"]) / 2.0
-    calibration_counts = binom.ppf(
-        [tail, 1.0 - tail],
-        n=calibration["independent_replicates"],
-        p=calibration["alpha"],
-    ).astype(int)
-    out = {
-        "seed": seed,
-        "effect_size_d": 0.8,
-        "draws": 2000,
-        "claim_bearing_family": claim_bearing,
-        "robustness_family": robustness,
-        "confirmatory_family": claim_bearing,
-        "family_size": len(claim_bearing),
-        "null_calibration": {
-            "criterion": "equal-tailed exact binomial prediction interval",
-            "accepted_rejection_counts": calibration_counts.tolist(),
-            "accepted_type_i_rate": (
-                calibration_counts / calibration["independent_replicates"]
-            ).tolist(),
-        },
-        "targets": {},
-    }
-    for target, derived in frozen["targets"].items():
-        rng = np.random.default_rng(np.random.SeedSequence([seed, *target.encode()]))
-        n = derived["n_candidates"]
-        scoreable = len(derived["scoreable_label_residues"])
-        rv = hypergeom(n, scoreable, 5)
-
-        def universe(size: int, positives: int = scoreable) -> dict[str, float | int]:
-            baseline = hypergeom(size, positives, 5)
-            return {
-                "n": size,
-                "n_scoreable": positives,
-                "scoreable_prevalence": round(positives / size, 4),
-                "expected_hits_at_5": round(float(baseline.mean()), 2),
-                "p_at_least_1_hit": round(float(1 - baseline.pmf(0)), 3),
-                "p_at_least_2_hits": round(float(1 - baseline.pmf(0) - baseline.pmf(1)), 3),
-            }
-
-        # Fixed real signal, varying only prevalence: the reason AUC-PR is co-primary.
-        roc, pr = [], []
-        for _ in range(out["draws"]):
-            scores = rng.standard_normal(n)
-            scores[:scoreable] += out["effect_size_d"]
-            order = np.argsort(-scores)
-            hit = (order < scoreable).astype(float)
-            ranks = np.argsort(np.argsort(scores))
-            roc.append((ranks[:scoreable].mean() - (scoreable - 1) / 2) / (n - scoreable))
-            precision = np.cumsum(hit) / np.arange(1, n + 1)
-            pr.append(float((precision * hit).sum() / scoreable))
-        out["targets"][target] = {
-            "n_residues": derived["n_residues"],
-            "n_candidates": n,
-            "n_excluded": len(derived["excluded_from_scoring"]),
-            "n_labels": len(derived["label_residues"]),
-            "n_scoreable": scoreable,
-            "scoreable_prevalence": round(scoreable / n, 4),
-            "expected_hits_at_5": round(float(rv.mean()), 2),
-            "p_at_least_1_hit": round(float(1 - rv.pmf(0)), 3),
-            "p_at_least_2_hits": round(float(1 - rv.pmf(0) - rv.pmf(1)), 3),
-            "mde_auc_rank_sum": mde(n, scoreable),
-            "mde_auc_one_patch": mde(n, 1),
-            "simulated_auc_roc": round(float(np.mean(roc)), 3),
-            "simulated_auc_pr": round(float(np.mean(pr)), 3),
-            "scoring_universe_sensitivity": {
-                "candidate_set": universe(n),
-                "whole_node_set": universe(derived["n_residues"]),
-            },
-        }
-    return out

@@ -1,7 +1,7 @@
 import pytest
 
 from allo.groundtruth.labels import align_numbering, pocket_residues, transfer_labels
-from allo.structure.pdb import parse_mmcif
+from allo.structure.pdb import parse_mmcif_text
 
 # Two tiny entries of the same three-residue protein under different author
 # numbering, with a ligand touching the middle residue in the "holo" one. The
@@ -52,10 +52,8 @@ HETATM 4 C C1 . . . DRG B 201 6.000 2.000 0.000 1
 
 
 @pytest.fixture
-def pair(tmp_path):
-    (tmp_path / "APO.cif").write_text(APO)
-    (tmp_path / "HOLO.cif").write_text(HOLO)
-    return parse_mmcif(tmp_path / "APO.cif"), parse_mmcif(tmp_path / "HOLO.cif")
+def pair():
+    return parse_mmcif_text(APO, "APO"), parse_mmcif_text(HOLO, "HOLO")
 
 
 def test_pocket_residues_uses_the_cutoff(pair):

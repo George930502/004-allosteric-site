@@ -45,7 +45,11 @@ re-versioning an entry.
 
 ## Consequences
 
-- Method comparisons are honest: every method sees identical inputs, labels and negatives.
+- Method comparisons are honest: every method sees identical inputs and labels. **Not yet
+  negatives** — the second negative class the challenge requires (non-functional surface
+  pockets) is unbuilt, and until it is committed no method may be scored here. This bullet
+  said "and negatives" from the start, which was aspirational rather than true; the header of
+  `docs/benchmark/README.md` states the scoring gate that governs.
 - We report more numbers than asked for, and must explain the tiers in the report. That
   explanation is an asset — it demonstrates the target validation the challenge is about.
 - The cardiac myosin correction is not a judgement call but a factual error in the
@@ -65,3 +69,17 @@ canonical *allosteric but not cryptic* site, and what remains to be predicted is
 the many pre-formed pockets is the coupled one. The ligand-occupancy reason above is
 sufficient on its own and is the one that actually bears on C1. The **decision** of this
 ADR — three tiers, freeze before any method runs, report all three — is unaffected.
+
+---
+
+**Amendment, 2026-08-24 — two tiers, not three.** The `sensitivity` tier is removed. It had
+grown to six arms across three proteins: a third ABL1 apo, a strict-C5 trimmed ABL1 node set,
+two extra myosin structures, a second myosin drug, and a second myosin site. None of them is
+an input-layer question. Whether a conclusion survives a different structure, a different
+node-set scope or a different effector is a **robustness question about a method**, and it
+cannot be asked before a method exists. Those arms are re-addable from git history in Phase 2,
+one at a time, against a specific claim.
+
+The decision that remains is the one this ADR made: **`mandated` and `corrected`, both frozen
+before any method runs, both reported.** Five scoreable arms, one mandated-but-unscoreable
+record. The benchmark now maps one-to-one onto the three disease areas in Table 1.

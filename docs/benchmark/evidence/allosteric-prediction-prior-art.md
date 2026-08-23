@@ -91,7 +91,7 @@ Consequences, each of which must appear in the report:
 
 `[UNVERIFIED]` Whether ASD 2023 has since added a KRAS entry (sotorasib was approved after
 ASBench froze in 2015) is **not established**. The ASD2023 paper
-([10.1093/nar/gkad1053](https://doi.org/10.1093/nar/gkad1053), PMC10767950) mentions
+([10.1093/nar/gkad915](https://doi.org/10.1093/nar/gkad915), PMC10767950) mentions
 sotorasib, "K-Ras(G12C) inhibitors allosterically control GTP affinity and effector
 interactions" and "pan-KRAS inhibitor disables oncogenic signalling" **only as introduction
 citations**, not as curated targets `[VERIFIED-FULLTEXT]`. Treat the KRAS/ASD question as
@@ -150,7 +150,7 @@ site and the known allosteric sites for blebbistatin". That is the **blebbistati
 our Site 2.
 
 **⚠️ CORRECTED 2026-08-20. An earlier version of this paragraph stopped here, and concluded
-that reference [1] had not touched our Site 1. It had.** Zheng reports a *second* site in the
+that reference [1] had not touched our Site 1. It had.** Zheng reports a _second_ site in the
 same passage:
 
 > "In addition to this key cleft, we also found another site at the **N-terminal/converter
@@ -169,13 +169,18 @@ Auguin 2024 places the mavacamten pocket "between the **N-terminal** (N-term) an
 would be suggestive rather than decisive, so it was settled by alignment: `1MMA` ↔ MYH7 pairs
 **673 residues at 52 % identity**, carrying ESSA's five residues onto MYH7 **119, 120, 705,
 710, 711**. Three of those five are frozen labels on the `8QYP` arm (**120, 710, 711**;
-hypergeometric E = 0.11, **P(≥3) = 0.0001**); two on the `9GZ3` arm (P = 0.0022).
+hypergeometric E = 0.11, **P(≥3) = 0.0001**); two on the `9GZ3` arm (**710, 711**;
+**P(≥2) = 0.0015**). Both are computed against the **candidate** set, never the node set
+(ADR 0011) — the stale node-set figure for the `9GZ3` arm was P = 0.0022 — and the two arms
+draw a different number of balls. Residue **120** is a frozen label on the `8QYP` arm, so the
+MYH7 functional-site registry leaves it in that arm's universe; on the `9GZ3` arm it is not a
+label, so the registry excludes it. Five draws there, four here.
 Regenerate: the alignment uses `allo.groundtruth.labels.align_numbering`.
 
 So reference [1] contains a **blind prediction of our Site 1**, made without naming it as the
 mavacamten site. The correct statement for the report is now the narrower one: no method has
 been reported on **MYH7 itself** — Zheng and ESSA ran on _Dictyostelium_ myosin II — so Site 1
-has the *weakest* prior art of our arms, not none. `manifest.yaml` records `blind: false` on
+has the _weakest_ prior art of our arms, not none. `manifest.yaml` records `blind: false` on
 every Site 1 arm as a result, and Zheng's site 1 is a **bar to clear**, not an absence.
 
 The general lesson is worth keeping: the original error was reading a paper to the sentence
@@ -385,7 +390,7 @@ benchmarks. Our classical baseline has to come from elsewhere, and the papers be
 | **PARS** (Panjkovich & Daura 2012/2014, [10.1186/1471-2105-13-273](https://doi.org/10.1186/1471-2105-13-273), [10.1093/bioinformatics/btu002](https://doi.org/10.1093/bioinformatics/btu002)) | NMA flexibility change on ligand binding + structural conservation                                                                                                                                                                           | 91 proteins; flexibility change in **70 %**; **65 % PPV**. Re-run by AlloPred: **25 % top-1** `[VERIFIED-ABSTRACT]`                                                     |
 | **AlloPred** (Greener & Sternberg 2015, [10.1186/s12859-015-0771-1](https://doi.org/10.1186/s12859-015-0771-1))                                                                               | Cα ENM, **Rc = 15 Å**, k = 1 kcal/mol/Å²; stiffen to **1.5** for springs touching the pocket; weight mode effects by frequency (ProDy); + Fpocket descriptors → SVM                                                                          | **23/40 = 57.5 % top-1**, 28/40 top-2                                                                                                                                   |
 | **ESSA** (Kaynak, Bahar & Doruker 2020, [10.1016/j.csbj.2020.06.020](https://doi.org/10.1016/j.csbj.2020.06.020))                                                                             | **GNM 10 Å** and **ANM 15 Å**, uniform k = 1; add every heavy atom of residue _i_ as extra nodes to mimic binding crowding; z-score of mean eigenvalue shift over the **softest 10 modes**; combine with Fpocket + local hydrophobic density | **holo 10/14 = 71.4 %** top-3; **apo 7/14 = 50 %**. PARS 2/14 both. AllositePro 8/14 holo → **2/14 apo**.                                                               |
-| **APOP** (Kumar, Kaynak, Dorman, Doruker & Jernigan, _Bioinformatics_ 2023, [10.1093/bioinformatics/btad275](https://doi.org/10.1093/bioinformatics/btad275))                                            | **GNM, 10 Å cutoff, γ = 1.0**; raise γ to **10.0** for all pairs inside a pocket; rank by combined z-score `sp = (zp + zhp)/2` of global-mode eigenvalue shift and hydrophobic density                                                       | **92/104 = 88.5 % top-3**; rank-1 on 35 vs AlloPred 19, PASSer 29. Holo subset **84 %** vs AlloPred 68 %, PASSer 76 % (p = 0.00088). Apo **11/14**, matched holo 15/15. |
+| **APOP** (Kumar, Kaynak, Dorman, Doruker & Jernigan, _Bioinformatics_ 2023, [10.1093/bioinformatics/btad275](https://doi.org/10.1093/bioinformatics/btad275))                                 | **GNM, 10 Å cutoff, γ = 1.0**; raise γ to **10.0** for all pairs inside a pocket; rank by combined z-score `sp = (zp + zhp)/2` of global-mode eigenvalue shift and hydrophobic density                                                       | **92/104 = 88.5 % top-3**; rank-1 on 35 vs AlloPred 19, PASSer 29. Holo subset **84 %** vs AlloPred 68 %, PASSer 76 % (p = 0.00088). Apo **11/14**, matched holo 15/15. |
 
 **APOP is the state of the art for purely topological allosteric-pocket prediction and is the
 number to beat.** It is unsupervised, structure-only, no MD, no training data — exactly our
@@ -523,7 +528,7 @@ aficamten)`. Everything is structure determination, drug mechanism, or clinical.
 
 Databases and benchmarks
 
-- ASD2023 — Wang et al., _Nucleic Acids Res_ 52:D376 (2024), [10.1093/nar/gkad1053](https://doi.org/10.1093/nar/gkad1053), PMC10767950
+- ASD2023 — He et al., _Nucleic Acids Res_ 52:D376 (2024), [10.1093/nar/gkad915](https://doi.org/10.1093/nar/gkad915), PMC10767950
 - ASBench — Huang et al., _Bioinformatics_ 31:2598 (2015), [10.1093/bioinformatics/btv169](https://doi.org/10.1093/bioinformatics/btv169)
 - CASBench — Zlobin et al., _Acta Naturae_ 11:74 (2019), PMC6475866
 - AlloBench — Maity & Qiao, _ACS Omega_ 10:17973 (2025), [10.1021/acsomega.5c01263](https://doi.org/10.1021/acsomega.5c01263), PMC12059942
@@ -552,7 +557,7 @@ ENM / normal-mode lineage
 - Zheng W, _J Chem Phys_ 158:124127 (2023), [10.1063/5.0141630](https://doi.org/10.1063/5.0141630), PMC10066797 — **challenge ref [1]**
 - Chennubhotla & Bahar, _PLoS Comput Biol_ 3:e172 (2007), [10.1371/journal.pcbi.0030172](https://doi.org/10.1371/journal.pcbi.0030172), PMC1988854 — **challenge ref [8]**
 - ESSA — Kaynak, Bahar & Doruker, _Comput Struct Biotechnol J_ 18:1577 (2020), [10.1016/j.csbj.2020.06.020](https://doi.org/10.1016/j.csbj.2020.06.020), PMC7330491
-- APOP — Kaynak et al., _Bioinformatics_ 39:btad275 (2023), [10.1093/bioinformatics/btad275](https://doi.org/10.1093/bioinformatics/btad275), PMC10185404
+- APOP — Kumar et al., _Bioinformatics_ 39:btad275 (2023), [10.1093/bioinformatics/btad275](https://doi.org/10.1093/bioinformatics/btad275), PMC10185404
 
 Target biology cited above
 

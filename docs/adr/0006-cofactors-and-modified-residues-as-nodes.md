@@ -5,7 +5,7 @@
 ## Context
 
 `docs/targets.md` says of the KRAS nucleotide "kept as a simple node or dropped — see the
-ADR", and `docs/benchmark/audit/kras-g12c.json` records "Action required: decide and record
+ADR", and the KRAS audit dossier recorded "Action required: decide and record
 whether GDP and Mg2+ become simple nodes". No ADR covered it. This one does, because the
 question is part of the input layer — it decides which nodes exist — and an input-layer
 question has to be settled before any method runs or it becomes a knob.
@@ -42,6 +42,15 @@ protein-only, and every classical baseline we must compare against is defined th
    sequence: before prediction, `M3L` is renamed `LYS` and PTM-only atoms `CM1`, `CM2` and
    `CM3` are removed. Heavy-atom contact edges therefore come from the parent lysine atom set,
    not the trimethyl group. Modified node properties are not modelled.
+
+   **"and so on" overstates the implementation, and an adversarial review was right to say so
+   (2026-08-21).** `_THREE_TO_ONE` maps `MSE`, `SEP`, `TPO` and `PTR` for *sequence* purposes,
+   but `allo.inputs._prediction_structure` performs the *topology* mapping for `M3L` alone.
+   Selenomethionine would keep its `SE` atom and a phosphoresidue its phosphate, so their
+   contact edges would not be the parent's. This is latent, not live: `M3L` is the only
+   modified residue in any frozen node set, on the three `8QYP` arms.
+   `tests/test_benchmark.py::test_every_modified_residue_in_a_frozen_arm_has_parent_topology`
+   fails the moment that stops being true, so a target cannot be added on the untested path.
 4. **The residue set the network is built on is `allo.inputs.apo_input(...).residues`**, and
    nothing else. It is the frozen `n_residues` count in `frozen.json`.
 

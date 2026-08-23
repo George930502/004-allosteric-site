@@ -1,8 +1,14 @@
-# Prior prediction attempts on the benchmark pockets — systematic literature review
+# Prior prediction attempts on the benchmark pockets — scoped evidence review
 
 Retrieved 2026-08-20 via Europe PMC REST (`/search`, `/{PMCID}/fullTextXML`). Nothing in this
 document comes from model memory; every PDB ID, residue number and metric traces to a source
 retrieved in that session and cited inline.
+
+This is **not a systematic review**: it has no registered protocol, multi-database search,
+screening flow, eligibility ledger, duplicate review, or risk-of-bias assessment, and its
+extraction-model output was not checked against every raw paper. “Nothing found” below means
+only “not found by the recorded scoped retrieval”; it cannot establish absence of prior art
+or a genuine research gap (ADR 0019).
 
 ## Tag key
 
@@ -748,26 +754,27 @@ statement of our contribution, and the sentence above is the one to cite for it.
 | Quantum computing for protein structure prediction                                                 | Doga H, Raubenolt B, Cumbo F, et al. JCTC 2024. doi:10.1021/acs.jctc.4c00067. PMID 38703105                                                                | _"framework for systematically selecting protein structure problems amenable for quantum advantage"_ — useful template for our C3/C4 resource section                                                                                                                                                                                           | `[VERIFIED-ABSTRACT]` |
 | State of the art, quantum for drug discovery                                                       | Blunt NS, Camps J, Crawford O, et al. JCTC 2022. doi:10.1021/acs.jctc.2c00574. PMID 36355616                                                               | resource estimates for pharmaceutical simulation                                                                                                                                                                                                                                                                                                | `[VERIFIED-ABSTRACT]` |
 
-## 6.4 Explicit negatives on the quantum side
+## 6.4 Leads not found in the scoped retrieval
 
-Searched and **found nothing**:
+The recorded searches **did not retrieve**:
 
-- **No paper uses the Cleveland Clinic challenge target set** (`4OBE`/`6OIM`, `1OPL`/`5MO4`,
+- No retrieved paper uses the Cleveland Clinic challenge target set (`4OBE`/`6OIM`, `1OPL`/`5MO4`,
   `5TBY`/`6C1H`, `1NKP`). The challenge itself is documented only in trade press — The Quantum
   Insider, 2026-04-16 and 2026-06-15; Cleveland Clinic newsroom, 2026-06-15 — not in the
   peer-reviewed literature `[VERIFIED-ABSTRACT via web search]`.
-- **No quantum method has been applied to ABL1 or to cardiac myosin.**
-- **No quantum walk has been used for allosteric-site ranking conditioned on an active site.**
+- No retrieved quantum method was applied to ABL1 or to cardiac myosin.
+- No retrieved quantum walk ranked allosteric sites conditioned on an active site.
   Mohtashim 2026 does unconditioned centrality; Amor 2016 does active-site-conditioned propagation
-  but classically. **The intersection of those two is unoccupied. That is our slot.**
+  but classically. The scoped search did not cover the intersection; it does not establish
+  that the intersection is unoccupied.
 - Query `"quantum walk" AND "allosteric"` returned **hitCount 1**, and the single hit
   (Otaki, BioTech 2024, PMID 39846550) is a peptide inhibitor assay with no quantum content.
 
 ---
 
-# 7. What I searched and found nothing on — the negative-results register
+# 7. Scoped searches with no retrieved result
 
-Recorded because absence of prior art is a result (`AGENTS.md` working agreement).
+These are retrieval outcomes, not evidence that prior art is absent.
 
 | Question                                                     | Query run                                                 | Result                                                                                      |
 | ------------------------------------------------------------ | --------------------------------------------------------- | ------------------------------------------------------------------------------------------- |

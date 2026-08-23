@@ -100,11 +100,10 @@ the frozen benchmark and the corrected pairs are in `docs/benchmark/`.
 - `1OPL` quality: 3.42 Å, R-free 0.315, **6.50 % RSRZ outliers** (wwPDB validation report,
   `percent-RSRZ-outliers`; an earlier 22.2 % here was a percentile read as a percentage). Chains A
   and B differ by 23 Å globally; chain B lacks the myristate and the αI helix.
-- Strict-C5 sensitivity: `bcr_abl1_trimmed` uses the same `1OPL`:A bytes and admits only
-  residues 261–512. The range is derived in code from UniProtKB P00519 release 2026_02:
-  canonical kinase 242–493 plus the P00519-2 isoform's +19 deposited-number offset. It has
-  252 nodes and 17 labels; myristate still contacts 13, so scope trimming does not repair the
-  mandated pair's site-apo defect.
+- Strict-C5 scope was measured and does not repair the mandated pair. Admitting only
+  UniProt-derived kinase residues 261–512 of the same `1OPL`:A bytes gives 252 nodes and 17
+  labels, and myristate still contacts 13 of them. The arm was removed on 2026-08-24 as a
+  method-phase robustness question; the measurement stands (ADR 0010).
 - The myristoyl pocket is **not cryptic**, and the literature says so: Paladini et al.
   (*eLife* 2024) describe `1M52` as having an "empty myristoyl binding pocket" with a
   straight αI helix; Wylie 2017 calls it "vacant". Asciminib transplants into every myristate-free
@@ -122,8 +121,11 @@ the frozen benchmark and the corrected pairs are in `docs/benchmark/`.
 - `5TBY` is a SWISS-MODEL homology model of the human sequence on a **tarantula** template
   (`3JBH`), rigid-body fitted; the entry records 20 Å and its source map `EMD-2240` is 28 Å
   (Alamo 2017). It is cited by challenge reference [23] (Anderson 2018), which explains the
-  apo choice; `6C1H` has no such provenance anywhere in the challenge's bibliography. Clashscore 49.95
-  (2.2nd percentile). It is a model of a model, not an experimental structure.
+  apo choice; `6C1H` has no such provenance anywhere in the challenge's bibliography.
+  Clashscore 49.95 (2.2nd percentile), zero heteroatoms, no `refine` block, and 41 `covale`
+  records at physically impossible distances down to 1.083 Å. Note that RCSB does classify it
+  `structure_determination_methodology: experimental`, so argue from those measurements and
+  not from the label. It is a model built on a model (`3JBH` is itself a 20 Å EM-docked model).
 - Mavacamten's chemical component ID is **`XB2`**. It appears in exactly six PDB entries:
   `8QYQ`, `8QYR` (bovine, X-ray, Auguin 2024 doi 10.1038/s41467-024-47587-9), `9GZ1`,
   `9GZ2` (human, cryo-EM), `9YP9`, `9YR7` (human, cryo-EM).
@@ -132,15 +134,18 @@ the frozen benchmark and the corrected pairs are in `docs/benchmark/`.
   Minimum Cα distance from a label to the active site is 13.3 Å (`8QYP`), 16.5 Å (`9GZ3`)
   and 18.3 Å (`9YRG`), maxima 31.0–35.6 Å — genuinely distal in every arm.
 - Corrected pair: **`9GZ3` → `9GZ2`** (human MYH7, identical construct and primed state,
-  764 modelled residues each, differing only by the drug). Sensitivity arms: `8QYP` → `8QYR`
-  (bovine; the holo is 1.80 Å, the apo 2.76 Å) and `9YRG` → `9YR7` (experimental human
-  folded-back off state — the interacting-heads motif `5TBY` was trying to model; single
-  study, construct-identical, 0.88 Å core RMSD at 100 % identity).
+  764 modelled residues each, identical modelled range 3–796, identical gaps, identical
+  Mg·ADP·Pi state, differing by mavacamten and nothing else). Two alternatives were surveyed
+  and are re-addable in the method phase: `8QYP` → `8QYR` (bovine Q9BE39; the holo is 1.80 Å,
+  the highest-resolution mavacamten structure) and `9YRG` → `9YR7` (the human folded-back
+  interacting-heads motif `5TBY` was trying to model, but a Myosin-7/GCN4/EGFP chimera in a
+  six-chain assembly).
 
 ### c-Myc (`1NKP`)
 
-- Myc/Max heterodimer on DNA: 4 DNA chains, two copies of the dimer. Not addressed in this
-  phase; the target is the final stage.
+- Myc/Max heterodimer on DNA: 4 DNA chains, two copies of the dimer. The chain/copy, canonical
+  mapping, node set, source semantics, output contract, and consensus/docking evaluation are
+  unresolved and block Phase 2 (ADR 0020); they are not deferred until final evaluation.
 - Numbering hazard recorded now: the two Myc copies carry **different arbitrary offsets** —
   chain A auth 897–984 and chain D auth 499–581 both map to UniProt P01106 353–434. Any hit
   list must be reported in canonical MYC numbering, not author numbering.

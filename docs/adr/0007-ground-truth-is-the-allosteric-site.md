@@ -94,3 +94,24 @@ method 44–62 % of its AUC-PR at a fixed real effect and costs a geometric dete
 The reason given here — such a residue "scores maximally by construction and therefore
 measures nothing" — removes it from **both** classes. Superseded on that point by
 [ADR 0011](0011-scoring-universe-is-the-candidate-set.md); everything else here stands.
+
+---
+
+**Amendment, 2026-08-24 — the four-complex problem, stated.** A stronger version of this
+ADR's reasoning is available and should be quoted in the report. Fenton: allostery "is more
+strictly defined in functional terms as a comparison of how one ligand binds in the absence,
+versus the presence, of a second ligand … a study of allostery must consider **four complexes
+and not just two**" (doi:10.1016/j.tibs.2008.05.009; restated in McCullagh 2024,
+doi:10.1016/j.jbc.2024.105672). An apo/holo pair supplies one corner of that cycle. No
+structural benchmark in the field implements the requirement, which is exactly why the
+allostery must be inherited from the cited functional experiment and never read off the
+coordinates. `docs/benchmark/evidence/allosteric-pair-audit.md` §0 shows what that looks like
+in practice on these five arms: not one of them isolates an active-site response
+attributable to the effector.
+
+Authority for the definition itself is IUPHAR XC (doi:10.1124/pr.114.008862), which is
+retrievable via PMC11060431 and was previously recorded here as unreachable. It requires the
+site to be "nonoverlapping and spatially distinct from, but **conformationally linked to**,
+the orthosteric binding site", and recommends reserving the word for cases where
+"**reciprocity in this interaction can be demonstrated**". That is stricter than ASD's
+three-experiment rule and is the sharpest statement that spatial separation is not sufficient.

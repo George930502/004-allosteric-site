@@ -77,6 +77,11 @@ and never looked at until the method is frozen.
 
 ## Consequences
 
+**Round-3 disposition: option (b), recorded as unmet.** No `selection.json` or executable
+selection-set provenance exists yet, so Phase 2 is blocked. The cost is postponing method
+and hyperparameter selection. The blocker clears only when the disjoint ASD set is committed
+with the executable provenance and checks specified here.
+
 - The selection set will be materially smaller than an unfiltered ASD pull, and clause 2
   removes the closest analogues of our targets — the candidates on which tuning would have
   been most informative. That is the cost, and it is the point.

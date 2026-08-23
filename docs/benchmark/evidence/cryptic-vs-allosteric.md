@@ -245,8 +245,9 @@ Purely energetic. No distance term.
 Unlike allostery, this one is stable, structural, and near-unanimous.
 
 **CryptoSite** — Cimermancic et al., _J Mol Biol_ 428:709–719 (2016), PMID 26854760,
-doi 10.1016/j.jmb.2016.01.029 `[VERIFIED-ABSTRACT]` (full text is _not_ open access;
-`fullTextXML` returns 404):
+doi 10.1016/j.jmb.2016.01.029 `[VERIFIED-ABSTRACT]` (this sentence is in the abstract; full
+text is _not_ open access and `fullTextXML` returns 404, but the PMC author manuscript
+PMC4794384 does serve the body — see §6):
 
 > "Many proteins have small-molecule binding pockets that are not easily detectable in
 > the ligand-free structures. These cryptic sites require a conformational change to
@@ -716,10 +717,10 @@ Recorded so nobody re-runs these dead ends, and so no one quotes them from memor
 | MWC 1965, KNF 1966, Monod-Changeux-Jacob 1963 verbatim definitions    | Europe PMC holds no abstract text for these records; no PMCID; full text not reachable. Metadata only.                                                                                                         |
 | Nussinov & Tsai 2013 _Cell_ full text                                 | Paywalled, no PMCID. Abstract does not contain a one-line definition of "allosteric site".                                                                                                                     |
 | Motlagh/Hilser 2014 _Nature_ full text                                | `PMC4224315/fullTextXML` → 404 (`isOpenAccess: N`). Abstract only.                                                                                                                                             |
-| CryptoSite (Cimermancic 2016) full text                               | **RETRIEVED 2026-08-20.** Europe PMC `PMC4794384/fullTextXML` → 404, but `https://pmc.ncbi.nlm.nih.gov/articles/PMC4794384/` serves the full text. All five criteria in README §1 were read from it.        |
-| Ostrem 2013 _Nature_ full text                                        | **RETRIEVED 2026-08-20** via `pmc.ncbi.nlm.nih.gov/articles/PMC4274051/`. Assay detail (mant-dGDP competition, co-IP, SOS exchange) read from it.                                                            |
+| CryptoSite (Cimermancic 2016) full text                               | **RETRIEVED 2026-08-20.** Europe PMC `PMC4794384/fullTextXML` → 404, but `https://pmc.ncbi.nlm.nih.gov/articles/PMC4794384/` serves the full text. All five criteria in README §1 were read from it.           |
+| Ostrem 2013 _Nature_ full text                                        | **RETRIEVED 2026-08-20** via `pmc.ncbi.nlm.nih.gov/articles/PMC4274051/`. Assay detail (mant-dGDP competition, co-IP, SOS exchange) read from it.                                                              |
 | Fenton 2008 _TiBS_ full text                                          | `PMC2574622/fullTextXML` → 404. Abstract carries the definition in full.                                                                                                                                       |
-| Auguin 2024 _Nat Commun_ full text                                    | **RETRIEVED 2026-08-20** via `PMC11161628/fullTextXML`. This is the source that resolved `Ala767` (an omecamtiv residue, not a mavacamten one) — README §7.                                                  |
+| Auguin 2024 _Nat Commun_ full text                                    | **RETRIEVED 2026-08-20** via `PMC11161628/fullTextXML`. This is the source that resolved `Ala767` (an omecamtiv residue, not a mavacamten one) — README §7.                                                    |
 | Kruse 2013 "largely pre-formed" quote                                 | Retrieved via a search-result gloss, not from full text. Marked `[UNVERIFIED]`. Get the PDF before citing.                                                                                                     |
 | A paper quantifying "what fraction of _allosteric_ sites are cryptic" | Searched four ways; **does not appear to exist**. Vajda Table 1 gives the converse (cryptic → allosteric, 8/19) and CASBench gives the spatial-overlap statistic (30 %). Record as a genuine gap in the field. |
 

@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from allo.structure.pdb import Structure, contacts, parse_mmcif
+from allo.structure.pdb import Structure, contacts, parse_mmcif_text
 
 MINIMAL_CIF = """\
 data_TEST
@@ -30,10 +30,8 @@ ATOM 6 C CA . 4 . TRP A 4 50.00 0.000 0.000 2
 
 
 @pytest.fixture
-def structure(tmp_path) -> Structure:
-    path = tmp_path / "TEST.cif"
-    path.write_text(MINIMAL_CIF)
-    return parse_mmcif(path)
+def structure() -> Structure:
+    return parse_mmcif_text(MINIMAL_CIF, "TEST")
 
 
 def test_parse_keeps_first_model_only(structure):

@@ -35,3 +35,6 @@ scratch/
 
 # graphify output — fully reproducible from the corpus
 graphify-out/
+
+# Separate upstream repo, cloned here for reference; not part of this project
+allosteric-benchmark/

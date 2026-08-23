@@ -92,8 +92,9 @@ numbers belong to the CSBJ paper. Confirm before citing.
 ### 1.4 True/false positive rate pairs
 
 **CryptoSite**: "for our benchmark, the true positive and false positive rates are 73% and
-29%, respectively" (10.1016/j.jmb.2016.01.029) `[VERIFIED-ABSTRACT]` — paper is not open
-access; nothing beyond the abstract is reachable.
+29%, respectively" (10.1016/j.jmb.2016.01.029) `[VERIFIED-ABSTRACT]` — this sentence is in
+the abstract; the paper is not open access and `fullTextXML` 404s, but the PMC author
+manuscript (PMC4794384) does serve the body — see the addendum.
 
 **Ohm** reports TPR and PPV only: "The average TPR of Ohm is 0.57, compared to 0.23 of
 Amor's method"; "The PPV of Ohm is 0.72, compared to 0.48 of Amor's method"
@@ -423,7 +424,8 @@ Sorted by verification level.
 
 **Abstract only:**
 
-- Cimermancic P. et al. CryptoSite. _J Mol Biol_ 2016. doi:10.1016/j.jmb.2016.01.029 (closed)
+- Cimermancic P. et al. CryptoSite. _J Mol Biol_ 2016. doi:10.1016/j.jmb.2016.01.029 (closed
+  at the publisher; full text retrieved later from PMC — see the addendum)
 - PASSer: Prediction of Allosteric Sites Server. _Mach Learn Sci Technol_ 2021.
   doi:10.1088/2632-2153/abe6d6 (closed)
 - PASSer2.0. _Front Mol Biosci_ 2022. doi:10.3389/fmolb.2022.879251
@@ -434,7 +436,6 @@ Sorted by verification level.
   as the standard metric. _BioData Min_ 2023. doi:10.1186/s13040-023-00322-4
 - Chicco D. et al. MCC more reliable than balanced accuracy. _BioData Min_ 2021. doi:10.1186/s13040-021-00244-z
 - Mysinger M. et al. DUD-E. _J Med Chem_ 2012. doi:10.1021/jm300687e
-
 
 ---
 
@@ -448,14 +449,14 @@ bulk-download licence subset, not PMC availability. All values below are
 
 ### The AUC ladder (unknown 1)
 
-| Configuration | AUC |
-|---|---:|
-| MD-derived average pocket score, best single feature | 0.73 |
-| 30 crystal-structure features combined | 0.74 |
-| + sequence conservation (2nd selected feature) | 0.74 |
-| + small-molecule fragment-binding likelihood (3rd) | 0.77 |
+| Configuration                                          |      AUC |
+| ------------------------------------------------------ | -------: |
+| MD-derived average pocket score, best single feature   |     0.73 |
+| 30 crystal-structure features combined                 |     0.74 |
+| + sequence conservation (2nd selected feature)         |     0.74 |
+| + small-molecule fragment-binding likelihood (3rd)     |     0.77 |
 | Full SVM model (quadratic kernel, 3 selected features) | **0.83** |
-| MD-free fast variant, ~1000x speedup | **0.74** |
+| MD-free fast variant, ~1000x speedup                   | **0.74** |
 
 Two readings matter for this repo. First, **a single MD-derived feature (0.73) is worth about
 as much as thirty crystal-structure features combined (0.74)** -- the dynamics carry
@@ -469,6 +470,7 @@ and 0.83 is a ceiling we are constitutionally barred from reaching by their rout
 84 cryptic binding sites, 92 binding pockets and **705 concave surface patches**, from the PDB
 and Binding MOAD. Training used leave-one-out cross-validation over the 84 cryptic sites
 (79 proteins); the held-out test set is **14 apo structures**. Recall 96 % at sensitivity
+
 > 33 %, 88 % at sensitivity > 50 %.
 
 ### Correction to section 2 of this file
@@ -480,8 +482,8 @@ against cryptic sites and binding pockets with p-values (pocket score 0.07 vs 0.
 P = 1.7e-31; protruding atoms 170 vs 183, P = 8.0e-3; convexity 2.4 vs 1.9, P = 0.8), and the
 paper also states a random-residue baseline (19 residues tested at random to find one true
 cryptic residue). The narrower claim survives and is the one now in `../README.md` section 5:
-patches are used there to characterise what cryptic sites *are*, not as a permutation null
-calibrating what a predictor *scores*.
+patches are used there to characterise what cryptic sites _are_, not as a permutation null
+calibrating what a predictor _scores_.
 
 ### An internal inconsistency in the paper
 

@@ -14,7 +14,7 @@ Target pocket: the distal **myristoyl pocket** bound by **asciminib (ABL001)**
 (`CHALLENGE.md` §6, Table 1, row 2).
 
 **Every number below was derived programmatically.** The endpoint or file/field that
-produced each fact is given inline. Machine-readable twin: `bcr-abl1.json`
+produced each fact is given inline.
 (`provenance` object lists every endpoint and the generation date). Method: `Bio.PDB.MMCIF2Dict` +
 `scipy.spatial.cKDTree` over `data/raw/*.cif` (re-downloadable from the endpoints listed
 in the JSON), 4.5 Å heavy-atom contact cutoff, hydrogens excluded via

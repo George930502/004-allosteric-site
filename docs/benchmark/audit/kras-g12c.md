@@ -15,7 +15,7 @@
 **Target pocket:** cryptic Switch-II pocket (S-IIP), bound by sotorasib / AMG 510.
 
 Every number below was derived programmatically. Nothing is stated from recall.
-Machine-readable twin: `docs/benchmark/audit/kras-g12c.json`.
+
 
 **Endpoints used**
 

@@ -1,688 +1,435 @@
 # Frozen benchmark — the input layer, fixed.
 #
-# Every knob that changes what a method is scored on lives here and nowhere else.
-# `uv run allo benchmark verify` re-derives every value under `expected:` from the
-# deposited files and fails if anything moved. Rationale, evidence and the audit of
-# the challenge's own assignments: docs/benchmark/README.md.
+# Every choice that decides what a method receives, and what it is scored against, lives
+# here and nowhere else. `uv run allo benchmark verify` re-derives every consequence from
+# the deposited files and fails if anything moved. The consequences land in `frozen.json`,
+# which is generated and never hand-edited. Rationale: docs/benchmark/README.md.
+#
+# HOW to score is a separate layer with a separate lifecycle. It is not in this file. See
+# docs/benchmark/evaluation-protocol.md.
+#
+# One disease area from CHALLENGE.md Table 1 gives two arms:
+#   mandated  - exactly the pair the challenge names, defects and all. `defect:` says what
+#               is wrong with it. Reported because the challenge requires it.
+#   corrected - the defensible pair for the same protein and the same site, pinned here
+#               BEFORE any method exists, so the choice cannot be tuned to a result.
 #
 # active_site is a *rule*, not a residue list: {from_ligands: [...]} takes the apo entry's
-# own cofactor contacts, {from_motifs: [...]} locates conserved catalytic motifs by sequence.
-# Deriving it means `benchmark verify` actually checks it. A pinned list would only be
-# compared against itself — and would be wrong the moment an entry uses another numbering
-# convention, which ABL1 entries do.
-#
-# tier:
-#   mandated  - exactly as CHALLENGE.md Table 1 specifies. Reported because the
-#               challenge requires it, whatever its defects.
-#   corrected - the scientifically defensible pair for the same biological target.
-#               Pre-registered here BEFORE any method is run, so the choice cannot
-#               be tuned to a result.
-#   sensitivity - an alternative that tests whether a conclusion survives a
-#               different structure of the same target.
-#
-# status:
-#   excluded    - no ground truth can be derived; carried in the manifest and reported
-#                 as unscoreable, never frozen.
-#   provisional - frozen and scoreable, but a known defect in the pair is recorded in
-#                 its note and a replacement is named. Do not lead with its numbers.
+# own cofactor contacts, {from_motifs: [...]} locates conserved catalytic motifs by
+# sequence. Deriving it means `verify` checks it. A pinned list would only be compared
+# against itself, and would be wrong the moment an entry uses another numbering convention,
+# which the ABL1 entries do.
 
-version: 1
-frozen_on: 2026-08-20
+version: 2
+frozen_on: 2026-08-24
 source: CHALLENGE.md section 6, Table 1
 
 defaults:
-  # Pocket = protein residues with any heavy atom within cutoff of any ligand heavy
-  # atom. Cutoff is the knob the field varies most; 4.5 A is the working value.
-  # 4.0 and 5.0 are frozen alongside it (see labels_by_cutoff in frozen.json) so a
-  # later run cannot quietly report whichever cutoff flatters a method.
+  # Pocket = protein residues with any heavy atom within cutoff of any ligand heavy atom.
+  # Cutoff is the knob the field varies most (3.5-6 A across published benchmarks; see
+  # README section 1). 4.5 A is the working value; 4.0 and 5.0 are frozen alongside it in
+  # `labels_by_cutoff` so a later run cannot quietly report whichever cutoff flatters a
+  # method.
   contact_cutoff_angstrom: 4.5
   cutoff_sensitivity: [4.0, 5.0]
   atom_selection: heavy
   model: 1
 
-# wwPDB versioned artifacts independently recover every structure that contributes to the
-# freeze. Hashes are over decompressed mmCIF bytes. The partitioned tracked copies remain as
-# an offline fallback; ADR 0014 records why both are retained.
+# wwPDB versioned artifacts independently recover every structure the freeze derives from.
+# Hashes are over decompressed mmCIF bytes. Tracked copies under `structures/` are the
+# offline fallback (ADR 0014).
 structure_provenance:
-  1OPL: {version: "1-4", url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/op/pdb_00001opl/pdb_00001opl_xyz_v1-4.cif.gz, sha256: af3a6348cbf0748243503f3aeec85f8cf0fa37a4989696cbfb4afa7424a97f6a}
-  2G1T: {version: "1-4", url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/g1/pdb_00002g1t/pdb_00002g1t_xyz_v1-4.cif.gz, sha256: 828af0981afae710313d4a53d6b64946b95b5216b269a415ba297b2d8a54cbaa}
-  2G2H: {version: "1-4", url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/g2/pdb_00002g2h/pdb_00002g2h_xyz_v1-4.cif.gz, sha256: c0fe887407d0a53dafd6c8fd17a12b4ea12ed5fbf626f0c58eba7a36bfd4888a}
-  4LDJ: {version: "1-3", url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/ld/pdb_00004ldj/pdb_00004ldj_xyz_v1-3.cif.gz, sha256: 4315c16c13a29ad80752637725e046f233f44b26fc3fb58067d9c24f50eb4152}
-  4OBE: {version: "1-2", url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/ob/pdb_00004obe/pdb_00004obe_xyz_v1-2.cif.gz, sha256: bc5738721380320d37c216a8f4412ddd3f66fad375c60fc0d0626bc6c277e5d7}
-  5MO4: {version: "1-2", url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/mo/pdb_00005mo4/pdb_00005mo4_xyz_v1-2.cif.gz, sha256: 5205ad733aec8c4b9e73130c31424f7291e907662493c65ce56ecf298a5843d0}
-  6OIM: {version: "1-4", url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/oi/pdb_00006oim/pdb_00006oim_xyz_v1-4.cif.gz, sha256: 0ab0ab91e9dd078b83cf4149118e31b3f3ac7252eb1e47b1ff11e77574d97de9}
-  8QYP: {version: "1-0", url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/qy/pdb_00008qyp/pdb_00008qyp_xyz_v1-0.cif.gz, sha256: 304400a2176723668262aeb67b1c8dc314cbff2f03f820ae6d766a3a1216f20f}
-  8QYR: {version: "1-1", url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/qy/pdb_00008qyr/pdb_00008qyr_xyz_v1-1.cif.gz, sha256: c55d19a74b968d3d8ee1d0da148c7692a715b34d39dc57e04fb66779be56564e}
-  8QYU: {version: "1-0", url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/qy/pdb_00008qyu/pdb_00008qyu_xyz_v1-0.cif.gz, sha256: 0228a3216ae5e42a3803f305af7f91762bdde1125e7769694bacdc550db13bfd}
-  9F6C: {version: "1-1", url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/f6/pdb_00009f6c/pdb_00009f6c_xyz_v1-1.cif.gz, sha256: c21f6c96114936599fd9aa355669ce96ccbb04fa09eb5df550f890839e403792}
-  9GZ2: {version: "1-1", url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/gz/pdb_00009gz2/pdb_00009gz2_xyz_v1-1.cif.gz, sha256: 716eb9730c4cc03da7ae89297078d85e2f514d706d66520d05a26990105144c4}
-  9GZ3: {version: "1-0", url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/gz/pdb_00009gz3/pdb_00009gz3_xyz_v1-0.cif.gz, sha256: 8e581782a0e4388e2d9773945c582a2a988bf0bedc534f83e3df163cddafe01d}
-  9YR7: {version: "1-1", url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/yr/pdb_00009yr7/pdb_00009yr7_xyz_v1-1.cif.gz, sha256: 680d24de6740d911fe7e9a568f3c395c57ad732db2cd61547d7471eebd0958c3}
-  9YRG: {version: "1-1", url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/yr/pdb_00009yrg/pdb_00009yrg_xyz_v1-1.cif.gz, sha256: fc62f7442a5042d043e359cbd1fe5fb0e534836efb96cf37a5b98a9e0b52b960}
+  1OPL:
+    {
+      version: "1-4",
+      url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/op/pdb_00001opl/pdb_00001opl_xyz_v1-4.cif.gz,
+      sha256: af3a6348cbf0748243503f3aeec85f8cf0fa37a4989696cbfb4afa7424a97f6a,
+    }
+  2G2H:
+    {
+      version: "1-4",
+      url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/g2/pdb_00002g2h/pdb_00002g2h_xyz_v1-4.cif.gz,
+      sha256: c0fe887407d0a53dafd6c8fd17a12b4ea12ed5fbf626f0c58eba7a36bfd4888a,
+    }
+  4LDJ:
+    {
+      version: "1-3",
+      url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/ld/pdb_00004ldj/pdb_00004ldj_xyz_v1-3.cif.gz,
+      sha256: 4315c16c13a29ad80752637725e046f233f44b26fc3fb58067d9c24f50eb4152,
+    }
+  4OBE:
+    {
+      version: "1-2",
+      url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/ob/pdb_00004obe/pdb_00004obe_xyz_v1-2.cif.gz,
+      sha256: bc5738721380320d37c216a8f4412ddd3f66fad375c60fc0d0626bc6c277e5d7,
+    }
+  5MO4:
+    {
+      version: "1-2",
+      url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/mo/pdb_00005mo4/pdb_00005mo4_xyz_v1-2.cif.gz,
+      sha256: 5205ad733aec8c4b9e73130c31424f7291e907662493c65ce56ecf298a5843d0,
+    }
+  6OIM:
+    {
+      version: "1-4",
+      url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/oi/pdb_00006oim/pdb_00006oim_xyz_v1-4.cif.gz,
+      sha256: 0ab0ab91e9dd078b83cf4149118e31b3f3ac7252eb1e47b1ff11e77574d97de9,
+    }
+  9GZ2:
+    {
+      version: "1-1",
+      url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/gz/pdb_00009gz2/pdb_00009gz2_xyz_v1-1.cif.gz,
+      sha256: 716eb9730c4cc03da7ae89297078d85e2f514d706d66520d05a26990105144c4,
+    }
+  9GZ3:
+    {
+      version: "1-0",
+      url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/gz/pdb_00009gz3/pdb_00009gz3_xyz_v1-0.cif.gz,
+      sha256: 8e581782a0e4388e2d9773945c582a2a988bf0bedc534f83e3df163cddafe01d,
+    }
 
-# Independent holo-coordinate authorities for label accounting. An arm must reconcile its
+# Independent holo-coordinate authority for label accounting. An arm must reconcile its
 # kept, unmapped and outside-node labels to the exact footprint named here.
 label_footprints:
-  "5MO4:A:AY7": [A:ARG351, A:ALA356, A:LEU359, A:LEU360, A:ALA363, A:LEU448, A:ILE451, A:ALA452, A:THR453, A:TYR454, A:MET456, A:GLU481, A:GLY482, A:CYS483, A:PRO484, A:VAL487, A:PHE512, A:ILE521, A:VAL525, A:LEU529]
-  "6OIM:A:MOV": [A:VAL9, A:GLY10, A:ALA11, A:CYS12, A:GLY13, A:LYS16, A:PRO34, A:THR58, A:ALA59, A:GLY60, A:GLN61, A:GLU62, A:GLU63, A:ARG68, A:ASP69, A:MET72, A:HIS95, A:TYR96, A:GLN99, A:ILE100, A:VAL103]
-  "8QYR:B:XB2": [B:LEU120, B:GLN163, B:TYR164, B:THR167, B:ASP168, B:GLU170, B:HIS666, B:PRO710, B:ASN711, B:ARG712, B:ILE713, B:ARG721, B:TYR722, B:LEU770, B:GLU774]
-  "8QYU:A:2OW": [A:LYS146, A:ARG147, A:ASN160, A:TYR164, A:THR167, A:ASP168, A:GLU170, A:HIS492, A:HIS666, A:PRO710, A:ASN711, A:ARG712, A:ILE713, A:ARG721, A:TYR722, A:LEU770, A:GLY771, A:GLU774]
-  "9F6C:A:6I6": [A:SER242, A:ARG243, A:PHE244, A:GLY245, A:TYR266, A:LEU267, A:LEU268, A:GLU269, A:LYS270, A:ILE462, A:ALA463, A:PHE473, A:GLU474, A:CYS477, A:ILE478, A:THR481, A:VAL647, A:HIS651, A:ASN654, A:LEU655, A:LEU658]
-  "9GZ2:A:XB2": [A:TYR164, A:THR167, A:ASP168, A:HIS666, A:PRO710, A:ASN711, A:ARG712, A:ILE713, A:ARG721, A:TYR722, A:LEU770, A:GLU774]
-  "9YR7:A:XB2": [A:TYR164, A:THR167, A:ASP168, A:HIS666, A:PRO710, A:ASN711, A:ARG712, A:ILE713, A:ARG721, A:TYR722, A:LEU770, A:GLU774]
-
-# Explicit per-protein functional-site registries for the candidate universe (ADR 0015).
-# Changing one is a visible manifest edit and re-freeze; merely adding an arm changes none.
-functional_sites:
-  KRAS:
-    reference: 4OBE:A
-    residues: [9, 10, 11, 12, 13, 16, 34, 58, 59, 60, 61, 62, 63, 68, 69, 72, 95, 96, 99, 100, 103]
-  ABL1:
-    reference: 1OPL:A
-    residues: [351, 356, 359, 360, 363, 448, 451, 452, 453, 454, 456, 481, 482, 483, 484, 487, 512, 521, 525, 529]
-  MYH7:
-    reference: 8QYP:A
-    residues: [120, 146, 147, 160, 163, 164, 167, 168, 170, 242, 243, 244, 245, 266, 267, 268, 269, 270, 462, 463, 473, 474, 477, 478, 481, 492, 647, 651, 654, 655, 658, 666, 710, 711, 712, 713, 721, 722, 770, 771, 774]
-
-# Every sampling and scoring choice for the matched-patch null is frozen here before a
-# method is run. Section 5 defines each field and its calibration criterion.
-"null":
-  graph: {atom_selection: heavy, contact_cutoff_angstrom: 4.5}
-  surface_rule: {statistic: contact_degree, maximum_quantile: 0.5}
-  # Median and minimum do not constrain how much mass lies near the source. The lower
-  # quartile is pinned too. These three summaries constrain centre, nearest approach and the
-  # lower tail; they do not determine the full distance distribution.
-  distance_statistics:
-    - {statistic: median_min_ca_distance_to_active_site, tolerance_angstrom: 1.0}
-    - {statistic: minimum_min_ca_distance_to_active_site, tolerance_angstrom: 1.0}
-    - {statistic: q25_min_ca_distance_to_active_site, tolerance_angstrom: 1.0}
-  growth_algorithm: uniform_contact_frontier
-  replicates: 10000
-  seed: 0
-  p_value: {tail: greater_equal, plus_one_correction: true}
-  calibration:
-    alpha: 0.05
-    independent_replicates: 1000
-    prediction_interval_coverage: 0.95
+  "5MO4:A:AY7":
+    [
+      A:ARG351,
+      A:ALA356,
+      A:LEU359,
+      A:LEU360,
+      A:ALA363,
+      A:LEU448,
+      A:ILE451,
+      A:ALA452,
+      A:THR453,
+      A:TYR454,
+      A:MET456,
+      A:GLU481,
+      A:GLY482,
+      A:CYS483,
+      A:PRO484,
+      A:VAL487,
+      A:PHE512,
+      A:ILE521,
+      A:VAL525,
+      A:LEU529,
+    ]
+  "6OIM:A:MOV":
+    [
+      A:VAL9,
+      A:GLY10,
+      A:ALA11,
+      A:CYS12,
+      A:GLY13,
+      A:LYS16,
+      A:PRO34,
+      A:THR58,
+      A:ALA59,
+      A:GLY60,
+      A:GLN61,
+      A:GLU62,
+      A:GLU63,
+      A:ARG68,
+      A:ASP69,
+      A:MET72,
+      A:HIS95,
+      A:TYR96,
+      A:GLN99,
+      A:ILE100,
+      A:VAL103,
+    ]
+  "9GZ2:A:XB2":
+    [
+      A:TYR164,
+      A:THR167,
+      A:ASP168,
+      A:HIS666,
+      A:PRO710,
+      A:ASN711,
+      A:ARG712,
+      A:ILE713,
+      A:ARG721,
+      A:TYR722,
+      A:LEU770,
+      A:GLU774,
+    ]
 
 # Only members of state_components can change the catalytic-state match. Additives are
 # recorded separately. Every unclassified component touching a mapped active-site residue
 # makes the freeze fail, so extending this vocabulary is a visible protocol change.
 orthosteric_vocabulary:
-  state_components: ["112", ADP, BEF, GDP, MG, NIL, P16, PO4, VO4]
-  additives: [DMS, SO4]
+  state_components: [ADP, GDP, MG, NIL, P16, PO4]
+  additives: []
+
+# ---------------------------------------------------------------------------------------
+# Shared per-protein blocks. The mandated and the corrected arm of one disease area predict
+# the SAME site with the SAME functional evidence, so the evidence is written once.
+# ---------------------------------------------------------------------------------------
+
+_kras_evidence: &kras_evidence
+  doi: 10.1038/nature12796
+  assay: >
+    Ostrem 2013. Covalent S-IIP binding subverts native nucleotide preference (GTP->GDP,
+    mant-dGDP competition) and impairs Raf binding (co-IP in two G12C lung lines) - a
+    functional change at the nucleotide site and at the effector interface, driven from a
+    pocket the compound body shares with neither. Do NOT argue this target by distance:
+    5 of the 21 labels are active-site residues at 0.0 A.
+    Caveat a reviewer will raise: every Ostrem compound is tethered at Cys12, so that paper
+    alone cannot separate allosteric coupling from occlusion at the nucleotide-site rim. The
+    tether-free demonstration is Kim 2025, doi 10.1016/j.jmb.2025.169162 - non-covalent
+    MRTX1133 on G12D, HDX-MS showing stabilisation extending to the P-loop and G-box motifs.
+    Genetic confirmation: Weng 2024, doi 10.1038/s41586-023-06954-0, deep mutational scanning
+    finds 71 mutations in 9 sotorasib-contact residues that allosterically inhibit RAF1
+    binding.
+
+_kras_blind: &kras_blind
+  value: false
+  why: >
+    ASBench curates the HRAS helix-3/loop-7 site (AS001013301, 4DLR) whose residues
+    68/95/96/99 are 4 of 5 in our label set, and no predictor's 30-40 % identity dedup
+    separates KRAS from HRAS. Helix-3/loop-7 is a DIFFERENT pocket from the S-IIP, so this
+    is a residue-overlap leak and not a same-site one - enough to void a blind claim without
+    being enough to call the site itself curated.
+    Separately, Eren 2021 ran GNM+ANM (no MD) on 4OBE ITSELF, treating the alpha3-L7 site as
+    KNOWN and computing allosteric paths to it. The paper does not predict the site, which
+    for blindness is worse rather than better: our exact apo input is a published worked
+    example. That lobe spans 86-105 and contains 5 of our labels.
+
+_abl1_evidence: &abl1_evidence
+  doi: 10.1038/nature08675
+  assay: >
+    Zhang 2010, the cleanest case in the set: "GNF-2 binds to the myristate-binding site of
+    Abl, leading to changes in the structural dynamics of the ATP-binding site". Which assay
+    carries which half matters, because the four techniques are not four independent
+    demonstrations. NMR, crystallography and mutagenesis localise the BINDING (NMR is
+    explicitly negative at the far end - "No significant chemical shift perturbations ... for
+    the ATP pocket"). The COUPLING rests on HX-MS alone: peptides 306-316 and 317-324 change
+    on GNF-5 binding, and do not change with the non-binding E505K myristate mutant. A
+    site-resolved measurement with a binding-null control - the only target in the set that
+    has one. Non-competitive kinetics: Adrian 2006, doi 10.1038/nchembio760.
+
+_abl1_blind: &abl1_blind
+  value: false
+  why: >
+    ASD curates this pocket twice (AS001006501/3PYY activator, AS002023501/3K5V inhibitor),
+    so every ASD-trained method has seen it. It is also an APOP case study (pocket ranked
+    3 of 14) and an ESSA case study - the two leading ENM methods, which is the comparison
+    class that matters most to us. The 3PYY record lists 1OPL/MYR as a related complex, so
+    the mandated apo is itself in ASD.
+
+_myh7_evidence: &myh7_evidence
+  doi: 10.1073/pnas.1720342115
+  assay: >
+    A TWO-PAPER CHAIN, and it has to be stated as one: no single paper both localises
+    mavacamten and shows it acts allosterically.
+    (1) Rohde 2018 shows the MOLECULE is an allosteric inhibitor - transient biochemical and
+    structural kinetics: actin-activated ATPase k_cat 2.02 -> 0.48 /s, ADP release
+    autoinhibited, actin-induced lever-arm rotation slowed 11.5 -> 4.9 /s. It performs no
+    structural localisation and names no pocket; the mavacamten structures did not exist
+    until 2023-24.
+    (2) Auguin 2024, doi 10.1038/s41467-024-47587-9, places it in THIS pocket, and shows
+    omecamtiv mecarbil occupying the same pocket with the OPPOSITE functional sign. One site
+    driving activity in both directions is strong evidence that it is regulatory rather than
+    merely a cavity.
+    Quote Rohde's SINGLE-HEADED result, not its headline. The headline mechanism is an
+    inter-head, two-headed autoinhibited state, and this arm models ONE chain, so a mechanism
+    requiring two heads is partly outside the modelled system. Mavacamten also inhibits S1
+    (actin-activated ATPase EC50 0.41 +/- 0.02 uM; basal single-ATP turnover slowed "in both
+    HMM and S1"), which is intramolecular coupling within one head and is what a single-chain
+    elastic network can represent.
+
+_myh7_blind: &myh7_blind
+  value: false
+  why: >
+    Challenge reference [1] (Zheng 2023, doi 10.1063/5.0141630) reports TWO myosin sites. The
+    second: "we also found another site at the N-terminal/converter subdomain interface,
+    which may provide targets for other allosteric agents", with ESSA giving residues
+    120 121 688 693 694 in Dictyostelium myosin II numbering. Auguin 2024 places the
+    mavacamten pocket "between the N-terminal (N-term) and the Converter subdomains" - the
+    same interface. Settled by alignment rather than by wording: 1MMA<->MYH7 pairs 673
+    residues at 52 % identity, carrying those five onto MYH7 119, 120, 705, 710, 711, of
+    which 710 and 711 are frozen labels here. Zheng did not name it as the mavacamten site,
+    which makes it a blind prediction of this pocket published in the challenge's own
+    bibliography - the strongest possible prior art against a blind claim.
+    What survives is narrower: the scoped review retrieved no method run on MYH7 itself
+    (Zheng and ESSA ran on Dictyostelium myosin II). That is a search result, not proof of
+    absence. This is the arm with the WEAKEST prior art, not a blind one, and Zheng's result
+    is a bar to clear rather than an absence to exploit.
+
+# ---------------------------------------------------------------------------------------
 
 targets:
-
-  # ---------------------------------------------------------------- KRAS G12C
+  # ------------------------------------------------------- Oncology 1: KRAS G12C
   - id: kras_g12c_mandated
     tier: mandated
     protein: KRAS
     site: Switch-II pocket (S-IIP)
-    site_id: kras_switch_ii
-    apo:  {pdb: 4OBE, chain: A, sha256: bc5738721380320d37c216a8f4412ddd3f66fad375c60fc0d0626bc6c277e5d7}
-    holo: {pdb: 6OIM, chain: A, ligand: MOV}
-    allosteric_evidence:
-      doi: 10.1038/nature12796
-      assay: >
-        Ostrem 2013. Covalent S-IIP binding subverts native nucleotide preference
-        (GTP->GDP, mant-dGDP competition) and impairs Raf binding (co-IP in two G12C lung
-        lines) - a functional change at the nucleotide site and at the effector interface,
-        driven from a pocket the compound body does not share with either. NOT described here
-        as "distal": 5 of the 21 labels are active-site residues at 0.0 A, so distance is the
-        wrong argument for this target and the repo's own geometry contradicts it.
-        Caveat a reviewer will raise: every Ostrem compound is tethered at Cys12, so that
-        paper alone cannot separate allosteric coupling from occlusion at the nucleotide-site
-        rim. The tether-free demonstration is Kim 2025, doi 10.1016/j.jmb.2025.169162 -
-        non-covalent MRTX1133 on G12D, HDX-MS showing stabilisation extending to the P-loop
-        and G-box motifs, "allosterically freezes the KRAS-G12D nucleotide-binding site".
-    state: {apo: GDP-bound inactive, holo: GDP-bound inactive, matched: true}
-    blind:
-      value: false
-      why: >
-        ASBench curates the HRAS helix-3/loop-7 site (AS001013301, 4DLR) whose residues
-        68/95/96/99 are 4 of 5 in our label set, and no predictor's 30-40 % identity dedup
-        separates KRAS from HRAS. Stated precisely, because the strength of the argument
-        depends on it: helix-3/loop-7 is a DIFFERENT pocket from the S-IIP. This is a
-        residue-overlap leak, not a same-site one - an ASD-trained method has been rewarded
-        for scoring 4 of our label residues highly on a homologue, which is enough to void a
-        blind claim without being enough to call the site itself curated.
-        Separately, Eren 2021 ran GNM+ANM (no MD) on 4OBE ITSELF. Note the verb: Eren treats
-        the alpha3-L7 site as KNOWN and computes allosteric paths to it - the paper does not
-        predict it. An earlier draft said "localised", which overstates it. For blindness that
-        is worse, not better: our exact apo input is a published worked example. The lobe Eren
-        works with is alpha3-L7 at 86-105, which contains 5 of our labels.
-    active_site: {from_ligands: [GDP, MG]}
-    defect: apo is WILD-TYPE KRAS (Gly12), holo is G12C plus C51S/C80L/C118S
+    apo:
+      {
+        pdb: 4OBE,
+        chain: A,
+        sha256: bc5738721380320d37c216a8f4412ddd3f66fad375c60fc0d0626bc6c277e5d7,
+      }
+    holo: { pdb: 6OIM, chain: A, ligand: MOV }
+    allosteric_evidence: *kras_evidence
+    state: { apo: GDP-bound inactive, holo: GDP-bound inactive, matched: true }
+    blind: *kras_blind
+    active_site: { from_ligands: [GDP, MG] }
+    defect: >
+      Apo is WILD-TYPE KRAS (Gly12); holo is G12C plus C51S/C80L/C118S. Verified from the
+      deposited files: 4OBE:A residue 12 is GLY, 6OIM:A residue 12 is CYS. The effector MOV
+      is covalently bonded to that cysteine, so the mandated apo lacks the residue the
+      mandated holo's ligand is attached to. One residue of 21 labels; the S-IIP itself is
+      present in both. Recorded, not repaired - `kras_g12c_corrected` repairs it.
 
   - id: kras_g12c_corrected
     tier: corrected
     protein: KRAS
     site: Switch-II pocket (S-IIP)
-    site_id: kras_switch_ii
-    apo:  {pdb: 4LDJ, chain: A, sha256: 4315c16c13a29ad80752637725e046f233f44b26fc3fb58067d9c24f50eb4152}
-    holo: {pdb: 6OIM, chain: A, ligand: MOV}
-    allosteric_evidence:
-      doi: 10.1038/nature12796
-      assay: >
-        Ostrem 2013. Covalent S-IIP binding subverts native nucleotide preference
-        (GTP->GDP, mant-dGDP competition) and impairs Raf binding (co-IP in two G12C lung
-        lines) - a functional change at the nucleotide site and at the effector interface,
-        driven from a pocket the compound body does not share with either. NOT described here
-        as "distal": 5 of the 21 labels are active-site residues at 0.0 A, so distance is the
-        wrong argument for this target and the repo's own geometry contradicts it.
-        Caveat a reviewer will raise: every Ostrem compound is tethered at Cys12, so that
-        paper alone cannot separate allosteric coupling from occlusion at the nucleotide-site
-        rim. The tether-free demonstration is Kim 2025, doi 10.1016/j.jmb.2025.169162 -
-        non-covalent MRTX1133 on G12D, HDX-MS showing stabilisation extending to the P-loop
-        and G-box motifs, "allosterically freezes the KRAS-G12D nucleotide-binding site".
-    state: {apo: GDP-bound inactive, holo: GDP-bound inactive, matched: true}
-    blind:
-      value: false
-      why: >
-        ASBench curates the HRAS helix-3/loop-7 site (AS001013301, 4DLR) whose residues
-        68/95/96/99 are 4 of 5 in our label set, and no predictor's 30-40 % identity dedup
-        separates KRAS from HRAS. Stated precisely, because the strength of the argument
-        depends on it: helix-3/loop-7 is a DIFFERENT pocket from the S-IIP. This is a
-        residue-overlap leak, not a same-site one - an ASD-trained method has been rewarded
-        for scoring 4 of our label residues highly on a homologue, which is enough to void a
-        blind claim without being enough to call the site itself curated.
-        Separately, Eren 2021 ran GNM+ANM (no MD) on 4OBE ITSELF. Note the verb: Eren treats
-        the alpha3-L7 site as KNOWN and computes allosteric paths to it - the paper does not
-        predict it. An earlier draft said "localised", which overstates it. For blindness that
-        is worse, not better: our exact apo input is a published worked example. The lobe Eren
-        works with is alpha3-L7 at 86-105, which contains 5 of our labels.
-    active_site: {from_ligands: [GDP, MG]}
-    note: same study and release date as 4OBE (doi 10.1073/pnas.1404639111), 1.15 A, actually G12C
+    apo:
+      {
+        pdb: 4LDJ,
+        chain: A,
+        sha256: 4315c16c13a29ad80752637725e046f233f44b26fc3fb58067d9c24f50eb4152,
+      }
+    holo: { pdb: 6OIM, chain: A, ligand: MOV }
+    allosteric_evidence: *kras_evidence
+    state: { apo: GDP-bound inactive, holo: GDP-bound inactive, matched: true }
+    blind: *kras_blind
+    active_site: { from_ligands: [GDP, MG] }
+    note: >
+      Same study and release date as 4OBE (doi 10.1073/pnas.1404639111), 1.15 A, and actually
+      G12C. Changes exactly the one thing the mandated arm gets wrong.
 
-  # ---------------------------------------------------------------- BCR-ABL1
+  # ------------------------------------------------------- Oncology 2: BCR-ABL1
   - id: bcr_abl1_mandated
     tier: mandated
     protein: ABL1
     site: myristoyl pocket
-    site_id: abl1_myristoyl
-    apo:  {pdb: 1OPL, chain: A, sha256: af3a6348cbf0748243503f3aeec85f8cf0fa37a4989696cbfb4afa7424a97f6a}
-    holo: {pdb: 5MO4, chain: A, ligand: AY7}
-    allosteric_evidence:
-      doi: 10.1038/nature08675
-      assay: >
-        Zhang 2010, the cleanest case in the set: "GNF-2 binds to the myristate-binding site
-        of Abl, leading to changes in the structural dynamics of the ATP-binding site".
-        Which assay carries which half matters, because the four techniques are not four
-        independent demonstrations. NMR, crystallography and mutagenesis localise the BINDING
-        (NMR is explicitly negative at the far end - "No significant chemical shift
-        perturbations ... for the ATP pocket"). The COUPLING rests on HX-MS alone: peptides
-        306-316 and 317-324 change on GNF-5 binding, and do not change with the non-binding
-        E505K myristate mutant. A site-resolved measurement with a binding-null control - the
-        only target in the set that has one.
-    state: {apo: Src-like inactive, holo: Src-like inactive, matched: true}
-    blind:
-      value: false
-      why: >
-        ASD curates this pocket twice (AS001006501/3PYY activator, AS002023501/3K5V
-        inhibitor), so every ASD-trained method has seen it. It is also an APOP case study
-        (ranked 3 of 14) and an ESSA case study - the two leading ENM methods.
-    active_site: {from_motifs: [VAIK, HRD, DFG]}
+    apo:
+      {
+        pdb: 1OPL,
+        chain: A,
+        sha256: af3a6348cbf0748243503f3aeec85f8cf0fa37a4989696cbfb4afa7424a97f6a,
+      }
+    holo: { pdb: 5MO4, chain: A, ligand: AY7 }
+    allosteric_evidence: *abl1_evidence
+    state: { apo: Src-like inactive, holo: Src-like inactive, matched: true }
+    blind: *abl1_blind
+    active_site: { from_motifs: [VAIK, HRD, DFG] }
     defect: >
-      Apo carries myristate (MYR) in the target pocket and an ATP-site inhibitor (P16);
-      MYR+P16 contact 16 of the 20 distal labels, nearest 3.29 A. Apo and holo are the
-      same conformation (1.00 A core, 0.50 A pocket lining). The apo is also not
-      wild-type sequence: 1OPL carries engineered K29R, E30D and D382N.
+      The apo is HOLO AT THE SITE IT IS ASKED TO PREDICT. 1OPL:A carries myristate (MYR) in
+      the myristoyl pocket: measured from the deposited file, MYR contacts 16 of the 20 label
+      residues, nearest approach 3.29 A, and those 16 are a strict SUBSET of the asciminib
+      footprint (Jaccard 0.80). This fails clause (iii) of the pair definition and is the most
+      serious defect in the mandated set. The ATP-site inhibitor P16 is a separate, permitted
+      second-site occupant - it contacts NONE of the 20 labels and its nearest approach is
+      16.37 A - but note that P16 sits in the ATP site of BOTH chains, so 1OPL is not apo
+      anywhere in the entry.
+      The chain is also not wild-type sequence: 1OPL carries engineered K29R, E30D, D382N.
 
   - id: bcr_abl1_corrected
     tier: corrected
     protein: ABL1
     site: myristoyl pocket
-    site_id: abl1_myristoyl
-    apo:  {pdb: 2G2H, chain: A, sha256: c0fe887407d0a53dafd6c8fd17a12b4ea12ed5fbf626f0c58eba7a36bfd4888a}
-    holo: {pdb: 5MO4, chain: A, ligand: AY7}
-    allosteric_evidence:
-      doi: 10.1038/nature08675
-      assay: >
-        Zhang 2010, the cleanest case in the set: "GNF-2 binds to the myristate-binding site
-        of Abl, leading to changes in the structural dynamics of the ATP-binding site".
-        Which assay carries which half matters, because the four techniques are not four
-        independent demonstrations. NMR, crystallography and mutagenesis localise the BINDING
-        (NMR is explicitly negative at the far end - "No significant chemical shift
-        perturbations ... for the ATP pocket"). The COUPLING rests on HX-MS alone: peptides
-        306-316 and 317-324 change on GNF-5 binding, and do not change with the non-binding
-        E505K myristate mutant. A site-resolved measurement with a binding-null control - the
-        only target in the set that has one.
-    state: {apo: Src-like inactive, holo: Src-like inactive, matched: true}
-    blind:
-      value: false
-      why: >
-        ASD curates this pocket twice (AS001006501/3PYY activator, AS002023501/3K5V
-        inhibitor), so every ASD-trained method has seen it. It is also an APOP case study
-        (ranked 3 of 14) and an ESSA case study - the two leading ENM methods.
-    active_site: {from_motifs: [VAIK, HRD, DFG]}
-    note: >
-      Myristate-free, same ABL1b numbering as the holo; kinase domain only, so 2 of 20
-      labels fall outside the model. Two construct facts a reviewer will find: the ATP
-      site holds PD166326 (P16), and the chain carries the engineered activating mutation
-      H396P in 1a numbering = H415P here, used to trap the Src-like inactive state.
-
-  - id: bcr_abl1_sensitivity
-    tier: sensitivity
-    protein: ABL1
-    site: myristoyl pocket
-    site_id: abl1_myristoyl
-    apo:  {pdb: 2G1T, chain: A, sha256: 828af0981afae710313d4a53d6b64946b95b5216b269a415ba297b2d8a54cbaa}
-    holo: {pdb: 5MO4, chain: A, ligand: AY7}
-    allosteric_evidence:
-      doi: 10.1038/nature08675
-      assay: >
-        Zhang 2010, the cleanest case in the set: "GNF-2 binds to the myristate-binding site
-        of Abl, leading to changes in the structural dynamics of the ATP-binding site".
-        Which assay carries which half matters, because the four techniques are not four
-        independent demonstrations. NMR, crystallography and mutagenesis localise the BINDING
-        (NMR is explicitly negative at the far end - "No significant chemical shift
-        perturbations ... for the ATP pocket"). The COUPLING rests on HX-MS alone: peptides
-        306-316 and 317-324 change on GNF-5 binding, and do not change with the non-binding
-        E505K myristate mutant. A site-resolved measurement with a binding-null control - the
-        only target in the set that has one.
-    state: {apo: Src-like inactive, holo: Src-like inactive, matched: true}
-    blind:
-      value: false
-      why: >
-        ASD curates this pocket twice (AS001006501/3PYY activator, AS002023501/3K5V
-        inhibitor), so every ASD-trained method has seen it. It is also an APOP case study
-        (ranked 3 of 14) and an ESSA case study - the two leading ENM methods.
-    active_site: {from_motifs: [VAIK, HRD, DFG]}
-    note: >
-      1.80 A and ABL1a numbering, so it exercises the alignment-based label transfer
-      (+19 shift). Its ATP site is NOT empty: an ATP-peptide bisubstrate conjugate on
-      chains E-H (component 112) comes within 2.74 A of chain A's catalytic motif, which
-      is why entry-wide rather than chain-scoped ligand accounting is what clause (ii)
-      checks. The myristoyl pocket is free; nearest occupant 13.15 A.
-
-  - id: bcr_abl1_trimmed
-    tier: sensitivity
-    protein: ABL1
-    site: myristoyl pocket
-    site_id: abl1_myristoyl
     apo:
-      pdb: 1OPL
-      chain: A
-      sha256: af3a6348cbf0748243503f3aeec85f8cf0fa37a4989696cbfb4afa7424a97f6a
-      residue_range:
-        start: 261
-        end: 512
-        authority:
-          database: UniProtKB
-          accession: P00519
-          release: "2026_02"
-          retrieved_on: 2026-08-20
-          record_url: https://www.uniprot.org/uniprotkb/P00519/entry
-          release_url: https://www.uniprot.org/release-notes/2026-06-10-release
-          canonical_isoform: P00519-1
-          deposited_isoform: P00519-2
-          canonical_domain: {name: Protein kinase, start: 242, end: 493}
-          isoform_substitution:
-            {canonical_start: 1, canonical_end: 26, replacement_length: 45}
-    holo: {pdb: 5MO4, chain: A, ligand: AY7}
-    allosteric_evidence:
-      doi: 10.1038/nature08675
-      assay: >
-        Zhang 2010, the cleanest case in the set: "GNF-2 binds to the myristate-binding site
-        of Abl, leading to changes in the structural dynamics of the ATP-binding site".
-        Which assay carries which half matters, because the four techniques are not four
-        independent demonstrations. NMR, crystallography and mutagenesis localise the BINDING
-        (NMR is explicitly negative at the far end - "No significant chemical shift
-        perturbations ... for the ATP pocket"). The COUPLING rests on HX-MS alone: peptides
-        306-316 and 317-324 change on GNF-5 binding, and do not change with the non-binding
-        E505K myristate mutant. A site-resolved measurement with a binding-null control - the
-        only target in the set that has one.
-    state: {apo: Src-like inactive, holo: Src-like inactive, matched: true}
-    blind:
-      value: false
-      why: >
-        ASD curates this pocket twice (AS001006501/3PYY activator, AS002023501/3K5V
-        inhibitor), so every ASD-trained method has seen it. It is also an APOP case study
-        (ranked 3 of 14) and an ESSA case study - the two leading ENM methods.
-    active_site: {from_motifs: [VAIK, HRD, DFG]}
-    defect: >
-      The strict kinase-domain scope does not repair the mandated pair: 1OPL still carries
-      myristate in the target pocket and P16 at the active site.
+      {
+        pdb: 2G2H,
+        chain: A,
+        sha256: c0fe887407d0a53dafd6c8fd17a12b4ea12ed5fbf626f0c58eba7a36bfd4888a,
+      }
+    holo: { pdb: 5MO4, chain: A, ligand: AY7 }
+    allosteric_evidence: *abl1_evidence
+    state: { apo: Src-like inactive, holo: Src-like inactive, matched: true }
+    blind: *abl1_blind
+    active_site: { from_motifs: [VAIK, HRD, DFG] }
     note: >
-      Strict C5 sensitivity arm over the same 1OPL:A input. UniProtKB P00519 release 2026_02
-      annotates the canonical P00519-1 protein kinase domain as 242-493. P00519-2 replaces
-      canonical residues 1-26 with 45 residues, so code derives the deposited 1b offset
-      45-(26-1+1)=19 and verifies the admitted author-number range 261-512 before freezing.
+      Myristate-free, same ABL1b numbering as the holo. Measured: its P16 is 16.27 A from the
+      label set and contacts none of it, so the pocket is genuinely empty. Two construct facts
+      a reviewer will find: the ATP site holds PD166326 (P16), and the chain carries the
+      engineered activating mutation H396P in 1a numbering = H415P here, used to trap the
+      Src-like inactive state. Kinase domain only, so 2 of the 20 labels (525, 529) fall
+      outside the model and are reported as unmapped.
+      The NMR ensemble 6XR7 is the only ABL1 kinase domain with BOTH pockets empty and was the
+      audit's first choice; 2G2H was taken instead because it is X-ray and uses the holo's
+      numbering. 6XR6/6XR7/6XRG remain the ligand-free alternative.
 
-  # ---------------------------------------------------------------- cardiac myosin
-  - id: cardiac_myosin_site1_mandated
+  # ------------------------------------------------------- Cardiology: cardiac myosin
+  - id: cardiac_myosin_mandated
     tier: mandated
     status: excluded
+    prediction_status: blocked
     protein: MYH7
     site: mavacamten site
-    site_id: myh7_site1
-    apo:  {pdb: 5TBY, chain: A}
-    holo: {pdb: 6C1H, chain: P, ligand: null}
-    allosteric_evidence:
-      doi: 10.1073/pnas.1720342115
-      assay: >
-        A TWO-PAPER CHAIN, and it has to be stated as one: no single paper both localises
-        mavacamten and shows it acts allosterically.
-        (1) Rohde 2018 shows the MOLECULE is an allosteric inhibitor - transient biochemical
-        and structural kinetics: actin-activated ATPase k_cat 2.02 -> 0.48 /s, ADP release
-        autoinhibited, actin-induced lever-arm rotation slowed 11.5 -> 4.9 /s. It performs no
-        structural localisation and names no pocket; the mavacamten structures did not exist
-        until 2023-24.
-        (2) Auguin 2024 (doi 10.1038/s41467-024-47587-9) places it in THIS pocket, and shows
-        omecamtiv mecarbil occupying the same pocket with the opposite functional sign - one
-        site driving activity in both directions, which is strong structural evidence that it
-        is regulatory rather than merely a cavity.
-        Quote Rohde's SINGLE-HEADED result, not its headline. Its headline mechanism is an
-        inter-head, two-headed autoinhibited state, and every frozen Site 1 arm models ONE
-        chain - a mechanism requiring two heads is partly outside the modelled system. But
-        mavacamten also inhibits S1 (actin-activated ATPase EC50 0.41 +/- 0.02 uM; basal
-        single-ATP turnover slowed "in both HMM and S1"), which is intramolecular coupling
-        within one head and is what a single-chain elastic network can represent.
-    state: {apo: unknown (homology model), holo: rigor-like actin-bound, matched: false}
-    blind:
-      value: false
-      why: >
-        WAS DECLARED BLIND UNTIL 2026-08-20, AND THAT WAS WRONG. The earlier reasoning read
-        challenge reference [1] (Zheng 2023, doi 10.1063/5.0141630) as testing only the
-        blebbistatin site via 1MMA->1YV3 - our Site 2 - and concluded this pocket was
-        untouched. Zheng reports TWO myosin sites. The second: "we also found another site at
-        the N-terminal/converter subdomain interface, which may provide targets for other
-        allosteric agents", with ESSA giving residues 120 121 688 693 694 in Dictyostelium
-        myosin II numbering. Auguin 2024 places the mavacamten pocket "between the N-terminal
-        (N-term) and the Converter subdomains" - the same interface.
-        Confirmed by alignment rather than by the wording: 1MMA<->MYH7 pairs 673 residues at
-        52 % identity, mapping those five onto MYH7 119, 120, 705, 710, 711. Against the
-        frozen label set that is 3 of 5 on the 8QYP arm (120, 710, 711; hypergeometric
-        E=0.11, P(>=3)=0.0001) and 2 of 5 on the 9GZ3 arm (710, 711; E=0.08, P=0.0022).
-        Zheng did not name it as the mavacamten site, which makes it a genuine blind
-        prediction of this pocket published in the challenge's own bibliography - the
-        strongest possible prior art against a blind claim.
-        What survives, and it is still worth stating: no method has been reported on MYH7
-        itself. Zheng and ESSA ran on Dictyostelium myosin II. So this is the arm with the
-        WEAKEST prior art, not a blind one - and Zheng's result is now a quantitative bar
-        rather than an absence. Note also that ASD-proper and CASBench absence was never
-        verified (both resist enumeration; only ASBench returns a checkable zero), and ASD's
-        Human Allosteric Pocketome ran AlloSitePro over all 20,386 human proteins - MYH7
-        included - so predicted sites there are unexamined.
-    active_site: {from_ligands: []}
+    apo:
+      {
+        pdb: 5TBY,
+        chain: A,
+        sha256: 3d9a579847a11335ecf3b1dc858088ca2c046d7ddfa6fea0943ff17b6b319911,
+      }
+    holo: { pdb: 6C1H, chain: P, ligand: null }
+    allosteric_evidence: *myh7_evidence
+    state:
+      {
+        apo: unknown (homology model),
+        holo: rigor-like actin-bound,
+        matched: false,
+      }
+    blind: *myh7_blind
+    active_site: { from_ligands: [] }
     defect: >
-      Unscoreable. 6C1H is rat unconventional myosin-Ib with actin and calmodulin
-      (Mentes 2018, doi 10.1073/pnas.1718316115); it contains no mavacamten and no
-      cardiac myosin. 5TBY is a 20 A homology model built on a tarantula template
-      and rigid-body fitted (Alamo 2017). No label set can be derived.
+      UNUSABLE IN BOTH DIRECTIONS. Both halves verified from the deposited files.
+      Ground truth: 6C1H is titled "High-Resolution Cryo-EM Structures of Actin-bound Myosin
+      States Reveal the Mechanism of Myosin Force Sensing", 3.9 A cryo-EM, and its polymer
+      entities are alpha skeletal muscle actin (x5), UNCONVENTIONAL MYOSIN-IB (x1) and
+      calmodulin (x1). Its only heteroatoms are ADP and MG. It contains no mavacamten and no
+      cardiac myosin, so no label set can be derived (Mentes 2018,
+      doi 10.1073/pnas.1718316115).
+      Input: 5TBY is titled "... OBTAINED BY HOMOLOGY MODELING (USING SWISS-MODEL) OF HUMAN
+      SEQUENCE FROM APHONOPELMA HOMOLOGY MODEL (PDB-3JBH), RIGIDLY FITTED TO ... 3D
+      RECONSTRUCTION (EMD-2240)", deposited as electron microscopy at 20.00 A with 954
+      modelled residues in chain A and ZERO heteroatoms. Do not say "not an experimental
+      structure": RCSB reports structure_determination_methodology = experimental, and 5TBY
+      is a released PDB entry at version 1.9. Say what is measurable instead. Its only
+      em_software entry is "UCSF Chimera / MODEL FITTING", it carries no refine block, and
+      _struct_conn holds 41 covale records at physically impossible distances (for example
+      A/GLN454.CG - B/TYR410.CE2 at 1.083 A), which are auto-annotated interpenetrations
+      rather than chemistry. At 20 A the residue contacts are a property of the modelling and
+      fitting protocol, not measured topology, so using it as the elastic network would make
+      C6 rest on invented contacts. It also has no ligand from which the active-site rule can
+      derive a propagation source (ADR 0016).
+      This is a factual error in the challenge statement and is question (a) for the
+      organisers.
 
-  - id: cardiac_myosin_site1_corrected
+  - id: cardiac_myosin_corrected
     tier: corrected
     protein: MYH7
     site: mavacamten site
-    site_id: myh7_site1
-    apo:  {pdb: 9GZ3, chain: A, sha256: 8e581782a0e4388e2d9773945c582a2a988bf0bedc534f83e3df163cddafe01d}
-    holo: {pdb: 9GZ2, chain: A, ligand: XB2}
-    allosteric_evidence:
-      doi: 10.1073/pnas.1720342115
-      assay: >
-        A TWO-PAPER CHAIN, and it has to be stated as one: no single paper both localises
-        mavacamten and shows it acts allosterically.
-        (1) Rohde 2018 shows the MOLECULE is an allosteric inhibitor - transient biochemical
-        and structural kinetics: actin-activated ATPase k_cat 2.02 -> 0.48 /s, ADP release
-        autoinhibited, actin-induced lever-arm rotation slowed 11.5 -> 4.9 /s. It performs no
-        structural localisation and names no pocket; the mavacamten structures did not exist
-        until 2023-24.
-        (2) Auguin 2024 (doi 10.1038/s41467-024-47587-9) places it in THIS pocket, and shows
-        omecamtiv mecarbil occupying the same pocket with the opposite functional sign - one
-        site driving activity in both directions, which is strong structural evidence that it
-        is regulatory rather than merely a cavity.
-        Quote Rohde's SINGLE-HEADED result, not its headline. Its headline mechanism is an
-        inter-head, two-headed autoinhibited state, and every frozen Site 1 arm models ONE
-        chain - a mechanism requiring two heads is partly outside the modelled system. But
-        mavacamten also inhibits S1 (actin-activated ATPase EC50 0.41 +/- 0.02 uM; basal
-        single-ATP turnover slowed "in both HMM and S1"), which is intramolecular coupling
-        within one head and is what a single-chain elastic network can represent.
-    state: {apo: primed/pre-powerstroke ADP-Mg-Pi, holo: primed/pre-powerstroke ADP-Mg-Pi, matched: true}
-    blind:
-      value: false
-      why: >
-        WAS DECLARED BLIND UNTIL 2026-08-20, AND THAT WAS WRONG. The earlier reasoning read
-        challenge reference [1] (Zheng 2023, doi 10.1063/5.0141630) as testing only the
-        blebbistatin site via 1MMA->1YV3 - our Site 2 - and concluded this pocket was
-        untouched. Zheng reports TWO myosin sites. The second: "we also found another site at
-        the N-terminal/converter subdomain interface, which may provide targets for other
-        allosteric agents", with ESSA giving residues 120 121 688 693 694 in Dictyostelium
-        myosin II numbering. Auguin 2024 places the mavacamten pocket "between the N-terminal
-        (N-term) and the Converter subdomains" - the same interface.
-        Confirmed by alignment rather than by the wording: 1MMA<->MYH7 pairs 673 residues at
-        52 % identity, mapping those five onto MYH7 119, 120, 705, 710, 711. Against the
-        frozen label set that is 3 of 5 on the 8QYP arm (120, 710, 711; hypergeometric
-        E=0.11, P(>=3)=0.0001) and 2 of 5 on the 9GZ3 arm (710, 711; E=0.08, P=0.0022).
-        Zheng did not name it as the mavacamten site, which makes it a genuine blind
-        prediction of this pocket published in the challenge's own bibliography - the
-        strongest possible prior art against a blind claim.
-        What survives, and it is still worth stating: no method has been reported on MYH7
-        itself. Zheng and ESSA ran on Dictyostelium myosin II. So this is the arm with the
-        WEAKEST prior art, not a blind one - and Zheng's result is now a quantitative bar
-        rather than an absence. Note also that ASD-proper and CASBench absence was never
-        verified (both resist enumeration; only ASBench returns a checkable zero), and ASD's
-        Human Allosteric Pocketome ran AlloSitePro over all 20,386 human proteins - MYH7
-        included - so predicted sites there are unexamined.
-    active_site: {from_ligands: [ADP, MG, PO4]}
+    apo:
+      {
+        pdb: 9GZ3,
+        chain: A,
+        sha256: 8e581782a0e4388e2d9773945c582a2a988bf0bedc534f83e3df163cddafe01d,
+      }
+    holo: { pdb: 9GZ2, chain: A, ligand: XB2 }
+    allosteric_evidence: *myh7_evidence
+    state:
+      {
+        apo: primed/pre-powerstroke ADP-Mg-Pi,
+        holo: primed/pre-powerstroke ADP-Mg-Pi,
+        matched: true,
+      }
+    blind: *myh7_blind
+    active_site: { from_ligands: [ADP, MG, PO4] }
     note: >
-      Human MYH7, identical construct, species, primed state and nucleotide (ADP-Mg-Pi);
-      the two entries differ only by the drug - the cleanest matched pair in the set.
-      Cryo-EM 3.4 A (apo) / 2.9 A (holo). Source is now peer-reviewed: McMillan et al.,
-      Sci Adv 2026, doi 10.1126/sciadv.aea9335. Caveat: cryo-EM entries carry no deposited
-      ligand real-space fit score, so the XB2 placement here is less directly validated
-      than the 1.80 A X-ray arm below (RSCC 0.915).
-
-  - id: cardiac_myosin_site1_sensitivity_xray
-    # ADR 0013, accepted: 8QYP was chosen after comparing apo candidates to holo-defined
-    # pocket geometry, so this arm's difficulty is answer-informed and anti-conservative.
-    # Frozen and reported, but withheld from confirmatory and robustness claims.
-    quarantine: answer-informed apo selection (ADR 0013)
-    tier: sensitivity
-    protein: MYH7
-    site: mavacamten site
-    site_id: myh7_site1
-    apo:  {pdb: 8QYP, chain: A, sha256: 304400a2176723668262aeb67b1c8dc314cbff2f03f820ae6d766a3a1216f20f}
-    holo: {pdb: 8QYR, chain: B, ligand: XB2}
-    allosteric_evidence:
-      doi: 10.1073/pnas.1720342115
-      assay: >
-        A TWO-PAPER CHAIN, and it has to be stated as one: no single paper both localises
-        mavacamten and shows it acts allosterically.
-        (1) Rohde 2018 shows the MOLECULE is an allosteric inhibitor - transient biochemical
-        and structural kinetics: actin-activated ATPase k_cat 2.02 -> 0.48 /s, ADP release
-        autoinhibited, actin-induced lever-arm rotation slowed 11.5 -> 4.9 /s. It performs no
-        structural localisation and names no pocket; the mavacamten structures did not exist
-        until 2023-24.
-        (2) Auguin 2024 (doi 10.1038/s41467-024-47587-9) places it in THIS pocket, and shows
-        omecamtiv mecarbil occupying the same pocket with the opposite functional sign - one
-        site driving activity in both directions, which is strong structural evidence that it
-        is regulatory rather than merely a cavity.
-        Quote Rohde's SINGLE-HEADED result, not its headline. Its headline mechanism is an
-        inter-head, two-headed autoinhibited state, and every frozen Site 1 arm models ONE
-        chain - a mechanism requiring two heads is partly outside the modelled system. But
-        mavacamten also inhibits S1 (actin-activated ATPase EC50 0.41 +/- 0.02 uM; basal
-        single-ATP turnover slowed "in both HMM and S1"), which is intramolecular coupling
-        within one head and is what a single-chain elastic network can represent.
-    state: {apo: pre-powerstroke ADP-VO4, holo: pre-powerstroke ADP-BeF3, matched: false}
-    blind:
-      value: false
-      why: >
-        WAS DECLARED BLIND UNTIL 2026-08-20, AND THAT WAS WRONG. The earlier reasoning read
-        challenge reference [1] (Zheng 2023, doi 10.1063/5.0141630) as testing only the
-        blebbistatin site via 1MMA->1YV3 - our Site 2 - and concluded this pocket was
-        untouched. Zheng reports TWO myosin sites. The second: "we also found another site at
-        the N-terminal/converter subdomain interface, which may provide targets for other
-        allosteric agents", with ESSA giving residues 120 121 688 693 694 in Dictyostelium
-        myosin II numbering. Auguin 2024 places the mavacamten pocket "between the N-terminal
-        (N-term) and the Converter subdomains" - the same interface.
-        Confirmed by alignment rather than by the wording: 1MMA<->MYH7 pairs 673 residues at
-        52 % identity, mapping those five onto MYH7 119, 120, 705, 710, 711. Against the
-        frozen label set that is 3 of 5 on the 8QYP arm (120, 710, 711; hypergeometric
-        E=0.11, P(>=3)=0.0001) and 2 of 5 on the 9GZ3 arm (710, 711; E=0.08, P=0.0022).
-        Zheng did not name it as the mavacamten site, which makes it a genuine blind
-        prediction of this pocket published in the challenge's own bibliography - the
-        strongest possible prior art against a blind claim.
-        What survives, and it is still worth stating: no method has been reported on MYH7
-        itself. Zheng and ESSA ran on Dictyostelium myosin II. So this is the arm with the
-        WEAKEST prior art, not a blind one - and Zheng's result is now a quantitative bar
-        rather than an absence. Note also that ASD-proper and CASBench absence was never
-        verified (both resist enumeration; only ASBench returns a checkable zero), and ASD's
-        Human Allosteric Pocketome ran AlloSitePro over all 20,386 human proteins - MYH7
-        included - so predicted sites there are unexamined.
-    active_site: {from_ligands: [ADP, VO4, MG]}
-    note: >
-      Bovine MYH7 (Q9BE39; same 1935-aa length as human P12883, so numbering is 1:1).
-      Highest-resolution evidence for the site: the HOLO 8QYR is 1.80 A with XB2 at
-      RSCC 0.915. The apo 8QYP is 2.76 A, not 1.80. The pair is not drug-only matched -
-      the nucleotide analogue differs, ADP-VO4 (apo) vs ADP-BeF3 (holo). Auguin et al.,
-      Nat Commun 2024, doi 10.1038/s41467-024-47587-9.
-
-  - id: cardiac_myosin_site1_sensitivity_srx
-    tier: sensitivity
-    protein: MYH7
-    site: mavacamten site
-    site_id: myh7_site1
-    apo:  {pdb: 9YRG, chain: A, sha256: fc62f7442a5042d043e359cbd1fe5fb0e534836efb96cf37a5b98a9e0b52b960}
-    holo: {pdb: 9YR7, chain: A, ligand: XB2}
-    allosteric_evidence:
-      doi: 10.1073/pnas.1720342115
-      assay: >
-        A TWO-PAPER CHAIN, and it has to be stated as one: no single paper both localises
-        mavacamten and shows it acts allosterically.
-        (1) Rohde 2018 shows the MOLECULE is an allosteric inhibitor - transient biochemical
-        and structural kinetics: actin-activated ATPase k_cat 2.02 -> 0.48 /s, ADP release
-        autoinhibited, actin-induced lever-arm rotation slowed 11.5 -> 4.9 /s. It performs no
-        structural localisation and names no pocket; the mavacamten structures did not exist
-        until 2023-24.
-        (2) Auguin 2024 (doi 10.1038/s41467-024-47587-9) places it in THIS pocket, and shows
-        omecamtiv mecarbil occupying the same pocket with the opposite functional sign - one
-        site driving activity in both directions, which is strong structural evidence that it
-        is regulatory rather than merely a cavity.
-        Quote Rohde's SINGLE-HEADED result, not its headline. Its headline mechanism is an
-        inter-head, two-headed autoinhibited state, and every frozen Site 1 arm models ONE
-        chain - a mechanism requiring two heads is partly outside the modelled system. But
-        mavacamten also inhibits S1 (actin-activated ATPase EC50 0.41 +/- 0.02 uM; basal
-        single-ATP turnover slowed "in both HMM and S1"), which is intramolecular coupling
-        within one head and is what a single-chain elastic network can represent.
-    state: {apo: folded-back IHM off-state ADP-Pi, holo: folded-back IHM off-state ADP-Pi, matched: true}
-    blind:
-      value: false
-      why: >
-        WAS DECLARED BLIND UNTIL 2026-08-20, AND THAT WAS WRONG. The earlier reasoning read
-        challenge reference [1] (Zheng 2023, doi 10.1063/5.0141630) as testing only the
-        blebbistatin site via 1MMA->1YV3 - our Site 2 - and concluded this pocket was
-        untouched. Zheng reports TWO myosin sites. The second: "we also found another site at
-        the N-terminal/converter subdomain interface, which may provide targets for other
-        allosteric agents", with ESSA giving residues 120 121 688 693 694 in Dictyostelium
-        myosin II numbering. Auguin 2024 places the mavacamten pocket "between the N-terminal
-        (N-term) and the Converter subdomains" - the same interface.
-        Confirmed by alignment rather than by the wording: 1MMA<->MYH7 pairs 673 residues at
-        52 % identity, mapping those five onto MYH7 119, 120, 705, 710, 711. Against the
-        frozen label set that is 3 of 5 on the 8QYP arm (120, 710, 711; hypergeometric
-        E=0.11, P(>=3)=0.0001) and 2 of 5 on the 9GZ3 arm (710, 711; E=0.08, P=0.0022).
-        Zheng did not name it as the mavacamten site, which makes it a genuine blind
-        prediction of this pocket published in the challenge's own bibliography - the
-        strongest possible prior art against a blind claim.
-        What survives, and it is still worth stating: no method has been reported on MYH7
-        itself. Zheng and ESSA ran on Dictyostelium myosin II. So this is the arm with the
-        WEAKEST prior art, not a blind one - and Zheng's result is now a quantitative bar
-        rather than an absence. Note also that ASD-proper and CASBench absence was never
-        verified (both resist enumeration; only ASBench returns a checkable zero), and ASD's
-        Human Allosteric Pocketome ran AlloSitePro over all 20,386 human proteins - MYH7
-        included - so predicted sites there are unexamined.
-    active_site: {from_ligands: [ADP, PO4]}
-    note: >
-      Experimental human folded-back off state - the interacting-heads motif that 5TBY was
-      modelling and the state mavacamten stabilises. Six chains, the coarse-graining test
-      case. Single study, construct-identical, state-identical, nucleotide-identical
-      (ADP-Pi), undocked S2-FH: 3.2 A apo -> 3.0 A holo, Somavarapu et al., Sci Adv 2026,
-      doi 10.1126/sciadv.aed6472. Replaced 8ACT -> 9GZ1 on 2026-08-20, which was NOT a
-      matched pair (different studies, ~230 residues difference in heavy-chain extent,
-      human vs mouse light chains, 11.78 A core RMSD).
-      Two caveats. The heavy chain is a Myosin-7/GCN4/EGFP chimera; the modelled span is
-      4-943 in native MYH7 numbering, so the site (164-774) is native and 1:1 with the
-      other myosin arms, but any residue set must be trimmed to MYH7 before use. And XB2
-      is present in BOTH chains A and B, so the ligand is scoped to its own chain when the
-      pocket is derived - the first frozen target where that scoping matters.
-
-  - id: cardiac_myosin_site1_omecamtiv
-    # ADR 0013, accepted: 8QYP was chosen after comparing apo candidates to holo-defined
-    # pocket geometry, so this arm's difficulty is answer-informed and anti-conservative.
-    # Frozen and reported, but withheld from confirmatory and robustness claims.
-    quarantine: answer-informed apo selection (ADR 0013)
-    tier: sensitivity
-    protein: MYH7
-    site: mavacamten/omecamtiv pocket (Site 1)
-    site_id: myh7_site1
-    apo:  {pdb: 8QYP, chain: A, sha256: 304400a2176723668262aeb67b1c8dc314cbff2f03f820ae6d766a3a1216f20f}
-    holo: {pdb: 8QYU, chain: A, ligand: 2OW}
-    active_site: {from_ligands: [ADP, VO4, MG]}
-    allosteric_evidence:
-      doi: 10.1038/s41467-024-47587-9
-      assay: >
-        Auguin 2024. Omecamtiv mecarbil is an activator and mavacamten an inhibitor, and
-        they occupy the same pocket - ligand centroids 2.3 A apart, measured in
-        evidence/myosin-structural-landscape.md section 3. One site driving activity in
-        both directions is the strongest structural evidence available that it is
-        regulatory rather than merely a cavity that binds things.
-    state: {apo: pre-powerstroke ADP-VO4, holo: pre-powerstroke ADP-VO4, matched: true}
-    blind:
-      value: false
-      why: >
-        Site 1 again, so the same reasoning as the other site1 arms applies - including the
-        2026-08-20 correction: Zheng 2023 (challenge reference [1]) blind-predicted this
-        pocket on Dictyostelium myosin II, and ESSA's residues map onto MYH7 119/120/705/710/711.
-    note: >
-      Not a second target: under ADR 0008 a target is a site, and this is Site 1 again.
-      It is a one-variable sensitivity arm on the same apo as site1_sensitivity_xray -
-      same structure, same pocket, different effector - answering how much the ground
-      truth depends on which drug happened to crystallise (an 18-residue 2OW footprint
-      against the 15-residue XB2 one). Supersedes 5N6A -> 5N69, the same experiment at
-      worse resolution (2.45 A against 1.96 A).
-
-  - id: cardiac_myosin_site2_corrected
-    # ADR 0013, accepted: 8QYP was chosen after comparing apo candidates to holo-defined
-    # pocket geometry, so this arm's difficulty is answer-informed and anti-conservative.
-    # Frozen and reported, but withheld from confirmatory and robustness claims.
-    quarantine: answer-informed apo selection (ADR 0013)
-    tier: corrected
-    protein: MYH7
-    site: blebbistatin/aficamten pocket (Site 2)
-    site_id: myh7_site2
-    apo:  {pdb: 8QYP, chain: A, sha256: 304400a2176723668262aeb67b1c8dc314cbff2f03f820ae6d766a3a1216f20f}
-    holo: {pdb: 9F6C, chain: A, ligand: 6I6}
-    active_site: {from_ligands: [ADP, VO4, MG]}
-    allosteric_evidence:
-      doi: 10.1038/s44161-024-00505-0
-      assay: >
-        Hartman 2024 (Chuang is 4th of 20 authors; cited as "Chuang 2024" in an earlier
-        draft): aficamten binds "an allosteric site on the myosin catalytic domain distinct
-        from mavacamten" - confirmed here at 34.2 A between ligand centroids. Not
-        nucleotide-competitive, and the negative control is explicit: aficamten "did not
-        alter ATP binding or hydrolysis as measured by intrinsic tryptophan fluorescence",
-        while "actin-activated phosphate release was dramatically slowed". Binding away from
-        the nucleotide site changes the rate of a catalytic step - category (b) evidence.
-    state: {apo: pre-powerstroke ADP-VO4, holo: pre-powerstroke ADP-VO4, matched: true}
-    blind:
-      value: false
-      why: >
-        Challenge reference [1] (Zheng 2023) tests this pocket - 1MMA -> 1YV3, the
-        blebbistatin site, 1.4 A from aficamten's. That makes this arm a calibration
-        point rather than a blind claim: a method that cannot reach Zheng's result on
-        the pocket Zheng tested has not earned a blind claim on Site 1.
-    note: >
-      A second target on the same protein per ADR 0008, sharing the apo input with the
-      site1 arms and differing only in holo and labels. Not from the same study as its
-      apo (Hartman 2024 deposited none), the one clause it does not meet cleanly; 8QYP is
-      the closest matched frame available, 1.02 A all / 0.33 A core.
-      WARNING, and it is why this arm exists: this pocket ABUTS the active site. Label to
-      active-site Ca distances run 0.0-15.7 A, median 8.4 A, and 3 of the 21 lining
-      residues ARE active-site residues under the frozen rule, so they leave the
-      scoreable set. Compare mavacamten on the same apo frame: 17.5-38.5 A, zero overlap.
-      A score defined as connectivity to the active site will rank this site highly for
-      trivial reasons - which is exactly what it is here to detect. Roughly 30 % of
-      catalogued allosteric sites overlap or border the catalytic site (CASBench), and
-      without this arm the benchmark cannot tell "predicts allostery" from "predicts
-      distance". Interpretable only against the distance-matched null (ADR 0007).
+      The cleanest pair in the benchmark. Same Myosin-7 construct (131852.484 Da, one copy)
+      in both members, same primed pre-powerstroke state, same Mg-ADP-Pi at the catalytic
+      site; the members differ by mavacamten (XB2) and nothing else. Cryo-EM 3.4 A apo,
+      2.9 A holo. Measured: the nucleotide is 20.5 A from the nearest label and contacts none
+      of the 12, so clause (iii) passes cleanly.
+      Rejected alternative, recorded so the choice is visible: 9YRG/9YR7 is the
+      interacting-heads (super-relaxed) pair and matches the challenge's SRX wording more
+      closely, with the same 12 labels. It was not taken because its heavy chain is a
+      Myosin-7/GCN4/EGFP chimera in a six-chain assembly, while this arm models one chain, so
+      the IHM mechanism would sit partly outside the modelled system either way. Revisit at
+      Phase 4, where one head versus the whole IHM is the coarse-graining question.

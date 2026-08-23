@@ -54,15 +54,16 @@ explicitly leaves it to participants. Candidates and their status are tracked in
 ## Validation targets
 
 These are the pairs `CHALLENGE.md` Table 1 assigns. A forensic audit of the deposited
-files found **all three defective**, one fatally, so each is scored in tiers — the
-mandated pair as given, plus a defensible `corrected` pair for the same biology.
+files found **all three defective**, one fatally. Each disease area therefore carries two
+arms: the mandated pair exactly as given, and a defensible `corrected` pair for the same
+protein and the same site. Both are frozen before any method exists.
 
-| Target | Apo (mandated) | Holo (mandated) | Status of the mandated pair |
+| Target | Mandated pair | Status of the mandated pair | Corrected pair |
 |---|---|---|---|
-| KRAS G12C | `4OBE` | `6OIM` | usable; apo is **wild-type** Gly12, not G12C |
-| BCR-ABL1 | `1OPL` | `5MO4` | not a blind prediction; apo has myristate **in the target pocket** |
-| Cardiac myosin | `5TBY` | `6C1H` | **unscoreable** — `6C1H` is rat myosin-Ib, no mavacamten |
-| c-Myc (stretch) | `1NKP` | — | no ground truth; consensus-judged |
+| KRAS G12C | `4OBE` → `6OIM` | usable; apo is **wild-type** Gly12, not G12C | `4LDJ` → `6OIM` |
+| BCR-ABL1 | `1OPL` → `5MO4` | apo has myristate **in the target pocket**, contacting 16 of 20 labels | `2G2H` → `5MO4` |
+| Cardiac myosin | `5TBY` → `6C1H` | **unscoreable** — `6C1H` is rat myosin-Ib with no mavacamten; `5TBY` is a 20 Å homology model | `9GZ3` → `9GZ2` |
+| c-Myc (stretch) | `1NKP` | no ground truth; consensus-judged | — |
 
 The frozen benchmark, the corrected pairs and the evidence:
 [`docs/benchmark/README.md`](docs/benchmark/README.md). Ground-truth derivation policy:
@@ -84,7 +85,7 @@ Optional backends: `uv sync --extra hw` (AWS Braket, Classiq),
 | Phase | Focus | Status |
 |---|---|---|
 | 0 | Repo, harness, agent infrastructure | done |
-| 1 | Classical foundation: structures, networks, ground truth, baselines, scoring harness | in progress — frozen benchmark and ground truth done |
+| 1 | Classical foundation: structures, networks, ground truth, baselines, scoring harness | in progress — **frozen input layer closed**; evaluation layer (1.6) next |
 | 2 | Quantum propagation metric (statevector) | |
 | 3 | Circuit implementation, depth budget, noise resilience | |
 | 4 | Coarse-graining and scalability | |
