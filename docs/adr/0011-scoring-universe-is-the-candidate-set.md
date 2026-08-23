@@ -94,3 +94,12 @@ Found by an adversarial review (Codex, `gpt-5.6-sol`), not by us.
   made an arm depend on how many siblings were curated. ADR 0015 now replaces the union with
   an explicit per-protein functional-site registry, still carried across entries by
   alignment. Adding an arm cannot move another arm's universe.
+
+---
+
+**Amendment, 2026-08-24.** The **propagation-source** half of this decision stands unchanged
+and is what `excluded_from_scoring` implements. The **sibling functional site** half is
+withdrawn with [ADR 0015](0015-same-site-labels-leave-the-background.md): after the arm
+reduction each protein carries one site, the registry that implemented it was measured to be
+a no-op on all five arms, and it was removed. On the current freeze
+`excluded_from_scoring == active_site` and `n_candidates == n_residues - len(active_site)`.

@@ -7,8 +7,11 @@
 `allo.inputs.apo_input()` returns `residues = every modelled residue of the selected
 chain`, and `frozen.json`'s `n_residues` is the same set. No domain trimming happens
 anywhere. That choice was never recorded — it was inherited from the first implementation —
-and it is load-bearing, because N is the denominator of label prevalence, of the
-hypergeometric top-5 baseline, and of AUC-PR.
+and it is load-bearing, because N determines label prevalence, the hypergeometric top-5
+baseline, and AUC-PR. **Refined by ADR 0011:** the denominator of all three is the smaller
+`n_candidates` — N minus the propagation source and the protein's functional-site registry.
+N is what a method *receives* and still bounds everything downstream, but it is not itself
+the denominator any more.
 
 Two things make it worth an ADR rather than a code comment.
 
@@ -70,9 +73,24 @@ defect the tier exists to expose. The same effect is smaller but present on myos
   manifest change plus a re-freeze, not a code default.
 - **Enforced, not just recorded.** `tests/test_benchmark.py::test_methods_and_the_benchmark_agree_on_the_node_set`
   asserts that what `apo_input` hands a method is exactly the `n_residues` the benchmark
-  scores against. The two are computed by different code paths — modelled polymer residues
-  against residues carrying a Cα — so they agreed by coincidence rather than by construction.
-  Trimming introduced anywhere in the loading path now fails this test.
+  scores against. **The two paths are not as independent as this bullet claimed**: both call
+  `allo.inputs.admitted_residue_numbers`, so they agree by construction on the node set itself.
+  What the test genuinely catches is a divergence introduced *after* that call — trimming added
+  to either loading path, or a modelled residue without a Cα, since `derive` additionally
+  requires one and `apo_input` does not. That is narrower than "computed independently", and it
+  is what the test is worth. Flagged by adversarial review 2026-08-21.
+- **The SH3–SH2 argument above does not reach the arm that carries the ABL1 claim, and that
+  has to be said plainly.** Reason 2 of the decision — trimming would delete the coupling path
+  — protects `bcr_abl1_mandated` (`1OPL`:A, 81–531, SH3 + SH2 + linker + kinase). But the
+  claim-bearing arm is `bcr_abl1_corrected` (`2G2H`:A, **252–523**) and the robustness arm is
+  `bcr_abl1_sensitivity` (`2G1T`:A, **232–502**); both are kinase-domain-only constructs in
+  which SH3 and SH2 were never deposited. No trimming policy could have removed them, and no
+  policy can put them back. Two consequences, and the ADR asserts neither over the other:
+  either the clamp is less necessary to locating the pocket than reason 2 implies, or the
+  claim-bearing arm is asking a method to find the myristoyl site with the mechanism that
+  makes it allosteric absent from the input — in which case that arm is harder than this ADR's
+  reasoning suggests, for a cause this ADR itself names. What is *not* legitimate is quoting
+  reason 2 as if it applied to the whole target. It applies to the descriptive arm only.
 - A reviewer applying C5 strictly will ask about `1OPL`'s SH3–SH2. The organiser question is
   still open, but the experimental follow-up is built: `bcr_abl1_trimmed` uses the same
   `1OPL`:A bytes with explicit `apo.residue_range`. UniProtKB P00519 release 2026_02 supplies

@@ -395,7 +395,10 @@ later agent knows exactly what would close it.
 
 1. **MOSTLY CLOSED.** ~~CryptoSite's own inclusion/exclusion criteria.~~ Full text retrieved
    via NCBI `efetch.fcgi?db=pmc&id=4794384&retmode=xml`, which serves the complete author
-   manuscript even though Europe PMC reports `isOpenAccess: N`. Now first-hand
+   manuscript even though Europe PMC reports `isOpenAccess: N`. Both that route and
+   `pmc.ncbi.nlm.nih.gov/articles/PMC4794384/` re-served the body on 2026-08-21, and the three
+   method clauses below were re-quoted verbatim from each; Europe PMC `fullTextXML` still 404s,
+   so that route alone must not be read as the paper being unreachable. Now first-hand
    `[VERIFIED-FULLTEXT]`: binding residues are those with **any atom within 5 A of any ligand
    atom**; redundancy removed at a **40 % sequence-identity** threshold; cryptic sites
    separated from binding pockets by **Fpocket + ConCavity** pocket scores (bad unbound, good
@@ -419,6 +422,7 @@ later agent knows exactly what would close it.
    gates behind a JavaScript proof-of-work challenge that a plain HTTP client cannot satisfy.
    _Closes by: institutional access to the JMB PDF, or a browser session against
    `pmc.ncbi.nlm.nih.gov/articles/instance/4794384/bin/NIHMS758003-supplement-sup.pdf`._
+
 2. **Whether CryptoBench excludes apo structures carrying ligands at other sites.** No
    sentence bearing on this was found in the retrieved full text. It inherits AHoJ's
    site-relative annotation, but inheritance is our inference. _Closes by: reading the
@@ -468,24 +472,24 @@ later agent knows exactly what would close it.
 
 ## Sources retrieved this session
 
-| Work                                            | DOI                                                                              | Access    | Tag used         |
-| ----------------------------------------------- | -------------------------------------------------------------------------------- | --------- | ---------------- |
-| Cimermancic et al. 2016, CryptoSite, J Mol Biol | [10.1016/j.jmb.2016.01.029](https://doi.org/10.1016/j.jmb.2016.01.029)           | paywalled | ABSTRACT         |
-| Meller et al. 2023, PocketMiner, Nat Commun     | [10.1038/s41467-023-36699-3](https://doi.org/10.1038/s41467-023-36699-3)         | OA        | FULLTEXT         |
-| Škrhák et al. 2024, CryptoBench, Bioinformatics | [10.1093/bioinformatics/btae745](https://doi.org/10.1093/bioinformatics/btae745) | OA        | FULLTEXT         |
-| Feidakis et al. 2022, AHoJ, Bioinformatics      | [10.1093/bioinformatics/btac701](https://doi.org/10.1093/bioinformatics/btac701) | OA        | FULLTEXT         |
-| Feidakis et al. 2024, AHoJ-DB, J Mol Biol       | [10.1016/j.jmb.2024.168545](https://doi.org/10.1016/j.jmb.2024.168545)           | paywalled | ABSTRACT         |
-| Wankowicz et al. 2022, eLife                    | [10.7554/eLife.74114](https://doi.org/10.7554/eLife.74114)                       | OA        | FULLTEXT         |
-| Clark et al. 2019, PLoS Comput Biol             | [10.1371/journal.pcbi.1006705](https://doi.org/10.1371/journal.pcbi.1006705)     | OA        | FULLTEXT         |
-| Huang et al. 2011, ASD, Nucleic Acids Res       | [10.1093/nar/gkq1022](https://doi.org/10.1093/nar/gkq1022)                       | OA        | ABSTRACT         |
-| Huang et al. 2014, ASD v2.0, Nucleic Acids Res  | [10.1093/nar/gkt1247](https://doi.org/10.1093/nar/gkt1247)                       | OA        | ABSTRACT         |
-| Shen et al. 2016, ASD v3.0, Nucleic Acids Res   | [10.1093/nar/gkv902](https://doi.org/10.1093/nar/gkv902)                         | OA        | ABSTRACT         |
-| Liu et al. 2020, ASD 2019, Nucleic Acids Res    | [10.1093/nar/gkz958](https://doi.org/10.1093/nar/gkz958)                         | OA        | ABSTRACT         |
-| ASD2023, Nucleic Acids Res                      | [10.1093/nar/gkad915](https://doi.org/10.1093/nar/gkad915)                       | OA        | FULLTEXT         |
-| Huang et al. 2015, ASBench, Bioinformatics      | [10.1093/bioinformatics/btv169](https://doi.org/10.1093/bioinformatics/btv169)   | paywalled | ABSTRACT         |
-| Riedlová et al. 2026, J Chem Theory Comput      | [10.1021/acs.jctc.6c00427](https://doi.org/10.1021/acs.jctc.6c00427)             | OA        | FULLTEXT         |
-| IUPAC/NC-IUBMB Nomenclature Newsletter 2023     | no DOI — <https://iubmb.qmul.ac.uk/newsletter/2023.html>                         | web       | FULLTEXT, NO DOI |
-| AHoJ documentation                              | no DOI — <https://apoholo.cz/>                                                   | web       | FULLTEXT, NO DOI |
+| Work                                            | DOI                                                                              | Access            | Tag used         |
+| ----------------------------------------------- | -------------------------------------------------------------------------------- | ----------------- | ---------------- |
+| Cimermancic et al. 2016, CryptoSite, J Mol Biol | [10.1016/j.jmb.2016.01.029](https://doi.org/10.1016/j.jmb.2016.01.029)           | paywalled; PMC AM | FULLTEXT         |
+| Meller et al. 2023, PocketMiner, Nat Commun     | [10.1038/s41467-023-36699-3](https://doi.org/10.1038/s41467-023-36699-3)         | OA                | FULLTEXT         |
+| Škrhák et al. 2024, CryptoBench, Bioinformatics | [10.1093/bioinformatics/btae745](https://doi.org/10.1093/bioinformatics/btae745) | OA                | FULLTEXT         |
+| Feidakis et al. 2022, AHoJ, Bioinformatics      | [10.1093/bioinformatics/btac701](https://doi.org/10.1093/bioinformatics/btac701) | OA                | FULLTEXT         |
+| Feidakis et al. 2024, AHoJ-DB, J Mol Biol       | [10.1016/j.jmb.2024.168545](https://doi.org/10.1016/j.jmb.2024.168545)           | paywalled         | ABSTRACT         |
+| Wankowicz et al. 2022, eLife                    | [10.7554/eLife.74114](https://doi.org/10.7554/eLife.74114)                       | OA                | FULLTEXT         |
+| Clark et al. 2019, PLoS Comput Biol             | [10.1371/journal.pcbi.1006705](https://doi.org/10.1371/journal.pcbi.1006705)     | OA                | FULLTEXT         |
+| Huang et al. 2011, ASD, Nucleic Acids Res       | [10.1093/nar/gkq1022](https://doi.org/10.1093/nar/gkq1022)                       | OA                | ABSTRACT         |
+| Huang et al. 2014, ASD v2.0, Nucleic Acids Res  | [10.1093/nar/gkt1247](https://doi.org/10.1093/nar/gkt1247)                       | OA                | ABSTRACT         |
+| Shen et al. 2016, ASD v3.0, Nucleic Acids Res   | [10.1093/nar/gkv902](https://doi.org/10.1093/nar/gkv902)                         | OA                | ABSTRACT         |
+| Liu et al. 2020, ASD 2019, Nucleic Acids Res    | [10.1093/nar/gkz958](https://doi.org/10.1093/nar/gkz958)                         | OA                | ABSTRACT         |
+| ASD2023, Nucleic Acids Res                      | [10.1093/nar/gkad915](https://doi.org/10.1093/nar/gkad915)                       | OA                | FULLTEXT         |
+| Huang et al. 2015, ASBench, Bioinformatics      | [10.1093/bioinformatics/btv169](https://doi.org/10.1093/bioinformatics/btv169)   | paywalled         | ABSTRACT         |
+| Riedlová et al. 2026, J Chem Theory Comput      | [10.1021/acs.jctc.6c00427](https://doi.org/10.1021/acs.jctc.6c00427)             | OA                | FULLTEXT         |
+| IUPAC/NC-IUBMB Nomenclature Newsletter 2023     | no DOI — <https://iubmb.qmul.ac.uk/newsletter/2023.html>                         | web               | FULLTEXT, NO DOI |
+| AHoJ documentation                              | no DOI — <https://apoholo.cz/>                                                   | web               | FULLTEXT, NO DOI |
 
 Author lists for the ASD series and CryptoBench are `[UNVERIFIED]` where not returned by the
 search record; cite by DOI, not by name, until checked.

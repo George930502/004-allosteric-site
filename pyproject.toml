@@ -38,8 +38,8 @@ packages = ["src/allo"]
 [tool.ruff]
 line-length = 100
 src = ["src", "tests"]
-# Vendored agent skills are third-party; we do not own their style.
-extend-exclude = [".claude"]
+# Third-party trees we do not own the style of.
+extend-exclude = [".claude", "allosteric-benchmark"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "SIM", "NPY"]

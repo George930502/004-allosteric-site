@@ -10,13 +10,12 @@ benchmark freeze checkable — see docs/benchmark/README.md.
 from __future__ import annotations
 
 import hashlib
+import io
 from dataclasses import dataclass
 from pathlib import Path
 
 import numpy as np
 from Bio.PDB.MMCIF2Dict import MMCIF2Dict
-
-APO_STRUCTURES = Path(__file__).resolve().parents[3] / "structures" / "apo"
 
 
 def fetch_mmcif(pdb_id: str, dest_dir: Path) -> Path:
@@ -106,9 +105,14 @@ def _column(data: dict, key: str) -> list[str]:
     return value if isinstance(value, list) else [value]
 
 
-def parse_mmcif(path: Path, pdb_id: str | None = None) -> Structure:
-    """Parse the first model of an mmCIF file into flat arrays."""
-    data = MMCIF2Dict(str(path))
+def parse_mmcif_text(text: str, pdb_id: str) -> Structure:
+    """Parse mmCIF text without opening a filesystem path.
+
+    Prediction-safe shared code receives content only. Apo file opening is owned by
+    :mod:`allo.inputs`; privileged evaluation file opening is owned by
+    :mod:`allo.groundtruth.structures` (C1).
+    """
+    data = MMCIF2Dict(io.StringIO(text))
     model = np.array(_column(data, "_atom_site.pdbx_PDB_model_num"))
     first = model == model[0] if len(model) else np.zeros(0, dtype=bool)
     take = np.where(first)[0]
@@ -125,13 +129,13 @@ def parse_mmcif(path: Path, pdb_id: str | None = None) -> Structure:
     present = sorted({c for c in icode.tolist() if c not in (".", "?", "")})
     if present:
         raise NotImplementedError(
-            f"{path.name} uses insertion codes {present}; residue identity is not unique. "
+            f"{pdb_id} uses insertion codes {present}; residue identity is not unique. "
             "Extend the residue key before using this entry."
         )
 
     label_seq = pick("_atom_site.label_seq_id")
     return Structure(
-        pdb_id=(pdb_id or path.stem).upper(),
+        pdb_id=pdb_id.upper(),
         chain=pick("_atom_site.auth_asym_id"),
         seq_id=pick("_atom_site.auth_seq_id").astype(int),
         resname=pick("_atom_site.auth_comp_id"),

@@ -22,11 +22,32 @@ from pathlib import Path
 import numpy as np
 import yaml
 
-from allo.structure.pdb import APO_STRUCTURES, Structure, contacts, parse_mmcif, sha256
+from allo.structure.pdb import Structure, contacts, parse_mmcif_text, sha256
 
 ROOT = Path(__file__).resolve().parents[2]
 MANIFEST = ROOT / "docs" / "benchmark" / "manifest.yaml"
-RAW = ROOT / "data" / "raw"
+
+# Written as one path rather than as `STRUCTURES / "apo"` on purpose: a `STRUCTURES` root
+# exported here would put the tracked holo mirror one `/ "holo"` away from prediction code.
+APO_STRUCTURES = ROOT / "structures" / "apo"
+
+# The only cache prediction code writes to, and the only one it can reach.
+#
+# Both used to be one directory. `data/raw/` was the default for `apo_input` *and* for
+# `benchmark.derive`, so `make check` -- offline, no network marker -- restored all seven
+# holo entries into the cache a method reads from, on every clone. The former shared parser
+# accepted a `Path`, so a constructed legacy-cache path returned asciminib's coordinates
+# from a module importing nothing but `allo.inputs` and `allo.structure.pdb`. No guard saw
+# it: the import trace watches `allo.groundtruth`, and the file-read tests grep for the
+# names of the freeze artifact and the manifest -- that route contains neither string.
+# (This comment may not spell either filename either; the grep does not read comments.)
+#
+# Partitioning the cache and removing filesystem access from the shared parser close it.
+# Evaluation writes to
+# `allo.groundtruth.structures.EVAL_CACHE`; nothing reachable from the prediction path
+# names that directory. `test_the_prediction_cache_never_holds_a_holo_structure` holds the
+# invariant after a full `make check`.
+APO_CACHE = ROOT / "data" / "raw" / "apo"
 
 # Conserved catalytic motifs, for the targets whose apo entry holds no cofactor (ADR 0005).
 # Patterns are matched against the modelled chain sequence, so the residue numbers come out
@@ -50,7 +71,6 @@ _PREDICTION_SCHEMA = {
         {
             "id": _LEAF,
             "protein": _LEAF,
-            "site": _LEAF,
             "apo": {
                 "pdb": _LEAF,
                 "chain": _LEAF,
@@ -102,16 +122,26 @@ def load(path: Path = MANIFEST) -> dict:
     `allo.groundtruth.manifest.read_manifest`, behind the import guard; this module never
     exposes one (`tests/test_no_leakage.py`).
 
-    `site` survives redaction deliberately: it is a human label ("Switch-II pocket"), and
-    `CHALLENGE.md` Table 1 gives it to every participant, so it is not ours to withhold.
+    `site` used to survive redaction, justified as a human label the challenge already
+    gives every participant. That was true for `Switch-II pocket`, `myristoyl pocket` and
+    `mavacamten site` -- and false for `blebbistatin/aficamten pocket (Site 2)` and
+    `mavacamten/omecamtiv pocket (Site 1)`, which name effectors that appear nowhere in
+    `CHALLENGE.md` because those arms are ours. Naming the effector is naming where the
+    pocket is, to anyone with a search engine. Nothing on the prediction path ever read the
+    key, so it is gone rather than repaired: a benchmark whose purpose is that no method can
+    take an advantage another cannot does not ship an unused channel to the answer.
     """
     manifest = yaml.safe_load(path.read_text())
-    # `status`, `tier`, and cutoff sensitivity describe evaluation, not the coordinates a
-    # method receives. Excluded arms have no pinned apo hash and are omitted rather than
-    # carrying their defect/status across C1.
+    # Evaluation status cannot admit or delete a prediction input. `prediction_status` is a
+    # separate apo-side decision: ADR 0016 records why 5TBY is blocked without fabricating a
+    # propagation source, independently of the defective 6C1H evaluation arm.
     manifest = {
         **manifest,
-        "targets": [target for target in manifest["targets"] if target.get("status") != "excluded"],
+        "targets": [
+            target
+            for target in manifest["targets"]
+            if target.get("prediction_status", "admitted") == "admitted"
+        ],
     }
     return _project(manifest, _PREDICTION_SCHEMA)
 
@@ -227,7 +257,7 @@ class ApoInput:
     cutoff: float
 
 
-def apo_input(target: str, raw: Path = RAW) -> ApoInput:
+def apo_input(target: str, raw: Path = APO_CACHE) -> ApoInput:
     """Load one frozen target's apo input. The only supported way for a method to start.
 
     Re-deriving the residue list per method is how two methods end up silently scored
@@ -241,6 +271,9 @@ def apo_input(target: str, raw: Path = RAW) -> ApoInput:
     construction, so the accession, chain, active-site rule, cutoff and hash all come from
     the repository-pinned manifest and a caller cannot substitute any of them. `raw` stays
     open because it only says *where to cache*, and the hash check covers the bytes.
+
+    Its default is `APO_CACHE`, not the shared `data/raw/`, and that distinction is the C1
+    boundary rather than a tidiness preference -- see the comment on `APO_CACHE`.
     """
     manifest = load()
     specs = {s["id"]: s for s in manifest["targets"]}
@@ -258,9 +291,9 @@ def apo_input(target: str, raw: Path = RAW) -> ApoInput:
                 f"{target}: frozen apo {spec['apo']['pdb']} is absent from the apo store"
             )
         path.write_bytes(gzip.decompress(archived.read_bytes()))
-    # Fail closed on the bytes, not just on the accession. `data/raw/` is gitignored and
-    # The cache is writable and may be stale or replaced, so the store path alone is not the
-    # boundary. The hash below binds the restored bytes to the target's manifest record.
+    # Fail closed on the bytes, not just on the accession. The cache is gitignored, writable,
+    # and may be stale or replaced, so the store path alone is not the boundary. The hash
+    # below binds the restored bytes to the target's manifest record.
     expected = spec["apo"].get("sha256")
     if not expected:
         raise ValueError(f"{target}: manifest pins no apo sha256; refusing to run unpinned")
@@ -270,7 +303,7 @@ def apo_input(target: str, raw: Path = RAW) -> ApoInput:
             f"got {actual}. RCSB may have re-versioned it; re-freeze deliberately or delete "
             f"{path} and refetch."
         )
-    apo = parse_mmcif(path, spec["apo"]["pdb"])
+    apo = parse_mmcif_text(path.read_text(), spec["apo"]["pdb"])
     residues = admitted_residue_numbers(apo, chain, spec["apo"])
     source = tuple(active_site(apo, chain, spec["active_site"], cutoff))
     if not set(source) <= set(residues):

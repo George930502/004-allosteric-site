@@ -22,7 +22,10 @@ _Avoid_: cryptic site, hidden pocket, hotspot — none is a synonym.
 **Cryptic site**:
 A pocket that is absent in the unbound structure and forms on binding. A purely
 **structural** property of an apo/holo pair, orthogonal to allostery: fewer than half of
-validated cryptic sites are allosteric, and allosteric sites are frequently pre-formed.
+validated **high-affinity** cryptic sites are allosteric (Vajda 2018, 8 of 19), and
+allosteric sites are frequently pre-formed — the second half resting on ESSA's 7/14 and
+APOP's 11/14 top-3 successes on true apo structures, **not** on Vajda, whose next sentence
+says allosteric modulators "frequently bind at flexible regions without pre-formed pockets".
 Reported here as a difficulty axis — never as a validity test for a pair.
 _Avoid_: using interchangeably with "allosteric site".
 
@@ -78,11 +81,9 @@ regulatory residues" as a derived set.
 
 **Candidate set**:
 The **scoring universe**: every node minus the residues that score by construction rather
-than by evidence — the propagation source, and the protein's explicit registered functional
-sites. The registry is fixed independently of how many benchmark arms exist, so adding an arm
-cannot move another arm's universe (ADR 0015). The same argument that removes a source residue
-from the positives removes it from the negatives; leaving it in penalises connectivity
-methods and no others (ADR 0011). Frozen as `n_candidates` /
+than by evidence — the propagation source. The same argument that removes a source residue
+from the positives removes it from the negatives; leaving it in the negatives penalises
+connectivity methods and no other class (ADR 0011). Frozen as `n_candidates` /
 `excluded_from_scoring`. **Not** the node set: a method still receives the whole chain, so `N`
 (what it sees) and `n_candidates` (what it is scored against) are two numbers and must not be
 swapped.
@@ -90,15 +91,17 @@ _Avoid_: "background", "the negatives" for the whole chain, using `n_residues` a
 denominator for prevalence or a chance line.
 
 **Target**:
-One benchmark instance = one protein **plus one allosteric site**. A protein with two
-validated allosteric sites contributes two targets, because the scored artifact is a
-ranked residue list per target (ADR 0008).
+One benchmark instance = one protein **plus one allosteric site**. The scored artifact is a
+ranked residue list per target, so a protein with two validated allosteric sites would
+contribute two. Every protein in the current benchmark carries one (ADR 0008, withdrawn).
 _Avoid_: protein, system, case.
 
 **Tier**:
-Which claim an arm supports. `mandated` is the pair the challenge specifies, defects and
-all; `corrected` is the defensible pair for the same biology and is where methods are
-compared; `sensitivity` varies one thing to test whether a conclusion survives.
+Which claim an arm supports. `mandated` is the pair the challenge specifies, defects and all,
+reported because the challenge requires it. `corrected` is the defensible pair for the same
+protein and the same site, and is where methods are compared. There is no third tier: a
+robustness arm varies one thing to test whether a conclusion survives, and a conclusion has to
+exist first, so those belong to the method phase (ADR 0003, amended).
 
 **Frozen input layer**:
 The fixed set of structures, chains, residues and active sites every method receives.

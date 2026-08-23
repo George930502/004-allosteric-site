@@ -425,6 +425,6 @@ Endpoints used, all 2026-08-20:
 - `GET https://www.ebi.ac.uk/europepmc/webservices/rest/search` — depositing-paper abstracts
   (NCBI eutils is robots-blocked; see the memory note on literature fetch routes).
 
-Geometry code paths: `allo.structure.pdb.parse_mmcif` / `.contacts`;
+Geometry code paths: `allo.groundtruth.structures.parse_mmcif` / `allo.structure.pdb.contacts`;
 `allo.groundtruth.labels.align_numbering` / `.transfer_labels`; Kabsch superposition with 20 %
 trim written for this sweep. Cutoff 4.5 Å throughout, matching `docs/targets.md`.

@@ -5,6 +5,43 @@ review deliberately does **not** rest on the cryptic-pocket literature (CryptoSi
 PocketMiner, CryptoBench, AHoJ); where a point is only addressed by an adjacent field it
 is marked **[BORROWED]** and named as such.
 
+## Normative repository definition (verbatim from `docs/benchmark/README.md`)
+
+> An **apo/holo pair for allosteric-site prediction** is an ordered pair of experimentally
+> determined structures of the same gene product satisfying:
+>
+> **(i) Effector [IN-DOMAIN + REPOSITORY POLICY].** The _holo_ member contains the allosteric effector, identified by its PDB
+> chemical component ID, at the site to be predicted; site residues are those within a
+> **declared** radius of its heavy atoms.
+> **(ii) Provenance of label [IN-DOMAIN + REPOSITORY POLICY].** The site is allosteric because _functional_ evidence says so.
+> Distance from the active site is neither necessary nor sufficient. (ASD v1 pairs the
+> functional requirement with a _topographic_ one — the site must be "topographically distinct
+> from the orthosteric functional site" — so this clause narrows ASD rather than restating it,
+> and it does so because ~30 % of CASBench's allosteric sites border the catalytic site.)
+> **(iii) Site-apo [BORROWED + REPOSITORY POLICY].** The _apo_ member contains **no ligand of any kind within the
+> _scoreable_ portion of that site** — the labels a method is actually asked to find. Contacts
+> to the full label set are recorded beside it and do not disqualify: where the allosteric and
+> orthosteric sites share a border, the catalytic cofactor touches labels that are *themselves*
+> active-site residues, which is two sites adjoining, not a modulator in the pocket.
+> **(iv) Identity [IN-DOMAIN].** Same protein at **≥ 90 % sequence identity**, differences enumerated.
+> **(v) Assembly [IN-DOMAIN].** Same oligomeric state, and the modelled state should _be_ the biological
+> assembly. (Both halves are the field's. An earlier version of this clause claimed the second
+> half as **ours** — "no source states it" — while `evidence/curation-standard.md` already
+> carried AlloBench stating it, `[VERIFIED-FULLTEXT]`. Corrected 2026-08-21.)
+> **(vi) Second site [REPOSITORY POLICY].** Orthosteric occupancy recorded for **both** members, and the
+> active-site rule stated.
+> **(vii) Non-circularity [BORROWED + REPOSITORY POLICY] — a rule about the _procedure_, not about the biology.** No residue
+> of the propagation source may be scored as a candidate for the site being predicted. The
+> allosteric site is free to act _on_ the source; that is what allostery to a catalytic site
+> **is**. Each arm declares which function the site is allosteric for, and whether that
+> function is measured at the source (see below).
+> **(viii) State disclosure [REPOSITORY POLICY].** The functional state of each member is **stated**, and the
+> pocket-lining change reported. State difference is _disclosed, not required_.
+
+Comparator blindness is deliberately outside this definition because it is a property of an
+evaluation procedure. The remainder of this document supplies the clause-by-clause evidence;
+it does not introduce a second definition (ADR 0017).
+
 **Verification tags.** Every claim carries one:
 
 - `[VERIFIED-FULLTEXT]` — read from the OA full text (Europe PMC `fullTextXML`).
@@ -963,7 +1000,7 @@ choice we must make and declare.
 | **10** | **The primary metric.**                                                                                                   | Top-1/top-2/top-3, Jaccard-vs-threshold curve, DCC, F1, MCC, AUROC, AUPR, average precision — all in use, rarely more than one per paper.                               | AUC-ROC + AUC-PR primary, precision@5 and P(≥1 hit) secondary (README §5). Report top-3 as well, because it is the field's most common currency and is what makes us comparable.                                                                      |
 | **11** | **How to handle a site the pocket detector misses.**                                                                      | PARS discards (36 % of its data); APOP and ESSA report the failure; STINGAllo builds a residue-level method to avoid it.                                                | Our method is residue-level, so this does not bind us — but the decoy-pocket negative set (README §7) inherits the problem and must record detector failures rather than silently producing fewer decoys.                                             |
 | **12** | **Whether a benchmark must implement the four-complex requirement.**                                                      | **No structural benchmark does.** KeyAlloSite's ternary requirement is the closest.                                                                                     | We cannot. State it explicitly: an apo/holo pair is an E↔EX comparison, the allosteric label comes from functional evidence outside the pair, and Qax is not obtainable from our inputs.                                                              |
-| **13** | **Whether covalent modulators count.**                                                                                    | No allostery source addresses covalency. _(Binding MOAD excludes them — `[BORROWED]`.)_                                                                                 | Retain KRAS/sotorasib, per README §1 deviation 2. The allostery field gives us no rule either way, which weakens the objection to keeping it.                                                                                                         |
+| **13** | **Whether covalent modulators count.** | **The allostery field does rule on this.** AlloBench: "Structures with covalently bound allosteric modulators were removed" (`10.1021/acsomega.5c01263`, `[VERIFIED-FULLTEXT]`, §curation-standard.md:368) — in-domain, not borrowed. LiveCoMS "would not recommend including covalent ligands"; Binding MOAD and Clark et al. exclude them too. | Retain KRAS/sotorasib per README §1 deviation 2, but as a **declared deviation from an in-domain rule**, not a gap in the field. An earlier version of this row read "no allostery source addresses covalency" and "the allostery field gives us no rule either way"; both are withdrawn, and they had understated the objection to keeping the arm. |
 | **14** | **What "the same protein" means across numbering conventions.**                                                           | CASBench simply deletes entries where synchronisation failed. No positive rule is given.                                                                                | ADR 0004: identity-and-label transfer through alignment, never through pinned residue numbers.                                                                                                                                                        |
 
 ---

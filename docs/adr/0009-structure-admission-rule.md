@@ -85,8 +85,13 @@ before its resolution could drift.
 - **Risk accepted.** Clause 1 means the primary benchmark's inputs are heterogeneous in
   quality — 1.15 Å to 3.9 Å across tiers. A method could look better on KRAS partly because
   KRAS has the sharpest structures. The mitigation is disclosure plus the per-target
-  reporting the evaluation layer already mandates; there is no pooled cross-target claim for
-  the heterogeneity to contaminate (`docs/benchmark/README.md` §5).
+  reporting the evaluation layer already mandates. **Amended 2026-08-21:** this bullet used to
+  end "there is no pooled cross-target claim for the heterogeneity to contaminate", and §5 now
+  declares one — a stratified permutation test across the claim-bearing family. The mitigation
+  survives the change because of *how* that test is built: each arm is its own stratum with its
+  own patch pool, so resolution heterogeneity is absorbed into the strata rather than averaged
+  across them. What would contaminate the claim is combining three p-values, and that is
+  exactly what §5 forbids (`docs/benchmark/README.md` §5).
 - Supersedes nothing. Completes the input-layer admission criteria begun in ADR 0003
   (tiers), ADR 0004 (identity), ADR 0005 (active site), ADR 0006 (nodes), ADR 0007
   (allosteric ground truth) and ADR 0008 (one target per site).
