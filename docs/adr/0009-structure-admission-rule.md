@@ -74,9 +74,10 @@ before its resolution could drift.
 - The `8QYP` arms stay, and the reason they stay is stated rather than assumed. `8QYP`
   (2.759 Å) is now explicitly the lowest-resolution X-ray input in the scoreable set, and
   the report says so when it reports Site 2.
-- `1OPL` (3.42 Å, R-free 0.315, **6.50 % RSRZ outliers** — read from the wwPDB validation
-  report; a 22 % figure circulated in this repo and was a percentile mistaken for a
-  percentage) and `5TBY` (20 Å model) remain in the
+- `1OPL` (3.42 Å, R-free 0.315, **22.18 % RSRZ outliers — the 0.4th absolute percentile of
+  the PDB**, re-fetched from the wwPDB validation report on 2026-08-24; the 6.50 % that stood
+  here from 2026-08-21 was wrong, and its stated reason was backwards) and `5TBY` (20 Å model)
+  remain in the
   mandated tier under clause 1, which is the only way to report what the challenge asked for.
   Their quality is a stated property of that tier, and part of why the corrected tier exists.
 - The ASD set will be smaller than an unfiltered pull. That is the intended cost: the

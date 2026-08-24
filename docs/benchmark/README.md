@@ -19,8 +19,10 @@ disclosure lets a reader price it.
 
 **There is a second set.** This document is the PRIMARY benchmark: the three disease areas
 `CHALLENGE.md` Table 1 names. Three targets cannot support a claim about the method in
-general — a distribution-free one-sample test over N targets has a minimum attainable
-one-sided p of 2^-N, which at N = 3 is 0.125 whatever the result. The generalisability and
+general — a sign test over N target-level effects has a minimum attainable one-sided p of
+2^-N, which at N = 3 is 0.125 whatever the result. (That floor binds tests invariant to sign
+flips; two constructions escape it and license less — `evaluation-protocol.md` §7.) The
+generalisability and
 scalability claims therefore come from the **secondary** set,
 [`secondary/README.md`](secondary/README.md): nine further targets, frozen the same day,
 through this same code, under these same clauses plus four selection clauses (ADR 0021).
@@ -92,14 +94,14 @@ is deliberately not a ninth admission clause (ADR 0017).
 
 ### Where the clauses come from
 
-| Clause     | Authority                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| (i) radius | ASD v2.0 **6 Å**; CASBench **5 Å**; CryptoSite and PocketMiner **5 Å**; AHoJ and CryptoBench **4.5 Å**; ASBench and AlloBench **4 Å**; Amor **3.5 Å** (a caspase-1 result, not a set-wide convention). Four incompatible conventions coexist. **Our 4.5 Å matches AHoJ and CryptoBench and is declared at first use.** A number reported against one cutoff is not comparable to a number reported against another                                                                                                |
+| Clause     | Authority                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| (i) radius | ASD v2.0 **6 Å**; CASBench **5 Å**; CryptoSite and PocketMiner **5 Å**; AHoJ and CryptoBench **4.5 Å**; ASBench and AlloBench **4 Å**; Amor **3.5 Å** (a caspase-1 result, not a set-wide convention). Four incompatible conventions coexist. **Our 4.5 Å matches AHoJ and CryptoBench and is declared at first use.** A number reported against one cutoff is not comparable to a number reported against another                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | (ii)       | **Two statements, two scopes — and the one we rely on is the protein-general one.** IUPHAR XC §III recommends the _term_ (doi:10.1124/pr.114.008862, full text read at PMC11060431): "reserved for instances where the properties of one ligand **(small molecule or protein)** are altered upon binding of a second ligand at a nonoverlapping, topographically distinct site and where, **ideally**, reciprocity in this interaction can be demonstrated". The parenthetical is what makes this sentence protein-general, and it is the sentence clause (ii) rests on. Reciprocity is IUPHAR's ideal case, **not** its threshold. Table 1 of the same article defines the _site_ — "A binding site on a **receptor macromolecule** that is nonoverlapping and spatially distinct from, but **conformationally linked to**, the orthosteric binding site" — but its caption reads "Terms used to describe **receptor** allosterism", and no target in this repo is a receptor in that sense. So Table 1 is quoted for the "conformationally linked" qualifier only, and the threshold comes from §III. ASD v1 sets the evidence bar at "at least three cases of experimental evidence". A crystal structure alone is on nobody's list |
-| (iii)      | **Borrowed, and narrowed by us twice.** ASD's "apo" is _modulator_-relative; no allostery source states the site-relative reading. The **scoreable-portion** qualifier is ours: it is the only reading under which a benchmark that deliberately keeps proximal labels (ADR 0007) can have a site-apo clause at all                                                                                                                                                                                               |
-| (iv)       | ESSA — "at least 90% sequence identity". The allostery field's only published apo↔holo pairing threshold. Cryptic-site benchmarks are stricter and disagree with each other: PocketMiner 100 %, Clark 95 %, CryptoBench a UniProt group                                                                                                                                                                                                                                                                           |
-| (v)        | Amor et al. exclude on "a mismatch between the oligomeric state of the active and inactive structures". AlloBench downloads "the **biological assembly** structures" (doi:10.1021/acsomega.5c01263), so both halves are the field's, not ours                                                                                                                                                                                                                                                                     |
-| (vii)      | AlloPred — "Active site residues were not counted as being in any pocket … in order to avoid direct perturbation of the site at which the effect was measured". Note what that source is a rule about: **pocket membership inside AlloPred's own procedure**, not a biological requirement on the modulator. Read as biology it would disqualify KRAS by construction, because Ostrem 2013's evidence for the S-IIP being allosteric _is_ that it subverts nucleotide preference at the site we use as the source |
+| (iii)      | **Borrowed, then RELAXED by us — corrected 2026-08-24, this row said "narrowed" and that reads backwards.** ASD's "apo" is _modulator_-relative; no allostery source states the site-relative reading. The **scoreable-portion** qualifier is ours, and it narrows the *region checked*, which **lowers** the admission bar. Two published site-apo rules reject on contact to **any** label residue: PocketMiner removes apo candidates "with ligands ... within 5 Å of all MOAD-assigned biologically relevant residues", and Clark 2020 removes "any structures containing HET material apart from water (HOH) within 4.5 Å of any unified binding site residue". GDP·Mg contacts **5 of the 21** KRAS labels, so **both KRAS arms would fail both published tests and pass ours**. The reasoning behind the relaxation stands — an adjoining catalytic cofactor is not a modulator in the pocket — but it is a weakening, and these are the arms that depend on it                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| (iv)       | ESSA — "at least 90% sequence identity". The allostery field's only published apo↔holo pairing threshold. Cryptic-site benchmarks are stricter and disagree with each other: PocketMiner 100 %, Clark 95 %, CryptoBench a UniProt group                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| (v)        | Amor et al. exclude on "a mismatch between the oligomeric state of the active and inactive structures". AlloBench downloads "the **biological assembly** structures" (doi:10.1021/acsomega.5c01263), so both halves are the field's, not ours                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| (vii)      | AlloPred — "Active site residues were not counted as being in any pocket … in order to avoid direct perturbation of the site at which the effect was measured". Note what that source is a rule about: **pocket membership inside AlloPred's own procedure**, not a biological requirement on the modulator. Read as biology it would disqualify KRAS by construction, because Ostrem 2013's evidence for the S-IIP being allosteric _is_ that it subverts nucleotide preference at the site we use as the source                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 
 ### No minimum distance, and that is not an oversight
 
@@ -179,8 +181,9 @@ sources. We report what `6C1H` is and do not speculate.
 
 Two precision notes, because both are easy to overstate. RCSB classifies `5TBY` as
 `structure_determination_methodology: experimental`, so do not call it "not an experimental
-structure". Say instead what is measurable: 20 Å, no `refine` block, `em_software` listing
-only "UCSF Chimera / MODEL FITTING", and 41 `covale` records at physically impossible
+structure". Say instead what is measurable: 20 Å, no `refine` block, the **only MODEL FITTING
+software named in `em_software` being "UCSF Chimera"**, and 41 `covale` records at physically
+impossible
 distances such as 1.083 Å. And the KRAS genotype mismatch touches one residue of 21 labels;
 it is a recorded caveat, not a disqualification.
 
@@ -192,7 +195,8 @@ An audit that only reads the ligand list misses the ways a pair fails quietly.
 | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | **Ligand fit to density**          | `6OIM` MOV **RSCC 0.908**, `5MO4` AY7 **0.946** — both strong. Cryo-EM entries carry no deposited ligand-fit score at all, so `9GZ2` rests on an unscored placement.                                                                                                           |
 | **Crystal packing at the pocket**  | Not enriched anywhere (`4OBE` 48 % of labels vs 40 % background, OR 1.37, **p = 0.33**), so no crypticity verdict is a lattice artefact. `4OBE`'s switch-II is lattice-engaged where `4LDJ`'s is not, yet `4LDJ` — the less packed structure — clashes **more** on transplant. |
-| **Sequence identity, apo↔holo**    | 97.6–100 % on every arm, pinned as `sequence_agreement.identity`.                                                                                                                                                                                                              |
+| **Sequence identity, apo↔holo**    | 97.6–100 % on every arm, pinned as `sequence_agreement.identity`. Clause (iv)'s >= 90 % is a floor, not the operative number: every arm clears PocketMiner's and Clark's stricter published bars in fact. |
+| **Resolution difference**          | Reported in section 4a. Four of five scoreable primary arms exceed the 0.3 A community guidance, `bcr_abl1_mandated` by 1.25 A. **Added 2026-08-24** — this dimension was not checked before. |
 | **Mutations inside the label set** | Exactly one across all five arms: `kras_g12c_mandated` has **`GLY12->CYS`**. `kras_g12c_corrected` is clean, which is the sharpest single argument for `4LDJ`.                                                                                                                 |
 | **Alternate conformations**        | Present in `5MO4`. Re-deriving every pocket from the primary conformer alone returns the **identical** label set on every arm, and that is `test_label_sets_do_not_depend_on_a_minor_conformer` under `make verify`, not a promise.                                            |
 | **Chain breaks near the site**     | None abuts a label in any arm. Myosin has gaps at 203–213 and 625–643; both are far from the site.                                                                                                                                                                             |
@@ -276,18 +280,63 @@ Pocket-lining RMSD tells the same story: KRAS 2.61/2.62 Å, ABL1 0.50 Å mandate
 corrected, myosin 1.10 Å. CryptoBench's cryptic-site entry criterion is 2 Å, quoted here as a
 yardstick and not as a pass mark.
 
-**Axis 2 — proximity to the active site.** Minimum Cα distance from each scoreable label to
-the nearest source residue.
+### 4a. What the difference numbers are measured against
 
-| Arm                        |    min | median |    max | Reading                                         |
-| -------------------------- | -----: | -----: | -----: | ----------------------------------------------- |
-| `kras_g12c_corrected`      |  0.0 Å |  9.2 Å | 18.2 Å | proximal; the S-IIP borders the nucleotide site |
-| `bcr_abl1_corrected`       | 10.8 Å | 17.5 Å | 30.1 Å | genuinely distal                                |
-| `cardiac_myosin_corrected` | 16.5 Å | 27.6 Å | 35.6 Å | the most distal site in the set                 |
+**Added 2026-08-24. Every number in this section is a difference between two crystals, and a
+resolution difference confounds all of them.** The field's most recent community-standards
+paper says so directly: "Some general guidelines include using datasets with resolutions
+within **0.3 Å**, identical space groups, and unit cell dimensions that differ by no more than
+10 %" — Wankowicz & Fraser, _Ten rules for a structural bioinformatic analysis_, _PLoS Comput
+Biol_ 2025, doi:10.1371/journal.pcbi.1013094, Recommendation 8. Wankowicz 2022
+(doi:10.7554/eLife.74114) is stricter still at 0.1 Å. Neither is an allostery source, and
+neither is an admission clause here. Both describe exactly the comparison Axis 1 and the
+pocket-lining RMSD make.
 
-A distance-only baseline is strong on this task and must be reported beside every method.
-On KRAS it is close to unbeatable by construction, and that is a property of the target, not
-of any method that scores well on it.
+Read from the frozen bytes, not from RCSB prose:
+
+| Arm                        | apo, method, Å     | holo, method, Å    |     Δres | Space groups                      |
+| -------------------------- | ------------------ | ------------------ | -------: | --------------------------------- |
+| `kras_g12c_mandated`       | `4OBE` X-ray 1.24  | `6OIM` X-ray 1.65  | **0.41** | `C 1 2 1` → `P 21 21 21` — differ |
+| `kras_g12c_corrected`      | `4LDJ` X-ray 1.15  | `6OIM` X-ray 1.65  | **0.50** | `P 21 21 21` both                 |
+| `bcr_abl1_mandated`        | `1OPL` X-ray 3.42  | `5MO4` X-ray 2.17  | **1.25** | `C 2 2 21` both                   |
+| `bcr_abl1_corrected`       | `2G2H` X-ray 2.00  | `5MO4` X-ray 2.17  |     0.17 | `P 21 21 2` → `C 2 2 21` — differ |
+| `cardiac_myosin_corrected` | `9GZ3` cryo-EM 3.4 | `9GZ2` cryo-EM 2.9 | **0.50** | n/a — single-particle             |
+
+**Four of the five exceed 0.3 Å, and three of the five sit in different space groups.** In the
+secondary set, `smyd3` (0.42 Å), `glucokinase` (0.64 Å) and `ecoli_cps` (0.30 Å, exactly at the
+limit) exceed or reach it; the other six are 0.06–0.25 Å and share a space group in five of six.
+
+**This is a disclosure, not a repair, and no arm is removed for it.** Requiring 0.3 Å would
+delete the KRAS arms, which the challenge mandates, and would delete both ABL1 arms with them.
+The consequence is bounded and specific: read Axis 1's clash counts and the pocket-lining RMSDs
+as **upper bounds on the conformational difference**, because part of each is a difference in
+how well the two maps resolve side chains. `bcr_abl1_mandated` at 1.25 Å is the arm where that
+caveat bites hardest, and it is already the arm that fails clause (iii).
+
+**Axis 2 — proximity to the active site.** Minimum Cα distance to the nearest source residue.
+The frozen `distance_to_active_site` is computed over the **full** label set, so it is quoted
+here over the full set. The **scoreable** set is what a method is scored against, and on KRAS
+the two differ, because clause (vii) removes the label that sits inside the source.
+
+| Arm                        | full: min / median / max | scoreable: min / median / max | Reading                                         |
+| -------------------------- | -----------------------: | ----------------------------: | ----------------------------------------------- |
+| `kras_g12c_corrected`      |       0.0 / 9.2 / 18.2 Å |       **3.8** / 10.7 / 18.2 Å | proximal; the S-IIP borders the nucleotide site |
+| `bcr_abl1_corrected`       |     10.8 / 17.5 / 30.1 Å |          10.8 / 17.5 / 30.1 Å | genuinely distal                                |
+| `cardiac_myosin_corrected` |     16.5 / 27.6 / 35.6 Å |          16.5 / 27.6 / 35.6 Å | the most distal site in the set                 |
+
+The two columns differ on the KRAS arms and nowhere else in this set. `kras_g12c_mandated`
+reads 0.0 / 9.5 / 18.3 Å full and 3.8 / 10.6 / 18.3 Å scoreable. This caption said "scoreable"
+against the full-set numbers until 2026-08-24, which overstated the KRAS case: the nearest
+**scored** label is 3.8 Å from the source, not 0.0 Å.
+
+A distance-only baseline must be reported beside every method. **It is weaker than this
+section claimed until 2026-08-24.** Measured on the frozen 4.5 A contact graph, scoring each
+candidate by minus its distance to the source gives AUC-ROC **0.589** on `kras_g12c_mandated`
+(1 hit in the top 5, 2 of 16 in the top 16), **0.215** on `bcr_abl1_corrected` and **0.335** on
+`cardiac_myosin_corrected` — below chance on three of five arms. An *oracle* distance band,
+fitted to the answer, reaches only 0.664 on KRAS. "Close to unbeatable by construction" was an
+inference from the proximity table and is contradicted by the measurement. The honest statement
+is narrower: KRAS is the arm where proximity helps most, and it still does not carry the arm.
 
 **Prior art, recorded now so it counts as prior art.** No arm in this benchmark is blind, and
 the `blind:` field in `manifest.yaml` says so per arm with its reason. The sharpest case: the
@@ -300,11 +349,12 @@ therefore not zero on any target.
 ## 5. Provenance of every structure used
 
 `manifest.yaml:structure_provenance` pins the exact wwPDB version label, versioned URL and
-decompressed SHA-256 for all eight entries that contribute to `frozen.json`. The archive test
-downloads every URL and rechecks byte identity. The tracked corpus under `structures/apo/`
-and `structures/holo/` retains those eight plus the two excluded mandated-pair structures, as
-an offline fallback (ADR 0014). Prediction code receives bytes only through target-bound
-`allo.inputs.apo_input`.
+decompressed SHA-256 for all eight entries that contribute to this set's `frozen.json`, and the
+secondary manifest does the same for its eighteen. The archive test downloads all twenty-six
+URLs and rechecks byte identity. The tracked corpus under `structures/apo/` and
+`structures/holo/` retains those twenty-six plus the two excluded mandated-pair structures —
+28 files, 7.83 MiB — as an offline fallback (ADR 0014). Prediction code receives bytes only
+through target-bound `allo.inputs.apo_input`.
 
 | PDB            | What it is                                                    | Primary citation as deposited                              |
 | -------------- | ------------------------------------------------------------- | ---------------------------------------------------------- |

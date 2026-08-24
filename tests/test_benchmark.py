@@ -297,20 +297,32 @@ def test_prediction_side_has_no_free_form_accession_resolver(tmp_path):
 
 
 @pytest.mark.network
-def test_versioned_archive_reproduces_every_pinned_structure(manifest):
-    """ADR 0014 option 1: every decompressed versioned artifact matches its frozen hash."""
+def test_versioned_archive_reproduces_every_pinned_structure():
+    """ADR 0014 option 1: every decompressed versioned artifact matches its frozen hash.
+
+    Walks BOTH manifests. It covered the primary set's 8 entries only until 2026-08-24, while
+    `docs/benchmark/README.md` claimed the archive test downloads every URL. The secondary
+    set's 18 pinned URLs were therefore never fetched, so its offline fallback and its
+    versioned provenance had no common check.
+    """
     import gzip
     import hashlib
     import urllib.request
 
-    provenance = manifest["structure_provenance"]
-    assert len(provenance) == 8
-    for pdb, record in sorted(provenance.items()):
-        assert record["version"] in record["url"]
-        request = urllib.request.Request(record["url"], headers={"User-Agent": "allo/0.1"})
-        with urllib.request.urlopen(request, timeout=120) as response:  # noqa: S310
-            restored = gzip.decompress(response.read())
-        assert hashlib.sha256(restored).hexdigest() == record["sha256"], pdb
+    from allo.groundtruth.manifest import read_manifest
+    from allo.inputs import MANIFEST, SECONDARY_MANIFEST
+
+    checked = 0
+    for path in (MANIFEST, SECONDARY_MANIFEST):
+        provenance = read_manifest(path)["structure_provenance"]
+        for pdb, record in sorted(provenance.items()):
+            checked += 1
+            assert record["version"] in record["url"]
+            request = urllib.request.Request(record["url"], headers={"User-Agent": "allo/0.1"})
+            with urllib.request.urlopen(request, timeout=120) as response:  # noqa: S310
+                restored = gzip.decompress(response.read())
+            assert hashlib.sha256(restored).hexdigest() == record["sha256"], pdb
+    assert checked == 26, f"expected 26 pinned structures across both sets, fetched {checked}"
 
 
 def test_the_scoring_universe_excludes_what_scores_by_construction():

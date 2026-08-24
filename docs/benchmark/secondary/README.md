@@ -22,13 +22,21 @@ Verify it with `uv run allo benchmark verify --set secondary`, or `--set all` fo
 
 ## 1. Why this set exists, in one number
 
-Three targets cannot make a cross-target claim. A distribution-free one-sample test over
-N targets has a minimum attainable one-sided p of 2⁻ᴺ. At N = 3 that is 0.125. The primary
-benchmark's claim-bearing arms are not merely underpowered for a statement about the
-method in general — they are **unable to make one** at α = 0.05, whatever the result.
+Three targets cannot make a **generalisation** claim. A sign test over N target-level effects
+has a minimum attainable one-sided p of 2⁻ᴺ, because its null distribution has 2ᴺ atoms. At
+N = 3 that is 0.125, so the primary benchmark's claim-bearing arms are not merely underpowered
+for a statement about the method in general — they are **unable to make one** at α = 0.05,
+whatever the result. N ≥ 5 is the floor. This set delivers 9 targets, split 4 and 5.
 
-That is a property of N, not of the data, so no analysis rescues it. N ≥ 5 is the floor.
-This set delivers 9 targets, split 4 and 5.
+**Narrowed 2026-08-24.** This section used to add "no analysis rescues it", and that sentence
+was too strong. The 2⁻ᴺ floor binds tests **invariant to sign flips of the N effects**. Two
+constructions escape it, and each licenses something different: a binomial count against
+π₀ = α rather than ½ (three arms can then reject, but only license "the population success rate
+exceeds 5 %"), and Fisher or Stouffer combination of the per-arm permutation p-values, which is
+unbounded below but tests the **intersection null** and so licenses "at least one arm has
+signal" — not generalisation. Full statement and power tables: `../evaluation-protocol.md` §7.
+The reason this set exists is unchanged; the primary set simply has a claim available to it
+that the old wording denied.
 
 ---
 
@@ -110,12 +118,12 @@ selection only exists where there is a pool. That is ADR 0009's reasoning, appli
 Each clause has a test in `tests/test_secondary.py`. Which artifact each one reads, and
 which gate runs it, differ — and an audit found that difference hidden, so it is stated here:
 
-| Clause | Read against       | Gate                        |
-| ------ | ------------------ | --------------------------- |
+| Clause | Read against                            | Gate                                 |
+| ------ | --------------------------------------- | ------------------------------------ |
 | (ix)   | the **biological assembly**, downloaded | `make verify` — **not** `make check` |
-| (x)    | `frozen.json`      | `make check`                |
-| (xi)   | `selection.json`   | `make check`                |
-| (xii)  | `manifest.yaml`    | `make check`                |
+| (x)    | `frozen.json`                           | `make check`                         |
+| (xi)   | `selection.json`                        | `make check`                         |
+| (xii)  | `manifest.yaml`                         | `make check`                         |
 
 Clause (ix) is the one that cannot run offline, and that is not a shortcut. The measurement
 needs coordinates the deposited asymmetric unit does not carry. An earlier offline test read
@@ -153,15 +161,15 @@ Nine targets. All numbers below are from `frozen.json`, re-derived from the depo
 
 | Target        | Tier             |    N | Scoreable | Candidates | Prev. | Apo → holo          | Effector | Source rule      |
 | ------------- | ---------------- | ---: | --------: | ---------: | ----: | ------------------- | -------- | ---------------- |
-| `mkp5`        | `development`    |  147 |     11 |        136 | 8.1 % | `1ZZW:A` → `7UMV:A` | `NUU`    | `PTP`            |
-| `chk1`        | `generalisation` |  272 |     12 |        261 | 4.6 % | `1IA8:A` → `3JVR:A` | `AGX`    | `VAIK, HRD, DFG` |
-| `ptp1b`       | `development`    |  298 |     11 |        287 | 3.8 % | `1SUG:A` → `1T48:A` | `BB3`    | `PTP`            |
-| `smyd3`       | `generalisation` |  425 |     12 |        408 | 2.9 % | `6P7Z:A` → `7BJ1:A` | `QKT`    | `SAM`            |
-| `glucokinase` | `generalisation` |  453 |     19 |        438 | 4.3 % | `3IDH:A` → `3F9M:A` | `MRK`    | `GLC`            |
-| `hiv_rt`      | `development`    |  543 |     16 |        534 | 3.0 % | `1RTJ:A` → `1VRT:A` | `NVP`    | `POLA, YXDD`     |
-| `ns5b`        | `development`    |  553 |     16 |        550 | 2.9 % | `1QUV:A` → `2BRK:A` | `CMF`    | `GDD`            |
-| `p97_vcp`     | `generalisation` |  723 |     17 |        688 | 2.5 % | `5FTK:A` → `5FTJ:A` | `OJA`    | `ADP`            |
-| `ecoli_cps`   | `generalisation` | 1058 |     19 |        997 | 1.9 % | `1A9X:A` → `1T36:A` | `U5P`    | `ADP, MN, PO4`   |
+| `mkp5`        | `development`    |  147 |        11 |        136 | 8.1 % | `1ZZW:A` → `7UMV:A` | `NUU`    | `PTP`            |
+| `chk1`        | `generalisation` |  272 |        12 |        261 | 4.6 % | `1IA8:A` → `3JVR:A` | `AGX`    | `VAIK, HRD, DFG` |
+| `ptp1b`       | `development`    |  298 |        11 |        287 | 3.8 % | `1SUG:A` → `1T48:A` | `BB3`    | `PTP`            |
+| `smyd3`       | `generalisation` |  425 |        12 |        408 | 2.9 % | `6P7Z:A` → `7BJ1:A` | `QKT`    | `SAM`            |
+| `glucokinase` | `generalisation` |  453 |        19 |        438 | 4.3 % | `3IDH:A` → `3F9M:A` | `MRK`    | `GLC`            |
+| `hiv_rt`      | `development`    |  543 |        16 |        534 | 3.0 % | `1RTJ:A` → `1VRT:A` | `NVP`    | `POLA, YXDD`     |
+| `ns5b`        | `development`    |  553 |        16 |        550 | 2.9 % | `1QUV:A` → `2BRK:A` | `CMF`    | `GDD`            |
+| `p97_vcp`     | `generalisation` |  723 |        17 |        688 | 2.5 % | `5FTK:A` → `5FTJ:A` | `OJA`    | `ADP`            |
+| `ecoli_cps`   | `generalisation` | 1058 |        19 |        997 | 1.9 % | `1A9X:A` → `1T36:A` | `U5P`    | `ADP, MN, PO4`   |
 
 The `Scoreable` column is the label set after clause (vii), which is what a method is
 scored against. 133 scoreable labels across 4299 candidate residues. Only `mkp5` loses a
@@ -186,19 +194,32 @@ thing repeatedly.
 - **Biology:** two phosphatases of different families, a kinase, a methyltransferase, a
   hexokinase, two viral polymerases, an AAA+ ATPase and a ligase. Four organisms.
 
-### 5.2 One axis on which this set is easier than the primary set
+### 5.2 Three axes on which this set is easier than the primary set
 
-Found by an adversarial audit, and recorded here rather than left for a reviewer.
+Found by adversarial audits, and recorded here rather than left for a reviewer. **A cross-set
+comparison in Phase 5 is not like-for-like on any of the three, and the report must say so
+before it quotes one.**
 
-Clause (vii) removes a label that is itself an active-site residue, because a residue that
-scores maximally by construction measures nothing. That clause costs this set almost
-nothing: **8 of 9 arms have no overlap at all**, and `mkp5` loses exactly one label. Both
-primary KRAS arms lose **5 of 21**.
+**Axis A — clause (vii) overlap.** Clause (vii) removes a label that is itself an active-site
+residue, because a residue that scores maximally by construction measures nothing. That clause
+costs this set almost nothing: **8 of 9 arms have no overlap at all**, and `mkp5` loses exactly
+one label. Both primary KRAS arms lose **5 of 21**.
 
 That is not the result of a filter — the ledger's single clause-(vii) rejection, `p38a`,
 was rejected for labels that did not map into the node set, not for active-site overlap.
-But it means a cross-set comparison in Phase 5 is not comparing like with like on this
-axis, and the report must say so before it quotes one.
+
+**Axis B — structure quality.** Clause (xi) is a selection rule, so it never applied to the
+primary set. Applied to it anyway, **`1OPL` is the only structure in either set that fails**:
+X-ray at 3.42 Å against the 2.5 Å ceiling, with 22.18 % RSRZ outliers, the 0.4th absolute
+percentile of the PDB. All 18 secondary structures pass. `1QUV` passes at exactly 2.50 Å.
+So the tuning and generalisation tiers are built from better-resolved coordinates than one
+claim-bearing primary arm, and a contact network is a function of coordinate quality.
+
+**Axis C — resolution matching.** Neither set applies the 0.3 Å community guidance
+(`../README.md` §4a), but they fail it at different rates: **4 of 5** primary arms exceed it,
+against **3 of 9** here, and the primary worst case is 1.25 Å against 0.64 Å. Every transplant
+clash count and pocket-lining RMSD is a two-crystal difference, so the primary set's difficulty
+axes carry more resolution confound than this set's.
 
 **A gap this set does not fill.** Every admitted effector is a synthetic compound. The one
 candidate with a **physiological** effector, AMP on glycogen phosphorylase, was rejected by
@@ -212,11 +233,22 @@ the phenomenon the method claims to predict.
 
 Stated plainly, because a set this size is easy to over-claim.
 
-- **`generalisation` supports a hypothesis test.** N = 5 gives a minimum attainable
-  one-sided p of 2⁻⁵ = 0.031, so a clean sweep rejects at α = 0.05 and nothing weaker does.
-  There is no margin: one failure in five leaves p = 0.19.
-- **It supports a per-target success rate near 0.9, not near 0.8.** Distinguishing 0.8 from
-  chance at this N is not possible.
+- **`generalisation` supports a hypothesis test, and exactly one.** N = 5 gives a minimum
+  attainable one-sided p of 2⁻⁵ = 0.031, so a clean sweep rejects at α = 0.05 and nothing
+  weaker does. There is no margin: one failure in five leaves p = 0.19. **And 0.031 > α/2 =
+  0.025**, so any correction to k ≥ 2 makes this test unable to reject at any effect size.
+  The project therefore has one confirmatory decision at full α and it is this one; the primary
+  arms are supportive (`../evaluation-protocol.md` §7).
+- **The detectable success rate is 0.956, not "near 0.9" — corrected 2026-08-24.** This bullet
+  read "near 0.9, not near 0.8". Measured: at 80 % power and one-sided α = 0.05 the smallest
+  detectable per-target success rate is **0.956**. Power against π = 0.9 is only **0.590**, and
+  a clean 5/5 estimates π ≥ 0.549 at 95 % one-sided confidence. The tier can detect a method
+  that almost never fails. It cannot distinguish 0.9 from 0.55.
+- **Using all nine arms with leave-one-target-out nested tuning would be better, and it is not
+  what this freeze does.** That design raises power against π = 0.9 from 0.590 to 0.775 and
+  tolerates one failure. It is recorded as the alternative that was not taken, because
+  re-splitting a frozen set after seeing this analysis is the thing the seeded rule exists to
+  prevent (§7.12).
 - **The scalability slope is the weaker claim of the two.** 0.86 dex of span across 9 points
   gives a slope with wide confidence limits. Report the interval, never the point estimate.
 - **`development` cannot test anything, and is not meant to.** N = 4 has a minimum
@@ -227,8 +259,10 @@ Stated plainly, because a set this size is easy to over-claim.
   same `PTP` motif rule — and two viral polymerases. Two biological classes, against five in
   `generalisation`. A hyperparameter chosen on four arms spanning two classes will transfer
   worse than the N alone suggests, and that is a property of this particular seed, not of the
-  method. It is disclosed rather than reseeded, because reseeding until the split looks good
-  is the thing the seeded rule exists to prevent.
+  method. **Quantified 2026-08-24: seed 0 is the single worst of the 16 attainable splits for
+  biological-class diversity in `development`** — a 1-in-16 draw. It is disclosed rather than
+  reseeded, because reseeding until the split looks good is the thing the seeded rule exists to
+  prevent.
 - **No arm is blind.** Every admitted site is curated or published as allosteric.
   `blind.value` is `false` on all nine and the reason is recorded per arm. A comparator
   trained on ASD, ASBench or CASBench and evaluated here **is not blind** and must be
@@ -240,13 +274,67 @@ Stated plainly, because a set this size is easy to over-claim.
 
 Recorded rather than absorbed. Each is a thing a reviewer would find.
 
-1. **The set is smaller than the power analysis asked for.** 12 development and 16
-   generalisation targets were the design target. 4 and 5 were achieved. The binding
-   constraint is not effort but supply: clause (ix) plus a matched apo plus a derivable
-   active site plus real functional evidence intersect to a small pool. 97 candidates were
-   considered, 73 of them screened to a deciding clause, and 9 admitted. The remaining 24
-   are recorded `pending` in `selection.json`: proposed by a sweep and never screened,
-   because the set was already large enough to freeze.
+1. **The set is smaller than the power analysis asked for, and the reason is now measured
+   rather than asserted.** 12 development and 16 generalisation targets were the design
+   target. 4 and 5 were achieved. 97 candidates were considered, 73 screened to a deciding
+   clause, and 9 admitted.
+
+   The 24 rows recorded `pending` in `selection.json` **were screened on 2026-08-24** and are
+   no longer an unknown. A wider sweep ran beside them: 1061 RCSB full-text entries over 12
+   phrases, plus a 1049-accession merge of AlloBench, CASBench, GtoPdb, AHoJ-DB and UniProt
+   activity-regulation text. About 55 candidates reached a geometric measurement. The screening
+   record, with manifest-row fields for every survivor, is `evidence/extension-candidates.md`.
+   It corrects this limitation in two places.
+
+   | Clause                       | Denominator                             | Killed | Rate     |
+   | ---------------------------- | --------------------------------------- | -----: | -------- |
+   | **(ix)** single-chain lining | 32 physiological-effector holo entries  |     23 | **72 %** |
+   | (ix)                         | all 44 holo entries measured            |     28 | 64 %     |
+   | **(ii)** functional evidence | 7 that survived every structural clause |      2 | **29 %** |
+   | (x)/(iii) apo occupant       | 10 that survived (ix)                   |      4 | 40 %     |
+   | (xii) within-set redundancy  | 380 accessions, unrestricted RCSB frame |     47 | 12 %     |
+   | (xii)                        | 865 accessions, merged 6-route harvest  |    119 | 14 %     |
+   | (xii)                        | the 24 pending rows                     |     11 | 46 %     |
+   | (xi) resolution              | 13 pending holo entries                 |  **0** | 0 %      |
+   | (iv) identity                | 14 pairs measured, 98.1-100 %           |  **0** | 0 %      |
+
+   - **Clause (ix) is the binding constraint, and this document understated it.** §4 calls it
+     "the largest single cause of rejection after an underivable active site" at 11 of 97.
+     Measured prospectively on candidates chosen _for_ the gap §5.2 admits to, the rate is
+     **72 %**, and end-to-end survival is 3 of 32. Clause (ix) and that gap are the same fact:
+     metabolite feedback and cooperativity are quaternary phenomena, so the class the set is
+     missing is exactly the class the clause excludes. **Gap (a) cannot be filled at scale
+     without amending clause (ix) or ADR 0010's one-chain node set.**
+   - **Clause (ii) is the second most expensive, and it bills at the end.** It killed 2 of the
+     7 candidates that had already passed every structural clause. Both looked admissible until
+     someone read the paper. §3 predicts this cost. It is now measured at 29 %.
+   - **Clause (xii) is not the binding constraint**, though the pending list makes it look that
+     way — that list is ten protein kinases deep and the set had already spent its two kinase
+     families. It costs 12-14 % on two independent frames. The fix is to stop proposing
+     kinases, not to relax the clause.
+   - **Clauses (xi) and (iv) cost nothing** and must be dropped from the story about why N is
+     small. Resolution killed one candidate in the whole sweep. Identity killed none.
+   - **A fifth cost has no ledger category**: the effector turns out not to occupy a
+     topographically distinct site. Rat MVK, _Pyrococcus_ UMP kinase and legumain all failed
+     this way, and no database row shows it. **The ledger must record it as its own clause.**
+
+   **Five further arms are reachable and none was added.** `pkm2`, `fbpase` and `gdh` carry
+   **physiological** effectors — FBP, AMP and GTP — which is the gap §5.2 names, closed three
+   times over. `fbpase`/AMP is the same chemistry as the glycogen-phosphorylase arm the set
+   lost. All five take N from 9 to 14 and the `generalisation` tier from 5 to about 7 or 8. The
+   minimum attainable one-sided p moves from 2⁻⁵ = 0.031 to 2⁻⁷ = 0.0078 or 2⁻⁸ = 0.0039. At
+   N = 5 one failure leaves p = 0.19 and the tier is dead. At N = 8 one failure leaves
+   p = 0.035 and the tier still rejects. That is real margin. It was not taken for three stated
+   reasons: it re-runs the seeded split and so changes every existing tier assignment, which is
+   a re-freeze rather than a repair (§7.10's own argument); `gdh` needs one more literature pass
+   on clause (ii); and three of the five apo entries have no primary citation.
+
+   **The design target of 28 is not reachable from this frame.** Two independent exhaustive
+   frames produced 5 further admissible targets between them. That is the supply. The size
+   ladder is **not** repairable either. No new admissible target is below 272 residues, and the
+   mechanism is now measured rather than inferred: small catalytic domains are overwhelmingly
+   obligate oligomers, so they fail clause (ix) before size is ever the question. §7.2 stands,
+   with that as its cause.
 
 2. **The size ladder is thin at the bottom, and one arm carries it.** Eleven candidates
    with a recorded size below 272 residues reached a deciding clause. One survived: `mkp5`,
@@ -304,9 +392,12 @@ Recorded rather than absorbed. Each is a thing a reviewer would find.
    `generalisation` arm read as the hardest in the set when it is the easiest on both axes.
 
    A separate trap in the same field. The **derived** `orthosteric_state.matches_apo` and the
-   **hand-declared** `state.matched` disagree on five of nine arms. The derived field compares
-   component lists; the declared field is a curator's judgement about conformation. Neither is
-   redundant and neither overrides the other. Quote which one you mean.
+   **hand-declared** `state.matched` disagree on **four** of nine arms — `mkp5`, `chk1`,
+   `ptp1b` and `ns5b`. The derived field compares component lists; the declared field is a
+   curator's judgement about conformation. Neither is redundant and neither overrides the
+   other. Quote which one you mean. (This count read "five" until 2026-08-24. The fifth was
+   `glucokinase`, repaired to `matched: true` two paragraphs above, and the count was not
+   updated with the repair.)
 
 8. **The frame is a depositor's own word.** An RCSB full-text hit on "allosteric" is a
    claim, not curation. It is a recall device only. The risk it carries is missed targets,
@@ -336,7 +427,17 @@ Recorded rather than absorbed. Each is a thing a reviewer would find.
     changes N and reruns the seeded tier split — that is a re-freeze, and a re-freeze is a
     decision, not a repair.
 
-11. **The ledger is itself an answer key, and is guarded as one.** For every admitted arm it
+11. **The split is a large source of variance at this N, and the seed drew badly.** Added
+    2026-08-24. Seed 0 is the worst of the 16 attainable splits for class diversity in
+    `development` (§6). On the other side, at N = 5 a single hard target moves P(reject) between
+    **0.774 and 0.000**, so the generalisation verdict is one target away from flipping. The
+    better design — all nine arms with leave-one-target-out nested tuning — raises power against
+    π = 0.9 from 0.590 to 0.775 and tolerates one failure. It was not taken, because changing
+    the split after measuring its cost is exactly the move a seeded rule exists to forbid. The
+    consequence is priced here instead: report the per-target outcomes, never only the combined
+    verdict.
+
+12. **The ledger is itself an answer key, and is guarded as one.** For every admitted arm it
     carries `holo`, `holo_chain` and `effector` as structured fields, and its prose names
     real label residues. `tests/test_no_leakage.py` names it in `PROTECTED_PATHS` and in
     `FROZEN_TOKENS`, so no prediction-path module and no experiment runner can open it.

@@ -459,8 +459,9 @@ later agent knows exactly what would close it.
     GDP-bound, measured rather than recalled. Under the global-apo reading of
     10.7554/eLife.74114 this benchmark would have no apo members at all, which is the
     strongest practical argument for the site-relative reading. Under site-apo, exactly one
-    entry fails: `1OPL` myristate sits 3.29 A from, and contacts, **all 16** distal label
-    residues. Full table in `../README.md` section 1. The two 2012 switch-II papers
+    entry fails: `1OPL` myristate sits 3.29 A from, and contacts, **16 of the 20** label
+    residues. (This read "all 16" against the eleven-arm benchmark's distal label set and was
+    corrected on 2026-08-24 to the frozen counts; "distal label set" is itself a retired term.) Full table in `../README.md` section 1. The two 2012 switch-II papers
     (10.1073/pnas.1116510109, 10.1002/anie.201201358) remain `[VERIFIED-ABSTRACT]` and are
     no longer needed for this question.
 

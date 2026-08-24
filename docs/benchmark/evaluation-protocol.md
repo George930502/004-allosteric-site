@@ -28,7 +28,7 @@ connectivity matrix is a deliverable but is not what accuracy is measured on.
 
 **AUC-PR is the tested endpoint. AUC-ROC is reported beside it as the effect size.**
 
-Prevalence on the frozen arms runs 1.6 % to 11.0 %, a 6.9× span within five arms. AUC-ROC is
+Prevalence on the frozen arms runs 1.6 % to 11.0 %, a 6.79× span within five arms. AUC-ROC is
 prevalence-invariant and AUC-PR is not, so at this prevalence they answer different questions
 and reporting only one hides the harder arms. Measured on the eleven-arm benchmark with
 synthetic signal at fixed effect (d = 0.8, seed 0): ROC landed near 0.714 on all three
@@ -46,9 +46,17 @@ Two things move an AUC without any protocol appearing to change, so both must be
 | AUC-PR  | `average_precision_step` — AP = Σᵢ (Rᵢ − Rᵢ₋₁) · Pᵢ | evaluated only at distinct score values |
 | AUC-ROC | rank-based Mann-Whitney                             | midrank                                 |
 
-Trapezoidal interpolation of the PR curve is optimistically biased in PR space
-(Davis & Goadrich 2006, doi:10.1145/1143844.1143874), and this prevalence range is exactly
-where that bias lives. Grouping at distinct thresholds means no within-tie ordering is ever
+**The estimator stands; its stated reason does not, and the reason is corrected here.** This
+paragraph used to justify the step estimator by Davis & Goadrich 2006
+(doi:10.1145/1143844.1143874) on trapezoidal interpolation being optimistically biased in PR
+space. That result is about **sparse operating points** and does not bite on continuous scores.
+Measured against the population AUC-PR on these arms, the step estimator is the _more_
+optimistically biased of the two — +18 % on KRAS to +64 % on myosin, against +10 % / +38 % for
+the trapezoid. Keep `average_precision_step` because it is the scikit-learn convention and
+because it never interpolates between thresholds a method did not produce, and **report the
+bias rather than claiming the estimator removes it**. Both estimators are biased upward at this
+prevalence; only a common estimator across methods makes the comparison fair, which is the
+actual argument. Grouping at distinct thresholds means no within-tie ordering is ever
 used: without it, a method emitting coarse or integer-valued scores gets ranked by tie order
 rather than by score. Midrank ROC ties are what makes `U / (n_pos · n_neg) == AUC-ROC` exact.
 
@@ -131,50 +139,94 @@ configuration go into the evaluation manifest **before** any method is scored.
 A priori sensitivity analysis at the fixed n the input layer already froze. This is not
 observed power: nothing has been measured yet.
 
-| Arm                        | n pos | n neg | MDE AUC, residues independent | MDE AUC, one effective patch |
-| -------------------------- | ----: | ----: | ----------------------------: | ---------------------------: |
-| `kras_g12c_mandated`       |    16 |   130 |                         0.690 |                        0.970 |
-| `kras_g12c_corrected`      |    16 |   132 |                         0.690 |                        0.970 |
-| `bcr_abl1_mandated`        |    20 |   420 |                         0.664 |                        0.959 |
-| `bcr_abl1_corrected`       |    18 |   243 |                         0.675 |                        0.963 |
-| `cardiac_myosin_corrected` |    12 |   731 |                         0.709 |                        0.958 |
+**Rewritten 2026-08-24 after the open item below was measured.** This section held two
+columns, 0.66–0.71 and 0.96–0.97, and told the reader to measure the number between them
+before quoting either. That number has now been measured and both columns are withdrawn.
+
+| Arm                        | n pos | n neg | n_eff | **MDE AUC at n_eff** | withdrawn: Noether | withdrawn: one patch |
+| -------------------------- | ----: | ----: | ----: | -------------------: | -----------------: | -------------------: |
+| `kras_g12c_mandated`       |    16 |   130 |  4.88 |            **0.831** |              0.690 |                0.970 |
+| `kras_g12c_corrected`      |    16 |   132 |  4.92 |            **0.830** |              0.690 |                0.970 |
+| `bcr_abl1_mandated`        |    20 |   420 |  5.04 |            **0.822** |              0.664 |                0.959 |
+| `bcr_abl1_corrected`       |    18 |   243 |  5.18 |            **0.819** |              0.675 |                0.963 |
+| `cardiac_myosin_corrected` |    12 |   731 |  4.63 |            **0.835** |              0.709 |                0.958 |
 
 80 % power, one-sided α = 0.05. One-sided is justified by design and not by convenience: §4
 declares the decision rule upper-tail, and a method ranking allosteric residues _below_
 background is a broken method rather than a competing finding.
 
-**The two columns are the whole problem.** The left one uses Noether's rank-sum formula and
-counts a spatially contiguous label patch as 12 to 20 independent observations, which it is
-not. It is an **upper bound on the evidence available**. The right one is the exact
-single-observation case: under H0 one positive's rank is uniform on 1..n+1, so the number of
-negatives scoring above it is Binomial(n, 1 − theta). It is the **floor**.
+The nine secondary arms measure n_eff 3.68–5.14 and MDE AUC **0.819–0.877**, so the answer is
+the same across both sets: **this benchmark detects a strong ranking, AUC ≈ 0.85. Not a
+near-perfect one at 0.96, and not a moderate one at 0.69.**
 
-The truth sits between them, at the number of independent lobes in the label set. On myosin
-the MDE runs 1.218 / 1.008 / 0.915 / 0.860 / 0.794 / 0.709 at 1 / 2 / 3 / 4 / 6 / 12 effective
-observations. **Measure that number before quoting either column.** Note that Noether at one
-observation returns 1.218 — above the range an AUC can take, and independent of n — which is
-the formula evaluated outside its domain, saying nothing about these targets.
+**Why both old columns were wrong.** The left one used Noether's rank-sum formula, which counts
+a spatially contiguous label patch as 12 to 20 independent observations. It was labelled "an
+upper bound on the evidence available", and that reading is not available: under the spatially
+autocorrelated null §4 itself specifies, the unmatched rank-sum test's measured type-I rate is
+**0.16–0.18**, not 0.05. A number from a test that does not hold its size is not a power
+statement. The right column assumed one effective observation, and the repo's own suggested
+way to check that — connected components of the label subgraph — returns 1 for **9 of the 14
+label sets** across both benchmarks, so it cannot discriminate.
 
-Consequence, and state it in the report before the numbers rather than after them: on the
-pessimistic reading this benchmark detects only a near-perfect ranking, and three targets is
-a small family. **A negative result here is weak evidence of absence.**
+**How n_eff was measured, and why it is not a benchmark constant.** Variance inflation of
+AUC-ROC itself: with iid scores `Var(AUC) = (n+ + n- + 1) / (12 n+ n-)`, so simulate the §4
+null field on the frozen 4.5 Å contact graph, measure `Var(AUC)`, and solve for n_eff holding
+n- fixed. The estimator returns the right answer on iid fields (16.29 for n+ = 16). Two
+independent routes agree: graph heat-kernel smoothing of white noise gives n_eff 5.0–9.0 at
+t = 1, and the size-corrected matched-null simulation of §4 lands at MDE AUC 0.79–0.84.
+
+n_eff is **not** "the number of independent lobes in the label set", which is what this section
+used to say. It is a joint property of the label geometry **and the correlation length of the
+method's score field**, and on a fixed KRAS label set it moves 7.02 → 2.61 as λ runs 4 → 20 Å.
+**Open item for the evaluation manifest:** ship the estimator (about 20 lines — Cholesky of
+`exp(-d/λ)`, 4000 draws, one variance) and require every method to report its own λ and its own
+n_eff beside its AUC. A single pinned n_eff would be a fiction.
+
+**§6 and §4 are not the same procedure and must not be quoted for each other.** The table above
+is a marginal rank-sum effect. §4's matched-patch test is a _partial_ effect given size,
+topology, exposure and distance-to-source. Size-corrected to a common empirical 5 % level, the
+matching costs 0.01–0.05 of MDE AUC (KRAS 0.792 → 0.841, ABL1 0.787 → 0.833, myosin
+0.801 → 0.810). That is the price of asking "does propagation add something beyond geometry",
+and it is the right question — but it is a different number from the one in this table.
+
+Consequence, and state it in the report before the numbers rather than after them: three
+targets is a small family, and **a negative result here is weak evidence of absence.**
 
 ## 7. Multiplicity, and what generalises
 
-Three arms carry claims (one corrected arm per disease area). Declare **one** confirmatory
-decision rule across that family, corrected at α/3, and derive the family from the freeze
-rather than counting by hand.
+**Settled 2026-08-24. It is forced, not arguable.** The `generalisation` tier holds N = 5, so
+its minimum attainable one-sided p is 2⁻⁵ = **0.03125**. Any correction to k ≥ 2 puts the
+threshold at α/2 = 0.025 or below, and **0.03125 > 0.025**, so a corrected across-target test
+could not reject at any effect size whatever. The project therefore admits **exactly one
+confirmatory decision at full α**, and it is the across-target test on the `generalisation`
+tier. The three primary arms are declared **supportive**, not confirmatory. ADR 0021 reached
+the same place by a softer argument; this is the arithmetic that removes the choice.
 
 A stratified permutation test across three targets generalises to **three targets**. It does
 not generalise to proteins, to families, or to allostery. Say so in the report.
 
-**Where a generalisation claim can come from instead.** Three arms cannot make one at any α:
-the minimum attainable one-sided p of a distribution-free one-sample test over N targets is
-2^-N, and 2^-3 = 0.125. The secondary set's `generalisation` tier exists for this and holds
-N = 5 (`secondary/README.md`). **Open item for Phase 1.6:** ADR 0021 argues that the
-across-target test there should be declared at k = 1 and full α, because the per-target
-tests are inputs to it rather than N confirmatory decisions. That is a change to the rule
-above and is not settled here.
+**What the primary set CAN claim, and the earlier text denied it one.** This section used to
+say three arms "cannot make [a cross-target claim] at any α" because the minimum attainable
+one-sided p over N targets is 2⁻ᴺ. The bound is right; the conclusion drawn from it was too
+strong, and it is corrected here rather than left standing:
+
+- The 2⁻ᴺ floor applies to a test **invariant to sign flips of N target-level effects** — the
+  sign test — because its null distribution has 2ᴺ atoms. That is a property of that test.
+- Combining the three per-arm matched-patch permutation p-values by **Fisher or Stouffer** is
+  unbounded below: three arms at p = 0.05 each give Fisher 6.3e-3, Stouffer 2.2e-3. Power at
+  N = 3 when each arm is a coin flip at α = 0.05 is 0.82 for Fisher, against **0.000** for the
+  sign test at every effect size.
+- What that licenses is narrower and must be labelled: Fisher and Stouffer test the
+  **intersection null** — "no arm has signal" — so rejecting says _at least one_ arm has
+  signal. It is **not** a generalisation claim. Report it as the global-null result it is.
+
+**The threat that N does not fix.** Every generalisation reading assumes the targets are
+exchangeable with a population. The three primary arms were **mandated** by the challenge. The
+nine secondary arms survived twelve admission clauses over an RCSB full-text query, and
+`secondary/README.md` §7 documents at length that the frame is non-random: interface sites
+excluded by construction, non-catalytic targets excluded entirely, the frame a depositor's own
+word. No N repairs a non-probability sampling frame. Generalisability here is at least as much
+a **frame** problem as an N problem, and the report must say so beside the N argument.
 
 ## 8. No tuning on this benchmark
 

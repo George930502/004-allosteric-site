@@ -1,6 +1,6 @@
 # 0002 — Working hypothesis for the quantum metric
 
-**Status:** proposed · 2026-08-19 · *to be accepted, revised or superseded in Phase 2*
+**Status:** proposed · 2026-08-19 · _to be accepted, revised or superseded in Phase 2_
 
 ## Context
 
@@ -35,7 +35,7 @@ trivial degree/locality bias.
 **Why this could beat the classical analog.** Classical diffusion on the same graph,
 `exp(-Lt)`, is a positive, memoryless, monotone smoothing process: contributions from
 distinct structural paths always add, so score falls off with topological distance and
-distal specificity is washed out. Quantum evolution propagates *amplitudes*, which
+distal specificity is washed out. Quantum evolution propagates _amplitudes_, which
 carry phase, so contributions along different paths can interfere constructively or
 destructively. Genuine allosteric channels are exactly the case where a distal site is
 strongly coupled to the active site through a specific set of paths rather than through
@@ -54,15 +54,48 @@ non-local correlations and interference as the claimed quantum advantage
    candidate site — closer to the biological question "does binding here change what
    the active site feels?".
 5. Perturbation formulation: compare propagation with and without an on-site energy
-   shift at the candidate residue, i.e. simulate the *binding event* rather than only
+   shift at the candidate residue, i.e. simulate the _binding event_ rather than only
    the resting communication. Physically the closest analog to allosteric inhibition,
    and likely the strongest variant if it survives the cost of N re-simulations.
+
+## The published result this hypothesis has to answer
+
+**Added 2026-08-24 by benchmark audit.** A continuous-time quantum walk on a protein
+residue-interaction network is **not a new idea, and it has already been run on hardware.**
+Mohtashim, Sajjan and Kais, _Continuous-Time Quantum-Walk Centrality for Protein Residue
+Interaction Networks_, _JACS_ 2026;148(27):29206–29219, doi:10.1021/jacs.6c08053, report over
+150 proteins that CTQW centrality "exhibits consistently strong agreement with classical
+eigenvector centrality".
+
+Read plainly, that is a negative result for the naive version of this hypothesis: on their
+construction the quantum walk reproduces a cheap classical centrality. Three differences
+separate their work from ours, and **each one has to be argued in the report rather than
+assumed**:
+
+1. **They compute unconditioned centrality; we condition on the active site.** Our score is
+   `C_{i, source}`, a transfer probability from a named source set, not a spectral property
+   of the whole graph. Interference between paths to a _specific_ source is where the metric
+   can differ from eigenvector centrality; a graph-global statistic cannot show that.
+2. **They do not score apo against holo.** There is no allosteric ground truth in their
+   evaluation, so their agreement statistic says nothing about the task in `CHALLENGE.md` §4.1.
+3. **They do not perturb.** Candidate metric 5 above simulates the binding event. That is a
+   different observable from any centrality.
+
+**Consequence for Phase 2.** The classical bar is not only GNM/APOP. It also includes
+**eigenvector centrality**, which is one line of code, and the ablation must show where the
+conditioned quantum walk separates from it. If it does not separate, say so — `docs/FIELD.md`
+trap 1 already commits us to that. Evidence and quotes:
+`docs/benchmark/evidence/prior-prediction-attempts.md` §6; the row is in
+`experiments/REGISTRY.md`.
 
 ## Known risks
 
 - **Degree bias.** Transfer probability correlates with node degree and burial; without
   a null-model correction the method may rediscover "buried and well-connected", not
   "allosteric". A degree-preserving randomised-network null is required.
+- **Collapse to a classical centrality.** The risk above, made concrete by a published
+  measurement rather than by intuition. Eigenvector centrality and degree centrality are
+  mandatory controls, not optional ones.
 - **Localisation.** Disordered graphs can Anderson-localise the walk, killing distal
   transfer entirely. Watch for it on c-Myc especially.
 - **Time-averaging washout.** The infinite-time average may discard the very transient
