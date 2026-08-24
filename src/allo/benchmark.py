@@ -180,7 +180,9 @@ def _apo_holo_rmsd(
     than being absorbed into the fit.
 
     Two uses, only the first of which is a verdict. As **pair-matching quality control**
-    the `core` figure is decisive: it is what caught the 8ACT/9GZ1 mismatch at 11.78 A.
+    the `core` figure is decisive: it is what caught an 8ACT/9GZ1 mismatch during the myosin
+    sweep. That arm is not in the freeze and the figure is recorded nowhere, so no number is
+    quoted here (the repo's own rule: numbers come from code, never from memory).
     As a *pocket* measure it is descriptive only — a small lining change means the site is
     pre-formed, which under ADR 0007 says the geometric half of the problem is easy, not
     that there is "nothing to predict". What remains to be predicted on a pre-formed

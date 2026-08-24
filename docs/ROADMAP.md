@@ -88,9 +88,12 @@ betweenness centrality. These are the classical analogs the challenge asks us to
 against, and the bar quantum must clear. **APOP is the published bar** — GNM, unsupervised, no
 MD, no training data, satisfying C1, C2 and C6 exactly.
 
-A **distance-only** and a **degree-only** control belong here too, not as an afterthought.
-On KRAS the label set is one hop from the propagation source, so a distance-only score is
-close to unbeatable by construction. A method that does not beat those controls has
+A **distance-only**, a **degree-only** and an **eigenvector-centrality** control belong here
+too, not as an afterthought. On KRAS the scoreable label set starts 3.8 Å from the propagation
+source, and a distance-only score still reaches only AUC 0.589 there and sits below chance on
+three of five arms, so these are controls to beat rather than walkovers
+(`docs/benchmark/README.md` §4). Eigenvector centrality is the control the published CTQW
+result makes mandatory (ADR 0002). A method that does not beat those three controls has
 demonstrated nothing.
 
 ### 1.6 — Frozen evaluation layer 🔜 **next, and it blocks Phase 2**
@@ -135,8 +138,22 @@ and, in §7, the eleven limitations a reviewer would otherwise find.
 
 **Exit met:** `allo benchmark verify --set all` is clean, `selection.json` records all 97
 candidates, 73 of them with the clause that decided each, and no primary-benchmark number
-was used to build it. The remaining 24 rows are recorded `pending`: a sweep proposed them
-and no one screened them, because the set was already large enough to freeze.
+was used to build it.
+
+**The 24 `pending` rows were screened on 2026-08-24**, together with a wider sweep of two
+independent frames, and the freeze was left unchanged. Five further arms are admissible, which
+takes N from 9 to 14 and the `generalisation` tier from 5 to about 7 or 8 — the minimum
+attainable one-sided p moves from 0.031 to 0.0078 or 0.0039. Adding them re-runs the seeded
+split and so changes every existing tier assignment, which is a re-freeze rather than a repair.
+The screening record is `docs/benchmark/secondary/evidence/extension-candidates.md`. It is an
+answer key and `tests/test_no_leakage.py` guards it.
+
+**What the sweep settled.** Clause (ix), single-chain lining, is the binding supply constraint
+at a 72 % kill rate on physiological-effector holo entries, not clause (xii) at 12-14 %. The
+design target of 28 is not reachable from this frame. No new admissible target is below 272
+residues, because small catalytic domains are overwhelmingly obligate oligomers and so fail
+clause (ix) before size is the question. **The decision to re-freeze is open and belongs to
+Phase 5, not to Phase 1.**
 
 **Phase 2 entry gate: blocked on 1.6 only.** ADR 0016 separately blocks the mandated 5TBY
 deliverables until the organisers answer question (a).
@@ -155,9 +172,18 @@ lists. Ablate which metric, which Hamiltonian, which active-site definition — 
 set's `development` tier and nowhere else**. The frozen primary benchmark is scored once,
 with the choice already fixed, and the `generalisation` tier is not opened until Phase 5.
 
+**The quantum bar is published, and it is not friendly.** Mohtashim 2026, _JACS_,
+doi:10.1021/jacs.6c08053, ran CTQW centrality on protein residue-interaction networks on IBM
+hardware over 150 proteins and found "consistently strong agreement with classical eigenvector
+centrality". Our differences from that work — active-site conditioning, apo/holo scoring, and
+the perturbation metric — are what Phase 2 has to demonstrate, not assume (ADR 0002).
+**Eigenvector centrality is therefore a mandatory baseline in 1.4**, beside GNM/APOP,
+distance-only and degree-only.
+
 **Exit:** at least one quantum metric beats the best classical baseline on the primary
 criterion across targets, with the comparison run through the Phase 1.6 harness and the
-mechanism — why interference helps here — argued rather than asserted.
+mechanism — why interference helps here — argued rather than asserted. A metric that ties with
+eigenvector centrality has reproduced Mohtashim 2026 and has not cleared the bar.
 
 ---
 

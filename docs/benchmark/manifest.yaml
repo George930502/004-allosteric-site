@@ -401,7 +401,8 @@ targets:
       modelled residues in chain A and ZERO heteroatoms. Do not say "not an experimental
       structure": RCSB reports structure_determination_methodology = experimental, and 5TBY
       is a released PDB entry at version 1.9. Say what is measurable instead. Its only
-      em_software entry is "UCSF Chimera / MODEL FITTING", it carries no refine block, and
+      em_software MODEL FITTING entry is "UCSF Chimera" (the category has 13 rows naming three
+      packages in all, so do not say it is the only entry), it carries no refine block, and
       _struct_conn holds 41 covale records at physically impossible distances (for example
       A/GLN454.CG - B/TYR410.CE2 at 1.083 A), which are auto-annotated interpenetrations
       rather than chemistry. At 20 A the residue contacts are a property of the modelling and

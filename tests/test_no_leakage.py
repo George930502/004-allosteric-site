@@ -32,6 +32,11 @@ PROTECTED_PATHS = {
     # (ns5b P495, ecoli_cps S948). Found by an adversarial audit after the first two routes
     # were closed.
     (ROOT / "docs" / "benchmark" / "secondary" / "selection.json").resolve(),
+    # The fourth route, added 2026-08-24. A screening record for candidate arms that were
+    # measured and NOT admitted. It names real label residues in apo numbering, plus holo
+    # accessions and effector component IDs, so it is an answer key for arms that do not
+    # exist yet. Guarded on the same argument as `selection.json`.
+    (ROOT / "docs" / "benchmark" / "secondary" / "evidence" / "extension-candidates.md").resolve(),
 }
 ALLOWED_PREDICTION_PATHS = {(ROOT / "data" / "raw" / "apo").resolve()}
 _KNOWN_INPUT_PATHS = {
@@ -384,6 +389,28 @@ def test_prediction_path_never_reads_the_frozen_label_sets():
     assert not offenders, f"prediction-path modules referencing the frozen labels: {offenders}"
 
 
+def test_prediction_path_never_names_the_answer_key_ledgers():
+    """The gap the two literal-token guards above left open, found by an audit 2026-08-24.
+
+    `frozen.json`/`FROZEN` and `manifest.yaml`/`MANIFEST` each get a literal-string scan over
+    the prediction path. `selection.json` did not, so a prediction module doing
+    `open(base / "selection.json")` with a constructed base tripped nothing: the path analysis
+    cannot resolve a dynamic path, and no token guard covered the name. The same hole applied
+    to `extension-candidates.md` the moment it was added. Both are answer keys -- they carry
+    holo accessions, effector component IDs and real label residues in prose -- so they get
+    the same belt as the other two routes.
+    """
+    tokens = ("selection.json", "extension-candidates")
+    offenders = [
+        f"{p.relative_to(SRC.parent)} -> {token}"
+        for p in sorted(SRC.rglob("*.py"))
+        if is_prediction_path(module_name(p))
+        for token in tokens
+        if token in p.read_text()
+    ]
+    assert not offenders, f"prediction-path modules naming an answer-key ledger: {offenders}"
+
+
 def test_the_prediction_cache_never_holds_a_holo_structure():
     """C1's third data route, and the one the other two are structurally blind to.
 
@@ -578,6 +605,7 @@ FROZEN_TOKENS = (
     "manifest.yaml",
     "MANIFEST",
     "selection.json",
+    "extension-candidates",
     "groundtruth",
 )
 NON_RUNNER_TREES = {

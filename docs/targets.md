@@ -97,9 +97,13 @@ the frozen benchmark and the corrected pairs are in `docs/benchmark/`.
   (`NIL`) in the ATP site, on a T334I/D382N background. The holo is not singly liganded.
 - ⚠️ corrected: `5MO4` is **not** kinase-domain-only. It models auth 83–531 continuously —
   SH3, SH2 and kinase, the same architecture as `1OPL`. The alignment step does not break.
-- `1OPL` quality: 3.42 Å, R-free 0.315, **6.50 % RSRZ outliers** (wwPDB validation report,
-  `percent-RSRZ-outliers`; an earlier 22.2 % here was a percentile read as a percentage). Chains A
-  and B differ by 23 Å globally; chain B lacks the myristate and the αI helix.
+- `1OPL` quality: 3.42 Å, R-free 0.315, **22.18 % RSRZ outliers**, which is the **0.4th
+  absolute percentile** of the PDB (wwPDB `percent-RSRZ-outliers`; re-fetched 2026-08-24 from
+  `ebi.ac.uk/pdbe/api/validation/global-percentiles/entry/1opl`, which returns
+  `rawvalue: 22.18, absolute: 0.4`). **A 2026-08-21 correction to 6.50 % was itself the error**
+  and said the 22.2 % was "a percentile read as a percentage". It is the other way round: 22.18
+  is the value and 0.4 is the percentile. Chains A and B differ by 23 Å globally; chain B lacks
+  the myristate and the αI helix.
 - Strict-C5 scope was measured and does not repair the mandated pair. Admitting only
   UniProt-derived kinase residues 261–512 of the same `1OPL`:A bytes gives 252 nodes and 17
   labels, and myristate still contacts 13 of them. The arm was removed on 2026-08-24 as a
