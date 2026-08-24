@@ -96,6 +96,25 @@ def biological_assembly(path: Path, chain: str, assembly_id: str = "1") -> dict[
     }
 
 
+def _pinned_url(pdb_id: str) -> str | None:
+    """The wwPDB versioned URL for an entry, from whichever manifest pins it.
+
+    Both benchmark sets pin their own `structure_provenance`, and an entry belongs to
+    exactly one of them. Consulting only the primary manifest sent every secondary
+    accession to the unversioned RCSB endpoint, which returns the CURRENT release rather
+    than the version the freeze hashed -- a silent way for a pinned input to move.
+    """
+    from allo.inputs import BENCHMARK_MANIFESTS
+
+    for path in BENCHMARK_MANIFESTS:
+        if not path.exists():
+            continue
+        record = read_manifest(path).get("structure_provenance", {}).get(pdb_id)
+        if record:
+            return record["url"]
+    return None
+
+
 def fetch_mmcif(pdb_id: str, dest_dir: Path) -> Path:
     """Restore one evaluation structure from cache, partitioned store, or pinned archive."""
     pdb_id = pdb_id.upper()
@@ -109,8 +128,7 @@ def fetch_mmcif(pdb_id: str, dest_dir: Path) -> Path:
             path.write_bytes(gzip.decompress(archived.read_bytes()))
             return path
 
-    provenance = read_manifest().get("structure_provenance", {}).get(pdb_id)
-    url = provenance["url"] if provenance else RCSB_FILE.format(pdb_id=pdb_id)
+    url = _pinned_url(pdb_id) or RCSB_FILE.format(pdb_id=pdb_id)
     request = urllib.request.Request(url, headers=_UA)
     with urllib.request.urlopen(request, timeout=120) as response:  # noqa: S310
         payload = response.read()

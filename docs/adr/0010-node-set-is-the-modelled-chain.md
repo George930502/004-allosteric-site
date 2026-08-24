@@ -92,17 +92,24 @@ defect the tier exists to expose. The same effect is smaller but present on myos
   reasoning suggests, for a cause this ADR itself names. What is *not* legitimate is quoting
   reason 2 as if it applied to the whole target. It applies to the descriptive arm only.
 - A reviewer applying C5 strictly will ask about `1OPL`'s SH3–SH2. The organiser question is
-  still open, but the experimental follow-up is built: `bcr_abl1_trimmed` uses the same
-  `1OPL`:A bytes with explicit `apo.residue_range`. UniProtKB P00519 release 2026_02 supplies
-  canonical kinase residues 242–493; the manifest pins the P00519-1/P00519-2 substitution,
-  code derives the deposited +19 offset, verifies boundaries 261–512 exist, and freezes 252
-  admitted nodes. This reports both C5 readings without replacing the accepted primary arm.
-- **The trim is not label-neutral, and that is the sharpest argument for decision 1.**
-  Deposited 513–531 lies outside the annotated domain and carries labels 521, 525 and 529, so
-  the arm freezes **17 positives against the mandated arm's 20** (`labels_outside_node_set` in
-  `frozen.json`). A mandated-vs-trimmed baseline gap mixes scope with a 15 % smaller positive
-  set and must not be read as a scope effect alone. Applied to `1OPL`, the strict reading of
-  C5 does not merely drop scaffolding — it deletes part of the myristoyl pocket itself.
-  Guarded by `test_every_arm_accounts_for_the_labels_it_does_not_score`.
-- The ASD selection set will contain multi-domain proteins where this bites harder than it
-  does on three hand-picked targets. Revisit before that set is frozen (ROADMAP 1.7).
+  still open. **Outcome, recorded after Phase 1.0 closed:** the follow-up arm
+  `bcr_abl1_trimmed` was built, measured, and then removed with the other sensitivity arms
+  when the input layer was split from the evaluation layer. It is recoverable from git at
+  `363633c`, and `docs/adr/README.md` lists it. No manifest field named `apo.residue_range`
+  survives, so the node set of every current arm is the whole modelled chain, with no
+  exception. What the arm measured is kept below, because a negative result is a result.
+- **The trim was not label-neutral, and that is the sharpest argument for decision 1.**
+  With canonical kinase residues 242–493 from UniProtKB P00519 release 2026_02, the arm froze
+  252 admitted nodes. Deposited 513–531 lies outside the annotated domain and carries labels
+  521, 525 and 529, so the arm froze **17 positives against the mandated arm's 20**. A
+  mandated-versus-trimmed baseline gap therefore mixes scope with a 15 % smaller positive set,
+  and must not be read as a scope effect alone. Applied to `1OPL`, the strict reading of C5
+  does not merely drop scaffolding — it deletes part of the myristoyl pocket itself. That is
+  the finding. Rebuilding the arm is not needed to keep it.
+- **The multi-domain worry was tested, and it did not bite.** This bullet expected the
+  Phase 1.7 selection set to contain multi-domain proteins where a whole-chain node set costs
+  more than it does on three hand-picked targets. The secondary set froze on 2026-08-24 with a
+  frame of RCSB rather than ASD. The cost landed on a different clause: clause (ix) rejected
+  eleven candidates whose site is lined by two chains, which is the same constraint seen from
+  the other side. Multi-domain single-chain targets were not the problem; multi-**chain** sites
+  were. Recorded in `docs/benchmark/secondary/README.md` §4 and §7.3.

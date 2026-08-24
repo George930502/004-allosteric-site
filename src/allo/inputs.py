@@ -26,6 +26,15 @@ from allo.structure.pdb import Structure, contacts, parse_mmcif_text, sha256
 
 ROOT = Path(__file__).resolve().parents[2]
 MANIFEST = ROOT / "docs" / "benchmark" / "manifest.yaml"
+SECONDARY_MANIFEST = ROOT / "docs" / "benchmark" / "secondary" / "manifest.yaml"
+
+# Two files rather than one. The primary set is the three disease areas the challenge
+# names; the secondary set is drawn from a candidate pool to demonstrate generalisability
+# and scalability. They freeze on different dates and are admitted under different rules --
+# a pool gets a resolution ceiling and a redundancy bound, hand-specified targets cannot
+# (ADR 0009, ADR 0021). Keeping them in one file would mean re-freezing a closed artifact
+# every time the secondary set moves.
+BENCHMARK_MANIFESTS = (MANIFEST, SECONDARY_MANIFEST)
 
 # Written as one path rather than as `STRUCTURES / "apo"` on purpose: a `STRUCTURES` root
 # exported here would put the tracked holo mirror one `/ "holo"` away from prediction code.
@@ -53,7 +62,30 @@ APO_CACHE = ROOT / "data" / "raw" / "apo"
 # Patterns are matched against the modelled chain sequence, so the residue numbers come out
 # in whatever numbering convention that entry uses — which is the point: ABL1 is deposited
 # under two, 19 apart, and a hand-written list is only ever right for one of them.
-CATALYTIC_MOTIFS = {"VAIK": r"[VLIA]A[VLIA]K", "HRD": r"H[RG][DN][LIVM]", "DFG": r"D[FWY]G"}
+#
+# Every entry carries provenance and must match EXACTLY ONCE on the chain that uses it;
+# `active_site` raises otherwise. That check is the real guarantee, and it earns its keep:
+# it rejected SHP2 apo `6CMP` during secondary screening, which is the catalytically dead
+# C459E mutant. Where PROSITE publishes a `PA` pattern the regex is converted from it
+# mechanically and carries the accession. Where PROSITE covers the family by profile only,
+# a profile is not a regular expression, so the motif carries a primary-literature
+# citation instead (ADR 0021 section 4, amended).
+CATALYTIC_MOTIFS = {
+    # Protein kinase, from the primary set. ABL1 and CHK1.
+    "VAIK": r"[VLIA]A[VLIA]K",
+    "HRD": r"H[RG][DN][LIVM]",
+    "DFG": r"D[FWY]G",
+    # RNA/DNA polymerase motifs A and C (Poch 1989, doi 10.1002/j.1460-2075.1989.tb08565.x).
+    # HIV-1 RT needs both: motif C alone gives D185/D186 and misses catalytic D110, which
+    # would make the propagation source two thirds of the triad.
+    "POLA": r"[LIVM]{2}D[TV]G",
+    "YXDD": r"Y[MIVL]DD",
+    # Motif C again, in a positive-strand RdRp. HCV NS5B: G317-D318-D319.
+    "GDD": r"GDD",
+    # PROSITE PS00383 TYR_PHOSPHATASE_1, converted from its PA line
+    # `[LIVMF]-H-C-x(2)-G-x(2)-R-[STC]-[STAGP].`
+    "PTP": r"[LIVMF]HC.{2}G.{2}R[STC][STAGP]",
+}
 
 _THREE_TO_ONE = {
     "ALA": "A", "ARG": "R", "ASN": "N", "ASP": "D", "CYS": "C", "GLN": "Q", "GLU": "E",
@@ -71,31 +103,7 @@ _PREDICTION_SCHEMA = {
         {
             "id": _LEAF,
             "protein": _LEAF,
-            "apo": {
-                "pdb": _LEAF,
-                "chain": _LEAF,
-                "sha256": _LEAF,
-                "residue_range": {
-                    "start": _LEAF,
-                    "end": _LEAF,
-                    "authority": {
-                        "database": _LEAF,
-                        "accession": _LEAF,
-                        "release": _LEAF,
-                        "retrieved_on": _LEAF,
-                        "record_url": _LEAF,
-                        "release_url": _LEAF,
-                        "canonical_isoform": _LEAF,
-                        "deposited_isoform": _LEAF,
-                        "canonical_domain": {"name": _LEAF, "start": _LEAF, "end": _LEAF},
-                        "isoform_substitution": {
-                            "canonical_start": _LEAF,
-                            "canonical_end": _LEAF,
-                            "replacement_length": _LEAF,
-                        },
-                    },
-                },
-            },
+            "apo": {"pdb": _LEAF, "chain": _LEAF, "sha256": _LEAF},
             "active_site": {"from_ligands": _LEAF, "from_motifs": _LEAF},
         }
     ],
@@ -174,27 +182,16 @@ def active_site(apo: Structure, chain: str, rule: dict, cutoff: float) -> list[i
 
 
 def admitted_residue_numbers(apo: Structure, chain: str, apo_spec: dict) -> tuple[int, ...]:
-    """The manifest-declared protein node set, including an authority-backed trim."""
-    available = tuple(number for c, number, _ in apo.residues() if c == chain)
-    residue_range = apo_spec.get("residue_range")
-    if residue_range is None:
-        return available
+    """The node set: every modelled protein residue of the frozen chain (ADR 0010).
 
-    authority = residue_range["authority"]
-    domain = authority["canonical_domain"]
-    substitution = authority["isoform_substitution"]
-    replaced_length = substitution["canonical_end"] - substitution["canonical_start"] + 1
-    offset = substitution["replacement_length"] - replaced_length
-    expected = (domain["start"] + offset, domain["end"] + offset)
-    declared = (residue_range["start"], residue_range["end"])
-    if declared != expected:
-        raise ValueError(
-            f"{apo.pdb_id}:{chain} residue range {declared} does not match the "
-            f"authority-derived range {expected}"
-        )
-    if declared[0] not in available or declared[1] not in available:
-        raise ValueError(f"{apo.pdb_id}:{chain} does not model both declared boundaries {declared}")
-    return tuple(number for number in available if declared[0] <= number <= declared[1])
+    There is no trim, on either benchmark set. The deposited construct is what defines
+    the scope, so scope is chosen when a structure is admitted rather than by a rule
+    applied afterwards -- which keeps it an apo-only decision and keeps it out of code.
+    `apo_spec` is unused and stays in the signature because both callers pass the whole
+    apo record; a trim, if one is ever justified, is declared there.
+    """
+    del apo_spec
+    return tuple(number for c, number, _ in apo.residues() if c == chain)
 
 
 def _prediction_structure(apo: Structure, chain: str, residues: tuple[int, ...]) -> Structure:
@@ -275,12 +272,20 @@ def apo_input(target: str, raw: Path = APO_CACHE) -> ApoInput:
     Its default is `APO_CACHE`, not the shared `data/raw/`, and that distinction is the C1
     boundary rather than a tidiness preference -- see the comment on `APO_CACHE`.
     """
-    manifest = load()
-    specs = {s["id"]: s for s in manifest["targets"]}
+    specs = {}
+    for path in BENCHMARK_MANIFESTS:
+        # A set that has not been frozen yet has no manifest. A clone holding only the
+        # primary set must still be able to load a primary target.
+        if not path.exists():
+            continue
+        for spec in load(path)["targets"]:
+            if spec["id"] in specs:
+                raise ValueError(f"{spec['id']!r} is declared in more than one benchmark set")
+            specs[spec["id"]] = (spec, path)
     if target not in specs:
         raise KeyError(f"{target!r} is not a frozen target; have {sorted(specs)}")
-    spec = specs[target]
-    cutoff = manifest["defaults"]["contact_cutoff_angstrom"]
+    spec, manifest_path = specs[target]
+    cutoff = load(manifest_path)["defaults"]["contact_cutoff_angstrom"]
     chain = spec["apo"]["chain"]
     raw.mkdir(parents=True, exist_ok=True)
     path = raw / f"{spec['apo']['pdb'].upper()}.cif"

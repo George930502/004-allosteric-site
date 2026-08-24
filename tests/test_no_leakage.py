@@ -25,11 +25,19 @@ PROTECTED_PATHS = {
     (ROOT / "data" / "raw").resolve(),
     (ROOT / "data" / "raw" / "eval").resolve(),
     (ROOT / "docs" / "benchmark" / "frozen.json").resolve(),
+    (ROOT / "docs" / "benchmark" / "secondary" / "frozen.json").resolve(),
+    # The candidate ledger is the third data route. It is not prose: for every admitted arm
+    # it carries `holo`, `holo_chain` and `effector` as structured fields, which is a label
+    # set three lines of code away, and its `detail` strings name real label residues
+    # (ns5b P495, ecoli_cps S948). Found by an adversarial audit after the first two routes
+    # were closed.
+    (ROOT / "docs" / "benchmark" / "secondary" / "selection.json").resolve(),
 }
 ALLOWED_PREDICTION_PATHS = {(ROOT / "data" / "raw" / "apo").resolve()}
 _KNOWN_INPUT_PATHS = {
     "ROOT": ROOT,
     "MANIFEST": ROOT / "docs" / "benchmark" / "manifest.yaml",
+    "SECONDARY_MANIFEST": ROOT / "docs" / "benchmark" / "secondary" / "manifest.yaml",
     "APO_STRUCTURES": ROOT / "structures" / "apo",
     "APO_CACHE": ROOT / "data" / "raw" / "apo",
 }
@@ -394,17 +402,26 @@ def test_the_prediction_cache_never_holds_a_holo_structure():
     import yaml
 
     from allo.groundtruth.structures import EVAL_CACHE
-    from allo.inputs import APO_CACHE, APO_STRUCTURES, MANIFEST
+    from allo.inputs import APO_CACHE, APO_STRUCTURES, BENCHMARK_MANIFESTS
 
-    manifest = yaml.safe_load(MANIFEST.read_text())
-    apo = {s["apo"]["pdb"].upper() for s in manifest["targets"]}
-    holo = {(s.get("holo") or {}).get("pdb", "").upper() for s in manifest["targets"]} - {""}
+    # Computed PER MANIFEST and then unioned, not over the pooled targets. An accession
+    # that is holo in one set and apo in the other would otherwise cancel out of
+    # `forbidden` and disarm the check for both -- the same-set case is legitimate
+    # (`1OPL` is apo for one primary arm), the cross-set case is not.
+    holo, forbidden = set(), set()
+    for path in BENCHMARK_MANIFESTS:
+        if not path.exists():
+            continue
+        specs = yaml.safe_load(path.read_text())["targets"]
+        set_apo = {s["apo"]["pdb"].upper() for s in specs}
+        set_holo = {(s.get("holo") or {}).get("pdb", "").upper() for s in specs} - {""}
+        holo |= set_holo
+        forbidden |= set_holo - set_apo
     assert holo, "manifest declares no holo entries; this test would pass vacuously"
     assert EVAL_CACHE != APO_CACHE, "evaluation and prediction must not share a cache root"
 
-    # An accession may legitimately be both (`1OPL` is apo for one arm), so only entries that
-    # are holo and *never* apo are unambiguous evidence of a breach.
-    forbidden = holo - apo
+    # Only entries that are holo and *never* apo within their own set are unambiguous
+    # evidence of a breach.
     for store in (APO_CACHE, APO_STRUCTURES):
         present = (
             {p.name.split(".")[0].upper() for p in store.glob("*.cif*")}
@@ -435,27 +452,35 @@ def test_the_manifest_reaches_prediction_code_with_the_answer_key_stripped():
     `allo.inputs.load` therefore redacts, and this is the test that says so.
     """
     from allo.groundtruth.manifest import read_manifest
-    from allo.inputs import _PREDICTION_SCHEMA, load
+    from allo.inputs import _PREDICTION_SCHEMA, BENCHMARK_MANIFESTS, load
 
     assert "site" not in _PREDICTION_SCHEMA["targets"][0], (
         "site display strings name effectors and must remain outside the prediction schema"
     )
 
-    redacted, full = load(), read_manifest()
     forbidden = {"site", "holo", "defect", "note", "blind", "allosteric_evidence", "state"}
-    for target in redacted["targets"]:
-        leaked = forbidden & set(target)
-        assert not leaked, f"{target['id']}: prediction path can see {sorted(leaked)}"
     # Allow-list, not deny-list: a field added to the manifest tomorrow must be redacted by
     # default. If this fires, decide whether the new field is apo-side and add it explicitly.
     known_apo_side = {"id", "protein", "apo", "active_site"}
-    for target in redacted["targets"]:
-        assert set(target) <= known_apo_side, (
-            f"{target['id']}: unreviewed field(s) {sorted(set(target) - known_apo_side)} "
-            "reaching prediction code -- it is absent from allo.inputs._PREDICTION_SCHEMA"
+    for path in BENCHMARK_MANIFESTS:
+        # A set that has not been frozen yet has no manifest, and a clone may hold only one.
+        if not path.exists():
+            continue
+        redacted, full = load(path), read_manifest(path)
+        for target in redacted["targets"]:
+            leaked = forbidden & set(target)
+            assert not leaked, (
+                f"{path.name}/{target['id']}: prediction path can see {sorted(leaked)}"
+            )
+            assert set(target) <= known_apo_side, (
+                f"{path.name}/{target['id']}: unreviewed field(s) "
+                f"{sorted(set(target) - known_apo_side)} reaching prediction code -- it is "
+                "absent from allo.inputs._PREDICTION_SCHEMA"
+            )
+        # And the redaction has to be doing real work, or it is decoration.
+        assert any(forbidden & set(target) for target in full["targets"]), (
+            f"{path.name} carries no redactable field; this test would pass vacuously"
         )
-    # And the redaction has to be doing real work, or it is decoration.
-    assert any(forbidden & set(target) for target in full["targets"])
 
 
 def test_evaluation_status_cannot_delete_prediction_inputs(tmp_path):
@@ -547,7 +572,14 @@ def test_the_manifest_guard_would_catch_the_route_it_missed(graph):
 # by a route with no `groundtruth` and no `frozen.json` anywhere in its text.
 FORBIDDEN_OUTSIDE = (GROUND_TRUTH, "allo.benchmark")
 RUNNER_SUFFIXES = {".py", ".sh", ".ipynb"}
-FROZEN_TOKENS = ("frozen.json", "FROZEN", "manifest.yaml", "MANIFEST", "groundtruth")
+FROZEN_TOKENS = (
+    "frozen.json",
+    "FROZEN",
+    "manifest.yaml",
+    "MANIFEST",
+    "selection.json",
+    "groundtruth",
+)
 NON_RUNNER_TREES = {
     "src",  # package import-graph tests cover it
     "tests",  # the guards necessarily name forbidden routes

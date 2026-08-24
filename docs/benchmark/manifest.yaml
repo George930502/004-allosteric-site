@@ -20,6 +20,11 @@
 # against itself, and would be wrong the moment an entry uses another numbering convention,
 # which the ABL1 entries do.
 
+# `pfam` is apo-side family annotation, read from RCSB. It carries no consequence for
+# this set and changes nothing the freeze derives. It exists so that the secondary set's
+# clause (xii) -- no shared Pfam family with any primary target -- is a test rather than
+# a promise. See docs/adr/0021-secondary-benchmark-is-two-disjoint-sets.md.
+
 version: 2
 frozen_on: 2026-08-24
 source: CHALLENGE.md section 6, Table 1
@@ -264,6 +269,7 @@ targets:
     tier: mandated
     protein: KRAS
     site: Switch-II pocket (S-IIP)
+    pfam: [PF00071]
     apo:
       {
         pdb: 4OBE,
@@ -286,6 +292,7 @@ targets:
     tier: corrected
     protein: KRAS
     site: Switch-II pocket (S-IIP)
+    pfam: [PF00071]
     apo:
       {
         pdb: 4LDJ,
@@ -306,6 +313,7 @@ targets:
     tier: mandated
     protein: ABL1
     site: myristoyl pocket
+    pfam: [PF00017, PF00018, PF07714]
     apo:
       {
         pdb: 1OPL,
@@ -332,6 +340,7 @@ targets:
     tier: corrected
     protein: ABL1
     site: myristoyl pocket
+    pfam: [PF07714]
     apo:
       {
         pdb: 2G2H,
@@ -361,6 +370,7 @@ targets:
     prediction_status: blocked
     protein: MYH7
     site: mavacamten site
+    pfam: [PF00063, PF01576, PF02736]
     apo:
       {
         pdb: 5TBY,
@@ -405,6 +415,7 @@ targets:
     tier: corrected
     protein: MYH7
     site: mavacamten site
+    pfam: [PF00063, PF02736]
     apo:
       {
         pdb: 9GZ3,

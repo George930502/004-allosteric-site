@@ -17,9 +17,19 @@ handicap from how the inputs were built. Where a choice would have been more int
 less neutral, the neutral one wins. Where a defect is disclosed rather than repaired, the
 disclosure lets a reader price it.
 
+**There is a second set.** This document is the PRIMARY benchmark: the three disease areas
+`CHALLENGE.md` Table 1 names. Three targets cannot support a claim about the method in
+general — a distribution-free one-sample test over N targets has a minimum attainable
+one-sided p of 2^-N, which at N = 3 is 0.125 whatever the result. The generalisability and
+scalability claims therefore come from the **secondary** set,
+[`secondary/README.md`](secondary/README.md): nine further targets, frozen the same day,
+through this same code, under these same clauses plus four selection clauses (ADR 0021).
+Both sets verify together.
+
 ```bash
 uv run allo benchmark show      # what is frozen, derived live from the deposited files
-uv run allo benchmark verify    # exit 0 iff nothing has moved since the freeze
+uv run allo benchmark verify    # exit 0 iff nothing has moved since the freeze, BOTH sets
+uv run allo benchmark verify --set secondary   # one set only
 ```
 
 | File            | What it is                                                                      |
@@ -85,7 +95,7 @@ is deliberately not a ninth admission clause (ADR 0017).
 | Clause     | Authority                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | (i) radius | ASD v2.0 **6 Å**; CASBench **5 Å**; CryptoSite and PocketMiner **5 Å**; AHoJ and CryptoBench **4.5 Å**; ASBench and AlloBench **4 Å**; Amor **3.5 Å** (a caspase-1 result, not a set-wide convention). Four incompatible conventions coexist. **Our 4.5 Å matches AHoJ and CryptoBench and is declared at first use.** A number reported against one cutoff is not comparable to a number reported against another                                                                                                |
-| (ii)       | IUPHAR XC (doi:10.1124/pr.114.008862) defines an allosteric site as "nonoverlapping and spatially distinct from, but **conformationally linked to**, the orthosteric binding site", and recommends that "allosteric" be reserved for cases where "**reciprocity in this interaction can be demonstrated**". ASD v1 operationalises it as "at least three cases of experimental evidence". A crystal structure alone is on nobody's list                                                                           |
+| (ii)       | **Two statements, two scopes — and the one we rely on is the protein-general one.** IUPHAR XC §III recommends the _term_ (doi:10.1124/pr.114.008862, full text read at PMC11060431): "reserved for instances where the properties of one ligand **(small molecule or protein)** are altered upon binding of a second ligand at a nonoverlapping, topographically distinct site and where, **ideally**, reciprocity in this interaction can be demonstrated". The parenthetical is what makes this sentence protein-general, and it is the sentence clause (ii) rests on. Reciprocity is IUPHAR's ideal case, **not** its threshold. Table 1 of the same article defines the _site_ — "A binding site on a **receptor macromolecule** that is nonoverlapping and spatially distinct from, but **conformationally linked to**, the orthosteric binding site" — but its caption reads "Terms used to describe **receptor** allosterism", and no target in this repo is a receptor in that sense. So Table 1 is quoted for the "conformationally linked" qualifier only, and the threshold comes from §III. ASD v1 sets the evidence bar at "at least three cases of experimental evidence". A crystal structure alone is on nobody's list |
 | (iii)      | **Borrowed, and narrowed by us twice.** ASD's "apo" is _modulator_-relative; no allostery source states the site-relative reading. The **scoreable-portion** qualifier is ours: it is the only reading under which a benchmark that deliberately keeps proximal labels (ADR 0007) can have a site-apo clause at all                                                                                                                                                                                               |
 | (iv)       | ESSA — "at least 90% sequence identity". The allostery field's only published apo↔holo pairing threshold. Cryptic-site benchmarks are stricter and disagree with each other: PocketMiner 100 %, Clark 95 %, CryptoBench a UniProt group                                                                                                                                                                                                                                                                           |
 | (v)        | Amor et al. exclude on "a mismatch between the oligomeric state of the active and inactive structures". AlloBench downloads "the **biological assembly** structures" (doi:10.1021/acsomega.5c01263), so both halves are the field's, not ours                                                                                                                                                                                                                                                                     |
@@ -93,9 +103,27 @@ is deliberately not a ninth admission clause (ADR 0017).
 
 ### No minimum distance, and that is not an oversight
 
-No formal definition of an allosteric site in any source contains a minimum separation from
-the active site. Checked: ASD v1/v2/v3/2019/2023, CASBench, ASBench, AlloBench, IUPAC,
-IUPHAR XC. CASBench measures the opposite — "in **30%** of cases, the catalytic and
+No formal definition of an allosteric site in any source we have **read** contains a minimum
+separation from the active site. Checked and read: ASD v1/v2/v3/2019/2023, CASBench, ASBench,
+AlloBench, and IUPHAR XC — whose criteria are topological throughout ("nonoverlapping",
+"spatially distinct", "topographically distinct") and never metric. The same article allows a
+**bitopic** ligand to occupy both sites at once, so even competitive kinetics do not by
+themselves refute an allosteric site.
+
+**IUPAC Gold Book 14107 is checked but NOT read, and an earlier version of this paragraph
+claimed more than that.** It said the entry "is protein-general rather than receptor-scoped".
+That is not established. Crossref confirms the entry exists and gives its title and its single
+parent reference; it carries no definition text. Every route to the text failed: the IUPAC
+host returns 403 to automated fetches, the legacy host fails its TLS handshake, three
+proxies returned 522, and `web.archive.org` is blocked for the tool although a snapshot exists.
+Two web searches rendered the entry's opening differently from each other, which proves at
+least one is confabulating, so none of it is quotable. **Correction to the parent citation as
+well:** doi:10.1351/PAC-REC-09-05-03 is "Glossary of terms used in biomolecular screening",
+Proudfoot et al., _Pure Appl Chem_ 2011;83(5):1129–1158 — a screening-assay glossary, not a
+pharmacology nomenclature recommendation. On provenance alone IUPHAR XC is the stronger
+authority, and nothing here depends on 14107.
+
+CASBench measures the opposite — "in **30%** of cases, the catalytic and
 allosteric sites either overlap or share a common border"
 (doi:10.32607/20758251-2019-11-1-74-80). A distance filter on a label set would discard about
 a third of curated allosteric sites. Clause (vii) is therefore a **membership** rule, not a

@@ -45,19 +45,25 @@ it does not introduce a second definition (ADR 0017).
 **Verification tags.** Every claim carries one:
 
 - `[VERIFIED-FULLTEXT]` — read from the OA full text (Europe PMC `fullTextXML`).
+- `[VERIFIED-FULLTEXT-PMC]` — read from the rendered PMC article page, because the entry is
+  `inEPMC: Y` but `isOpenAccess: N`, so `fullTextXML` returns 404. Same body text, different
+  route. The route is recorded per source, because it is not reproducible from the DOI alone.
 - `[VERIFIED-ABSTRACT]` — abstract or indexed record only; the full text was not retrievable.
 - `[VERIFIED-PARTIAL]` — publisher landing page gave part of the body but not the section needed.
 - `[UNVERIFIED]` — stated by a secondary source, not confirmed at the primary source.
 - `[NOT-RETRIEVABLE]` — attempted and failed; the reason is recorded.
 
-**Retrieval failures, recorded rather than glossed.** Three sources this question needs
-could not be opened from this environment:
+**Retrieval failures, recorded rather than glossed.** These are the sources this question
+needs that could not be opened from this environment. One was later resolved and is kept in
+the table with its resolution, because a reader who finds the old claim needs the trail:
 
 | Source                                           | Why                                                                                                                                                                                                                                                  |
 | ------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | ASD / ASBench web servers (`mdl.shsmu.edu.cn`)   | TLS certificate expired; the available fetch tool force-upgrades HTTP to HTTPS and has no plain-HTTP path. Confirmed: `certificate has expired`. A `curl http://…` from a shell would work (ADR 0003 open item).                                     |
 | ASBench Supplementary Information (Huang 2015)   | The paper states its construction rules live in the SI; the SI is paywalled. OUP landing page gave partial body text only.                                                                                                                           |
-| Fenton 2008 TIBS; IUPHAR XC (Christopoulos 2014) | Not in the Europe PMC OA subset (`fullTextXML` → 404); publisher sites returned 403. **The Fenton four-complex framework is instead verified from Fenton's own 2024 OA restatement** (McCullagh et al., below), which is a stronger citation anyway. |
+| Fenton 2008 TIBS                                 | Not in the Europe PMC OA subset (`fullTextXML` → 404); publisher sites returned 403. **The Fenton four-complex framework is instead verified from Fenton's own 2024 OA restatement** (McCullagh et al., below), which is a stronger citation anyway. |
+| ~~IUPHAR XC (Christopoulos 2014)~~ **RESOLVED 2026-08-24** | Was listed here for the same reason. It is `inEPMC: Y`, `isOpenAccess: N`, so `fullTextXML` 404s and `efetch` refuses — but the rendered page `pmc.ncbi.nlm.nih.gov/articles/PMC11060431/` serves the full body. Table 1 and Section III are now read and quoted in §1. |
+| IUPAC Gold Book entry 14107                      | **Still unread.** `goldbook.iupac.org` returns 403 to every automated fetch (Anubis bot protection), `old.goldbook.iupac.org` fails the TLS handshake, three CORS proxies returned 522 or timed out, and `web.archive.org` is blocked for this tool although a snapshot `20260511182612` exists. Crossref gives the title and the parent recommendation and no definition text. |
 
 **One correction to the brief.** ASD v2.0 is `doi:10.1093/nar/gkt1247`, not `gkt1092`
 `[VERIFIED-FULLTEXT]`. ASBench is `doi:10.1093/bioinformatics/btv169` (PMID 25810427; no PMCID).
@@ -374,13 +380,52 @@ modulator" or "orthosteric" in A–H. Its definition is functional-and-relationa
 defined by its _effect on the normal ligand's interaction_, not by geometry.
 
 **IUPHAR XC** — Christopoulos A et al., _Pharmacol Rev_ 2014, 66(4):918–947,
-`doi:10.1124/pr.114.008862` `[VERIFIED-ABSTRACT]`, `[NOT-RETRIEVABLE]` full text:
+`doi:10.1124/pr.114.008862` `[VERIFIED-FULLTEXT-PMC]`, retrieved 2026-08-24.
 
-> "The current article presents an overview of allostery as applied to receptor families and
-> approaches for detecting and validating allosteric interactions and gives recommendations for
-> the nomenclature of allosteric ligands and their properties."
+**This entry read `[NOT-RETRIEVABLE]` until 2026-08-24 and the warning below stood. It was
+superseded by a retrieval, not by a recollection.** Route, recorded so the next reader does
+not repeat the dead ends: Europe PMC gives PMID 25026896 and **PMCID PMC11060431**, but
+`isOpenAccess: N`, so `.../PMC11060431/fullTextXML` returns 404 and NCBI `efetch` returns
+"The publisher of this article does not allow downloading of the full text in XML form."
+The **working** route is the rendered page, `https://pmc.ncbi.nlm.nih.gov/articles/PMC11060431/`.
 
-The recommended definitions themselves could not be read. **Do not paraphrase them from memory.**
+Two passages matter, and they have **different scopes**. Quoting the wrong one imports a scope
+clause no target in this repo satisfies.
+
+**Table 1**, captioned "Terms used to describe **receptor** allosterism and allosteric ligand
+actions (see also Note 1)". Verified word for word, including that "nonoverlapping" is one word:
+
+> **Allosteric site** — "A binding site on a receptor macromolecule that is nonoverlapping and
+> spatially distinct from, but conformationally linked to, the orthosteric binding site."
+
+This is **receptor-scoped**, in the receptor-theory sense: GPCR, ligand-gated ion channel,
+nuclear receptor. KRAS, ABL1, cardiac myosin and c-Myc are none of those. Cite Table 1 and a
+reviewer can reject the scope in one line.
+
+**Section III, "Definitions"** — the same article, the same authority, and **protein-general**:
+
+> "It is recommended that the term 'allosteric' _not_ be used to describe such phenomena but be
+> reserved for instances where the properties of one ligand **(small molecule or protein)** are
+> altered upon binding of a second ligand at a nonoverlapping, topographically distinct site and
+> where, **ideally**, reciprocity in this interaction can be demonstrated."
+
+The bolded parenthetical is the clause that makes the sentence protein-general, and the repo
+dropped it once without an ellipsis. **This is the passage clause (ii) rests on**, not Table 1.
+
+Three things the retrieval settles:
+
+1. **Reciprocity is a preference, not a threshold.** The sentence carries two requirements —
+   properties of one ligand altered by a second, at a nonoverlapping and topographically
+   distinct site — and one preference, marked by "ideally". A benchmark that _excludes_ a site
+   for want of demonstrated reciprocity is stricter than IUPHAR XC and may not cite XC for it.
+2. **No minimum distance, anywhere in the article.** Every criterion is topological:
+   "nonoverlapping", "spatially distinct", "topographically distinct". Not metric.
+3. **Bitopic engagement is explicitly allowed**, and it is competitive: "A bitopic mode of
+   engagement involves the (single) ligand occupying both sites at the same time and thus would
+   still exhibit competitive behavior because one of the pharmacophores occupies the orthosteric
+   site." So competitive kinetics alone do not refute an allosteric site.
+
+**Unchecked.** Table 1's "Note 1" was not retrieved, so anything that note qualifies is unread.
 
 **Fenton's energy-cycle definition — the one that actually answers question 2.**
 McCullagh M, Zeczycki TN, Kariyawasam CS, Durie CL, Halkidis K, Fitzkee NC, Holt JM, Fenton AW,

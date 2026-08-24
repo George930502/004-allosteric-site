@@ -110,7 +110,14 @@ between the methods.
 _Avoid_: dataset, test set (the evaluation layer is separate and frozen separately).
 
 **Primary benchmark**:
-The three challenge-specified disease targets. **Secondary benchmark**: additional
-targets with known allosteric sites, drawn from the Allosteric Database, used for
-hyperparameter selection and for generalisability. **Stretch target**: c-Myc, which has
-no characterised allosteric site and therefore no ground truth.
+The three challenge-specified disease targets. **Secondary benchmark**: nine further
+targets with functionally validated allosteric sites, framed from RCSB and frozen
+2026-08-24, in two tiers that must not be confused:
+**`development`** is where every hyperparameter is chosen, and is burned by construction;
+**`generalisation`** carries the generalisability and scalability claims and is not opened
+until the method is frozen (Phase 5). One set cannot do both jobs — that contradiction is
+what ADR 0021 settles. The term "selection set" is retired in favour of `development`.
+**Stretch target**: c-Myc, which has no characterised allosteric site and therefore no
+ground truth.
+_Avoid_: "the ASD set" — the frame is RCSB, not the Allosteric Database, for reasons
+recorded in `docs/benchmark/secondary/evidence/databases.md`.

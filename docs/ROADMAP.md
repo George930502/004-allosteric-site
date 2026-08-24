@@ -112,23 +112,34 @@ have to land:
 reproducible from its config, and the harness scoring a trivial baseline end to end on all
 five arms.
 
-### 1.7 — ASD selection set
+### 1.7 — Secondary benchmark — CLOSED 2026-08-24
 
-A development set of ASD targets, built and frozen **before** Phase 2. Every hyperparameter —
-metric, Hamiltonian, cutoff, coarse-graining ratio — is chosen there and nowhere else. Without
-it, Phase 2's ablations are selected on the frozen primary benchmark, which is test-set
-fitting even with no holo import (`docs/FIELD.md` trap 4).
+A second frozen input layer, built and frozen **before** Phase 2, in two disjoint tiers
+(ADR 0021). `development` carries every hyperparameter — metric, Hamiltonian, cutoff,
+coarse-graining ratio — and `generalisation` carries the Phase 5 claim and is not looked at
+until the method is frozen. Without the first tier, Phase 2's ablations are selected on the
+frozen primary benchmark, which is test-set fitting even with no holo import
+(`docs/FIELD.md` trap 4). Without the second, there is no set that can demonstrate
+generalisation, because the tuning set is burned by construction (ADR 0012).
 
-The set must be disjoint from every primary target on accession, family, homologous site and
-residue overlap (ADR 0012). That is not a formality: ASD curates the myristoyl pocket twice,
-lists `1OPL` as a related complex, and holds an HRAS record carrying 4 of 5 KRAS labels past
-any identity dedup.
+The frame is RCSB rather than the Allosteric Database. No database certifies allostery per
+record, per site, per structure; ASD is unreachable and unlicensed; AHoJ-DB's apo call
+returns the pair this repo's own audit rejected. Evidence: `docs/benchmark/secondary/evidence/databases.md`.
 
-**Exit:** a frozen selection set with a `selection.json` recording every candidate considered
-and the clause that decided it, and no primary-benchmark number used to build it.
+**Delivered.** 9 targets from 97 candidates, 147–1058 modelled residues, 133 scoreable
+labels. Four extra admission clauses beyond the eight — single-chain lining, apo occupant
+classification, structure admission, within-set Pfam redundancy — each with a test.
+Tier split is seeded and size-stratified, and `allo.benchmark.size_stratified_split`
+reproduces it. `docs/benchmark/secondary/README.md` reports what the achieved N supports
+and, in §7, the eleven limitations a reviewer would otherwise find.
 
-**Phase 2 entry gate: NOT MET.** Blocked on 1.6 and 1.7. ADR 0016 separately blocks the
-mandated 5TBY deliverables until the organisers answer question (a).
+**Exit met:** `allo benchmark verify --set all` is clean, `selection.json` records all 97
+candidates, 73 of them with the clause that decided each, and no primary-benchmark number
+was used to build it. The remaining 24 rows are recorded `pending`: a sweep proposed them
+and no one screened them, because the set was already large enough to freeze.
+
+**Phase 2 entry gate: blocked on 1.6 only.** ADR 0016 separately blocks the mandated 5TBY
+deliverables until the organisers answer question (a).
 
 ---
 
@@ -140,9 +151,9 @@ met.
 Hamiltonian constructions from the network; continuous-time quantum walk from the active
 site; candidate metrics (time-averaged transfer probability, peak transfer, integrated
 coherence, quantum Fisher information). Produce the N × N connectivity matrix and top-5 hit
-lists. Ablate which metric, which Hamiltonian, which active-site definition — **on the Phase
-1.7 selection set**. The frozen primary benchmark is scored once, with the choice already
-fixed.
+lists. Ablate which metric, which Hamiltonian, which active-site definition — **on the secondary
+set's `development` tier and nowhere else**. The frozen primary benchmark is scored once,
+with the choice already fixed, and the `generalisation` tier is not opened until Phase 5.
 
 **Exit:** at least one quantum metric beats the best classical baseline on the primary
 criterion across targets, with the comparison run through the Phase 1.6 harness and the
@@ -182,9 +193,10 @@ ratio for an unseen protein.
 ## Phase 5 — Interpretability, delivery, extra targets
 
 3D visualisation of connectivity maps on the structure. c-Myc (`1NKP`) prediction — its input
-and evaluation contract must be frozen before method design, not after (ADR 0020). Further
-**held-out** ASD targets for generalisability, distinct from the Phase 1.7 selection set,
-which has already been tuned on and cannot demonstrate generalisation. The methodological
+and evaluation contract must be frozen before method design, not after (ADR 0020). The generalisability and
+scalability numbers come from the secondary set's `generalisation` tier (N = 5, frozen
+2026-08-24) and from nowhere else. It is opened here for the first time; the `development`
+tier has already been tuned on and cannot demonstrate generalisation. The methodological
 report tying the quantum metric to the biology. Final artifact pass for all four minimum
 targets.
 

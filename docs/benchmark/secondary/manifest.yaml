@@ -1,0 +1,630 @@
+# Secondary benchmark — the input layer for the generalisability and scalability claim.
+#
+# Same rules, same code, same freeze mechanics as `docs/benchmark/manifest.yaml`. Reading
+# that file first is the fastest way to understand this one; only what DIFFERS is explained
+# here. Rationale: docs/adr/0021-secondary-benchmark-is-two-disjoint-sets.md.
+# Clause-by-clause admission and the achieved statistics: docs/benchmark/secondary/README.md.
+# Every candidate considered, and the clause that decided it: secondary/selection.json.
+#
+# CHALLENGE.md section 6 asks for additional targets that demonstrate generalizability and
+# scalability. Three targets cannot make a cross-target claim at all: a distribution-free
+# one-sample test over N targets has a minimum attainable one-sided p of 2^-N, which at
+# N = 3 is 0.125. That is why this set exists.
+#
+# TWO TIERS, ONE FREEZE. Both tiers freeze now, from this file, through the same derive()
+# the primary set uses — that is what makes their numbers comparable. They are LOOKED AT at
+# different times, and that is what makes the second tier worth anything:
+#   development     - every hyperparameter: metric, Hamiltonian, cutoff, ratio. Phase 2
+#                     onward. Burned by construction, exactly as ADR 0012 says.
+#   generalisation  - the generalisability and scalability claims. Phase 5, and NOT BEFORE
+#                     the method is frozen. Reading it early destroys the only thing it is for.
+# Tier assignment is a seeded, size-stratified split (ADR 0021 section 5), not a judgement.
+# It is reproduced from n_residues by `allo.benchmark.size_stratified_split`, and a test
+# holds that the recorded tiers are what that function returns. Nobody chose which targets
+# carry the generalisation claim, so nobody could put the easy ones there.
+#
+# FOUR EXTRA ADMISSION CLAUSES bind this set and not the primary one, because they are
+# SELECTION rules and a selection only exists where there is a pool (ADR 0009's reasoning):
+#   (ix)  single-chain lining      - every lining residue in the modelled chain. Measured.
+#   (x)   apo occupant classified  - a second-site occupant must contact NO label.
+#   (xi)  structure admission      - ADR 0009: X-ray <= 2.5 A, cryo-EM <= 4.0 A.
+#   (xii) within-set redundancy    - no shared Pfam family, inside this set or with the
+#                                    primary set. `pfam:` on each target is what that is
+#                                    checked against.
+# Clauses (i)-(viii) in docs/benchmark/README.md section 1 are unchanged and bind both sets.
+#
+# `pfam` is the only field here with no counterpart in the primary manifest. It is apo-side
+# sequence annotation, it is redacted out of the prediction path like every other evaluation
+# field, and it exists so clause (xii) is a test rather than a promise.
+
+version: 1
+frozen_on: 2026-08-24
+source: CHALLENGE.md section 6 — additional targets of the participant's choice
+
+defaults:
+  # Identical to the primary set on purpose. A number from this set is comparable with a
+  # number from that one only if every input-layer knob is the same.
+  contact_cutoff_angstrom: 4.5
+  cutoff_sensitivity: [4.0, 5.0]
+  atom_selection: heavy
+  model: 1
+
+
+structure_provenance:
+  1A9X:
+    { version: "1-5", url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/a9/pdb_00001a9x/pdb_00001a9x_xyz_v1-5.cif.gz, sha256: 6c90956a7c9289efe6da1e58c9917980126ba455d212ca556f8f328195321772 }
+  1IA8:
+    { version: "1-5", url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/ia/pdb_00001ia8/pdb_00001ia8_xyz_v1-5.cif.gz, sha256: f5a071607557f6be2c8cdc68a89672a7530a29c167e895608fd2c92534a1f08e }
+  1QUV:
+    { version: "1-4", url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/qu/pdb_00001quv/pdb_00001quv_xyz_v1-4.cif.gz, sha256: 731b0ff1d7eaa14d8993a384999a66fd59578c55edd6915f980b3b80ec3c76cb }
+  1RTJ:
+    { version: "1-4", url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/rt/pdb_00001rtj/pdb_00001rtj_xyz_v1-4.cif.gz, sha256: d03356dd8939e83fdb065a17270a64ac4d41c2d902647d534b4051c5f41b6fbc }
+  1SUG:
+    { version: "1-3", url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/su/pdb_00001sug/pdb_00001sug_xyz_v1-3.cif.gz, sha256: 6ddbfa83d228c383e6481bc5e7a7a9fce53ab66fd10707a36dd283e988e9b1b2 }
+  1T36:
+    { version: "2-0", url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/t3/pdb_00001t36/pdb_00001t36_xyz_v2-0.cif.gz, sha256: 779bfda6939b20335238b4336c4528991816a22ce854515dc262a49f525b1bcc }
+  1T48:
+    { version: "1-3", url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/t4/pdb_00001t48/pdb_00001t48_xyz_v1-3.cif.gz, sha256: 3aa6aaae580838466e8f465ce57a6f2f21d55b30e4399eb89830044cf3ac99cb }
+  1VRT:
+    { version: "1-4", url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/vr/pdb_00001vrt/pdb_00001vrt_xyz_v1-4.cif.gz, sha256: e4a09b4b52089e656006d952c5c09ae406311a47d044fcfb729b5f723ea9fa2b }
+  1ZZW:
+    { version: "1-3", url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/zz/pdb_00001zzw/pdb_00001zzw_xyz_v1-3.cif.gz, sha256: 63dd4c2fe81639a9fbd773fd0c19262e239394b73770eaaff2a2e08ef038d2f2 }
+  2BRK:
+    { version: "1-3", url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/br/pdb_00002brk/pdb_00002brk_xyz_v1-3.cif.gz, sha256: 6465752f81ebb5e5953aa67350d0b3fecbe66f6265f62e161004b358ff8995c2 }
+  3F9M:
+    { version: "1-5", url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/f9/pdb_00003f9m/pdb_00003f9m_xyz_v1-5.cif.gz, sha256: 2ebc367654a3cc98f7927fecf7df0f15c8f0cc645df71684428601bc8f237a97 }
+  3IDH:
+    { version: "1-5", url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/id/pdb_00003idh/pdb_00003idh_xyz_v1-5.cif.gz, sha256: 4602a0138dbca9c376a536ae3e967acbc23797045409e0b568e2fd8179f457eb }
+  3JVR:
+    { version: "1-3", url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/jv/pdb_00003jvr/pdb_00003jvr_xyz_v1-3.cif.gz, sha256: 833b72662fc250be0ac0054ca0d9f1ff537b6bb7f31403ed668fc2e1a0ffee4f }
+  5FTJ:
+    { version: "1-6", url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/ft/pdb_00005ftj/pdb_00005ftj_xyz_v1-6.cif.gz, sha256: 190739b79de426c342f6946cba41b6aa91ef3c840df4e13f8018a82f045e24aa }
+  5FTK:
+    { version: "1-4", url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/ft/pdb_00005ftk/pdb_00005ftk_xyz_v1-4.cif.gz, sha256: 508646c5a821a721d0c95e85dd67f6c4b478975dcf260d495cc52e4ef0f534da }
+  6P7Z:
+    { version: "1-2", url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/p7/pdb_00006p7z/pdb_00006p7z_xyz_v1-2.cif.gz, sha256: 2970852315306c9ca07a7425d75b675cefa83ebb6b120f22c98bdc5c33c3eec5 }
+  7BJ1:
+    { version: "1-4", url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/bj/pdb_00007bj1/pdb_00007bj1_xyz_v1-4.cif.gz, sha256: 57e84e2820e7e70fd14c3f9be86eefde723b39c9fd387ddc3615b39a5e22f093 }
+  7UMV:
+    { version: "1-1", url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/um/pdb_00007umv/pdb_00007umv_xyz_v1-1.cif.gz, sha256: 674e1e1cabad09f4302306a7d3f8653abcb5a41a6b618c14462aec8452da4389 }
+
+label_footprints:
+  "1T36:A:U5P":
+    [
+      A:SER948,
+      A:VAL949,
+      A:ARG950,
+      A:LYS954,
+      A:THR974,
+      A:HIS975,
+      A:GLY976,
+      A:THR977,
+      A:LYS993,
+      A:VAL994,
+      A:HIS995,
+      A:ASN1015,
+      A:THR1016,
+      A:THR1017,
+      A:ALA1022,
+      A:ASP1025,
+      A:SER1026,
+      A:ILE1029,
+      A:ARG1030,
+    ]
+  "1T48:A:BB3":
+    [
+      A:ALA189,
+      A:LEU192,
+      A:ASN193,
+      A:PHE196,
+      A:GLU200,
+      A:GLU276,
+      A:GLY277,
+      A:PHE280,
+      A:ILE281,
+      A:TRP291,
+      A:LYS292,
+    ]
+  "1VRT:A:NVP":
+    [
+      A:PRO95,
+      A:LEU100,
+      A:LYS101,
+      A:LYS103,
+      A:VAL106,
+      A:VAL179,
+      A:TYR181,
+      A:TYR188,
+      A:VAL189,
+      A:GLY190,
+      A:PHE227,
+      A:TRP229,
+      A:LEU234,
+      A:HIS235,
+      A:PRO236,
+      A:TYR318,
+    ]
+  "2BRK:A:CMF":
+    [
+      A:VAL37,
+      A:LEU392,
+      A:ALA393,
+      A:ALA395,
+      A:ALA396,
+      A:THR399,
+      A:ILE424,
+      A:LEU425,
+      A:HIS428,
+      A:PHE429,
+      A:LEU492,
+      A:GLY493,
+      A:VAL494,
+      A:PRO495,
+      A:TRP500,
+      A:ARG503,
+    ]
+  "3F9M:A:MRK":
+    [
+      A:TYR61,
+      A:VAL62,
+      A:ARG63,
+      A:SER64,
+      A:THR65,
+      A:PRO66,
+      A:ILE159,
+      A:MET210,
+      A:ILE211,
+      A:TYR214,
+      A:TYR215,
+      A:HIS218,
+      A:CYS220,
+      A:GLU221,
+      A:MET235,
+      A:LEU451,
+      A:VAL452,
+      A:VAL455,
+      A:ALA456,
+    ]
+  "3JVR:A:AGX":
+    [
+      A:PHE93,
+      A:ASP94,
+      A:ARG95,
+      A:ILE96,
+      A:GLU97,
+      A:PRO98,
+      A:PRO133,
+      A:TYR173,
+      A:ALA200,
+      A:GLY204,
+      A:GLU205,
+      A:LEU206,
+    ]
+  "5FTJ:A:OJA":
+    [
+      A:LEU492,
+      A:VAL493,
+      A:GLN494,
+      A:PRO496,
+      A:VAL497,
+      A:GLU498,
+      A:PRO510,
+      A:SER511,
+      A:LYS512,
+      A:CYS535,
+      A:ALA537,
+      A:PRO571,
+      A:CYS572,
+      A:LYS614,
+      A:ASN616,
+      A:VAL617,
+      A:PHE618,
+    ]
+  "7BJ1:A:QKT":
+    [
+      A:ALA188,
+      A:GLU189,
+      A:ILE339,
+      A:ASN340,
+      A:LEU344,
+      A:VAL371,
+      A:MET374,
+      A:LYS375,
+      A:LYS378,
+      A:LEU379,
+      A:HIS382,
+      A:LEU410,
+    ]
+  "7UMV:A:NUU":
+    [
+      A:SER413,
+      A:THR417,
+      A:ILE420,
+      A:MET431,
+      A:TYR435,
+      A:ILE445,
+      A:SER446,
+      A:PRO447,
+      A:ASN448,
+      A:PHE451,
+      A:MET452,
+      A:LEU455,
+    ]
+
+orthosteric_vocabulary:
+  state_components: [ADP, CL, GLC, GOL, K, MG, MN, O41, PO4, SAM, SO4]
+  additives: []
+
+targets:
+  - id: mkp5
+    tier: development
+    protein: MAP kinase phosphatase 5 (DUSP10), catalytic domain
+    site: allosteric pocket adjacent to the general acid loop
+    pfam: [PF00782]
+    apo:
+      {
+        pdb: 1ZZW,
+        chain: A,
+        sha256: 63dd4c2fe81639a9fbd773fd0c19262e239394b73770eaaff2a2e08ef038d2f2,
+      }
+    holo: { pdb: 7UMV, chain: A, ligand: NUU }
+    allosteric_evidence:
+      doi: 10.1038/s41467-025-62150-w
+      assay: >
+        Skeens 2025, Nature Communications. Crystallography with NMR relaxation shows that Y435
+        maintains the allosteric pocket and that a change there propagates through the
+        surrounding loops to reorganise the catalytic residues. The effect is measured at the
+        catalytic site. The site mutation is the control: it removes the pocket and the
+        propagation with it, which is the binding-null test clause (ii) asks for.
+    state: { apo: unliganded catalytic domain, holo: inhibitor-bound catalytic domain, matched: true }
+    blind:
+      value: false
+      why: >
+        Published 2025 with the allosteric site named in the title. Treat every number from this
+        arm as non-blind.
+    active_site: { from_motifs: [PTP] }
+    note: >
+      The SMALLEST arm in the set at 147 modelled residues, and the reason the size ladder
+      reaches 0.86 dex rather than 0.59. It replaced glycogen phosphorylase, which was
+      admitted on an asymmetric-unit measurement and then rejected when the same measurement
+      was repeated on the biological assembly. One of the 12 lining residues is ITSELF an
+      active-site residue under the PTP motif rule, so clause (vii) excludes it and 11 are
+      scoreable; the apo sulfate that contacts it sits in the phosphate-binding catalytic
+      site, which is the same pattern the primary KRAS arm records. Highest prevalence in the
+      set at 8.1 percent, and 12 transplant clashes of 22, so the pocket is substantially
+      closed in the apo.
+
+  - id: chk1
+    tier: generalisation
+    protein: CHK1 (CHEK1)
+    site: C-lobe allosteric site
+    pfam: [PF00069]
+    apo:
+      {
+        pdb: 1IA8,
+        chain: A,
+        sha256: f5a071607557f6be2c8cdc68a89672a7530a29c167e895608fd2c92534a1f08e,
+      }
+    holo: { pdb: 3JVR, chain: A, ligand: AGX }
+    allosteric_evidence:
+      doi: 10.1021/bi900258v
+      assay: >
+        Vanderpool 2009, the cleanest kinetics in this set. ATP and peptide substrate were
+        varied INDEPENDENTLY and the data fitted as a mixed inhibitor: 'these small molecule
+        allosteric site inhibitors of CHK1 are reversible and are neither ATP- nor peptide
+        substrate-competitive.' Ki 1.89 and 0.15 microM. Double variation is what excludes both
+        competitive modes at once, and a single-substrate titration cannot do it. The effect is
+        measured at the catalytic site.
+    state: { apo: unphosphorylated kinase domain, holo: unphosphorylated kinase domain, matched: true }
+    blind:
+      value: false
+      why: >
+        The CHK1 C-lobe site is curated in ASD. A comparator trained on ASD is not blind here
+        and must be labelled (ADR 0017).
+    active_site: { from_motifs: [VAIK, HRD, DFG] }
+    note: >
+      The site lies in the C-lobe near the substrate groove, but no AGX contact is an
+      active-site residue under the motif rule: the two sets are disjoint in the freeze and the
+      nearest label sits 7.1 A from the source. All 12 labels are scoreable. Single-laboratory result, never
+      reproduced by an outside group. CHK1 is a CAMK-group serine/threonine kinase: Pfam
+      PF00069 against ABL1's PF07714, so ADR 0012's family-disjointness from the primary set
+      holds.
+
+  - id: ptp1b
+    tier: development
+    protein: Protein tyrosine phosphatase 1B (PTPN1)
+    site: BB allosteric site at helix alpha-7
+    pfam: [PF00102]
+    apo:
+      {
+        pdb: 1SUG,
+        chain: A,
+        sha256: 6ddbfa83d228c383e6481bc5e7a7a9fce53ab66fd10707a36dd283e988e9b1b2,
+      }
+    holo: { pdb: 1T48, chain: A, ligand: BB3 }
+    allosteric_evidence:
+      doi: 10.1038/nsmb803
+      assay: >
+        Wiesmann 2004: 'We show that allosteric inhibitors prevent formation of the active form
+        of the enzyme by blocking mobility of the catalytic loop, thereby exploiting a general
+        mechanism used by tyrosine phosphatases.' Turnover on pNPP with the effector bound about
+        20 A away, controlled by mutual exclusivity with the active-site inhibitor TCS401 and by
+        a BB-site mutant panel including F280Y. The effect is measured at the catalytic site
+        (Cys215 turnover). The primary kinetics sentence is behind a paywall and was NOT
+        retrievable, so no inhibition constant is pinned here.
+    state: { apo: "WPD-loop open, alpha-7 ordered", holo: "WPD-loop open, alpha-7 displaced", matched: true }
+    blind:
+      value: false
+      why: >
+        The PTP1B BB site is curated in ASD and is one of the most re-used examples in the
+        allosteric-prediction literature.
+    active_site: { from_motifs: [PTP] }
+    note: >
+      Three disclosures. First, a naming collision that has misled others: PDB component BB3
+      is the 1T48 ligand, but several papers use 'BB3' as a nickname for the 1T49 compound,
+      component 892. This arm is keyed to the component id, never to a nickname. Second, the
+      BB chemotype destabilises PTP1B by more than 5 degrees in DSF, so denaturation is a live
+      alternative to allosteric transmission; it is answered by orthogonal evidence rather
+      than dismissed, namely HDX-MS showing altered exchange at the WPD loop (doi
+      10.1002/pro.5024) and an NMR plus mutant network map (doi 10.1016/j.molcel.2017.01.014).
+      Third, the apo is not from the same study: 1SUG is Pedersen 2004, doi
+      10.1107/S0907444904015094, so this is a constructed pair. Helix alpha-7 is ordered in
+      the apo and displaced in the holo, which is why the transplant records 21 clashes of 28.
+
+  - id: smyd3
+    tier: generalisation
+    protein: SMYD3 lysine methyltransferase
+    site: C-terminal domain (diperodon) site
+    pfam: [PF00856, PF01753]
+    apo:
+      {
+        pdb: 6P7Z,
+        chain: A,
+        sha256: 2970852315306c9ca07a7425d75b675cefa83ebb6b120f22c98bdc5c33c3eec5,
+      }
+    holo: { pdb: 7BJ1, chain: A, ligand: QKT }
+    allosteric_evidence:
+      doi: 10.1002/cbic.202000736
+      assay: >
+        Talibov 2021. LC-ESI-MS methylation of the MAP3K2 249-274 peptide, with SPR competition
+        on an EPZ031686-blocked surface and with saturating SAM as the controls: 'diperodon did
+        not interact with either of the two known canonical binding sites of the protein, that
+        is, the substrate or co-factor binding sites.' Those two controls are what excludes the
+        orthosteric alternative. The effect is measured at the catalytic site.
+    state: { apo: "SAM-bound, substrate channel occupied by O41", holo: "SAM-bound, substrate channel empty", matched: false }
+    blind:
+      value: false
+      why: >
+        Curated allosteric example, and the compound series is published.
+    active_site: { from_ligands: [SAM] }
+    note: >
+      The WEAKEST clause (ii) in the admitted set, and admitted with that stated rather than
+      hidden. The evidence is fragment-grade: KD 42 and 84 microM, about 45 percent inhibition
+      at 100 microM, and the authors write 'The compounds acted as very weak inhibitors.'
+      There is no binding-null mutant and no kinetic mode. It is admitted rather than rejected
+      because the orthosteric alternative IS excluded by the SPR competition controls, which
+      is the test clause (ii) applies; weak potency is not a wrong mechanism. Two further
+      disclosures. The apo carries O41, a GSK isoxazole-amide that binds the LYSINE TUNNEL
+      beside the SAM site (doi 10.1021/acsmedchemlett.9b00493), so the apo is site-apo for the
+      QKT pocket but its substrate channel is blocked, and the orthosteric state therefore
+      does not match. Two cleaner SMYD3 apo entries were tested and both failed worse: 3QWP
+      puts glycerol 2.85 A from three labels and fails clause (iii), and 3MEK differs from the
+      holo inside the label set.
+
+  - id: glucokinase
+    tier: generalisation
+    protein: Human glucokinase (GCK)
+    site: glucokinase activator (GKA) site
+    pfam: [PF00349, PF03727]
+    apo:
+      {
+        pdb: 3IDH,
+        chain: A,
+        sha256: 4602a0138dbca9c376a536ae3e967acbc23797045409e0b568e2fd8179f457eb,
+      }
+    holo: { pdb: 3F9M, chain: A, ligand: MRK }
+    allosteric_evidence:
+      doi: 10.1126/science.1084073
+      assay: >
+        Grimsby 2003 carries the kinetics: 'We describe a class of antidiabetic agents that act
+        as nonessential, mixed-type GK activators (GKAs) that increase the glucose affinity and
+        maximum velocity (Vmax) of GK.' Steady-state glucose saturation with and without
+        activator, read out as S0.5, Hill coefficient and Vmax, extended to hepatocyte
+        metabolism and islet insulin secretion. The effect is measured at the catalytic site.
+        Site provenance is Kamata 2004, doi 10.1016/j.str.2004.02.005, which crystallised THIS
+        component, MRK, at this site in 1V4S. The DOI first proposed for this arm,
+        10.2337/diabetes.52.9.2433, is a real paper about germline activating mutations, does
+        not cover a small-molecule site, and was rejected.
+    state: { apo: "glucose-bound, closed", holo: "glucose-bound, closed", matched: true }
+    blind:
+      value: false
+      why: >
+        The GKA site is curated in ASD and is a textbook allosteric activator site.
+    active_site: { from_ligands: [GLC] }
+    note: >
+      Two disclosures, and the first one is a correction. An earlier version of this note
+      called 3IDH the super-open, unliganded form and called the arm the largest apo-to-holo
+      change in the set. That was wrong, and the freeze says so. 3IDH's own title is 'Human
+      pancreatic glucokinase in complex with glucose'; its entry components are GLC and K;
+      the derived orthosteric state is GLC on both sides with matches_apo true; and the core
+      RMSD is 0.39 A over 430 residues with 0 transplant clashes of 23. Both entries are the
+      glucose-bound closed form. This is therefore the EASIEST arm in the set on both the
+      conformational-change axis and the crypticity axis, not the hardest. The largest change
+      in the set is ptp1b, at 3.02 A core. Second disclosure:
+      3F9M's own deposition paper argues against a conformational mechanism: Petit 2011, doi
+      10.1107/S0907444911036729, concludes that 'binding of GK activators does not result in
+      conformational changes of the active protein but in stabilization of the active form of
+      GK.' Clause (ii) survives on Grimsby's kinetics, but a reviewer must be told that the
+      holo-minus-apo difference AT THE ACTIVE SITE is close to nil. Chemotype caveat:
+      Grimsby's kinetics are on RO-28-1675, not on MRK.
+
+  - id: hiv_rt
+    tier: development
+    protein: HIV-1 reverse transcriptase p66
+    site: NNRTI pocket
+    pfam: [PF00078, PF06815, PF06817, PF00075]
+    apo:
+      {
+        pdb: 1RTJ,
+        chain: A,
+        sha256: d03356dd8939e83fdb065a17270a64ac4d41c2d902647d534b4051c5f41b6fbc,
+      }
+    holo: { pdb: 1VRT, chain: A, ligand: NVP }
+    allosteric_evidence:
+      doi: 10.1126/science.7532321
+      assay: >
+        Spence, Kati, Anderson and Johnson 1995. Rapid-quench pre-steady-state burst kinetics on
+        the RT-DNA complex across a dNTP series: 'Nevirapine, O-TIBO, and CI-TIBO each bind to a
+        hydrophobic pocket in the enzyme-DNA complex close to the active site catalytic
+        residues. Pre-steady-state kinetic analysis was used to establish the mechanism of
+        inhibition by these noncompetitive inhibitors.' Nucleotide binding and the induced-fit
+        step are shown UNAFFECTED while the chemical step is blocked, and that separation is the
+        control excluding occlusion. The effect is measured at the catalytic site, unusually
+        directly: at the bond-forming step itself. The structure paper is Ren 1995, doi
+        10.1038/nsb0495-293, which carries clause (i) and not clause (ii).
+    state: { apo: unliganded p66/p51, holo: NNRTI-bound p66/p51, matched: true }
+    blind:
+      value: false
+      why: >
+        The NNRTI pocket is the textbook non-competitive site and is curated in ASD and in every
+        cryptic-site benchmark.
+    active_site: { from_motifs: [POLA, YXDD] }
+    note: >
+      This arm is the clearest statement of clause (ii)'s own thesis: the pocket sits about 10
+      A from the catalytic aspartates, which is close, and the inhibition is nonetheless
+      cleanly non-competitive. Distance is neither necessary nor sufficient. The propagation
+      source uses TWO polymerase motifs rather than one: motif C (YXDD) gives catalytic D185
+      and D186, and motif A (POLA) gives catalytic D110, which motif C alone misses. Two
+      disclosures. RT is a p66/p51 heterodimer and the node set is chain A alone, so p51 is
+      absent; the measured lining is entirely inside p66. The pocket is closed in the apo 1RTJ
+      and is inhibitor-induced, so this arm is CRYPTIC as well as allosteric: 13 transplant
+      clashes of 20, which is the third-highest fraction in the set behind ns5b at 32/33 and
+      ptp1b at 21/28. Crypticity is a recorded difficulty axis here, not grounds for
+      rejection.
+
+  - id: ns5b
+    tier: development
+    protein: Hepatitis C virus NS5B RNA polymerase
+    site: thumb I (finger-loop) site
+    pfam: [PF00998]
+    apo:
+      {
+        pdb: 1QUV,
+        chain: A,
+        sha256: 731b0ff1d7eaa14d8993a384999a66fd59578c55edd6915f980b3b80ec3c76cb,
+      }
+    holo: { pdb: 2BRK, chain: A, ligand: CMF }
+    allosteric_evidence:
+      doi: 10.1128/JVI.77.24.13225-13231.2003
+      assay: >
+        Tomei 2003: 'In assays using poly(A)-oligo(U)18 as template-primer, both compounds
+        appeared to be noncompetitive with respect to UTP.' Purified RdRp with UTP varied, read
+        as double-reciprocal plots, controlled by Pro495 escape mutants in both the enzyme and
+        the replicon and by direct cross-competition between chemotypes. Resistance maps 'on the
+        surface of the polymerase thumb domain and away from the active site.' The effect is
+        measured at the catalytic site. Tomei measured benzimidazoles and CMF is an indole, so
+        the compound-to-site assignment comes from Di Marco 2005, doi 10.1074/jbc.M505423200,
+        which is 2BRK's own deposition paper.
+    state: { apo: "unliganded, finger-loop closed over the site", holo: "inhibitor-bound, finger-loop displaced", matched: true }
+    blind:
+      value: false
+      why: >
+        The NS5B thumb sites are curated in ASD and are among the most modelled allosteric
+        pockets in antiviral chemistry.
+    active_site: { from_motifs: [GDD] }
+    note: >
+      The strongest clause (ii) in the admitted set. Its apo is GLOBALLY ligand-free rather
+      than merely site-apo, which is true of one other arm and of no third: 1QUV and hiv_rt's
+      1RTJ both freeze with an empty apo_site_occupancy.entry_components. Difficulty disclosure that a reviewer must
+      have: in the apo the site is not empty space but is occupied BY PROTEIN. Ago 1999 (doi
+      10.1016/S0969-2126(00)80031-3) reports that in the apoenzyme the inhibitor binding site
+      is occupied by a small alpha-helix at the tip of the N-terminal loop connecting the
+      fingers and thumb domains. A geometry-first baseline sees no pocket in 1QUV at all. That
+      is biology, not method failure, and it is why this arm is worth keeping. The site is
+      thumb I, not thumb II, palm I or palm II. 2BRK is C-truncated relative to 1QUV, and the
+      freeze re-derives the numbering rather than assuming it. Source disclosure: GDD gives
+      the motif-C catalytic aspartates D318 and D319 and nothing else, so this arm has the
+      SMALLEST propagation source in the set at 3 residues. Motif A's D220 is deliberately
+      left out: no documented contiguous pattern captures it in this family, and a regular
+      expression chosen because it happens to match once here would be fitted to the data
+      rather than derived from the family.
+
+  - id: p97_vcp
+    tier: generalisation
+    protein: p97 / VCP (valosin-containing protein)
+    site: D1-D2 domain interface site
+    pfam: [PF00004, PF02359, PF02933, PF17862]
+    apo:
+      {
+        pdb: 5FTK,
+        chain: A,
+        sha256: 508646c5a821a721d0c95e85dd67f6c4b478975dcf260d495cc52e4ef0f534da,
+      }
+    holo: { pdb: 5FTJ, chain: A, ligand: OJA }
+    allosteric_evidence:
+      doi: 10.1126/science.aad7974
+      assay: >
+        Banerjee 2016: the structures 'illustrate how inhibitor binding at the interface between
+        the D1 and D2 domains prevents propagation of the conformational changes necessary for
+        p97 function.' ADP-Glo ATPase inhibition at IC50 27 nM, with 2.3 and 2.4 A cryo-EM with
+        and without inhibitor, controlled by the matched inhibitor-free ADP structure 5FTK and
+        by an ATP-gamma-S occupancy series. The effect is measured at the catalytic site, the D2
+        ATPase. The DOI first proposed for this arm, 10.1038/nchembio.1313, is the NMS-873
+        paper: right protein, right concept, WRONG molecule, and it was rejected.
+    state: { apo: ADP-bound, holo: ADP-bound, matched: true }
+    blind:
+      value: false
+      why: >
+        p97 allosteric inhibitors are curated in ASD and the D1-D2 site is a published drug-
+        discovery target.
+    active_site: { from_ligands: [ADP] }
+    note: >
+      Three disclosures. There is no retrievable Lineweaver-Burk for UPCDC30245 itself; the
+      uncompetitive-with-ATP kinetics reported for this inhibitor class are for a different
+      compound, SMDC818909 (doi 10.1021/acsmedchemlett.5b00396). The apo is ADP-bound rather
+      than nucleotide-free, and the compound is reported to prefer the ADP state, so the apo
+      is the state the compound favours. p97 is a hexamer and this inhibitor class is
+      described as spanning adjacent protomers; measured on the deposited pose, all 17 lining
+      residues lie in chain A, so clause (ix) passes on the file. This is a cryo-EM arm,
+      admitted under ADR 0009's 4.0 A ceiling at 2.3 and 2.4 A.
+
+  - id: ecoli_cps
+    tier: generalisation
+    protein: E. coli carbamoyl phosphate synthetase, large subunit
+    site: UMP allosteric site in the C-terminal regulatory domain
+    pfam: [PF02786, PF02787, PF25596, PF02142]
+    apo:
+      {
+        pdb: 1A9X,
+        chain: A,
+        sha256: 6c90956a7c9289efe6da1e58c9917980126ba455d212ca556f8f328195321772,
+      }
+    holo: { pdb: 1T36, chain: A, ligand: U5P }
+    allosteric_evidence:
+      doi: 10.1006/jmbi.2000.3794
+      assay: >
+        Fresquet 2000. Point mutants of the C-terminal allosteric domain 'abolished or greatly
+        hampered IMP activation and UMP inhibition', read out as fold inhibition of CPS
+        activity. The binding-null control is Delannay 1999, doi 10.1006/jmbi.1999.2561: S948F
+        makes the enzyme insensitive to UMP and IMP but STILL activated by ornithine, so the
+        loss is site-specific rather than a folding defect. The effect is measured at the
+        catalytic site, about 19 A away.
+    state: { apo: ornithine-activated, holo: ornithine-activated, matched: true }
+    blind:
+      value: false
+      why: >
+        CPS is a classical allosteric enzyme and its regulatory domain is curated in ASD and
+        CASBench.
+    active_site: { from_ligands: [ADP, MN, PO4] }
+    note: >
+      The effector is UMP and NOT IMP, which is a deliberate correction. The IMP-bound entry
+      1CE8 was screened first and rejected on evidence: its own deposition paper (Thoden 1999)
+      states that the actual effect of IMP on the activity of the enzyme is dependent upon
+      both temperature and assay conditions, and Braxton 1992 found a minimal linked-function
+      effect. UMP carries two independent binding-null controls and no such hedge. UMP and IMP
+      share a sub-site, which is why S948F kills both. Disclosure: every deposited E. coli CPS
+      entry carries ornithine, so no ornithine-free apo exists and this arm is site-apo only.
+      Ornithine occupies a DISTINCT sub-site in the same domain: measured here it comes no
+      closer than 6.73 A to any label and contacts none of them. The largest arm in the set at
+      1058 modelled residues.
+
