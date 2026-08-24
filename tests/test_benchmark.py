@@ -201,11 +201,10 @@ def test_every_arm_accounts_for_the_labels_it_does_not_score(manifest):
         cut = set(values["labels_outside_node_set"])
         assert not cut & set(values["label_residues"]), f"{name}: a cut label is still scored"
         assert not cut & set(values["residue_ids"]), f"{name}: a cut label is still a node"
-        if cut:
-            assert spec[name]["apo"].get("residue_range"), (
-                f"{name} drops labels {sorted(cut)} with no manifest residue_range - a node "
-                "set may only cut ground truth at a boundary it declares"
-            )
+        assert not cut, (
+            f"{name} drops labels {sorted(cut)} from the node set - under ADR 0010 the node "
+            "set is the whole modelled chain, so no label can fall outside it"
+        )
 
     assert benchmark._label_accounting_problems(frozen, manifest) == []
 
@@ -248,8 +247,11 @@ def test_the_freeze_recovers_its_bytes_with_no_network(tmp_path, monkeypatch, ma
     monkeypatch.setattr(urllib.request, "urlopen", refuse)
 
     pinned: dict[str, str] = {}
-    for values in json.loads(benchmark.FROZEN.read_text())["targets"].values():
-        pinned.update(values["hashes"])
+    for _, frozen_path in benchmark.SETS.values():
+        if not frozen_path.exists():
+            continue
+        for values in json.loads(frozen_path.read_text())["targets"].values():
+            pinned.update(values["hashes"])
     assert pinned, "the freeze pins no hashes, so this test would pass vacuously"
     for pdb, digest in sorted(pinned.items()):
         assert sha256(fetch_mmcif(pdb, tmp_path)) == digest, f"{pdb} did not restore to its pin"
@@ -257,12 +259,21 @@ def test_the_freeze_recovers_its_bytes_with_no_network(tmp_path, monkeypatch, ma
     # The store covers every accession the manifest names, not merely every one the freeze
     # derives: `cardiac_myosin_site1_mandated` is excluded and so pins nothing, but `5TBY`
     # and `6C1H` are the evidence for why it is excluded and have to survive too.
+    # Both sets share one store, so both sets define what belongs in it. Checking only the
+    # primary manifest would read every secondary entry as an unreferenced stray.
+    import yaml
+
+    from allo.inputs import BENCHMARK_MANIFESTS
+
     named = {
         spec[role]["pdb"]
-        for spec in manifest["targets"]
+        for path in BENCHMARK_MANIFESTS
+        if path.exists()
+        for spec in yaml.safe_load(path.read_text())["targets"]
         for role in ("apo", "holo")
         if role in spec
     }
+    del manifest
     # Reached through the evaluation-side root. `allo.inputs` deliberately exports only the
     # apo partition, so there is no prediction-path constant one `/ "holo"` from the answers.
     root = STRUCTURES

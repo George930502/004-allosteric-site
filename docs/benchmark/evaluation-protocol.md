@@ -168,11 +168,24 @@ rather than counting by hand.
 A stratified permutation test across three targets generalises to **three targets**. It does
 not generalise to proteins, to families, or to allostery. Say so in the report.
 
+**Where a generalisation claim can come from instead.** Three arms cannot make one at any α:
+the minimum attainable one-sided p of a distribution-free one-sample test over N targets is
+2^-N, and 2^-3 = 0.125. The secondary set's `generalisation` tier exists for this and holds
+N = 5 (`secondary/README.md`). **Open item for Phase 1.6:** ADR 0021 argues that the
+across-target test there should be declared at k = 1 and full α, because the per-target
+tests are inputs to it rather than N confirmatory decisions. That is a change to the rule
+above and is not settled here.
+
 ## 8. No tuning on this benchmark
 
 Every hyperparameter — metric, Hamiltonian, cutoff, coarse-graining ratio — is chosen on the
-Phase 1.7 ASD selection set and nowhere else. That set must be disjoint from every primary
-target on accession, family, homologous site and residue overlap (ADR 0012). ASD curates the
+secondary set's **`development`** tier and nowhere else (frozen 2026-08-24, N = 4). The
+`generalisation` tier is not opened until the method is frozen, and the primary set is
+scored once. That set must be disjoint from every primary target on accession, family,
+homologous site and residue overlap (ADR 0012). Clause (xii) tests the first two of those
+four; ADR 0021 §3 records why the other two are not tests and what was run by hand instead.
+The frame is RCSB rather than the Allosteric Database, for reasons recorded in
+`secondary/evidence/databases.md`. ASD curates the
 myristoyl pocket twice, lists `1OPL` as a related complex, and holds an HRAS record carrying
 4 of 5 KRAS labels past any identity dedup, so the disjointness has to be enforced rather
 than assumed.

@@ -12,6 +12,7 @@ parameter; both must be a visible event, not a silent one.
 from __future__ import annotations
 
 import json
+import random
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
@@ -20,19 +21,28 @@ import numpy as np
 from allo.groundtruth.labels import align_numbering, transfer_labels
 from allo.groundtruth.manifest import read_manifest as load
 from allo.groundtruth.structures import EVAL_CACHE, biological_assembly, fetch_mmcif, parse_mmcif
-from allo.inputs import MANIFEST, ROOT, active_site, admitted_residue_numbers
+from allo.inputs import MANIFEST, ROOT, SECONDARY_MANIFEST, active_site, admitted_residue_numbers
 from allo.structure.pdb import Structure, sha256
 
 FROZEN = ROOT / "docs" / "benchmark" / "frozen.json"
+SECONDARY_FROZEN = ROOT / "docs" / "benchmark" / "secondary" / "frozen.json"
+
+# Which manifest produces which freeze. Both sets run through the same `derive`, which is
+# what makes a number from one comparable with a number from the other.
+SETS = {"primary": (MANIFEST, FROZEN), "secondary": (SECONDARY_MANIFEST, SECONDARY_FROZEN)}
 
 __all__ = [
     "FROZEN",
+    "SECONDARY_FROZEN",
+    "SETS",
     "EVAL_CACHE",
     "MANIFEST",
+    "SECONDARY_MANIFEST",
     "ROOT",
     "derive",
     "freeze",
     "load",
+    "size_stratified_split",
     "verify",
 ]
 
@@ -583,8 +593,41 @@ def freeze(manifest: dict | None = None, raw: Path = EVAL_CACHE) -> dict:
     }
 
 
+def size_stratified_split(sizes: dict[str, int], seed: int = 0) -> dict[str, str]:
+    """Assign each secondary target to `development` or `generalisation` (ADR 0021).
+
+    Consecutive size-ordered pairs are the strata, which is the finest stratification
+    available, and the seeded shuffle picks which member of each pair is held out. Nobody
+    chooses, so nobody can put the easy targets in the set that carries the claim.
+
+    An odd target always joins `generalisation`. That tier carries a hypothesis test and
+    needs every arm it can get -- a distribution-free one-sample test over N targets cannot
+    reach p < 0.05 below N = 5 -- while `development` only tunes.
+
+    Note what that rule is NOT. `ordered` is ascending and the unpaired element is
+    `ordered[-1]`, so the LARGEST target always lands in `generalisation`, deterministically
+    and not by the seed. With nine arms that is `ecoli_cps` at 1058 residues, which pulls the
+    held-out tier's mean size to 586 against `development`'s 385. The no-hand-picking promise
+    holds for the paired arms; for the odd one it is a fixed rule, and a reader comparing tier
+    means must know that the rule, not chance, put the biggest target there.
+    """
+    ordered = sorted(sizes, key=lambda name: (sizes[name], name))
+    rng = random.Random(seed)
+    tiers: dict[str, str] = {}
+    for i in range(0, len(ordered) - 1, 2):
+        pair = ordered[i : i + 2]
+        rng.shuffle(pair)
+        tiers[pair[0]], tiers[pair[1]] = "development", "generalisation"
+    if len(ordered) % 2:
+        tiers[ordered[-1]] = "generalisation"
+    return tiers
+
+
 def verify(
-    manifest: dict | None = None, frozen: dict | None = None, raw: Path = EVAL_CACHE
+    manifest: dict | None = None,
+    frozen: dict | None = None,
+    raw: Path = EVAL_CACHE,
+    benchmark_set: str = "primary",
 ) -> list[str]:
     """Differences between the recorded freeze and what the files say today.
 
@@ -592,8 +635,9 @@ def verify(
     non-empty list means RCSB re-versioned an entry or someone moved a parameter —
     either way a visible event, which is the whole point of freezing.
     """
-    frozen = frozen if frozen is not None else json.loads(FROZEN.read_text())
-    current = freeze(manifest, raw)
+    manifest_path, frozen_path = SETS[benchmark_set]
+    frozen = frozen if frozen is not None else json.loads(frozen_path.read_text())
+    current = freeze(manifest if manifest is not None else load(manifest_path), raw)
     problems: list[str] = []
 
     def compare(recorded, derived, path: str) -> None:

@@ -91,12 +91,6 @@ class Structure:
         }
         return [(c, s, seen[c, s]) for c, s in sorted(seen)]
 
-    def select(self, *, chains: list[str] | None = None) -> np.ndarray:
-        mask = np.ones(len(self), dtype=bool)
-        if chains is not None:
-            mask &= np.isin(self.chain, chains)
-        return mask
-
 
 def _column(data: dict, key: str) -> list[str]:
     value = data.get(key)

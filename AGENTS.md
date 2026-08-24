@@ -97,6 +97,7 @@ condition fires, not to browse.
 | `docs/FIELD.md`                      | Choosing or defending a method; writing anything for the report                                                                                                                       |
 | `docs/PRINCIPLES.md`                 | The one-liners above are not enough to settle a call                                                                                                                                  |
 | `docs/benchmark/README.md`           | Any question about **what** a method receives and **what** it is scored against. `frozen.json` is the authority for every residue count, label set and active site — never quote one from prose. `n_residues` is what a method **receives**; `n_candidates` is what it is **scored against**, and they are not the same number (ADR 0011) |
+| `docs/benchmark/secondary/README.md`  | Any question about the **generalisability or scalability** claim. Nine further targets, frozen 2026-08-24, in two tiers. `development` is where every hyperparameter is chosen; `generalisation` is not opened until the method is frozen. Same eight clauses plus four selection clauses (ADR 0021). §6 states what the achieved N supports and what it does not; §7 lists eleven limitations |
 | `docs/benchmark/evaluation-protocol.md` | Any question about **how** a score is computed — endpoint, estimator, null, decoys, multiplicity. Draft, Phase 1.6, nothing pinned. Do not merge it back into the input manifest |
 | `docs/targets.md`                    | Touching a specific protein, its chains, or its ground-truth labels                                                                                                                   |
 | `docs/adr/`                          | Before choosing between credible alternatives; write one when the choice would be expensive to reverse. `README.md` there gives the format                                            |
@@ -133,16 +134,25 @@ C1 expressed in the import graph: holo structures, ligand contacts and label set
 repo only through it. If anything on the prediction path imports it — directly or
 transitively — the blind prediction is compromised and the submission is invalid.
 
-**Two data routes bypass the import graph, and both are guarded separately.**
-`docs/benchmark/frozen.json` holds the label sets, and no prediction-path module may name it.
-`docs/benchmark/manifest.yaml` holds the holo accessions, the effector component IDs and —
-in `blind.why`, `defect` and `note` — label residue numbers written out in prose.
-`allo.inputs` is the **only** prediction-path module permitted to open it, and `load()`
-rebuilds the result from two allow-lists, so a field added later is redacted by default. The
-unredacted read is `allo.groundtruth.manifest.read_manifest`, behind the import guard.
-`allo.inputs` must never regain a verbatim reader. All of it is enforced by
-`tests/test_no_leakage.py`; an import trace cannot see the `frozen.json` route, so the
-file-read and content tests are what does.
+**Three data routes bypass the import graph, and each is guarded separately.**
+
+1. **The freezes.** `docs/benchmark/frozen.json` and `docs/benchmark/secondary/frozen.json`
+   hold the label sets. No prediction-path module may name either.
+2. **The manifests.** `docs/benchmark/manifest.yaml` holds the holo accessions, the effector
+   component IDs and — in `blind.why`, `defect` and `note` — label residue numbers written
+   out in prose. The secondary set has its own manifest with the same shape. `allo.inputs` is
+   the **only** prediction-path module permitted to open either, and `load()` rebuilds the
+   result from two allow-lists, so a field added later is redacted by default. The unredacted
+   read is `allo.groundtruth.manifest.read_manifest`, behind the import guard. `allo.inputs`
+   must never regain a verbatim reader.
+3. **The selection ledger.** `docs/benchmark/secondary/selection.json` is an answer key. For
+   every admitted arm it carries `holo`, `holo_chain` and `effector` as structured fields, and
+   its prose names real label residues. Nothing on the prediction path and no experiment
+   runner may open it.
+
+All three are enforced by `tests/test_no_leakage.py`, which names them in `PROTECTED_PATHS`
+and in `FROZEN_TOKENS`. An import trace cannot see a file-read route, so the file-read and
+content tests are what does.
 
 Dependencies point inward toward the network/propagation logic, never outward toward I/O,
 cloud backends or plotting. `quantum/` must be callable without Braket credentials,

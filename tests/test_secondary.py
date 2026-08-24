@@ -1,0 +1,428 @@
+"""The four admission clauses that bind the secondary set, and the ledger behind them.
+
+Clauses (i)-(viii) bind both benchmark sets, but `tests/test_benchmark.py` applies them to
+the PRIMARY manifest only: its `manifest` fixture is `benchmark.load()`, which resolves to
+`MANIFEST`, and every other test there reads `benchmark.FROZEN`. So the eight clauses are
+enforced on six primary arms and on nothing else. `test_the_secondary_manifest_declares_what_
+the_eight_clauses_require` below closes the part of that gap which is checkable from the
+secondary artifacts alone.
+
+The four clauses here exist because the secondary set was SELECTED from a pool, and a
+selection rule only means something where there is a pool (ADR 0009's reasoning, applied
+again in ADR 0021). Every one of them is checked against `frozen.json`, which is derived
+from the deposited files, rather than against the prose that claims it -- except clause (ix),
+which needs the biological assembly and therefore runs under `make verify`, not `make check`.
+"""
+
+from __future__ import annotations
+
+import json
+
+import pytest
+import yaml
+
+from allo.benchmark import size_stratified_split
+from allo.groundtruth.manifest import read_manifest
+from allo.inputs import MANIFEST, ROOT, SECONDARY_MANIFEST
+
+SECONDARY = ROOT / "docs" / "benchmark" / "secondary"
+FROZEN = SECONDARY / "frozen.json"
+SELECTION = SECONDARY / "selection.json"
+
+
+@pytest.fixture(scope="module")
+def frozen() -> dict:
+    return json.loads(FROZEN.read_text())
+
+
+@pytest.fixture(scope="module")
+def manifest() -> dict:
+    return yaml.safe_load(SECONDARY_MANIFEST.read_text())
+
+
+@pytest.fixture(scope="module")
+def ledger() -> dict:
+    return json.loads(SELECTION.read_text())
+
+
+def test_the_recorded_tiers_are_what_the_seeded_split_returns(frozen, manifest):
+    """ADR 0021 section 5 promises nobody chose which targets carry the claim.
+
+    A promise with no code behind it is decoration. Re-run the split from the frozen
+    residue counts and require the recorded tiers back. If someone moves one target into
+    `development` because the method does badly on it, this fails.
+    """
+    sizes = {name: values["n_residues"] for name, values in frozen["targets"].items()}
+    expected = size_stratified_split(sizes)
+    recorded = {spec["id"]: spec["tier"] for spec in manifest["targets"]}
+    assert recorded == expected, (
+        "recorded tiers are not the seeded size-stratified split -- either the seed moved "
+        "or a target was reassigned by hand"
+    )
+    assert {values["tier"] for values in frozen["targets"].values()} == {
+        "development",
+        "generalisation",
+    }
+
+
+def test_the_generalisation_tier_is_large_enough_to_reject(frozen):
+    """The tier exists to carry a hypothesis test, so it has to be able to fail one.
+
+    A distribution-free one-sample test over N targets has a minimum attainable one-sided
+    p of 2^-N. At N = 4 that is 0.0625 and no result can reach alpha = 0.05. This is the
+    exact arithmetic that made three primary arms unable to support a cross-target claim
+    (ADR 0021, Fact 3), so the same floor is enforced here rather than rediscovered later.
+    """
+    held_out = [n for n, v in frozen["targets"].items() if v["tier"] == "generalisation"]
+    assert len(held_out) >= 5, (
+        f"generalisation tier holds {len(held_out)} targets; below 5 the minimum attainable "
+        f"one-sided p is 2^-{len(held_out)} = {2 ** -len(held_out):.4f}, so no outcome can "
+        "reject at alpha = 0.05 and the tier cannot do the one job it has"
+    )
+
+
+def test_no_two_targets_share_a_pfam_family(manifest):
+    """Clause (xii). Per-pair clauses say nothing about a set that is one fold repeated.
+
+    Checked in both directions: inside the secondary set, and against every primary target.
+    The cross-set half is what rejected SHP2, which passed clause (ii) and would otherwise
+    have been admitted -- it shares PF00017 with BCR-ABL1. The ledger records that.
+    """
+    families: dict[str, list[str]] = {}
+    for spec in manifest["targets"]:
+        assert spec.get("pfam"), f"{spec['id']}: no pfam recorded, so clause (xii) is unchecked"
+        for family in spec["pfam"]:
+            families.setdefault(family, []).append(spec["id"])
+    collisions = {f: ids for f, ids in families.items() if len(ids) > 1}
+    assert not collisions, f"secondary targets share Pfam families: {collisions}"
+
+    primary = yaml.safe_load(MANIFEST.read_text())
+    primary_families: dict[str, list[str]] = {}
+    for spec in primary["targets"]:
+        assert spec.get("pfam"), f"{spec['id']}: no pfam recorded in the primary manifest"
+        for family in spec["pfam"]:
+            primary_families.setdefault(family, []).append(spec["id"])
+    shared = set(families) & set(primary_families)
+    assert not shared, "secondary targets share a Pfam family with the primary set: " + str(
+        {f: (families[f], primary_families[f]) for f in sorted(shared)}
+    )
+
+
+def test_every_transferred_label_survives_into_the_node_set(frozen):
+    """The on-chain half of clause (ix). It is NOT the clause itself, and the name says so.
+
+    Clause (ix) asks whether the effector is lined by more than one chain. This test cannot
+    answer that, and an earlier version of it pretended to: it read `holo_label_footprint`
+    and asserted a single chain, but `benchmark.derive` builds that field from
+    `labels.holo_residues`, which `groundtruth.labels` already filters to `holo_chain`. The
+    assertion could not fail, so an interface site would have passed it in silence.
+
+    Clause (ix) needs coordinates the deposited asymmetric unit does not carry, so the real
+    check is `test_clause_ix_holds_on_the_biological_assembly_and_not_only_the_deposited_unit`
+    below. That one is `@pytest.mark.network` and runs under `make verify`, not `make check`.
+
+    What IS checkable offline is the consequence a single-chain node set must not have: a
+    label that transferred but then fell outside the node set, or failed to map at all.
+    Every assertion below can fail.
+    """
+    for name, values in frozen["targets"].items():
+        footprint = values["holo_label_footprint"]
+        assert not values["unmapped"], (
+            f"{name}: labels {values['unmapped']} do not map into the apo"
+        )
+        assert not values["labels_outside_node_set"], (
+            f"{name}: labels {values['labels_outside_node_set']} fall outside the node set"
+        )
+        assert len(values["label_residues"]) == len(footprint), (
+            f"{name}: {len(footprint)} lining residues but {len(values['label_residues'])} labels"
+        )
+
+
+def test_clause_x_no_apo_occupant_touches_a_label(frozen):
+    """Clause (x). Clause (iii) alone is not enough, and one candidate proved it.
+
+    A second-site occupant is permitted -- the primary set's own 2G2H carries an ATP-site
+    inhibitor 16 A away. What is not permitted is a component contacting the site being
+    predicted. Checking only the SCOREABLE labels misses the real failure: a sibling
+    fragment of the same series, in the same pocket, cleared that check by half an angstrom
+    during screening. So this asserts on the FULL label set.
+    """
+    for name, values in frozen["targets"].items():
+        occupancy = values["apo_site_occupancy"]
+        assert occupancy["scoreable_labels_contacted"] == 0, (
+            f"{name}: an apo component contacts {occupancy['scoreable_labels_contacted']} "
+            f"SCOREABLE label residues at {occupancy['nearest_scoreable_label_angstrom']} A "
+            "-- the apo is not apo at the site it is asked to predict"
+        )
+        # A contact on a label that is ITSELF an active-site residue is permitted, because
+        # clause (vii) already removed that residue from the candidate set and a residue
+        # nobody scores cannot leak an answer. MKP5 is the case in this set: a sulfate in
+        # the phosphate-binding catalytic site, 2.9 A from label 413, which is also active
+        # site. So every contacted label must be an active-site residue, and there must be
+        # enough of those to account for the count. An earlier version bounded the count by
+        # `len(excluded_from_scoring)` instead, which the assertion above already implies and
+        # which therefore could not fail on its own. This one can, and `bcr_abl1_mandated` in
+        # the PRIMARY set proves it: 16 labels contacted by myristate with no active-site
+        # overlap at all. That arm is admitted with its defect disclosed; a secondary arm
+        # selected from a pool gets no such licence.
+        overlap = set(values["label_residues"]) & set(values["active_site"])
+        assert occupancy["labels_contacted"] <= len(overlap), (
+            f"{name}: {occupancy['labels_contacted']} labels contacted by an apo component "
+            f"but only {len(overlap)} labels are active-site residues, so at least one "
+            "contact lands on a label that is allosteric and nothing else"
+        )
+
+
+def test_every_frozen_target_is_an_admitted_row_in_the_ledger(frozen, ledger):
+    """ADR 0021 section 6. A candidate absent from the ledger cannot enter the set.
+
+    The byte-for-byte reproducibility ADR 0012 asked for is unachievable against a live
+    database, so this is what replaced it: the set and the record of how it was chosen have
+    to agree, in both directions.
+    """
+    admitted = {row["name"] for row in ledger["candidates"] if row["decided_by"] == "admitted"}
+    frozen_ids = set(frozen["targets"])
+    assert frozen_ids == admitted, (
+        f"frozen but not admitted in the ledger: {sorted(frozen_ids - admitted)}; "
+        f"admitted but not frozen: {sorted(admitted - frozen_ids)}"
+    )
+    assert set(ledger["admitted"]) == frozen_ids
+
+
+def test_the_ledger_records_the_rejections_and_not_only_the_survivors(ledger):
+    """A ledger holding only the admitted set records nothing about the selection.
+
+    The rejections are the part a reviewer needs: they are what shows the clauses have
+    teeth and what they cost. Every rejection must name a deciding clause and give a fact.
+    """
+    rejected = [
+        row for row in ledger["candidates"] if row["decided_by"] not in ("admitted", "pending")
+    ]
+    assert len(rejected) >= 2 * len(ledger["admitted"]), (
+        f"{len(rejected)} rejections against {len(ledger['admitted'])} admissions -- a "
+        "selection that rejected almost nothing did not select"
+    )
+    for row in rejected:
+        assert row["detail"].strip(), f"{row['name']}: rejected with no reason recorded"
+    assert ledger["frame"]["primary_frame"]["retrieved_on"], "the frame has no retrieval date"
+
+
+def test_the_admitted_entries_meet_the_resolution_ceiling(ledger):
+    """Clause (xi) is ADR 0009 clause 2 unchanged, applied to a pool rather than a name.
+
+    It is checked here rather than against `frozen.json` on purpose: resolution is a
+    SELECTION fact, so it belongs in the record of the selection.
+    """
+    for row in ledger["candidates"]:
+        if row["decided_by"] != "admitted":
+            continue
+        for role, entry in row["structure_admission"].items():
+            resolution, method = entry["resolution_angstrom"], entry["method"]
+            assert resolution is not None, f"{row['name']} {role}: no resolution recorded"
+            ceiling = 4.0 if "ELECTRON" in method.upper() else 2.5
+            assert resolution <= ceiling, (
+                f"{row['name']} {role}: {resolution} A by {method} exceeds the {ceiling} A "
+                "ceiling for that method"
+            )
+
+
+def test_the_secondary_manifest_redacts_exactly_as_the_primary_one_does(manifest):
+    """The secondary set doubled the answer key, so it doubled the leak surface.
+
+    `tests/test_no_leakage.py` holds the general rule over both manifests. This is the
+    narrower statement that the fields this set adds -- `tier` and `pfam` -- were reviewed
+    and are evaluation-side, so a future reader does not have to re-derive that.
+    """
+    full = read_manifest(SECONDARY_MANIFEST)
+    evaluation_only = {
+        "tier",
+        "pfam",
+        "holo",
+        "site",
+        "state",
+        "blind",
+        "allosteric_evidence",
+        "note",
+    }
+    for spec in full["targets"]:
+        assert evaluation_only & set(spec), f"{spec['id']}: nothing to redact, so nothing is proved"
+
+    from allo.inputs import load
+
+    for spec in load(SECONDARY_MANIFEST)["targets"]:
+        leaked = evaluation_only & set(spec)
+        assert not leaked, f"{spec['id']}: prediction path can see {sorted(leaked)}"
+
+
+def test_the_offline_structure_store_holds_both_sets(frozen):
+    """ADR 0014's offline fallback has to cover the set that was just added.
+
+    `tests/test_benchmark.py` asserts the store equals exactly the named accessions. That
+    test is the reason this one is narrow: it only checks that every secondary entry is
+    present, and leaves the equality to the existing guard.
+    """
+    named = set()
+    for spec in yaml.safe_load(SECONDARY_MANIFEST.read_text())["targets"]:
+        named.add(spec["apo"]["pdb"].upper())
+        named.add(spec["holo"]["pdb"].upper())
+    for store in (ROOT / "structures" / "apo", ROOT / "structures" / "holo"):
+        if not store.exists():
+            pytest.skip(f"{store} is absent; the offline fallback is not populated in this clone")
+    present = {
+        path.name.split(".")[0].upper()
+        for store in ("apo", "holo")
+        for path in (ROOT / "structures" / store).glob("*.cif*")
+    }
+    assert named <= present, f"offline store is missing {sorted(named - present)}"
+
+
+def test_the_secondary_manifest_declares_what_the_eight_clauses_require(frozen, manifest):
+    """Clauses (ii), (vii) and (viii) applied to the nine secondary arms.
+
+    `tests/test_benchmark.py` enforces the eight on the PRIMARY manifest only, because its
+    fixture is `benchmark.load()` and every other test there reads `benchmark.FROZEN`. That
+    was invisible until an audit traced the fixture. This closes the checkable part of the
+    gap; the rest (a live `pocket_residues` reconciliation) is what `allo benchmark verify
+    --set secondary` does, and it runs under `make verify`.
+
+    Deliberately not shared with `test_benchmark.py`: that module's version of clause (viii)
+    asserts `tier in {mandated, corrected, sensitivity}` and would fail here on sight, which
+    is the same `tier` ambiguity `docs/benchmark/secondary/README.md` section 2 warns about.
+    """
+    for spec in manifest["targets"]:
+        name = spec["id"]
+
+        # Clause (ii). The evidence, not the frame, decides admission.
+        evidence = spec.get("allosteric_evidence", {})
+        assert evidence.get("doi", "").startswith("10."), f"{name}: no DOI for the site"
+        assert len(evidence.get("assay", "")) > 80, f"{name}: no assay described"
+
+        # Clause (viii). State and blindness are disclosed, never required.
+        state = spec.get("state", {})
+        assert set(state) == {"apo", "holo", "matched"}, (
+            f"{name}: state is {sorted(state)}. A YAML flow mapping whose value holds a comma "
+            "parses the tail as a null key and truncates the state it meant to record"
+        )
+        assert isinstance(state["matched"], bool), f"{name}: matched is not a boolean"
+        blind = spec.get("blind", {})
+        assert blind.get("value") is False, f"{name}: no secondary arm is blind (ADR 0017)"
+        assert len(blind.get("why", "")) > 40, f"{name}: blindness unjustified"
+
+        # Clause (vii) and ADR 0011. Both classes lose the propagation source, or neither does.
+        derived = frozen["targets"][name]
+        excluded = set(derived["excluded_from_scoring"])
+        assert set(derived["active_site"]) <= excluded, (
+            f"{name}: active-site residues are still scored as negatives"
+        )
+        assert not excluded & set(derived["scoreable_label_residues"]), (
+            f"{name}: a residue is in both the positives and the excluded set"
+        )
+        assert derived["n_candidates"] == derived["n_residues"] - len(excluded)
+        assert derived["n_candidates"] > len(derived["scoreable_label_residues"])
+
+        # Two records of the same bytes drift. This is the cheapest way to notice.
+        pdb = spec["apo"]["pdb"]
+        assert spec["apo"].get("sha256") == derived["hashes"][pdb], (
+            f"{name}: manifest and freeze disagree on {pdb}'s bytes"
+        )
+
+
+def test_no_accession_is_pinned_at_two_versions_across_the_two_sets():
+    """`_pinned_url` returns the FIRST manifest that names an accession, so a collision is
+    silent.
+
+    Two manifests pinning the same PDB id at different versions would make the fetched bytes
+    depend on manifest order, and a target in one set would then be scored against a file the
+    other set froze. Nothing in the code detects that. This does.
+    """
+    seen: dict[str, tuple] = {}
+    checked = 0
+    for path in (MANIFEST, SECONDARY_MANIFEST):
+        provenance = read_manifest(path).get("structure_provenance", {})
+        assert provenance, f"{path.name} pins no structure_provenance at all"
+        for pdb_id, record in provenance.items():
+            checked += 1
+            key = (record["version"], record["sha256"])
+            if pdb_id in seen:
+                assert seen[pdb_id] == key, (
+                    f"{pdb_id} is pinned at {seen[pdb_id]} in one set and {key} in the other; "
+                    "which bytes are fetched depends on BENCHMARK_MANIFESTS order"
+                )
+            seen[pdb_id] = key
+    # The two sets share no accession today, so the inner assertion never fires. Without this
+    # the test would keep passing after someone emptied a provenance block.
+    assert checked == 26, f"expected 26 pinned structures across both sets, walked {checked}"
+
+
+def test_the_frozen_set_reports_the_difficulty_it_actually_spans(frozen):
+    """Not an admission clause. A guard against the set quietly becoming uniform.
+
+    The set exists to test generalisability and scalability, and both need spread: in size,
+    and in how far the apo is from the holo. If a later edit narrows either, the set stops
+    measuring the thing it was built for, and that must be a visible event.
+    """
+    sizes = [v["n_residues"] for v in frozen["targets"].values()]
+    assert max(sizes) / min(sizes) >= 3.0, (
+        f"size ladder spans {min(sizes)}-{max(sizes)} residues, a factor of "
+        f"{max(sizes) / min(sizes):.1f}; a scalability slope needs a wider base"
+    )
+    clashes = [
+        int(v["transplant_clashes"].split("/")[0])
+        / max(1, int(v["transplant_clashes"].split("/")[1]))
+        for v in frozen["targets"].values()
+    ]
+    assert max(clashes) - min(clashes) >= 0.5, (
+        "every arm has a similar transplant clash fraction, so the set no longer spans "
+        "cryptic and non-cryptic pockets"
+    )
+
+
+@pytest.mark.network
+def test_clause_ix_holds_on_the_biological_assembly_and_not_only_the_deposited_unit():
+    """Clause (ix) again, on the assembly. The deposited unit is not the protein.
+
+    This test exists because measuring on the asymmetric unit gave a FALSE PASS. Most
+    depositions of an interface site put one chain in the ASU, so a single-chain lining
+    check finds one chain and reports success. Glycogen phosphorylase was admitted that
+    way and then rejected here: on the `1FA9` dimer the AMP site draws 8 lining residues
+    from one protomer and 3 from the other, so a third of its positive class could never
+    enter a single-chain node set.
+
+    It is a network test rather than a frozen field because the assembly coordinates are a
+    separate download, and adding the measurement to `derive()` would rewrite the primary
+    freeze, which ADR 0021 keeps closed. Both sets are checked.
+    """
+    import urllib.request
+    from collections import defaultdict
+
+    import numpy as np
+
+    from allo.structure.pdb import parse_mmcif_text
+
+    agent = {"User-Agent": "allo-benchmark/0.1"}
+    for path in (MANIFEST, SECONDARY_MANIFEST):
+        for spec in yaml.safe_load(path.read_text())["targets"]:
+            holo = spec.get("holo")
+            if not holo or spec.get("status") == "excluded":
+                continue
+            url = f"https://files.rcsb.org/download/{holo['pdb']}-assembly1.cif"
+            request = urllib.request.Request(url, headers=agent)
+            with urllib.request.urlopen(request, timeout=180) as response:  # noqa: S310
+                structure = parse_mmcif_text(response.read().decode(), holo["pdb"])
+            heavy = structure.element != "H"
+            protein = np.flatnonzero(structure.protein & heavy)
+            effector = structure.ligand & (structure.resname == holo["ligand"]) & heavy
+            assert effector.any(), f"{spec['id']}: {holo['ligand']} absent from the assembly"
+            for copy in sorted(set(structure.chain[effector].tolist())):
+                position = structure.coord[effector & (structure.chain == copy)]
+                distance = np.linalg.norm(
+                    structure.coord[protein][:, None, :] - position[None, :, :], axis=2
+                ).min(axis=1)
+                lining: dict[str, set] = defaultdict(set)
+                for index in protein[distance <= 4.5]:
+                    lining[str(structure.chain[index])].add(int(structure.seq_id[index]))
+                assert len(lining) == 1, (
+                    f"{spec['id']}: in the {holo['pdb']} biological assembly, effector copy "
+                    f"{copy} lines { {c: len(v) for c, v in sorted(lining.items())} } -- this "
+                    "is an interface site and a single-chain node set cannot hold its labels"
+                )
