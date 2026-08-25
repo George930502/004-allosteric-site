@@ -5,7 +5,7 @@
 ## Context
 
 The challenge fixes the apo/holo pairs (`CHALLENGE.md` §6, Table 1). A forensic audit of
-the deposited files (`docs/benchmark/audit/`) found every one of the three defective:
+the deposited files (`docs/benchmark/primary/audit/`) found every one of the three defective:
 
 - **KRAS `4OBE` → `6OIM`** — the apo input is **wild-type** KRAS. It does not carry the
   G12C cysteine that the holo inhibitor is covalently bonded to.
@@ -22,7 +22,7 @@ structures, and be scored on a benchmark the organisers did not specify.
 
 ## Decision
 
-Neither. The benchmark is **frozen** in `docs/benchmark/manifest.yaml` with three tiers,
+Neither. The benchmark is **frozen** in `docs/benchmark/primary/manifest.yaml` with three tiers,
 and every tier is reported:
 
 - **`mandated`** — exactly the entries in Table 1. Reported because the challenge requires
@@ -49,11 +49,11 @@ re-versioning an entry.
   negatives** — the second negative class the challenge requires (non-functional surface
   pockets) is unbuilt, and until it is committed no method may be scored here. This bullet
   said "and negatives" from the start, which was aspirational rather than true; the header of
-  `docs/benchmark/README.md` states the scoring gate that governs.
+  `docs/benchmark/primary/README.md` states the scoring gate that governs.
 - We report more numbers than asked for, and must explain the tiers in the report. That
   explanation is an asset — it demonstrates the target validation the challenge is about.
 - The cardiac myosin correction is not a judgement call but a factual error in the
-  challenge statement, and is worth reporting upstream (`docs/benchmark/README.md`).
+  challenge statement, and is worth reporting upstream (`docs/benchmark/primary/README.md`).
 - Adding a target later means editing the manifest and re-running `benchmark freeze`, so
   the cost of the ASD generalisability set in Phase 5 is small.
 - Risk accepted: if the organisers score only the mandated tier, our best numbers sit in a

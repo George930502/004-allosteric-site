@@ -2,10 +2,10 @@
 
 Source: `CHALLENGE.md` §6, Table 1. Four targets are the **minimum submission set**.
 
-> **This file is narrative. `docs/benchmark/frozen.json` is the authority for every residue
-> count, label set, distance and active site, and `docs/benchmark/manifest.yaml` for every
+> **This file is narrative. `docs/benchmark/primary/frozen.json` is the authority for every residue
+> count, label set, distance and active site, and `docs/benchmark/primary/manifest.yaml` for every
 > choice.** Where the two disagree, the freeze wins and this file is the bug — it is prose and
-> nothing re-derives it. Read `docs/benchmark/README.md` for the frozen benchmark itself.
+> nothing re-derives it. Read `docs/benchmark/primary/README.md` for the frozen benchmark itself.
 
 | Target | Disease area | Class | Apo (input) | Holo (ground truth) | Pocket to find |
 |---|---|---|---|---|---|
@@ -51,7 +51,7 @@ Enforced by `tests/test_no_leakage.py`.
 ## Per-target facts — established 2026-08-20
 
 Derived programmatically from the deposited mmCIF files and RCSB/SIFTS, never recalled.
-Regenerate with `uv run allo benchmark show`. Full dossiers: `docs/benchmark/audit/`.
+Regenerate with `uv run allo benchmark show`. Full dossiers: `docs/benchmark/primary/audit/`.
 The audit found that **all three challenge-assigned pairs are defective**, one fatally;
 the frozen benchmark and the corrected pairs are in `docs/benchmark/`.
 

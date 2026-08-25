@@ -32,7 +32,7 @@ chains:
 
 The mandated ABL1 arm carries roughly **179 extra non-catalytic residues**. That alone
 moves scoreable prevalence from 6.6 % to 4.4 % and the top-5 baseline P(≥1 hit) from
-**0.292 to 0.204**. `docs/benchmark/README.md` presently attributes the mandated arm's
+**0.292 to 0.204**. `docs/benchmark/primary/README.md` presently attributes the mandated arm's
 harder baseline to nothing in particular; most of it is construct extent, not the myristate
 defect the tier exists to expose. The same effect is smaller but present on myosin, where
 `9YRG` models to residue 943 and `8QYP` stops at 780 (N = 912 against 706).
@@ -56,7 +56,7 @@ defect the tier exists to expose. The same effect is smaller but present on myos
    difference is construct extent. Specifically, the mandated-vs-corrected ABL1 baseline gap
    is not evidence about the myristate defect.
 3. **Cross-arm difficulty comparisons use the per-arm chance line**, never a shared one.
-   This is already how `docs/benchmark/README.md` §5 reports the hypergeometric table; this
+   This is already how `docs/benchmark/primary/README.md` §5 reports the hypergeometric table; this
    ADR states the reason it has to be.
 4. **If trimming is ever adopted**, it is a manifest field with an explicit residue range per
    arm and a re-freeze — never an implicit default inside loading code.

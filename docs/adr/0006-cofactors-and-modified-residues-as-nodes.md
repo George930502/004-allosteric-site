@@ -14,7 +14,7 @@ Constraint C5 excludes "solvents, co-factors, and complex post-translational mod
 — _unless modelled as simple nodes_". So the challenge permits either treatment and
 requires neither. The frozen apo entries are not cofactor-free: KRAS holds GDP·Mg, the
 myosin entries hold ADP·Mg·Pi or ADP·Mg·vanadate, `2G1T` holds Mg, `1OPL` and `2G2H` hold
-an ATP-site inhibitor (`docs/benchmark/frozen.json`, `apo_site_occupancy`). The `8QYP` apo
+an ATP-site inhibitor (`docs/benchmark/primary/frozen.json`, `apo_site_occupancy`). The `8QYP` apo
 additionally carries trimethyl-lysine (`M3L`) at 129 and 549 where its holo `8QYR` does not
 — the pair members disagree about the chemistry at two positions, neither of them a label.
 

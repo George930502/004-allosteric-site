@@ -4,7 +4,7 @@ Deliberately not Bio.PDB.Structure: we want author numbering, element symbols an
 HETATM/ATOM provenance as flat arrays, because every downstream stage (contact
 network, pocket labelling, coarse-graining) indexes residues rather than walking
 an object tree. Reading the whole file into arrays once is also what makes the
-benchmark freeze checkable — see docs/benchmark/README.md.
+benchmark freeze checkable — see docs/benchmark/primary/README.md.
 """
 
 from __future__ import annotations
@@ -168,7 +168,7 @@ def contacts(
     """Residues in `target` with any atom within `cutoff` A of any atom in `source`.
 
     Heavy-atom minimum distance, which is the convention pocket definitions use;
-    the cutoff is a knob because published values differ (docs/benchmark/README.md).
+    the cutoff is a knob because published values differ (docs/benchmark/primary/README.md).
     """
     if not source.any() or not target.any():
         return []

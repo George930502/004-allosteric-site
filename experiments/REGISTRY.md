@@ -8,7 +8,7 @@ Newest last. One line each: date · slug · target · method · headline metric 
 
 ## Benchmark characterisation (not method runs)
 
-Structural numbers are pinned by `docs/benchmark/frozen.json` and re-derived by
+Structural numbers are pinned by `docs/benchmark/primary/frozen.json` and re-derived by
 `uv run allo benchmark verify`. Rows citing literature are not repo-derived and say so.
 
 Rewritten 2026-08-24 for the five-arm benchmark. Rows for the six removed arms, and the

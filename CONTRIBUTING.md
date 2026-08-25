@@ -73,7 +73,7 @@ uv run pytest -q tests/test_no_leakage.py
 These files are closed. Nothing in them changes once a method has been scored against them.
 
 ```
-docs/benchmark/frozen.json              the primary input layer
+docs/benchmark/primary/frozen.json              the primary input layer
 docs/benchmark/secondary/frozen.json    the secondary input layer
 docs/benchmark/evaluation/frozen.json   the evaluation layer, protocol version 2
 ```
@@ -99,9 +99,9 @@ A recalled number is not evidence. Where evidence is absent, write "unknown".
 
 This is the Phase 2 workflow. Every method follows it.
 
-1. **Read the contract.** [`docs/benchmark/README.md`](docs/benchmark/README.md) states what a
-   method receives. [`docs/benchmark/evaluation/README.md`](docs/benchmark/evaluation/README.md)
-   states how it is scored.
+1. **Read the contract.** [`docs/benchmark/README.md`](docs/benchmark/README.md) indexes the
+   three frozen sets. `primary/` states what a method receives, `evaluation/` states how it is
+   scored, and `secondary/development` is the only place a hyperparameter may be chosen.
 2. **Take the input through `allo.inputs.apo_input`.** It is the one prediction-path module
    that opens the input manifest, and it redacts by default.
 3. **Return residue identity with every score.** Author numbering plus chain ID, end to end. A

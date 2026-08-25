@@ -4,7 +4,7 @@
 choice to demonstrate **generalizability and scalability**". This set is that. It froze on
 2026-08-24, alongside the primary set and through the same code.
 
-**Read `docs/benchmark/README.md` first.** Clauses (i)–(viii), the authority behind each of
+**Read `docs/benchmark/primary/README.md` first.** Clauses (i)–(viii), the authority behind each of
 them, and the freeze mechanics are all there and all bind this set unchanged. Only what
 **differs** is explained here.
 
@@ -377,7 +377,7 @@ Recorded rather than absorbed. Each is a thing a reviewer would find.
 6. **Only two apo entries are globally ligand-free.** `1QUV` (`ns5b`) and `1RTJ` (`hiv_rt`),
    both with an empty `apo_site_occupancy.entry_components`. The other seven arms survive
    clause (iii) on the **site-apo** reading — apo with respect to the site being predicted,
-   not free of all ligands. That reading is declared in `docs/benchmark/README.md` §1 clause
+   not free of all ligands. That reading is declared in `docs/benchmark/primary/README.md` §1 clause
    (iii) and is the repo's, not the field's.
 
 7. **One arm has an unmatched orthosteric state**, recorded as `matched: false`.
@@ -415,7 +415,7 @@ Recorded rather than absorbed. Each is a thing a reviewer would find.
     change how clause (ii) reads. Its §III is protein-general — "the properties of one ligand
     **(small molecule or protein)** are altered upon binding of a second ligand at a
     nonoverlapping, topographically distinct site" — and an earlier version of
-    `docs/benchmark/README.md` quoted that sentence with the parenthetical silently dropped.
+    `docs/benchmark/primary/README.md` quoted that sentence with the parenthetical silently dropped.
     And the same article permits a **bitopic** ligand to occupy both sites at once and still
     behave competitively, so competitive kinetics do not by themselves refute an allosteric
     site.

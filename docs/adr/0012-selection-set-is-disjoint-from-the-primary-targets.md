@@ -4,7 +4,7 @@
 
 ## Context
 
-`docs/benchmark/README.md` §5 says hyperparameters are selected on the ASD generalisability
+`docs/benchmark/primary/README.md` §5 says hyperparameters are selected on the ASD generalisability
 set and frozen before the primary targets are touched, so that nothing is tuned on the
 benchmark it is scored on.
 

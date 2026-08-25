@@ -131,7 +131,7 @@ def test_the_readme_table_matches_the_freeze():
     import json
 
     frozen = json.loads(benchmark.FROZEN.read_text())
-    readme = (benchmark.ROOT / "docs" / "benchmark" / "README.md").read_text()
+    readme = (benchmark.ROOT / "docs" / "benchmark" / "primary" / "README.md").read_text()
     rows = {
         line.split("|")[1].strip().strip("`"): line
         for line in readme.splitlines()
@@ -301,7 +301,7 @@ def test_versioned_archive_reproduces_every_pinned_structure():
     """ADR 0014 option 1: every decompressed versioned artifact matches its frozen hash.
 
     Walks BOTH manifests. It covered the primary set's 8 entries only until 2026-08-24, while
-    `docs/benchmark/README.md` claimed the archive test downloads every URL. The secondary
+    `docs/benchmark/primary/README.md` claimed the archive test downloads every URL. The secondary
     set's 18 pinned URLs were therefore never fetched, so its offline fallback and its
     versioned provenance had no common check.
     """

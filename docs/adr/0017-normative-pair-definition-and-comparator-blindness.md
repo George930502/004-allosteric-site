@@ -11,7 +11,7 @@ although it depends on a method's training history rather than on the two struct
 
 ## Decision
 
-`docs/benchmark/README.md` is the normative operational definition. Every admission clause
+`docs/benchmark/primary/README.md` is the normative operational definition. Every admission clause
 must carry one or more authority tags: **IN-DOMAIN**, **BORROWED**, or **REPOSITORY POLICY**.
 The evidence dossier may trace and quote sources but may not substitute a differently worded
 definition. Comparator blindness is a separate evaluation disclosure, not a pair-admission

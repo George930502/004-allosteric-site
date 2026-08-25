@@ -31,7 +31,7 @@ The two properties are orthogonal, and the literature is explicit about it:
 - Allosteric sites are frequently **pre-formed** in the apo state, which is precisely
   the case a crypticity test rejects.
 
-Under the crypticity lens `docs/benchmark/README.md` §4 tabulates several arms as
+Under the crypticity lens `docs/benchmark/primary/README.md` §4 tabulates several arms as
 failing a 2 Å pocket-lining floor. That floor is CryptoBench's entry criterion for a
 cryptic-site benchmark. Applied here it imports a pass/fail test from a different task
 and would discard valid allosteric pairs for the sin of having an open pocket.
@@ -69,7 +69,7 @@ and would discard valid allosteric pairs for the sin of having an open pocket.
   arms, not eight, because ADR 0008 added myosin Site 2 and the omecamtiv sensitivity arm.
   ADR 0010's later strict-C5 sensitivity adds an eleventh scoreable arm without changing the
   underlying label definition. The claim that survives is the one about label sets.
-- `docs/benchmark/README.md` §1 must be re-anchored on the allostery literature rather
+- `docs/benchmark/primary/README.md` §1 must be re-anchored on the allostery literature rather
   than the cryptic-pocket literature, and §4's pass/fail table recast as a difficulty
   table. Tracked as the work this ADR authorises.
 - **The negative sets need re-derivation.** "Surface pockets that are not the answer" is

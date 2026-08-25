@@ -60,7 +60,7 @@ from the deposited files, and the network tests re-download all eight pinned wwP
 artifacts and confirm byte identity — and `make check` passes. `make check` is offline by
 design, so it does not re-derive the freeze; `make verify` is the command that does.
 
-See `docs/benchmark/README.md` and ADRs 0003–0011, 0014, 0016, 0017.
+See `docs/benchmark/primary/README.md` and ADRs 0003–0011, 0014, 0016, 0017.
 
 **What closed it was a reduction, not more work.** The freeze had eleven arms across three
 proteins, a `sensitivity` tier, a second myosin site, an answer-informed apo quarantine, and
@@ -99,7 +99,7 @@ A **distance-only**, a **degree-only** and an **eigenvector-centrality** control
 too, not as an afterthought. On KRAS the scoreable label set starts 3.8 Å from the propagation
 source, and a distance-only score still reaches only AUC 0.589 there and sits below chance on
 three of five arms, so these are controls to beat rather than walkovers
-(`docs/benchmark/README.md` §4). Eigenvector centrality is the control the published CTQW
+(`docs/benchmark/primary/README.md` §4). Eigenvector centrality is the control the published CTQW
 result makes mandatory (ADR 0002). A method that does not beat those three controls has
 demonstrated nothing.
 

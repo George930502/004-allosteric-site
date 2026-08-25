@@ -5,7 +5,7 @@ review deliberately does **not** rest on the cryptic-pocket literature (CryptoSi
 PocketMiner, CryptoBench, AHoJ); where a point is only addressed by an adjacent field it
 is marked **[BORROWED]** and named as such.
 
-## Normative repository definition (verbatim from `docs/benchmark/README.md`)
+## Normative repository definition (verbatim from `docs/benchmark/primary/README.md`)
 
 > An **apo/holo pair for allosteric-site prediction** is an ordered pair of experimentally
 > determined structures of the same gene product satisfying:
@@ -514,7 +514,7 @@ two cases and report them separately, and only ESSA quantifies the difference (�
 **[BORROWED — cryptic-pocket field]** The site-relative apo reading, and the argument that
 deleting a ligand does not delete its conformational imprint, is stated explicitly in the
 cryptic-site literature (AHoJ `doi:10.1093/bioinformatics/btac701`; PocketMiner
-`doi:10.1038/s41467-023-36699-3`) and in `docs/benchmark/README.md` §1. **It is not stated
+`doi:10.1038/s41467-023-36699-3`) and in `docs/benchmark/primary/README.md` §1. **It is not stated
 anywhere in the allostery sources reviewed here.** Our repo's clause (ii) is therefore an
 import from an adjacent field, and must be labelled as such in the report.
 
@@ -585,7 +585,7 @@ prediction task, and the argument for that has to be made from first principles 
 
 - **the field's own measured penalty** (§2.5, ESSA 10/14 → 7/14), and
 - **the borrowed cryptic-site threshold** `[BORROWED]` (CryptoBench 2 Å pocket-lining RMSD,
-  `doi:10.1093/bioinformatics/btae745`), already applied in `docs/benchmark/README.md` §4.
+  `doi:10.1093/bioinformatics/btae745`), already applied in `docs/benchmark/primary/README.md` §4.
 
 There is one further reason the allostery field cannot impose a state-difference requirement,
 and it is principled rather than an oversight: **allostery does not require conformational

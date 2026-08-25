@@ -318,7 +318,7 @@ them are `2g2f`, `2g2h` and `2g1t`, siblings of this repo's chosen `2G2H`. Among
 also **`1opl`**, in all three entries. Re-checked independently on 2026-08-24 with the same
 command.
 
-**`1OPL` is the pair this repo's own audit rejected.** `docs/benchmark/README.md` §2 records
+**`1OPL` is the pair this repo's own audit rejected.** `docs/benchmark/primary/README.md` §2 records
 the measurement: `1OPL` chain A holds `MYR` in the myristoyl pocket, `MYR` contacts **16 of
 the 20** asciminib label residues, the nearest approach is **3.29 Å**, and those 16 are a
 strict subset of asciminib's 20 at Jaccard 0.80. The mandated apo already is holo at the site
@@ -358,7 +358,7 @@ primary literature per target, exactly as the three primary arms already do thro
 only functional admission rule in the landscape, so an ASD record beside a target corroborates
 an allostery claim. CASBench's 91 curated enzymes are a scriptable
 check on any distance assumption, and its 30 % overlap figure is already load-bearing in
-`docs/benchmark/README.md`. AlloBench's MIT-licensed CSVs are a pinnable snapshot of ASD's
+`docs/benchmark/primary/README.md`. AlloBench's MIT-licensed CSVs are a pinnable snapshot of ASD's
 site annotations. AHoJ-DB is a candidate generator for apo partners, after a per-chain
 re-filter. GtoPdb curates `Action = "Allosteric modulator"` independently of ASD, so agreement
 there is real corroboration. None of them is the claim itself.

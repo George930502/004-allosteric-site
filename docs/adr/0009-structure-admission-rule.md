@@ -4,7 +4,7 @@
 
 ## Context
 
-`docs/benchmark/README.md` §7 carried "No resolution ceiling is declared" as an open item,
+`docs/benchmark/primary/README.md` §7 carried "No resolution ceiling is declared" as an open item,
 together with a draft rule — **X-ray ≤ 2.5 Å or cryo-EM ≤ 4.0 Å, mandated tier exempt** —
 and the observation that "every `corrected` and `sensitivity` entry is 1.15–3.7 Å and would
 clear a 4.0 Å cryo-EM-inclusive bar". Those two sentences contradict each other, and both
@@ -92,7 +92,7 @@ before its resolution could drift.
   survives the change because of *how* that test is built: each arm is its own stratum with its
   own patch pool, so resolution heterogeneity is absorbed into the strata rather than averaged
   across them. What would contaminate the claim is combining three p-values, and that is
-  exactly what §5 forbids (`docs/benchmark/README.md` §5).
+  exactly what §5 forbids (`docs/benchmark/primary/README.md` §5).
 - Supersedes nothing. Completes the input-layer admission criteria begun in ADR 0003
   (tiers), ADR 0004 (identity), ADR 0005 (active site), ADR 0006 (nodes), ADR 0007
   (allosteric ground truth) and ADR 0008 (one target per site).

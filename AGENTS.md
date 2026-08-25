@@ -68,7 +68,7 @@ produce a confident but hollow submission: `docs/FIELD.md`. Enforcement checkpoi
 
 Per target — KRAS G12C `4OBE`, BCR-ABL1 `1OPL`, cardiac myosin `5TBY`, c-Myc `1NKP`.
 All three mandated apo/holo pairs are defective and are scored in tiers; the cardiac
-myosin pair is unscoreable as assigned. See `docs/benchmark/README.md` before using any
+myosin pair is unscoreable as assigned. See `docs/benchmark/primary/README.md` before using any
 of these accessions:
 
 1. **N x N connectivity matrix** (`results/<target>/connectivity.npz`)
@@ -96,7 +96,8 @@ condition fires, not to browse.
 | `docs/playbooks/constraint-audit.md` | Diff touches the prediction path, ground truth, or a quantum method. `/audit`, or the `constraint-auditor` subagent                                                                   |
 | `docs/FIELD.md`                      | Choosing or defending a method; writing anything for the report                                                                                                                       |
 | `docs/PRINCIPLES.md`                 | The one-liners above are not enough to settle a call                                                                                                                                  |
-| `docs/benchmark/README.md`           | Any question about **what** a method receives and **what** it is scored against. `frozen.json` is the authority for every residue count, label set and active site — never quote one from prose. `n_residues` is what a method **receives**; `n_candidates` is what it is **scored against**, and they are not the same number (ADR 0011) |
+| `docs/benchmark/README.md`           | Not sure which of the three frozen sets answers your question. One page, four rows, then go straight to the set. Shared literature evidence lives beside it in `evidence/`, because all three rest on it |
+| `docs/benchmark/primary/README.md`           | Any question about **what** a method receives and **what** it is scored against. `frozen.json` is the authority for every residue count, label set and active site — never quote one from prose. `n_residues` is what a method **receives**; `n_candidates` is what it is **scored against**, and they are not the same number (ADR 0011) |
 | `docs/benchmark/secondary/README.md`  | Any question about the **generalisability or scalability** claim. Nine further targets, frozen 2026-08-24, in two tiers. `development` is where every hyperparameter is chosen; `generalisation` is not opened until the method is frozen. Same eight clauses plus four selection clauses (ADR 0021). §6 states what the achieved N supports and what it does not; §7 lists eleven limitations |
 | `docs/benchmark/evaluation/README.md`  | Any question about **how** a score is computed — endpoint, estimator, null, decoys, multiplicity. **Protocol version 2**, frozen 2026-08-25 alongside `manifest.yaml` and `frozen.json` there; `uv run allo evaluate verify` re-derives it. Version 1 was frozen and reopened the same day by `AUDIT.md`, which is the record of what was wrong — read it before trusting any number a pre-audit document quotes. Every method calls `allo.scoring.score_arm` and no other path. Nothing in it may change once a method has been scored. Do not merge it back into the input manifest |
 | `docs/targets.md`                    | Touching a specific protein, its chains, or its ground-truth labels                                                                                                                   |
@@ -147,9 +148,9 @@ transitively — the blind prediction is compromised and the submission is inval
 
 **Five data routes bypass the import graph, and each is guarded separately.**
 
-1. **The freezes.** `docs/benchmark/frozen.json` and `docs/benchmark/secondary/frozen.json`
+1. **The freezes.** `docs/benchmark/primary/frozen.json` and `docs/benchmark/secondary/frozen.json`
    hold the label sets. No prediction-path module may name either.
-2. **The manifests.** `docs/benchmark/manifest.yaml` holds the holo accessions, the effector
+2. **The manifests.** `docs/benchmark/primary/manifest.yaml` holds the holo accessions, the effector
    component IDs and — in `blind.why`, `defect` and `note` — label residue numbers written
    out in prose. The secondary set has its own manifest with the same shape. `allo.inputs` is
    the **only** prediction-path module permitted to open either, and `load()` rebuilds the

@@ -87,3 +87,20 @@ was separated from the input layer. Earlier ADRs therefore refer to things that 
 | `docs/benchmark/audit/*.json` | deleted — they were self-declared duplicates of the `.md` and nothing loaded them |
 
 The reasoning in those ADRs is unchanged. Only the names are stale.
+
+## Reading ADRs written before 2026-08-25
+
+On 2026-08-25 the primary set moved from the root of `docs/benchmark/` into
+`docs/benchmark/primary/`, so that the three frozen sets are siblings. The file, its bytes
+and its meaning are the same. Only the directory changed, so path references inside the ADRs
+were updated in place rather than mapped here — an ADR that points at a dead path helps
+nobody, and the artifact it points at did not change.
+
+| Before | Now |
+| --- | --- |
+| `docs/benchmark/manifest.yaml` | `docs/benchmark/primary/manifest.yaml` |
+| `docs/benchmark/frozen.json` | `docs/benchmark/primary/frozen.json` |
+| `docs/benchmark/README.md` | `docs/benchmark/primary/README.md` |
+| `docs/benchmark/audit/` | `docs/benchmark/primary/audit/` |
+
+`docs/benchmark/README.md` is now the index of the three sets, not the primary set's page.

@@ -25,7 +25,7 @@ Nothing here is from recall. Every number traces to a fetch made this session.
   navigation renders, but every data table is client-side JavaScript, so a text proxy
   returns navigation only. Direct `curl` over plain HTTP was unavailable (no shell in this
   thread) and `WebFetch` force-upgrades to HTTPS, which fails on the expired
-  `*.shsmu.edu.cn` certificate already recorded in `docs/benchmark/README.md` §7.
+  `*.shsmu.edu.cn` certificate already recorded in `docs/benchmark/primary/README.md` §7.
   **This is the single open hole in the review** — see "What to run next".
 - **CASBench** (`biokinet.belozersky.msu.ru/casbench`) — search interface renders, results
   do not; the only bulk download is a 1.9 GB tarball. Its 91-entry list could not be
@@ -70,7 +70,7 @@ ordering of switch II" (Buhrman, Holzapfel, Fetics & Mattos, _PNAS_ 2010,
 [10.1073/pnas.0912226107](https://doi.org/10.1073/pnas.0912226107)).
 
 **Why this matters more than "KRAS is absent".** Our frozen KRAS **distal** label set, as
-recorded in `docs/benchmark/README.md` §5, is `9, 59, 60, 61, 62, 63, 68, 69, 72, 95, 96, 99,
+recorded in `docs/benchmark/primary/README.md` §5, is `9, 59, 60, 61, 62, 63, 68, 69, 72, 95, 96, 99,
 100, 103`. The ASD-curated H-Ras allosteric residues named above are `68, 92, 95, 96, 99`.
 **Four of the five named residues — 68, 95, 96, 99 — are positions in our KRAS distal
 ground-truth set.** This is not coincidence: the switch-II pocket is bounded by switch II and
@@ -86,7 +86,7 @@ Consequences, each of which must appear in the report:
    or 40 % (CryptoSite). KRAS and HRAS G domains are far above that. The field's standard
    redundancy filter would _not_ have removed this leak.
 3. `[UNVERIFIED]` The exact overlap count must be recomputed against `frozen.json` rather than
-   against the prose above — `docs/benchmark/README.md` is a document, not code. Recompute
+   against the prose above — `docs/benchmark/primary/README.md` is a document, not code. Recompute
    with `uv run allo benchmark show` before the number goes in the report.
 
 `[UNVERIFIED]` Whether ASD 2023 has since added a KRAS entry (sotorasib was approved after
@@ -136,7 +136,7 @@ the myristoyl pocket; not independently re-derived here.
 **Verdict: on BCR-ABL1 no ASD-trained method is blind, and neither are the two leading
 ENM methods.** `3PYY` is the worked case study in the ESSA paper and `3K5V` is one of three
 worked case studies in the APOP paper — details in section (c). This is stronger than the
-open item currently recorded in `docs/benchmark/README.md` §7, which names only PASSer.
+open item currently recorded in `docs/benchmark/primary/README.md` §7, which names only PASSer.
 
 ## Cardiac myosin — absent from ASBench, but _is_ a test case for challenge reference [1]
 
@@ -278,7 +278,7 @@ position, not the field default.** ZHMolEReP's residue-level **AUC 0.7858** is t
 directly comparable published number and is the figure our method should be benchmarked
 against for the residue-level endpoint. But the report will be read by people who expect
 top-N pocket accuracy, so precision@5 and P(≥1 hit) must be presented as co-equal headline
-numbers, not as secondary endpoints in a table at the back. `docs/benchmark/README.md` §5
+numbers, not as secondary endpoints in a table at the back. `docs/benchmark/primary/README.md` §5
 already anticipates this by citing P2Rank's rejection of residue-level AUC; this review
 confirms that P2Rank's position is the field norm in allostery too.
 
@@ -434,7 +434,7 @@ residues 86–105**, as "the allosteric lobe", with communication between nucleo
 residues (G12, Y32, G60, Q61) and α3-L7 via the switch regions.
 
 **This is the KRAS analogue of the Grant 2011 calibration fact already in
-`docs/benchmark/README.md` §4, and it is closer to home**: same input structure, ENM not MD,
+`docs/benchmark/primary/README.md` §4, and it is closer to home**: same input structure, ENM not MD,
 purely topological. Residues 95, 96, 99, 100 and 103 of our 16-residue scoreable label set fall
 inside their 86–105 window. `[UNVERIFIED]` — recompute the overlap and the hypergeometric
 expectation from `frozen.json` before quoting it. As with Grant, this does not disqualify
@@ -472,7 +472,7 @@ prediction)`, `(KRAS OR HRAS) AND "allosteric site" AND (elastic network OR norm
 network model OR perturbation response OR Markov)`. Every KRAS/S-IIP hit was either
    medicinal chemistry into a known pocket (docking, QSAR, virtual screening), an experimental
    structure paper, or a **cryptic-pocket** MD study. The nearest things to a prediction are
-   (i) Grant 2011 (MD + FTMap, already in `docs/benchmark/README.md` §4), (ii) Eren 2021
+   (i) Grant 2011 (MD + FTMap, already in `docs/benchmark/primary/README.md` §4), (ii) Eren 2021
    (GNM/ANM, α3-L7 lobe, above) and (iii) `[VERIFIED-ABSTRACT]` Vithani et al., _J Chem Inf
    Model_ 2024, [10.1021/acs.jcim.4c01435](https://doi.org/10.1021/acs.jcim.4c01435),
    normal-mode-guided weighted-ensemble MD on KRAS G12D, >400 μs with cosolvents — **C2
@@ -512,7 +512,7 @@ aficamten)`. Everything is structure determination, drug mechanism, or clinical.
 
 7. **No allosteric-site-prediction paper reviewed uses a spatially-matched permutation null.**
    This confirms, for the allostery literature specifically, what
-   `docs/benchmark/README.md` §5 already established for the cryptic-pocket literature.
+   `docs/benchmark/primary/README.md` §5 already established for the cryptic-pocket literature.
    AlloBench is the closest — it drops UniRef50-related proteins — but that controls
    _sequence_ redundancy, not _spatial autocorrelation within a structure_. Our matched
    connected-patch null remains without precedent as a predictor calibration in either

@@ -2,7 +2,7 @@
 
 Freezing matters because every knob here — which entry, which chain, which residues,
 which contact cutoff — changes the ranking a method is scored on. Fixing them once, in
-`docs/benchmark/manifest.yaml`, is what makes two methods' numbers comparable at all.
+`docs/benchmark/primary/manifest.yaml`, is what makes two methods' numbers comparable at all.
 
 `verify()` re-derives every recorded quantity from the deposited files and reports
 differences. A drift means either RCSB re-versioned an entry or someone changed a
@@ -24,7 +24,7 @@ from allo.groundtruth.structures import EVAL_CACHE, biological_assembly, fetch_m
 from allo.inputs import MANIFEST, ROOT, SECONDARY_MANIFEST, active_site, admitted_residue_numbers
 from allo.structure.pdb import Structure, sha256
 
-FROZEN = ROOT / "docs" / "benchmark" / "frozen.json"
+FROZEN = ROOT / "docs" / "benchmark" / "primary" / "frozen.json"
 SECONDARY_FROZEN = ROOT / "docs" / "benchmark" / "secondary" / "frozen.json"
 
 # Which manifest produces which freeze. Both sets run through the same `derive`, which is

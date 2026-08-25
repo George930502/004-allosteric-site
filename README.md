@@ -100,7 +100,7 @@ protein and the same site. Both are frozen before any method exists.
 | c-Myc (stretch) | `1NKP` | no ground truth; consensus-judged | — |
 
 The frozen benchmark, the corrected pairs and the evidence:
-[`docs/benchmark/README.md`](docs/benchmark/README.md). Ground-truth derivation policy:
+[`docs/benchmark/primary/README.md`](docs/benchmark/primary/README.md). Ground-truth derivation policy:
 [`docs/targets.md`](docs/targets.md).
 
 ## What is frozen, and why that matters
@@ -111,7 +111,7 @@ re-derive them. This repo does that in two separate layers.
 
 ### The input layer — what a method receives
 
-Frozen 2026-08-24 in [`docs/benchmark/`](docs/benchmark/README.md). It pins the structure
+Frozen 2026-08-24 in [`docs/benchmark/primary/`](docs/benchmark/primary/README.md). It pins the structure
 bytes, the chain, the node set, the active-site rule and the candidate set for **5 primary
 arms**, and a second set of **9 secondary targets** in
 [`docs/benchmark/secondary/`](docs/benchmark/secondary/README.md).
@@ -220,9 +220,11 @@ docs/
   FIELD.md              the field, expert practice, and the traps in this challenge
   targets.md            per-protein chains and ground-truth derivation
   adr/                  25 decision records, indexed by topic in adr/README.md
-  benchmark/            the frozen INPUT layer: manifest, frozen.json, evidence
-  benchmark/secondary/  9 further targets in two disjoint tiers
-  benchmark/evaluation/ the frozen EVALUATION layer, protocol version 2
+  benchmark/            three frozen sets as siblings, indexed by benchmark/README.md
+    primary/            the 3 assigned disease areas: manifest, frozen.json, audit
+    secondary/          9 further targets in two disjoint tiers
+    evaluation/         how a score is computed. Protocol version 2
+    evidence/           the literature all three rest on
   playbooks/            phase-work, experiment and constraint-audit procedures
   agents/               issue tracker, triage labels, domain-doc layout
   report/               the methodological report, assembled across phases

@@ -33,7 +33,7 @@ from allo.scoring.nulls import (
 EVALUATION = ROOT / "docs" / "benchmark" / "evaluation"
 EVALUATION_MANIFEST = EVALUATION / "manifest.yaml"
 EVALUATION_FROZEN = EVALUATION / "frozen.json"
-INPUT_FROZEN = ROOT / "docs" / "benchmark" / "frozen.json"
+INPUT_FROZEN = ROOT / "docs" / "benchmark" / "primary" / "frozen.json"
 SECONDARY_INPUT_FROZEN = ROOT / "docs" / "benchmark" / "secondary" / "frozen.json"
 
 __all__ = [

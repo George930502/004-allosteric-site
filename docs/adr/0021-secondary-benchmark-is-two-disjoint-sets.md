@@ -79,7 +79,7 @@ and no choice of frame avoids it.
 
 ### 3. Four admission clauses beyond the eight
 
-Clauses (i)–(viii) in `docs/benchmark/README.md` §1 are unchanged and bind both sets. These
+Clauses (i)–(viii) in `docs/benchmark/primary/README.md` §1 are unchanged and bind both sets. These
 four bind the secondary set, because they are **selection** rules and a selection only exists
 where there is a pool (ADR 0009's reasoning, applied again).
 

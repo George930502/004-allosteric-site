@@ -4,7 +4,7 @@
 and exits 0 only if nothing moved.
 
 The input layer answers **what** is scored: which structures, which residues, which labels,
-which candidate set. It is frozen separately, in [`../README.md`](../README.md). This layer
+which candidate set. It is frozen separately, in [`../README.md`](../primary/README.md). This layer
 answers **how** a score is computed: which endpoint, which null, which decoys, which
 decision rule. The two were one file until 2026-08-24. The coupling meant an unfinished
 null model blocked a finished input layer, so they were split. Do not merge them back.

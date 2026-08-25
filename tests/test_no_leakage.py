@@ -24,7 +24,7 @@ PROTECTED_PATHS = {
     (ROOT / "structures" / "holo").resolve(),
     (ROOT / "data" / "raw").resolve(),
     (ROOT / "data" / "raw" / "eval").resolve(),
-    (ROOT / "docs" / "benchmark" / "frozen.json").resolve(),
+    (ROOT / "docs" / "benchmark" / "primary" / "frozen.json").resolve(),
     (ROOT / "docs" / "benchmark" / "secondary" / "frozen.json").resolve(),
     # The candidate ledger is the third data route. It is not prose: for every admitted arm
     # it carries `holo`, `holo_chain` and `effector` as structured fields, which is a label
@@ -48,7 +48,7 @@ PROTECTED_PATHS = {
 ALLOWED_PREDICTION_PATHS = {(ROOT / "data" / "raw" / "apo").resolve()}
 _KNOWN_INPUT_PATHS = {
     "ROOT": ROOT,
-    "MANIFEST": ROOT / "docs" / "benchmark" / "manifest.yaml",
+    "MANIFEST": ROOT / "docs" / "benchmark" / "primary" / "manifest.yaml",
     "SECONDARY_MANIFEST": ROOT / "docs" / "benchmark" / "secondary" / "manifest.yaml",
     "APO_STRUCTURES": ROOT / "structures" / "apo",
     "APO_CACHE": ROOT / "data" / "raw" / "apo",
@@ -364,7 +364,8 @@ def test_constant_path_guard_catches_composition_and_quote_variants(tmp_path):
             "from pathlib import Path\np = Path('data') / 'raw' / 'old-holo.cif'\n"
         ),
         "split_literal.py": (
-            "from pathlib import Path\np = Path('docs') / 'benchmark' / ('frozen' + '.json')\n"
+            "from pathlib import Path\n"
+            "p = Path('docs') / 'benchmark' / 'primary' / ('frozen' + '.json')\n"
         ),
     }
     for name, source in probes.items():

@@ -1,6 +1,6 @@
 # Secondary benchmark — the input layer for the generalisability and scalability claim.
 #
-# Same rules, same code, same freeze mechanics as `docs/benchmark/manifest.yaml`. Reading
+# Same rules, same code, same freeze mechanics as `docs/benchmark/primary/manifest.yaml`. Reading
 # that file first is the fastest way to understand this one; only what DIFFERS is explained
 # here. Rationale: docs/adr/0021-secondary-benchmark-is-two-disjoint-sets.md.
 # Clause-by-clause admission and the achieved statistics: docs/benchmark/secondary/README.md.
@@ -31,7 +31,7 @@
 #   (xii) within-set redundancy    - no shared Pfam family, inside this set or with the
 #                                    primary set. `pfam:` on each target is what that is
 #                                    checked against.
-# Clauses (i)-(viii) in docs/benchmark/README.md section 1 are unchanged and bind both sets.
+# Clauses (i)-(viii) in docs/benchmark/primary/README.md section 1 are unchanged and bind both sets.
 #
 # `pfam` is the only field here with no counterpart in the primary manifest. It is apo-side
 # sequence annotation, it is redacted out of the prediction path like every other evaluation

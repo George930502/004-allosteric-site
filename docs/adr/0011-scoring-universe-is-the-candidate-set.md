@@ -10,7 +10,7 @@ spring-perturbation procedure did not count active-site residues in candidate po
 avoid perturbing the site where the effect was measured
 ([10.1186/s12859-015-0771-1](https://doi.org/10.1186/s12859-015-0771-1)); it did not define a
 benchmark universe.
-`docs/benchmark/README.md` §5 states the reason in its own words — such a residue "scores
+`docs/benchmark/primary/README.md` §5 states the reason in its own words — such a residue "scores
 maximally by construction and therefore measures nothing".
 
 It then left them in the **negative** class. `src/allo/benchmark.py` computed every

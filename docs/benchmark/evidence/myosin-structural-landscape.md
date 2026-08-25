@@ -56,7 +56,7 @@ Of the 46 P12883 entries, **15 are coiled-coil / rod fragments fused to crystall
 chaperones** (`4XA1`, `4XA3`, `4XA4`, `4XA6`, `5CHX`, `5CJ0`, `5CJ1`, `5CJ4`, `5WJ7`, `5WJB`,
 `5WLQ`, `5WLZ`, `5WME`, `6PF2`, `6PFP` — Gp7/EB1/XRCC4 chimeras of residues 1173–1855) and
 carry no motor domain. `2FXM`/`2FXO` are the S2 fragment. `5TBY` is the 20 Å homology model
-already condemned in `docs/benchmark/audit/cardiac-myosin.md`. The usable motor-domain corpus
+already condemned in `docs/benchmark/primary/audit/cardiac-myosin.md`. The usable motor-domain corpus
 is far smaller than the raw count suggests.
 
 Full per-entry table (method, resolution, chains, all non-polymer components) for all 55
@@ -272,7 +272,7 @@ Method per pair: pocket = holo residues with a heavy atom within 4.5 Å of the n
 the named chain; `align_numbering` maps holo→apo author numbering; Kabsch on mapped Cα with
 20 % trim; **transplant test** = move the holo ligand into the apo frame with that transform
 and count ligand atoms whose nearest apo protein heavy atom is < 2.5 Å (the crypticity probe
-used on KRAS in `docs/benchmark/audit/kras-g12c.md`).
+used on KRAS in `docs/benchmark/primary/audit/kras-g12c.md`).
 
 | Apo → Holo | Ligand | Same study | Res apo/holo (Å) | Cα pairs | RMSD all / core | Pocket n / mapped / identical | Pocket RMSD | Transplant clashes | Min dist |
 |---|---|---|---|---|---|---|---|---|---|

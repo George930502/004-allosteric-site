@@ -25,7 +25,7 @@ import yaml
 from allo.structure.pdb import Structure, contacts, parse_mmcif_text, sha256
 
 ROOT = Path(__file__).resolve().parents[2]
-MANIFEST = ROOT / "docs" / "benchmark" / "manifest.yaml"
+MANIFEST = ROOT / "docs" / "benchmark" / "primary" / "manifest.yaml"
 SECONDARY_MANIFEST = ROOT / "docs" / "benchmark" / "secondary" / "manifest.yaml"
 
 # Two files rather than one. The primary set is the three disease areas the challenge

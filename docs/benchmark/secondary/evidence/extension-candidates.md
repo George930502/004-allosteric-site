@@ -48,7 +48,7 @@ artifactual.
 
 | Source | File read | Pfam families |
 | --- | --- | --- |
-| primary `kras_g12c_*` | `docs/benchmark/manifest.yaml:272,295` | PF00071 |
+| primary `kras_g12c_*` | `docs/benchmark/primary/manifest.yaml:272,295` | PF00071 |
 | primary `bcr_abl1_mandated` | `manifest.yaml:316` | PF00017, PF00018, PF07714 |
 | primary `bcr_abl1_corrected` | `manifest.yaml:343` | PF07714 |
 | primary `cardiac_myosin_mandated` | `manifest.yaml:373` | PF00063, PF01576, PF02736 |

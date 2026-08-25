@@ -1,7 +1,7 @@
 # Evaluation protocol — literature evidence
 
 Retrieved 2026-08-20. Purpose: stress-test the pre-registered scoring protocol for the
-allosteric-residue benchmark before any method exists (`docs/benchmark/manifest.yaml`,
+allosteric-residue benchmark before any method exists (`docs/benchmark/primary/manifest.yaml`,
 Phase 1.6 of `docs/ROADMAP.md`).
 
 ## Evidence rules applied here

@@ -2,7 +2,7 @@
 
 The domain language of this repo. One entry per term whose meaning has been argued
 about and settled. Definitions only — no procedures, no file paths, no numbers that
-belong in `docs/benchmark/frozen.json`.
+belong in `docs/benchmark/primary/frozen.json`.
 
 Terms enter here when a decision fixes them, not when they are first used. Where two
 words circulate for one concept, the preferred one is the heading and the rest sit

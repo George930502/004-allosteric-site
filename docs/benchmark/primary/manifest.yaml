@@ -3,7 +3,7 @@
 # Every choice that decides what a method receives, and what it is scored against, lives
 # here and nowhere else. `uv run allo benchmark verify` re-derives every consequence from
 # the deposited files and fails if anything moved. The consequences land in `frozen.json`,
-# which is generated and never hand-edited. Rationale: docs/benchmark/README.md.
+# which is generated and never hand-edited. Rationale: docs/benchmark/primary/README.md.
 #
 # HOW to score is a separate layer with a separate lifecycle. It is not in this file. See
 # docs/benchmark/evaluation/ (manifest.yaml, frozen.json, README.md).

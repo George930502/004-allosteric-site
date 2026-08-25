@@ -6,8 +6,8 @@
 > provenance. But it predates **ADR 0007** (ground truth is the allosteric site; crypticity is
 > a difficulty axis, never a validity test) and **ADR 0008** (one target per site), so its
 > framing and some of its recommendations are no longer current.
-> **For anything you intend to rely on, `docs/benchmark/frozen.json` is the authority and
-> `docs/benchmark/README.md` is the current account.** Points where this file has been
+> **For anything you intend to rely on, `docs/benchmark/primary/frozen.json` is the authority and
+> `docs/benchmark/primary/README.md` is the current account.** Points where this file has been
 > overtaken are marked `⚠️ SUPERSEDED` inline.
 
 **Audit date:** 2026-08-20

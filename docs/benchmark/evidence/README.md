@@ -1,6 +1,6 @@
 # Evidence base for the frozen benchmark
 
-Every claim in `docs/benchmark/README.md` that is not a number derived by
+Every claim in `docs/benchmark/primary/README.md` that is not a number derived by
 `allo benchmark verify` traces to one of these reviews. They exist because R3 says a
 recalled number is not evidence — so each one records its retrieval route, tags each claim
 `[VERIFIED-FULLTEXT]` / `[VERIFIED-ABSTRACT]` / `[UNVERIFIED]`, and names what it could

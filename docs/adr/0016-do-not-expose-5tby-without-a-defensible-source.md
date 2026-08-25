@@ -14,7 +14,7 @@ tracked `structures/apo/5TBY.cif.gz` and parsing it with
 the evaluation-side `allo.groundtruth.structures.parse_mmcif` yields 954 modelled residues on chain A and zero
 heteroatoms. Accordingly, the manifest rule
 `active_site: {from_ligands: []}` has no ligand from which `allo.inputs.active_site()` can
-derive a propagation source. `docs/benchmark/frozen.json` contains no
+derive a propagation source. `docs/benchmark/primary/frozen.json` contains no
 `cardiac_myosin_mandated` record, so neither a node set nor a source is currently
 frozen for prediction.
 
@@ -42,7 +42,7 @@ interface. No such rule has been independently specified or validated in this re
 ## Consequences
 
 - `cardiac_myosin_mandated` remains absent from `allo.inputs.load()` and
-  `docs/benchmark/frozen.json`. This is explicitly option (b), an unmet input requirement,
+  `docs/benchmark/primary/frozen.json`. This is explicitly option (b), an unmet input requirement,
   not a completed repair. The manifest records the independent apo-admission decision as
   `prediction_status: blocked` and pins the tracked 5TBY bytes; `load()` no longer consults
   evaluation `status` when admitting inputs.
