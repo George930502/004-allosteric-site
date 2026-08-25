@@ -1,0 +1,314 @@
+# The frozen evaluation layer.
+#
+# This file answers HOW a score is computed. What a method receives and what it is scored
+# against is the input layer, frozen separately in ../manifest.yaml and ../frozen.json.
+# The two were one file until 2026-08-24; the coupling meant an unfinished null blocked a
+# finished input layer. Keep them apart.
+#
+# The argument for every value here is in README.md, and its literature basis is in
+# ../evidence/evaluation-metrics.md. Nothing in this file may be chosen or changed after a
+# method has been scored: a threshold picked with results in hand is a hyperparameter.
+#
+#   uv run allo evaluate freeze     # re-derive frozen.json (needs the `eval` extra)
+#   uv run allo evaluate verify     # offline: everything except the pockets
+#
+version: 2
+frozen_on: 2026-08-25 # v2 re-freeze: same date, audit repairs. ADR 0025
+source: CHALLENGE.md section 4.1 (success criterion) and section 5 (scored artifact)
+seed: 0
+
+# ---------------------------------------------------------------------------------------
+# The graph the evaluation uses. NOT the graph a method uses.
+#
+# A method's cutoff, weighting and node representation are hyperparameters, chosen on the
+# secondary set's `development` tier. This graph never moves, so two methods' p-values are
+# computed against the same geometry and are therefore comparable.
+# ---------------------------------------------------------------------------------------
+graph:
+  atoms: heavy
+  distance: minimum
+  cutoff_angstrom: from_input_layer # ../manifest.yaml -> defaults.contact_cutoff_angstrom
+
+# ---------------------------------------------------------------------------------------
+# Endpoints.
+#
+# The confirmatory statistic is the mean midrank of the scoreable label set. With the
+# positive-class size held fixed -- which every null below does by construction -- it is a
+# strictly increasing function of AUC-ROC, so the permutation p-value is identical and the
+# reported effect size is the metric this field actually uses.
+#
+# AUC-PR is reported, not tested, and that is a correction to the earlier draft. Two
+# independent reasons: it is about three times noisier than AUC-ROC in the one paper that
+# reports both with dispersion (PocketMiner, 0.44 +/- 0.12 against 0.83 +/- 0.04,
+# doi:10.1038/s41467-023-36699-3), and at an effective sample size near 5 the noisier
+# statistic cannot carry a confirmatory decision. It is reported because prevalence spans
+# 6.79x across the frozen arms and AUC-ROC hides that: on one dataset with one split,
+# AllositePro reads AUROC 0.68 with AUPRC 0.07 while PASSerRank reads 0.82 and 0.46
+# (Allo-Allo, doi:10.1101/2024.09.28.615583). Always print it against its chance line,
+# which is the prevalence, because AUPRC favours higher-prevalence arms
+# (McDermott et al., arXiv:2401.06091).
+# ---------------------------------------------------------------------------------------
+endpoints:
+  top_k: 5 # CHALLENGE.md section 5: the scored artifact is a top-5 residue list
+  confirmatory: mean_rank
+  reported:
+    - auc_roc
+    - auc_pr
+    - precision_at_5
+    - hits_at_5
+    - recall_at_5
+    # Distance in angstrom from the centre of the predicted top-5 to the centre of the site.
+    # The one published criterion built for a residue list rather than a pocket (STINGAllo,
+    # doi:10.1093/bib/bbaf424). Reported as a DISTANCE, never as a success rate: the usual
+    # 4 A threshold is contested for centre-to-centre use, and LIGYSIS-bench measured it and
+    # says 10-12 A is the comparable figure. Freezing either number takes a side, so the
+    # continuous distance is frozen and both conventions print beside it.
+    #
+    # It is not redundant with the p-value, and one measurement shows why. On
+    # bcr_abl1_corrected the cavity-volume baseline rejects the confirmatory null at
+    # p_calibrated 0.0003 while its predicted centre sits FARTHER from the true site than a
+    # random five-residue list: DCC 26.5 A against a chance line of 17.7 A. A confirmatory
+    # rejection and a useful hit list are not the same claim. ADR 0025.
+    - dcc_angstrom
+    - auc_roc_vs_decoy_linings
+  omitted:
+    accuracy: >-
+      At 1.6-11 % prevalence, answering "not a label" for every residue scores 0.89-0.98, so
+      accuracy measures the negative class and nothing else. Arithmetic, not a citation. The
+      Allo-Allo Table 1 illustration (0.91-0.98 for every method, including one at AUPRC 0.07)
+      is read from a bitmap table and is not independently verified.
+    mcc_and_f1: >-
+      Both need a decision threshold, and no threshold can be chosen blind. Utges & Barton
+      2024 (doi:10.1186/s13321-024-00923-z) say directly that "the usefulness of
+      residue-level metrics as F1 score or MCC is limited". Threshold-free AUROC and AUPRC
+      are not covered by that objection.
+    jaccard: >-
+      Unreachable by construction here: a 5-residue list against a 12-20 residue label set
+      caps at about 0.31, below AlloBench's 0.5 reporting threshold.
+    dvo: no volume is predicted, and no standard threshold for it exists.
+    enrichment_factor_bedroc_rie: >-
+      Not used anywhere in site prediction; both literature sweeps found zero instances.
+      BEDROC alpha = 20 encodes "the top 8 % matters", which is meaningless at k = 5.
+
+# ---------------------------------------------------------------------------------------
+# Nulls. CHALLENGE.md section 4.1 names two negative classes; the first is split into the
+# form the challenge words and the form that holds its size.
+# ---------------------------------------------------------------------------------------
+nulls:
+  replicates: 9999
+
+  # (a) as worded. Reported, never confirmatory: measured type-I rate 0.096-0.323 against a
+  # nominal 0.05, because label sets are contiguous patches and these replicates are not.
+  background_residues:
+    kind: uniform_residue_permutation
+
+  # (a) in the form that holds its size. THE CONFIRMATORY NULL.
+  matched_patch:
+    kind: matched_patch_permutation
+    match: [size, components, mean_degree, radius_of_gyration]
+    tolerance: 0.10 # one relative bound on mean degree and on radius of gyration
+    freeze_probe_patches: 200 # what `verify` re-draws to check the geometry has not moved
+    calibrated_by: experiments/2026-08-25-null-calibration
+    # Matching those four properties is not enough on every arm. Radius of gyration is the
+    # second moment of the patch about its centroid, and what sets the variance of a patch
+    # mean under a spatially autocorrelated score is the whole within-patch distance
+    # distribution. The residual is measurable: type-I 0.059-0.075 on the two BCR-ABL1 arms
+    # and 0.034-0.037 on cardiac myosin, against a nominal 0.05. No moment tested closes it,
+    # and matching the variance factor itself is impossible in advance, because it depends
+    # on the *method's* correlation length.
+    #
+    # So the threshold is calibrated rather than the null matched further, and the rescale is
+    # on the PROBIT scale. The observed statistic's null is `size_ratio` times as wide as the
+    # pool members', and `score_arm` reports
+    #
+    #     p_calibrated = max(p, sf(isf(p) / size_ratio))
+    #
+    # which is the value the decision and the Holm step-down use.
+    #
+    # `size_ratio` is calibrated at EVERY level Holm can present -- alpha/3, alpha/2, alpha --
+    # and not only at alpha. A one-parameter rescale fitted at one threshold is wrong at the
+    # others: the draft's linear `p * alpha / alpha_star` ran above nominal at the tighter
+    # steps and the composed procedure leaked FWER. The rescale is conservative at level t
+    # exactly when the ratio is at least z(q_t)/z(t), so taking the maximum over all three
+    # levels and all four correlation lengths is conservative at all of them by construction.
+    #
+    # Three one-sided choices, every one toward a smaller test: the maximum over correlation
+    # lengths, the maximum over Holm levels, and a floor at 1. Calibration may tighten a test
+    # and may never loosen one, so an arm already conservative keeps the nominal threshold
+    # instead of buying power back. Taking a maximum over twelve noisy quantiles biases the
+    # ratio upward, which costs power and never costs size. Frozen per arm in frozen.json,
+    # beside the `alpha_star` the linear rescale used, which is kept for disclosure. ADR 0025.
+    size_calibration: size_ratio, per arm, from the experiment named above
+
+  # (a) plus the confound this sub-field names "distance bias"
+  # (ProteinLens, doi:10.1093/nar/gkab350). Pre-registered secondary, reported always.
+  matched_patch_distance:
+    kind: matched_patch_permutation
+    match:
+      [
+        size,
+        components,
+        mean_degree,
+        radius_of_gyration,
+        median_distance_to_source,
+      ]
+    # Fewer replicates than the confirmatory null, deliberately. Five simultaneous matched
+    # properties drop the acceptance rate to 0.0018 on the myosin arm, and a secondary
+    # endpoint does not need a p-value floor below 5e-4.
+    replicates: 1999
+
+  # (b) non-functional surface pockets, as CHALLENGE.md section 4.1 words it.
+  decoy_pockets:
+    kind: pocket_rank_permutation
+    statistic: mean midrank of the lining residues
+
+decoys:
+  detector: pyKVFinder
+  detector_version: 0.9.3 # asserted in allo.scoring.decoys.detect_pockets
+  detector_doi: 10.1186/s12859-021-04519-4
+  # The package's documented defaults for version 0.9.3, written out. The cited paper states
+  # none of the five values, so `detector_version` above is the citation for them. Choosing
+  # the defaults is the choice not to tune a detector on the benchmark it will score.
+  detector_settings:
+    step: 0.6
+    probe_in: 1.4
+    probe_out: 4.0
+    removal_distance: 2.4
+    volume_cutoff: 5.0
+  # A pocket is a decoy only if its lining shares no residue with the label set. The halo
+  # is 0 because a larger one empties the class: at 5 A `kras_g12c_mandated` keeps zero
+  # decoys and at 8 A both KRAS arms do. That is a property of a 169-residue protein with
+  # five detectable pockets, and it is disclosed rather than engineered around.
+  halo_angstrom: 0.0
+
+# ---------------------------------------------------------------------------------------
+# The decision rule. One confirmatory family, declared before any method exists.
+# ---------------------------------------------------------------------------------------
+decision:
+  alpha: 0.05
+  sided: upper
+  # One-sided by design, not convenience: a method ranking allosteric residues BELOW
+  # background is a broken method, not a competing finding.
+  confirmatory_family:
+    - kras_g12c_corrected
+    - bcr_abl1_corrected
+    - cardiac_myosin_corrected
+  correction: holm
+  # Why these three and not all five: the two `mandated` arms are the challenge's literal
+  # assignment and are reported for that reason, but they share a protein and a site with
+  # their corrected arm, so including both would test one disease area twice. The corrected
+  # arm is where methods are compared (CONTEXT.md, "Tier").
+  supportive_only:
+    - kras_g12c_mandated
+    - bcr_abl1_mandated
+  # Everything on the secondary set's `development` tier is tuning, never a decision.
+  # The `generalisation` tier carries the one across-target claim and opens in Phase 5.
+  across_target_claim: secondary/generalisation
+
+# ---------------------------------------------------------------------------------------
+# Endpoints for CHALLENGE.md section 4.2. Declared here for the same reason as everything
+# above: chosen after seeing a result, each becomes a hyperparameter. Implementation belongs
+# to Phases 3 and 4, the choice belongs here.
+# ---------------------------------------------------------------------------------------
+secondary_objectives:
+  noise_resilience:
+    quantity: stability of the RANKING, not of the raw metric
+    statistics: [spearman_rho, kendall_tau, overlap_at_5, jaccard_at_5]
+    # All four together, following the only precedent that reports them
+    # (arXiv:2604.17486). RBO is principled and has no use in this literature; omitted.
+  coarse_graining:
+    quantity: retention of the topological signal under compression
+    statistics:
+      [spectral_distance, spearman_rho_of_residue_scores, label_recovery_at_5]
+    # Spectral rather than mode overlap. exp(-iHt) is a function of the spectrum alone,
+    # and mode overlap needs a holo displacement vector, which C1 forbids on the prediction
+    # path. Precedent for spectral coarse-graining of a walk on a graph:
+    # Gfeller & De Los Rios, doi:10.1103/PhysRevLett.99.038701.
+  classical_comparison:
+    # Priority order. A method that does not beat the first three has demonstrated nothing.
+    required_baselines:
+      # Score every candidate by the volume of the largest detected pocket that lines it, 0
+      # if none does. It uses no label and no network, and it rejects on all three
+      # confirmatory arms under the frozen null and Holm (p_calibrated 0.0047, 0.0001,
+      # 0.0001). So "significant against the matched-patch null" is NOT evidence that a
+      # method learned anything about allostery, and the report may not claim it is. This
+      # baseline is what a quantum result has to beat. It is also the field's own control:
+      # "rank by detector score alone" is the reference both PASSer2.0
+      # (doi:10.1093/nar/gkad303) and DeepAllo (doi:10.1093/bioinformatics/btaf294) report
+      # against. Added at the version-2 audit; it was the first blocker. ADR 0025.
+      - cavity_volume
+      - distance_from_source_negated
+      - distance_from_source
+      - eigenvector_centrality
+      - degree
+      - closeness
+      - betweenness
+      - gnm_or_essa
+      - perturbation_response_scanning
+    also_report: spearman_rho between the method and every baseline on the same arm
+    # What "beat" means. Until protocol version 2 this manifest required a method to beat its
+    # baselines and defined no test for it, so the comparison rule would have been chosen with
+    # results in hand -- a hyperparameter, exactly like a threshold. `allo.scoring.harness`
+    # `compare_methods` is that rule, frozen before any method exists.
+    #
+    # Paired on the residue: take the difference of the two midrank vectors and test its mean
+    # over the label patch against its mean over the same matched-patch pool the confirmatory
+    # test uses. Pairing removes every property of the arm that acts on both scores alike, so
+    # it is far more sensitive than comparing two separate p-values, and both methods face the
+    # identical pool so a difference between them cannot be sampler noise.
+    #
+    # TWO-SIDED, unlike the confirmatory test. There the one-sided rule has an argument: a
+    # method ranking allosteric residues below background is broken, not competing. Between two
+    # methods there is no such asymmetry, and a prior on which one wins is the bias this
+    # protocol exists to prevent. The null is centred on its own median before the tails count.
+    #
+    # It is not a formality. `cavity_volume` beats `distance_from_source_negated` by AUC-ROC
+    # +0.24 on kras_g12c_corrected and the paired test reads p = 0.60: a gap that size is
+    # inside what patch geometry produces on that arm. Comparing two AUC values would have
+    # called it a win. ADR 0025.
+    pairwise_test: matched_patch_paired_permutation, two-sided, calibrated by the arm's size_ratio
+
+# ---------------------------------------------------------------------------------------
+# How results are decomposed. Four factors, no more: at N <= 5 per cell no stratified
+# comparison can support a test, so these organise reporting and never a decision.
+# ---------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
+# Confounders. Not endpoints: one Spearman correlation each, between the method's score and a
+# residue property it must not merely be re-measuring.
+#
+# The first question asked of any distal-site score is whether it is a burial proxy or a
+# flexibility proxy under another name. Section 11 of README.md controls burial inside the
+# null, which is the stronger treatment, but it leaves the reader with no number. These are
+# that number, and they are printed beside every result so the question is answered before it
+# is asked.
+#
+# Declared here and computed at score time, never frozen: a frozen value would be identical
+# for every method and would say nothing about any of them. Already earning their keep --
+# `distance_from_source_negated` correlates with normalised B-factor at rho = -0.79 on cardiac
+# myosin, so a "propagation" score of that shape is largely re-measuring crystallographic
+# disorder. ADR 0025.
+# ---------------------------------------------------------------------------------------
+confounders:
+  relative_solvent_accessibility:
+    source: Shrake-Rupley on the apo input, probe 1.4 A, Bondi radii
+    normalised_by: theoretical maximum accessible area, Tien et al. doi:10.1371/journal.pone.0080635
+  normalised_b_factor:
+    source: the deposited isotropic B, per-residue mean, z-scored within the chain
+    note: >-
+      A measured property of the deposited structure, not a simulated trajectory, so C2
+      permits it. Z-scored within the chain so arms refined at different resolutions compare.
+  hydrophobicity:
+    source: Kyte & Doolittle hydropathy, doi:10.1016/0022-2836(82)90515-0
+  conservation:
+    source: unknown
+    note: >-
+      Absent. It needs a multiple-sequence alignment against an external database, which the
+      offline gate cannot carry. Recorded as unknown rather than approximated (R3). This is a
+      disclosed gap: sequence conservation is the fourth property a reviewer will ask about.
+  statistic: spearman_rho between the method's score and the property, over the candidate set
+
+stratification:
+  - crypticity # transplant clash fraction, frozen in ../frozen.json
+  - proximity_to_source # min Ca distance, scoreable set; print the distance baseline beside it
+  - tier # mandated against corrected
+  - prevalence # a covariate, never a stratum

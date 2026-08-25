@@ -54,6 +54,10 @@ class Structure:
     element: np.ndarray
     altloc: np.ndarray
     coord: np.ndarray
+    # Crystallographic isotropic B. Kept because normalised B-factor is one of the four
+    # confounders every propagation score is read against (ADR 0025). NaN where the entry
+    # omits it, so a caller sees a missing value rather than a silent zero.
+    bfactor: np.ndarray
     hetatm: np.ndarray
     in_polymer: np.ndarray
 
@@ -99,6 +103,14 @@ def _column(data: dict, key: str) -> list[str]:
     return value if isinstance(value, list) else [value]
 
 
+def _numeric(value: str) -> float:
+    """mmCIF writes an absent value as `.` or `?`, which `float` cannot read."""
+    try:
+        return float(value)
+    except ValueError:
+        return float("nan")
+
+
 def parse_mmcif_text(text: str, pdb_id: str) -> Structure:
     """Parse mmCIF text without opening a filesystem path.
 
@@ -137,6 +149,11 @@ def parse_mmcif_text(text: str, pdb_id: str) -> Structure:
         element=pick("_atom_site.type_symbol"),
         altloc=pick("_atom_site.label_alt_id"),
         coord=coord,
+        bfactor=np.array(
+            [_numeric(value) for value in pick("_atom_site.B_iso_or_equiv")], dtype=float
+        )
+        if _column(data, "_atom_site.B_iso_or_equiv")
+        else np.full(len(take), np.nan),
         hetatm=pick("_atom_site.group_PDB") == "HETATM",
         in_polymer=~np.isin(label_seq, [".", "?", ""]),
     )

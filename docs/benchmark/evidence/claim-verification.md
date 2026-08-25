@@ -492,7 +492,7 @@ must handle a large domain-content mismatch~~ — **withdrawn 2026-08-20.** `5MO
 SIFTS Pfam places SH3 at 86–132: it is N-cap + SH3 + SH2 + kinase, the **same architecture as
 `1OPL`**, not a kinase domain. There is no large domain-content mismatch for the alignment to
 handle, which is good news rather than bad. Corrected in `docs/targets.md` and
-`evidence/target-prior-art.md` (Discrepancy 2) at the time; this paragraph was missed and a
+`docs/benchmark/evidence/target-prior-art.md` (Discrepancy 2) at the time; this paragraph was missed and a
 second adversarial review found it still asserting the withdrawn claim. (ii) carries **two
 point mutations** including one
 that alters the ATP site; (iii) contains a **second drug** (nilotinib) at the ATP site, so a

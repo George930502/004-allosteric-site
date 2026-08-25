@@ -182,7 +182,7 @@ is designed to replace, and their finding is that functionally labelled residues
 in ~90% of cases **by virtue of being clustered**. That is the confound quantified. They
 used clustering as the signal; we would be treating it as the nuisance. Same phenomenon.
 
-**Przulj et al., "Optimized null model for protein structure networks", PLoS ONE**
+**Milenkovic, Filippis, Lappe & Przulj, "Optimized null model for protein structure networks", PLoS ONE**
 (10.1371/journal.pone.0005967) `[VERIFIED-FULLTEXT]` — the theoretical argument.
 
 - Models compared on residue interaction graphs (RIGs): "Erdös-Rényi random graphs ('ER'),

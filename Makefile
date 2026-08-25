@@ -1,4 +1,4 @@
-.PHONY: setup check verify test lint fmt clean
+.PHONY: setup check verify lint fmt clean
 
 setup:          ## Create .venv and install the project + dev extras
 	uv sync --extra dev
@@ -6,12 +6,10 @@ setup:          ## Create .venv and install the project + dev extras
 check:          ## The one command agents run before claiming done
 	./scripts/check.sh
 
-verify:         ## Re-derive the frozen benchmark from RCSB and fail on any drift (needs network)
+verify:         ## Re-derive both frozen layers and fail on any drift (needs network + eval extra)
 	uv run allo benchmark verify
+	uv run allo evaluate verify --detect
 	uv run pytest -q -m network
-
-test:
-	uv run pytest -q -m "not slow and not network"
 
 lint:
 	uv run ruff check .

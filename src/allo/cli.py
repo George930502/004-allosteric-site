@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+from pathlib import Path
 
 from allo.experiment import new_experiment
 
@@ -29,7 +30,60 @@ def main(argv: list[str] | None = None) -> int:
         ),
     )
 
+    ev = sub.add_parser("evaluate", help="the frozen evaluation layer")
+    ev.add_argument("action", choices=["calibrate", "repairs", "freeze", "verify"])
+    ev.add_argument(
+        "config",
+        nargs="?",
+        help=(
+            "calibrate and repairs only: path to an experiment config.yaml. Metrics are "
+            "written to "
+            "metrics.json beside it, so a rerun of the committed config reproduces the "
+            "committed numbers"
+        ),
+    )
+    ev.add_argument(
+        "--detect",
+        action="store_true",
+        help=(
+            "verify only: re-run the pocket detector as well. Needs the `eval` extra, so it "
+            "belongs to `make verify` and not to the offline `make check`"
+        ),
+    )
+
     args = parser.parse_args(argv)
+    if args.command == "evaluate":
+        from allo.scoring import harness
+
+        if args.action == "calibrate":
+            from allo.scoring.calibration import run_calibration
+
+            if args.config is None:
+                print("evaluate calibrate needs a config path")
+                return 2
+            return run_calibration(Path(args.config))
+        if args.action == "repairs":
+            from allo.scoring.calibration import run_repairs
+
+            if args.config is None:
+                print("evaluate repairs needs a config path")
+                return 2
+            return run_repairs(Path(args.config))
+        if args.action == "freeze":
+            state = harness.freeze_evaluation()
+            harness.EVALUATION_FROZEN.parent.mkdir(parents=True, exist_ok=True)
+            harness.EVALUATION_FROZEN.write_text(json.dumps(state, indent=2) + "\n")
+            print(f"evaluation: froze {len(state['targets'])} arms -> {harness.EVALUATION_FROZEN}")
+            return 0
+        problems = harness.verify_evaluation(detect=args.detect)
+        if problems:
+            print("evaluation: the frozen protocol has drifted:")
+            for problem in problems:
+                print(f"  - {problem}")
+            return 1
+        scope = "including the pockets" if args.detect else "offline, pockets skipped"
+        print(f"evaluation: verified, every derived value matches the freeze ({scope})")
+        return 0
     if args.command == "new-experiment":
         print(new_experiment(args.name))
         return 0

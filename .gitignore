@@ -17,6 +17,9 @@ credentials.json
 data/raw/**
 data/interim/**
 data/external/**
+# Matched-patch pools. Regenerated from the frozen seed by `allo evaluate`; caching them
+# means every method faces the identical null sample.
+data/patches/**
 !data/**/.gitkeep
 !data/**/README.md
 

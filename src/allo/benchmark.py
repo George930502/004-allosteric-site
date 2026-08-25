@@ -315,7 +315,7 @@ def derive(
 
     labels = transfer_labels(holo, apo, spec["holo"]["ligand"], holo_chain, apo_chain, cutoff)
     transferred_labels = [number for _, number, _ in labels.apo_residues]
-    node_ids = admitted_residue_numbers(apo, apo_chain, spec["apo"])
+    node_ids = admitted_residue_numbers(apo, apo_chain)
     node_set = set(node_ids)
     label_numbers = [number for number in transferred_labels if number in node_set]
     labels_outside_node_set = sorted(set(transferred_labels) - node_set)
@@ -519,7 +519,7 @@ def _validate_protocol(manifest: dict) -> None:
 
     Only the input layer is checked here. How a score is computed -- estimator, null model,
     multiplicity -- is a separate layer with its own lifecycle and its own document
-    (docs/benchmark/evaluation-protocol.md); pinning it in the input manifest coupled two
+    (docs/benchmark/evaluation/); pinning it in the input manifest coupled two
     freezes that move at different rates.
     """
     vocabulary = manifest.get("orthosteric_vocabulary")
@@ -625,6 +625,39 @@ def size_stratified_split(sizes: dict[str, int], seed: int = 0) -> dict[str, str
     return tiers
 
 
+def deep_diff(recorded, derived, path: str, problems: list[str]) -> None:
+    """Append every difference between a frozen value and a re-derived one.
+
+    Type-strict and recursive: a list that became a tuple, or an int that became a
+    float, is drift. Shared with the evaluation layer, which freezes and verifies on
+    exactly this contract.
+    """
+    if type(recorded) is not type(derived):
+        problems.append(
+            f"{path or '<root>'}: frozen type {type(recorded).__name__} != "
+            f"current type {type(derived).__name__}"
+        )
+        return
+    if isinstance(recorded, dict):
+        for key in sorted(set(recorded) | set(derived)):
+            child = f"{path}.{key}" if path else key
+            if key not in recorded:
+                problems.append(f"{child}: absent from frozen, present in current")
+            elif key not in derived:
+                problems.append(f"{child}: present in frozen, absent from current")
+            else:
+                deep_diff(recorded[key], derived[key], child, problems)
+        return
+    if isinstance(recorded, list):
+        if len(recorded) != len(derived):
+            problems.append(f"{path}: frozen length {len(recorded)} != current {len(derived)}")
+        for index, (was, now) in enumerate(zip(recorded, derived, strict=False)):
+            deep_diff(was, now, f"{path}[{index}]", problems)
+        return
+    if recorded != derived:
+        problems.append(f"{path}: frozen {recorded!r} != current {derived!r}")
+
+
 def verify(
     manifest: dict | None = None,
     frozen: dict | None = None,
@@ -642,31 +675,5 @@ def verify(
     current = freeze(manifest if manifest is not None else load(manifest_path), raw)
     problems: list[str] = []
 
-    def compare(recorded, derived, path: str) -> None:
-        if type(recorded) is not type(derived):
-            problems.append(
-                f"{path or '<root>'}: frozen type {type(recorded).__name__} != "
-                f"current type {type(derived).__name__}"
-            )
-            return
-        if isinstance(recorded, dict):
-            for key in sorted(set(recorded) | set(derived)):
-                child = f"{path}.{key}" if path else key
-                if key not in recorded:
-                    problems.append(f"{child}: absent from frozen, present in current")
-                elif key not in derived:
-                    problems.append(f"{child}: present in frozen, absent from current")
-                else:
-                    compare(recorded[key], derived[key], child)
-            return
-        if isinstance(recorded, list):
-            if len(recorded) != len(derived):
-                problems.append(f"{path}: frozen length {len(recorded)} != current {len(derived)}")
-            for index, (was, now) in enumerate(zip(recorded, derived, strict=False)):
-                compare(was, now, f"{path}[{index}]")
-            return
-        if recorded != derived:
-            problems.append(f"{path}: frozen {recorded!r} != current {derived!r}")
-
-    compare(frozen, current, "")
+    deep_diff(frozen, current, "", problems)
     return problems

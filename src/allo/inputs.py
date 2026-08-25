@@ -181,16 +181,13 @@ def active_site(apo: Structure, chain: str, rule: dict, cutoff: float) -> list[i
     return sorted(found)
 
 
-def admitted_residue_numbers(apo: Structure, chain: str, apo_spec: dict) -> tuple[int, ...]:
+def admitted_residue_numbers(apo: Structure, chain: str) -> tuple[int, ...]:
     """The node set: every modelled protein residue of the frozen chain (ADR 0010).
 
     There is no trim, on either benchmark set. The deposited construct is what defines
     the scope, so scope is chosen when a structure is admitted rather than by a rule
     applied afterwards -- which keeps it an apo-only decision and keeps it out of code.
-    `apo_spec` is unused and stays in the signature because both callers pass the whole
-    apo record; a trim, if one is ever justified, is declared there.
     """
-    del apo_spec
     return tuple(number for c, number, _ in apo.residues() if c == chain)
 
 
@@ -225,6 +222,7 @@ def _prediction_structure(apo: Structure, chain: str, residues: tuple[int, ...])
         element=immutable(apo.element),
         altloc=immutable(apo.altloc),
         coord=immutable(apo.coord),
+        bfactor=immutable(apo.bfactor),
         hetatm=immutable(apo.hetatm),
         in_polymer=immutable(apo.in_polymer),
     )
@@ -309,7 +307,7 @@ def apo_input(target: str, raw: Path = APO_CACHE) -> ApoInput:
             f"{path} and refetch."
         )
     apo = parse_mmcif_text(path.read_text(), spec["apo"]["pdb"])
-    residues = admitted_residue_numbers(apo, chain, spec["apo"])
+    residues = admitted_residue_numbers(apo, chain)
     source = tuple(active_site(apo, chain, spec["active_site"], cutoff))
     if not set(source) <= set(residues):
         raise ValueError(

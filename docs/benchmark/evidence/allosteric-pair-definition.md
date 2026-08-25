@@ -26,7 +26,7 @@ is marked **[BORROWED]** and named as such.
 > **(iv) Identity [IN-DOMAIN].** Same protein at **≥ 90 % sequence identity**, differences enumerated.
 > **(v) Assembly [IN-DOMAIN].** Same oligomeric state, and the modelled state should _be_ the biological
 > assembly. (Both halves are the field's. An earlier version of this clause claimed the second
-> half as **ours** — "no source states it" — while `evidence/curation-standard.md` already
+> half as **ours** — "no source states it" — while `docs/benchmark/evidence/curation-standard.md` already
 > carried AlloBench stating it, `[VERIFIED-FULLTEXT]`. Corrected 2026-08-21.)
 > **(vi) Second site [REPOSITORY POLICY].** Orthosteric occupancy recorded for **both** members, and the
 > active-site rule stated.

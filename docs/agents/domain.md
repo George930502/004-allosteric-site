@@ -13,8 +13,9 @@ If any of these files don't exist, **proceed silently**. Don't flag their absenc
 ## This repo
 
 **Single-context.** No `CONTEXT-MAP.md`, no per-context `src/<context>/docs/adr/`.
-`CONTEXT.md` does not exist yet — that is expected; `/domain-modeling` creates it when
-terms actually get resolved.
+`CONTEXT.md` exists at the repo root and is the settled vocabulary. Read it before you
+name a domain concept. It is hand-written, not generated, so do not let
+`/domain-modeling` overwrite it.
 
 `docs/adr/` is already populated and is the project's decision record; see
 `docs/adr/README.md` for the local conventions (statuses, when to write one). ADRs here
@@ -25,13 +26,15 @@ working quantum-metric hypothesis.
 
 Single-context repo (most repos):
 
+This repo, as it actually stands:
+
 ```
 /
-├── CONTEXT.md
-├── docs/adr/
-│   ├── 0001-event-sourced-orders.md
-│   └── 0002-postgres-for-write-model.md
-└── src/
+├── CONTEXT.md                         ← the settled vocabulary
+├── docs/adr/                          ← 25 records, indexed by topic in README.md
+│   ├── 0001-record-decisions.md
+│   └── 0025-the-size-rescale-is-calibrated-at-every-holm-level.md
+└── src/allo/                          ← organised by pipeline stage
 ```
 
 Multi-context repo (presence of `CONTEXT-MAP.md` at the root):
