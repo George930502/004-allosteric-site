@@ -1,0 +1,212 @@
+{
+  "config": {
+    "name": "null-repairs",
+    "date": "2026-08-25",
+    "seed": 0,
+    "arms": [
+      "kras_g12c_corrected",
+      "bcr_abl1_corrected",
+      "cardiac_myosin_corrected"
+    ],
+    "length_scales": [
+      4.0,
+      8.0,
+      12.0,
+      20.0
+    ],
+    "alpha": 0.05,
+    "n_fields": 1000,
+    "pool_replicates": 9999,
+    "tolerance": 0.1,
+    "keep_fraction": 0.5,
+    "repairs": {
+      "c_centred_gyration": "keep the half of the pool closest in radius of gyration to the observed patch",
+      "d_matched_distance_ecdf": "keep the half closest in L1 on the within-patch pairwise-distance ECDF"
+    }
+  },
+  "arms": {
+    "kras_g12c_corrected": {
+      "observed_radius_of_gyration": 7.8595,
+      "by_length_scale": {
+        "4.0": {
+          "frozen": {
+            "type_one": 0.053,
+            "variance_factor_percentile": 42.9
+          },
+          "repair_c_centred_gyration": {
+            "type_one": 0.052,
+            "variance_factor_percentile": 20.9
+          },
+          "repair_d_matched_distance_ecdf": {
+            "type_one": 0.048,
+            "variance_factor_percentile": 39.9
+          }
+        },
+        "8.0": {
+          "frozen": {
+            "type_one": 0.055,
+            "variance_factor_percentile": 57.3
+          },
+          "repair_c_centred_gyration": {
+            "type_one": 0.056,
+            "variance_factor_percentile": 31.0
+          },
+          "repair_d_matched_distance_ecdf": {
+            "type_one": 0.055,
+            "variance_factor_percentile": 52.2
+          }
+        },
+        "12.0": {
+          "frozen": {
+            "type_one": 0.053,
+            "variance_factor_percentile": 63.1
+          },
+          "repair_c_centred_gyration": {
+            "type_one": 0.053,
+            "variance_factor_percentile": 36.9
+          },
+          "repair_d_matched_distance_ecdf": {
+            "type_one": 0.052,
+            "variance_factor_percentile": 56.6
+          }
+        },
+        "20.0": {
+          "frozen": {
+            "type_one": 0.05,
+            "variance_factor_percentile": 68.0
+          },
+          "repair_c_centred_gyration": {
+            "type_one": 0.045,
+            "variance_factor_percentile": 43.7
+          },
+          "repair_d_matched_distance_ecdf": {
+            "type_one": 0.047,
+            "variance_factor_percentile": 60.9
+          }
+        }
+      }
+    },
+    "bcr_abl1_corrected": {
+      "observed_radius_of_gyration": 8.6887,
+      "by_length_scale": {
+        "4.0": {
+          "frozen": {
+            "type_one": 0.06,
+            "variance_factor_percentile": 60.8
+          },
+          "repair_c_centred_gyration": {
+            "type_one": 0.061,
+            "variance_factor_percentile": 46.1
+          },
+          "repair_d_matched_distance_ecdf": {
+            "type_one": 0.061,
+            "variance_factor_percentile": 45.6
+          }
+        },
+        "8.0": {
+          "frozen": {
+            "type_one": 0.067,
+            "variance_factor_percentile": 76.7
+          },
+          "repair_c_centred_gyration": {
+            "type_one": 0.064,
+            "variance_factor_percentile": 63.6
+          },
+          "repair_d_matched_distance_ecdf": {
+            "type_one": 0.067,
+            "variance_factor_percentile": 64.4
+          }
+        },
+        "12.0": {
+          "frozen": {
+            "type_one": 0.065,
+            "variance_factor_percentile": 81.0
+          },
+          "repair_c_centred_gyration": {
+            "type_one": 0.065,
+            "variance_factor_percentile": 68.8
+          },
+          "repair_d_matched_distance_ecdf": {
+            "type_one": 0.063,
+            "variance_factor_percentile": 69.7
+          }
+        },
+        "20.0": {
+          "frozen": {
+            "type_one": 0.068,
+            "variance_factor_percentile": 84.3
+          },
+          "repair_c_centred_gyration": {
+            "type_one": 0.063,
+            "variance_factor_percentile": 72.6
+          },
+          "repair_d_matched_distance_ecdf": {
+            "type_one": 0.066,
+            "variance_factor_percentile": 73.5
+          }
+        }
+      }
+    },
+    "cardiac_myosin_corrected": {
+      "observed_radius_of_gyration": 8.9011,
+      "by_length_scale": {
+        "4.0": {
+          "frozen": {
+            "type_one": 0.037,
+            "variance_factor_percentile": 24.7
+          },
+          "repair_c_centred_gyration": {
+            "type_one": 0.037,
+            "variance_factor_percentile": 16.4
+          },
+          "repair_d_matched_distance_ecdf": {
+            "type_one": 0.036,
+            "variance_factor_percentile": 33.4
+          }
+        },
+        "8.0": {
+          "frozen": {
+            "type_one": 0.034,
+            "variance_factor_percentile": 32.5
+          },
+          "repair_c_centred_gyration": {
+            "type_one": 0.034,
+            "variance_factor_percentile": 16.8
+          },
+          "repair_d_matched_distance_ecdf": {
+            "type_one": 0.035,
+            "variance_factor_percentile": 37.8
+          }
+        },
+        "12.0": {
+          "frozen": {
+            "type_one": 0.037,
+            "variance_factor_percentile": 40.5
+          },
+          "repair_c_centred_gyration": {
+            "type_one": 0.035,
+            "variance_factor_percentile": 20.6
+          },
+          "repair_d_matched_distance_ecdf": {
+            "type_one": 0.035,
+            "variance_factor_percentile": 42.3
+          }
+        },
+        "20.0": {
+          "frozen": {
+            "type_one": 0.035,
+            "variance_factor_percentile": 49.2
+          },
+          "repair_c_centred_gyration": {
+            "type_one": 0.035,
+            "variance_factor_percentile": 26.1
+          },
+          "repair_d_matched_distance_ecdf": {
+            "type_one": 0.036,
+            "variance_factor_percentile": 46.8
+          }
+        }
+      }
+    }
+  }
+}

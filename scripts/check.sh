@@ -11,6 +11,6 @@ echo "==> ruff check"
 uv run ruff check .
 
 echo "==> pytest (fast subset)"
-uv run pytest -q -m "not slow and not network"
+uv run pytest -q -m "not network"
 
 echo "==> OK"

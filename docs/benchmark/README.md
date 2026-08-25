@@ -6,7 +6,7 @@ exits 0 only if nothing moved.
 
 This document covers **what** a method receives and **what** it is scored against. It does
 not cover **how** a score is computed. That is a separate layer with its own lifecycle, and
-it is drafted in [`evaluation-protocol.md`](evaluation-protocol.md). The two were in one
+it is frozen in [`evaluation/README.md`](evaluation/README.md). The two were in one
 document until 2026-08-24, and the coupling meant an unfinished null model blocked a
 finished input layer.
 
@@ -21,7 +21,7 @@ disclosure lets a reader price it.
 `CHALLENGE.md` Table 1 names. Three targets cannot support a claim about the method in
 general — a sign test over N target-level effects has a minimum attainable one-sided p of
 2^-N, which at N = 3 is 0.125 whatever the result. (That floor binds tests invariant to sign
-flips; two constructions escape it and license less — `evaluation-protocol.md` §7.) The
+flips; two constructions escape it and license less — `evaluation/README.md` §8.) The
 generalisability and
 scalability claims therefore come from the **secondary** set,
 [`secondary/README.md`](secondary/README.md): nine further targets, frozen the same day,
@@ -379,12 +379,13 @@ Three of these belong to later phases and are listed so they are not rediscovere
   from 451 residues to the kinase domain alone. We have declined that reading (ADR 0010,
   accepted) because it deletes the SH3–SH2 clamp the myristoyl pocket acts through. That is
   a defensible reading, not a ruling.
-- **Decoy surface pockets are not built.** `CHALLENGE.md` §4.1 asks for enrichment against
-  random background residues **and** non-functional surface pockets. The second needs a
-  geometric pocket detector; none is installed. Evaluation layer, and it blocks scoring.
-  Choosing the detector after seeing method results would make it a hyperparameter, so its
-  version and full configuration go into the evaluation manifest before any method is scored.
-- **The matched-patch null is specified but not calibrated** (ADR 0018). Evaluation layer.
+- **Decoy surface pockets — CLOSED 2026-08-25** (ADR 0024). pyKVFinder 0.9.3 at its published
+  defaults, frozen in `evaluation/manifest.yaml` before any method ran. The per-arm power
+  floor is disclosed: with three decoy pockets the smallest attainable p is 0.25, so the
+  challenge's negative class (b) cannot reject at α = 0.05 on three of five arms.
+- **The matched-patch null — CLOSED 2026-08-25** (ADR 0023, clearing ADR 0018). It does not
+  hold its size everywhere: anti-conservative on both BCR-ABL1 arms, conservative on myosin.
+  The threshold is calibrated per arm instead, capped so it can only tighten.
 - **The ASD selection set does not exist** (ADR 0012). Every hyperparameter must be chosen on
   it and nowhere else, or Phase 2's ablations are selected on this frozen benchmark, which is
   test-set fitting even with no holo import. Phase 1.7. Note that ASD serves over HTTP only —

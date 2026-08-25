@@ -1,0 +1,39 @@
+# Every knob that affects the result belongs here, including the seed.
+# A rerun of this config must reproduce metrics.json exactly.
+#
+#   uv run allo evaluate repairs experiments/2026-08-25-null-repairs/config.yaml
+#
+# Question: two more repairs to the matched-patch null, and one direct test of the
+# explanation the protocol gave for the residual. ADR 0023 records two repairs that failed
+# and explains the residual by the observed patch's variance-factor percentile inside its own
+# pool. Repair D moves that percentile directly, so it decides whether the percentile is the
+# mechanism or only a correlate.
+name: null-repairs
+date: 2026-08-25
+seed: 0
+
+# The three confirmatory arms. The two `mandated` arms share a protein and a site with their
+# corrected arm, so they add no independent information about the sampler.
+arms:
+  - kras_g12c_corrected
+  - bcr_abl1_corrected
+  - cardiac_myosin_corrected
+
+# Same four correlation lengths as the calibration gate, so the two are comparable.
+length_scales: [4.0, 8.0, 12.0, 20.0]
+
+alpha: 0.05
+n_fields: 1000
+
+# The pool being repaired: the one scoring actually uses.
+pool_replicates: 9999
+tolerance: 0.10
+
+# Both repairs post-stratify that pool and keep the closest half. They do NOT redraw at full
+# size, so the surviving pool is less diverse than the frozen one. That is the limitation
+# that keeps a full re-draw an open question rather than a closed one.
+keep_fraction: 0.5
+
+repairs:
+  c_centred_gyration: keep the half of the pool closest in radius of gyration to the observed patch
+  d_matched_distance_ecdf: keep the half closest in L1 on the within-patch pairwise-distance ECDF

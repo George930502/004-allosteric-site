@@ -19,7 +19,7 @@ was separated from the input layer. Earlier ADRs therefore refer to things that 
 
 | An older ADR says | It now lives at |
 | --- | --- |
-| `docs/benchmark/README.md` §5 | `docs/benchmark/evaluation-protocol.md` (draft, Phase 1.6) |
+| `docs/benchmark/README.md` §5 | `docs/benchmark/evaluation/README.md` (frozen 2026-08-25) |
 | `cardiac_myosin_site1_*` | `cardiac_myosin_*` — there is one myosin site |
 | `bcr_abl1_sensitivity`, `bcr_abl1_trimmed`, `cardiac_myosin_site2_corrected`, the `8QYP`, `9YRG` and `2G1T` arms | removed; recoverable from git at `363633c` and listed in `docs/ROADMAP.md` Phase 5 |
 | `docs/benchmark/audit/*.json` | deleted — they were self-declared duplicates of the `.md` and nothing loaded them |

@@ -34,7 +34,7 @@ constructions escape it, and each licenses something different: a binomial count
 π₀ = α rather than ½ (three arms can then reject, but only license "the population success rate
 exceeds 5 %"), and Fisher or Stouffer combination of the per-arm permutation p-values, which is
 unbounded below but tests the **intersection null** and so licenses "at least one arm has
-signal" — not generalisation. Full statement and power tables: `../evaluation-protocol.md` §7.
+signal" — not generalisation. Full statement: `../evaluation/README.md` §8.
 The reason this set exists is unchanged; the primary set simply has a claim available to it
 that the old wording denied.
 
@@ -238,7 +238,7 @@ Stated plainly, because a set this size is easy to over-claim.
   weaker does. There is no margin: one failure in five leaves p = 0.19. **And 0.031 > α/2 =
   0.025**, so any correction to k ≥ 2 makes this test unable to reject at any effect size.
   The project therefore has one confirmatory decision at full α and it is this one; the primary
-  arms are supportive (`../evaluation-protocol.md` §7).
+  arms are supportive (`../evaluation/README.md` §8).
 - **The detectable success rate is 0.956, not "near 0.9" — corrected 2026-08-24.** This bullet
   read "near 0.9, not near 0.8". Measured: at 80 % power and one-sided α = 0.05 the smallest
   detectable per-target success rate is **0.956**. Power against π = 0.9 is only **0.590**, and

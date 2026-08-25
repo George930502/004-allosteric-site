@@ -6,7 +6,7 @@
 # which is generated and never hand-edited. Rationale: docs/benchmark/README.md.
 #
 # HOW to score is a separate layer with a separate lifecycle. It is not in this file. See
-# docs/benchmark/evaluation-protocol.md.
+# docs/benchmark/evaluation/ (manifest.yaml, frozen.json, README.md).
 #
 # One disease area from CHALLENGE.md Table 1 gives two arms:
 #   mandated  - exactly the pair the challenge names, defects and all. `defect:` says what

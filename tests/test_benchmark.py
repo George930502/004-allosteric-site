@@ -410,6 +410,7 @@ def test_prediction_structure_is_an_immutable_single_chain_protein_view():
         element=np.array(["C", "C", "C", "O"]),
         altloc=np.array(["."] * 4),
         coord=np.zeros((4, 3)),
+        bfactor=np.zeros(4),
         hetatm=np.array([False, False, True, True]),
         in_polymer=np.array([True, True, False, False]),
     )

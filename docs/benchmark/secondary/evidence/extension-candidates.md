@@ -621,8 +621,8 @@ dehydrogenase), and the seeded split would distribute them without anyone choosi
   transition means the clash count could be extreme; that is **unknown** until derived.
 - **The `fbpase` label-mapping loss (10 of 15) is measured but not priced.** Five labels are
   unmodelled in the apo because the AMP loop is disordered in the R state. Whether a 10-label arm
-  is worth having is a judgement `evaluation-protocol.md` has to make, and it is still a draft
-  with nothing pinned. Same question, harder, for a hypothetical 8-label arm.
+  is worth having is a judgement `evaluation/README.md` has to make. Same question, harder,
+  for a hypothetical 8-label arm.
 - **Three of the admissible arms rest on an apo with no primary citation** — `7WVB` (fbpase,
   and it is the **R50A mutant**), `26LM` (cblb) and `1ZJH` (pkm2), all "To be published". I
   cannot check construct provenance, expression tags, or whether the coordinates were reviewed.

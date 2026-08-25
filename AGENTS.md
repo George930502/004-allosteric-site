@@ -98,7 +98,7 @@ condition fires, not to browse.
 | `docs/PRINCIPLES.md`                 | The one-liners above are not enough to settle a call                                                                                                                                  |
 | `docs/benchmark/README.md`           | Any question about **what** a method receives and **what** it is scored against. `frozen.json` is the authority for every residue count, label set and active site — never quote one from prose. `n_residues` is what a method **receives**; `n_candidates` is what it is **scored against**, and they are not the same number (ADR 0011) |
 | `docs/benchmark/secondary/README.md`  | Any question about the **generalisability or scalability** claim. Nine further targets, frozen 2026-08-24, in two tiers. `development` is where every hyperparameter is chosen; `generalisation` is not opened until the method is frozen. Same eight clauses plus four selection clauses (ADR 0021). §6 states what the achieved N supports and what it does not; §7 lists eleven limitations |
-| `docs/benchmark/evaluation-protocol.md` | Any question about **how** a score is computed — endpoint, estimator, null, decoys, multiplicity. Draft, Phase 1.6, nothing pinned. Do not merge it back into the input manifest |
+| `docs/benchmark/evaluation/README.md`  | Any question about **how** a score is computed — endpoint, estimator, null, decoys, multiplicity. **Protocol version 2**, frozen 2026-08-25 alongside `manifest.yaml` and `frozen.json` there; `uv run allo evaluate verify` re-derives it. Version 1 was frozen and reopened the same day by `AUDIT.md`, which is the record of what was wrong — read it before trusting any number a pre-audit document quotes. Every method calls `allo.scoring.score_arm` and no other path. Nothing in it may change once a method has been scored. Do not merge it back into the input manifest |
 | `docs/targets.md`                    | Touching a specific protein, its chains, or its ground-truth labels                                                                                                                   |
 | `docs/adr/`                          | Before choosing between credible alternatives; write one when the choice would be expensive to reverse. `README.md` there gives the format                                            |
 | `experiments/README.md`              | Setting up a run directory                                                                                                                                                            |
@@ -134,7 +134,7 @@ C1 expressed in the import graph: holo structures, ligand contacts and label set
 repo only through it. If anything on the prediction path imports it — directly or
 transitively — the blind prediction is compromised and the submission is invalid.
 
-**Three data routes bypass the import graph, and each is guarded separately.**
+**Five data routes bypass the import graph, and each is guarded separately.**
 
 1. **The freezes.** `docs/benchmark/frozen.json` and `docs/benchmark/secondary/frozen.json`
    hold the label sets. No prediction-path module may name either.
@@ -149,8 +149,15 @@ transitively — the blind prediction is compromised and the submission is inval
    every admitted arm it carries `holo`, `holo_chain` and `effector` as structured fields, and
    its prose names real label residues. Nothing on the prediction path and no experiment
    runner may open it.
+4. **The screening record.** `docs/benchmark/secondary/evidence/extension-candidates.md`
+   names real label residues in apo numbering for candidate arms that were measured and
+   **not** admitted, plus their holo accessions and effector component IDs. It is an answer
+   key for arms that do not exist yet, and it is guarded on the same argument as the ledger.
+5. **The evaluation layer.** The whole of `docs/benchmark/evaluation/` is protected by
+   default, because `frozen.json` names the site pocket's lining residues and every decoy
+   lining. `allo.scoring` reads it; nothing on the prediction path may.
 
-All three are enforced by `tests/test_no_leakage.py`, which names them in `PROTECTED_PATHS`
+All five are enforced by `tests/test_no_leakage.py`, which names them in `PROTECTED_PATHS`
 and in `FROZEN_TOKENS`. An import trace cannot see a file-read route, so the file-read and
 content tests are what does.
 

@@ -37,6 +37,13 @@ PROTECTED_PATHS = {
     # accessions and effector component IDs, so it is an answer key for arms that do not
     # exist yet. Guarded on the same argument as `selection.json`.
     (ROOT / "docs" / "benchmark" / "secondary" / "evidence" / "extension-candidates.md").resolve(),
+    # The fifth route, added 2026-08-25 with the evaluation layer. Everything under
+    # `evaluation/` is derived from the label sets: `frozen.json` carries each arm's decoy
+    # pocket linings, and a decoy is defined as a pocket that does NOT touch the site, so
+    # the decoy list is the label set's complement among detected pockets. The directory is
+    # protected whole rather than file by file, so a file added there later is protected by
+    # default rather than leaked by default.
+    (ROOT / "docs" / "benchmark" / "evaluation").resolve(),
 }
 ALLOWED_PREDICTION_PATHS = {(ROOT / "data" / "raw" / "apo").resolve()}
 _KNOWN_INPUT_PATHS = {
@@ -606,6 +613,12 @@ FROZEN_TOKENS = (
     "MANIFEST",
     "selection.json",
     "extension-candidates",
+    # `allo.scoring` is not forbidden to a runner -- it takes scores in and gives numbers
+    # out. That property is false at the submodule level: `harness._positives` reads
+    # `frozen.json` and returns the label list, by a route with no `groundtruth`, no
+    # `frozen.json` and no `FROZEN` in its text. A leading underscore is a convention, not
+    # an access control. Found by the 2026-08-25 evaluation-layer audit.
+    "_positives",
     "groundtruth",
 )
 NON_RUNNER_TREES = {
@@ -957,3 +970,67 @@ def test_the_detector_would_catch_a_violation(graph):
     assert is_prediction_path("allo.rank")
     planted = {"allo.rank": {"allo.benchmark"}, "allo.benchmark": {GROUND_TRUTH}}
     assert reaches(planted, "allo.rank", GROUND_TRUTH) is not None
+
+
+# ---------------------------------------------------------------------------------------
+# The evaluation layer, added 2026-08-25.
+#
+# `allo.scoring` is allow-listed to import `allo.groundtruth`, and unlike `allo.benchmark`
+# it is NOT forbidden to run scripts -- an experiment has to be able to score a method
+# (`docs/playbooks/experiment.md`). What makes that safe is a property of its API rather
+# than of the import graph: it takes scores in and gives numbers out, and never hands back
+# the label set. These two tests are that property.
+# ---------------------------------------------------------------------------------------
+
+
+def test_scoring_public_api_never_returns_a_label_set():
+    from allo import scoring
+
+    assert set(scoring.__all__) == {"holm", "protocol", "score_arm"}
+    for name in scoring.__all__:
+        assert not name.startswith("_")
+    # The one function that reads the answer key is private and stays private.
+    from allo.scoring import harness as harness_module
+
+    assert not hasattr(scoring, "_positives")
+    assert harness_module._positives.__name__.startswith("_")
+
+
+def test_a_scored_record_names_no_label_residue():
+    """The record a method gets back must not contain the answer, even as a by-product."""
+    import copy
+
+    import numpy as np
+
+    from allo.inputs import apo_input
+    from allo.scoring import harness as harness_module
+    from allo.scoring.nulls import evaluation_graph
+
+    target = "kras_g12c_mandated"
+    labels = set(
+        json.loads(harness_module.INPUT_FROZEN.read_text())["targets"][target][
+            "scoreable_label_residues"
+        ]
+    )
+    graph = evaluation_graph(apo_input(target))
+    settings = copy.deepcopy(harness_module.protocol())
+    settings["nulls"]["replicates"] = 49
+    settings["nulls"]["matched_patch_distance"]["replicates"] = 49
+    rng = np.random.default_rng(0)
+    scores = {r: float(rng.random()) for r in graph.order}
+    record = harness_module.score_arm(target, scores, method="random", config=settings)
+
+    def integers(value):
+        if isinstance(value, bool):
+            return set()
+        if isinstance(value, int):
+            return {value}
+        if isinstance(value, dict):
+            return set().union(*(integers(v) for v in value.values()), set())
+        if isinstance(value, list | tuple):
+            return set().union(*(integers(v) for v in value), set())
+        return set()
+
+    # Every label happens to be a plausible small integer, so require that the record does
+    # not reproduce the label SET -- a single collision with a count is not a leak.
+    assert not labels <= integers(record)

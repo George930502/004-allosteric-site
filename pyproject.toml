@@ -6,23 +6,25 @@ readme = "README.md"
 requires-python = ">=3.11"
 license = { file = "LICENSE" }
 authors = [{ name = "Yi-Chun Chang", email = "changg587@gmail.com" }]
+# Only what something imports today. networkx, pandas, matplotlib, tqdm, qiskit and
+# qiskit-aer were declared for phases that have not started and had zero imports; each is
+# one line to restore when a module actually needs it.
 dependencies = [
     "numpy>=1.26",
     "scipy>=1.11",
-    "networkx>=3.2",
-    "pandas>=2.1",
     "biopython>=1.83",
-    "matplotlib>=3.8",
     "pyyaml>=6.0",
-    "tqdm>=4.66",
-    "qiskit>=1.2",
-    "qiskit-aer>=0.15",
 ]
 
 [project.optional-dependencies]
 # Cloud/hardware backends. Kept optional so the core stack installs fast and CI stays offline.
 hw = ["amazon-braket-sdk>=1.80", "classiq>=0.60"]
 viz = ["py3Dmol>=2.1", "nglview>=3.1"]
+# The geometric pocket detector behind the decoy negative class. An extra, not a runtime
+# dependency, because the decoy sets are derived once and committed: `make check` verifies
+# against the committed artifact offline, and only re-deriving them needs this installed.
+# Same pattern as the pinned structure bytes (ADR 0014).
+eval = ["pyKVFinder>=0.9,<1.0"]
 dev = ["pytest>=8.0", "pytest-cov>=5.0", "ruff>=0.6"]
 
 [project.scripts]
@@ -48,9 +50,12 @@ select = ["E", "F", "I", "UP", "B", "SIM", "NPY"]
 testpaths = ["tests"]
 addopts = "-q"
 markers = [
-    "slow: runs > 30 s (excluded from the default agent check loop)",
     "network: requires network access (PDB / cloud backends)",
 ]
 
 [tool.uv]
 package = true
+# `hw` and `eval` cannot be resolved together: classiq pins plotly < 6 and pyKVFinder pins
+# plotly >= 6. Declaring the conflict keeps both extras installable, one at a time, instead
+# of making the lock file unsatisfiable. Neither is needed by `make check`.
+conflicts = [[{ extra = "hw" }, { extra = "eval" }]]

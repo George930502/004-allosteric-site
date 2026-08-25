@@ -4,9 +4,13 @@ Each phase has an explicit **exit criterion** — a check that either passes or 
 phase is done on vibes. Update this file and the status table in `README.md` when a phase
 closes.
 
-**Current phase: 1 (Classical foundation).** Sub-phase 1.0, the frozen **input** layer, is
-**closed**. Sub-phase 1.6, the frozen **evaluation** layer, is the next unit of work and is
-what now blocks Phase 2.
+**Current phase: 1 (Classical foundation).** Sub-phase 1.0, the frozen **input** layer, and
+sub-phase 1.6, the frozen **evaluation** layer, are both **closed**. 1.6 was closed on
+2026-08-25, reopened the same day by its own audit
+(`docs/benchmark/evaluation/AUDIT.md`), and closed again as **protocol version 2**.
+
+Phase 2 is unblocked except for ADR 0016, which holds the mandated 5TBY deliverables until the
+organisers answer question (a).
 
 ---
 
@@ -96,24 +100,71 @@ three of five arms, so these are controls to beat rather than walkovers
 result makes mandatory (ADR 0002). A method that does not beat those three controls has
 demonstrated nothing.
 
-### 1.6 — Frozen evaluation layer 🔜 **next, and it blocks Phase 2**
+### 1.6 — Frozen evaluation layer — CLOSED 2026-08-25 at protocol version 2
 
-Drafted in `docs/benchmark/evaluation-protocol.md`; nothing in it is pinned yet. Three things
-have to land:
+Frozen in `docs/benchmark/evaluation/`: `manifest.yaml` holds every pinned choice with its
+reason, `frozen.json` holds the consequences for all 14 arms, and `README.md` is the argument.
+`uv run allo evaluate verify` re-derives the freeze and exits 0 only if nothing moved.
 
-1. **The scoring harness**, implemented once and called identically by every method. AUC-PR
-   as the tested endpoint with AUC-ROC beside it as the effect size, both estimators and tie
-   rules pinned; precision@5 and P(≥1 hit) against the exact hypergeometric baseline.
-2. **The decoy set.** `CHALLENGE.md` §4.1 requires enrichment against non-functional surface
-   pockets as well as random background. This needs a geometric pocket detector, and its
-   version and full configuration must be frozen before any method is scored — chosen after,
-   it is a hyperparameter.
-3. **The matched-patch null, calibrated** (ADR 0018). Both ends of the gate: a type-I rate on
-   a stochastic site-uninformative score, and a positive control that must reject.
+**Delivered.**
 
-**Exit:** an evaluation manifest with its own freeze date, a committed calibration experiment
-reproducible from its config, and the harness scoring a trivial baseline end to end on all
-five arms.
+1. **The scoring harness.** `allo.scoring.score_arm` is the one path; no method chooses an
+   estimator, a tie rule, a null or a replicate count. The confirmatory endpoint changed from
+   AUC-PR to the mean midrank (ADR 0022), which under a size-preserving null is a strictly
+   increasing function of AUC-ROC. AUC-PR stays as a reported endpoint against its prevalence
+   chance line. Every top-5 number prints against its exact hypergeometric baseline.
+2. **The decoy set** (ADR 0024). pyKVFinder 0.9.3 at its published defaults, version and full
+   configuration frozen before any method ran. The per-arm power floor is disclosed rather
+   than discovered later: with three decoy pockets the smallest attainable p is 0.25, so the
+   challenge's negative class (b) cannot reject at α = 0.05 on three of five primary arms.
+3. **The matched-patch null, calibrated** (ADR 0023, which clears ADR 0018). The gate found
+   what the draft did not anticipate. The matched null holds its size on KRAS, runs
+   conservative on myosin and runs **anti-conservative on both BCR-ABL1 arms**, and a tighter
+   tolerance makes that worse. The mechanism was measured: radius of gyration is only the
+   second moment of the patch about its centroid, and the patch-mean variance is a functional
+   of the whole within-patch distance distribution. **Four** repairs have now been tested and
+   none closes it, and the fourth falsified that mechanism story (ADR 0025). The remedy is a
+   per-arm calibration of the threshold, frozen before any method exists, one-sided so it can
+   only tighten a test and never loosen one.
+
+**Reopened 2026-08-25 by `docs/benchmark/evaluation/AUDIT.md`.** Eight audits ran against the
+frozen layer. Two blockers:
+
+- **The confirmatory procedure was not FWER-controlled.** The linear rescale
+  `p × α / alpha_star` is size-exact at α and larger than nominal at Holm's tighter steps.
+  Fixed by calibrating a `size_ratio` at every Holm level and rescaling on the probit scale
+  (ADR 0025).
+- **A trivial geometric baseline cleared the whole confirmatory family.** Rank each residue
+  by the volume of the largest cavity that lines it — label-blind, apo-only, zero-parameter —
+  and it rejects on all three confirmatory arms. Clearing the null is therefore a low bar.
+  `cavity_volume` is now a required baseline, and the report's claim threshold is **beating
+  it**, not rejecting the null (ADR 0025).
+
+Also repaired: the patch cache key, a leakage route through `harness._positives`, the
+unenforced detector version and `--detect` gate, seven wrong numbers and fourteen citations.
+2 075 lines deleted. `docs/benchmark/evaluation/AUDIT.md` is the record.
+
+**Two endpoints were added before closing, not deferred.** The audit first pushed
+residue-centroid DCC and the four confounder columns to Phase 3. That was wrong for DCC: it is
+a function of the top-5 list, the labels and coordinates, so it needed no method, and deferring
+it would have meant adding an endpoint after methods were scored — the exact move the manifest
+forbids. It paid for itself on first use. On `bcr_abl1_corrected` the cavity-volume baseline
+rejects at `p_calibrated` 0.0003 while its predicted centre sits **farther from the site than a
+random five-residue list** (DCC 26.5 Å against a chance line of 17.7 Å). Three of the four
+confounder columns are now computed too; conservation needs an external alignment and reads
+`null` (ADR 0025 amendment).
+
+**Exit met.** `make check` and `make verify` both exit 0 at protocol version 2 —
+the latter re-derives both freezes, re-runs the pocket detector and runs the network tests. The
+calibration experiment is reproducible from its committed config on all 14 arms, and the
+`null-repairs` experiment likewise. Both required controls run end to end on all five primary
+arms: `distance_from_source_negated` rejects nothing, and `cavity_volume` rejects on all three
+confirmatory arms with its recall@5 and DCC recorded rather than hidden.
+
+**Two things the report must say before its numbers, not after them.** The distance-only
+baseline is below chance on three of five arms, so its inversion is the strong control there.
+And a geometric pocket detector misses the site entirely on 3 of 14 arms — the challenge's own
+premise, quantified on our benchmark before any method existed.
 
 ### 1.7 — Secondary benchmark — CLOSED 2026-08-24
 
@@ -155,15 +206,26 @@ residues, because small catalytic domains are overwhelmingly obligate oligomers 
 clause (ix) before size is the question. **The decision to re-freeze is open and belongs to
 Phase 5, not to Phase 1.**
 
-**Phase 2 entry gate: blocked on 1.6 only.** ADR 0016 separately blocks the mandated 5TBY
-deliverables until the organisers answer question (a).
+**Phase 2 entry gate: met on 2026-08-25**, withdrawn the same day when the audit reopened
+sub-phase 1.6, and met again once 1.6 closed at protocol version 2.
+
+**Two per-target blockers remain, and neither is cleared by 1.6.**
+
+- **ADR 0016** holds the mandated 5TBY deliverables until the organisers answer question (a).
+- **ADR 0020** holds the c-Myc (`1NKP`) deliverables. Its contract is still unmet: no chain or
+  copy is chosen, no propagation source or explicitly source-free metric contract is frozen,
+  and no answer-independent consensus or docking evaluation exists. `1NKP` is one of the four
+  minimum deliverables in `CHALLENGE.md`, and it has **no arm in the evaluation freeze**. The
+  version-2 audit found this recorded nowhere on this page (`AUDIT.md` M15) and it is recorded
+  here now. Phase 2 may proceed on the other three targets; it may not produce c-Myc artifacts
+  until an ADR supersedes 0020.
 
 ---
 
 ## Phase 2 — Quantum propagation metric (statevector)
 
-**Blocked:** do not begin method or hyperparameter selection until the Phase 2 entry gate is
-met.
+**Open.** Every hyperparameter is chosen on the secondary set's `development` tier, and every
+number is produced by `allo.scoring.score_arm` and no other path.
 
 Hamiltonian constructions from the network; continuous-time quantum walk from the active
 site; candidate metrics (time-averaged transfer probability, peak transfer, integrated

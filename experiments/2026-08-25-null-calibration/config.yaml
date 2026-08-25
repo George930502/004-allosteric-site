@@ -1,0 +1,67 @@
+# Every knob that affects the result belongs here, including the seed.
+# A rerun of this config must reproduce metrics.json exactly.
+#
+#   uv run allo evaluate calibrate experiments/2026-08-25-null-calibration/config.yaml
+#
+# Question: at what matching tolerance does the matched-patch permutation test hold its
+# size on the frozen arms, does it still reject when the score knows the answer, and what
+# effect size can it then detect? ADR 0018 blocks scoring until the first two are measured;
+# the third replaces the withdrawn power columns of the draft protocol.
+name: null-calibration
+date: 2026-08-25
+seed: 0
+
+targets:
+  - kras_g12c_mandated
+  - kras_g12c_corrected
+  - bcr_abl1_mandated
+  - bcr_abl1_corrected
+  - cardiac_myosin_corrected
+
+# Correlation length of the site-uninformative Gaussian field, in angstrom. The type-I rate
+# depends on it, so the gate is required to hold across a range rather than at one value.
+# 4 A is about one contact shell; 20 A is a smooth gradient across a small domain.
+length_scales: [4.0, 8.0, 12.0, 20.0]
+
+alpha: 0.05
+n_fields: 1000
+
+# Size of the confirmatory family, so alpha/3, alpha/2 and alpha are every threshold Holm
+# can present. The size ratio is calibrated at all three: a one-parameter rescale fitted at
+# alpha alone is wrong at the tighter steps, and the composed procedure then leaks FWER.
+holm_family_size: 3
+
+# Stage 1 -- where the tolerance is chosen. Reduced replicates, because this is a sweep.
+search:
+  tolerances: [0.05, 0.10, 0.20]
+  replicates: 999
+
+# Stage 2 -- where the chosen tolerance is verified at the replicate count scoring uses,
+# and where each arm's size-calibrated threshold `alpha_star` is measured. The gate runs on
+# every frozen arm, not only the five the sweep uses: a threshold measured after a method
+# has been scored is a hyperparameter, and the secondary set is where hyperparameters get
+# chosen.
+gate:
+  tolerance: 0.10
+  replicates: 9999
+  targets:
+    - kras_g12c_mandated
+    - kras_g12c_corrected
+    - bcr_abl1_mandated
+    - bcr_abl1_corrected
+    - cardiac_myosin_corrected
+    - chk1
+    - ecoli_cps
+    - glucokinase
+    - hiv_rt
+    - mkp5
+    - ns5b
+    - p97_vcp
+    - ptp1b
+    - smyd3
+
+# Stage 3 -- what the verified test can detect. An a priori sensitivity analysis of the
+# real procedure, replacing the two closed-form columns the earlier draft withdrew.
+power:
+  target_power: 0.80
+  n_fields: 300
