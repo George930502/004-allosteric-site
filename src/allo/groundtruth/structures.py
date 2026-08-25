@@ -21,7 +21,7 @@ STRUCTURES = ROOT / "structures"
 EVAL_CACHE = ROOT / "data" / "raw" / "eval"
 
 RCSB_FILE = "https://files.rcsb.org/download/{pdb_id}.cif"
-_UA = {"User-Agent": "allo-benchmark/0.1 (+https://github.com/George930502/004-allosteric-site)"}
+_UA = {"User-Agent": "allo-benchmark/0.1 (+https://github.com/George930502/quantum-allostery)"}
 
 
 def parse_mmcif(path: Path, pdb_id: str | None = None) -> Structure:

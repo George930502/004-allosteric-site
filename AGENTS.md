@@ -106,7 +106,7 @@ condition fires, not to browse.
 | `CHALLENGE.md`                       | Any question about what the challenge actually requires. It is the spec; do not answer from memory                                                                                    |
 | `CONTRIBUTING.md`                    | Writing anything a human contributor reads, or changing setup, the gates, the PR checklist or the experiment procedure. It states the same rules for people that this file states for agents — keep the two in step, and do not duplicate one into the other |
 
-Not in context and not worth loading: `Cleveland-Clinic-Challenge-Statement-vF.pdf`
+Not in context and not worth loading: `docs/Cleveland-Clinic-Challenge-Statement-vF.pdf`
 (4.2 MB — `CHALLENGE.md` is the complete restatement), and anything under `data/raw/`
 (parse it with code and print a summary; never read a PDB into context).
 
@@ -117,18 +117,27 @@ Not in context and not worth loading: `Cleveland-Clinic-Challenge-Statement-vF.p
 `src/allo/` is organised by pipeline stage, not by abstraction. Add a module when a stage
 needs one, not before.
 
+**What exists today.** Phase 1 built the substrate. Nothing quantum is written yet.
+
 ```
 structure/    PDB fetch/parse -> coordinates, residue indexing
-network/      contact graph / elastic network construction, coarse-graining
-quantum/      Hamiltonians, propagation metrics, circuits, noise models
-classical/    baselines (GNM/ANM, random walk, betweenness, perturbation response)
 scoring/      the frozen evaluation harness: `score_arm` and `compare_methods` are the
               only paths a number may take; also nulls, decoys, metrics, calibration
 groundtruth/  holo-derived labels ONLY — never imported by prediction code (C1)
-viz/          2D plots and 3D structure rendering
 inputs.py     the one prediction-path module that opens the manifest
 benchmark.py  the freeze and its verification — evaluation side
+experiment.py the run-directory scaffold behind `allo new-experiment`
 cli.py        `allo <stage> ...` entry point
+```
+
+**The names reserved for later phases.** Do not create one until its stage needs it. The
+name is fixed here so that two agents do not invent two names for the same stage.
+
+```
+network/      contact graph / elastic network construction, coarse-graining   (Phase 1.2, 4)
+quantum/      Hamiltonians, propagation metrics, circuits, noise models       (Phase 2, 3)
+classical/    baselines (GNM/ANM, random walk, betweenness, eigenvector)      (Phase 1.4)
+viz/          2D plots and 3D structure rendering                             (Phase 5)
 ```
 
 **`groundtruth/` is a sink.** Nothing imports from it except scoring and reporting. This is
@@ -215,7 +224,7 @@ Per-repo configuration the installed engineering skills read.
 
 ### Issue tracker
 
-GitHub Issues on `George930502/004-allosteric-site` via `gh`; external PRs are not a
+GitHub Issues on `George930502/quantum-allostery` via `gh`; external PRs are not a
 request surface. See `docs/agents/issue-tracker.md`.
 
 ### Triage labels

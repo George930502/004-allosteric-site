@@ -16,6 +16,10 @@ dependencies = [
     "pyyaml>=6.0",
 ]
 
+[project.urls]
+Repository = "https://github.com/George930502/quantum-allostery"
+Issues = "https://github.com/George930502/quantum-allostery/issues"
+
 [project.optional-dependencies]
 # Cloud/hardware backends. Kept optional so the core stack installs fast and CI stays offline.
 hw = ["amazon-braket-sdk>=1.80", "classiq>=0.60"]

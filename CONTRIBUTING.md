@@ -11,8 +11,8 @@ Start with [`README.md`](README.md) for what the project does, and
 ## 1. Set up
 
 ```bash
-git clone https://github.com/George930502/004-allosteric-site
-cd 004-allosteric-site
+git clone https://github.com/George930502/quantum-allostery
+cd quantum-allostery
 make setup      # uv sync --extra dev. Python >= 3.11, creates .venv
 make check      # must pass on a clean clone
 ```

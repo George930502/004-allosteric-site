@@ -201,17 +201,20 @@ CONTRIBUTING.md         how to set up, work and open a pull request
 
 src/allo/               the package, organised by pipeline stage
   structure/            PDB fetch and parse -> coordinates, residue indexing
-  network/              contact graph and elastic network construction
-  quantum/              Hamiltonians, propagation metrics, circuits, noise
-  classical/            baselines: GNM/ANM, random walk, betweenness
   scoring/              the frozen harness: ranking, nulls, decoys, statistics
   groundtruth/          holo-derived labels ONLY. Never imported by prediction code
-  viz/                  2D plots and 3D structure rendering
   inputs.py             the one prediction-path module that opens the input manifest
   benchmark.py          the freeze and its verification
+  experiment.py         the run-directory scaffold behind `allo new-experiment`
   cli.py                the `allo` entry point
+  --- reserved, created when the phase needs it (AGENTS.md fixes the names) ---
+  network/              contact graph and elastic network construction (Phase 1.2, 4)
+  classical/            baselines: GNM/ANM, random walk, betweenness   (Phase 1.4)
+  quantum/              Hamiltonians, propagation metrics, circuits    (Phase 2, 3)
+  viz/                  2D plots and 3D structure rendering            (Phase 5)
 
 docs/
+  Cleveland-Clinic-Challenge-Statement-vF.pdf   the official source document
   ROADMAP.md            phases and their exit criteria. Start here
   PRINCIPLES.md         R1-R4 in full
   FIELD.md              the field, expert practice, and the traps in this challenge

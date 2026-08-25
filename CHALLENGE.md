@@ -1,6 +1,6 @@
 # Global Quantum + AI Challenge 2026 — Cleveland Clinic Enterprise Challenge Statement
 
-> Official reference document. Source: `Cleveland-Clinic-Challenge-Statement-vF.pdf` (10 pages, A4, created 2026-04-17).
+> Official reference document. Source: `docs/Cleveland-Clinic-Challenge-Statement-vF.pdf` (10 pages, A4, created 2026-04-17).
 > This file is a faithful, complete restatement of the challenge statement. Anything marked _[note]_ is our annotation, not source text.
 
 ---
