@@ -100,10 +100,11 @@ condition fires, not to browse.
 | `docs/benchmark/secondary/README.md`  | Any question about the **generalisability or scalability** claim. Nine further targets, frozen 2026-08-24, in two tiers. `development` is where every hyperparameter is chosen; `generalisation` is not opened until the method is frozen. Same eight clauses plus four selection clauses (ADR 0021). §6 states what the achieved N supports and what it does not; §7 lists eleven limitations |
 | `docs/benchmark/evaluation/README.md`  | Any question about **how** a score is computed — endpoint, estimator, null, decoys, multiplicity. **Protocol version 2**, frozen 2026-08-25 alongside `manifest.yaml` and `frozen.json` there; `uv run allo evaluate verify` re-derives it. Version 1 was frozen and reopened the same day by `AUDIT.md`, which is the record of what was wrong — read it before trusting any number a pre-audit document quotes. Every method calls `allo.scoring.score_arm` and no other path. Nothing in it may change once a method has been scored. Do not merge it back into the input manifest |
 | `docs/targets.md`                    | Touching a specific protein, its chains, or its ground-truth labels                                                                                                                   |
-| `docs/adr/`                          | Before choosing between credible alternatives; write one when the choice would be expensive to reverse. `README.md` there gives the format                                            |
+| `docs/adr/`                          | Before choosing between credible alternatives; write one when the choice would be expensive to reverse. `README.md` there gives the format **and indexes all 25 by topic**            |
 | `experiments/README.md`              | Setting up a run directory                                                                                                                                                            |
 | `docs/agents/`                       | An installed engineering skill needs the issue tracker, triage labels, or domain-doc layout                                                                                           |
 | `CHALLENGE.md`                       | Any question about what the challenge actually requires. It is the spec; do not answer from memory                                                                                    |
+| `CONTRIBUTING.md`                    | Writing anything a human contributor reads, or changing setup, the gates, the PR checklist or the experiment procedure. It states the same rules for people that this file states for agents — keep the two in step, and do not duplicate one into the other |
 
 Not in context and not worth loading: `Cleveland-Clinic-Challenge-Statement-vF.pdf`
 (4.2 MB — `CHALLENGE.md` is the complete restatement), and anything under `data/raw/`
@@ -121,7 +122,8 @@ structure/    PDB fetch/parse -> coordinates, residue indexing
 network/      contact graph / elastic network construction, coarse-graining
 quantum/      Hamiltonians, propagation metrics, circuits, noise models
 classical/    baselines (GNM/ANM, random walk, betweenness, perturbation response)
-scoring/      ranking, enrichment statistics, decoy generation
+scoring/      the frozen evaluation harness: `score_arm` and `compare_methods` are the
+              only paths a number may take; also nulls, decoys, metrics, calibration
 groundtruth/  holo-derived labels ONLY — never imported by prediction code (C1)
 viz/          2D plots and 3D structure rendering
 inputs.py     the one prediction-path module that opens the manifest

@@ -8,6 +8,6 @@ Evaluation-side by construction: it reads the frozen label sets, so nothing on t
 prediction path may import it.
 """
 
-from allo.scoring.harness import holm, protocol, score_arm
+from allo.scoring.harness import compare_methods, holm, protocol, score_arm
 
-__all__ = ["holm", "protocol", "score_arm"]
+__all__ = ["compare_methods", "holm", "protocol", "score_arm"]

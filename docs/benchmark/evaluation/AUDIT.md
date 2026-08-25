@@ -123,7 +123,7 @@ _beating the baseline_, not _rejecting the null_.
 
 ### B3 (downgraded) — A verbatim quotation drops a word
 
-`README.md` §11 and `evidence/evaluation-metrics.md` §6.1 attribute this to Motlagh et al.,
+`README.md` §11 and `docs/benchmark/evidence/evaluation-metrics.md` §6.1 attribute this to Motlagh et al.,
 doi:10.1038/nature13001:
 
 > "the sign of the coupling can change, transforming an activator into a repressor, or vice versa"
@@ -255,9 +255,9 @@ cut that in half, and the reasons are recorded here rather than left as a silent
 
 | Target                                              | Lines | Why it stayed                                                                                                                                                                                                                                    |
 | --------------------------------------------------- | ----: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `evidence/evaluation-metrics.md` section 8 and 9    |  ~800 | Section 8 is every place two sources disagree, unresolved. Section 9 is every number the review wanted and could not get. R3 asks for exactly this and says to write "unknown" where evidence is absent. Deleting them would remove the honesty, not the bloat. |
-| `evidence/evaluation-metrics.md` section 0          |  ~146 | The evidence rules and verification tags. A literature review that claims rigour has to state how it verified.                                                                                                                                    |
-| `evidence/evaluation-protocol-lit.md`               |   503 | Superseded, and 17 of its 18 DOIs are duplicated. But the file that supersedes it cites it 18 times to record **what changed between the two reviews**, and section 9.1 is a resolution table keyed to its section 5. Removing 503 lines at the cost of rewriting 18 live cross-references in the file we keep is not a simplification. `evidence/README.md` already labels it as superseded provenance. |
+| `docs/benchmark/evidence/evaluation-metrics.md` section 8 and 9    |  ~800 | Section 8 is every place two sources disagree, unresolved. Section 9 is every number the review wanted and could not get. R3 asks for exactly this and says to write "unknown" where evidence is absent. Deleting them would remove the honesty, not the bloat. |
+| `docs/benchmark/evidence/evaluation-metrics.md` section 0          |  ~146 | The evidence rules and verification tags. A literature review that claims rigour has to state how it verified.                                                                                                                                    |
+| `docs/benchmark/evidence/evaluation-protocol-lit.md`               |   503 | Superseded, and 17 of its 18 DOIs are duplicated. But the file that supersedes it cites it 18 times to record **what changed between the two reviews**, and section 9.1 is a resolution table keyed to its section 5. Removing 503 lines at the cost of rewriting 18 live cross-references in the file we keep is not a simplification. `docs/benchmark/evidence/README.md` already labels it as superseded provenance. |
 | `score_arm(against=...)`                            |    15 | Zero callers **today**. It implements the rank correlation against every baseline, which README section 8 requires and Phase 3 will call. Not dead, unbuilt.                                                                                       |
 | `nulls.smooth_field`                                |    10 | Not dead — it was duplicated. Now called from both sites in `calibration.py` that had inlined it.                                                                                                                                                 |
 

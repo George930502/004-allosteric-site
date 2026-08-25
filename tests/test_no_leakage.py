@@ -986,7 +986,9 @@ def test_the_detector_would_catch_a_violation(graph):
 def test_scoring_public_api_never_returns_a_label_set():
     from allo import scoring
 
-    assert set(scoring.__all__) == {"holm", "protocol", "score_arm"}
+    # A whitelist, not a spot check. A new public name must be justified against this test
+    # before it is exported, because the package reads the answer key.
+    assert set(scoring.__all__) == {"compare_methods", "holm", "protocol", "score_arm"}
     for name in scoring.__all__:
         assert not name.startswith("_")
     # The one function that reads the answer key is private and stays private.
@@ -1034,3 +1036,8 @@ def test_a_scored_record_names_no_label_residue():
     # Every label happens to be a plausible small integer, so require that the record does
     # not reproduce the label SET -- a single collision with a count is not a leak.
     assert not labels <= integers(record)
+
+    # `compare_methods` is the second public entry point and it reads the same answer key.
+    other = {r: float(rng.random()) for r in graph.order}
+    paired = harness_module.compare_methods(target, scores, other, config=settings)
+    assert not labels <= integers(paired)

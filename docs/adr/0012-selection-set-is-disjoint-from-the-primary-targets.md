@@ -60,7 +60,7 @@ is examined, and frozen as a list of accessions before a single hyperparameter i
    homology the first three clauses miss.
 
 **The filter is an artifact, not a promise.** `allo select build` writes
-`docs/benchmark/selection.json`: every candidate considered, each clause's pass/fail with the
+`docs/benchmark/secondary/selection.json`: every candidate considered, each clause's pass/fail with the
 number that decided it, the pinned InterPro/Pfam/ASD release strings, and a `seed`. Rerunning
 it must reproduce the file byte-for-byte. **A candidate absent from that file cannot enter
 the selection set**, and a test asserts the frozen selection set equals the file's admitted

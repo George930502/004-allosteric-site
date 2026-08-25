@@ -27,7 +27,7 @@ physiological-effector holo entries measured, clause (ix) kills 72 % and end-to-
 Run 2026-08-24. Read-only on the repo. Every accession, resolution, Pfam family and lining
 measurement below comes from a live fetch or a file read in this session; nothing is recalled.
 
-**Answer up front.** The supply claim in `secondary/README.md` §7 limitation 1 is **true but
+**Answer up front.** The supply claim in `docs/benchmark/secondary/README.md` §7 limitation 1 is **true but
 mis-attributed**. Supply is binding, and the clause doing the binding is **(ix) single-chain
 lining**, not the scarcity of published allosteric sites. Clause (ix) kills **23 of 32**
 physiological-effector holo entries I measured (72 %) and **5 of 12** drug-effector candidates
@@ -53,7 +53,7 @@ artifactual.
 | primary `bcr_abl1_corrected` | `manifest.yaml:343` | PF07714 |
 | primary `cardiac_myosin_mandated` | `manifest.yaml:373` | PF00063, PF01576, PF02736 |
 | primary `cardiac_myosin_corrected` | `manifest.yaml:418` | PF00063, PF02736 |
-| secondary (9 arms) | `secondary/manifest.yaml:263…595` | PF00782, PF00069, PF00102, PF00856, PF01753, PF00349, PF03727, PF00078, PF06815, PF06817, PF00075, PF00998, PF00004, PF02359, PF02933, PF17862, PF02786, PF02787, PF25596, PF02142 |
+| secondary (9 arms) | `docs/benchmark/secondary/manifest.yaml:263…595` | PF00782, PF00069, PF00102, PF00856, PF01753, PF00349, PF03727, PF00078, PF06815, PF06817, PF00075, PF00998, PF00004, PF02359, PF02933, PF17862, PF02786, PF02787, PF25596, PF02142 |
 
 MYH7 was **derived, not guessed**: the primary manifest already records `pfam:` for every arm
 (added so clause (xii) is a test rather than a promise), so PF00063/PF01576/PF02736 is a file
@@ -621,7 +621,7 @@ dehydrogenase), and the seeded split would distribute them without anyone choosi
   transition means the clash count could be extreme; that is **unknown** until derived.
 - **The `fbpase` label-mapping loss (10 of 15) is measured but not priced.** Five labels are
   unmodelled in the apo because the AMP loop is disordered in the R state. Whether a 10-label arm
-  is worth having is a judgement `evaluation/README.md` has to make. Same question, harder,
+  is worth having is a judgement `docs/benchmark/evaluation/README.md` has to make. Same question, harder,
   for a hypothetical 8-label arm.
 - **Three of the admissible arms rest on an apo with no primary citation** — `7WVB` (fbpase,
   and it is the **R50A mutant**), `26LM` (cblb) and `1ZJH` (pkm2), all "To be published". I

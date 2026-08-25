@@ -9,8 +9,11 @@ sub-phase 1.6, the frozen **evaluation** layer, are both **closed**. 1.6 was clo
 2026-08-25, reopened the same day by its own audit
 (`docs/benchmark/evaluation/AUDIT.md`), and closed again as **protocol version 2**.
 
-Phase 2 is unblocked except for ADR 0016, which holds the mandated 5TBY deliverables until the
-organisers answer question (a).
+**Phase 2 is open, with two per-target blockers.** ADR 0016 holds the mandated 5TBY
+deliverables until the organisers answer question (a). ADR 0020 holds the c-Myc (`1NKP`)
+deliverables until its input and evaluation contract is frozen. Phase 2 can proceed on the
+other three targets. It cannot produce artifacts for those two until an ADR supersedes each
+blocker. See the Phase 2 entry gate below.
 
 ---
 

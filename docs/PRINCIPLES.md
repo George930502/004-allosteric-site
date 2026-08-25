@@ -55,7 +55,7 @@ someone later builds on.
 
 ### R4 — Work like a frontier researcher in this field
 
-The field is defined explicitly in [`docs/FIELD.md`](docs/FIELD.md): protein allostery
+The field is defined explicitly in [`docs/FIELD.md`](FIELD.md): protein allostery
 and ensemble dynamics, elastic-network biophysics, and quantum transport on graphs,
 applied to early-stage target validation. Read it before non-trivial work — it also
 lists the known intellectual traps in this specific challenge, including the ones that
