@@ -173,7 +173,7 @@ C1 expressed in the import graph: holo structures, ligand contacts and label set
 repo only through it. If anything on the prediction path imports it — directly or
 transitively — the blind prediction is compromised and the submission is invalid.
 
-**Fifteen data routes bypass the import graph, and each is guarded separately.**
+**Sixteen data routes bypass the import graph, and each is guarded separately.**
 
 1. **The freezes, and the trees around them.** `docs/benchmark/primary/` and
    `docs/benchmark/secondary/` are protected **whole**, not file by file. `frozen.json` was
@@ -285,7 +285,15 @@ transitively — the blind prediction is compromised and the submission is inval
     was not enough, because prose says "both myosin arms" and never says
     `cardiac_myosin_corrected`.
 
-All fifteen are enforced by `tests/test_no_leakage.py`, which names them in
+16. **The report tree.** `docs/report/substitutions.md` argues each departure from
+    `CHALLENGE.md` Table 1 from the evidence, so it prints the evidence: the effector chemical
+    component ID, then every entry containing it, which includes the holo accession.
+    `allo.inputs.load`'s own docstring is the argument — "naming the effector is naming where
+    the pocket is, to anyone with a search engine" — which is why `effector` is redacted from
+    the prediction manifest. The page is a required deliverable and keeps saying what it says.
+    Protected whole on 2026-09-03, so `conformance.md` and anything added later is covered.
+
+All sixteen are enforced by `tests/test_no_leakage.py`, which names them in
 `PROTECTED_PATHS`, in `FROZEN_TOKENS` and — for route 10 — in `allowed_experiment_path`. An
 import trace cannot see a file-read route, so the file-read and content tests are what does.
 

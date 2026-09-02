@@ -83,7 +83,7 @@ An archived experiment measured what happens when the source is something else
 
 | Constraint | What the challenge says | What we enforce | Gap |
 | --- | --- | --- | --- |
-| Apo input only | "must use the **unbound (apo) structure as input** and **blind-predict**" (§6) | C1, an import guard, thirteen protected file routes, `tests/test_no_leakage.py` | none. We are stricter, deliberately |
+| Apo input only | "must use the **unbound (apo) structure as input** and **blind-predict**" (§6) | C1, an import guard, sixteen protected file routes, `tests/test_no_leakage.py` | none. We are stricter, deliberately |
 | No classical MD | "cannot rely on classical MD **trajectories as inputs**" (§5.3) | C2, now three provenance tiers (ADR 0027) | we were stricter than the text and have said so explicitly rather than silently |
 | Catalytic domains only; no water, co-factors or PTMs unless simple nodes | §5 Scope | C5, read as scoping the system rather than trimming a chain (ADR 0010) | none |
 | Elastic network hypothesis | §5 Assumption | C6 | none |

@@ -29,8 +29,8 @@ sub-phase 1.6, the frozen **evaluation** layer, are both **closed**. 1.6 was clo
 > was read by neither and recovered the positive count for all fifteen arms with the suite
 > green. And negative class (b) did not measure the deliverable: a shift of four standard
 > deviations on every label residue gives power **0** on KRAS and on cardiac myosin, because
-> the statistic ranks the detector's pocket lining and twelve myosin labels sit inside a
-> 295-residue lining. ADR 0039 adds the label-set form beside it, with power 0.875 and 1.000
+> the statistic ranks the detector's pocket lining and the myosin labels sit inside a
+> 295-residue lining, a small fraction of it. ADR 0039 adds the label-set form beside it, with power 0.875 and 1.000
 > where the shipped form has none.
 >
 > **ADR 0039 was amended the same day, against its own first measurement.** It claimed the
@@ -101,8 +101,8 @@ sub-phase 1.6, the frozen **evaluation** layer, are both **closed**. 1.6 was clo
 > closed in the same commit.
 >
 > **Withdrawn on the same day by the third pass — `docs/targets.md` IS a leak, and the
-> refutation was a detector failure.** This box said it holds none of the twelve cardiac
-> myosin label residues. It holds all twelve, written as `Tyr164, Thr167, Asp168, …`. The
+> refutation was a detector failure.** This box said it holds none of the cardiac myosin
+> label residues. It holds the complete set, written in three-letter codes. The
 > sweep matched bare integers on a word boundary, so a three-letter code never matched its
 > own number. Re-run with the codes normalised, `docs/targets.md` holds the **complete** label
 > set for both myosin arms and is the only new complete-set file in the tree. Two more routes came with

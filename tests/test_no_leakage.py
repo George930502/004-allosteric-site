@@ -149,6 +149,16 @@ PROTECTED_PATHS = {
     # catches the next file rather than this one. Protected whole, on the `evaluation/`
     # argument: the tree holds 23 documents and a survey written next week joins them.
     (ROOT / "docs" / "evidence" / "method-landscape").resolve(),
+    # The sixteenth route, found 2026-09-03 by the round-5 audit. `docs/report/substitutions.md`
+    # argues each departure from `CHALLENGE.md` Table 1 from the evidence, so it prints the
+    # evidence: the effector chemical component ID, then every entry that contains it, which
+    # includes the holo accession. `allo.inputs.load`'s own docstring is the argument against
+    # leaving it open -- "naming the effector is naming where the pocket is, to anyone with a
+    # search engine" -- which is why `effector` is redacted from the prediction manifest. The
+    # page is a required deliverable and must keep saying what it says, so it is protected
+    # rather than trimmed: `PROTECTED_PATHS` binds prediction modules, not readers. Protected
+    # whole, so `conformance.md` and anything added later is protected by default.
+    (ROOT / "docs" / "report").resolve(),
 }
 
 
@@ -1715,6 +1725,17 @@ def runner_violations(path: Path) -> set[str]:
         if (own_tree is None or (hit != own_tree and own_tree not in hit.parents))
         and not allowed_experiment_path(hit, path)
     )
+    # A shell runner that never embeds Python was scanned for imports and for frozen tokens,
+    # and its protected-path check ran only over EXTRACTED Python. A bare
+    # `sed docs/benchmark/primary/audit/kras-g12c.md` therefore passed. The segment cover
+    # needs no interpreter, so it runs over the raw text too. Found 2026-09-03.
+    if path.suffix not in {".py", ".ipynb"}:
+        violations.update(
+            f"evaluation path {hit}"
+            for hit in segment_cover_violations(text)
+            if (own_tree is None or (hit != own_tree and own_tree not in hit.parents))
+            and not allowed_experiment_path(hit, path)
+        )
     if "_EVALUATION_ACCESS" in text:
         violations.add("evaluation parser capability")
     if path.suffix not in {".py", ".ipynb"}:
@@ -2275,6 +2296,33 @@ def test_no_unprotected_tracked_file_reproduces_a_label_set():
     )
 
 
+_NUMBER_WORDS = dict(
+    enumerate(
+        [
+            *("zero", "one", "two", "three", "four", "five", "six"),
+            *("seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen"),
+            *("fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty"),
+        ]
+    )
+)
+
+
+def _count_in(window: str, count: int) -> bool:
+    """Is this exact count written in this window, as a numeral or as an English word?
+
+    The numeral must touch no letter, dot or slash: a point-mutation name carries a residue
+    number inside it and a slash-separated residue list carries one between two slashes.
+
+    The word form was added 2026-09-03, after the numeral-only sweep passed over three files
+    that spell the count out. "all twelve contact residues" is the same disclosure as "12",
+    and prose reaches for the word. Every arm's count is at most twenty.
+    """
+    if re.search(rf"(?<![\w./]){count}(?![\w./])", window):
+        return True
+    word = _NUMBER_WORDS.get(count)
+    return bool(word and re.search(rf"\b{word}\b", window, re.IGNORECASE))
+
+
 def test_no_unprotected_tracked_file_reproduces_a_positive_count():
     """C1 names the count, not only the identities: "not even the residue count".
 
@@ -2332,7 +2380,8 @@ def test_no_unprotected_tracked_file_reproduces_a_positive_count():
     assert "myosin" in needles["cardiac_myosin_corrected"], needles["cardiac_myosin_corrected"]
 
     cue = re.compile(
-        r"scoreable|positive count|n_labels|number of labels|positives|m \(|\blabels?\b",
+        r"scoreable|positive count|n_labels|number of labels|positives|m \(|\blabels?\b"
+        r"|\bcontact residues?\b|\blabel residues?\b",
         re.IGNORECASE,
     )
     offenders: list[str] = []
@@ -2351,7 +2400,7 @@ def test_no_unprotected_tracked_file_reproduces_a_positive_count():
             for needle in needles[arm]:
                 for found in re.finditer(re.escape(needle), text, re.IGNORECASE):
                     window = text[max(0, found.start() - 250) : found.start() + 250]
-                    if re.search(rf"(?<![\w./]){count}(?![\w./])", window) and cue.search(window):
+                    if _count_in(window, count) and cue.search(window):
                         offenders.append(f"{relative}: {arm} (as {needle!r})")
                         hit = True
                         break

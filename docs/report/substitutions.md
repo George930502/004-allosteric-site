@@ -48,7 +48,7 @@ it**, so the arm had no positive class at all.
 > substitute 9GZ2 for 6C1H."
 
 It is human MYH7 with `XB2` bound, 2.9 Å cryo-EM. Transferring its ligand contacts onto
-`5TBY` chain A returns all **twelve** mavacamten-contact residues, none unmapped, all inside
+`5TBY` chain A returns **every** mavacamten-contact residue, none unmapped, all inside
 the node set. Deciding record: [ADR 0031](../adr/0031-expose-5tby-as-a-reported-arm-with-both-defects-measured.md).
 
 **What this does not repair.** The apo half of the assignment is unchanged and remains

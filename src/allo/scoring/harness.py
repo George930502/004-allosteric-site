@@ -422,9 +422,10 @@ def score_arm(
                 #
                 # It exists because `p` cannot see the deliverable. `p` ranks the detector's
                 # site-pocket lining, and a shift of four standard deviations on every label
-                # residue leaves its power at 0 on kras and on cardiac myosin: twelve myosin
-                # labels sit inside a 295-residue lining, so they move that mean by 12/295 of
-                # the effect. This quantity reaches 0.875 and 1.000 on the same fields.
+                # residue leaves its power at 0 on kras and on cardiac myosin: the myosin
+                # labels sit inside a 295-residue lining, so they move that mean by only a
+                # small fraction of the effect. This quantity reaches 0.875 and 1.000 on
+                # the same fields.
                 #
                 # It carries NO rejection, and the reason is measured rather than cautious.
                 # The two sides have different set sizes and are not exchangeable, so its size

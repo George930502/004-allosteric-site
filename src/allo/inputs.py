@@ -129,10 +129,30 @@ _PREDICTION_SCHEMA = {
 }
 
 
+_SCALAR = (str, int, float, bool, type(None))
+
+
 def _project(value, schema):
-    """Copy only exact schema paths; a newly nested key is absent by default."""
+    """Copy only exact schema paths; a newly nested key is absent by default.
+
+    A leaf must be a SCALAR, or a flat sequence of them. Returning the subtree verbatim made
+    the allow-list an allow-list only beside a schema key and never underneath one: turn any
+    of the eight leaves into a mapping and everything inside it reaches prediction code
+    intact. `active_site.from_ligands` is already a list, so enriching its entries from
+    `[GDP, MG]` to `[{component: GDP, note: ...}]` is a data edit with no code change, and
+    AGENTS.md route 2 records that this manifest's prose fields carry label residues.
+    Found 2026-09-03. Failing closed here is the whole point of the inversion.
+    """
     if schema is _LEAF:
-        return value
+        if isinstance(value, _SCALAR):
+            return value
+        if isinstance(value, (list, tuple)) and all(isinstance(x, _SCALAR) for x in value):
+            return list(value)
+        raise ValueError(
+            "the prediction manifest gained structure under a leaf and the allow-list cannot "
+            f"see inside it: {type(value).__name__}. Add the new shape to _PREDICTION_SCHEMA "
+            "on purpose, or keep the leaf scalar. C1 redacts by default and this is default"
+        )
     if isinstance(schema, list):
         return [_project(item, schema[0]) for item in value]
     return {key: _project(value[key], child) for key, child in schema.items() if key in value}
