@@ -1,0 +1,33 @@
+# Every knob that affects the result belongs here, including the seed.
+# A rerun of this config must reproduce metrics.json exactly.
+#
+#   uv run python experiments/2026-09-03-endpoint-b/run.py
+#
+# Question: does negative class (b) measure the deliverable, and is the label form's size
+# controlled? The shipped statistic ranks the detector's site-pocket lining, and a method
+# is asked to rank the ALLOSTERIC RESIDUES. Those are different questions and the answer
+# decided ADR 0039, which opened protocol version 4.
+#
+# Four null generators rather than one. The first version of this measurement drew a single
+# stationary Gaussian family and concluded the label form is "never anti-conservative". The
+# two sides of that test have different set sizes and are not exchangeable, so its size is a
+# property of the score field, not a distribution-free guarantee. One family cannot support
+# "never". These four span the shapes a real scorer takes.
+
+targets:
+  - kras_g12c_corrected
+  - bcr_abl1_corrected
+  - cardiac_myosin_corrected
+
+generators:
+  - white_noise # no spatial structure at all
+  - smooth_gaussian # the instrument the frozen calibration uses
+  - smooth_t # the same covariance, Student-t marginals at 3 df
+  - distance_shell # blocky and monotone in distance: the adversarial case
+
+correlation_lengths: [4.0, 8.0, 12.0, 20.0]
+deltas: [0.5, 1.0, 2.0, 4.0]
+n_size: 20000
+n_power: 10000
+alpha: 0.05
+seed: 0

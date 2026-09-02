@@ -86,13 +86,20 @@ endpoints:
     # AUC of 0.93, so this is not a small-effect artefact.
     #
     # `label_p` asks whether the method ranks the ALLOSTERIC RESIDUES above decoy pockets.
-    # Same instrument, same 20 000 fields: power 0.751 and 0.866 at delta = 2, 0.999 and
-    # 1.000 at delta = 4 on bcr-abl1 and cardiac myosin. Review 25 closed against this form
-    # because no measured type-I rate covered it, which was true then and is not now: size
-    # 0.0000, 0.0083 and 0.0094 against a nominal 0.05, upper confidence limits 0.00018,
-    # 0.0097 and 0.0108. The two halves have different set sizes and are NOT exchangeable,
-    # and the measured consequence is conservatism rather than inflation. So a rejection is
-    # real and a non-rejection is weak evidence, and that asymmetry is the whole licence.
+    # Same instrument, same fields: power 0.754 and 0.875 at delta = 2, 0.999 and 1.000 at
+    # delta = 4 on bcr-abl1 and cardiac myosin.
+    #
+    # It is a DESCRIPTIVE PERCENTILE and NOT a p-value. Review 25 section 1.4 removed this
+    # form because no measured type-I rate covered it, and the first version of this entry
+    # said the measurement showed it "conservative, never anti-conservative". That was
+    # inferred from one null family and it is false. Over four generators in
+    # `../../../experiments/2026-09-03-endpoint-b/` its size runs 0.0000 to 0.0548, and on
+    # bcr_abl1_corrected under a blocky distance-monotone field -- the shape every
+    # distance-correlated baseline here has -- the worst cell's 95 % interval is
+    # [0.0516, 0.0580], entirely above alpha. The `p` above holds on all four, worst cell
+    # 0.0237, so review 25's exchangeability argument is vindicated by measurement.
+    #
+    # Quote it as "the label set outranks N of M detected pockets". Never as a p-value.
     #
     # kras_g12c_corrected cannot reject on either form: 18 decoys floor the attainable p at
     # 1/19 = 0.0526. That is the detector's count, not the statistic.

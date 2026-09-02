@@ -39,8 +39,9 @@ signal on all twelve moves the lining mean by 12/295 of δ. And δ = 2 already m
 per-arm AUC of 0.930, so δ = 4 is past any realistic method. The shipped statistic measures
 whether the **detector's pocket** ranks high, not whether the **allosteric residues** do.
 
-**The label statistic is conservative, not inflated.** Same instrument, 20 000 fields per arm
-per correlation length, four correlation lengths:
+**The label statistic's size, under the one null family first measured.** 20 000 fields per
+arm per correlation length, four correlation lengths, stationary Gaussian with exponential
+covariance -- the instrument the frozen calibration itself uses:
 
 | arm | size at α = 0.05 | 95 % interval | power at δ = 2 | power at δ = 4 |
 | --- | --- | --- | --- | --- |
@@ -51,11 +52,45 @@ per correlation length, four correlation lengths:
 Combined across the three arms, Fisher size is 0.0016 to 0.0067 across correlation lengths 4
 to 20, against a nominal 0.05.
 
-The exchangeability objection is correct as physics and its consequence is measured: unequal
-set sizes make the test **conservative**, never anti-conservative, on every arm and every
-correlation length tested. `kras_g12c_corrected` cannot reject on either form, because 18
-decoys floor the attainable p at 1/19 = 0.0526. That is the detector's pocket count, not the
-statistic.
+`kras_g12c_corrected` cannot reject on either form, because 18 decoys floor the attainable p
+at 1/19 = 0.0526. That is the detector's pocket count, not the statistic.
+
+## AMENDED THE SAME DAY — the size claim was wrong, and the licence changes
+
+The paragraph that stood here said unequal set sizes make the test "conservative, never
+anti-conservative". **That was inferred from one null family and it is false.** An adversarial
+pass made the objection the same day: the two sides are not exchangeable, so the size of this
+statistic is a property of the score field and not a distribution-free guarantee, and one
+generator cannot support "never".
+
+Measured over four generators, `experiments/2026-09-03-endpoint-b/`, 20 000 fields per cell:
+
+| generator | what it is | worst size, `site` | worst size, `label` |
+| --- | --- | ---: | ---: |
+| `white_noise` | no spatial structure | 0.0001 | 0.0086 |
+| `smooth_gaussian` | the frozen calibration's instrument | 0.0049 | 0.0154 |
+| `smooth_t` | same covariance, Student-t at 3 df | 0.0047 | 0.0137 |
+| `distance_shell` | blocky, monotone in distance from a random residue | 0.0237 | **0.0548** |
+
+**The label form exceeds alpha.** On `bcr_abl1_corrected` under `distance_shell` it runs
+0.0513 to 0.0548 across all four correlation lengths, and the worst cell's 95 % interval,
+[0.0516, 0.0580], is entirely above 0.05. `distance_shell` is not a contrived null: it is
+negated distance to a random residue, which is the shape every distance-correlated baseline in
+this repository actually has, and it is the adversarial case for a test whose two sides differ
+in size.
+
+**The `site` form holds on all four**, worst cell 0.0237. So review 25 §1.4's exchangeability
+argument is vindicated by measurement, and it was right to remove the label form from `p`.
+
+### What changes
+
+`label_p` stays, because it is the only quantity here that measures the deliverable, and it
+is **relabelled**. It is a **descriptive percentile**, not a p-value: the rank of the label
+set's mean midrank among the decoy linings' means, divided by the number of pockets. No
+rejection language attaches to it, it enters no family, and no threshold is declared for it.
+It is quotable as "the label set outranks N of M detected pockets" and never as "p = x".
+
+`p` is unchanged and remains the ADR 0030 statistic.
 
 ## Decision
 
@@ -63,13 +98,13 @@ statistic.
 
 - `p` is unchanged. It is the ADR 0030 statistic, exactly as review 25 §1.4 left it, and it
   answers "does the method rank the true pocket above decoy pockets".
-- `label_p` uses the same decoy linings and the same permutation, with the label set as the
+- `label_p` uses the same decoy linings and the same ordering, with the label set as the
   positive. It answers "does the method rank the allosteric residues above non-functional
   pockets", which is the question §4.1 is about.
 - **Both stay descriptive.** Neither enters a confirmatory family. ADR 0030's per-arm floor
   argument is untouched.
-- The licence `label_p` carries is asymmetric, because its measured behaviour is asymmetric: a
-  rejection is real, and a non-rejection is weak evidence rather than evidence of absence.
+- **`label_p` is a percentile and not a p-value**, per the amendment above. Its measured size
+  reaches 0.055 under a blocky distance-monotone field, so it may not carry a rejection.
 
 This is an addition and not a reversal. Review 25 §1.4 removed a statistic that had no
 measured type-I rate. This restores it beside the other one, with the measurement it lacked,
@@ -82,7 +117,13 @@ and without giving it a decision to make.
   evaluate verify` re-derives clean.
 - The report can state the §4.1 result honestly for the first time. Under version 3 it could
   only have said "the site pocket outranks decoy pockets", and on two of three arms not even
-  that.
+  that. What it may say now is descriptive: "the label set outranks N of M detected pockets",
+  beside the tested `p`.
+- **The evidence is reproducible.** `allo.scoring.simulate` holds the simulation, because it
+  reads the answer key and that is evaluation-side work, and
+  `experiments/2026-09-03-endpoint-b/` is the run. The first version of this measurement lived
+  in an untracked script, and a frozen protocol whose evidence cannot be re-run is not
+  evidence.
 - `test_the_decoy_p_value_is_built_from_the_site_pocket_and_not_the_label_set` still passes
   and still pins `p`. `test_negative_class_b_reports_the_label_set_beside_the_site_pocket`
   pins that both are present and that neither is confirmatory.

@@ -397,16 +397,25 @@ def score_arm(
                     if len(decoy_ranks) and site_score is not None
                     else None
                 ),
-                # ADR 0039, protocol v4. Reported beside `p`, never in place of it: `p` is the
-                # ADR 0030 statistic and stays exactly as review 25 section 1.4 left it.
-                # Review 25 closed against this form because no measured type-I rate covered
-                # it, which was true then. It is measured now, at 20 000 fields per arm per
-                # correlation length over the real linings and the real coordinates:
-                # size 0.0000 / 0.0083 / 0.0094 against a nominal 0.05, upper confidence
-                # limits 0.00018 / 0.0097 / 0.0108. The two halves have different set sizes
-                # and are not exchangeable, and the measured consequence is conservatism, not
-                # inflation -- so a rejection is real and a non-rejection is weak evidence.
-                # That asymmetry is the whole licence this number carries.
+                # ADR 0039, protocol v4. A DESCRIPTIVE PERCENTILE, not a p-value: the rank
+                # of the label set's mean midrank among the decoy linings' means. Reported
+                # beside `p`, never in place of it. `p` is the ADR 0030 statistic and stays
+                # exactly as review 25 section 1.4 left it.
+                #
+                # It exists because `p` cannot see the deliverable. `p` ranks the detector's
+                # site-pocket lining, and a shift of four standard deviations on every label
+                # residue leaves its power at 0 on kras and on cardiac myosin: twelve myosin
+                # labels sit inside a 295-residue lining, so they move that mean by 12/295 of
+                # the effect. This quantity reaches 0.875 and 1.000 on the same fields.
+                #
+                # It carries NO rejection, and the reason is measured rather than cautious.
+                # The two sides have different set sizes and are not exchangeable, so its size
+                # is a property of the score field. Over four null generators in
+                # `experiments/2026-09-03-endpoint-b/` it runs 0.0000 to 0.0548, and the worst
+                # cell -- `bcr_abl1_corrected` under a blocky distance-monotone field, which is
+                # the shape every distance-correlated baseline here has -- has a 95 % interval
+                # of [0.0516, 0.0580], entirely above alpha. Quote it as "the label set
+                # outranks N of M detected pockets" and never as a p-value. `allo.scoring.simulate`.
                 "label_p": (
                     permutation_p(label_score, decoy_ranks)
                     if len(decoy_ranks) and label_score is not None

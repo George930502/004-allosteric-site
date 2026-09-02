@@ -530,6 +530,20 @@ def literal_segments(source: str) -> set[str]:
         and isinstance(node.body[0].value, ast.Constant)
     }
     for node in ast.walk(tree):
+        # A path component built from code points leaves no string and no bytes literal:
+        # `Path(*(bytes(x).decode() for x in [[100, 111, 99, 115], ...]))` reads
+        # `docs/benchmark/primary/frozen.json` and was invisible to the resolver and to the
+        # harvest at once. Found 2026-09-03 by an adversarial pass. Any run of printable code
+        # points is decoded and offered as text.
+        if isinstance(node, ast.List | ast.Tuple):
+            points = [
+                e.value
+                for e in node.elts
+                if isinstance(e, ast.Constant) and isinstance(e.value, int) and 32 <= e.value < 127
+            ]
+            if points and len(points) == len(node.elts):
+                segments.update(_components("".join(map(chr, points))))
+            continue
         if not isinstance(node, ast.Constant) or node in docstrings:
             continue
         value = node.value
@@ -537,14 +551,23 @@ def literal_segments(source: str) -> set[str]:
             value = value.decode("utf-8", errors="ignore")
         if not isinstance(value, str):
             continue
-        if "/" in value or "\\" in value:
-            # Colon as well as whitespace, so a revision prefix does not hide a component.
-            # `git show HEAD~9:docs/benchmark/audit/kras-g12c.md` glues `HEAD~9:` onto `docs`
-            # and the resolver reads the whole thing as one directory name.
-            segments.update(part for part in re.split(r"[/\\\s:]+", value) if part)
-        elif value and not value.split()[1:]:
-            segments.add(value.strip())
+        segments.update(_components(value))
     return segments
+
+
+def _components(value: str) -> set[str]:
+    """The path components a string offers, or the whole string when it is one bare word.
+
+    A string carrying a separator is split on it, and on whitespace and colon too, so neither
+    a command word nor a revision prefix hides a component: `cat docs/...` and
+    `HEAD~9:docs/...` both yield `docs`. A string with no separator counts only when it is a
+    single word, which keeps prose out: a docstring is skipped entirely and a phrase offers
+    nothing.
+    """
+    if "/" in value or "\\" in value:
+        return {part for part in re.split(r"[/\\\s:]+", value) if part}
+    stripped = value.strip()
+    return {stripped} if stripped and not stripped.split()[1:] else set()
 
 
 def segment_cover_violations(source: str) -> set[Path]:
@@ -778,10 +801,22 @@ def test_the_prediction_path_cannot_build_either_route_out_of_pieces():
     manifest. Neither costs anything today: `importlib` appears nowhere in `src/`, and `"docs"`
     appears twice, in `allo.inputs` (permitted) and `allo.benchmark` (evaluation side).
 
-    What this still cannot catch: a path assembled from `os.environ`, a config file, or a
-    parent directory walked at runtime. The guarantee is "no route is spelled here", not "no
-    route can exist" -- which is why the cache partition and the redacted `load()` exist as
-    independent layers rather than as belt to this brace.
+    **What this still cannot catch, stated plainly.** A path assembled from `os.environ`, from
+    a config file, or from a parent directory walked at runtime. A component computed by
+    arithmetic rather than written down: code points in a list are harvested, and
+    `chr(100 + 0)` is not. Anything read through a subprocess whose command is itself
+    computed. A static check over Python source is a syntax denylist, and a syntax denylist
+    cannot enforce an information-flow boundary against a Turing-complete language -- an
+    adversarial pass demonstrated a working read on 2026-09-03 and would demonstrate another
+    against any fixed rule set.
+
+    So the guarantee is "no route is spelled here", not "no route can exist", and it is worth
+    exactly what that says: it catches the accident, the copied idiom and the shortcut taken
+    under time pressure, which is what has actually happened all four times. It does not catch
+    a deliberate exfiltration and does not claim to. What would is an environment in which the
+    answer keys are unreadable to prediction code, and that is infrastructure this repository
+    does not have. The cache partition and the redacted `load()` are the independent layers,
+    not belt to this brace.
     """
     dynamic = []
     capability_importers = []
@@ -984,6 +1019,13 @@ def test_the_segment_cover_backstop_catches_assembled_paths(tmp_path):
         "subprocess_shell.py": (
             "import subprocess\n"
             "subprocess.run('cat docs/benchmark/primary/audit/x.md', shell=True)\n"
+        ),
+        # Code points, which leave no string and no bytes literal at all. Demonstrated
+        # working against both defences by an adversarial pass on 2026-09-03.
+        "code_points.py": (
+            "from pathlib import Path\n"
+            "parts = [[100, 97, 116, 97], [112, 97, 116, 99, 104, 101, 115]]\n"
+            "p = Path(*(bytes(x).decode() for x in parts))\n"
         ),
         "chdir_then_open.py": (
             "import os\nos.chdir('docs')\nopen('benchmark/primary/audit/kras-g12c.md')\n"
