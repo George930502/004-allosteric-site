@@ -800,3 +800,29 @@ needs **N >= 6** to survive a two-way correction (p = 0.0156), and tolerating on
 - The occupant instrument's sources are tagged by provenance and most passed through a
   fetch-and-summarise step. Nothing from it is quotable into `docs/report/` until re-read at
   the raw source.
+
+**A seventh pass reached the exported metrics, and two more sites were found here while
+closing it.** `rank_vector`, `auc_pr`, `precision_at_k` and `top_k_indices` all order a score
+array and none checked it. **The direction is different and the record must say so.**
+`permutation_p` manufactured the minimum attainable p-value out of a missing number. These do
+not: a NaN gives `auc_roc` nan, `auc_pr` a low value and `precision_at_k` zero — visible or
+unfavourable, never flattering. So this is robustness at a public boundary, not a validity
+repair, and grading the two the same would overstate what the seventh pass found. What makes it
+worth doing is `top_k_indices`: that function **is** the deliverable, and with a NaN present the
+top-5 residue list a chemist is handed falls back on array order with nothing saying so.
+
+The two found here are the seventh and eighth instances. `sample_matched_patches` accepted a
+non-finite tolerance, and its degree, compactness and distance rejections then all went false,
+so it returned **twenty patches of the right size with none of the other three criteria applied**
+and still reported the pool as matched. That is the anti-conservative case the fifth pass claimed
+and could not reach on the public path: here the frozen `size_ratio` corrects a null that was
+never run. `binomial_band` returned `(nan, nan)` for any invalid alpha, coverage or replicate
+count, which reads as "outside the band" and is therefore fail-safe, but tells a reader nothing
+about which of the two things went wrong. Both now raise.
+
+**Eight instances of one shape across seven passes.** Each was found only after the previous fix
+shipped, and the guard now lives in one function per layer — `_checked_pvalues` and
+`_checked_tolerance` in the harness, `_finite_scores` in the metrics. The standing test
+`test_no_raise_guard_compares_a_float_a_non_finite_value_would_slip_past` caught the eighth
+site's own new guard on its first run, which is the first time in this round that the sweep
+found a defect before a pass did.
