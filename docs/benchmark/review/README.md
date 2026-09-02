@@ -18,7 +18,7 @@ residue count directly: "not even the residue count". `tests/test_no_leakage.py`
 tree in `PROTECTED_PATHS`, so no prediction-path module and no experiment runner may open it.
 Its own tools are exempt by a **rule**, not by a name list: a file is a review tool when it is
 tracked inside this tree **and** imports nothing from `allo`. Two tests pin that rule
-(ADR 0034). It is the **seventh** data route that bypasses the import graph; the count reached sixteen on 2026-09-03 and `AGENTS.md` is the list of record.
+(ADR 0034). It is the **seventh** data route that bypasses the import graph. This page carried the running total until 2026-09-03, when a codex pass found it saying sixteen against the contract's nineteen -- the same defect round 6 had just corrected in `docs/report/conformance.md`, in a page that was not bound to the derived count either. The number is gone rather than corrected: `AGENTS.md` is the list of record, and a second copy of a count is a second thing to keep in step.
 
 **What has since been done.** Read
 [`11-synthesis.md`](11-synthesis.md) §"Disposition". Nine ADRs, 0029 to 0037, came out of this

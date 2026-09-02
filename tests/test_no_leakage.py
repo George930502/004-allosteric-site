@@ -2704,6 +2704,47 @@ def test_the_counts_the_documents_assert_are_the_counts_the_repository_has():
         f"CONTRIBUTING.md names the wrong next route after {routes}"
     )
 
+    # A NAME LIST loses this race, and it lost it twice. Round 6 added
+    # `docs/report/conformance.md` to the four names above after a codex pass found it saying
+    # sixteen; the next pass found `docs/benchmark/review/README.md` saying sixteen for the
+    # same reason -- it was not a name in the list either. So the rule is inverted here the way
+    # `allo.inputs.load` inverts C1: every live page is bound by default and a DATED RECORD is
+    # the exemption. An ADR, a method-landscape document, a review pass and a closed roadmap
+    # blockquote all state what was true when they were written, and correcting one would
+    # rewrite history this repository deliberately keeps. A page added tomorrow is bound.
+    live = re.compile(
+        r"\b(one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen"
+        r"|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|\d+)\b\**\s+"
+        r"(?:data|file-read|protected file|protected|guarded)[- ]routes?\b",
+        re.IGNORECASE,
+    )
+    dated = ("docs/adr/", "docs/evidence/", "docs/benchmark/review/")
+    stale = []
+    for name in sorted(n for n in tracked_files() if n.endswith(".md")):
+        if name.startswith(dated):
+            continue
+        for number, line in enumerate((ROOT / name).read_text().splitlines(), 1):
+            if line.lstrip().startswith(">"):
+                continue
+            for found in live.finditer(line):
+                if found.group(1).lower() not in {lower[routes], str(routes)}:
+                    stale.append(f"{name}:{number}  {found.group(0)}")
+    assert not stale, (
+        f"a live page states a route count that is not {routes}: {'; '.join(stale)}. "
+        "Correct it, or -- better -- delete the number and point at AGENTS.md, which is the "
+        "list of record. A dated record under docs/adr/, docs/evidence/ or "
+        "docs/benchmark/review/ is exempt, and so is a blockquote"
+    )
+    # And the review index must name no count at all, which is how its own defect was closed.
+    index = (ROOT / "docs" / "benchmark" / "review" / "README.md").read_text()
+    assert not [
+        m.group(0)
+        for line in index.splitlines()
+        if not line.lstrip().startswith(">")
+        for m in live.finditer(line)
+        if "carried the running total" not in line
+    ], "docs/benchmark/review/README.md states a route count again; it must point at AGENTS.md"
+
     from allo.scoring.baselines import REQUIRED_BASELINES
 
     banner = "the required baselines are now"
