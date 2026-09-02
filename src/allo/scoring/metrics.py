@@ -31,13 +31,18 @@ def _finite_scores(scores: np.ndarray) -> np.ndarray:
     """Every exported metric checks its score array here. Round 6, 2026-09-03.
 
     `_aligned` already refuses a non-finite score on the frozen path, and these are exported
-    primitives a caller can reach without it. The direction differs from the other non-finite
-    defects this round closed and the difference is worth stating: `permutation_p` MANUFACTURED
-    a favourable number, the minimum attainable p-value, while a NaN here gives `auc_roc` nan,
-    `auc_pr` a low value and `precision_at_k` zero -- visible or unfavourable, never flattering.
-    So this is robustness at a public boundary rather than a validity repair, and it is done
-    for consistency: one rule, every score-consuming export, no caller having to know which
-    functions were hardened.
+    primitives a caller can reach without it.
+
+    **This was first written up as robustness and the measurement says otherwise.** The claim
+    was that a NaN here gives an unfavourable number, never a flattering one, because it does
+    on the example that was tried. It depends entirely on which class holds the NaN.
+    `rank_vector` propagates, so `auc_roc` returns nan and that half is fail-safe.
+    `precision_at_k` does not propagate: `np.lexsort` sinks the NaN to the bottom, so a method
+    that emits a NaN **on its own worst false positive** deletes that false positive from the
+    top of its list. Measured on `scores=[1, 5, 2, 0.5]`, `positive=[T, F, T, F]`:
+    precision@2 rises from **0.50 to 1.00**. `top_k_indices` is the same expression and it is
+    the deliverable itself. So this is a validity repair for the two metrics closest to what
+    the challenge scores, and one rule at one boundary for the rest.
     """
     values = np.asarray(scores, dtype=float)
     if not np.isfinite(values).all():
@@ -98,8 +103,10 @@ def auc_pr(scores: np.ndarray, positive: np.ndarray) -> float:
     # distinct threshold, which is what the tie rule above means operationally.
     # `np.diff` of two equal infinities is NaN, and `NaN != 0` is True, so tied infinities
     # became distinct thresholds and array order decided the answer -- the one thing the tie
-    # rule above promises never happens. Reachable by any method emitting log-scores with a
-    # zero in them. Found 2026-09-03 by round 6.
+    # rule above promises never happens. Found 2026-09-03 by round 6, when it was reachable by
+    # any method emitting log-scores with a zero in them. `_finite_scores` above now raises on
+    # an infinity before this line runs, so that half is dead; the rule stays because the
+    # comparison is what makes FINITE ties one operating point, which is the frozen tie rule.
     ordered = scores[order]
     distinct = np.r_[ordered[1:] != ordered[:-1], True]
     tp, fp = tp[distinct], fp[distinct]

@@ -1555,17 +1555,19 @@ def test_no_raise_guard_compares_a_float_a_non_finite_value_would_slip_past():
 
 
 def test_no_exported_metric_ranks_a_non_finite_score():
-    """Round 6, from a codex adversarial pass, and the direction differs from the others.
+    """Round 6, from a codex adversarial pass. First graded as robustness, then measured.
 
-    `permutation_p` MANUFACTURED a favourable number. These do not: a NaN gives `auc_roc` nan,
-    `auc_pr` a low value and `precision_at_k` zero. So this is a public-boundary robustness
-    fix, not a validity repair, and it is written down that way so a later reader does not
-    grade the two the same. What makes it worth doing anyway is that `top_k_indices` is the
-    DELIVERABLE: with a NaN in the array, `np.argsort` puts the unorderable entries last on
-    this platform and nothing says so, and the top-5 residue list a chemist is handed silently
-    depends on array order.
+    The first version of this docstring said a NaN here gives an unfavourable number and
+    never a flattering one, so the fix was robustness rather than validity. **That was the
+    one example that was tried, not the rule.** `rank_vector` propagates, so `auc_roc` is nan
+    and that half is fail-safe. `precision_at_k` does not propagate: `np.lexsort` sinks the
+    NaN, so a method that emits a NaN on its own worst false positive deletes that false
+    positive from the top of its list. The assertion below measures it: precision@2 rises
+    from 0.50 to 1.00 on the same labels. `top_k_indices` is the same expression and it is
+    the deliverable.
 
-    One helper, every score-consuming export, so the next metric added inherits the guard.
+    So two of these five are anti-conservative and the write-up said none were. One helper,
+    every score-consuming export, so the next metric added inherits the guard.
     """
     import math
 
@@ -1590,6 +1592,16 @@ def test_no_exported_metric_ranks_a_non_finite_score():
     assert metrics.auc_roc(scores, positive) == pytest.approx(1.0)
     assert metrics.precision_at_k(scores, positive, 2) == pytest.approx(1.0)
     assert list(metrics.top_k_indices(scores, 2)) == [0, 2]
+
+    # The measurement that regraded this finding, kept so the docstring above stays honest.
+    # One negative outranks both positives; emitting it as NaN would have doubled precision@2.
+    gamed = np.array([1.0, 5.0, 2.0, 0.5])
+    assert metrics.precision_at_k(gamed, positive, 2) == pytest.approx(0.5)
+    spoiled = gamed.copy()
+    spoiled[1] = math.nan
+    with pytest.raises(ValueError, match="finite"):
+        metrics.precision_at_k(spoiled, positive, 2)
+    assert float(positive[np.lexsort((positive, -spoiled))][:2].sum() / 2) == 1.0
 
 
 def test_a_non_finite_binomial_band_would_have_read_as_a_passing_calibration():
