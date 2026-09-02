@@ -59,3 +59,14 @@ whole signature is that git sees no rename. Eight ledger entries became sixteen.
 - **What this still does not reach.** Objects on other branches, on tags, and in the reflog. A
   path that only ever existed on `method-layer-archive` is not in this ledger. That is recorded
   rather than fixed, because the prediction path is built on `main`.
+- **The arithmetic limit applies to the CAPABILITY as well as the path, added 2026-09-03 by
+  round 6.** The bullet above is about a path built from character codes. The same
+  construction hides a traversal function: `getattr(ROOT, chr(114) + chr(103) + chr(108) +
+  chr(111) + chr(98))` puts `rglob` in no node of the tree, so neither the composed-`getattr`
+  ban nor `traversal_capability_violations` sees it, and it was confirmed as a live module
+  enumerating all three `frozen.json`. Nothing changes about the conclusion — a syntax denylist
+  closes accidents, not intent — but the limit is now stated at both guards rather than only at
+  the one where it was first found. **Closing it needs a runtime boundary**, an import hook or
+  a sandbox denying the protected roots however the traversal is obtained. That is a design
+  change with its own cost, and it is recorded as the next step rather than attempted at the
+  end of an audit round.

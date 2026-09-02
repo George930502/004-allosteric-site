@@ -83,9 +83,9 @@ An archived experiment measured what happens when the source is something else
 | **Scalability / coarse-graining**, with a **proof that compression retains the essential topological signal** | §4.2, §8.4 | **not started.** Phase 4. The word "prove" is the organisers'; a measured correlation between coarse and fine rankings is not what the clause asks for |
 | **Interpretability** for medicinal chemists without extensive training | §4.2 | **partly done by construction.** Residue identity is author numbering plus chain ID end to end, so a hit list is readable. No chemist-facing artifact exists |
 | **Actionable output** — 3D visualisation of the connectivity maps, prioritised | §4.2, §8.4 | **not started.** Phase 5. `viz/` is reserved and empty |
-| **Classical comparison**, where relevant | §4.2, §8.4 | **done and measured.** 43 classical scorers against 11 quantum, every one through the same harness |
-| **Statistical enrichment vs random and decoy residues** | §8.4 | **done and measured.** The frozen protocol, version 4 |
-| **Near-term hardware feasibility / circuit depth analysis** | §8.4 | **on paper only.** Resource estimates exist; no compiled circuit backs them |
+| **Classical comparison**, where relevant | §4.2, §8.4 | **instrument ready, not met on `main`.** `allo.scoring.compare_methods` is the frozen paired test and `scoring/baselines.py` holds eight of the nine required controls. The 43-classical-against-11-quantum comparison was run, and every one of those scorers left `main` with the method layer (ADR 0037). Nothing on `main` has been compared to anything |
+| **Statistical enrichment vs random and decoy residues** | §8.4 | **instrument ready, not met.** Protocol version 4 freezes both negative classes, four nulls, the calibration and the multiplicity rule. A frozen protocol is the instrument, not the measurement, and no method on `main` has been run through it |
+| **Near-term hardware feasibility / circuit depth analysis** | §8.4 | **not on `main`.** The resource estimates were written against the method layer and left with it (ADR 0037); `grep` for a depth, a qubit count or a gate count returns nothing under `src/allo`. No compiled circuit ever backed them. C3 requires this per quantum method, so it is rebuilt with the first one |
 
 ---
 
@@ -132,9 +132,15 @@ ground truth exists to score them against.
 Four items are conformance gaps rather than quality gaps, and none of them is answered by a
 better score:
 
-1. **Export the N × N connectivity matrix.** The construction exists and is verified. What is
-   left is a writer for `results/<target>/connectivity.npz` and a frozen choice of `form` and
-   `mode`. The choice constrains which observable can be the headline metric.
+1. **Export the N × N connectivity matrix.** The construction does **not** exist on `main`.
+   It was built and verified -- `allo.quantum.connectivity.connectivity_matrix`, checked on
+   `mkp5` at shape (147, 147), symmetric to 2e-17 -- and it left with the method layer
+   (ADR 0037). So three things are left, not one: rebuild the construction, choose `form` and
+   `mode` and freeze the choice, then write `results/<target>/connectivity.npz`. The choice
+   constrains which observable can be the headline metric, which is why it is a freeze and not
+   a default. **CORRECTED 2026-09-03 by round 6**, which found this line saying the
+   construction "exists and is verified" two pages after row 1 of the same document says it
+   does not.
 2. **Compile a circuit.** §4.1 says "must build a quantum circuit". A statevector simulation
    of a Hamiltonian is not one, however faithful. Braket or Classiq or Qiskit, with a gate
    count and a depth, on at least one target.

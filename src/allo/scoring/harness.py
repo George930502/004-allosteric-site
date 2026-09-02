@@ -682,6 +682,11 @@ def holm(pvalues: Mapping[str, float], alpha: float = 0.05) -> dict[str, dict]:
     than Bonferroni and needs no independence assumption -- which matters here, because two
     arms of the same disease area are not independent.
     """
+    # Round 6, from a codex adversarial pass. `alpha` was unchecked, and `alpha = 2.0` makes
+    # every threshold exceed 1, so a family of three p-values at 0.6 rejects three times. A
+    # significance level outside (0, 1) is not a level.
+    if not math.isfinite(alpha) or not 0 < alpha < 1:
+        raise ValueError(f"holm needs a significance level inside (0, 1); got {alpha}")
     ordered = sorted(_checked_pvalues(pvalues, "holm").items(), key=lambda kv: kv[1])
     m = len(ordered)
     verdict: dict[str, dict] = {}
@@ -750,6 +755,23 @@ def confirmatory_verdict(
     """
     settings = settings or protocol()
     decision = settings["decision"]
+    # `settings` exists so a test can run a cheap protocol -- fewer replicates, a smaller
+    # sampler budget. It was never meant to let a caller supply its own DECISION rule, and it
+    # did: `settings["decision"]["alpha"] = 2.0` clears both families at p = 0.6, every guard
+    # green. Round 6, from a codex adversarial pass. This is the argument `apo_input` makes
+    # for having no `manifest` parameter -- "every method saw identical inputs" has to be
+    # true by construction, and so does "every method faced the same decision rule". The
+    # frozen block is the only one this function will apply.
+    if decision != protocol()["decision"]:
+        moved = sorted(
+            key
+            for key in set(decision) | set(protocol()["decision"])
+            if decision.get(key) != protocol()["decision"].get(key)
+        )
+        raise ValueError(
+            "confirmatory_verdict applies the FROZEN decision rule and no other; the supplied "
+            f"settings differ at {moved}. `settings` is for a cheaper null, not a cheaper test"
+        )
     alpha = float(decision["alpha"])
     if decision["correction"] != "holm":
         raise ValueError(f"unsupported correction {decision['correction']!r}")

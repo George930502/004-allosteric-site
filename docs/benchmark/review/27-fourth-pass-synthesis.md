@@ -441,6 +441,29 @@ one NaN turned two rejections at p = 0.01 into none. Patching one entry point an
 class is the lesson; the check now lives in one function that `holm`, `combine_arms` and
 `calibrated_p` all call.
 
+**A third pass then found two more, and refuted one of its own.** Told that its second pass
+had been right and to try to defeat each fix, it returned four. **`settings` was a way to
+supply your own test**: `confirmatory_verdict` takes a settings override so a test can run a
+cheap protocol, and it also accepted a replacement DECISION block, so
+`settings["decision"]["alpha"] = 2.0` clears both families at p = 0.6 with every guard green.
+`holm` did not check alpha either. This is the argument `apo_input` makes for having no
+`manifest` parameter — "every method saw identical inputs" has to be true by construction, and
+so does "every method faced the same decision rule" — so the frozen decision block is now the
+only one the verdict will apply. Two more rows of `docs/report/conformance.md` made the
+instrument-versus-result error this round had already corrected in three others: a classical
+comparison of 43 scorers against 11 marked "done and measured" when every one of those scorers
+left with the method layer, and statistical enrichment marked the same because the protocol is
+frozen. Its §6 said the N × N construction "exists and is verified" two pages after row 1 of
+the same table says it does not.
+
+**One of the four is refuted, and it is the one marked high.** A traversal name built from
+`chr()` arithmetic defeats both the composed-`getattr` ban and the new capability scan. It
+reproduces, and it is **the limit ADR 0043 already records**, in those words, for the same
+construction applied to a path. The pass was asked not to report what the repository documents
+as known. What was genuinely missing is that the limit was written at the path guard and not at
+the capability guard, so it is now stated at both and in the ADR, with the runtime boundary
+that would close it named as the next step rather than attempted at the end of an audit round.
+
 **And the shipping conformance artifact understated the guarded surface.**
 `docs/report/conformance.md` said sixteen protected file routes where the other three
 documents said nineteen — and it was the one page of the four that the derived count test did

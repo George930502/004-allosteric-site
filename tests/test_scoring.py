@@ -1324,3 +1324,53 @@ def test_no_decision_function_accepts_a_non_finite_p_value():
     assert all(row["reject"] for row in holm(valid, alpha=0.05).values())
     assert combine_arms(valid)["p"] < 0.05
     assert calibrated_p(0.01, 1.2) >= 0.01
+
+
+def test_the_verdict_applies_the_frozen_decision_rule_and_no_other():
+    """Round 6, from a codex adversarial pass. `settings` was a way to supply your own test.
+
+    It exists so that a test can run a cheap protocol -- fewer replicates, a smaller sampler
+    budget. It also let a caller replace the DECISION block, and
+    `settings["decision"]["alpha"] = 2.0` makes every Holm threshold exceed 1, so three
+    p-values at 0.6 clear both families with every guard green. Measured before the fix.
+
+    This is the argument `apo_input` makes for having no `manifest` parameter: "every method
+    saw identical inputs" has to be true by construction, and so does "every method faced the
+    same decision rule". `holm` is public and callable directly, so it checks alpha itself.
+    """
+    import copy
+    import math
+
+    from allo.scoring.harness import confirmatory_verdict, holm, protocol
+
+    family = sorted(protocol()["decision"]["confirmatory_family"])
+    claim = {
+        arm: {
+            "comparison": "mine against cavity_volume",
+            "leader": "mine",
+            "p_calibrated": 0.6,
+        }
+        for arm in family
+    }
+
+    for field, value in (
+        ("alpha", 2.0),
+        ("alpha", 0.5),
+        ("correction", "bonferroni"),
+        ("sided", "two"),
+    ):
+        settings = copy.deepcopy(protocol())
+        settings["decision"][field] = value
+        with pytest.raises(ValueError, match="FROZEN decision rule"):
+            confirmatory_verdict(dict.fromkeys(family, 0.6), claim, settings=settings)
+
+    for alpha in (2.0, 0.0, 1.0, -0.1, math.nan, math.inf):
+        with pytest.raises(ValueError, match="significance level"):
+            holm(dict.fromkeys(family, 0.01), alpha=alpha)
+
+    # A cheaper NULL is still allowed, which is what the parameter is for.
+    cheap = copy.deepcopy(protocol())
+    cheap["nulls"]["replicates"] = 199
+    assert confirmatory_verdict(dict.fromkeys(family, 0.001), settings=cheap)["family_1"][
+        "n_reject"
+    ] == len(family)

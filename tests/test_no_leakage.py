@@ -819,6 +819,27 @@ def traversal_capability_violations(source: str) -> set[Path]:
     capability**. Tracking the alias through the assignment would be a dataflow whitelist, and
     round 5 already lost that race once.
 
+    **The composed spelling is closed next door, not here.** `getattr(ROOT, "rgl" + "ob")`
+    puts no traversal name in any `Constant`, so this scan clears it -- and
+    `test_the_prediction_path_cannot_build_either_route_out_of_pieces` already bans a `getattr`
+    whose attribute name is composed, for the same reason it bans a composed import and a
+    composed path. Verified 2026-09-03 against three spellings: the `+` form, the
+    `"".join([...])` form and `os.__dict__["listdir"]`, which this scan does catch because the
+    name survives as a literal. Two guards cover the class between them; neither covers it
+    alone, and a reader must not assume this one does.
+
+    **What this does NOT reach, stated where a reader will look.** A name built by arithmetic:
+    `getattr(ROOT, chr(114) + chr(103) + chr(108) + chr(111) + chr(98))` puts no traversal
+    name in any node, and neither the composed-`getattr` ban nor this scan sees it. Confirmed
+    2026-09-03, as a live module, enumerating all three `frozen.json`. It is the **same limit**
+    ADR 0043 records for paths -- "an adversarial pass built a path out of arithmetic on
+    character codes... and read a protected manifest with all tests green" -- and the ADR's
+    conclusion applies unchanged: a syntax denylist closes a class of accident, not a class of
+    intent. It is written here as well because a reader looking at the capability guard must
+    not have to find it under the path guard. Closing it needs a runtime boundary -- an import
+    hook or a sandbox that denies the protected roots however the traversal is obtained -- not
+    another spelling.
+
     **Prediction path only.** A run script under `experiments/` and a review tool both
     legitimately enumerate their own trees, and both are scanned by the same combined helper,
     so this is unioned in at the prediction-path call site instead of inside it. It costs
@@ -2569,6 +2590,30 @@ def test_an_enumeration_cannot_see_a_protected_path_by_any_spelling():
         name for name, source in aliased.items() if not traversal_capability_violations(source)
     ]
     assert not escaped, f"an aliased traversal capability is still invisible: {escaped}"
+
+    # The composed spellings, which this scan clears by design because no traversal name
+    # survives as a literal. They are closed by the composed-`getattr` ban in
+    # `test_the_prediction_path_cannot_build_either_route_out_of_pieces`, and the interaction
+    # is pinned here so that neither guard can be relaxed on the belief that the other covers
+    # it. `os.__dict__` is in this group only because it is the same shape; its name IS a
+    # literal, so the scan above catches it too, and both assertions below must hold.
+    composed = {
+        "getattr with a concatenated name": f'fn = getattr(ROOT, "rgl" + "ob"){NL}fn("*")',
+        "getattr with a joined name": 'getattr(ROOT, "".join(["rg", "lob"]))("*")',
+    }
+    for name, source in composed.items():
+        assert not traversal_capability_violations(root + source), (
+            f"{name}: this scan is not supposed to see a composed name, so the docstring and "
+            "the neighbouring composed-getattr ban are both wrong about who covers what"
+        )
+        assert any(
+            isinstance(node, ast.Call)
+            and isinstance(node.func, ast.Name)
+            and node.func.id == "getattr"
+            and node.args[1:]
+            and not isinstance(node.args[1], ast.Constant)
+            for node in ast.walk(ast.parse(root + source))
+        ), f"{name} no longer has the shape the composed-getattr ban matches"
 
     clean = {
         "a glob well away from any protected root": lib
