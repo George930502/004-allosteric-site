@@ -118,12 +118,13 @@ is storage secrecy, not scoring secrecy.
 `26` §4b.1 calls this "the most important finding of the pass" and carries no row for it in
 its own §5 tracker, which is the exact failure `26` §7 criticises in `25`.
 
-**Recommendation, as a judgement.** Rebuilding an unopened tier cannot be done from leads
-whose answer keys are already tracked, so amend the rule prospectively at
-`secondary/manifest.yaml:19-20`, and pair it with a hard, testable version of the narrower
-rule: **no method score on a `generalisation` arm**, enforced the way `tests/test_no_leakage.py`
-enforces the file-read routes. Move `secondary/README.md:54` and ADR 0021:60 with it. Whatever
-is chosen must state that the tier was never sealed against storage.
+**Closed on 2026-09-03 by [ADR 0041](../../adr/0041-the-generalisation-tier-was-never-sealed-against-storage.md).**
+Rebuilding an unopened tier cannot be done from leads whose answer keys are already tracked, so
+the rule is amended to what it can still deliver: the tier is sealed **against scoring**, not
+against storage. `score_arm` raises on a `generalisation` arm unless the caller passes
+`unseal="phase-5"`, held by `test_the_sealed_tier_cannot_be_scored_without_saying_so`. Any
+generalisability claim must disclose that the counts and label sets were readable throughout
+method design.
 
 ### 3.2 ADR 0012 clause 2 contradicts itself, and clause (xii) ships one level shallower
 

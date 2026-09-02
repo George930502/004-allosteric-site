@@ -188,6 +188,7 @@ def score_arm(
     method: str,
     against: Mapping[str, Mapping[int, float]] | None = None,
     config: dict | None = None,
+    unseal: str | None = None,
 ) -> dict:
     """Score one method on one frozen arm under the frozen protocol.
 
@@ -202,7 +203,20 @@ def score_arm(
     (Mohtashim, Sajjan & Kais, JACS 2026;148(27):29206-29219, doi:10.1021/jacs.6c08053).
     A method that does not print this number has not answered the first question a reader
     of that paper will ask.
+
+    `unseal` must be `"phase-5"` to score an arm in the secondary set's `generalisation`
+    tier. That tier carries the generalisability claim and is not opened until the method is
+    frozen, and until 2026-09-03 the rule lived only in a manifest comment. ADR 0041 makes it
+    a check, on the argument the file-read routes are enforced on: a rule a document states
+    and no test holds is a promise, and this one was broken in 23 tracked files before it was
+    a day old. What the seal can still protect is scoring, so scoring is what is guarded.
     """
+    if _tier(target) == "generalisation" and unseal != "phase-5":
+        raise PermissionError(
+            f"{target} is in the sealed `generalisation` tier. It carries the generalisability "
+            "claim and is not scored until the method is frozen (Phase 5, ADR 0021). Pass "
+            'unseal="phase-5" to score it, and say in the run notes why the method is frozen.'
+        )
     settings = config or protocol()
     frozen = json.loads(EVALUATION_FROZEN.read_text())["targets"][target]
     apo = apo_input(target)
@@ -851,6 +865,19 @@ def freeze_evaluation(settings: dict | None = None) -> dict:
         "protocol_version": settings["version"],
         "targets": {t: _derive_arm(t, settings, detect=True) for t in _arms_from_the_input_layer()},
     }
+
+
+def _tier(target: str) -> str | None:
+    """The secondary tier an arm belongs to, or None for a primary arm.
+
+    Read from the secondary input freeze rather than from its manifest, because the freeze is
+    what `allo.benchmark.size_stratified_split` reproduces and a test already holds that the
+    recorded tiers are what that function returns.
+    """
+    if not SECONDARY_INPUT_FROZEN.exists():
+        return None
+    record = json.loads(SECONDARY_INPUT_FROZEN.read_text())["targets"].get(target)
+    return None if record is None else record.get("tier")
 
 
 def _arms_from_the_input_layer() -> list[str]:

@@ -857,3 +857,18 @@ def test_negative_class_b_reports_the_label_set_beside_the_site_pocket():
     ]
     assert record["p"] is not None and record["label_p"] is not None
     assert record["confirmatory"] is False, "both forms stay descriptive"
+
+
+def test_the_sealed_tier_cannot_be_scored_without_saying_so():
+    """ADR 0041. The rule lived in a manifest comment and was broken in 23 tracked files.
+
+    A rule a document states and no test holds is a promise. This one was broken in the very
+    commit that wrote it, so the tier was never sealed against storage. Scoring is what the
+    seal can still protect, so scoring is what is guarded.
+    """
+    graph = evaluation_graph(apo_input("mkp5"))
+    scores = {r: float(i) for i, r in enumerate(graph.order)}
+    with pytest.raises(PermissionError, match="sealed `generalisation` tier"):
+        harness.score_arm("chk1", scores, method="probe", config=fast_protocol(99))
+    # A development arm is not sealed and needs no token.
+    harness.score_arm("mkp5", scores, method="probe", config=fast_protocol(99))

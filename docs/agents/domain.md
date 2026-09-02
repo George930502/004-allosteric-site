@@ -31,7 +31,7 @@ This repo, as it actually stands:
 ```
 /
 ├── CONTEXT.md                         ← the settled vocabulary
-├── docs/adr/                          ← 40 records, indexed by topic in README.md
+├── docs/adr/                          ← 41 records, indexed by topic in README.md
 │   ├── 0001-record-decisions.md
 │   └── 0025-the-size-rescale-is-calibrated-at-every-holm-level.md
 └── src/allo/                          ← organised by pipeline stage
