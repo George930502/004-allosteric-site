@@ -105,6 +105,30 @@ sub-phase 1.6, the frozen **evaluation** layer, are both **closed**. 1.6 was clo
 > 0.0014 to 0.0066, which is 7.6 to 36 times conservative, mostly from the discrete support of
 > the per-arm p-value. A rejection there is strong and a non-rejection means very little. No
 > frozen value moved for any of this. `benchmark/review/27-fourth-pass-synthesis.md` §1.7.
+>
+> **Round 6 was a contract audit of the code, and its two largest findings have one shape: a
+> declaration that describes code the repository does not have.** ADR 0006 clause 3 claimed a
+> named test made a target impossible to add on the untested path, and **that test does not
+> exist**. The one that did pinned two `M3L` residues on one arm by number, so it could not
+> see a different modification, and it left the suite with that arm. `hiv_rt` then entered the
+> secondary set carrying oxidised cysteine, kept the atoms its parent does not have, and took
+> both property fallbacks silently — 0.0 where cysteine's hydropathy is 2.5, and a 200.0
+> denominator where its maximum area is 167.0. Neither fallback is a measured value and both
+> print as plausible numbers, so both now raise, and the replacement sweeps every arm.
+> Separately `endpoints.reported` omitted an endpoint written on every record since ADR 0030,
+> while the omission rationale pointed at that list; the written set is now derived from the
+> source. **Six code defects were repaired**, and the first of them lets a NaN win: `_aligned`
+> passed non-finite scores into the ranking, where one NaN takes the top of every endpoint and
+> every null at once.
+>
+> **One finding was measured and deliberately not acted on.** Three code paths answered the
+> alternate-conformer question three different ways by accident. ADR 0045 states the policy in
+> force, measures it — 0.335 % of edges on the worst of fifteen arms, at most 0.100 angstrom
+> of CA — and declines the change, because the better rule is a protocol v5 and a re-freeze of
+> three layers for an effect that is **identical for every method**. The part that was a
+> defect rather than a choice is closed: two functions computed the same quantity and
+> disagreed. **No frozen value moved in the whole round**, and all three verifiers re-derive
+> unchanged. `benchmark/review/27-fourth-pass-synthesis.md` §1.8.
 
 > **A second audit pass ran on 2026-09-02, audited the first one, and its findings were
 > repaired the same day. Read

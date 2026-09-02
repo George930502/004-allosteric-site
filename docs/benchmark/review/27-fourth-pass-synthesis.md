@@ -332,6 +332,78 @@ was adopted is a hyperparameter chosen with the design in hand.
 **One refutation.** §6.2's version-2 percentiles were flagged as stale. The table already
 declares itself version-2 data and says it was not re-measured, so nothing is wrong with it.
 
+### 1.8 The sixth round: a declaration and a decision record that each described code they did not have
+
+Round 6 ran a `gpt-5.6-sol` contract audit over the code, at effort high. Sixteen findings,
+of which six were code defects, five were prose that had gone wrong against correct code, and
+the rest were refuted or already caveated. Three commits: `b88789b`, `db752ff`, `5488e18`.
+The three verifiers re-derive every frozen value unchanged at each of them.
+
+**The six code defects, and one of them lets a NaN win.** `_aligned` passed non-finite scores
+straight into the ranking, where a NaN sorts to the top of every endpoint and every null at
+once — a method returning NaN would have rejected the confirmatory null on every arm. It now
+refuses them by residue name. `auc_pr` called `np.diff` on scores that could be infinite, so a
+tie run of infinities read as distinct; the tie detection is now a direct comparison.
+`_gate` accepted a matched-patch record calibrated at a tolerance the manifest does not
+declare. `detect_pockets` based its settings on the package defaults rather than on the frozen
+manifest, so a detector change would not have been a protocol change. `classify` started
+`best_cover` above zero. The power stage hardcoded a correlation length the sweep was already
+varying. `src/allo/scoring/properties.py` was deleted: a byte-identical duplicate of
+`structure/properties.py`, importable and imported by nothing, on the wrong side of the C1
+import boundary.
+
+**Two findings had the same shape, and it is the shape worth naming.** In both, a declaration
+said what the code does and nothing checked the two against each other.
+
+`endpoints.reported` did not list `top_5_components`, which `score_arm` has written into every
+record since ADR 0030, while `omitted.top_5_fragmentation` pointed at that list and said
+"added, see `reported` above". A reported endpoint that no declaration names is the mirror of
+the rule the list exists to enforce. The fix derives the written endpoint set from the source
+by AST parse rather than restating it, so the next undeclared endpoint fails.
+`NORMATIVE_DIGEST` moved, which is what made the manifest edit deliberate; `protocol_version`
+stays at 4, because `reported` is not echoed into `frozen.json`.
+
+ADR 0006 clause 3 says a modified residue contributes its parent's topology, and claimed a
+named test made a target impossible to add on the untested path. **That test does not exist.**
+The one that did asserted two `M3L` residues on one arm by number, so it could not see a
+different modification on a different arm, and it left the suite with that arm in `0f1fe3f`.
+`hiv_rt` then entered the secondary set carrying `CSD` — oxidised cysteine — at 280, kept its
+two sulfinyl oxygens, and in `allo.structure.properties` took the hydropathy fallback (0.0,
+where cysteine is 2.5) and the RSA denominator fallback (200.0, where cysteine is 167.0).
+Neither fallback is a measured value and both print as plausible numbers, so both now raise.
+The sweep that replaced the old test asks the general question over every arm. **No number
+moves**: removing the two oxygens changes zero graph edges.
+
+**One finding was real, measured, and deliberately not acted on.** Four frozen apo entries
+model alternate conformations, and three code paths answered that question three ways by
+accident — last conformer's CA in `evaluation_graph`, first in `_chain_ca`, and every
+conformer in the contact graph and the SASA integration. ADR 0045 states the policy, measures
+it — 0.335 % of edges on the worst arm, at most 0.100 angstrom of CA, up to 0.213 of RSA — and
+declines the change, because adopting the better primary-conformer rule is a protocol v5 and a
+re-freeze of three layers for an effect that is **identical for every method**. What is closed
+is the part that was a defect rather than a choice: two functions computed the same quantity
+and disagreed, with nothing to notice.
+
+**Four sentences were wrong where the code was right.** `site_pocket_rank` ranks the site
+against the decoy linings and not against every detected pocket, and the halo rule makes the
+published number optimistic against APOP by an unstated amount. `holm` never reads
+`decision.sided`. `_gate` inlined two type-I bands that went stale when the input layer moved
+to fifteen arms. `DECLARATIVE_SETTINGS` said "the 18 leaves" when the count is derived.
+
+**The round's document half withdrew a comparator outright, in `fccaa31`.** §1.7 had flagged
+the published 0.75-0.82 AUC band for the elastic-network family as resting on two data points
+its own source marks `[UNVERIFIED]`, and left the number in place. Round 6 read the primary
+sources. **There is no published AUC baseline for that family at all.** AlloPred, PARS's
+precursor, Ohm, bond-to-bond propensity, ESSA and STRESS report no AUC in full text, and the
+family's own five-method benchmark over 432 structures (doi:10.1016/j.patter.2021.100408)
+reports none either. The two points that made the band are both **supervised** residue-level
+predictors — ZHMolEReP and AR-Pred — so the band was mislabelled rather than wrong. A measured
+AUC here therefore has no literature comparator and must be judged against this protocol's own
+controls. Allo-PED makes the point alone: **0.920 over pockets and 0.563 over residues, same
+predictions, same test set** (doi:10.1101/2025.03.28.645953). The same commit stopped three
+documents claiming results no method on `main` has produced, since ADR 0037 removed the method
+layer. Record: `data/enm-auc-band-2026-09-03.md`.
+
 
 ## 2. Corrections to the frozen layers
 
