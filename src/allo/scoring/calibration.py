@@ -22,6 +22,7 @@ the binomial interval is a screen rather than a proof.
 from __future__ import annotations
 
 import json
+import math
 from pathlib import Path
 
 import numpy as np
@@ -56,6 +57,15 @@ def binomial_band(n: int, alpha: float = 0.05, coverage: float = 0.95) -> tuple[
     a confidence interval on it. A measured rate outside the band is evidence the test does
     not hold its size at this number of replicates.
     """
+    # `binom.ppf` returns nan for an out-of-range or non-finite probability, so an invalid
+    # alpha or coverage produced `(nan, nan)` and every "is the measured rate inside the
+    # band" comparison then went false -- the band silently accepts everything. Same shape as
+    # the five other non-finite defects round 6 found. Added 2026-09-03.
+    for name, value in (("alpha", alpha), ("coverage", coverage)):
+        if not math.isfinite(value) or not 0 < value < 1:
+            raise ValueError(f"binomial_band needs 0 < {name} < 1 and finite; got {value}")
+    if not math.isfinite(n) or n <= 0:
+        raise ValueError(f"binomial_band needs a finite replicate count of 1 or more; got n={n}")
     tail = (1 - coverage) / 2
     lo = binom.ppf(tail, n, alpha) / n
     hi = binom.ppf(1 - tail, n, alpha) / n

@@ -296,6 +296,19 @@ def sample_matched_patches(
     Raises if the requested number cannot be drawn -- a silent short draw would make the
     p-value's denominator a lie.
     """
+    # A NaN tolerance makes every rejection below false, so the pool comes back SIZE-MATCHED
+    # ONLY and calls itself matched -- measured: 20 patches of the right size drawn at
+    # `tolerance=nan`, with the degree, compactness and distance criteria all skipped. That is
+    # anti-conservative, and it is the reachable half of what a codex pass reported for
+    # `_gate`. `_patch_null` validates before calling, and this is the public primitive the
+    # calibration also calls directly, so it validates for itself. Round 6, 2026-09-03.
+    tolerance = float(tolerance)
+    if not np.isfinite(tolerance) or tolerance <= 0:
+        raise ValueError(
+            f"{graph.target}: the matching tolerance must be finite and positive; got "
+            f"{tolerance}. Every rejection below is false against a NaN, so the pool would be "
+            "size-matched only and would still report itself as matched"
+        )
     rng = np.random.default_rng(seed)
     observed = sorted(set(observed))
     pool = set(graph.candidates)

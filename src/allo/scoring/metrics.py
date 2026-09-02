@@ -27,13 +27,35 @@ __all__ = [
 ]
 
 
+def _finite_scores(scores: np.ndarray) -> np.ndarray:
+    """Every exported metric checks its score array here. Round 6, 2026-09-03.
+
+    `_aligned` already refuses a non-finite score on the frozen path, and these are exported
+    primitives a caller can reach without it. The direction differs from the other non-finite
+    defects this round closed and the difference is worth stating: `permutation_p` MANUFACTURED
+    a favourable number, the minimum attainable p-value, while a NaN here gives `auc_roc` nan,
+    `auc_pr` a low value and `precision_at_k` zero -- visible or unfavourable, never flattering.
+    So this is robustness at a public boundary rather than a validity repair, and it is done
+    for consistency: one rule, every score-consuming export, no caller having to know which
+    functions were hardened.
+    """
+    values = np.asarray(scores, dtype=float)
+    if not np.isfinite(values).all():
+        bad = int((~np.isfinite(values)).sum())
+        raise ValueError(
+            f"{bad} of {values.size} scores are not finite. A ranking metric cannot order a "
+            "NaN, and every comparison against one is false"
+        )
+    return values
+
+
 def rank_vector(scores: np.ndarray) -> np.ndarray:
     """Midrank of every score, largest score getting the largest rank.
 
     Midrank is what makes `U / (n_pos * n_neg) == auc_roc` exact under ties. A method that
     emits coarse or integer-valued scores would otherwise be ranked by array order.
     """
-    return rankdata(scores, method="average")
+    return rankdata(_finite_scores(scores), method="average")
 
 
 def auc_roc(scores: np.ndarray, positive: np.ndarray) -> float:
@@ -67,6 +89,7 @@ def auc_pr(scores: np.ndarray, positive: np.ndarray) -> float:
     n_pos = int(positive.sum())
     if n_pos == 0:
         raise ValueError("AUC-PR needs at least one positive")
+    scores = _finite_scores(scores)
     order = np.argsort(-scores, kind="stable")
     ranked = positive[order]
     tp = np.cumsum(ranked)
@@ -96,7 +119,7 @@ def precision_at_k(scores: np.ndarray, positive: np.ndarray, k: int) -> float:
     if k <= 0 or k > len(scores):
         raise ValueError(f"k={k} is outside 1..{len(scores)}")
     # Sort negatives ahead of positives within a tie, then take the first k.
-    order = np.lexsort((positive, -scores))
+    order = np.lexsort((positive, -_finite_scores(scores)))
     return float(positive[order][:k].sum() / k)
 
 
@@ -128,7 +151,7 @@ def top_k_indices(scores: np.ndarray, k: int) -> np.ndarray:
     """
     if k <= 0 or k > len(scores):
         raise ValueError(f"k={k} is outside 1..{len(scores)}")
-    return np.argsort(-scores, kind="stable")[:k]
+    return np.argsort(-_finite_scores(scores), kind="stable")[:k]
 
 
 def dcc(coordinates: np.ndarray, chosen: np.ndarray, labels: np.ndarray) -> float:

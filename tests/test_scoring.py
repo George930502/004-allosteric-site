@@ -1552,3 +1552,65 @@ def test_no_raise_guard_compares_a_float_a_non_finite_value_would_slip_past():
 
     # The five earlier instances, so this one test says which functions carry the guarantee.
     assert callable(calibrated_p) and callable(combine_arms) and callable(holm)
+
+
+def test_no_exported_metric_ranks_a_non_finite_score():
+    """Round 6, from a codex adversarial pass, and the direction differs from the others.
+
+    `permutation_p` MANUFACTURED a favourable number. These do not: a NaN gives `auc_roc` nan,
+    `auc_pr` a low value and `precision_at_k` zero. So this is a public-boundary robustness
+    fix, not a validity repair, and it is written down that way so a later reader does not
+    grade the two the same. What makes it worth doing anyway is that `top_k_indices` is the
+    DELIVERABLE: with a NaN in the array, `np.argsort` puts the unorderable entries last on
+    this platform and nothing says so, and the top-5 residue list a chemist is handed silently
+    depends on array order.
+
+    One helper, every score-consuming export, so the next metric added inherits the guard.
+    """
+    import math
+
+    from allo.scoring import metrics
+
+    scores = np.array([3.0, 1.0, 2.0, 0.5])
+    positive = np.array([True, False, True, False])
+    for bad in (math.nan, math.inf, -math.inf):
+        spoiled = scores.copy()
+        spoiled[1] = bad
+        for call in (
+            lambda s: metrics.rank_vector(s),
+            lambda s: metrics.auc_roc(s, positive),
+            lambda s: metrics.auc_pr(s, positive),
+            lambda s: metrics.precision_at_k(s, positive, 2),
+            lambda s: metrics.top_k_indices(s, 2),
+        ):
+            with pytest.raises(ValueError, match="finite"):
+                call(spoiled)
+
+    # Unspoiled, every one still answers, so the guard is a filter and not a wall.
+    assert metrics.auc_roc(scores, positive) == pytest.approx(1.0)
+    assert metrics.precision_at_k(scores, positive, 2) == pytest.approx(1.0)
+    assert list(metrics.top_k_indices(scores, 2)) == [0, 2]
+
+
+def test_a_non_finite_binomial_band_would_have_read_as_a_passing_calibration():
+    """Found here, not by codex, while closing the metric boundary. Same recurring class.
+
+    `binomial_band` computed `norm.ppf` on the alpha it was given and returned `(nan, nan)`
+    for a non-finite or out-of-range one. Every caller then asks `low <= rate <= high`, both
+    comparisons go false against a NaN, and the answer is "outside the band" -- which reads as
+    a FAILING calibration, so this one is fail-safe. It is guarded regardless, because a
+    silent `(nan, nan)` tells the reader nothing about which of the two things went wrong.
+    """
+    import math
+
+    for bad_alpha in (math.nan, math.inf, 0.0, 1.0, -0.05):
+        with pytest.raises(ValueError, match="finite"):
+            binomial_band(1000, bad_alpha)
+    for bad_coverage in (math.nan, 0.0, 1.0):
+        with pytest.raises(ValueError, match="finite"):
+            binomial_band(1000, 0.05, coverage=bad_coverage)
+    with pytest.raises(ValueError, match="finite"):
+        binomial_band(0, 0.05)
+
+    low, high = binomial_band(1000, 0.05)
+    assert low < 0.05 < high
