@@ -125,7 +125,7 @@ Structural data for a set of **benchmark proteins obtained from the RCSB Protein
 | ------------------------------- | --------------- | ---------------------------------------------------------------------------------------------- | --------------------- | --------------------------- |
 | **KRAS G12C** (Oncology)        | GTPase          | Identify the **cryptic "Switch-II" pocket** locked by **Sotorasib (AMG 510)** [18,19]          | **4OBE**              | **6OIM**                    |
 | **BCR-ABL1** (Oncology)         | Tyrosine Kinase | Identify the **distal "Myristoyl" pocket** used by **Asciminib** to bypass resistance [20,21]  | **1OPL**              | **5MO4**                    |
-| **Cardiac Myosin** (Cardiology) | Motor Protein   | Identify the **mechanical site where Mavacamten stabilizes the "super-relaxed state"** [22,23] | **5TBY**              | **6C1H**                    |
+| **Cardiac Myosin** (Cardiology) | Motor Protein   | Identify the **mechanical site where Mavacamten stabilizes the "super-relaxed state"** [22,23] | **5TBY**              | **6C1H** _[note] the organisers permit `9GZ2` in place of this entry (reply of 2026-09-02). See `docs/benchmark/review/00-official-reply.md`, which outranks this file where the two disagree, and ADR 0031._ |
 
 _Table 1 caption (verbatim intent): List of targets used to score the predictive accuracy of the quantum algorithms. For each target, the unbound (apo) PDB structure serves as the input, and the drug-bound (holo) PDB structure serves as the ground truth for validating the predicted allosteric site._
 

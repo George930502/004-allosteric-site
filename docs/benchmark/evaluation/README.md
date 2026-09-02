@@ -1176,8 +1176,9 @@ All four, together:
 All five passed on 2026-08-25 under protocol version 2.
 
 **The negative control rejects nothing.** `distance_from_source_negated` scores AUC-ROC
-0.589 / 0.588 / 0.481 / 0.215 / 0.335 across the five primary arms, and Holm on
-`p_calibrated` gives 0.286, 0.920 and 0.656 on the confirmatory family. A geometry-only
+0.589 / 0.588 / 0.385 / 0.215 / 0.442 / 0.335 across the six primary arms, re-measured at
+the 2026-09-02 re-freeze (§4, `experiments/REGISTRY.md`). On 2026-08-25, Holm on
+`p_calibrated` gave 0.286, 0.920 and 0.656 on the confirmatory family. A geometry-only
 control must not clear a geometry-matched null, and it does not.
 
 **The positive control rejects on one of three, and that is still the uncomfortable one.**

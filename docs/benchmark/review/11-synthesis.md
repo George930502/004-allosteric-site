@@ -1,5 +1,7 @@
 # What must change, ranked
 
+> **SUPERSEDED — 2026-09-02.** [`25-second-pass-synthesis.md`](25-second-pass-synthesis.md) audited this pass, and [`27-fourth-pass-synthesis.md`](27-fourth-pass-synthesis.md) is the current ranked list. This document stays unedited as the record of the first pass.
+
 **Audit closed 2026-09-02.** Scope: the frozen primary benchmark, the frozen secondary
 benchmark and the frozen evaluation protocol, re-examined against the organisers' four
 answers and against the literature and databases as they stand today.

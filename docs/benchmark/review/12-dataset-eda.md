@@ -1,5 +1,7 @@
 # 12 — What the fourteen label sets look like, before any method sees them
 
+> **SUPERSEDED — 2026-09-02.** [`22-dataset-eda-v2.md`](22-dataset-eda-v2.md) re-measures these descriptors on the fifteen label sets of the six-arm re-freeze. This document stays unedited as the record of this pass.
+
 > **SUBJECT PARTLY DELETED — 2026-09-02.** This document cites files in the method layer:
 > `src/allo/{network,classical,quantum}`, `docs/method/exploration/`, `tests/test_method.py`,
 > or an experiment directory dated 2026-08-26 or 2026-08-27. All of those left `main` on

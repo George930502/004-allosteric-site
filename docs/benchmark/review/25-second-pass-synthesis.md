@@ -1,5 +1,7 @@
 # Second-pass audit: what must change, ranked
 
+> **SUPERSEDED — 2026-09-02.** [`26-third-pass-synthesis.md`](26-third-pass-synthesis.md) audited the repairs this pass made, and [`27-fourth-pass-synthesis.md`](27-fourth-pass-synthesis.md) is the current ranked list. This document stays unedited as the record of the second pass.
+
 > **SUBJECT PARTLY DELETED — 2026-09-02.** This document cites files in the method layer:
 > `src/allo/{network,classical,quantum}`, `docs/method/exploration/`, `tests/test_method.py`,
 > or an experiment directory dated 2026-08-26 or 2026-08-27. All of those left `main` on

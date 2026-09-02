@@ -1,5 +1,7 @@
 # Cross-set consistency: are the primary and secondary sets built by the same rules?
 
+> **SUPERSEDED — 2026-09-02.** [`19-cross-set-consistency-v2.md`](19-cross-set-consistency-v2.md) re-runs this pass at the six-arm shape. This document stays unedited as the record of this pass.
+
 **Question.** The two frozen input sets must be aligned on both axes — horizontally, so every
 arm inside a set is treated alike, and vertically, so a number from one set is comparable with
 a number from the other.

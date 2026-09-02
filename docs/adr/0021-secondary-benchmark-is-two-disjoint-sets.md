@@ -1,6 +1,6 @@
 # 0021 — The secondary benchmark is two disjoint sets, and its frame is RCSB
 
-**Amended 2026-09-03 by [ADR 0041](0041-the-generalisation-tier-is-unsealed-only-at-phase-5.md).**
+**Amended 2026-09-03 by [ADR 0041](0041-the-generalisation-tier-was-never-sealed-against-storage.md).**
 
 **Status:** accepted · 2026-08-24
 

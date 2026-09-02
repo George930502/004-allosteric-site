@@ -29,15 +29,19 @@ ADR 0039, recorded in [`27-fourth-pass-synthesis.md`](27-fourth-pass-synthesis.m
 `uv run allo evaluate verify --detect` exits 0 over fifteen arms and 777 decoy pockets.
 
 **A second pass ran the same day, and it audited the first one.** Files `16` to `25`. It found
-four blockers the first pass did not, and `25-second-pass-synthesis.md` is its ranked list. Read
-that one for the current state; `11-synthesis.md` is the record of the first pass, unedited.
+four blockers the first pass did not, and `25-second-pass-synthesis.md` is its ranked list. Both
+it and `11-synthesis.md` are kept as the record of their pass, unedited.
 
 **A third pass then audited the second pass's repairs.** File `26`. It found three C1 leaks —
 one of them a finding the second pass had **refuted**, using a detector that could not see
 `Tyr164` — a frozen decision rule with no implementation, and a matched-patch cache key that
 was identical at three different contact cutoffs. All are repaired.
-`26-third-pass-synthesis.md` is the current state; `25` is kept as the record of the second
-pass, unedited.
+`26-third-pass-synthesis.md` is its ranked list, kept unedited as the record of the third pass.
+
+**A fourth pass on 2026-09-03 audited the three frozen layers on `main` after the method layer
+left.** File `27`. `27-fourth-pass-synthesis.md` is **the current ranked list**: what was
+repaired, the corrections to the frozen layers, and what is open. `26`, `25` and `11` stay
+unedited as the record of each pass.
 
 ---
 
@@ -72,7 +76,7 @@ pass, unedited.
 | [`06-definition-audit.md`](06-definition-audit.md)                         | The eight-clause apo/holo pair definition, re-attacked against 2025-2026 literature and against the pharma frame                                                                                                                                                                                                                                                                                                           |
 | [`07-metrics-audit.md`](07-metrics-audit.md)                               | The frozen evaluation protocol's endpoints, nulls, omissions and multiplicity                                                                                                                                                                                                                                                                                                                                              |
 | [`07a-metrics-fact-check.md`](07a-metrics-fact-check.md)                   | Independent verification of the new citations in `07`                                                                                                                                                                                                                                                                                                                                                                      |
-| [`08-structure-evidence.md`](08-structure-evidence.md)                     | Live RCSB evidence for all 28 entries: validation percentiles, ligand fit, assemblies, gaps                                                                                                                                                                                                                                                                                                                                |
+| [`08-structure-evidence.md`](08-structure-evidence.md)                     | Live RCSB evidence for the 33 accessions in its scope, plus two supporting rows: validation percentiles, ligand fit, assemblies, gaps                                                                                                                                                                                                                                                                                                                                |
 | [`09-extension-sweep.md`](09-extension-sweep.md)                           | Every allosteric and structural database, reachability today, and how far the benchmark can grow                                                                                                                                                                                                                                                                                                                           |
 | [`10-cross-set-consistency.md`](10-cross-set-consistency.md)               | All twelve clauses against all fourteen arms. Horizontal and vertical alignment. **Superseded by `19` — it was written before the primary set gained a sixth arm**                                                                                                                                                                                                                                                         |
 | [`12-dataset-eda.md`](12-dataset-eda.md)                                   | The five apo-only descriptors, as standalone predictors, on all fourteen label sets. What a method has to beat                                                                                                                                                                                                                                                                                                             |
@@ -90,7 +94,8 @@ pass, unedited.
 | [`23-document-alignment.md`](23-document-alignment.md)                     | Every contradiction, broken reference, superseded statement, duplication and orphan left by the re-freeze. 34 / 18 / 15 / 10 / 10. Three different ADR counts, none of them 36 |
 | [`24-conservation-measured.md`](24-conservation-measured.md)               | ADR 0035's fourth confounder column, **built and measured**. Conservation does not separate the labels from the background: median AUC 0.491 over eleven arms, Wilcoxon p = 0.76. The ADR's artifact-size blocker dissolves — 1.11 GB of alignments become a 172 KB pinned artifact |
 | [`25-second-pass-synthesis.md`](25-second-pass-synthesis.md)               | **The second pass's ranked list.** Four blockers, and a verdict on every adversarial-model finding with the measurement that settles it |
-| [`26-third-pass-synthesis.md`](26-third-pass-synthesis.md)                 | **The third pass's ranked list, and the current state.** It audits the second pass's repairs. Three C1 leaks (a `.joinpath` guard evasion, `docs/targets.md`, both benchmark READMEs), a frozen decision rule with no reader, and a cache key blind to the contact cutoff. All repaired. 16 frozen-layer items left open |
+| [`26-third-pass-synthesis.md`](26-third-pass-synthesis.md)                 | **The third pass's ranked list**, superseded by `27`. It audits the second pass's repairs. Three C1 leaks (a `.joinpath` guard evasion, `docs/targets.md`, both benchmark READMEs), a frozen decision rule with no reader, and a cache key blind to the contact cutoff. All repaired. 16 frozen-layer items left open |
+| [`27-fourth-pass-synthesis.md`](27-fourth-pass-synthesis.md)               | **The fourth pass's ranked list, and the current state.** Audits the three frozen layers on `main` after the method layer left: what was repaired, with the commit that did it, the corrections to the frozen layers, and what is open. It opened protocol version 4 (ADR 0038, ADR 0039) |
 
 ### `data/`
 

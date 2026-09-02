@@ -3,15 +3,18 @@
 **Scope:** the substrate, not the algorithm. What the literature measures about node resolution,
 edge definition, node features and hierarchy in protein structure graphs, and which of those
 choices has a measured effect on a downstream task. It deliberately excludes the choice of
-propagation observable (`../lit/22-transport-formalisms.md`), the quantum resource account
+propagation observable (`../exploration/lit/22-transport-formalisms.md`), the quantum resource account
 (`../exploration/results/43-quantum-resources.md`) and the coarse-graining _theorems_, which are
 already surveyed in depth in `07-coarse-graining-scalability.md` — §Q6 here cites that file rather
 than restating it.
 **Sibling files:** `07-coarse-graining-scalability.md` (compression guarantees),
-`../lit/24-residue-descriptors.md` (per-residue descriptors and the packing axis),
-`../lit/25-md-free-fluctuation.md` (B-factor and the C2 verdicts),
+`../exploration/lit/24-residue-descriptors.md` (per-residue descriptors and the packing axis),
+`../exploration/lit/25-md-free-fluctuation.md` (B-factor and the C2 verdicts),
 `01-classical-baselines.md` (the methods themselves), `00-conventions.md` (evidence rules).
 **Retrieved:** 2026-08-26.
+**Archived paths:** every `../exploration/` path in this file, `lit/` included, is on the branch
+`method-layer-archive` under `docs/method/exploration/`, because the method layer left `main` on
+2026-09-02 (ADR 0037).
 
 **Why this file exists.** We measured eight graph variants — cutoff ∈ {4.5, 6, 8, 10} Å, atom set
 ∈ {heavy, CB, CA}, weighting ∈ {unit, contact count, inverse-square, exponential, five-class
@@ -316,14 +319,14 @@ they are the same AUROC/AUPRC divergence again, measured on the same class of fe
 feature we adopt must be judged on the frozen benchmark's own estimator, never on a published AUC.
 
 **Deposited B-factor** is the one feature whose status in this repo is already settled and it is
-settled sharply: `../lit/25-md-free-fluctuation.md` establishes it as "the fluctuation route's
+settled sharply: `../exploration/lit/25-md-free-fluctuation.md` establishes it as "the fluctuation route's
 oracle, so one line of code closes or opens it", and it is implemented as
 `allo.classical.baselines.mean_bfactor`. It is available from any apo PDB, it is free, and it is
 already in the battery. Note the caution recorded there: Yang and Bahar place catalytic sites at
 global-hinge _minima_ in over 70 % of 98 enzymes, so a naive high-flexibility ranking returns the
 negative class.
 
-**Packing and burial descriptors are closed.** `../lit/24-residue-descriptors.md` measured six
+**Packing and burial descriptors are closed.** `../exploration/lit/24-residue-descriptors.md` measured six
 candidate columns — Voronoi volume, weighted contact number, occluded surface, residue depth, DPX
 and CX — and found them to be one axis that the frozen null already controls. **Do not re-add
 them.** RSA and burial depth belong to that axis. RSA remains worth carrying as a _filter_ (an
@@ -594,7 +597,7 @@ near neighbours.
 our repertoire that is not a function of geometry at all. Legal under C2: a knowledge-based table
 evaluated on one static structure is not a trajectory. (d) 300 nodes. (e) **Less** correlated in
 principle — but MJ energies track hydrophobicity, hydrophobicity tracks burial, and
-`../lit/24-residue-descriptors.md` has already closed the burial axis. Test it, and expect the
+`../exploration/lit/24-residue-descriptors.md` has already closed the burial axis. Test it, and expect the
 matched-patch null to absorb much of it.
 
 **10. Side-chain-centre-of-mass graph at 5 Å.**
@@ -685,9 +688,9 @@ in the harmonic approximation is asymmetric: `T(i→j) ≠ T(j→i)`, and the as
 _ratio_ of the two residues' fluctuation amplitudes rather than by their separation. Forming
 `T(i→j) − T(j→i)` cancels the symmetric, distance-carrying part by construction and leaves a
 mobility-ratio signal. That is a different measurement, not a transform of one we already have —
-which is exactly the criterion `../lit/23-quantum-node-ranking.md` applies to separate genuinely new
+which is exactly the criterion `../exploration/lit/23-quantum-node-ranking.md` applies to separate genuinely new
 observables from restatements. **The honest caveat: GNM fluctuation amplitude is itself strongly
-burial-correlated, and burial is a closed axis (`../lit/24-residue-descriptors.md`). So the
+burial-correlated, and burial is a closed axis (`../exploration/lit/24-residue-descriptors.md`). So the
 prediction is that the antisymmetric TE will have low |ρ| against distance and may still be absorbed
 by the matched-patch null through burial.** It must be run through `allo.scoring.score_arm` with the
 `against` correlation printed, like everything else. Low distance correlation is a necessary

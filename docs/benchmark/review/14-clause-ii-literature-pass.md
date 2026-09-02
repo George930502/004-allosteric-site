@@ -1,5 +1,7 @@
 # Clause (ii) literature pass on the 34 extension survivors
 
+> **CONTINUED, NOT REPLACED — 2026-09-02.** [`20-extension-closure.md`](20-extension-closure.md) is the second pass at the sixteen rows this pass left UNREAD. It closed four and left twelve, and it does not repeat the measurements here.
+
 **Status: a literature record. It changes no freeze and admits no arm.** The candidates are the
 34 survivors of [`09-extension-sweep.md`](09-extension-sweep.md) §4. That sweep measured every
 structural clause it could and left clause (ii) — the load-bearing one — unpaid. This document

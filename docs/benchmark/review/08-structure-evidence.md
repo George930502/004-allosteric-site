@@ -1,5 +1,7 @@
 # 08 — Structure evidence for every benchmark accession, from live RCSB
 
+> **SUPERSEDED FOR THE PRIMARY ACCESSIONS — 2026-09-02.** [`18-structure-evidence-refresh.md`](18-structure-evidence-refresh.md) refetched the nine primary accessions after the re-freeze and found 175 of 175 paired values unchanged. This document stays the record for the other accessions in its scope.
+
 **Fetched:** 2026-09-02, from `data.rcsb.org/rest/v1/core` and the
 wwPDB validation reports served at `files.rcsb.org/pub/pdb/validation_reports/`.
 **Raw responses:** `data/rcsb-raw/<PDB_ID>/`, one directory per entry.

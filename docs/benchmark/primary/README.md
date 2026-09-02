@@ -262,7 +262,7 @@ before any method exists, so neither choice can be tuned to a result (ADR 0003).
   three group B-factors, so its contact graph is largely a domain placement. The arm is
   **non-confirmatory** and prints four measured defects beside every number (ADR 0029).
 - `cardiac_myosin_mandated` is **frozen for the first time**, against `9GZ2` in place of the
-  `6C1H` of Table 1, which the organisers sanctioned. `6C1H` is bovine myosin-Ib and supplies
+  `6C1H` of Table 1, which the organisers sanctioned. `6C1H` is rat myosin-Ib and supplies
   no label set. `transfer_labels(9GZ2:A, 5TBY:A, XB2, 4.5 A)` returns all twelve
   mavacamten-contact residues with none unmapped, so the ADR 0016 label blocker is gone. Both
   input defects stand and are measured, not argued: the source comes from a family motif

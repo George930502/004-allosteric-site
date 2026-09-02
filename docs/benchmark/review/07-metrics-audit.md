@@ -1,5 +1,7 @@
 # Independent re-audit of the frozen metrics and workflow
 
+> **SUPERSEDED — 2026-09-02.** [`17-definition-and-metrics-standard.md`](17-definition-and-metrics-standard.md) is the second, independent pass at the metrics question, and [`21-protocol-v3-statistics.md`](21-protocol-v3-statistics.md) audits the protocol version that replaced the version 2 audited here. This document stays unedited as the record of this pass.
+
 > **SUBJECT PARTLY DELETED — 2026-09-02.** This document cites files in the method layer:
 > `src/allo/{network,classical,quantum}`, `docs/method/exploration/`, `tests/test_method.py`,
 > or an experiment directory dated 2026-08-26 or 2026-08-27. All of those left `main` on
