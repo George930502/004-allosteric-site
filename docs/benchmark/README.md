@@ -65,7 +65,7 @@ construction.
 
 ## `evaluation/` — how a score is computed
 
-Frozen **2026-09-02** at **protocol version 3**. Endpoint, estimator, null, decoy pockets,
+Frozen **2026-09-03** at **protocol version 4**. Endpoint, estimator, null, decoy pockets,
 multiplicity correction and required baselines, for all 15 arms. Every method calls
 `allo.scoring.score_arm` and no other path.
 

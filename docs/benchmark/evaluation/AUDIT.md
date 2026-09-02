@@ -4,7 +4,7 @@
 Status now: CONFIRMED at protocol version 2. Every finding in this file is repaired,
 disclosed, or declined with a reason. Nothing is left silently open.**
 
-> **This file audits version 2. The layer is now at version 3, frozen 2026-09-02.** Nothing
+> **This file audits version 2. The layer is now at version 4, frozen 2026-09-03.** Nothing
 > here was reopened by that: version 3 was forced by the **input** layer moving, not by a
 > defect found here. What changed, and why each change is not a hyperparameter, is in
 > [`README.md`](README.md) §0. The wider audit that produced it is

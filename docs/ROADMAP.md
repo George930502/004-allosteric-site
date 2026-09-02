@@ -76,10 +76,11 @@ sub-phase 1.6, the frozen **evaluation** layer, are both **closed**. 1.6 was clo
 > decoys'. The code now matches both, and a test pins the identity
 > `p = site_pocket_rank / (1 + n_decoys)`.
 >
-> **Closed — three stale or false statements in the frozen documents.** `cavity_volume` no
-> longer clears the confirmatory family under protocol version 3: re-measured at
-> `p_calibrated` 0.0046 / 0.0715 / 0.3236, Holm rejects **one arm of three**, not three of
-> three. The claim that the detector re-freeze selected on a label-free criterion was false —
+> **Closed — three stale or false statements in the frozen documents.** `cavity_volume` was
+> re-measured under protocol version 3 at `p_calibrated` 0.0046 / 0.0715 / 0.3236, and Holm
+> rejects **one arm of three**, not three of three. This paragraph read that as "no longer
+> clears the confirmatory family" until 2026-09-03, when ADR 0038 froze the disjunction: one
+> arm of three **is** clearing. The measurement stands; the reading of it was the error. The claim that the detector re-freeze selected on a label-free criterion was false —
 > `n_decoys` depends on the labels — and the criterion of record is now `n_detected`, which
 > picks the identical setting on all five arms with no tie, so no frozen value moved. Three
 > counts were wrong: 36 ADRs not 33, fifteen arms not sixteen, ten data routes not seven.

@@ -1,8 +1,10 @@
 # The frozen evaluation layer
 
-**Status: protocol version 3, frozen 2026-09-02.** `uv run allo evaluate verify` re-derives
+**Status: protocol version 4, frozen 2026-09-03.** `uv run allo evaluate verify` re-derives
 every pinned value and exits 0 only if nothing moved. Version 1 was frozen and reopened on
-2026-08-25 by an audit; version 2 was frozen the same day; version 3 opened on 2026-09-02.
+2026-08-25 by an audit; version 2 was frozen the same day; version 3 opened on 2026-09-02, and
+version 4 on 2026-09-03. **Section 0a below is what version 4 changes.** Every version number
+in the body of this page below section 0a describes version 3 and is left as written.
 **No method had been scored under version 2 for a reported result**, which is the only
 condition under which this layer may move at all. Methods were run under version 2 — the
 2026-08-26 sweep, the five gate controls — but every one of those is a development-tier
@@ -36,6 +38,23 @@ classical number computed differently is not evidence.
 
 **Nothing here may change once a method is scored.** A threshold picked with results
 in hand is a hyperparameter, not a protocol.
+
+---
+
+## 0a. What version 4 changes
+
+Two changes, from the 2026-09-03 fourth pass
+([`../review/27-fourth-pass-synthesis.md`](../review/27-fourth-pass-synthesis.md)). Neither
+moves a pinned value: `frozen.json` changed only its version number and its date.
+
+| #   | Change | Why it is not tuning |
+| --- | --- | --- |
+| 1   | **A family is cleared when Holm rejects at least one arm** (ADR 0038), and `confirmatory_verdict` returns `cleared` | The protocol declared two families, corrected each by Holm, and never said what clearing one is. This page held both readings: §8 and ADR 0030 read the combination test disjunctively, §13 printed one-of-three as a failure. Measured global-null familywise error of the disjunction is 0.0416 to 0.0457 against a nominal 0.05, which is what Holm controls. A conjunction is an intersection-union test and needs no multiplicity step at all, so freezing Holm implies the disjunction. **§13's "the positive control rejects on one of three" is a clearance, not a failure** |
+| 2   | **Negative class (b) also scores the label set** (ADR 0039), reported as `label_p` beside `p` | `p` ranks the detector's site-pocket lining, and measured on the real linings a shift of four standard deviations on every label residue gives power 0 on KRAS and on cardiac myosin. Twelve myosin labels sit inside a 295-residue lining. `label_p` reaches 0.87 and 1.00 on the same instrument. Both stay descriptive and neither enters a confirmatory family, so no bar moves |
+
+**What did not change at version 4.** Every pinned value in `frozen.json`. The confirmatory
+endpoint, the confirmatory family, the matched-patch tolerance, the detector and its settings,
+alpha, and the decoy linings are all exactly as version 3 froze them.
 
 ---
 

@@ -20,7 +20,7 @@ three frozen sets ran against those answers
 0029 to 0036. The **primary input layer is re-frozen at six arms**: `bcr_abl1_mandated` moved
 to the chain the organisers designated, and `cardiac_myosin_mandated` is frozen for the first
 time. Both are **non-confirmatory** and print their measured defects. All four minimum targets
-now have a contract. The **evaluation layer** is re-frozen at **protocol version 3** over fifteen arms. The
+now have a contract. The **evaluation layer** is re-frozen at **protocol version 4** over fifteen arms. The
 recalibration reproduced thirteen of the fifteen arms' thresholds to six decimal places and
 moved only the two the input re-freeze changed, which is the check that says they moved for a
 reason.
@@ -139,8 +139,8 @@ that split, an ablation on the primary benchmark is test-set fitting.
 
 ### The evaluation layer — how a score is computed
 
-Frozen 2026-09-02 in [`docs/benchmark/evaluation/`](docs/benchmark/evaluation/README.md), at
-**protocol version 3**. It pins the endpoint, the estimator, the null, the decoy pockets, the
+Frozen 2026-09-03 in [`docs/benchmark/evaluation/`](docs/benchmark/evaluation/README.md), at
+**protocol version 4**. It pins the endpoint, the estimator, the null, the decoy pockets, the
 multiplicity correction and the required baselines for all 15 arms. Every method calls
 `allo.scoring.score_arm` and no other path.
 
@@ -212,7 +212,7 @@ Phase detail and exit criteria: [`docs/ROADMAP.md`](docs/ROADMAP.md).
 
 **Both per-target blockers are cleared.** ADR 0031 supersedes ADR 0016 and exposes the
 mandated 5TBY arm; ADR 0036 supersedes ADR 0020 and freezes the c-Myc contract. One gate
-condition replaces them: protocol version 3 must be frozen before any method is scored.
+condition replaces them: protocol version 4 must be frozen before any method is scored.
 
 ## Repository layout
 
