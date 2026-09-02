@@ -10,7 +10,11 @@
       "P16",
       "PO4"
     ],
-    "additives": []
+    "additives": [
+      "CL",
+      "GOL",
+      "SO4"
+    ]
   },
   "structure_provenance": {
     "1OPL": {

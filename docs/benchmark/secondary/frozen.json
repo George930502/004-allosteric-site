@@ -4,18 +4,19 @@
   "orthosteric_vocabulary": {
     "state_components": [
       "ADP",
-      "CL",
       "GLC",
-      "GOL",
       "K",
       "MG",
       "MN",
       "O41",
       "PO4",
-      "SAM",
-      "SO4"
+      "SAM"
     ],
-    "additives": []
+    "additives": [
+      "CL",
+      "GOL",
+      "SO4"
+    ]
   },
   "structure_provenance": {
     "1A9X": {
@@ -578,14 +579,14 @@
           },
           "selected_chain_entity_copies": 1
         },
-        "matches_apo": false
+        "matches_apo": true
       },
       "orthosteric_state": {
         "apo": {
-          "state_components": [
+          "state_components": [],
+          "additives": [
             "SO4"
           ],
-          "additives": [],
           "effector_contacts": []
         },
         "holo": {
@@ -595,7 +596,7 @@
             "NUU"
           ]
         },
-        "matches_apo": false
+        "matches_apo": true
       },
       "sequence_agreement": {
         "aligned": 147,
@@ -1058,14 +1059,14 @@
           },
           "selected_chain_entity_copies": 1
         },
-        "matches_apo": false
+        "matches_apo": true
       },
       "orthosteric_state": {
         "apo": {
-          "state_components": [
+          "state_components": [],
+          "additives": [
             "SO4"
           ],
-          "additives": [],
           "effector_contacts": []
         },
         "holo": {
@@ -1073,7 +1074,7 @@
           "additives": [],
           "effector_contacts": []
         },
-        "matches_apo": false
+        "matches_apo": true
       },
       "sequence_agreement": {
         "aligned": 258,
@@ -1560,14 +1561,14 @@
           },
           "selected_chain_entity_copies": 1
         },
-        "matches_apo": false
+        "matches_apo": true
       },
       "orthosteric_state": {
         "apo": {
-          "state_components": [
+          "state_components": [],
+          "additives": [
             "GOL"
           ],
-          "additives": [],
           "effector_contacts": []
         },
         "holo": {
@@ -1575,7 +1576,7 @@
           "additives": [],
           "effector_contacts": []
         },
-        "matches_apo": false
+        "matches_apo": true
       },
       "sequence_agreement": {
         "aligned": 291,
@@ -2230,10 +2231,11 @@
         },
         "holo": {
           "state_components": [
-            "GOL",
             "SAM"
           ],
-          "additives": [],
+          "additives": [
+            "GOL"
+          ],
           "effector_contacts": []
         },
         "matches_apo": false
@@ -6920,23 +6922,25 @@
         "apo": {
           "state_components": [
             "ADP",
-            "CL",
             "K",
             "MN",
             "PO4"
           ],
-          "additives": [],
+          "additives": [
+            "CL"
+          ],
           "effector_contacts": []
         },
         "holo": {
           "state_components": [
             "ADP",
-            "CL",
             "K",
             "MN",
             "PO4"
           ],
-          "additives": [],
+          "additives": [
+            "CL"
+          ],
           "effector_contacts": []
         },
         "matches_apo": true

@@ -168,9 +168,25 @@ label_footprints:
 # Only members of state_components can change the catalytic-state match. Additives are
 # recorded separately. Every unclassified component touching a mapped active-site residue
 # makes the freeze fail, so extending this vocabulary is a visible protocol change.
+# ADR 0044. Two classes, and the annotation DECIDES NOTHING -- clause (iii) and clause (x)
+# both count every non-water heteroatom through the name-blind `apo.ligand` mask at
+# `src/allo/structure/pdb.py`, which is stricter than any roster below and consults none of
+# this. `state_components` means the substrate, product, cofactor or ion the enzyme needs to
+# be in this functional state. `additives` means present because of how the crystal was grown.
+# There is no third class, because a scoped review on 2026-09-03 found none published: every
+# instrument in the field is binary. The rule is per STRUCTURE with a cited roster, never per
+# component in the abstract, because glycerol is a competitive inhibitor of glycogen
+# phosphorylase at K_i 3.8 %% v/v (doi:10.1110/ps.8.4.741) and inert here. Where the deposition
+# literature settles a case it decides; otherwise the default is BioLiP2's 463-identifier
+# artifact list (doi:10.1093/nar/gkad630), the only published, distributed roster there is.
+#
+# No primary apo or holo active site contacts GOL, SO4 or CL -- the freeze proves it by
+# existing, because the classifier raises on a contacting component that the vocabulary does
+# not name. The three are declared here anyway, so that the two sets carry the same roster and
+# an arm added later cannot be classed differently by accident (review 27 section 3.5).
 orthosteric_vocabulary:
   state_components: [ADP, GDP, MG, NIL, P16, PO4]
-  additives: []
+  additives: [CL, GOL, SO4]
 
 # ---------------------------------------------------------------------------------------
 # Shared per-protein blocks. The mandated and the corrected arm of one disease area predict

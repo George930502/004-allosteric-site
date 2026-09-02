@@ -486,3 +486,86 @@ def test_clause_xii_pins_its_releases_and_derives_from_an_accession(manifest):
         if field in visible or any(field in target for target in visible["targets"])
     }
     assert not leaked, f"clause (xii) provenance reached the prediction path: {sorted(leaked)}"
+
+
+def test_the_occupant_annotation_holds_its_evidence_based_classification(frozen, manifest):
+    """ADR 0044. The four occupants, and the one measurement that separates them.
+
+    An apo entry's active site may hold something. The annotation says whether that something
+    is functional or is there because of how the crystal was grown. It **decides nothing** --
+    clause (iii) and clause (x) both count every non-water heteroatom through a name-blind
+    mask -- but it says something, and until 2026-09-03 what it said was false: `additives`
+    was empty in both sets, so glycerol, sulfate and chloride were recorded as catalytic-state
+    components.
+
+    Pinned here because the classification rests on evidence a future reader will not have to
+    hand. `GOL`, `SO4` and `CL` are additives: no published roster classes either of the first
+    two as a functional occupant, `1SUG`'s depositors publish it as apo with ordered water in
+    the catalytic pocket, and `1A9X` was grown from 0.65 to 1.35 M tetraethylammonium chloride.
+    `K` is a state component: "Glu215 plays a key allosteric role by coordinating to the
+    physiologically important potassium ion" (doi:10.1107/S0907444998006234).
+
+    The `ptp1b` state correction is pinned with it, because it came from the same review and is
+    the sharper measurement of the two.
+    """
+    import numpy as np
+
+    from allo.groundtruth.structures import parse_mmcif
+    from allo.inputs import MANIFEST as PREDICTION_MANIFEST
+
+    additives, state = {"CL", "GOL", "SO4"}, {"K"}
+    for name, path in (("secondary", SECONDARY_MANIFEST), ("primary", MANIFEST)):
+        vocabulary = yaml.safe_load(path.read_text())["orthosteric_vocabulary"]
+        declared, kept = set(vocabulary["additives"]), set(vocabulary["state_components"])
+        assert declared == additives, (
+            f"{name}: additives are {sorted(declared)}, not {sorted(additives)}. ADR 0044 "
+            "classifies these three from the deposition literature and BioLiP2's roster"
+        )
+        assert not (declared & kept), f"{name}: a component is in both classes"
+        # `K` only exists in the secondary set's structures, so this binds where it applies.
+        if "K" in kept | declared:
+            assert state <= kept, f"{name}: K is functional in E. coli CPS and must not move"
+
+    # The `ptp1b` correction, re-measured rather than quoted. The WPD loop's position is the
+    # Asp181 carboxylate to Cys215 sulfur distance, and the arm's own holo is the control.
+    spec = next(
+        t for t in yaml.safe_load(SECONDARY_MANIFEST.read_text())["targets"] if t["id"] == "ptp1b"
+    )
+    assert spec["state"]["matched"] is False, (
+        "ptp1b's two halves do not match: the apo WPD loop is closed and the holo's is open"
+    )
+    assert "closed" in spec["state"]["apo"], spec["state"]["apo"]
+    distances = {}
+    for role, cache in (("apo", "apo"), ("holo", "eval")):
+        entry = spec[role]["pdb"]
+        structure = parse_mmcif(
+            PREDICTION_MANIFEST.parent.parent.parent.parent
+            / "data"
+            / "raw"
+            / cache
+            / f"{entry}.cif",
+            entry,
+        )
+        chain = spec[role]["chain"]
+        acid = (
+            (structure.chain == chain)
+            & (structure.seq_id == 181)
+            & np.isin(structure.atom, ["OD1", "OD2"])
+        )
+        thiol = (structure.chain == chain) & (structure.seq_id == 215) & (structure.atom == "SG")
+        distances[role] = float(
+            np.linalg.norm(
+                structure.coord[acid][:, None, :] - structure.coord[thiol][None], axis=-1
+            ).min()
+        )
+    assert distances["apo"] < 7.5 < distances["holo"], (
+        f"the WPD measurement moved: apo {distances['apo']:.2f} A, holo "
+        f"{distances['holo']:.2f} A. ADR 0044 recorded 6.52 and 12.62"
+    )
+    # And the freeze agrees that the annotation now separates them.
+    for arm in ("mkp5", "chk1", "ptp1b"):
+        apo_state = frozen["targets"][arm]["orthosteric_state"]["apo"]
+        assert not apo_state["state_components"], (
+            f"{arm}: {apo_state['state_components']} is recorded as a catalytic-state "
+            "component, and ADR 0044 classifies this arm's only occupant as an additive"
+        )

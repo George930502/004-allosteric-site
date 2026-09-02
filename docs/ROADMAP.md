@@ -50,6 +50,24 @@ sub-phase 1.6, the frozen **evaluation** layer, are both **closed**. 1.6 was clo
 > Two real routes were added on 2026-09-03 — `docs/adr/`, and a protected file's former name
 > after a rename — so the count is **fourteen**. The path resolver was replaced as the primary
 > defence by a segment-cover backstop, because a whitelist of spellings had lost four times.
+>
+> **A third and a fourth adversarial round followed, and the input layer was re-frozen
+> once.** Round 3 found that the size run measured three null laws while reporting four:
+> `smooth_t` divided a Gaussian field by one chi-square per replicate, which is monotone
+> within the column, so its ranks equalled `smooth_gaussian`'s. **A rank test cannot see a
+> marginal distribution**, so only the copula matters. The run was repeated with a
+> different copula and every conclusion survived. It also found a public bypass of the
+> sealed tier, a mutable `decision.alpha`, and a former-path ledger already stale because a
+> JSON-to-Markdown conversion is a delete and not a rename. All repaired: ADR 0043.
+>
+> **ADR 0044 re-froze the INPUT layer, and no number moved.** A scoped literature review
+> found no published three-class occupant scheme, and found that every roster naming
+> glycerol or sulfate puts them on the additive side. Both were recorded here as
+> catalytic-state components. The larger finding is that the annotation was never the
+> gate: clauses (iii) and (x) count every non-water heteroatom through a name-blind mask,
+> stricter than any roster. Twenty-one leaves moved across both freezes, **all inside the
+> annotation and none outside it**. The same review found the `ptp1b` WPD-loop strings
+> backwards, confirmed by measurement: apo 6.52 angstrom against its own holo at 12.62.
 
 > **A second audit pass ran on 2026-09-02, audited the first one, and its findings were
 > repaired the same day. Read

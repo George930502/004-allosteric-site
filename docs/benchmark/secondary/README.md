@@ -130,6 +130,21 @@ selection only exists where there is a pool. That is ADR 0009's reasoning, appli
 > **(xii) Within-set redundancy.** No two secondary targets share a Pfam family, and none
 > shares one with a primary target.
 
+**The occupant annotation is descriptive, and it is not the apo-ness gate (ADR 0044).**
+`orthosteric_vocabulary` splits an active site's occupants into `state_components` — the
+substrate, product, cofactor or ion the enzyme needs to be in this functional state — and
+`additives`, present because of how the crystal was grown. **Neither clause (iii) nor clause
+(x) reads it.** Both count every non-water heteroatom through a name-blind mask, which is
+stricter than any published roster, so no arm is admitted or rejected on this judgement.
+Nothing else reads the annotation either: `matches_apo` is written by the freeze and read by
+two test assertions and one review tool, never by a score, a verdict or a gate. There is no
+third class for "apo with an inert additive in the pocket", because a scoped review on
+2026-09-03 found none published — every instrument in the field is binary. Where a component's
+own deposition literature settles the case it decides; otherwise the default is BioLiP2's
+463-identifier artifact roster (doi:10.1093/nar/gkad630). `GOL`, `SO4` and `CL` are additives;
+the `K` in `ecoli_cps` stays a state component, because the depositing laboratory calls it
+"physiologically important" (doi:10.1107/S0907444998006234).
+
 **Clause (xii) is stated at FAMILY level, never at clan level, and PANTHER is the narrowing
 instrument (ADR 0042, 2026-09-03).** ADR 0012 clause 2 once added a clan sentence and it is
 withdrawn: measured live against InterPro 109.0, the two anchor clans hold 316 and 216 Pfam
@@ -445,12 +460,15 @@ of the **whole** benchmark rather than of this set.
    `generalisation` arm read as the hardest in the set when it is the easiest on both axes.
 
    A separate trap in the same field. The **derived** `orthosteric_state.matches_apo` and the
-   **hand-declared** `state.matched` disagree on **four** of nine arms — `mkp5`, `chk1`,
-   `ptp1b` and `ns5b`. The derived field compares component lists; the declared field is a
-   curator's judgement about conformation. Neither is redundant and neither overrides the
-   other. Quote which one you mean. (This count read "five" until 2026-08-24. The fifth was
-   `glucokinase`, repaired to `matched: true` two paragraphs above, and the count was not
-   updated with the repair.)
+   **hand-declared** `state.matched` disagree on **two** of nine arms — `ptp1b` and `ns5b`.
+   The derived field compares component lists; the declared field is a curator's judgement
+   about conformation. Neither is redundant and neither overrides the other. Quote which one
+   you mean. (This count read "five" until 2026-08-24 and "four" until 2026-09-03. The fifth
+   was `glucokinase`, repaired to `matched: true` two paragraphs above, and the count was not
+   updated with the repair. Two more left on 2026-09-03 with ADR 0044, which moved `GOL`,
+   `SO4` and `CL` into `additives` and so flipped the derived field on `mkp5` and `chk1`. The
+   `ptp1b` disagreement is the reverse of what it was: the declared field is now `false`,
+   corrected against a measurement, and the derived field is `true`.)
 
 8. **The frame is a depositor's own word.** An RCSB full-text hit on "allosteric" is a
    claim, not curation. It is a recall device only. The risk it carries is missed targets,

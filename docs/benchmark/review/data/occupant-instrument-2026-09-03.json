@@ -1,0 +1,153 @@
+{
+ "measured_on": "2026-09-03",
+ "why": "ADR 0044. The occupant instrument was undefined: clause (iii) says 'no ligand of any kind' and the orthosteric vocabulary has an `additives` class that is empty in both frozen sets, so glycerol, sulfate and chloride are recorded as catalytic-state components. This records the literature rosters and the two repo measurements the ADR was decided on.",
+ "field_rosters": {
+  "note": "Does the source publish an actual list of excluded component IDs, and which side does it put GOL, SO4, CL and K on? Compiled by a scoped literature review, every row carrying a DOI.",
+  "binding_moad": {
+   "roster_published": false,
+   "GOL": "additive",
+   "SO4": "additive",
+   "CL_K": "additive",
+   "doi": "10.1093/nar/gkm911"
+  },
+  "biolip2": {
+   "roster_published": true,
+   "roster_size": 463,
+   "GOL": "artifact",
+   "SO4": "artifact",
+   "CL_K": "artifact",
+   "doi": "10.1093/nar/gkad630"
+  },
+  "pdbbind": {
+   "roster_published": false,
+   "GOL": "excluded",
+   "SO4": "excluded",
+   "CL_K": "excluded",
+   "doi": "10.1093/bioinformatics/btu626"
+  },
+  "sc_pdb": {
+   "roster_published": false,
+   "rule": "molecular-weight floor 140 Da",
+   "GOL": "excluded",
+   "SO4": "excluded",
+   "CL_K": "excluded",
+   "doi": "10.1093/nar/gku928"
+  },
+  "pocketminer": {
+   "roster_published": true,
+   "roster_size": 5,
+   "GOL": "disqualifies the apo",
+   "SO4": "disqualifies the apo",
+   "CL_K": "tolerated",
+   "doi": "10.1038/s41467-023-36699-3"
+  },
+  "ahoj": {
+   "roster_published": false,
+   "rule": "solvent only",
+   "GOL": "counts as ligand",
+   "SO4": "counts as ligand",
+   "CL_K": "counts as ligand",
+   "doi": "10.1093/bioinformatics/btac701"
+  },
+  "asd": {
+   "roster_published": false,
+   "GOL": "unknown",
+   "SO4": "unknown",
+   "CL_K": "unknown",
+   "doi": "10.1093/nar/gkad915"
+  },
+  "summary": "Every source that names glycerol or sulfate puts them on the ADDITIVE side. No retrieved source classes GOL or SO4 as a functional or catalytic-state occupant. The sources that would keep them are the ones that do not filter at all, and AHoJ says so as a deliberate geometric choice.",
+  "three_class_scheme": "None exists. Searched for pseudo-apo, apo-like, quasi-apo and ligand-free-with-additive. Every published instrument is binary. A three-class scheme would have to be invented, not cited."
+ },
+ "mechanism": {
+  "sulfate_in_a_PTP": {
+   "finding": "Positional mimic, not conformational. In SHP-1 phosphate closes the WPD loop and gives the substrate-bound conformation; sulfate leaves it open. So sulfate occupies the phosphate cradle without producing the catalytic state.",
+   "doi": "10.2174/09298665113209990041",
+   "tag": "VERIFIED-FULLTEXT",
+   "caveat": "measured on SHP-1, not on PTP1B or MKP5; transfer across the PTP family is an assumption"
+  },
+  "glycerol": {
+   "finding": "1SUG's own depositors publish it as apo, titled 'Water-molecule network and active-site flexibility of apo protein tyrosine phosphatase 1B', and place four ordered WATERS in the catalytic pocket, three at the substrate phosphate oxygen positions.",
+   "doi": "10.1107/S0907444904015094",
+   "tag": "VERIFIED-ABSTRACT"
+  },
+  "potassium_in_ecoli_cps": {
+   "finding": "Functional. Glu215 'plays a key allosteric role by coordinating to the physiologically important potassium ion'. Named by the structure's own laboratory. This is the one occupant of the four with direct published support for 'catalytic-state component'.",
+   "doi": "10.1107/S0907444998006234",
+   "tag": "VERIFIED-ABSTRACT"
+  },
+  "chloride_in_ecoli_cps": {
+   "finding": "Precipitant counter-ion. Crystals grown from 0.65-1.35 M tetraethylammonium chloride plus 100-250 mM KCl and MnCl2. No functional role for chloride found in any retrieved source. This is an absence-of-evidence finding.",
+   "doi": "10.1021/bi982517h",
+   "tag": "VERIFIED-FULLTEXT"
+  },
+  "phosphate_in_ecoli_cps": {
+   "finding": "Adventitious by the depositors' own account: 'the original crystallization conditions did not include inorganic phosphate' and it 'most likely resulted from either a contaminant in the ADP samples or the breakdown of ADP'. The arm's active-site rule is from_ligands [ADP, MN, PO4], so a reagent contaminant is load-bearing for the propagation source. It does mark the phosphate-binding subsite, so this is a provenance finding, not a misplacement.",
+   "doi": "10.1021/bi982517h",
+   "tag": "VERIFIED-FULLTEXT"
+  }
+ },
+ "repo_measurements": {
+  "1SUG_glycerol_geometry": {
+   "what": "Where the four 1SUG glycerols sit relative to the 11-residue PTP-motif active site, at the frozen 4.5 A heavy-atom cutoff. Closes item 1 of the literature review's open list.",
+   "per_component": [
+    {
+     "component": "GOL",
+     "seq_id": 400,
+     "nearest_active_site_atom_angstrom": 11.93,
+     "active_site_residues_contacted": 0
+    },
+    {
+     "component": "GOL",
+     "seq_id": 401,
+     "nearest_active_site_atom_angstrom": 16.44,
+     "active_site_residues_contacted": 0
+    },
+    {
+     "component": "GOL",
+     "seq_id": 402,
+     "nearest_active_site_atom_angstrom": 3.84,
+     "active_site_residues_contacted": 1
+    },
+    {
+     "component": "GOL",
+     "seq_id": 403,
+     "nearest_active_site_atom_angstrom": 3.47,
+     "active_site_residues_contacted": 1
+    },
+    {
+     "component": "TRS",
+     "seq_id": 322,
+     "nearest_active_site_atom_angstrom": 15.9,
+     "active_site_residues_contacted": 0
+    }
+   ],
+   "conclusion": "Two of four glycerols reach the site and each grazes ONE of the eleven motif residues. Neither fills the phosphate cradle, which is consistent with the depositors putting ordered water there."
+  },
+  "impact_of_reclassifying": {
+   "what": "Which fields move if GOL, SO4 and CL become additives, and whether any number does.",
+   "load_bearing": false,
+   "readers_of_matches_apo": [
+    "tests/test_benchmark.py",
+    "docs/benchmark/review/19-cross-set-consistency-v2.md"
+   ],
+   "clause_verdicts_affected": 0,
+   "clause_note": "Clauses (iii) and (x) both decide from a name-blind ligand mask at src/allo/structure/pdb.py, never from the vocabulary. Clause (vi) requires presence, not match. Clause (viii) reads the hand-declared manifest field.",
+   "frozen_fields_that_move": {
+    "secondary": [
+     "orthosteric_vocabulary.state_components",
+     "orthosteric_vocabulary.additives",
+     "mkp5/chk1/ptp1b orthosteric_state.apo.{state_components,additives}",
+     "mkp5/chk1/ptp1b orthosteric_state.matches_apo",
+     "mkp5/chk1/ptp1b holo_site_occupancy.matches_apo",
+     "smyd3 orthosteric_state.holo.{state_components,additives}",
+     "ecoli_cps orthosteric_state.{apo,holo}.{state_components,additives}"
+    ],
+    "primary": [
+     "none: neither GOL nor SO4 nor CL contacts a primary active site, which the freeze proves by existing, since classify() raises on an unnamed contacting component"
+    ]
+   },
+   "numbers_that_move": "none"
+  }
+ }
+}

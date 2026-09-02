@@ -251,9 +251,38 @@ label_footprints:
       A:LEU455,
     ]
 
+# ADR 0044. Two classes, and the annotation DECIDES NOTHING -- clause (iii) and clause (x)
+# both count every non-water heteroatom through the name-blind `apo.ligand` mask at
+# `src/allo/structure/pdb.py`, which is stricter than any roster below and consults none of
+# this. `state_components` means the substrate, product, cofactor or ion the enzyme needs to
+# be in this functional state. `additives` means present because of how the crystal was grown.
+# There is no third class, because a scoped review on 2026-09-03 found none published: every
+# instrument in the field is binary. The rule is per STRUCTURE with a cited roster, never per
+# component in the abstract, because glycerol is a competitive inhibitor of glycogen
+# phosphorylase at K_i 3.8 %% v/v (doi:10.1110/ps.8.4.741) and inert here. Where the deposition
+# literature settles a case it decides; otherwise the default is BioLiP2's 463-identifier
+# artifact list (doi:10.1093/nar/gkad630), the only published, distributed roster there is.
+#
+# GOL  additive -- 1SUG's depositors publish it as apo in the title
+#      (doi:10.1107/S0907444904015094) with four ordered WATERS in the catalytic pocket. Of
+#      the four glycerols, two never reach the motif site (11.93 and 16.44 A) and two graze
+#      one residue each (3.84 and 3.47 A). Neither fills the phosphate cradle.
+# SO4  additive -- in a PTP sulfate is a POSITIONAL phosphate mimic and not a conformational
+#      one: phosphate closes the WPD loop, sulfate leaves it open
+#      (doi:10.2174/09298665113209990041). MKP5's own paper attributes its active
+#      conformation to the protein (doi:10.1016/j.jmb.2006.05.059). In 1IA8 the sulfate is in
+#      the activation-segment phospho-cradle, not the ATP cleft -- it contacts 54/129/153/162/
+#      164/166 and exactly ONE of the eleven motif residues. That one case has literature
+#      pointing the other way, it is `[UNVERIFIED]`, and ADR 0044 records what would settle it.
+# CL   additive -- precipitant counter-ion. 1A9X was grown from 0.65 to 1.35 M
+#      tetraethylammonium chloride plus 100 to 250 mM KCl (doi:10.1021/bi982517h), and the
+#      entry carries four tetraethylammonium ions from the same liquor.
+# K    STATE COMPONENT, unchanged -- "Glu215 plays a key allosteric role by coordinating to the
+#      physiologically important potassium ion" (doi:10.1107/S0907444998006234). The one
+#      occupant of the four with direct published support for the catalytic-state class.
 orthosteric_vocabulary:
-  state_components: [ADP, CL, GLC, GOL, K, MG, MN, O41, PO4, SAM, SO4]
-  additives: []
+  state_components: [ADP, GLC, K, MG, MN, O41, PO4, SAM]
+  additives: [CL, GOL, SO4]
 
 # Clause (xii) resolves against three moving databases, so the releases it was decided
 # against are pinned here. Added 2026-09-03 by ADR 0042 consequence 1. Every `pfam` value
@@ -367,7 +396,15 @@ targets:
         a BB-site mutant panel including F280Y. The effect is measured at the catalytic site
         (Cys215 turnover). The primary kinetics sentence is behind a paywall and was NOT
         retrievable, so no inhibition constant is pinned here.
-    state: { apo: "WPD-loop open, alpha-7 ordered", holo: "WPD-loop open, alpha-7 displaced", matched: true }
+    # CORRECTED 2026-09-03 by ADR 0044, against a measurement. This read
+    # `apo: WPD-loop open ... holo: WPD-loop open ... matched: true`. The deposition
+    # paper's headline result is that the apo WPD loop is CLOSED
+    # (doi:10.1107/S0907444904015094), and the arm's own holo is the control. Measured as
+    # the Asp181 carboxylate to Cys215 sulfur distance, the field's own discriminator:
+    # 1SUG 6.52 A, 1T48 12.62 A. A 6.1 A separation on one arm. Both strings were wrong
+    # and the two halves do NOT match. Clause (viii) discloses state and never gates on
+    # it -- three admitted arms already carry `matched: false` -- so the arm stays.
+    state: { apo: "WPD-loop closed, alpha-7 ordered", holo: "WPD-loop open, alpha-7 displaced", matched: false }
     blind:
       value: false
       why: >

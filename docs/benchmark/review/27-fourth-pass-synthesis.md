@@ -130,6 +130,62 @@ than by principle.
 
 ---
 
+### 1.5 The third adversarial round: six findings, five repairs and one half-refutation
+
+Commit `f36ff67`. The round verified all eight round-2 repairs and returned six more. Two were
+real defects in the repairs themselves.
+
+**The size run measured three null laws while reporting four.** `smooth_t` divided a Gaussian
+field by ONE chi-square draw per replicate — the standard multivariate-t construction, and
+monotone within each column. Every statistic in that module is a midrank, so its ranks were
+bit-identical to `smooth_gaussian`'s at the same seed. **The lesson is larger than the bug: a
+rank test cannot see a marginal distribution at all.** Heavy tails, log-normal marginals and
+any rescaling are the same null; only the copula moves the answer. `cluster_blocks` replaces
+it — piecewise constant over a random Voronoi partition — chosen in the adversarial direction,
+because blockiness is what made `distance_shell` the worst case. The whole run was repeated at
+the same seed and **every conclusion survived**: 0.0163 against the withdrawn 0.0137,
+`distance_shell` still worst at 0.0548 with the identical interval, `site` still 0.0237.
+
+**The sealed tier had a public bypass.** `score_arm` checked `unseal`. `compare_methods` was
+exported beside it, takes the same arm and the same score map, reads the same frozen labels,
+and had no check at all — so a caller could score a `generalisation` arm through the paired
+test and receive calibrated p-values. This is the fourth instance of one shape in this
+repository: **the rule was placed in one caller instead of at the boundary.** Both now call
+`_require_unseal`, and the test asserts on the SET of public entry points, so a new scorer
+cannot forget. It is deliberately not in `_positives`, because calibration and the size
+simulation read every arm's labels by design and a check on the read would break the freeze it
+protects.
+
+**The decision level was mutable while the release gate stayed green.** `confirmatory_verdict`
+reads `decision.alpha` from the manifest and no frozen value records it. A probe moved it from
+0.05 to 0.90; every decision changed and `verify_evaluation` returned no problems. Bound twice
+now: a literal from above, and from below by the calibration invariant that no arm's
+`alpha_star` may exceed the decision level — three of fifteen arms sit exactly at it.
+
+**The former-path ledger was already stale.** It derived from `--diff-filter=R`, and the three
+per-target audits were CONVERTED from JSON to Markdown, which git records as a delete plus an
+add rather than a rename. They reproduce every primary label set and stay readable through
+`git show`. The filter is `RD` now, and a directory that lost any file to a protected tree is
+treated as a former protected tree itself, so the conversion is covered by a rule instead of
+three names. Eight entries became sixteen, and the shallow-clone property holds: git returns
+nothing there and the tracked ledger is the source.
+
+**Two document defects.** The decoy-null paragraph gave a size range inferred from a variance
+argument, 0.008 to 0.022, and claimed a bias toward not rejecting — for a null that now
+carries two endpoints with opposite verdicts. Replaced with the measured numbers, split by
+endpoint. Version 3 was still named current in three current-state documents.
+
+**One finding was half right.** It reported that ADR 0042's PANTHER narrowing "is not
+operational" because the clause test rejects every shared Pfam family and never reads PANTHER.
+The test is **stricter** than the ADR, not weaker: no two arms share a family, so the
+narrowing branch is unreachable and a stricter test cannot admit a bad set. What was genuinely
+undone were the ADR's own consequences 1 and 2, and the question blocking them is now answered
+by measurement: **adding a provenance field to a manifest moves no frozen value**, because
+`freeze` builds `frozen.json` from six named keys and echoes no other. Both manifests pin the
+three releases and all fifteen arms carry a `uniprot` accession, with a test asserting that
+none of the five reaches the prediction path.
+
+
 ## 2. Corrections to the frozen layers
 
 A freeze is not repaired in place (`CONTRIBUTING.md` §3.2). These are the corrections. Read
@@ -186,22 +242,59 @@ collide. PANTHER cannot be the primary instrument: fourteen of fifteen arms carr
 PANTHER family and `ns5b` carries none at all. Per-arm assignment and the releases are in
 `data/clause-xii-2026-09-03.json`.
 
-**Still open, and it is work rather than a decision:** pin `interpro_release`, `pfam_release`
-and `panther_release` in both manifests and add `uniprot:` per target, so the clause derives
-from an accession rather than from a hand-typed family list. Both manifests are frozen input
-artifacts, so this needs the PI's call on whether provenance fields may be added to a freeze.
+**Closed 2026-09-03.** Both manifests pin `interpro_release: 109.0`, `pfam_release: 38.2`
+and `panther_release: 19.0`, and all fifteen arms carry `uniprot`, so the clause derives from
+an accession rather than from a hand-typed family list. **The question that blocked it is
+answered by measurement, not by a ruling: adding a provenance field to a manifest moves no
+frozen value.** `benchmark.freeze` builds `frozen.json` from six named keys and echoes no
+other, and `derive` builds its record from named fields, so neither freeze moved by one byte.
+`allo.inputs.load` rebuilds from an allow-list, so all five fields are redacted from the
+prediction path by default, and a test asserts that rather than assuming it.
 Note that `ns5b`'s `pfam` value cannot have come from RCSB, which carries no Pfam annotation for
 either of that arm's entries. The value is right; its stated provenance is not.
 
-### 3.3 The occupant instrument is undefined — **ADR required**
+### 3.3 The occupant instrument is undefined — **closed 2026-09-03 by ADR 0044**
 
 Clause (iii) says "no ligand of any kind" and clause (x) says "no apo component may contact a
 scoreable label", and neither defines *ligand* or *component*. Water, glycerol, sulfate and PEG
 have no declared side. The audit assembled the rosters eight published instruments actually
-use — Binding MOAD, BioLiP2, LigExtract, the RCSB Ligand-of-Interest criteria, sc-PDB,
-fpocket, CASTp, PDBbind — and proposes a three-class procedure: `APO`,
-`APO_WITH_ADDITIVE_IN_POCKET`, `NOT_APO`. The middle class is the one the repository needs and
-no single published instrument provides.
+use and proposed a three-class procedure: `APO`, `APO_WITH_ADDITIVE_IN_POCKET`, `NOT_APO`.
+
+**The three-class proposal is withdrawn, and the reason is a search rather than an opinion.**
+A scoped literature review on 2026-09-03 looked for a published scheme with that middle class,
+including under "pseudo-apo", "apo-like" and "quasi-apo". **None exists.** Every instrument in
+the field is binary, and each folds the middle case into one of the other two: Wankowicz's
+ten-heavy-atom floor and PocketMiner's five-species whitelist put it in apo; AHoJ puts it in
+holo, deliberately, on the ground that a crystallographic agent perturbs local geometry
+whatever its biological relevance. Inventing the class would have been a hyperparameter chosen
+after seeing the data.
+
+**The larger finding is that the annotation was never the instrument.** Clause (iii) and
+clause (x) both decide from `apo.ligand`, a name-blind mask over every non-water heteroatom.
+It is stricter than any roster in the survey, and it consults no vocabulary. So the benchmark's
+apo-ness never rested on this judgement call, and what was wrong is that the annotation says
+something false while reading as though it were the gate.
+
+**What the classification is now, and on what.** `GOL`, `SO4` and `CL` are additives; the `K`
+in `ecoli_cps` stays a state component. No published roster classes glycerol or sulfate as a
+functional occupant. `1SUG`'s depositors publish it as apo in the title, with four ordered
+waters in the catalytic pocket — and measured here, two of its four glycerols never reach the
+motif site and the two that do graze one residue each. In a phosphatase sulfate is a positional
+phosphate mimic that leaves the WPD loop open, so it does not produce the substrate-like state.
+`1A9X` was grown from 0.65 to 1.35 M tetraethylammonium chloride. The potassium, by contrast,
+is called "physiologically important" by the depositing laboratory.
+
+**One case points the other way and is disclosed rather than acted on.** Measured here, the
+`1IA8` sulfate contacts residues 54, 129, 153, 162, 164 and 166 — Chen 2000's Lys54, Arg129,
+Thr153 and Arg162 plus Lys166 — and exactly one of the eleven motif residues. It sits in the
+activation-segment phospho-cradle, not the ATP cleft, and for a kinase such a sulfate is
+reported to support the active conformation of an unphosphorylated segment. That reading is
+`[UNVERIFIED]`, the per-set vocabulary cannot express a per-arm class, and ADR 0044 records
+what would settle it.
+
+**The input layer was re-frozen and no number moved.** Twenty-one leaf changes across both
+freezes, every one inside the occupant annotation, and zero outside it. The primary set changed
+only its vocabulary.
 
 ### 3.4 `bcr_abl1_corrected` loses 2 of 20 labels, and the truncation is directional
 
@@ -240,22 +333,73 @@ whole remedy. Do not attach the distal-residue explanation to it until something
 
 ### 3.5 The orthosteric vocabulary is not shared across the sets
 
-Glycerol is a catalytic-state component on one set and unlisted on the other. Either reconcile
-the vocabulary or state why they differ.
+Glycerol is a catalytic-state component on one set and unlisted on the other.
 
-### 3.6 What N supports, stated honestly
+**Measured 2026-09-03, and the answer narrows the finding.** The vocabulary is a declared
+allow-list that makes the freeze fail closed: `_orthosteric_state` raises if a component
+contacting the active site is not named, so each set's list is forced to cover exactly what
+that set observed. The two differ because the structures differ, and no classification
+decision differs. What IS a decision, and an undeclared one, is that `additives` is **empty in
+both sets**. The schema has a class for crystallisation additives and nothing has ever landed
+in it, so glycerol in the PTP1B apo entry, sulfate in the MKP5 and CHK1 apo entries, and
+chloride and potassium in both halves of `ecoli_cps` are all recorded as catalytic-state
+components.
 
-N = 5 cannot support a generalisation claim. N = 8 is the floor. `secondary/README.md` §6 must
-say which claim the achieved N licenses, in the same words the protocol uses elsewhere.
+**Three things follow, each measured rather than argued.**
+
+1. **No score, verdict or gate reads it.** `matches_apo` is written at `benchmark.py:281` and
+   copied at `:422`; the only readers anywhere are two test assertions and one review tool.
+   The three functions that read the input freezes from the scoring harness take
+   `scoreable_label_residues`, `n_candidates`, `tier` and the target key set, and nothing else.
+2. **No clause verdict depends on the bucket.** Clause (iii) and clause (x) both decide from
+   `apo.ligand`, a name-blind mask defined at `structure/pdb.py:87`. Clause (vi) requires
+   presence, not match. Clause (viii) reads the hand-declared `manifest.state.matched`, which
+   `secondary/README.md` already says is independent of the derived field. The sulfate that
+   puts clause (x) at its exact boundary on `mkp5` is the same object classed as a state
+   component, and reclassifying it moves one and not the other, because the two instruments
+   never touch.
+3. **A re-freeze would move ten fields and no number.** `matches_apo` would flip on `mkp5`,
+   `chk1` and `ptp1b`; `smyd3` keeps its verdict but moves two bucket lists; the primary set is
+   byte-identical, because neither component contacts a primary active site. One sentence in
+   `secondary/README.md` would go stale, the one saying the derived and declared fields
+   disagree on four arms.
+
+So this is **not** a benchmark-validity defect and it does not block a result. It is the same
+undeclared instrument as §3.3, seen from the vocabulary side, and **ADR 0044 settles both
+together on 2026-09-03.** Both sets now carry the identical `additives` roster, so an arm added
+later cannot be classed differently by accident.
+
+**One further correction came out of the same review, and it is the sharper of the two.** The
+`ptp1b` arm records `apo: WPD-loop open` and `holo: WPD-loop open`, `matched: true`. The
+deposition paper's headline result is that the apo WPD loop is **closed**. Measured here as the
+Asp181 carboxylate to Cys215 sulfur distance, with the arm's own holo as the control: `1SUG`
+**6.52 A**, `1T48` **12.62 A**. A 6.1 angstrom separation on one arm. Both strings were wrong
+and the halves do not match. Clause (viii) discloses state and never gates on it — three
+admitted arms already carry `matched: false` — so the arm stays and nothing is re-admitted.
+
+### 3.6 What N supports, stated honestly — **closed 2026-09-03**
+
+N = 5 cannot support a generalisation claim. **The floor this section asserted had no
+derivation anywhere in the repository**, which is the defect it was complaining about. Both
+floors are now computed, by `scipy.stats.binomtest` against p = 0.5, one-sided: a clean sweep
+needs **N >= 6** to survive a two-way correction (p = 0.0156), and tolerating one failure needs
+**N >= 8** (p = 0.0352, against 0.0625 at N = 7). The achieved N = 5 clears neither.
+`secondary/README.md` §6 states both.
 
 ### 3.7 Smaller, and each measured
 
 - ~~Add `cardiac_myosin_mandated` to `clause-ix-both-sets.json`~~ **done 2026-09-03.** Measured from the tracked `9GZ2` copy: the `XB2` protein lining at 4.5 angstrom is 12 residues, all in chain A, so clause (ix) passes. ADR 0031 gives both myosin arms the same holo, so the two entries agree, and this one was measured rather than entailed. The file now holds fifteen arms and all fifteen pass.
-- Say in `evaluation/README.md` that the sealed tier is fully materialised in `frozen.json`,
-  geometry and positive counts included, and that the seal is a reading discipline enforced by
-  `PROTECTED_PATHS`.
-- Pin the primary set's (x), (xi) and (xii) verdicts in a test. A stale falsifier survived a
-  re-freeze in both a test docstring and an accepted ADR, which is what unpinned prose does.
+- ~~Say in `evaluation/README.md` that the sealed tier is fully materialised in
+  `frozen.json`~~ **done 2026-09-03**, §9. It names the two partial enforcements and says that
+  neither stops a person reading the file, and that no test can.
+- ~~Pin the primary set's (x), (xi) and (xii) verdicts in a test~~ **done 2026-09-03.** All
+  three re-derive from the freeze and the tracked mmCIFs, and every number in the README
+  reproduces: two of nine entries fail their method's resolution ceiling, `1OPL` at 3.42 and
+  `5TBY` at 20.00. Closing it found the predicted defect: `tests/test_secondary.py` justified
+  a live assertion with "`bcr_abl1_mandated` proves it: 16 labels contacted by myristate". That
+  arm contacts **zero** labels, and the 16 was read off a field whose units are angstroms. The
+  comment also printed a real label residue number. Both corrected. The assertion is live and
+  sits at its boundary on three arms.
 - ~~`docs/adr/0005` and `docs/adr/0007` contradict each other~~ **refuted, see §4.**
 
 ---
