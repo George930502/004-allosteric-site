@@ -69,8 +69,27 @@ Measured over four generators, `experiments/2026-09-03-endpoint-b/`, 20 000 fiel
 | --- | --- | ---: | ---: |
 | `white_noise` | no spatial structure | 0.0001 | 0.0086 |
 | `smooth_gaussian` | the frozen calibration's instrument | 0.0049 | 0.0154 |
-| `smooth_t` | same covariance, Student-t at 3 df | 0.0047 | 0.0137 |
+| `cluster_blocks` | piecewise constant over a random Voronoi partition | 0.0046 | 0.0163 |
 | `distance_shell` | blocky, monotone in distance from a random residue | 0.0237 | **0.0548** |
+
+**AMENDED A SECOND TIME, also 2026-09-03: the third generator was not a third law.** The row
+above read `smooth_t`, "same covariance, Student-t at 3 df", at 0.0047 and 0.0137. A second
+adversarial pass showed that generator divided a Gaussian field by ONE chi-square draw per
+replicate, which is the standard multivariate-t construction and is monotone within each
+column. Every statistic here is a midrank, so its ranks were bit-identical to
+`smooth_gaussian`'s at the same seed. The run measured three laws and reported four.
+
+The lesson is larger than the bug. **A rank test cannot see a marginal distribution at all**,
+so heavy tails, log-normal marginals and any rescaling are the same null. Only the copula
+moves the answer. `cluster_blocks` replaces it with a different dependence structure rather
+than a different marginal, chosen in the adversarial direction because blockiness is what
+made `distance_shell` the worst case. The run was repeated in full at the same seed and
+`tests/test_scoring.py::test_the_size_simulation_draws_four_distinct_rank_laws` now pins that
+no two generators share a rank law.
+
+**Every conclusion below survived the repeat.** The replacement measured 0.0163 rather than
+0.0137, still far below alpha and still not the worst case. `distance_shell` remains the worst
+at 0.0548 with the identical interval, and the `site` form still holds at 0.0237.
 
 **The label form exceeds alpha.** On `bcr_abl1_corrected` under `distance_shell` it runs
 0.0513 to 0.0548 across all four correlation lengths, and the worst cell's 95 % interval,

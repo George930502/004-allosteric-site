@@ -493,11 +493,26 @@ and the extra ones are smaller, so the null gained replicates and lost comparabi
 same time. That trade was accepted because the per-arm test is descriptive at version 3 and the
 decision runs on the combination (ADR 0030), but it is a cost and it is stated as one. The statistic is a mean
 midrank, whose null variance goes as the reciprocal of the set size, so a decoy patch is
-noisier than the observed one and the comparison is biased toward not rejecting. Three audits
-measured the effect at 2.3× to 5.3×, putting the real size at α = 0.05 somewhere near
-0.008–0.022. **This null is therefore never calibrated and never confirmatory.** Size-standardising
-the linings would fix it and would also stop the statistic from being the thing the challenge
-asked for, so the mismatch is disclosed instead.
+noisier than the observed one. **This null is never calibrated and never confirmatory.**
+Size-standardising the linings would fix it and would also stop the statistic from being the
+thing the challenge asked for, so the mismatch is disclosed instead.
+
+**CORRECTED 2026-09-03: the direction is not the same for both endpoints, and the range this
+paragraph gave was inferred rather than measured.** It said three audits put the real size
+"somewhere near 0.008–0.022" and that the comparison is biased toward not rejecting. That was
+an argument from the variance ratio, not a measurement, and version 4 reports **two** endpoints
+on this null. Measured in `experiments/2026-09-03-endpoint-b/` over four distinct rank laws,
+20 000 fields per cell, worst cell over four correlation lengths and three arms:
+
+| endpoint | what it ranks | worst measured size |
+| --- | --- | ---: |
+| `p` | the detector's site-pocket lining | **0.0237** |
+| `label_p` | the label set itself | **0.0548** |
+
+`p` is conservative on all four laws, which vindicates the argument. `label_p` is **not**: on
+`bcr_abl1_corrected` under a blocky distance-monotone field its 95 % interval is [0.0516,
+0.0580], entirely above α. That is why ADR 0039 ships `label_p` as a descriptive percentile
+carrying no rejection. Read the paragraph above as being about `p` alone.
 
 **The detector covers the site poorly on four secondary arms.** At the version-3 settings,
 site coverage runs 0.3125 on `ns5b`, 0.3636 on `ptp1b`, 0.4545 on `mkp5` and 0.6250 on

@@ -216,7 +216,8 @@ verified against the archived sweep at 32 scorer-arm pairs and 0 mismatches.
 ADR 0031 supersedes 0016 and ADR 0036 supersedes 0020, so **all four minimum targets now have a
 contract**. The conformance gap the audit called largest is closed. The input layer is
 re-frozen at **six** primary arms and the evaluation layer at **protocol version 3**, over
-fifteen arms; `uv run allo benchmark verify --set all` and `uv run allo evaluate verify
+fifteen arms — version 4 followed on 2026-09-03, and section 0a of
+`docs/benchmark/evaluation/README.md` lists what it changed; `uv run allo benchmark verify --set all` and `uv run allo evaluate verify
 --detect` both exit 0. The recalibration reproduced thirteen of fifteen arms' thresholds to six
 decimals and moved only the two arms the re-freeze changed.
 
@@ -308,7 +309,7 @@ three of five arms, so these are controls to beat rather than walkovers
 result makes mandatory (ADR 0002). A method that does not beat those three controls has
 demonstrated nothing.
 
-### 1.6 — Frozen evaluation layer — CLOSED 2026-08-25 at protocol version 2, re-frozen 2026-09-02 at version 3
+### 1.6 — Frozen evaluation layer — CLOSED 2026-08-25 at protocol version 2, re-frozen 2026-09-02 at version 3 and 2026-09-03 at version 4
 
 Frozen in `docs/benchmark/evaluation/`: `manifest.yaml` holds every pinned choice with its
 reason, `frozen.json` holds the consequences for all 15 arms, and `README.md` is the argument.
@@ -366,7 +367,8 @@ random five-residue list** (DCC 26.5 Å against a chance line of 17.7 Å). Three
 confounder columns are now computed too; conservation needs an external alignment and reads
 `null` (ADR 0025 amendment).
 
-**Exit met.** `make check` and `make verify` both exit 0, now at protocol version 3 —
+**Exit met.** `make check` and `make verify` both exit 0, at protocol version 3 on the day
+this was written and at **version 4** since 2026-09-03 —
 the latter re-derives both freezes, re-runs the pocket detector and runs the network tests. The
 calibration experiment is reproducible from its committed config on all 15 arms, and the
 `null-repairs` experiment likewise. Both required controls run end to end on all five primary

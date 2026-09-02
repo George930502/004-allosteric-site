@@ -433,3 +433,56 @@ def test_clause_ix_holds_on_the_biological_assembly_and_not_only_the_deposited_u
                     f"{copy} lines { {c: len(v) for c, v in sorted(lining.items())} } -- this "
                     "is an interface site and a single-chain node set cannot hold its labels"
                 )
+
+
+def test_clause_xii_pins_its_releases_and_derives_from_an_accession(manifest):
+    """ADR 0042 consequences 1 and 2, in code. Added 2026-09-03.
+
+    Clause (xii) resolves against three moving databases. The manifests recorded a hand-typed
+    Pfam family list and no release at all, so the rule was frozen in name and floating in
+    fact -- and `ns5b`'s value cannot have come from its stated source, RCSB, which carries no
+    Pfam annotation for either of that arm's entries.
+
+    Neither field moves a frozen value: `benchmark.freeze` builds `frozen.json` from six named
+    keys and echoes no other. Both are redacted from the prediction path, because
+    `allo.inputs.load` rebuilds from an allow-list, and the last assertion here says so rather
+    than trusting that it stays true.
+    """
+    import re
+
+    import yaml as _yaml
+
+    from allo.inputs import load as prediction_load
+
+    for name, path in (("secondary", SECONDARY_MANIFEST), ("primary", MANIFEST)):
+        raw = _yaml.safe_load(path.read_text())
+        for field, expected in (
+            ("interpro_release", "109.0"),
+            ("pfam_release", "38.2"),
+            ("panther_release", "19.0"),
+        ):
+            assert raw.get(field) == expected, (
+                f"{name}: {field} is {raw.get(field)!r}, not {expected!r}. Clause (xii) "
+                "resolves against a moving database and the release it was decided against "
+                "is what makes the verdict reproducible (ADR 0042)"
+            )
+        for spec in raw["targets"]:
+            accession = spec.get("uniprot")
+            # UniProt's own published accession pattern, both forms.
+            uniprot_pattern = (
+                r"[OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z][0-9]([A-Z][A-Z0-9]{2}[0-9]){1,2}"
+            )
+            assert accession and re.fullmatch(uniprot_pattern, accession), (
+                f"{name}/{spec['id']}: uniprot is {accession!r}. Clause (xii) must derive "
+                "from an accession, not from a hand-typed family list"
+            )
+
+    # And none of the four reaches a method. The allow-list redacts by default, so this fails
+    # only if someone adds them to `_PREDICTION_SCHEMA` on purpose.
+    visible = prediction_load()
+    leaked = {
+        field
+        for field in ("uniprot", "pfam", "interpro_release", "pfam_release", "panther_release")
+        if field in visible or any(field in target for target in visible["targets"])
+    }
+    assert not leaked, f"clause (xii) provenance reached the prediction path: {sorted(leaked)}"

@@ -23,7 +23,9 @@ tracked inside this tree **and** imports nothing from `allo`. Two tests pin that
 **What has since been done.** Read
 [`11-synthesis.md`](11-synthesis.md) §"Disposition". Eight ADRs, 0029 to 0036, came out of this
 audit, and the primary input layer was re-frozen at six arms on the same day. Protocol version
-3 is frozen: `docs/benchmark/evaluation/frozen.json` carries `protocol_version: 3` and
+3 was frozen that day, and **a fourth pass on 2026-09-03 opened version 4** — ADR 0038 and
+ADR 0039, recorded in [`27-fourth-pass-synthesis.md`](27-fourth-pass-synthesis.md).
+`docs/benchmark/evaluation/frozen.json` carries `protocol_version: 4` today, and
 `uv run allo evaluate verify --detect` exits 0 over fifteen arms and 777 decoy pockets.
 
 **A second pass ran the same day, and it audited the first one.** Files `16` to `25`. It found

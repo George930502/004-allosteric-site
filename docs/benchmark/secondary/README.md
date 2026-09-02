@@ -130,6 +130,19 @@ selection only exists where there is a pool. That is ADR 0009's reasoning, appli
 > **(xii) Within-set redundancy.** No two secondary targets share a Pfam family, and none
 > shares one with a primary target.
 
+**Clause (xii) is stated at FAMILY level, never at clan level, and PANTHER is the narrowing
+instrument (ADR 0042, 2026-09-03).** ADR 0012 clause 2 once added a clan sentence and it is
+withdrawn: measured live against InterPro 109.0, the two anchor clans hold 316 and 216 Pfam
+families, four of the fifteen arms carry a family in no clan at all, and the primary set is
+not clan-disjoint from itself, because `CHALLENGE.md` mandates all three of its proteins. A
+rule that binds one set and cannot bind the other is asymmetric by construction. PANTHER
+narrows a family collision where one occurs, and cannot be the primary instrument either:
+fourteen arms carry exactly one PANTHER family and all fourteen are distinct, but `ns5b` has
+no PANTHER assignment at all. **The three releases are pinned in `manifest.yaml`, and each
+target carries its `uniprot` accession**, so the clause derives from an accession rather than
+from a hand-typed family list. Neither field moves a frozen value and both are redacted from
+the prediction path by the `allo.inputs` allow-list.
+
 Each clause has a test in `tests/test_secondary.py`. Which artifact each one reads, and
 which gate runs it, differ — and an audit found that difference hidden, so it is stated here:
 

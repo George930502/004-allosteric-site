@@ -39,7 +39,7 @@ size over four correlation lengths, 20 000 fields per cell:
 | --- | ---: | ---: |
 | `white_noise` | 0.0001 | 0.0086 |
 | `smooth_gaussian` | 0.0049 | 0.0154 |
-| `smooth_t` | 0.0047 | 0.0137 |
+| `cluster_blocks` | 0.0046 | 0.0163 |
 | `distance_shell` | 0.0237 | **0.0548** |
 
 On `bcr_abl1_corrected` under `distance_shell` the label form runs 0.0513 to 0.0548 across all
@@ -51,10 +51,30 @@ two sides differ in size.
 **So `label_p` is reported as a descriptive percentile and carries no rejection**, and review
 25 §1.4's exchangeability argument is vindicated by measurement rather than by principle.
 
+### Re-run the same day, because the third generator was not a third law
+
+The table's third row read `smooth_t`, at 0.0047 and 0.0137. An adversarial pass found that
+generator divided a Gaussian field by one chi-square draw per replicate, which is monotone
+within the column. Every statistic here is a midrank, so its ranks were bit-identical to
+`smooth_gaussian`'s at the same seed and this run measured three laws while reporting four.
+
+**A rank test cannot see a marginal distribution.** Heavy tails, log-normal marginals and
+rescaling are all the same null, so only the copula moves the answer. `cluster_blocks`
+replaces it with a genuinely different dependence structure: each residue takes the value of
+its nearest of `n // 25` random centres, so the field is piecewise constant with hard
+boundaries. Blockiness is the direction that made `distance_shell` the worst case, so the
+replacement is adversarial rather than convenient.
+
+The whole run was repeated at the same seed and the table above is the repeat. Nothing
+changed but that row: 0.0163 instead of 0.0137, still far below α and still not the worst
+case. `distance_shell` is still worst at 0.0548 with the same interval, and `site` still
+holds at 0.0237.
+
 ## What this run does not establish
 
 - Four generators are four, not all. A score field unlike all four could behave differently.
-  The claim is "measured on these four", never "distribution-free".
+  The claim is "measured on these four", never "distribution-free". They are four distinct
+  RANK laws, which a test pins, and that is the only kind of distinctness this test can see.
 - Power is measured at one correlation length, 8. The size table covers four.
 - Nothing here is a method. Every field is site-uninformative by construction.
 

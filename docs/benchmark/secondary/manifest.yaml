@@ -255,12 +255,25 @@ orthosteric_vocabulary:
   state_components: [ADP, CL, GLC, GOL, K, MG, MN, O41, PO4, SAM, SO4]
   additives: []
 
+# Clause (xii) resolves against three moving databases, so the releases it was decided
+# against are pinned here. Added 2026-09-03 by ADR 0042 consequence 1. Every `pfam` value
+# below came from RCSB, whose annotations carry `assignment_version: "34.0"`, so the
+# recorded families are Pfam 34.0 in fact; the verdict was re-measured live against the
+# releases named here and did not move. These fields move no frozen value: `freeze()`
+# builds `frozen.json` from six named keys and echoes no other, and `allo.inputs.load`
+# rebuilds from an allow-list, so a field added here is redacted from the prediction path
+# by default.
+interpro_release: "109.0"
+pfam_release: "38.2"
+panther_release: "19.0"
+
 targets:
   - id: mkp5
     tier: development
     protein: MAP kinase phosphatase 5 (DUSP10), catalytic domain
     site: allosteric pocket adjacent to the general acid loop
     pfam: [PF00782]
+    uniprot: Q9Y6W6
     apo:
       {
         pdb: 1ZZW,
@@ -299,6 +312,7 @@ targets:
     protein: CHK1 (CHEK1)
     site: C-lobe allosteric site
     pfam: [PF00069]
+    uniprot: O14757
     apo:
       {
         pdb: 1IA8,
@@ -335,6 +349,7 @@ targets:
     protein: Protein tyrosine phosphatase 1B (PTPN1)
     site: BB allosteric site at helix alpha-7
     pfam: [PF00102]
+    uniprot: P18031
     apo:
       {
         pdb: 1SUG,
@@ -376,6 +391,7 @@ targets:
     protein: SMYD3 lysine methyltransferase
     site: C-terminal domain (diperodon) site
     pfam: [PF00856, PF01753]
+    uniprot: Q9H7B4
     apo:
       {
         pdb: 6P7Z,
@@ -416,6 +432,7 @@ targets:
     protein: Human glucokinase (GCK)
     site: glucokinase activator (GKA) site
     pfam: [PF00349, PF03727]
+    uniprot: P35557
     apo:
       {
         pdb: 3IDH,
@@ -463,6 +480,7 @@ targets:
     protein: HIV-1 reverse transcriptase p66
     site: NNRTI pocket
     pfam: [PF00078, PF06815, PF06817, PF00075]
+    uniprot: P04585
     apo:
       {
         pdb: 1RTJ,
@@ -507,6 +525,7 @@ targets:
     protein: Hepatitis C virus NS5B RNA polymerase
     site: thumb I (finger-loop) site
     pfam: [PF00998]
+    uniprot: P26663
     apo:
       {
         pdb: 1QUV,
@@ -554,6 +573,7 @@ targets:
     protein: p97 / VCP (valosin-containing protein)
     site: D1-D2 domain interface site
     pfam: [PF00004, PF02359, PF02933, PF17862]
+    uniprot: P55072
     apo:
       {
         pdb: 5FTK,
@@ -593,6 +613,7 @@ targets:
     protein: E. coli carbamoyl phosphate synthetase, large subunit
     site: UMP allosteric site in the C-terminal regulatory domain
     pfam: [PF02786, PF02787, PF25596, PF02142]
+    uniprot: P00968
     apo:
       {
         pdb: 1A9X,

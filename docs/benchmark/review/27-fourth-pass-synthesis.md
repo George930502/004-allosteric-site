@@ -115,7 +115,7 @@ lengths:
 | --- | ---: | ---: |
 | `white_noise` | 0.0001 | 0.0086 |
 | `smooth_gaussian` | 0.0049 | 0.0154 |
-| `smooth_t` | 0.0047 | 0.0137 |
+| `cluster_blocks` | 0.0046 | 0.0163 |
 | `distance_shell` | 0.0237 | **0.0548** |
 
 The label form **exceeds alpha**. On `bcr_abl1_corrected` under `distance_shell` it runs 0.0513

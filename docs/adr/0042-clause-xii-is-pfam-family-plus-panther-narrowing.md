@@ -77,17 +77,17 @@ the two ABL1 arms in CL0016. The full per-arm assignment is
 
 Three consequences follow from that:
 
-1. **Pin the releases.** `interpro_release`, `pfam_release` and `panther_release` go in both
-   manifests. A rule that resolves against a moving database and records no version is not
+1. **Pin the releases** — **DONE 2026-09-03.** `interpro_release: 109.0`,
+   `pfam_release: 38.2` and `panther_release: 19.0` are in both manifests. A rule that resolves against a moving database and records no version is not
    frozen. Note that every `pfam` value in both manifests came from RCSB, whose annotations
    carry `assignment_version: "34.0"`, so the manifests are pinned to Pfam 34.0 in fact and to
    nothing in writing, while any lookup today resolves against Pfam 38.2.
-2. **Add `uniprot:` per target**, so the clause derives from an accession rather than from a
-   hand-typed family list. `ns5b`'s `pfam` value cannot have come from RCSB, which carries no
+2. **Add `uniprot:` per target** — **DONE 2026-09-03**, all fifteen arms, so the clause
+   derives from an accession rather than from a hand-typed family list. `ns5b`'s `pfam` value cannot have come from RCSB, which carries no
    Pfam annotation for either of that arm's entries; the value is right but its stated
    provenance is not, and it is the sole input to the disjointness test for that arm.
-3. **Say what the guarantee is** in `secondary/README.md` and in `secondary/manifest.yaml`:
-   family level, plus PANTHER where families collide. Neither document mentions clans today,
+3. **Say what the guarantee is** — **DONE 2026-09-03** in `secondary/README.md`, directly
+   under the clause text: family level, plus PANTHER where families collide. Neither document mentions clans today,
    so the shipped text is already right and only the ADR was wrong.
 
 ## Consequences

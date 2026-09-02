@@ -269,6 +269,18 @@ _myh7_blind: &myh7_blind
 
 # ---------------------------------------------------------------------------------------
 
+# Clause (xii) resolves against three moving databases, so the releases it was decided
+# against are pinned here. Added 2026-09-03 by ADR 0042 consequence 1. Every `pfam` value
+# below came from RCSB, whose annotations carry `assignment_version: "34.0"`, so the
+# recorded families are Pfam 34.0 in fact; the verdict was re-measured live against the
+# releases named here and did not move. These fields move no frozen value: `freeze()`
+# builds `frozen.json` from six named keys and echoes no other, and `allo.inputs.load`
+# rebuilds from an allow-list, so a field added here is redacted from the prediction path
+# by default.
+interpro_release: "109.0"
+pfam_release: "38.2"
+panther_release: "19.0"
+
 targets:
   # ------------------------------------------------------- Oncology 1: KRAS G12C
   - id: kras_g12c_mandated
@@ -276,6 +288,7 @@ targets:
     protein: KRAS
     site: Switch-II pocket (S-IIP)
     pfam: [PF00071]
+    uniprot: P01116
     apo:
       {
         pdb: 4OBE,
@@ -299,6 +312,7 @@ targets:
     protein: KRAS
     site: Switch-II pocket (S-IIP)
     pfam: [PF00071]
+    uniprot: P01116
     apo:
       {
         pdb: 4LDJ,
@@ -320,6 +334,7 @@ targets:
     protein: ABL1
     site: myristoyl pocket
     pfam: [PF00017, PF00018, PF07714]
+    uniprot: P00519
     apo:
       {
         pdb: 1OPL,
@@ -368,6 +383,7 @@ targets:
     protein: ABL1
     site: myristoyl pocket
     pfam: [PF07714]
+    uniprot: P00519
     apo:
       {
         pdb: 2G2H,
@@ -396,6 +412,7 @@ targets:
     protein: MYH7
     site: mavacamten site
     pfam: [PF00063, PF01576, PF02736]
+    uniprot: P12883
     apo:
       {
         pdb: 5TBY,
@@ -483,6 +500,7 @@ targets:
     protein: MYH7
     site: mavacamten site
     pfam: [PF00063, PF02736]
+    uniprot: P12883
     apo:
       {
         pdb: 9GZ3,

@@ -12,7 +12,13 @@
 # stationary Gaussian family and concluded the label form is "never anti-conservative". The
 # two sides of that test have different set sizes and are not exchangeable, so its size is a
 # property of the score field, not a distribution-free guarantee. One family cannot support
-# "never". These four span the shapes a real scorer takes.
+# "never". These four span the DEPENDENCE shapes a real scorer takes.
+#
+# Re-run 2026-09-03 after `smooth_t` was replaced by `cluster_blocks`. Every statistic here
+# is a midrank, and `smooth_t` divided a Gaussian field by one chi-square per replicate --
+# monotone within the column, so its ranks were identical to `smooth_gaussian`'s at the same
+# seed. The first run measured three laws while reporting four. No elementwise monotone map
+# can move a rank test, so the replacement changes the COPULA instead of the marginal.
 
 targets:
   - kras_g12c_corrected
@@ -22,7 +28,7 @@ targets:
 generators:
   - white_noise # no spatial structure at all
   - smooth_gaussian # the instrument the frozen calibration uses
-  - smooth_t # the same covariance, Student-t marginals at 3 df
+  - cluster_blocks # piecewise constant over a random Voronoi partition: a different copula
   - distance_shell # blocky and monotone in distance: the adversarial case
 
 correlation_lengths: [4.0, 8.0, 12.0, 20.0]

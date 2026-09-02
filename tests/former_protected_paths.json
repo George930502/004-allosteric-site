@@ -1,14 +1,23 @@
 {
- "why": "A protected path is protected by its name, and a rename gives the same bytes a second name that no entry covers. This ledger is the tracked copy, so the guard works in a shallow clone, in a `git archive` export, and with no git binary at all -- the derivation from `git log --diff-filter=R` only cross-checks it. ADR 0043.",
+ "why": "A protected path is protected by its name. A rename gives the same bytes a second name that no entry covers, and a DELETE leaves the same artefact: content that was protected, reachable through `git show <sha>^:<path>`, under a name the guard reads as ordinary documentation. This ledger is the tracked copy, so the guard works in a shallow clone, in a `git archive` export, and with no git binary at all -- the derivation from `git log --diff-filter=RD` only cross-checks it. ADR 0043.",
  "generated_on": "2026-09-03",
+ "generated_by": "tests/test_no_leakage.py::renamed_into_protected_from_git, re-run after widening the filter from R to RD",
  "former_paths": [
+  "docs/benchmark/audit/bcr-abl1.json",
   "docs/benchmark/audit/bcr-abl1.md",
+  "docs/benchmark/audit/cardiac-myosin.json",
   "docs/benchmark/audit/cardiac-myosin.md",
+  "docs/benchmark/audit/kras-g12c.json",
   "docs/benchmark/audit/kras-g12c.md",
+  "docs/benchmark/evaluation-protocol.md",
   "docs/benchmark/frozen.json",
   "docs/benchmark/manifest.yaml",
   "docs/decisions/0001-record-decisions.md",
   "docs/decisions/0002-quantum-metric-hypothesis.md",
-  "docs/decisions/README.md"
+  "docs/decisions/README.md",
+  "structures/holo/8QYR.cif.gz",
+  "structures/holo/8QYU.cif.gz",
+  "structures/holo/9F6C.cif.gz",
+  "structures/holo/9YR7.cif.gz"
  ]
 }

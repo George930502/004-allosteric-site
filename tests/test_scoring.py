@@ -875,3 +875,92 @@ def test_the_sealed_tier_cannot_be_scored_without_saying_so():
         harness.score_arm("chk1", scores, method="probe", config=fast_protocol(99))
     # A development arm is not sealed and needs no token.
     harness.score_arm("mkp5", scores, method="probe", config=fast_protocol(99))
+
+
+def test_every_public_scoring_entry_point_carries_the_generalisation_seal():
+    """ADR 0041's seal, pinned at the boundary rather than in one caller. Added 2026-09-03.
+
+    The seal was written inside `score_arm`. `compare_methods` was exported beside it, takes
+    the same two things -- an arm name and a method's scores -- reads the same frozen labels,
+    and had no check, so a caller could score a sealed arm through the paired test and get a
+    complete record with calibrated p-values. Same shape as every other guard defect here:
+    the rule sat in one caller instead of at the boundary.
+
+    So this asserts on the SET, not on the two functions. A future public scorer that takes
+    an arm and a score map must call `_require_unseal`, and this fails until it does.
+
+    The seal is deliberately NOT in `_positives`, the shared read. Calibration and the size
+    simulation read every arm's labels by design -- the August calibration derived all
+    fifteen arms' thresholds -- so a check on the read would break the freeze it protects.
+    ADR 0041 says the seal covers scoring, and scoring is what these functions do.
+    """
+    import inspect
+
+    from allo import scoring
+    from allo.scoring import harness
+
+    sealed = "chk1"  # a `generalisation` arm; `_tier` reads it from the secondary freeze
+    assert harness._tier(sealed) == "generalisation", f"{sealed} left the sealed tier"
+
+    entry_points = []
+    for name in scoring.__all__:
+        function = getattr(scoring, name)
+        parameters = inspect.signature(function).parameters
+        # An entry point is anything taking an arm name AND a residue-keyed score map.
+        if "target" in parameters and "scores" in parameters:
+            entry_points.append((name, function, parameters))
+
+    assert {name for name, _, _ in entry_points} == {"score_arm", "compare_methods"}, (
+        f"the public scoring surface changed: {sorted(n for n, _, _ in entry_points)}. Add the "
+        "new entry point's seal call, then update this set"
+    )
+
+    for name, function, parameters in entry_points:
+        assert "unseal" in parameters, f"{name} takes an arm and scores but has no unseal"
+        arguments = {"scores": {1: 0.0}}
+        if "against" in parameters:
+            arguments["against"] = {1: 0.0}
+        if "method" in parameters:
+            arguments["method"] = "probe"
+        with pytest.raises(PermissionError, match="sealed"):
+            function(sealed, **arguments)
+        # And the token must actually open it: a guard that never opens is a broken gate,
+        # not a strong one. Anything raised past this point is the arm's own scoring.
+        with pytest.raises(Exception) as raised:
+            function(sealed, unseal="phase-5", **arguments)
+        assert not isinstance(raised.value, PermissionError), (
+            f"{name}: unseal='phase-5' was refused, so the seal cannot be opened in Phase 5"
+        )
+
+
+def test_the_size_simulation_draws_four_distinct_rank_laws():
+    """Every statistic in `allo.scoring.simulate` is a midrank, so a generator that differs
+    from another only by an elementwise monotone map is not a second null. Added 2026-09-03.
+
+    This is not hypothetical. `smooth_t` built a multivariate t by dividing a Gaussian field
+    by ONE chi-square draw per replicate. Dividing a column by a positive scalar is monotone
+    within that column, so its ranks were bit-identical to `smooth_gaussian`'s at the same
+    seed, and the run behind ADR 0039 measured three laws while claiming four.
+
+    Same seed per generator is what makes this discriminating. Two independent draws from one
+    law also differ; two draws from one law at the SAME seed and stream position do not.
+    """
+    import itertools
+
+    import numpy as np
+
+    from allo.scoring.simulate import GENERATORS, _draw, _ranks
+
+    assert len(GENERATORS) == 4, GENERATORS
+    n, k, b, seed = 60, 8, 30, 7
+    factor = np.random.default_rng(1).standard_normal((n, k))
+    coords = np.random.default_rng(2).standard_normal((n, 3))
+    laws = {
+        name: _ranks(_draw(name, factor, coords, np.random.default_rng(seed), b))
+        for name in GENERATORS
+    }
+    for left, right in itertools.combinations(GENERATORS, 2):
+        assert not np.array_equal(laws[left], laws[right]), (
+            f"{left} and {right} give identical ranks at seed {seed}, so they are one law "
+            "under a rank statistic and the run measures one fewer null than it reports"
+        )

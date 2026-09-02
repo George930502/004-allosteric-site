@@ -167,13 +167,21 @@ def renamed_into_protected() -> set[Path]:
 
 
 def renamed_into_protected_from_git() -> set[Path] | None:
-    """The same list, derived from rename history, or None when there is no history to read.
+    """The same list, derived from history, or None when there is no history to read.
 
     This is the cross-check and not the source. Deriving it at import time made the guard
     depend on clone depth: a `--depth=1` fetch and a `git archive` export both produce an
     empty set, and a machine with no `git` binary raises during collection. Found 2026-09-03
     by an adversarial pass, which ran the shallow clone. A guard that is weaker in an export
     than in a working clone is weakest exactly where a release is verified.
+
+    **Deletions count, not only renames -- widened 2026-09-03 by a second adversarial pass.**
+    Reading `--diff-filter=R` alone missed three files. `docs/benchmark/audit/*.json` were
+    converted to Markdown, which git recorded as a delete plus an add rather than a rename
+    because the bytes changed too much. They reproduce every primary label set and
+    `git show <sha>^:docs/benchmark/audit/kras-g12c.json` still returns them. A rename and a
+    delete leave the same artefact -- content that was protected, under a name that is not --
+    so the filter is `RD` and the deleted path is kept when it sat inside a protected tree.
     """
     try:
         result = subprocess.run(
@@ -184,7 +192,7 @@ def renamed_into_protected_from_git() -> set[Path] | None:
                 "log",
                 "--all",
                 "-M",
-                "--diff-filter=R",
+                "--diff-filter=RD",
                 "--name-status",
                 "--format=",
             ],
@@ -196,14 +204,33 @@ def renamed_into_protected_from_git() -> set[Path] | None:
         return None
     if result.returncode != 0 or not result.stdout.strip():
         return None
+
+    def guarded_now(path: Path) -> bool:
+        return any(path == root or root in path.parents for root in PROTECTED_PATHS)
+
     former: set[Path] = set()
+    deleted: set[Path] = set()
+    emptied: set[Path] = set()
     for line in result.stdout.splitlines():
         fields = line.split("\t")
-        if len(fields) != 3 or not fields[0].startswith("R"):
-            continue
-        was, now = (ROOT / fields[1]).resolve(), (ROOT / fields[2]).resolve()
-        if any(now == guarded or guarded in now.parents for guarded in PROTECTED_PATHS):
-            former.add(was)
+        if len(fields) == 3 and fields[0].startswith("R"):
+            was, now = (ROOT / fields[1]).resolve(), (ROOT / fields[2]).resolve()
+            if guarded_now(now):
+                former.add(was)
+                emptied.add(was.parent)
+        elif len(fields) == 2 and fields[0].startswith("D"):
+            deleted.add((ROOT / fields[1]).resolve())
+
+    # A deletion qualifies on either of two grounds. The direct one is that the file sat
+    # inside a tree that is protected today, which is how the four `structures/holo` entries
+    # arrive. The second is the one the `.json` audit files needed: they were CONVERTED to
+    # Markdown, so git saw a delete plus an add and not a rename, and their own directory
+    # `docs/benchmark/audit/` was never protected -- only the `docs/benchmark/primary/audit/`
+    # it became. So a directory that lost any file to a protected tree is treated as a former
+    # protected tree itself, and everything ever deleted from it comes with.
+    for gone in deleted:
+        if guarded_now(gone) or gone.parent in emptied:
+            former.add(gone)
     return former
 
 
@@ -1054,13 +1081,21 @@ def test_a_rename_leaves_no_second_unprotected_name(tmp_path):
 
     Five tracked files were renamed into a protected tree, and three of them are the
     per-target input audits: `docs/benchmark/audit/kras-g12c.md` became
-    `docs/benchmark/primary/audit/kras-g12c.md` on 2026-08-31 and still reproduces 21 of 21
-    KRAS label residues at its former name, from `main`, with no network. The other two carry
+    `docs/benchmark/primary/audit/kras-g12c.md` on 2026-08-31 and still reproduces the whole
+    KRAS contact shell at its former name, from `main`, with no network. The other two carry
     a `FROZEN_TOKEN` in the file name and were backstopped by the token scan, which is the
     same asymmetry that left `data/patches` readable in September.
 
-    The list is derived from git rather than typed, so a rename made next week is protected
-    the day it is made.
+    **A delete leaves the same artefact as a rename, and the first version read only renames.**
+    Three more files sat in that same directory as `.json` before the Markdown conversion.
+    Git recorded a delete plus an add, not a rename, because the bytes changed too much, so
+    `--diff-filter=R` never saw them and the ledger stood stale while every test passed --
+    found 2026-09-03 by a second adversarial pass. The filter is now `RD`, and a directory
+    that lost any file to a protected tree is treated as a former protected tree itself, so
+    the conversion is covered by a rule rather than by three names.
+
+    The list is derived from git rather than typed, so a rename or a deletion made next week
+    is protected the day it is made.
     """
     assert FORMER_PROTECTED_PATHS, "the former-path ledger is empty"
     # The ledger is the source, because a shallow clone and a `git archive` export have no
@@ -1070,7 +1105,10 @@ def test_a_rename_leaves_no_second_unprotected_name(tmp_path):
         missing = {p.relative_to(ROOT).as_posix() for p in derived - FORMER_PROTECTED_PATHS}
         assert not missing, f"rename history holds paths the ledger does not: {sorted(missing)}"
     audits = {p for p in FORMER_PROTECTED_PATHS if p.parent.name == "audit"}
-    assert len(audits) == 3, f"expected the three input audits, got {sorted(audits)}"
+    # Six: three Markdown audits renamed into `primary/audit/`, and the three `.json` they
+    # were converted from. Both spellings still resolve through `git show`.
+    assert len(audits) == 6, f"expected the six former input audits, got {sorted(audits)}"
+    assert {p.suffix for p in audits} == {".md", ".json"}, sorted(audits)
     for former in sorted(audits):
         relative = former.relative_to(ROOT)
         assert protected_path_violations(f"open({str(relative)!r})\n", tmp_path / "p.py")

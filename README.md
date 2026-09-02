@@ -202,7 +202,7 @@ read any number this repo produces.
 | Phase | Focus | Status |
 |---|---|---|
 | 0 | Repo, harness, agent infrastructure | ✅ done |
-| 1 | Classical foundation: structures, ground truth, frozen benchmark, scoring harness | ✅ **closed** — input layer frozen 2026-08-24, re-frozen 2026-09-02 at six primary arms; evaluation layer frozen 2026-08-25 at protocol version 2, re-frozen 2026-09-02 at version 3 over fifteen arms |
+| 1 | Classical foundation: structures, ground truth, frozen benchmark, scoring harness | ✅ **closed** — input layer frozen 2026-08-24, re-frozen 2026-09-02 at six primary arms; evaluation layer frozen 2026-08-25 at protocol version 2, re-frozen 2026-09-02 at version 3 and 2026-09-03 at **version 4**, over fifteen arms |
 | 2 | Quantum propagation metric (statevector) | **open — current phase** |
 | 3 | Circuit implementation, depth budget, noise resilience | |
 | 4 | Coarse-graining and scalability | |

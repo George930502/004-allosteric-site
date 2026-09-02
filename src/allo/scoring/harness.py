@@ -72,6 +72,28 @@ def _positives(target: str) -> tuple[list[int], int]:
     raise KeyError(f"{target!r} is not a frozen target")
 
 
+def _require_unseal(target: str, unseal: str | None) -> None:
+    """The `generalisation` seal. Every PUBLIC scoring entry point calls this, and one test
+    pins that set so a new entry point cannot forget.
+
+    It is NOT in `_positives`, though that is the shared read. Calibration and the size
+    simulation legitimately read every arm's labels -- the August calibration derived the
+    per-arm thresholds for all fifteen -- and ADR 0041 records that the seal covers SCORING
+    rather than reading. Putting the check on the read would break the freeze it protects.
+
+    Added 2026-09-03. The guard was written inside `score_arm` and `compare_methods` was
+    exported beside it with no check at all, so a caller could score a sealed arm through the
+    paired test and get a complete record. That is the same shape as every other guard defect
+    in this repository: the rule was placed in one caller instead of at the boundary.
+    """
+    if _tier(target) == "generalisation" and unseal != "phase-5":
+        raise PermissionError(
+            f"{target} is in the sealed `generalisation` tier. It carries the generalisability "
+            "claim and is not scored until the method is frozen (Phase 5, ADR 0021). Pass "
+            'unseal="phase-5" to score it, and say in the run notes why the method is frozen.'
+        )
+
+
 def _spearman(left: np.ndarray, right: np.ndarray) -> float | None:
     """Spearman rho, or `None` where it is undefined rather than `nan`.
 
@@ -211,12 +233,7 @@ def score_arm(
     and no test holds is a promise, and this one was broken in 23 tracked files before it was
     a day old. What the seal can still protect is scoring, so scoring is what is guarded.
     """
-    if _tier(target) == "generalisation" and unseal != "phase-5":
-        raise PermissionError(
-            f"{target} is in the sealed `generalisation` tier. It carries the generalisability "
-            "claim and is not scored until the method is frozen (Phase 5, ADR 0021). Pass "
-            'unseal="phase-5" to score it, and say in the run notes why the method is frozen.'
-        )
+    _require_unseal(target, unseal)
     settings = config or protocol()
     frozen = json.loads(EVALUATION_FROZEN.read_text())["targets"][target]
     apo = apo_input(target)
@@ -775,6 +792,7 @@ def compare_methods(
     *,
     names: tuple[str, str] = ("method", "baseline"),
     config: dict | None = None,
+    unseal: str | None = None,
 ) -> dict:
     """Paired test: does one score rank the label set higher than another, on the same arm?
 
@@ -812,6 +830,7 @@ def compare_methods(
     validity and would cost power a family this conservative cannot spare. Revisit if the
     measured size ever reaches alpha.
     """
+    _require_unseal(target, unseal)
     settings = config or protocol()
     apo = apo_input(target)
     graph = evaluation_graph(apo)
@@ -981,8 +1000,30 @@ def _conformance_problems(settings: dict) -> list[str]:
         # halves every confirmatory p-value's tail without moving one pinned value.
         "decision.sided": "upper",
         "decision.claim_family.sided": "two",
+        # Added 2026-09-03. `confirmatory_verdict` reads `decision.alpha` straight from the
+        # manifest and no frozen value records it, so a probe moved it from 0.05 to 0.90 and
+        # every decision changed while `verify_evaluation` still returned no problems. The
+        # calibration invariant below binds it from BELOW, and this literal binds it from
+        # above. Both are needed: the invariant cannot see alpha being raised.
+        "decision.alpha": 0.05,
     }
     problems: list[str] = []
+    # The calibration invariant, from `alpha_star`: "calibration may tighten a test and may
+    # never loosen one", so no arm's calibrated threshold may exceed the decision level. This
+    # is derived rather than declared, and it is what would catch alpha being LOWERED under a
+    # freeze whose thresholds were calibrated at the old value.
+    alpha = settings.get("decision", {}).get("alpha")
+    if isinstance(alpha, (int, float)) and EVALUATION_FROZEN.exists():
+        starred = [
+            arm["matched_patch"]["alpha_star"]
+            for arm in json.loads(EVALUATION_FROZEN.read_text())["targets"].values()
+            if arm.get("matched_patch", {}).get("alpha_star") is not None
+        ]
+        if starred and max(starred) > float(alpha):
+            problems.append(
+                f"conformance decision.alpha: {alpha} is below the largest calibrated "
+                f"threshold {max(starred)}, so the freeze was calibrated at a different level"
+            )
     # `endpoints.reported` is a list, so it is checked for membership rather than equality:
     # the manifest may report more than the code writes, and it may not report less.
     reported = settings.get("endpoints", {}).get("reported") or []

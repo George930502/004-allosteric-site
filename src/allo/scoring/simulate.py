@@ -19,9 +19,23 @@ synthetic matcher.
 field with exponential covariance, and concluded the label form is "never anti-conservative".
 The two sides of that test have different set sizes and are NOT exchangeable, so its size is a
 property of the score field and not a distribution-free guarantee. One family cannot support
-"never". These four span the shapes a real scorer takes: no spatial structure at all, smooth
-and Gaussian, smooth and heavy-tailed, and the blocky monotone-in-distance shape that every
-distance-correlated baseline in this repository actually has.
+"never". These four span the DEPENDENCE shapes a real scorer takes: none at all, smooth and
+Gaussian, piecewise-constant over spatial clusters, and the blocky monotone-in-distance shape
+that every distance-correlated baseline in this repository actually has.
+
+**A rank test cannot see a marginal distribution, and the first four generators forgot it.**
+The set replaced `smooth_t` on 2026-09-03, after an adversarial pass showed its ranks are
+IDENTICAL to `smooth_gaussian`'s at the same seed. The construction was the standard
+multivariate-t one, a Gaussian field divided by a single chi-square draw per replicate, and
+dividing a whole column by one positive scalar is monotone within that column. Every statistic
+here is a midrank, so the two generators are one law and the run measured three, not four.
+
+The lesson generalises past that one bug: **no elementwise monotone transform of a field can
+change this test**, so heavy tails, log-normal marginals and rescaling are all the same null.
+Only the copula moves the answer. `cluster_blocks` replaces it with a genuinely different
+copula rather than a different marginal -- each residue takes its nearest random centre's
+i.i.d. value, so the field is piecewise constant with hard boundaries. It is chosen in the
+adversarial direction, because blockiness is what made `distance_shell` the worst case.
 """
 
 from __future__ import annotations
@@ -35,7 +49,7 @@ from allo.scoring.harness import EVALUATION_FROZEN, _positives
 from allo.scoring.nulls import evaluation_graph, field_factor
 
 BLOCK = 2500
-GENERATORS = ("white_noise", "smooth_gaussian", "smooth_t", "distance_shell")
+GENERATORS = ("white_noise", "smooth_gaussian", "cluster_blocks", "distance_shell")
 
 
 def _ranks(fields: np.ndarray) -> np.ndarray:
@@ -68,11 +82,19 @@ def _draw(generator: str, factor: np.ndarray, coords: np.ndarray, rng, b: int) -
         return rng.standard_normal((n, b))
     if generator == "smooth_gaussian":
         return factor @ rng.standard_normal((factor.shape[1], b))
-    if generator == "smooth_t":
-        # The same covariance, with Student-t marginals at 3 degrees of freedom. Heavy tails
-        # change which residues take the extreme ranks without changing the spatial scale.
-        normal = factor @ rng.standard_normal((factor.shape[1], b))
-        return normal / np.sqrt(rng.chisquare(3, size=(1, b)) / 3)
+    if generator == "cluster_blocks":
+        # Piecewise constant over a random Voronoi partition: pick `k` centres uniformly among
+        # the candidates and give every residue its nearest centre's i.i.d. value. Hard
+        # boundaries, so the copula is unlike the smooth field's, which is the point --
+        # see the module docstring on why a heavy-tailed MARGINAL was no null at all.
+        k = max(2, n // 25)
+        centres = np.stack([rng.choice(n, size=k, replace=False) for _ in range(b)])
+        value = rng.standard_normal((k, b))
+        out = np.empty((n, b), dtype=np.float64)
+        for j in range(b):
+            nearest = np.linalg.norm(coords[:, None, :] - coords[centres[j]][None], axis=-1)
+            out[:, j] = value[nearest.argmin(1), j]
+        return out
     if generator == "distance_shell":
         # Negated distance to a random candidate, plus a small smooth perturbation. This is
         # the shape every distance-correlated baseline in this repository has, and it is the
