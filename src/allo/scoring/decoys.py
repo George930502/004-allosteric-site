@@ -82,7 +82,14 @@ def detect_pockets(apo: ApoInput, **parameters) -> dict[str, dict]:
             f"{DETECTOR_VERSION}. Re-deriving the decoys under another version changes them."
         )
 
-    settings = DETECTOR_DEFAULTS | parameters
+    # NOT `DETECTOR_DEFAULTS`. ADR 0030 re-froze the detector on 2026-09-02 and three of
+    # the five values moved off the package defaults, so a caller who forgot to pass the
+    # frozen settings silently got version-2 pockets. Round 6 found the trap. The base is
+    # now what the manifest froze, and `DETECTOR_DEFAULTS` is kept only to record what was
+    # withdrawn.
+    from allo.scoring.harness import protocol
+
+    settings = protocol()["decoys"]["detector_settings"] | parameters
     structure = apo.structure
     mask = structure.protein
     vdw = pyKVFinder.read_vdw()

@@ -173,7 +173,7 @@ C1 expressed in the import graph: holo structures, ligand contacts and label set
 repo only through it. If anything on the prediction path imports it — directly or
 transitively — the blind prediction is compromised and the submission is invalid.
 
-**Sixteen data routes bypass the import graph, and each is guarded separately.**
+**Nineteen data routes bypass the import graph, and each is guarded separately.**
 
 1. **The freezes, and the trees around them.** `docs/benchmark/primary/` and
    `docs/benchmark/secondary/` are protected **whole**, not file by file. `frozen.json` was
@@ -293,7 +293,34 @@ transitively — the blind prediction is compromised and the submission is inval
     the prediction manifest. The page is a required deliverable and keeps saying what it says.
     Protected whole on 2026-09-03, so `conformance.md` and anything added later is covered.
 
-All sixteen are enforced by `tests/test_no_leakage.py`, which names them in
+17. **A data file shipped beside prediction code.** A module that never spells a path can read
+    one a sidecar names. A probe added a `.json` next to `structure/graph.py` holding a
+    protected path as a value, read the sidecar by an innocuous resolvable path, and opened
+    what it named. The segment cover fires on that sidecar's text when it is called on it, and
+    nothing ever pointed it there: `.json` is not a runner suffix, `src/` is exempt from the
+    runner scan because the package scan covers it, and the package scan globs `*.py`. Every
+    non-Python file under `src/` is now scanned, from the filesystem rather than from
+    `git ls-files`, because an untracked sidecar imports exactly as readily as a tracked one.
+    Added 2026-09-03 by round 6.
+18. **A module with no source.** Every scan in the guard keys on `rglob("*.py")`. A probe
+    compiled a `.pyc` with no `.py` beside it, imported the ground-truth package from it, and
+    the import-graph fixture — which builds its edges by reading source — recorded no edge at
+    all. A compiled extension is the committable version: `.so` and `.pyd` are importable and
+    are ignored by nothing. The rule is that the module set the interpreter can import must
+    equal the module set the guard can read. Added 2026-09-03 by round 6.
+19. **A process, and specifically git.** `git -C <root> grep -l <field name> HEAD` performs the
+    path lookup at run time, so the source holds only bare words: no protected component, no
+    separator, no path expression. All six mechanisms return nothing and a probe recovered a
+    per-arm count for every arm in both freezes. `git cat-file --batch-all-objects --batch` is
+    wider still — it names no path, no revision and no object id — so it defeats route 14
+    outright, since a ledger of former **names** cannot protect content reached without a name,
+    and it returns superseded freezes that the working tree no longer holds. The residual this
+    file used to declare said "a subprocess whose command is itself computed", which claimed a
+    constant command was covered. It was not. The ingredient is removed the way `importlib`
+    already was: **no prediction module starts a process, and none names `.git`.** Added
+    2026-09-03 by round 6.
+
+All nineteen are enforced by `tests/test_no_leakage.py`, which names them in
 `PROTECTED_PATHS`, in `FROZEN_TOKENS` and — for route 10 — in `allowed_experiment_path`. An
 import trace cannot see a file-read route, so the file-read and content tests are what does.
 

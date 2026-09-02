@@ -172,7 +172,7 @@ and the report's claim threshold is **beating that baseline**, not clearing the 
 ### The separation is enforced, not promised
 
 Holo structures build the labels and never enter the prediction path (constraint C1). The
-import graph enforces it, `src/allo/groundtruth/` is a sink, and sixteen file-read routes that no
+import graph enforces it, `src/allo/groundtruth/` is a sink, and nineteen file-read routes that no
 import trace can see are named and guarded in
 [`tests/test_no_leakage.py`](tests/test_no_leakage.py).
 

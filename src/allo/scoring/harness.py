@@ -339,10 +339,24 @@ def score_arm(
             "diagnostics": diagnostics,
         }
 
+    # `config` exists so that a test can run a 199-replicate protocol, and until 2026-09-03
+    # the record it produced was stamped with the frozen date and said nothing else. A
+    # top-1, 199-replicate calculation could therefore identify itself as the frozen
+    # protocol. Round 6. The record now says which top-level sections it ran under that the
+    # frozen manifest does not have, so a reader never has to trust the date alone.
+    frozen_settings = protocol()
+    deviations = sorted(
+        key
+        for key in set(frozen_settings) | set(settings)
+        if frozen_settings.get(key) != settings.get(key)
+    )
+
     record = {
         "target": target,
         "method": method,
         "protocol_frozen_on": str(settings["frozen_on"]),
+        "protocol_is_frozen": not deviations,
+        "protocol_deviations": deviations,
         "n_candidates": n_candidates,
         "n_positive": len(labels),
         "prevalence": round(len(labels) / n_candidates, 6),
@@ -496,6 +510,12 @@ def score_arm(
         if against
         else None
     )
+    # And the manifest mandates NINE of them by name, so a record that carries one
+    # correlation and a record that carries all nine were the same shape. Added 2026-09-03
+    # after round 6 showed that `against={"degree": ...}` produces a conforming-looking
+    # record. The key is always present and empty only when nothing is missing.
+    required = set(settings["secondary_objectives"]["classical_comparison"]["required_baselines"])
+    record["required_baselines_missing"] = sorted(required - set(against or {}))
     return record
 
 

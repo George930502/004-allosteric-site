@@ -714,7 +714,37 @@ def _under(path: Path, root: Path) -> bool:
     return a[: len(b)] == b
 
 
-ENUMERATORS = frozenset({"glob", "rglob", "iterdir", "scandir", "listdir", "walk", "walkdirs"})
+def _enumerator_names() -> frozenset[str]:
+    """Every directory-listing callable, DERIVED from the modules that provide them.
+
+    This was a hand-written list until 2026-09-03, and round 6 defeated it with
+    `glob.iglob` -- one letter outside the list, same return value. A list of spellings has
+    now lost six times in this file. `glob` publishes its own callables, so ask it.
+    """
+    import glob as glob_module
+
+    from_glob = {
+        name
+        for name in dir(glob_module)
+        if not name.startswith("_") and callable(getattr(glob_module, name))
+    }
+    return frozenset({"rglob", "iterdir", "walkdirs"} | from_glob | _module_level_enumerators())
+
+
+def _module_level_enumerators() -> frozenset[str]:
+    """The `os` walkers, which take their base as the first ARGUMENT and not as the holder."""
+    import glob as glob_module
+    import os
+
+    from_os = {
+        name
+        for name in dir(os)
+        if not name.startswith("_") and ("walk" in name or name.startswith(("listdir", "scandir")))
+    }
+    return frozenset(from_os | {"glob", "iglob"} & set(dir(glob_module)))
+
+
+ENUMERATORS = _enumerator_names()
 
 # A component no real path uses, appended to the base expression so the resolver's answer for
 # THAT expression is identifiable among every other path the file names. Without it the
@@ -751,21 +781,27 @@ def enumeration_violations(source: str, filename: Path) -> set[Path]:
             continue
         if node.func.attr not in ENUMERATORS:
             continue
-        # `p.glob(...)` takes its base from the attribute; `os.walk(p)` from the first argument.
-        holder = (
-            node.args[0] if node.func.attr in {"walk", "listdir", "scandir"} else node.func.value
-        )
-        try:
-            base = _resolve_one(holder, tree, filename)
-        except Exception:
-            base = None
+        # `p.glob(...)` takes its base from the attribute and `glob.glob(p)` from the first
+        # argument, and both are spelled `.glob`. So try BOTH rather than branching on the
+        # name: whichever resolves to a path is the base, and if neither does the call fails
+        # closed. Corrected 2026-09-03 after deriving the name set turned `Path.glob` into a
+        # module-level call and made the pattern string the base.
+        bases = []
+        for holder in (node.func.value, *node.args[:1]):
+            try:
+                resolved = _resolve_one(holder, tree, filename)
+            except Exception:
+                resolved = None
+            if resolved is not None:
+                bases.append(resolved)
         for protected in PROTECTED_PATHS | FORMER_PROTECTED_PATHS:
-            if base is None or _under(protected, base) or _under(base, protected):
-                if base is not None and any(
-                    _under(base, allowed) for allowed in ALLOWED_PREDICTION_PATHS
-                ):
-                    continue
-                hits.add(protected if base is None else base)
+            for base in bases or [None]:
+                if base is None or _under(protected, base) or _under(base, protected):
+                    if base is not None and any(
+                        _under(base, allowed) for allowed in ALLOWED_PREDICTION_PATHS
+                    ):
+                        continue
+                    hits.add(protected if base is None else base)
     return hits
 
 
@@ -2444,6 +2480,17 @@ def test_an_enumeration_cannot_see_a_protected_path_by_any_spelling():
         "a case variant of a protected component": lib + 'p = Path("DATA") / "patches"',
         "parents converted to a list, then indexed": cache
         + 'p = list(APO_CACHE.parents)[1] / "patches"',
+        # Round 6, 2026-09-03. `glob.iglob` is one letter outside a hand-written list and
+        # returns the same files. `ENUMERATORS` is derived from the `glob` and `os` modules
+        # now, so the list cannot be one spelling behind the standard library again.
+        "glob.iglob, the lazy twin of glob.glob": "import glob\n"
+        + root
+        + 'for f in glob.iglob(str(ROOT / "data" / "*" / "*.npz")): pass',
+        "glob.glob at module level": "import glob\n"
+        + root
+        + 'for f in glob.glob(str(ROOT / "data") + "/*"): pass',
+        "os.fwalk": "import os\n" + root + 'for a, b, c, d in os.fwalk(ROOT / "data"): pass',
+        "Path.walk, the 3.12 method form": root + 'for a, b, c in (ROOT / "data").walk(): pass',
     }
     missed = [
         name for name, source in escapes.items() if not protected_path_violations(source, probe)
@@ -2504,7 +2551,13 @@ def test_the_counts_the_documents_assert_are_the_counts_the_repository_has():
     assert [int(n) for n in numbered] == list(range(1, routes + 1)), (
         f"the route list in AGENTS.md is not numbered 1..{routes}: {numbered}"
     )
-    spelled = {13: "Thirteen", 14: "Fourteen", 15: "Fifteen", 16: "Sixteen", 17: "Seventeen"}
+    spelled = {
+        16: "Sixteen",
+        17: "Seventeen",
+        18: "Eighteen",
+        19: "Nineteen",
+        20: "Twenty",
+    }
     lower = {n: word.lower() for n, word in spelled.items()}
     assert f"**{spelled[routes]} data routes bypass" in contract, (
         f"AGENTS.md lists {routes} routes and its header says otherwise"
@@ -2513,7 +2566,7 @@ def test_the_counts_the_documents_assert_are_the_counts_the_repository_has():
         f"AGENTS.md lists {routes} routes and its closing sentence says otherwise"
     )
 
-    ordinal = {13: "fourteenth", 14: "fifteenth", 15: "sixteenth", 16: "seventeenth"}
+    ordinal = {16: "seventeenth", 17: "eighteenth", 18: "nineteenth", 19: "twentieth"}
     for name, pattern in {
         "README.md": f"{lower[routes]} file-read routes",
         "CONTRIBUTING.md": (
@@ -2541,3 +2594,124 @@ def test_the_counts_the_documents_assert_are_the_counts_the_repository_has():
                 f"`REQUIRED_BASELINES` holds {len(REQUIRED_BASELINES)} and `cavity_volume` "
                 "is in `allo.scoring.decoys`"
             )
+
+
+def test_a_data_file_beside_prediction_code_cannot_carry_a_protected_path():
+    """Route 17. A module that never spells a path can read one a sidecar file names.
+
+    Round 6, 2026-09-03. A probe added `src/allo/structure/graph_defaults.json` holding
+    `{"reference_table": "<a protected path>"}` and had a prediction module read the sidecar
+    by an innocuous resolvable path and open what it named. Six arms' positive counts came
+    back with the whole suite green.
+
+    `segment_cover_violations` fires on the sidecar's own text -- called directly it returns
+    the protected directory -- and nothing ever pointed it at the file. `.json` is not a
+    runner suffix, `src` is exempt from the runner scan on the ground that the package scan
+    covers it, and the package scan globs `*.py`. That is the failure `AGENTS.md` already
+    names: a guard that scans the wrong tree scans nothing.
+
+    The filesystem is the authority here, not `git ls-files`, because an untracked sidecar
+    is imported exactly as readily as a tracked one.
+    """
+    offenders = {}
+    for path in sorted(SRC_ROOT.rglob("*")):
+        if not path.is_file() or path.suffix == ".py" or "__pycache__" in path.parts:
+            continue
+        try:
+            text = path.read_text(errors="ignore")
+        except OSError:
+            continue
+        found = segment_cover_violations(text)
+        if found:
+            offenders[str(path.relative_to(ROOT))] = sorted(str(one) for one in found)
+    assert not offenders, (
+        "a non-Python file shipped beside prediction code holds every component of a "
+        f"protected path: {offenders}"
+    )
+
+
+def test_every_importable_module_under_src_has_source_the_guard_can_read():
+    """Route 18. A module with no `.py` is invisible to every scan in this file.
+
+    Round 6, 2026-09-03. A probe compiled `src/allo/structure/probe.pyc` with no `probe.py`,
+    imported `allo.groundtruth` from it, and had a prediction module import the result. The
+    pinned-set test globs `*.py` and never saw it, the token scans had no text to read, and
+    the import-graph fixture builds its edges from source, so the edge into the ground-truth
+    package did not exist as far as the graph was concerned.
+
+    A compiled extension is the committable version of the same trick: `.so` and `.pyd` are
+    importable, are not ignored by git, and are read by nothing here. So the rule is that the
+    set of modules the interpreter can import must equal the set the guard can read.
+    """
+    binaries = [
+        str(path.relative_to(ROOT))
+        for path in sorted(SRC_ROOT.rglob("*"))
+        if path.is_file()
+        and path.suffix in {".pyc", ".pyo", ".so", ".pyd", ".dylib"}
+        and "__pycache__" not in path.parts
+    ]
+    assert not binaries, (
+        f"these modules are importable and have no source any guard in this file reads: {binaries}"
+    )
+
+    import pkgutil
+
+    import allo
+
+    importable = {name for _, name, _ in pkgutil.walk_packages(allo.__path__, "allo.")} | {"allo"}
+    from_source = {module_name(path) for path in SRC_ROOT.rglob("*.py")}
+    assert importable <= from_source, (
+        "the interpreter can import a module the guard cannot read: "
+        f"{sorted(importable - from_source)}"
+    )
+
+
+def test_no_prediction_module_can_start_a_process():
+    """Route 19. Git is a second copy of every protected file, addressable by content.
+
+    Round 6, 2026-09-03, and it is the widest route found since the enumeration hole.
+    `git -C <root> grep -l <field name> HEAD` performs the path lookup at RUNTIME, so the
+    source holds only the bare words `git`, `grep`, `-l`, `HEAD` and a field name. None is a
+    protected component, none carries a separator, and `subprocess.run` is not a path
+    expression, so all six mechanisms in this file return nothing. A probe recovered the
+    scoreable count for every arm in both freezes, the sealed tier included.
+
+    `git cat-file --batch-all-objects --batch` is worse: it names no path, no revision and no
+    object id at all, so it defeats route 14 outright -- a ledger of former NAMES cannot
+    protect content that is reached without a name -- and it also returns superseded freezes
+    that no longer exist in the working tree.
+
+    The guard's own residual said "a subprocess whose command is itself computed", which
+    claimed a constant command was covered. It was not. Removing the ingredient is the same
+    move this file already makes for `importlib`: no prediction module starts a process, so
+    the first one is a decision rather than an accident.
+    """
+    banned = {"subprocess", "system", "popen", "execv", "execve", "execvp", "spawnv", "spawnl"}
+    offenders = {}
+    for path in sorted(SRC_ROOT.rglob("*.py")):
+        if not is_prediction_path(module_name(path)):
+            continue
+        tree = ast.parse(path.read_text())
+        found = set()
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Import):
+                found |= {a.name.split(".")[0] for a in node.names} & banned
+            elif isinstance(node, ast.ImportFrom) and node.module:
+                found |= {node.module.split(".")[0]} & banned
+            elif isinstance(node, ast.Attribute):
+                found |= {node.attr} & banned
+            elif isinstance(node, ast.Name):
+                found |= {node.id} & banned
+        if found:
+            offenders[module_name(path)] = sorted(found)
+    assert not offenders, (
+        "a prediction module can start a process, and a process can ask git for the content "
+        f"of any protected file without naming it: {offenders}"
+    )
+
+    named_git = {
+        module_name(path)
+        for path in sorted(SRC_ROOT.rglob("*.py"))
+        if is_prediction_path(module_name(path)) and ".git" in path.read_text()
+    }
+    assert not named_git, f"a prediction module names the object store directly: {named_git}"

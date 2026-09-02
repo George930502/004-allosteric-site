@@ -55,9 +55,9 @@ leak produces excellent results that mean nothing, and no test failure tells you
 
 - All holo-reading code lives in `src/allo/groundtruth/`. That package is a **sink**. Only
   scoring and reporting import it.
-- **Sixteen** file-read routes bypass the import graph. All sixteen are named in
+- **Nineteen** file-read routes bypass the import graph. All nineteen are named in
   [`tests/test_no_leakage.py`](tests/test_no_leakage.py) and listed in `AGENTS.md`. If you
-  add a seventeenth, add it there. Two of them were found on 2026-09-02 by a sweep whose
+  add a twentieth, add it there. Two of them were found on 2026-09-02 by a sweep whose
   first version matched bare integers and so could not see `Tyr164`; **normalise
   three-letter residue codes before trusting any label sweep.**
 - Leakage also has forms that no import reveals: a cutoff tuned until enrichment looked good,
