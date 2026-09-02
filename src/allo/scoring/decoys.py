@@ -161,7 +161,11 @@ def classify(
     inside = set(candidates)
     label_coords = np.array([ca_coord[r] for r in sorted(labels)])
 
-    site, best_cover, decoys, excluded = None, -1, {}, {}
+    # `best_cover` starts at 0, not -1: a pocket covering no label used to beat -1, so the
+    # first pocket in iteration order became "the site" and the decoy test would have run
+    # against a pocket that is not the site. No frozen arm reaches it -- the lowest coverage
+    # over the fifteen is 0.3125 -- and a synthetic case reproduced it. Round 6, 2026-09-03.
+    site, best_cover, decoys, excluded = None, 0, {}, {}
     trimmed = {}
     for name, pocket in pockets.items():
         lining = sorted(set(pocket["lining"]) & inside)

@@ -422,10 +422,23 @@ def build(
             ),
         },
     )
-    isolated = [order[i] for i in np.flatnonzero(graph.degree == 0)]
-    if isolated:
+    # A COMPONENT COUNT, not an isolated-node check. The docstring above has always
+    # promised to raise rather than return a disconnected graph, and `degree == 0` only ever
+    # caught singletons, so any multi-node island passed. `build(contact="ca", cutoff=4.0)`
+    # returns three components on one arm and two on another with no isolated node at all,
+    # and `closeness_centrality` then scores the small island two orders of magnitude above
+    # the main component, because an unreachable hop count is replaced by zero. The default
+    # build is connected on every frozen arm, so nothing shipped moves. Round 6, 2026-09-03.
+    from scipy.sparse import csr_matrix
+    from scipy.sparse.csgraph import connected_components
+
+    count, labels = connected_components(csr_matrix(graph.weight != 0), directed=False)
+    if count > 1:
+        sizes = sorted(np.bincount(labels).tolist(), reverse=True)
+        isolated = [order[i] for i in np.flatnonzero(graph.degree == 0)]
         raise ValueError(
-            f"{apo.target}: residues {isolated} have no contact at cutoff {cutoff}; a "
-            "propagation score on a graph with isolated nodes is undefined"
+            f"{apo.target}: the graph at cutoff {cutoff} has {count} components of sizes "
+            f"{sizes}; a propagation score on a disconnected graph is undefined"
+            + (f". Isolated residues: {isolated}" if isolated else "")
         )
     return graph

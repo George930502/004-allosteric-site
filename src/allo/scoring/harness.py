@@ -101,7 +101,13 @@ def _spearman(left: np.ndarray, right: np.ndarray) -> float | None:
     A method that scores every candidate alike has no rank correlation with anything. SciPy
     returns `nan` and warns; `nan` is not valid JSON, so the record would be unreadable. The
     honest value is "undefined", which is what the conservation column already reads.
+
+    Non-finite input returns `None` too. `_aligned` refuses non-finite scores now, so this is
+    unreachable from `score_arm`, but a NaN used to pass straight through scipy and this
+    docstring has always promised otherwise. Round 6, 2026-09-03.
     """
+    if not (np.isfinite(left).all() and np.isfinite(right).all()):
+        return None
     if len(np.unique(left)) < 2 or len(np.unique(right)) < 2:
         return None
     return round(float(spearmanr(left, right).statistic), 4)
@@ -119,7 +125,20 @@ def _aligned(graph: EvaluationGraph, scores: Mapping[int, float]) -> np.ndarray:
     extra = sorted(set(scores) - set(graph.order))
     if extra:
         raise ValueError(f"{graph.target}: scores given for non-node residues {extra}")
-    return np.array([float(scores[r]) for r in graph.candidates])
+    values = np.array([float(scores[r]) for r in graph.candidates])
+    # A single NaN wins every test on the arm, and quietly. `rankdata` propagates it to the
+    # whole vector, so the observed statistic is NaN, `null >= observed` counts zero on every
+    # replicate, and every permutation p collapses to its floor -- 1e-4 at the frozen
+    # replicate count, under every Holm threshold in the confirmatory family. The endpoints
+    # print as NaN while the p-values print as a sweep. Found 2026-09-03 by round 6.
+    bad = sorted(
+        residue
+        for residue, value in zip(graph.candidates, values, strict=True)
+        if not np.isfinite(value)
+    )
+    if bad:
+        raise ValueError(f"{graph.target}: non-finite scores for residues {bad}")
+    return values
 
 
 def _gate(target: str, settings: dict) -> dict:
@@ -148,7 +167,19 @@ def _gate(target: str, settings: dict) -> dict:
     gate = json.loads(path.read_text())["gate"]
     if target not in gate:
         raise KeyError(f"{target!r} has no calibrated threshold in {path}")
-    return gate[target]
+    record = gate[target]
+    # `size_ratio` is calibrated AT a matching tolerance, and applying it to a pool drawn at
+    # a different one is applying a correction fitted to a null that was never run. Nothing
+    # compared the two until 2026-09-03: a caller could set the tolerance to 0.5, get a much
+    # wider pool, and still have the 0.10 ratio applied. Round 6.
+    wanted = float(settings["nulls"]["matched_patch"]["tolerance"])
+    if abs(float(record["tolerance"]) - wanted) > 1e-9:
+        raise ValueError(
+            f"{target}: `size_ratio` was calibrated at matching tolerance "
+            f"{record['tolerance']} and the settings ask for {wanted}. A ratio fitted to one "
+            "null cannot correct another"
+        )
+    return record
 
 
 def calibrated_p(p: float, ratio: float) -> float:
@@ -519,7 +550,7 @@ def score_arm(
     return record
 
 
-def combine_arms(pvalues: Mapping[str, float], *, method: str = "fisher") -> dict:
+def combine_arms(pvalues: Mapping[str, float], *, method: str | None = None) -> dict:
     """Combine per-arm p-values across a declared family (ADR 0030).
 
     Negative class (b) -- non-functional surface pockets -- has no valid per-arm test. The
@@ -553,7 +584,13 @@ def combine_arms(pvalues: Mapping[str, float], *, method: str = "fisher") -> dic
     # accepted without complaint while `confirmatory_verdict` next door checked its own.
     # A combination over a set chosen after seeing the numbers is a different test from the
     # one the protocol froze, so the family is checked here on the same argument.
-    declared = sorted(protocol()["decision"]["confirmatory_family"])
+    settings = protocol()
+    # The manifest names the primary combiner (`nulls.decoy_pockets_combined.combine`) and
+    # nothing read it, so Fisher was the primary by a Python default and a caller could pass
+    # `method="stouffer"` as the primary with no record of having done so. Round 6.
+    if method is None:
+        method = str(settings["nulls"]["decoy_pockets_combined"]["combine"])
+    declared = sorted(settings["decision"]["confirmatory_family"])
     if sorted(pvalues) != declared:
         raise ValueError(
             f"combine_arms is declared over the confirmatory family, which is {declared}; "

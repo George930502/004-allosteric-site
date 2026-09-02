@@ -183,9 +183,15 @@ def endpoint_b_size_and_power(
                     "median_p": float(np.median(p)),
                     "min_p": float(p.min()),
                 }
+    # The power stage used to hardcode lambda = 8.0 and then index `factors[8.0]`, so any
+    # `correlation_lengths` without it completed the size stage and died with a KeyError.
+    # It takes the middle of the sweep now, and the default sweep still gives 8.0.
+    # Round 6, 2026-09-03.
+    power_lambda = sorted(correlation_lengths)[max(0, (len(correlation_lengths) - 1) // 2)]
+    result["power_correlation_length"] = power_lambda
     for delta in deltas:
         stream += 1
-        batches = run("smooth_gaussian", 8.0, n_power, delta, stream)
+        batches = run("smooth_gaussian", power_lambda, n_power, delta, stream)
         for name, idx in positives.items():
             p = np.concatenate([_p_values(f, idx, decoys) for f in batches])
             result["power"][f"delta={delta}/{name}"] = {

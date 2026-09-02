@@ -73,7 +73,12 @@ def auc_pr(scores: np.ndarray, positive: np.ndarray) -> float:
     fp = np.cumsum(~ranked)
     # Keep only the last index of each run of equal scores: one operating point per
     # distinct threshold, which is what the tie rule above means operationally.
-    distinct = np.r_[np.diff(scores[order]) != 0, True]
+    # `np.diff` of two equal infinities is NaN, and `NaN != 0` is True, so tied infinities
+    # became distinct thresholds and array order decided the answer -- the one thing the tie
+    # rule above promises never happens. Reachable by any method emitting log-scores with a
+    # zero in them. Found 2026-09-03 by round 6.
+    ordered = scores[order]
+    distinct = np.r_[ordered[1:] != ordered[:-1], True]
     tp, fp = tp[distinct], fp[distinct]
     precision = tp / (tp + fp)
     recall = tp / n_pos
