@@ -1,0 +1,30 @@
+{
+ "available": true,
+ "drawn": 999,
+ "attempts": 1130304,
+ "acceptance_rate": 0.000884,
+ "rejected": {
+  "frontier": 195,
+  "adjacent": 0,
+  "degree": 463925,
+  "compactness": 665185,
+  "distance": 0
+ },
+ "observed_components": [
+  7,
+  4,
+  1
+ ],
+ "observed_mean_degree": 8.75,
+ "observed_radius_of_gyration": 9.3445,
+ "observed_median_distance_to_source": 27.8551,
+ "sampled_mean_degree": 8.8723,
+ "sampled_radius_of_gyration": 9.7194,
+ "target": "cardiac_myosin_mandated",
+ "tolerance": 0.1,
+ "n_patches": 999,
+ "cap_per_patch": 4000,
+ "budget": 3996000,
+ "seed": 0,
+ "seconds": 160.4
+}

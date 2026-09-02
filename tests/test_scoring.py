@@ -798,3 +798,62 @@ def test_the_claim_family_counts_a_rejection_only_when_the_method_wins():
                 for a in arms
             },
         )
+
+
+def test_a_family_is_cleared_when_holm_rejects_at_least_one_arm():
+    """ADR 0038 freezes the disjunction, and the frozen layer used to hold both readings.
+
+    README section 8 and ADR 0030 read the combination test disjunctively; `docs/ROADMAP.md`
+    and section 13 printed one-of-three as a failure. The rule now lives in code, so a reader
+    cannot pick the reading that suits the result.
+
+    The composite needs BOTH families, which is what the manifest has always said. One arm in
+    each is enough, and no arm in either is not.
+    """
+    settings = harness.protocol()
+    family = list(settings["decision"]["confirmatory_family"])
+    claim = settings["decision"]["claim_family"]
+    reference = claim["reference"]
+
+    def record(leader, p):
+        return {"comparison": f"ctqw against {reference}", "leader": leader, "p_calibrated": p}
+
+    one = {family[0]: 1e-6, family[1]: 0.9, family[2]: 0.9}
+    none = dict.fromkeys(family, 0.9)
+    wins_one = {claim["arms"][0]: record("ctqw", 1e-6)} | {
+        a: record("ctqw", 0.9) for a in claim["arms"][1:]
+    }
+    loses_all = {a: record("ctqw", 0.9) for a in claim["arms"]}
+
+    assert harness.confirmatory_verdict(one, wins_one)["cleared"]
+    assert not harness.confirmatory_verdict(none, wins_one)["cleared"]
+    assert not harness.confirmatory_verdict(one, loses_all)["cleared"]
+    # A rejection in the wrong direction is not a rejection, so it cannot clear either.
+    reversed_claim = {a: record(reference, 1e-6) for a in claim["arms"]}
+    assert not harness.confirmatory_verdict(one, reversed_claim)["cleared"]
+    # Family 1 alone reports its own verdict and no composite: the composite needs both.
+    alone = harness.confirmatory_verdict(one)
+    assert alone["family_1"]["cleared"] and "cleared" not in alone
+
+
+def test_negative_class_b_reports_the_label_set_beside_the_site_pocket():
+    """ADR 0039, protocol v4. `p` ranks the site POCKET; `label_p` ranks the label RESIDUES.
+
+    The two are different questions and the difference is measurable: a delta = 4 shift on
+    every label residue leaves `p` at power 0 on two of three confirmatory arms, while
+    `label_p` reaches 0.999 and 1.000. Both must be present, and on an arm whose site lining
+    is not the label set they must be free to differ.
+    """
+    arm = "cardiac_myosin_corrected"
+    frozen = json.loads(harness.EVALUATION_FROZEN.read_text())["targets"][arm]
+    lining = set(frozen["decoys"]["site_pocket"]["lining"])
+    labels = set(harness._positives(arm)[0])
+    assert lining and labels and lining != labels, "this arm must separate the two sets"
+
+    graph = evaluation_graph(apo_input(arm))
+    scores = {r: float(i) for i, r in enumerate(graph.order)}
+    record = harness.score_arm(arm, scores, method="probe", config=fast_protocol(99))["nulls"][
+        "decoy_pockets"
+    ]
+    assert record["p"] is not None and record["label_p"] is not None
+    assert record["confirmatory"] is False, "both forms stay descriptive"

@@ -74,7 +74,7 @@ An archived experiment measured what happens when the source is something else
 | **Interpretability** for medicinal chemists without extensive training | §4.2 | **partly done by construction.** Residue identity is author numbering plus chain ID end to end, so a hit list is readable. No chemist-facing artifact exists |
 | **Actionable output** — 3D visualisation of the connectivity maps, prioritised | §4.2, §8.4 | **not started.** Phase 5. `viz/` is reserved and empty |
 | **Classical comparison**, where relevant | §4.2, §8.4 | **done and measured.** 43 classical scorers against 11 quantum, every one through the same harness |
-| **Statistical enrichment vs random and decoy residues** | §8.4 | **done and measured.** The frozen protocol, version 3 |
+| **Statistical enrichment vs random and decoy residues** | §8.4 | **done and measured.** The frozen protocol, version 4 |
 | **Near-term hardware feasibility / circuit depth analysis** | §8.4 | **on paper only.** Resource estimates exist; no compiled circuit backs them |
 
 ---

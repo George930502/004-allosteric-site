@@ -11,7 +11,7 @@ docs/benchmark/
   README.md      this page
   primary/       the three disease areas CHALLENGE.md Table 1 assigns. 6 arms
   secondary/     9 further targets, in two disjoint tiers
-  evaluation/    how a score is computed. Protocol version 3
+  evaluation/    how a score is computed. Protocol version 4
   evidence/      the literature the three sets rest on
   review/        the 2026-09-02 audit of all three, and what the organisers' answers force
 ```

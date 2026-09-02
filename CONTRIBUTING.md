@@ -78,7 +78,7 @@ These files are closed. Nothing in them changes once a method has been scored ag
 ```
 docs/benchmark/primary/frozen.json              the primary input layer
 docs/benchmark/secondary/frozen.json    the secondary input layer
-docs/benchmark/evaluation/frozen.json   the evaluation layer, protocol version 3
+docs/benchmark/evaluation/frozen.json   the evaluation layer, protocol version 4
 ```
 
 Their manifests carry the choices, and `frozen.json` carries the consequences. `make verify`

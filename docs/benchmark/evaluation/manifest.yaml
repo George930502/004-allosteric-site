@@ -12,8 +12,9 @@
 #   uv run allo evaluate freeze     # re-derive frozen.json (needs the `eval` extra)
 #   uv run allo evaluate verify     # offline: everything except the pockets
 #
-version: 3
-frozen_on: 2026-09-02 # v3: the organisers' Q4 answer and the 2026-09-02 audit. ADR 0030, 0032
+version: 4
+frozen_on: 2026-09-03 # v4: negative class (b) also scores the label set. ADR 0038, 0039
+# v3: 2026-09-02, the organisers' Q4 answer and that day's audit. ADR 0030, 0032
 source: CHALLENGE.md section 4.1 (success criterion) and section 5 (scored artifact)
 seed: 0
 
@@ -71,6 +72,33 @@ endpoints:
     # rejection and a useful hit list are not the same claim. ADR 0025.
     - dcc_angstrom
     - auc_roc_vs_decoy_linings
+    # ADDED AT v4. ADR 0039. The same permutation as `decoy_pockets.p`, with the LABEL SET as
+    # the positive instead of the detector's site-pocket lining. It is reported beside `p`
+    # and never in place of it.
+    #
+    # `p` asks whether the method ranks the true POCKET above decoy pockets, which is a fair
+    # reading of section 4.1 and is what review 25 section 1.4 froze, because the two halves
+    # are then exchangeable. Measured on the real linings and the real coordinates, at 20 000
+    # fields per arm, it has no power against the thing the challenge is about: a delta = 4
+    # shift on every label residue gives power 0 on kras and on cardiac myosin, and 0.037 on
+    # bcr-abl1. The dilution is mechanical -- 12 myosin labels inside a 295-residue lining
+    # move the lining mean by 12/295 of delta -- and delta = 2 already means a mean per-arm
+    # AUC of 0.93, so this is not a small-effect artefact.
+    #
+    # `label_p` asks whether the method ranks the ALLOSTERIC RESIDUES above decoy pockets.
+    # Same instrument, same 20 000 fields: power 0.751 and 0.866 at delta = 2, 0.999 and
+    # 1.000 at delta = 4 on bcr-abl1 and cardiac myosin. Review 25 closed against this form
+    # because no measured type-I rate covered it, which was true then and is not now: size
+    # 0.0000, 0.0083 and 0.0094 against a nominal 0.05, upper confidence limits 0.00018,
+    # 0.0097 and 0.0108. The two halves have different set sizes and are NOT exchangeable,
+    # and the measured consequence is conservatism rather than inflation. So a rejection is
+    # real and a non-rejection is weak evidence, and that asymmetry is the whole licence.
+    #
+    # kras_g12c_corrected cannot reject on either form: 18 decoys floor the attainable p at
+    # 1/19 = 0.0526. That is the detector's count, not the statistic.
+    #
+    # Descriptive, like `p`. Neither enters a confirmatory family.
+    - label_rank_vs_decoy_linings
   omitted:
     accuracy: >-
       At 1.6-11 % prevalence, answering "not a label" for every residue scores 0.89-0.98, so

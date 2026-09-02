@@ -1,0 +1,120 @@
+{
+ "lfc": {
+  "all_null": {
+   "config_delta_per_arm": {
+    "kras_g12c_corrected": 0.0,
+    "bcr_abl1_corrected": 0.0,
+    "cardiac_myosin_corrected": 0.0
+   },
+   "P_all_three_reject": 5e-05,
+   "P_at_least_one_reject": 0.04565,
+   "P_false_rejection_of_a_null_arm": 0.04565,
+   "ci_false": [
+    0.042799,
+    0.048634
+   ]
+  },
+  "two_true_one_null": {
+   "config_delta_per_arm": {
+    "kras_g12c_corrected": 2.0,
+    "bcr_abl1_corrected": 2.0,
+    "cardiac_myosin_corrected": 0.0
+   },
+   "P_all_three_reject": 0.04025,
+   "P_at_least_one_reject": 0.99895,
+   "P_false_rejection_of_a_null_arm": 0.0408,
+   "ci_false": [
+    0.0381,
+    0.043634
+   ]
+  },
+  "one_true_two_null": {
+   "config_delta_per_arm": {
+    "kras_g12c_corrected": 2.0,
+    "bcr_abl1_corrected": 0.0,
+    "cardiac_myosin_corrected": 0.0
+   },
+   "P_all_three_reject": 0.00175,
+   "P_at_least_one_reject": 0.97475,
+   "P_false_rejection_of_a_null_arm": 0.04345,
+   "ci_false": [
+    0.040666,
+    0.046368
+   ]
+  }
+ },
+ "n": 20000,
+ "alpha": 0.05,
+ "replicates": 9999,
+ "rows": {
+  "lam8.0_delta0.0": {
+   "lambda": 8.0,
+   "delta": 0.0,
+   "n": 20000,
+   "mean_auc": {
+    "kras_g12c_corrected": 0.5003,
+    "bcr_abl1_corrected": 0.5005,
+    "cardiac_myosin_corrected": 0.4988
+   },
+   "per_arm_reject": {
+    "kras_g12c_corrected": 0.0402,
+    "bcr_abl1_corrected": 0.04395,
+    "cardiac_myosin_corrected": 0.0419
+   },
+   "P_at_least_one": 0.04565,
+   "ci_at_least_one": [
+    0.042799,
+    0.048634
+   ],
+   "P_all_three": 5e-05,
+   "ci_all_three": [
+    1e-06,
+    0.000279
+   ],
+   "P_exactly_two": 0.00165,
+   "P_all_three_IUT_no_correction": 0.0001,
+   "ci_all_three_IUT": [
+    1.2e-05,
+    0.000361
+   ]
+  },
+  "lam8.0_delta2.0": {
+   "lambda": 8.0,
+   "delta": 2.0,
+   "n": 20000,
+   "mean_auc": {
+    "kras_g12c_corrected": 0.9338,
+    "bcr_abl1_corrected": 0.9303,
+    "cardiac_myosin_corrected": 0.9256
+   },
+   "per_arm_reject": {
+    "kras_g12c_corrected": 0.9872,
+    "bcr_abl1_corrected": 0.98125,
+    "cardiac_myosin_corrected": 0.9773
+   },
+   "P_at_least_one": 0.99995,
+   "ci_at_least_one": [
+    0.999721,
+    0.999999
+   ],
+   "P_all_three": 0.94665,
+   "ci_all_three": [
+    0.943445,
+    0.949724
+   ],
+   "P_exactly_two": 0.05045,
+   "P_all_three_IUT_no_correction": 0.94705,
+   "ci_all_three_IUT": [
+    0.943856,
+    0.950113
+   ]
+  }
+ },
+ "analytic": {
+  "P_all_three_IUT_iid_uniform": 0.0001265,
+  "model": "3 iid Uniform(0,1) p-values, Holm at alpha=0.05, 4e6 draws, seed 7",
+  "P_at_least_one": 0.049114,
+  "closed_form_at_least_one": 0.049171,
+  "P_all_three": 5.625e-05
+ }
+}

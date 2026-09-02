@@ -262,6 +262,14 @@ def score_arm(
         site_score = float(ranks[[at[r] for r in site_lining]].mean())
         site_pocket_rank = 1 + int((decoy_ranks >= site_score).sum())
 
+    # The same permutation with the LABEL SET as the positive, added at v4 by ADR 0039. It
+    # answers the question the deliverable is about -- do the allosteric residues outrank
+    # non-functional pockets -- which the site-lining statistic above cannot: a method that
+    # ranks all 12 myosin labels perfectly moves a 295-residue lining mean by 12/295 of the
+    # effect, and the measured power of a delta = 4 shift on the label set is 0 on kras and
+    # on myosin. On the same instrument this statistic reaches 0.87 and 1.00.
+    label_score = float(ranks[[at[r] for r in labels]].mean()) if labels else None
+
     if geometry is None:
         # No pool, so no calibrated threshold either: `alpha_star` and `size_ratio` are
         # measured *from* the pool. The arm reports the failure and cannot be confirmatory.
@@ -373,6 +381,21 @@ def score_arm(
                 "p": (
                     permutation_p(site_score, decoy_ranks)
                     if len(decoy_ranks) and site_score is not None
+                    else None
+                ),
+                # ADR 0039, protocol v4. Reported beside `p`, never in place of it: `p` is the
+                # ADR 0030 statistic and stays exactly as review 25 section 1.4 left it.
+                # Review 25 closed against this form because no measured type-I rate covered
+                # it, which was true then. It is measured now, at 20 000 fields per arm per
+                # correlation length over the real linings and the real coordinates:
+                # size 0.0000 / 0.0083 / 0.0094 against a nominal 0.05, upper confidence
+                # limits 0.00018 / 0.0097 / 0.0108. The two halves have different set sizes
+                # and are not exchangeable, and the measured consequence is conservatism, not
+                # inflation -- so a rejection is real and a non-rejection is weak evidence.
+                # That asymmetry is the whole licence this number carries.
+                "label_p": (
+                    permutation_p(label_score, decoy_ranks)
+                    if len(decoy_ranks) and label_score is not None
                     else None
                 ),
                 "n_decoys": len(decoy_ranks),
@@ -549,11 +572,26 @@ def confirmatory_verdict(
     caller cannot reverse the direction by swapping the two arguments of `compare_methods`.
     Found 2026-09-03 by an adversarial pass.
 
-    **It returns per-arm verdicts and no aggregate.** ADR 0032's own table says a rejection
-    licenses that *the arm* has signal, and neither the ADR nor README section 8 defines what
-    clearing a family means -- all three arms, or one. Choosing between them after seeing a
-    result is exactly the hyperparameter this layer exists to prevent, so this reports
-    `n_reject` and leaves the rule to the ADR that states it.
+    **A family is cleared when Holm rejects at least one arm, and ADR 0038 is why.** Until
+    2026-09-03 neither the ADR nor README section 8 said whether clearing meant one arm or all
+    three, and the frozen layer held both readings in documents that cite each other: section
+    8 and ADR 0030 read the combination test disjunctively, while `docs/ROADMAP.md` and
+    section 13 read one-of-three as a failure. Choosing after seeing a result is the
+    hyperparameter this layer exists to prevent, so the rule is frozen here.
+
+    The disjunction is what Holm controls and what this function already computed. Its
+    measured global-null familywise error is 0.0416 to 0.0457 against a nominal 0.05, and the
+    closed form is 0.049171. The conjunction is an intersection-union test, which is level
+    alpha with NO multiplicity step at all, so freezing Holm implies the disjunction was
+    intended; run under Holm it spends 1 event in 20 000 at the global null while still
+    reaching 0.04025 at its least-favourable configuration, and it costs 3.5 times the
+    family-level power at a realistic effect. Neither reading protects an individual arm
+    better: the chance that a null arm is rejected is 0.0408 to 0.0457 either way, which is a
+    property of Holm.
+
+    The licence is per arm and is printed per arm. "Rejects on all three" is a separate,
+    optional consistency statement that carries no extra protection, and a generalisation
+    claim needs the secondary `generalisation` tier rather than a conjunction of three.
     """
     settings = settings or protocol()
     decision = settings["decision"]
@@ -576,6 +614,7 @@ def confirmatory_verdict(
         },
     }
     verdict["family_1"]["n_reject"] = sum(a["reject"] for a in verdict["family_1"]["arms"].values())
+    verdict["family_1"]["cleared"] = verdict["family_1"]["n_reject"] >= 1
     if family_2 is None:
         return verdict
     claim = decision["claim_family"]
@@ -609,6 +648,14 @@ def confirmatory_verdict(
         "arms": arms,
     }
     verdict["family_2"]["n_reject"] = sum(a["reject"] for a in arms.values())
+    verdict["family_2"]["cleared"] = verdict["family_2"]["n_reject"] >= 1
+    verdict["cleared"] = verdict["family_1"]["cleared"] and verdict["family_2"]["cleared"]
+    verdict["licence"] = (
+        "at least one confirmatory arm separates the site AND beats "
+        f"{reference} on at least one arm; see the per-arm records for which"
+        if verdict["cleared"]
+        else "no claim: both families must clear"
+    )
     return verdict
 
 

@@ -1,6 +1,6 @@
 {
-  "frozen_on": "2026-09-02",
-  "protocol_version": 3,
+  "frozen_on": "2026-09-03",
+  "protocol_version": 4,
   "targets": {
     "bcr_abl1_corrected": {
       "n_candidates": 261,

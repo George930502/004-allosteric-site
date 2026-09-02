@@ -146,6 +146,18 @@ class EvaluationGraph:
 # freeze. `verify_evaluation` compares the manifest against this constant, so the two can no
 # longer diverge in silence. Keep it beside the implementation: a change to one is a change
 # to the other. Added 2026-09-03.
+# The matched-patch sampler's rejection budget, per patch. It is a default argument nowhere
+# else, and it decided a recorded outcome: at tolerance 0.05 on `cardiac_myosin_mandated` the
+# sweep drew 822 of 999 patches and the run was written up as an arm the sampler cannot fill.
+# 999 x 4000 = 3,996,000, exactly the attempts the README records, so the budget was exhausted
+# and not the arm -- at a cap of 10,000 the same rung draws all 999 in 4,784,846 attempts,
+# 47.9 % of budget. The cap binds only when acceptance falls below 2.5e-4, and the worst
+# margin over all fifteen gate arms is 3.5x with the next at 44.8x, so 4000 changes no scored
+# number at the frozen tolerance of 0.10. It is named here rather than left as a literal
+# because a constant that can decide an outcome must be visible to the reader who quotes the
+# outcome. ADR 0040.
+MAX_ATTEMPTS_PER_PATCH = 4000
+
 IMPLEMENTED_GRAPH_RULE = {
     # `structure.protein` selects protein heavy atoms; hydrogens are never in the mask.
     "atoms": "heavy",
@@ -241,7 +253,7 @@ def sample_matched_patches(
     tolerance: float,
     seed: int,
     match_distance: bool = False,
-    max_attempts_per_patch: int = 4000,
+    max_attempts_per_patch: int = MAX_ATTEMPTS_PER_PATCH,
 ) -> tuple[np.ndarray, dict]:
     """Draw `n_patches` residue sets matched to `observed` on size, components and burial.
 
