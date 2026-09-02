@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import copy
 import json
+import re
 
 import numpy as np
 import pytest
@@ -1090,3 +1091,88 @@ def test_the_protocol_readme_states_the_frozen_detector_settings():
         assert f"{field} {value}" in section or f"**{field} {value}" in section, (
             f"§5.1 does not state the frozen {field} of {value}"
         )
+
+
+def _readme_rows(section: str) -> dict[str, list[str]]:
+    """Every `| `arm` | ... |` row in one README section, keyed by arm."""
+    rows = {}
+    for line in section.splitlines():
+        match = re.match(r"^\|\s*`(\w+)`\s*\|(.*)\|\s*$", line)
+        if match:
+            rows[match.group(1)] = [
+                cell.replace("*", "").strip() for cell in match.group(2).split("|")
+            ]
+    return rows
+
+
+def test_the_protocol_readme_quotes_the_numbers_its_own_sources_hold():
+    """Four tables in the protocol README restate a freeze or an experiment. Derive them.
+
+    Added 2026-09-03 by the round-5 audit, which found three separate drifts in these four
+    tables and no test that could see any of them:
+
+    - §5.3's `detected` column held `decoys + 1` on all fifteen rows, not `n_detected`.
+    - §6.1 quoted `alpha_star` 0.02771 for `bcr_abl1_mandated` against the freeze's 0.02774.
+    - §7.1's three tables still held the version 2 chain-A row for `bcr_abl1_mandated` and
+      omitted `cardiac_myosin_mandated` entirely.
+
+    Each was a hand-typed restatement of a machine-written number. One parser closes all four,
+    and a fifth table added later is not covered until it is named here.
+    """
+    from allo.inputs import ROOT
+    from allo.scoring.harness import EVALUATION_FROZEN
+
+    readme = (ROOT / "docs/benchmark/evaluation/README.md").read_text()
+    targets = json.loads(EVALUATION_FROZEN.read_text())["targets"]
+
+    def section(start: str, end: str) -> str:
+        return readme[readme.index(start) :].split(end)[0]
+
+    decoys = _readme_rows(section("### 5.3 What the detector found", "At the version-2"))
+    assert len(decoys) == len(targets), "§5.3 must carry every frozen arm"
+    for arm, cells in decoys.items():
+        frozen = targets[arm]["decoys"]
+        pockets, halo = frozen["pockets"], frozen["excluded_by_halo"]
+        lining = len({residue for pocket in pockets.values() for residue in pocket["lining"]})
+        expected = [
+            str(frozen["n_detected"]),
+            str(len(halo)),
+            str(len(pockets)),
+            str(lining),
+            f"{frozen['site_pocket']['label_coverage']:.4f}",
+            f"{frozen['minimum_attainable_p']:.6f}",
+        ]
+        assert cells == expected, f"§5.3 row {arm}: README {cells}, freeze {expected}"
+
+    gate = _readme_rows(section("### 6.1 The gate failed", "**Re-measured at protocol"))
+    assert len(gate) == len(targets), "§6.1 must carry every frozen arm"
+    for arm, cells in gate.items():
+        patch = targets[arm]["matched_patch"]
+        assert cells[-2:] == [f"{patch['alpha_star']:.5f}", f"{patch['size_ratio']:.4f}"], (
+            f"§6.1 row {arm} does not quote the frozen calibration"
+        )
+
+    measured = json.loads(
+        (ROOT / "experiments/2026-09-02-null-recalibration/metrics.json").read_text()
+    )["power"]
+    for start, end, level in (
+        ("**At α, the loosest threshold", "**At α/3, the tightest.**", "alpha"),
+        ("**At α/3, the tightest.**", "The effective raw-p threshold", "alpha/3"),
+    ):
+        rows = _readme_rows(section(start, end))
+        assert set(rows) == set(measured), f"§7.1 at {level} must carry every measured arm"
+        for arm, cells in rows.items():
+            scale = measured[arm][level]["by_length_scale"]
+            expected = [
+                f"{scale[s]['shift']:.2f} / {scale[s]['auc_roc']:.3f}"
+                for s in ("4.0", "8.0", "12.0", "20.0")
+            ]
+            assert cells == expected, f"§7.1 {level} row {arm}: README {cells}, run {expected}"
+
+    thresholds = _readme_rows(section("The effective raw-p threshold behind", "**Read it as"))
+    assert set(thresholds) == set(measured), "the threshold table must carry every measured arm"
+    for arm, cells in thresholds.items():
+        expected = [
+            f"{measured[arm][level]['alpha']:.4f}" for level in ("alpha", "alpha/2", "alpha/3")
+        ]
+        assert cells == expected, f"threshold row {arm}: README {cells}, run {expected}"

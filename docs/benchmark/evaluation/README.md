@@ -458,23 +458,31 @@ so the key was removed rather than left standing as a promise.
 The version-2 table is kept below it, because the change in the floor is the reason the
 detector was re-frozen at all.
 
-| Arm                        | detected | decoys | decoy residues | site coverage | min attainable p |
-| -------------------------- | -------: | -----: | -------------: | ------------: | ---------------: |
-| `kras_g12c_mandated`       |       14 |     13 |             76 |        0.8125 |     **0.071429** |
-| `kras_g12c_corrected`      |       19 |     18 |             64 |        0.9375 |     **0.052632** |
-| `bcr_abl1_mandated`        |       46 |     45 |            272 |        1.0000 |         0.021739 |
-| `bcr_abl1_corrected`       |       32 |     31 |            198 |        0.9444 |         0.031250 |
-| `cardiac_myosin_mandated`  |      140 |    139 |            537 |        0.9167 |         0.007143 |
-| `cardiac_myosin_corrected` |       85 |     84 |            464 |        1.0000 |         0.011765 |
-| `chk1`                     |       40 |     39 |            158 |        0.9167 |         0.025000 |
-| `ecoli_cps`                |       96 |     95 |            576 |        0.9474 |         0.010417 |
-| `glucokinase`              |       50 |     49 |            277 |        1.0000 |         0.020000 |
-| `hiv_rt`                   |       69 |     68 |            383 |        0.6250 |         0.014493 |
-| `mkp5`                     |       15 |     14 |             66 |        0.4545 |     **0.066667** |
-| `ns5b`                     |       51 |     50 |            260 |        0.3125 |         0.019608 |
-| `p97_vcp`                  |       68 |     67 |            391 |        0.7059 |         0.014706 |
-| `ptp1b`                    |       34 |     33 |            175 |        0.3636 |         0.029412 |
-| `smyd3`                    |       33 |     32 |            189 |        1.0000 |         0.030303 |
+`detected` is what the detector returned. One of those is the site pocket itself and the rest
+of the difference is excluded by the halo rule, so `detected = 1 + halo + decoys` on every row.
+
+| Arm                        | detected | halo | decoys | decoy residues | site coverage | min attainable p |
+| -------------------------- | -------: | ---: | -----: | -------------: | ------------: | ---------------: |
+| `kras_g12c_mandated`       |       16 |    2 |     13 |             76 |        0.8125 |     **0.071429** |
+| `kras_g12c_corrected`      |       21 |    2 |     18 |             64 |        0.9375 |     **0.052632** |
+| `bcr_abl1_mandated`        |       48 |    2 |     45 |            272 |        1.0000 |         0.021739 |
+| `bcr_abl1_corrected`       |       35 |    3 |     31 |            198 |        0.9444 |         0.031250 |
+| `cardiac_myosin_mandated`  |      144 |    4 |    139 |            537 |        0.9167 |         0.007143 |
+| `cardiac_myosin_corrected` |       85 |    0 |     84 |            464 |        1.0000 |         0.011765 |
+| `chk1`                     |       47 |    7 |     39 |            158 |        0.9167 |         0.025000 |
+| `ecoli_cps`                |      100 |    4 |     95 |            576 |        0.9474 |         0.010417 |
+| `glucokinase`              |       56 |    6 |     49 |            277 |        1.0000 |         0.020000 |
+| `hiv_rt`                   |       72 |    3 |     68 |            383 |        0.6250 |         0.014493 |
+| `mkp5`                     |       19 |    4 |     14 |             66 |        0.4545 |     **0.066667** |
+| `ns5b`                     |       54 |    3 |     50 |            260 |        0.3125 |         0.019608 |
+| `p97_vcp`                  |       71 |    3 |     67 |            391 |        0.7059 |         0.014706 |
+| `ptp1b`                    |       41 |    7 |     33 |            175 |        0.3636 |         0.029412 |
+| `smyd3`                    |       35 |    2 |     32 |            189 |        1.0000 |         0.030303 |
+
+**CORRECTED 2026-09-03 by the round-5 audit.** The `detected` column held `decoys + 1` on every
+row, which is the count after the halo rule and not what the detector found. The halo column is
+new and makes the arithmetic checkable. `test_the_protocol_readme_quotes_the_decoys_the_freeze_derives`
+re-derives every cell from `frozen.json`, so the column cannot drift from its own source again.
 
 At the version-2 defaults the same five primary arms read **3 / 3 / 24 / 9 / 41** decoys, with
 floors of **0.25 / 0.25 / 0.040 / 0.10 / 0.024** and site coverage 0.75 / 0.75 / 0.85 / 0.67 /
@@ -571,7 +579,7 @@ anti-conservative at a tighter Holm step. That is the version-1 defect in one li
 | -------------------------- | --------: | --------: | --------: | --------: | -----------: | -----------: |
 | `kras_g12c_mandated`       |     0.040 |     0.048 |     0.048 |     0.044 |      0.05000 |       1.0411 |
 | `kras_g12c_corrected`      |     0.053 |     0.055 |     0.053 |     0.050 |      0.04326 |       1.0827 |
-| `bcr_abl1_mandated`        |     0.054 | **0.071** | **0.069** | **0.079** |      0.02771 |       1.2073 |
+| `bcr_abl1_mandated`        |     0.054 | **0.071** | **0.069** | **0.079** |      0.02774 |       1.2073 |
 | `bcr_abl1_corrected`       |     0.060 | **0.067** | **0.065** | **0.068** |      0.03558 |       1.0970 |
 | `cardiac_myosin_mandated`  |     0.051 |     0.048 |     0.046 |     0.054 |      0.04848 |       1.0509 |
 | `cardiac_myosin_corrected` |     0.037 | **0.034** |     0.037 | **0.035** |      0.05000 |       1.0000 |
@@ -769,8 +777,9 @@ standard-deviation units and the median AUC-ROC achieved at that shift.
 | -------------------------- | ---------------- | ---------------- | ---------------- | ---------------- |
 | `kras_g12c_mandated`       | 1.01 / **0.776** | 1.21 / **0.841** | 1.21 / **0.860** | 1.17 / **0.888** |
 | `kras_g12c_corrected`      | 1.05 / **0.786** | 1.24 / **0.842** | 1.28 / **0.868** | 1.23 / **0.895** |
-| `bcr_abl1_mandated`        | 0.95 / **0.773** | 1.22 / **0.835** | 1.35 / **0.867** | 1.43 / **0.913** |
+| `bcr_abl1_mandated`        | 1.12 / **0.811** | 1.44 / **0.881** | 1.56 / **0.910** | 1.61 / **0.947** |
 | `bcr_abl1_corrected`       | 1.00 / **0.762** | 1.31 / **0.850** | 1.38 / **0.880** | 1.36 / **0.908** |
+| `cardiac_myosin_mandated`  | 1.05 / **0.772** | 1.42 / **0.861** | 1.57 / **0.898** | 1.66 / **0.929** |
 | `cardiac_myosin_corrected` | 1.02 / **0.769** | 1.37 / **0.850** | 1.52 / **0.897** | 1.63 / **0.936** |
 
 **At α/3, the tightest.** This is the threshold the first arm Holm tests must clear, and which
@@ -780,8 +789,9 @@ arm that is cannot be known in advance.
 | -------------------------- | ---------------- | ---------------- | ---------------- | ---------------- |
 | `kras_g12c_mandated`       | 1.18 / **0.813** | 1.36 / **0.871** | 1.37 / **0.891** | 1.28 / **0.908** |
 | `kras_g12c_corrected`      | 1.27 / **0.827** | 1.45 / **0.881** | 1.41 / **0.891** | 1.35 / **0.914** |
-| `bcr_abl1_mandated`        | 1.10 / **0.804** | 1.43 / **0.875** | 1.54 / **0.900** | 1.56 / **0.931** |
+| `bcr_abl1_mandated`        | 1.32 / **0.849** | 1.64 / **0.908** | 1.73 / **0.932** | 1.76 / **0.960** |
 | `bcr_abl1_corrected`       | 1.17 / **0.799** | 1.50 / **0.883** | 1.57 / **0.911** | 1.52 / **0.933** |
+| `cardiac_myosin_mandated`  | 1.28 / **0.820** | 1.66 / **0.898** | 1.78 / **0.928** | 1.89 / **0.954** |
 | `cardiac_myosin_corrected` | 1.22 / **0.810** | 1.62 / **0.892** | 1.79 / **0.931** | 1.89 / **0.961** |
 
 The effective raw-p threshold behind each column, per arm:
@@ -790,8 +800,9 @@ The effective raw-p threshold behind each column, per arm:
 | -------------------------- | -----: | -----: | -----: |
 | `kras_g12c_mandated`       | 0.0434 | 0.0206 | 0.0134 |
 | `kras_g12c_corrected`      | 0.0375 | 0.0169 | 0.0106 |
-| `bcr_abl1_mandated`        | 0.0357 | 0.0159 | 0.0098 |
+| `bcr_abl1_mandated`        | 0.0235 | 0.0090 | 0.0051 |
 | `bcr_abl1_corrected`       | 0.0356 | 0.0158 | 0.0098 |
+| `cardiac_myosin_mandated`  | 0.0419 | 0.0197 | 0.0127 |
 | `cardiac_myosin_corrected` | 0.0500 | 0.0250 | 0.0167 |
 
 **Read it as a band, never as one number: AUC-ROC 0.76 to 0.96.** Two axes make the band, and
@@ -801,20 +812,28 @@ The wide one is the **correlation length of the method's own score field**. A me
 a smooth long-range field needs a much larger effect to clear the same threshold than one
 producing a short-range field. The draft's single number hid that.
 
-The second is **which Holm step the arm draws**. At α the band is 0.762–0.936; at α/3 it is
+The second is **which Holm step the arm draws**. At α the band is 0.762–0.947; at α/3 it is
 **0.799–0.961**. A method must plan for the tighter one, because the assignment of steps to
 arms is decided by the results.
 
-The band is remarkably flat across arms at fixed λ, which is worth stating: prevalence spans
+The band is flat across arms at fixed λ, which is worth stating: prevalence spans
 8.51× across all 15 arms and candidate counts span 6.38× across the six primary arms
-(7.33× across all 14), yet the minimum detectable AUC moves by at most **0.0488** at any fixed
+(7.33× across all 15), yet the minimum detectable AUC moves by at most **0.0588** at any fixed
 λ (0.0526 at α/3). The label patch geometry, not the arm size, sets the sensitivity.
+
+Every cell above is read from `experiments/2026-09-02-null-recalibration/metrics.json`,
+section `power`, and `test_the_protocol_readme_quotes_the_power_the_experiment_measured`
+re-derives all three tables from it. **CORRECTED 2026-09-03 by the round-5 audit**, which
+found the `bcr_abl1_mandated` row still carrying the version 2 chain-A numbers — its
+`size_ratio` moved from 1.0960 to 1.2073 with the chain, which tightens its effective
+threshold at α from 0.0357 to 0.0235 and raises every cell in its row. `cardiac_myosin_mandated`
+was measured by the same run and was missing from all three tables.
 
 ### 7.2 What this means before any result exists
 
 Reported AUC in the elastic-network and network-communication family sits around 0.75–0.82
 where it is reported at all. **That overlaps only the short-correlation end of this band.** A
-method whose score field varies on a 12–20 Å scale must reach AUC **0.86–0.94** here to be
+method whose score field varies on a 12–20 Å scale must reach AUC **0.86–0.95** here to be
 detected at 80 % power at α, and **0.89–0.96** at Holm's tightest step. The published band and
 the detectable band do not overlap. An ordinary publishable result in this sub-field can fail
 on this benchmark, and the report must say so before its numbers rather than after them.
