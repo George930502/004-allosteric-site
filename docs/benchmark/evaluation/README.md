@@ -884,6 +884,38 @@ narrower claim and it must be labelled: Fisher and Stouffer test the **intersect
 no arm has signal — so rejecting says _at least one_ arm has signal. It is not a
 generalisation claim.
 
+**And the combination is far more conservative than its nominal level, which was measured
+after it was adopted.** Disclosed 2026-09-03; the measurement is
+[`../review/21-protocol-v3-statistics.md`](../review/21-protocol-v3-statistics.md) §3.2 and
+§3.3, finding S3. ADR 0030 ran the type-I gate on the per-arm pocket test and on the two
+replacements it rejected. It never ran the gate on the construction it adopted. Run on 20 000
+site-uninformative fields per correlation length, the combined test's true size at nominal
+α = 0.05 is:
+
+| λ (Å) | Fisher | Stouffer |
+| ---: | -----: | -------: |
+| 4 | 0.0014 | 0.0051 |
+| 8 | 0.0032 | 0.0089 |
+| 12 | 0.0051 | 0.0121 |
+| 20 | 0.0066 | 0.0141 |
+
+**Between 7.6 and 36 times conservative.** Two mechanisms compound, and neither was chosen.
+The per-arm p-values live on a discrete support of multiples of `1/(1 + n_decoys)`, which by
+exact enumeration makes a nominal-0.05 Fisher test an actual-0.0206 test on its own. On top of
+that sits the decoy-lining size mismatch §5.3 already discloses. ADR 0030's consequence
+"negative class (b) becomes testable at α = 0.05, at the family level" is true about the
+arithmetic floor and false about the size.
+
+Two readings follow, and the report must carry both. **A rejection here is strong**, because
+the test is conservative rather than anti-conservative, so nothing about validity is at risk.
+**A non-rejection here means very little**, because the test spends most of its nominal α on
+discreteness. And the protocol reports Fisher beside Stouffer without saying that the two
+differ in robustness: under a Gaussian copula on the same discrete supports, Fisher stays
+below nominal until ρ ≈ 0.30 while Stouffer passes it at ρ ≈ 0.15. The measured ρ across the
+three arms is 0.00 to 0.01, so neither bites today. **Fisher is the reported statistic and
+Stouffer is reported beside it for disclosure.** The frozen protocol does not move for this;
+it is a disclosure, and tightening the size would be a hyperparameter chosen after the fact.
+
 **The threat that N does not fix.** Every generalisation reading assumes the targets are
 exchangeable with a population. The three primary arms were mandated by the challenge. The
 nine secondary arms survived twelve admission clauses over an RCSB full-text query, and

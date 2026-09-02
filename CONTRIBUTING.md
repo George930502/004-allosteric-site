@@ -124,7 +124,8 @@ copy a baseline into a new method package. Compute it from `scoring/` and pass i
    once, with the choice already fixed. The `generalisation` tier stays closed until Phase 5.
 7. **Beat a baseline, and prove it with the paired test.** `allo.scoring.compare_methods` is
    that test. An AUC gap is not a result: `cavity_volume` leads
-   `distance_from_source_negated` by AUC-ROC +0.24 on KRAS at p = 0.60.
+   `distance_from_source_negated` by AUC-ROC +0.255 on KRAS at p = 0.83
+   (`docs/benchmark/review/data/compare-methods-2026-09-03.json`).
 8. **Report the resource cost** for any quantum method: qubit count, circuit depth and
    connectivity (constraint C3).
 

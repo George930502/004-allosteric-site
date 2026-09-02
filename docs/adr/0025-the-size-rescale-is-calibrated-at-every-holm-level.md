@@ -198,11 +198,24 @@ winner. It is not a formality — `cavity_volume` beats `distance_from_source_ne
 **+0.24** on `kras_g12c_corrected` at **p = 0.60**, so a gap that size is inside what patch
 geometry produces on that arm. Comparing two AUC values would have called it a win.
 
+> **RE-MEASURED 2026-09-03: version-2 numbers, and the example strengthens.** ADR 0030 re-froze
+> the detector, and `cavity_volume` reads that detector's cavities, so all three corrected arms
+> moved: **+0.255 at p = 0.83** on KRAS, +0.348 at 0.055 on BCR-ABL1 and +0.472 at 0.034 on
+> cardiac myosin. The middle arm no longer clears α once calibrated. Record:
+> `../benchmark/review/data/compare-methods-2026-09-03.json`. An ADR keeps the reasoning it was
+> decided on; the current numbers live in the record.
+
 **The sensitivity was quoted at the wrong threshold.** Holm presents α/3 to the first of three
 arms and α/2 to the second, and which arm draws which is decided by the results. The published
 band was measured at α alone. The power stage now runs at every level: the band is 0.762–0.936
 at α and **0.799–0.961** at α/3, so a method aiming at λ = 12–20 Å needs 0.89–0.96 rather than
 the 0.86–0.94 the earlier draft implied.
+
+> **CORRECTED 2026-09-03.** Those two bands were measured over five arms, one of which carried
+> the version-2 chain-A row for `bcr_abl1_mandated`, and `cardiac_myosin_mandated` was left
+> out. At full width the band at α is **0.762–0.947**, and a method aiming at λ = 12–20 Å needs
+> **0.86–0.95** at α, unchanged at 0.89–0.96 at α/3. The current tables are
+> `../benchmark/evaluation/README.md` §7.1, and a test now derives them.
 
 **Four limitations were measured by the audit and stated nowhere.** All four are now in the
 README: the decoy null's size mismatch (linings smaller than the label set on 14/14 arms,

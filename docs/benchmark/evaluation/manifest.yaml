@@ -247,6 +247,21 @@ nulls:
   # -- no arm has signal -- so a rejection licenses "at least one arm separates the site from
   # non-functional surface pockets". It is not a generalisation claim. `allo.scoring.harness
   # .combine_arms` is the one implementation. ADR 0030.
+  #
+  # SIZE MEASURED 2026-09-03, after adoption, and it is 7.6x to 36x CONSERVATIVE. ADR 0030 ran
+  # the type-I gate on the per-arm test and on the two replacements it rejected, never on the
+  # construction it adopted. Run on 20 000 site-uninformative fields per correlation length,
+  # the true size at nominal 0.05 is 0.0014 / 0.0032 / 0.0051 / 0.0066 by Fisher and
+  # 0.0051 / 0.0089 / 0.0121 / 0.0141 by Stouffer, at lambda 4 / 8 / 12 / 20 A. Two mechanisms
+  # compound: the per-arm p lives on multiples of 1/(1 + n_decoys), which by exact enumeration
+  # makes a nominal-0.05 Fisher test an actual-0.0206 test on its own, and the decoy lining is
+  # smaller than the label set on every arm. So a rejection here is strong and a
+  # non-rejection means very little. Fisher is the reported statistic: under a Gaussian copula
+  # on the same supports it stays below nominal until rho = 0.30, while Stouffer passes
+  # nominal at rho = 0.15. Measured rho across the three arms is 0.00 to 0.01. Nothing is
+  # retuned for this, because a size fitted after the construction was adopted is a
+  # hyperparameter chosen with the design in hand. `../review/21-protocol-v3-statistics.md`
+  # section 3.2 and 3.3, finding S3, and README.md section 8.
   decoy_pockets_combined:
     kind: across_arm_combination
     combine: fisher
@@ -443,9 +458,16 @@ secondary_objectives:
     # protocol exists to prevent. The null is centred on its own median before the tails count.
     #
     # It is not a formality. `cavity_volume` beats `distance_from_source_negated` by AUC-ROC
-    # +0.24 on kras_g12c_corrected and the paired test reads p = 0.60: a gap that size is
+    # +0.255 on kras_g12c_corrected and the paired test reads p = 0.83: a gap that size is
     # inside what patch geometry produces on that arm. Comparing two AUC values would have
     # called it a win. ADR 0025.
+    #
+    # RE-MEASURED 2026-09-03. This comment quoted +0.24 at p = 0.60, which are version-2
+    # numbers. ADR 0030 re-froze the detector and `cavity_volume` is computed from that
+    # detector's cavities, so every arm moved: +0.255 / 0.83, +0.348 / 0.055 and
+    # +0.472 / 0.034 on the three corrected arms, the middle one no longer clearing alpha
+    # once calibrated. The example is stronger than it was, not weaker. Record:
+    # `../review/data/compare-methods-2026-09-03.json`.
     pairwise_test: matched_patch_paired_permutation, two-sided, calibrated by the arm's size_ratio
 
 # ---------------------------------------------------------------------------------------

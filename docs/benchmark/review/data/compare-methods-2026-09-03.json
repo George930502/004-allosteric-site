@@ -1,0 +1,51 @@
+{
+ "measured_on": "2026-09-03",
+ "commit": "8dd0752d098ca29ade73264192a3c3d52df7d079",
+ "protocol_version": 4,
+ "what": "compare_methods(cavity_volume, distance_from_source_negated) re-measured under protocol version 3+, replacing the version-2 example quoted in manifest.yaml, ADR 0025, CONTRIBUTING.md and experiments/REGISTRY.md.",
+ "how": "score_arm and compare_methods at the frozen protocol, cavity_volume from decoys.detect_pockets at the frozen detector_settings, distance_from_source_negated as the negated minimum CA distance to the source set.",
+ "version_2_quoted": {
+  "kras_g12c_corrected": {
+   "auc_roc_difference": 0.24,
+   "p": 0.6
+  },
+  "bcr_abl1_corrected": {
+   "auc_roc_difference": 0.58,
+   "p": 0.0003
+  },
+  "cardiac_myosin_corrected": {
+   "auc_roc_difference": 0.64,
+   "p": 0.0001
+  }
+ },
+ "measured": {
+  "kras_g12c_corrected": {
+   "auc_roc_difference": 0.255,
+   "p": 0.8281,
+   "p_calibrated": 0.8281,
+   "leader": "cavity_volume",
+   "size_ratio": 1.0827,
+   "replicates": 9999,
+   "sided": "two"
+  },
+  "bcr_abl1_corrected": {
+   "auc_roc_difference": 0.348,
+   "p": 0.0398,
+   "p_calibrated": 0.055021,
+   "leader": "cavity_volume",
+   "size_ratio": 1.097,
+   "replicates": 9999,
+   "sided": "two"
+  },
+  "cardiac_myosin_corrected": {
+   "auc_roc_difference": 0.4718,
+   "p": 0.0343,
+   "p_calibrated": 0.0343,
+   "leader": "cavity_volume",
+   "size_ratio": 1.0,
+   "replicates": 9999,
+   "sided": "two"
+  }
+ },
+ "reading": "The gap moved on every arm because ADR 0030 re-froze the detector and cavity_volume is computed from that detector's cavities. The point the manifest comment makes survives and strengthens: on kras_g12c_corrected a +0.255 AUC gap reads p = 0.83, so comparing two AUC values would still have called a non-result a win. bcr_abl1_corrected no longer clears alpha once calibrated (0.0550)."
+}
