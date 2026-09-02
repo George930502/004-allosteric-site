@@ -96,8 +96,8 @@ PROTECTED_PATHS = {
     # are answer keys in prose.
     #
     # Eight: the per-target input audits. `kras-g12c.md` tabulates the `MOV` contact shell
-    # and reproduces 21 of 21 label residues for both KRAS arms; `bcr-abl1.md` reproduces
-    # 18 of 18 and 17 of 17. These are the label sets, written out, one directory above
+    # and reproduces the complete label set for both KRAS arms; `bcr-abl1.md` does the same
+    # for both of its own. These are the label sets, written out, one directory above
     # the `frozen.json` that was protected on the first day. Protected whole.
     (ROOT / "docs" / "benchmark" / "primary" / "audit").resolve(),
     # Nine: the shared literature evidence. `allosteric-prediction-prior-art.md` prints
@@ -115,7 +115,8 @@ PROTECTED_PATHS = {
     (ROOT / "experiments").resolve(),
     # The eleventh route, found 2026-09-02 by re-running the label sweep with three-letter
     # residue codes normalised. `docs/targets.md:170` prints the cardiac myosin site in
-    # three-letter codes -- 12 of 12 `label_residues` for BOTH myosin arms, and line 172 adds
+    # three-letter codes -- the COMPLETE `label_residues` set for BOTH myosin arms, and line
+    # 172 adds
     # the minimum label-to-source distance per arm, which is a scored quantity.
     #
     # The residues themselves used to be quoted here, and this file is neither protected nor
@@ -131,7 +132,8 @@ PROTECTED_PATHS = {
     (ROOT / "docs" / "targets.md").resolve(),
     # The twelfth route, found 2026-09-03 by the same sweep run over the trees the eleventh
     # cleared. `docs/adr/0031-cardiac-myosin-holo-substitution.md:22` prints the `9GZ2`
-    # contact shell in three-letter codes -- 12 of 12 `label_residues` for both myosin arms,
+    # contact shell in three-letter codes -- the complete `label_residues` set for both
+    # myosin arms,
     # the same set `docs/targets.md` was protected for one day earlier. An ADR argues from
     # the evidence, so the evidence lands in it, and the tree holds 37 of them. Protected
     # whole rather than file by file, for the reason `evaluation/` and `review/` are: an ADR
@@ -1132,8 +1134,8 @@ def test_a_rename_leaves_no_second_unprotected_name(tmp_path):
 def test_the_decision_record_is_guarded_like_the_dossier(tmp_path):
     """ADR 0031 argues the myosin substitution from the `9GZ2` contact shell, so it prints it.
 
-    `docs/adr/0031-cardiac-myosin-holo-substitution.md:22` names 12 of 12 `label_residues`
-    for both myosin arms -- the same set `docs/targets.md` was protected for one day earlier,
+    `docs/adr/0031-cardiac-myosin-holo-substitution.md:22` names the complete `label_residues`
+    set for both myosin arms -- the same set `docs/targets.md` was protected one day earlier,
     in the same three-letter spelling that made the first sweep miss it.
     """
     adr = (ROOT / "docs" / "adr").resolve()
@@ -1272,8 +1274,8 @@ def test_the_manifest_reaches_prediction_code_with_the_answer_key_stripped():
 
     `manifest.yaml` is not just an index of apo entries. It names every holo accession and
     effector component ID, and three of its prose fields spell out label residues outright:
-    `blind.why` names KRAS 68/95/96/99, `defect` says myristate contacts "16 of the 20"
-    labels, and Site 2's `note` gives the whole label-to-active-site distribution. Any
+    `blind.why` names four of the KRAS ones, `defect` counts how many labels the myristate
+    contacts, and Site 2's `note` gives the whole label-to-active-site distribution. Any
     prediction module may `from allo.inputs import load` without touching `allo.groundtruth`
     and without opening `frozen.json`, so neither existing guard sees it.
 
@@ -1984,8 +1986,8 @@ def test_no_file_may_name_a_record_it_did_not_write():
 def test_the_three_new_answer_keys_are_protected():
     """Routes eight to ten name real label sets, and a sweep found them, not a hunch.
 
-    `kras-g12c.md` reproduces 21 of 21 label residues for both KRAS arms and `bcr-abl1.md`
-    18 of 18; `allosteric-prediction-prior-art.md` prints the KRAS distal label set as
+    `kras-g12c.md` reproduces the complete label set for both KRAS arms and `bcr-abl1.md`
+    does the same for its own; `allosteric-prediction-prior-art.md` prints the KRAS distal set as
     running prose. The assertion is on the file, not on the tree, so moving one out of a
     protected directory fails here rather than silently.
     """
@@ -2006,8 +2008,8 @@ def test_the_answer_keys_the_numeric_sweep_could_not_see_are_protected(tmp_path)
 
     `docs/targets.md` prints the cardiac myosin site in three-letter codes, so a sweep
     matching bare integers on a word boundary scored it zero and
-    a true finding was written down as refuted. Re-run with the codes normalised it is 12 of
-    12 for both myosin arms. The two benchmark READMEs tabulate a `Scoreable` column that is
+    a true finding was written down as refuted. Re-run with the codes normalised it holds the
+    complete set for both myosin arms. The two READMEs tabulate a `Scoreable` column that is
     the positive count, beside the holo entry and the effector, for the five sealed
     `generalisation` arms among others.
 
@@ -2160,17 +2162,55 @@ def test_no_unprotected_tracked_file_reproduces_a_positive_count():
     and the tree was unprotected. Protecting it closes those two; this closes the class.
 
     A bare count is a small integer and small integers are everywhere, so the match needs two
-    things in one 250-character window: the arm's own identifier, and its exact count in a
-    context that reads as a count. The cue list is what makes it precise rather than noisy --
-    without it the same sweep returns nine hits and every one is a chain ID or a year.
+    things in one 250-character window: a name for the arm, and its exact count in a context
+    that reads as a count. The cue list is what makes it precise rather than noisy -- without
+    it the same sweep returns nine hits and every one is a chain ID or a year.
+
+    WIDENED 2026-09-03, the same day, because the first form matched the arm IDENTIFIER only.
+    Prose does not use identifiers. Two files said "12 of 12 for both myosin arms" and neither
+    writes `cardiac_myosin_corrected`, so both passed -- and one of them was this file, whose
+    own route-11 comment says to describe an answer key by its shape and never by its
+    contents. It said that about the residues and then printed the count.
+
+    The names are DERIVED, not listed. A hand-written list of spellings is the thing that has
+    lost five times in this repository, so the needles are the arm identifier plus each of its
+    own underscore-separated tokens, with the tier suffix stripped first because `mandated`
+    and `corrected` name no protein and match everything. Tokens shorter than four characters
+    are dropped, which is the one deliberate hole: `bcr`, `hiv`, `rt`, `p97`, `vcp` and `cps`
+    are too short to match without drowning the sweep in noise. Their proteins stay reachable
+    through the longer tokens `abl1`, `ecoli` and `myosin`.
+
+    The count must not touch a letter, a dot or a slash on either side. Widening the needles
+    turned up three false positives and all three are that shape: a point-mutation name has a
+    residue number inside it, and a slash-separated residue list has one between two slashes.
+    A count is never written inside a word or inside a slash run, so excluding both loses
+    nothing -- checked by planting each of the two real leaks back and confirming it fires.
+
+    This docstring is itself inside the sweep, which is the point. The first draft of the
+    paragraph above quoted the two false positives verbatim, reproduced a count doing it, and
+    failed its own test.
     """
     from allo.scoring.harness import _arms_from_the_input_layer, _positives
 
     counts = {arm: len(_positives(arm)[0]) for arm in _arms_from_the_input_layer()}
     assert len(counts) == 15, sorted(counts)
 
+    # ponytail: token length 4 is the noise floor, not a principle. Lower it if a short-named
+    # arm ever leaks, and expect to re-tune the cue list in the same commit.
+    tiers = ("_mandated", "_corrected")
+    needles = {
+        arm: {arm}
+        | {
+            token
+            for token in arm.removesuffix(tiers[0]).removesuffix(tiers[1]).split("_")
+            if len(token) >= 4
+        }
+        for arm in counts
+    }
+    assert "myosin" in needles["cardiac_myosin_corrected"], needles["cardiac_myosin_corrected"]
+
     cue = re.compile(
-        r"scoreable|positive count|n_labels|label(?:s)? count|number of labels|positives|m \(",
+        r"scoreable|positive count|n_labels|number of labels|positives|m \(|\blabels?\b",
         re.IGNORECASE,
     )
     offenders: list[str] = []
@@ -2185,10 +2225,15 @@ def test_no_unprotected_tracked_file_reproduces_a_positive_count():
             continue
         text = absolute.read_text(errors="ignore")
         for arm, count in counts.items():
-            for found in re.finditer(re.escape(arm), text):
-                window = text[max(0, found.start() - 250) : found.start() + 250]
-                if re.search(rf"(?<![\d.]){count}(?![\d.])", window) and cue.search(window):
-                    offenders.append(f"{relative}: {arm}")
+            hit = False
+            for needle in needles[arm]:
+                for found in re.finditer(re.escape(needle), text, re.IGNORECASE):
+                    window = text[max(0, found.start() - 250) : found.start() + 250]
+                    if re.search(rf"(?<![\w./]){count}(?![\w./])", window) and cue.search(window):
+                        offenders.append(f"{relative}: {arm} (as {needle!r})")
+                        hit = True
+                        break
+                if hit:
                     break
     assert not offenders, (
         "an unprotected tracked file names an arm beside its exact positive count, in a "

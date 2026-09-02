@@ -2,8 +2,8 @@
 
 `manifest.yaml` is not an index of apo entries. It names every holo accession and
 effector component ID, and three of its prose fields spell out label residues outright:
-`blind.why` names KRAS 68/95/96/99, `defect` says myristate contacts "16 of the 20"
-labels, and Site 2's `note` gives the whole label-to-active-site distribution. Reading it
+`blind.why` names four of the KRAS ones, `defect` counts how many labels the myristate
+contacts, and Site 2's `note` gives the whole label-to-active-site distribution. Reading it
 verbatim is reading the answer key.
 
 This used to live in `allo.inputs` as a public `read_manifest`, one import away from

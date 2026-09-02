@@ -126,23 +126,43 @@ def test_label_component_structure_is_what_the_protocol_claims():
     """Three of six label sets are disconnected. A null sampling connected blobs against
     them would impose a property the observation lacks.
 
-    `cardiac_myosin_mandated` is the most fragmented at (7, 4, 1), against (8, 4) for the same
-    twelve residues on the measured `9GZ3` structure. The label sets are identical, so the
-    difference is entirely the homology model's contact graph — the same defect ADR 0031
-    measures as a long-range contact Jaccard of 0.471, seen here from the label set's own side.
+    `cardiac_myosin_mandated` is the most fragmented, and its two arms carry the SAME label
+    set on structures that disagree — the homology model splits one lobe the measured `9GZ3`
+    keeps whole. So the difference is entirely the contact graph, which is the defect ADR 0031
+    measures as a long-range contact Jaccard of 0.471, seen from the label set's own side.
+
+    Everything here is DERIVED from the freeze at run time. It used to hold a hard-coded table
+    of component sizes per arm, which sums to the positive count — the quantity C1 names when
+    it says "not even the residue count" — in a file no path guard covers. A test may read the
+    answer key; it may not restate it as a literal. Redacted 2026-09-03.
     """
-    expected = {
-        "kras_g12c_mandated": (16,),
-        "kras_g12c_corrected": (16,),
-        "bcr_abl1_mandated": (17,),
-        "bcr_abl1_corrected": (17, 1),
-        "cardiac_myosin_mandated": (7, 4, 1),
-        "cardiac_myosin_corrected": (8, 4),
+    sizes = {
+        target: component_sizes(
+            evaluation_graph(apo_input(target)), PRIMARY[target]["scoreable_label_residues"]
+        )
+        for target in PRIMARY
     }
-    assert set(expected) == set(PRIMARY), "every frozen arm needs a pinned component structure"
-    for target, sizes in expected.items():
-        graph = evaluation_graph(apo_input(target))
-        assert component_sizes(graph, PRIMARY[target]["scoreable_label_residues"]) == sizes
+    assert len(sizes) == len(PRIMARY), "every frozen arm needs a pinned component structure"
+
+    for target, parts in sizes.items():
+        assert sum(parts) == len(PRIMARY[target]["scoreable_label_residues"]), target
+        assert list(parts) == sorted(parts, reverse=True), f"{target}: not descending"
+
+    disconnected = {target for target, parts in sizes.items() if len(parts) > 1}
+    assert disconnected == {
+        "bcr_abl1_corrected",
+        "cardiac_myosin_mandated",
+        "cardiac_myosin_corrected",
+    }, f"the set of fragmented arms moved: {sorted(disconnected)}"
+
+    mandated, corrected = sizes["cardiac_myosin_mandated"], sizes["cardiac_myosin_corrected"]
+    assert set(PRIMARY["cardiac_myosin_mandated"]["scoreable_label_residues"]) == set(
+        PRIMARY["cardiac_myosin_corrected"]["scoreable_label_residues"]
+    ), "the two myosin arms are supposed to share one label set"
+    assert len(mandated) > len(corrected), (
+        "the homology model is supposed to be the more fragmented of the two, which is what "
+        "makes the difference a property of the contact graph and not of the labels"
+    )
 
 
 # --------------------------------------------------------------------------------------

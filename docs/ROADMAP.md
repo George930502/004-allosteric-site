@@ -93,8 +93,8 @@ sub-phase 1.6, the frozen **evaluation** layer, are both **closed**. 1.6 was clo
 > **Closed — three new C1 leaks.** A sweep of every tracked `.md`, `.yaml`, `.json` and `.txt`
 > outside the seven protected trees, looking for a run of label residues inside one
 > 400-character window, found three files that cleared the coincidence floor.
-> `docs/benchmark/primary/audit/` reproduces 21 of 21 KRAS label residues and 18 of 18 for
-> BCR-ABL1; `docs/benchmark/evidence/` prints the KRAS distal label set as prose;
+> `docs/benchmark/primary/audit/` reproduces the complete KRAS label set and the complete
+> BCR-ABL1 one; `docs/benchmark/evidence/` prints the KRAS distal label set as prose;
 > `experiments/` persists the true site's radius of gyration for the six primary arms and all
 > five sealed `generalisation` arms. All three are now guarded, taking the count of data
 > routes from seven to ten. A `src.`-prefixed import that walked past every C1 import guard is
@@ -104,8 +104,8 @@ sub-phase 1.6, the frozen **evaluation** layer, are both **closed**. 1.6 was clo
 > refutation was a detector failure.** This box said it holds none of the twelve cardiac
 > myosin label residues. It holds all twelve, written as `Tyr164, Thr167, Asp168, …`. The
 > sweep matched bare integers on a word boundary, so a three-letter code never matched its
-> own number. Re-run with the codes normalised, `docs/targets.md` is 12 of 12 for both
-> myosin arms and is the only new complete-set file in the tree. Two more routes came with
+> own number. Re-run with the codes normalised, `docs/targets.md` holds the **complete** label
+> set for both myosin arms and is the only new complete-set file in the tree. Two more routes came with
 > it — both benchmark READMEs publish the positive count, the holo entry and the effector
 > for every arm including the five sealed ones — and the count is now **thirteen**. See
 > [`docs/benchmark/review/26-third-pass-synthesis.md`](benchmark/review/26-third-pass-synthesis.md).

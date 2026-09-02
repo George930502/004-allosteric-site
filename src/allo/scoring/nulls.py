@@ -213,10 +213,14 @@ def evaluation_graph(apo: ApoInput) -> EvaluationGraph:
 def component_sizes(graph: EvaluationGraph, residues) -> tuple[int, ...]:
     """Sizes of the connected components of the subgraph induced on `residues`, descending.
 
-    The null matches this multiset rather than requiring one connected blob. Two of the
-    five frozen primary label sets are disconnected -- `bcr_abl1_corrected` is [17, 1] and
-    `cardiac_myosin_corrected` is [8, 4] -- so sampling connected blobs against a two-lobed
-    observation would impose a property the observation lacks, which is anti-conservative.
+    The null matches this multiset rather than requiring one connected blob. THREE of the
+    six frozen primary label sets are disconnected -- `bcr_abl1_corrected` and both cardiac
+    myosin arms -- so sampling connected blobs against a multi-lobed observation would impose
+    a property the observation lacks, which is anti-conservative.
+
+    Corrected 2026-09-03. This said "two of the five" and named each set's component sizes.
+    The count was stale from before ADR 0031 added the sixth arm, and a component multiset
+    sums to the positive count, which C1 names directly.
     """
     remaining = set(residues)
     sizes = []

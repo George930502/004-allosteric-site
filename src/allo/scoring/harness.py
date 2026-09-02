@@ -297,8 +297,8 @@ def score_arm(
     # The same permutation with the LABEL SET as the positive, added at v4 by ADR 0039. It
     # answers the question the deliverable is about -- do the allosteric residues outrank
     # non-functional pockets -- which the site-lining statistic above cannot: a method that
-    # ranks all 12 myosin labels perfectly moves a 295-residue lining mean by 12/295 of the
-    # effect, and the measured power of a delta = 4 shift on the label set is 0 on kras and
+    # ranks every myosin label perfectly still moves a 295-residue lining mean by only the
+    # label fraction of the effect, and the measured power of a delta = 4 shift is 0 on kras and
     # on myosin. On the same instrument this statistic reaches 0.87 and 1.00.
     label_score = float(ranks[[at[r] for r in labels]].mean()) if labels else None
 

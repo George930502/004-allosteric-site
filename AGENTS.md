@@ -216,8 +216,9 @@ transitively — the blind prediction is compromised and the submission is inval
    to import the package, so a file that does not cannot be one. Added 2026-09-02 by ADR 0034.
 
 8. **The per-target input audits.** `docs/benchmark/primary/audit/` derives its ligand-contact
-   tables from the holo structure, so it reproduces the label sets outright: 21 of 21 residues
-   for both KRAS arms in `kras-g12c.md`, 18 of 18 and 17 of 17 in `bcr-abl1.md`. Protected
+   tables from the holo structure, so it reproduces the label sets outright: the **complete**
+   set for both KRAS arms in `kras-g12c.md`, and for both BCR-ABL1 arms in `bcr-abl1.md`.
+   Protected
    whole. Found 2026-09-02 by sweeping every tracked `.md`, `.yaml`, `.json` and `.txt`
    outside the seven trees above for a run of label residues inside one 400-character window.
 
@@ -237,7 +238,7 @@ transitively — the blind prediction is compromised and the submission is inval
     `PROTECTED_PATHS`; `allowed_experiment_path` is the exemption on top of it, not a
     replacement for it.
 11. **The target dossier.** `docs/targets.md` prints the cardiac myosin site in three-letter
-    codes, which is **12 of 12** `label_residues` for both myosin arms, plus the minimum
+    codes, which is the **complete** `label_residues` set for both myosin arms, plus the minimum
     label-to-source distance per arm. The sweep that cleared this file on 2026-09-02 matched
     bare integers on a word boundary, so a three-letter code never matched its own number and
     a true finding was recorded as refuted. **Re-run any label sweep with three-letter codes
@@ -259,8 +260,8 @@ transitively — the blind prediction is compromised and the submission is inval
 13. **The decision record.** `docs/adr/` was found on 2026-09-03 by re-running the sweep of
     route 11 over the trees that sweep had cleared.
     `0031-cardiac-myosin-holo-substitution.md:22` argues the `9GZ2` substitution from the
-    contact shell, so it prints the contact shell: 12 of 12 `label_residues` for both myosin
-    arms, in the same three-letter spelling that hid `docs/targets.md` from the first sweep.
+    contact shell, so it prints the contact shell: the complete `label_residues` set for both
+    myosin arms, in the same three-letter spelling that hid `docs/targets.md` from the first sweep.
     An ADR argues from evidence, and the evidence lands in it. Protected whole, so ADR 0038
     is protected the day it is written.
 14. **A former name.** A protected path is protected by its name, and a rename gives the same

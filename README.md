@@ -112,8 +112,8 @@ protein and the same site. Both are frozen before any method exists.
 | Target | Mandated pair | Status of the mandated pair | Corrected pair |
 |---|---|---|---|
 | KRAS G12C | `4OBE` → `6OIM` | usable; apo is **wild-type** Gly12, not G12C | `4LDJ` → `6OIM` |
-| BCR-ABL1 | `1OPL` **chain B** → `5MO4` | 17 labels; the nearest myristate atom is **16.0 Å** from the site (ADR 0029) | `2G2H` → `5MO4` |
-| Cardiac myosin | `5TBY` → **`9GZ2`** | the organisers permit the substitution; 954 residues, 12 labels, scored non-confirmatory (ADR 0031) | `9GZ3` → `9GZ2` |
+| BCR-ABL1 | `1OPL` **chain B** → `5MO4` | the nearest myristate atom is **16.0 Å** from the site (ADR 0029) | `2G2H` → `5MO4` |
+| Cardiac myosin | `5TBY` → **`9GZ2`** | the organisers permit the substitution; 954 residues, scored non-confirmatory (ADR 0031) | `9GZ3` → `9GZ2` |
 | c-Myc (stretch) | `1NKP` | scored against NMR segments, declared non-blind (ADR 0036) | — |
 
 The frozen benchmark, the corrected pairs and the evidence:
