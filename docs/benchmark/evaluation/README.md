@@ -852,22 +852,45 @@ was measured by the same run and was missing from all three tables.
 
 ### 7.2 What this means before any result exists
 
-Reported AUC in the elastic-network and network-communication family sits around 0.75–0.82
-where it is reported at all. **That overlaps only the short-correlation end of this band.** A
-method whose score field varies on a 12–20 Å scale must reach AUC **0.86–0.95** here to be
-detected at 80 % power at α, and **0.89–0.96** at Holm's tightest step. The published band and
-the detectable band do not overlap. An ordinary publishable result in this sub-field can fail
-on this benchmark, and the report must say so before its numbers rather than after them.
+**There is no published AUC baseline for the elastic-network and network-communication
+family, so this benchmark's requirement has no literature comparator.** A method whose score
+field varies on a 12–20 Å scale must reach AUC **0.86–0.95** here to be detected at 80 % power
+at α, and **0.89–0.96** at Holm's tightest step. Nothing in the published family can be placed
+beside those numbers, and the reason is not that the field performs badly. It is that the
+field does not report this statistic.
 
-> **The 0.75–0.82 band is the weakest evidence on this page and the report must not lean on
-> it.** Added 2026-09-03. `../evidence/evaluation-metrics.md` derives it from **two data
-> points, both marked `[UNVERIFIED]`**, and records that most of this family — PARS, Ohm,
-> ESSA, bond-to-bond propensity, STRESS — reports no AUC at all, using top-N, TPR/PPV,
-> quantile scores or z-score enrichment instead. So "the two bands do not overlap" rests on
-> two unverified numbers, and R3 ranks that below every other claim here. The **detectable**
-> band is measured and stands on its own; the comparison to the literature does not, and
-> saying which is which is the point. Verifying both sources, or widening the survey until the
-> band has a stated null, is what would settle it.
+**Measured, not assumed.** A scoped literature verification ran on 2026-09-03 and its record
+is [`../review/data/enm-auc-band-2026-09-03.md`](../review/data/enm-auc-band-2026-09-03.md).
+Every unsupervised method in the family was read in full text and **none reports AUC**:
+AlloPred gives a top-1 count, PARS's precursor gives PPV and sensitivity, Ohm gives TPR and
+PPV, bond-to-bond propensity gives quantile scores, ESSA gives a hit count, STRESS gives site
+overlap. The family's own five-method comparative benchmark — Wu, Strömich and Yaliraki,
+_Patterns_ 2021, doi:10.1016/j.patter.2021.100408, over 432 structures and 146 proteins —
+**reports no AUC anywhere**.
+
+**The two numbers that used to stand here are real, and they are not this family.** Both were
+verified and both are supervised classifiers that consume dynamics-derived features among
+geometric, evolutionary and physicochemical ones:
+
+| source | value | what it is | grade |
+| ------ | ----- | ---------- | ----- |
+| ZHMolEReP, doi:10.1021/acs.jcim.6c00141 | AUC 0.7858, recall 0.7037, 33 of 40 proteins on ASBench | supervised, PRS features, residue level. **Whether the AUC is ROC or PR is unresolved**: the full text is paywalled | `[VERIFIED-ABSTRACT]` |
+| AR-Pred, doi:10.1002/prot.25749 | median ROC AUC 0.80 over residues | random forest with ANM features. The median is over **ten balanced training and validation sets**, not an independent test. Its independent test of 15 proteins reports **no AUC** | `[VERIFIED-FULLTEXT]` |
+
+So the earlier sentence — "the published band and the detectable band do not overlap" — was
+**mislabelled rather than wrong**. It attributed to the elastic-network family two numbers
+from supervised residue-level predictors, one of them a balanced-validation median. The honest
+form is the heading above.
+
+**What follows for the report, and it is the more useful conclusion.** A measured AUC on this
+benchmark cannot be argued good or bad by comparison with the literature, because the
+comparison does not exist. It has to be judged against the controls this protocol already
+freezes: the matched-patch null, the decoy pockets, and the nine required baselines, of which
+`cavity_volume` is the one the claim threshold names. **Do not place a number from this
+benchmark beside a published AUC without saying what that published AUC is computed over.**
+One paper in the survey makes the point on its own data: Allo-PED reports **0.920 over pockets
+and 0.563 over residues** from the same predictions on the same test set
+(doi:10.1101/2025.03.28.645953).
 
 **Three targets is a small family, and a negative result is weak evidence of absence.**
 

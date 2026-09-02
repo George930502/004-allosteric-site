@@ -14,10 +14,17 @@ there is no number in our report that a reader can put beside PASSer, APOP or De
 One detection run supplies both.
 
 **Which detector, and the argument for it.** pyKVFinder (doi:10.1186/s12859-021-04519-4),
-at the package's documented defaults for the pinned version -- the paper states none of
-the five values, so the version is the citation for them. The deciding argument is that it is purely
+at the settings the evaluation manifest freezes. The deciding argument is that it is purely
 geometric, so it raises no C2 question, and that it is installable and versioned, so the
-configuration below is reproducible. Version discipline in this literature is close to
+configuration below is reproducible.
+
+**NOT at the package defaults, and this paragraph said it was until 2026-09-03.** Protocol
+version 2 used them. ADR 0030 re-froze the detector on 2026-09-02 after the organisers said
+no detector is prescribed, and three of the five values moved: `probe_out` 4.0 to 8.0,
+`removal_distance` 2.4 to 1.2 and `volume_cutoff` 5.0 to 1.0. `DETECTOR_DEFAULTS` below is
+kept to record what was withdrawn and is no longer the base this function uses. Round 6.
+
+Version discipline in this literature is close to
 absent -- of the allosteric papers surveyed, one states a detector version -- so stating
 ours in full is a low bar that is nonetheless above the field's.
 

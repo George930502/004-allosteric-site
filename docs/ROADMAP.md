@@ -382,10 +382,16 @@ The recalibration reproduced thirteen of fifteen arms' thresholds to six decimal
    AUC-PR to the mean midrank (ADR 0022), which under a size-preserving null is a strictly
    increasing function of AUC-ROC. AUC-PR stays as a reported endpoint against its prevalence
    chance line. Every top-5 number prints against its exact hypergeometric baseline.
-2. **The decoy set** (ADR 0024). pyKVFinder 0.9.3 at its published defaults, version and full
+2. **The decoy set** (ADR 0024, re-frozen by ADR 0030). pyKVFinder 0.9.3, version and full
    configuration frozen before any method ran. The per-arm power floor is disclosed rather
-   than discovered later: with three decoy pockets the smallest attainable p is 0.25, so the
-   challenge's negative class (b) cannot reject at α = 0.05 on three of five primary arms.
+   than discovered later: it still binds on three of fifteen arms, which is why the family is
+   tested by combination and the per-arm test is descriptive.
+
+   > **CORRECTED 2026-09-03 by round 6.** This item said "at its published defaults" and gave
+   > the version-2 floor — three decoy pockets, smallest attainable p of 0.25, three of five
+   > primary arms. ADR 0030 re-froze the detector on 2026-09-02 and three of the five settings
+   > moved off the package defaults, which raised every arm's decoy count. The current numbers
+   > are in `benchmark/evaluation/README.md` §5.3.
 3. **The matched-patch null, calibrated** (ADR 0023, which clears ADR 0018). The gate found
    what the draft did not anticipate. The matched null holds its size on KRAS, runs
    conservative on myosin and runs **anti-conservative on both BCR-ABL1 arms**, and a tighter

@@ -129,8 +129,13 @@ class EvaluationGraph:
     def radius_of_gyration(self, residues) -> float:
         """Root mean square Ca distance from the patch centroid.
 
-        This is the property that sets the variance of a patch mean under a spatially
-        autocorrelated score, so it is the property a matched null has to match. Measured
+        This is one of the five properties the matched null matches. It is NOT what sets
+        the variance of a patch mean: it is the second moment about the centroid, so it is
+        not a sufficient statistic for that variance, and matching it does not make the test
+        hold its size. The repository's own intervention says so -- `2026-08-25-null-repairs`
+        moves the variance-factor percentile by 18.1 points on purpose and moves the type-I
+        rate by 0.0012, at rho = -0.193 between the two moves -- and ADR 0025 withdrew the
+        causal reading. Corrected 2026-09-03 by round 6. Measured
         on the frozen arms, unmatched frontier growth misses it badly: the myosin label set
         has Rg 8.9 A against 21.1 +/- 6.7 A for size-and-component-matched patches, because
         its two lobes are adjacent while two freely grown lobes land anywhere in a
@@ -268,9 +273,12 @@ def sample_matched_patches(
       non-adjacent so a sampled two-lobed patch really is two-lobed,
     * **burial** -- patch mean contact degree, which is the confound that makes an
       unmatched null useless for a connectivity score,
-    * **compactness** -- patch radius of gyration, which is what sets the variance of a
-      patch mean under a spatially autocorrelated score, and is therefore what decides
-      whether the test holds its size at all,
+    * **compactness** -- patch radius of gyration. Matched because an unmatched frontier
+      grows patches that are systematically less compact than the observed one, not because
+      it controls the size: ADR 0025 withdrew that reading after an intervention moved the
+      variance-factor percentile 18.1 points and the type-I rate 0.0012. The residual is
+      disclosed in `../../../docs/benchmark/evaluation/README.md` section 6.2 and paid for by
+      `size_ratio`. Corrected 2026-09-03 by round 6,
     * **distance to the propagation source** -- optional and off by default. Matching it
       asks the narrower question "does propagation add anything beyond geometry"; it is
       pre-registered as a secondary null, not as the confirmatory one, because the

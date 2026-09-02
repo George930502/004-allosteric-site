@@ -1174,15 +1174,21 @@ drivers of that gap.
 | MEF-AlloSite                                             | pocket                     |                                                                                   0.803 vs 0.798 (Tests 2 & 3) | AP 0.620 / 0.509 / 0.452 | 5.76 % / 3.56 % / 3.16 %              | `10.1186/s13321-024-00882-5`         | `[VERIFIED-FULLTEXT]`                                |
 | Allo-PED-pocket                                          | structure + pLM            |                                                                            0.920 (MCC 0.544, precision 47.1 %) |                        — | 185 pos / 4,571 neg                   | `10.1101/2025.03.28.645953`          | `[VERIFIED-FULLTEXT]`                                |
 | Allo-PED-site (residue)                                  | same                       |                                                                                **0.563**; best window **0.72** |     best window **0.67** | —                                     | same                                 | `[VERIFIED-FULLTEXT]`                                |
-| ZHMolEReP                                                | **PRS / ENM family**       |                                                                      **0.7858**, recall 0.7037, 33/40 proteins |                        — | ASBench, 40 proteins                  | `10.1021/acs.jcim.6c00141`           | `[UNVERIFIED]` — search-summary only in both A and D |
-| "Coupling dynamics and evolutionary information…"        | ENM-adjacent               |                                                                                                   ≈0.80 median |                        — | —                                     | PMID 31141211, DOI unverified        | `[UNVERIFIED]`                                       |
+| ZHMolEReP                                                | **supervised, PRS features** |                                                                    **0.7858**, recall 0.7037, 33/40 proteins |                        — | ASBench, 40 proteins                  | `10.1021/acs.jcim.6c00141`           | `[VERIFIED-ABSTRACT]` 2026-09-03; DOI and PMID 42102115 resolve. **ROC or PR is unresolved** — full text paywalled |
+| AR-Pred, "Coupling dynamics and evolutionary information…" | **supervised, ANM features** |                                                                              **0.80 median**, ROC, residues |                        — | median over **10 balanced train/validation sets**; the independent test of 15 proteins reports no AUC | `10.1002/prot.25749` (PMID 31141211, PMC6718341) | `[VERIFIED-FULLTEXT]` 2026-09-03 |
 | 2026 kinase pLM study                                    | pLM                        |                                                                                                          0.676 |                **0.077** | **3.22 %** (15,185 pos / 456,117 neg) | bioRxiv `10.64898/2026.01.05.697819` | `[UNVERIFIED]`                                       |
 | CASP9 top-10 groups, orthosteric ligand-binding residues | community blind assessment |                                                                                                              — |                        — | —                                     | `10.1002/prot.24495`                 | MCC ≈ **0.62** `[VERIFIED-FULLTEXT]`                 |
 
-**The band for the network/ENM family specifically, where AUC is reported at all, is roughly
-0.75–0.82.** D flags this as **weak evidence: two data points, both `[UNVERIFIED]`.** Most of
-this family never reports AUC at all — PARS, Ohm, ESSA, bond-to-bond propensity and STRESS
-report none, using top-N, TPR/PPV, quantile scores or z-score enrichment instead.
+**WITHDRAWN 2026-09-03. There is no band, because the family does not report the statistic.**
+This paragraph said the network/ENM family reports roughly 0.75–0.82 and flagged the evidence
+as two `[UNVERIFIED]` points. Both were verified on 2026-09-03 and **neither is an
+elastic-network method**: ZHMolEReP is a supervised model with PRS features and AR-Pred is a
+random forest with ANM features, whose 0.80 is a median over balanced validation sets rather
+than a test score. The rest of the observation holds and is now the whole finding: **PARS,
+Ohm, ESSA, bond-to-bond propensity, STRESS and AlloPred report no AUC at all**, confirmed in
+full text on each, and the family's own five-method benchmark over 432 structures
+(doi:10.1016/j.patter.2021.100408) reports none either. Record:
+`../review/data/enm-auc-band-2026-09-03.md`.
 
 **The AUROC/AUPRC divergence is real and in-domain.** Allo-Allo Table 1 above is the cleanest
 same-data, same-split comparison in the allosteric literature: read the AUROC column and

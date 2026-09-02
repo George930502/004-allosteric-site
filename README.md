@@ -188,10 +188,12 @@ apo = apo_input("kras_g12c_corrected")  # apo only. No label is reachable from h
 scores = my_method(apo)  # dict: author residue number -> score
 
 result = score_arm("kras_g12c_corrected", scores, method="ctqw_transfer")
-result["p_calibrated"]  # the confirmatory p-value, size-corrected at every Holm level
-result["auc_roc"]  # reported endpoints, each against its own chance line
-result["recall_at_5"]  # the top-5 deliverable, against its hypergeometric baseline
-result["dcc_angstrom"]  # distance from the predicted centre to the site centre
+result["nulls"]["matched_patch"]["p_calibrated"]  # the confirmatory p, size-corrected at
+#                                                  every Holm level
+result["endpoints"]["auc_roc"]  # each endpoint against its own chance line
+result["endpoints"]["recall_at_5"]  # the top-5 deliverable, against its hypergeometric line
+result["endpoints"]["dcc_angstrom"]  # predicted centre to site centre, in angstrom
+result["protocol_is_frozen"]  # False if you passed a `config` that is not the frozen one
 
 # The claim threshold is beating a baseline, so the paired test is part of the protocol.
 compare_methods(

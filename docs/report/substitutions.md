@@ -107,12 +107,19 @@ number this arm produces:
 
 The arm is **reported and non-confirmatory**.
 
-**A scope statement follows, and it is not about this arm.** For an allosteric site that works
-by a conformational switch, no apo structure carries the coupled conformation, because carrying
-it is what binding causes. An exhaustive survey of every PDB entry modelling more than the ABL
-kinase domain returns six: every entry with the SH3–SH2 clamp docked has the myristoyl pocket
-filled (5 of 5), and every entry with the pocket empty has the SH2 domain on the N-lobe
-(2 of 2). Any apo-input benchmark on a switch-type site inherits this.
+**A scope statement follows, and it is not about this arm.** An exhaustive survey of every PDB
+entry modelling more than the ABL kinase domain returns six: every entry with the SH3–SH2 clamp
+docked has the myristoyl pocket filled (5 of 5), and every entry with the pocket empty has the
+SH2 domain on the N-lobe (2 of 2). **On this protein, no deposited apo structure carries the
+coupled conformation.**
+
+> **NARROWED 2026-09-03 by round 6.** This paragraph opened by stating the general law — "for
+> an allosteric site that works by a conformational switch, no apo structure carries the
+> coupled conformation" — and closed with "any apo-input benchmark on a switch-type site
+> inherits this". The evidence is one protein. The general form is a **hypothesis with no
+> cross-system survey behind it**, and R3 requires that it be labelled as one. What is
+> measured is the ABL1 statement above. Testing the general form would need the same census on
+> several switch-type sites, and it has not been run.
 
 ---
 

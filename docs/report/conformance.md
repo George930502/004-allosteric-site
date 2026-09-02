@@ -32,14 +32,18 @@ two places a reader gets misled.
 | 2 | **Top-5 ranked allosteric residue hit list** per target | §5, §8.2 | **not exported.** `hits_at_5` and `recall_at_5` are computed inside the scoring harness for every arm, so the ranking exists; no `hits.csv` is written |
 | 3 | **Methodological report** — the quantum metric and why it proxies biological signal transmission | §5, §8.3 | **in progress.** `docs/report/` is the home; this page is the first section |
 
-**Row 1 was the largest single gap. The definition is now settled and the export is not.**
-A CTQW transfer probability `|<i|exp(-iHt)|j>|^2` is naturally an N × N object, and the
-vector we score is one column of it summed over the source residues. `connectivity_matrix`
-takes that object as *the* matrix and normalises each row to a probability, so the reported
-matrix and the reported hit list come from one construction. Several observables —
-`quantum_opening_gain`, `protrusion_index` — have no N × N form at all, so they cannot be
-the headline metric. What remains is the exporter and the choice of `form` and `mode`, which
-is a freeze decision rather than a definition problem.
+**Row 1 is the largest single gap, and it is open.** A CTQW transfer probability
+`|<i|exp(-iHt)|j>|^2` is naturally an N × N object, and one column of it summed over the
+source residues is a residue ranking, so a single construction can supply both deliverables.
+That is the shape of an answer, not an answer.
+
+> **CORRECTED 2026-09-03 by round 6.** This paragraph said "the definition is now settled",
+> and named `connectivity_matrix`, `quantum_opening_gain` and `protrusion_index` as though
+> they were current code. All three left `main` with the method layer (ADR 0037) and are on
+> `method-layer-archive`. **ADR 0002 records that the CTQW metric was never accepted and that
+> nothing supersedes it**, so the metric is an open hypothesis and this page presented it as a
+> closed decision. Phase 2 chooses it. Until then the honest status is "the deliverable has a
+> shape and no definition".
 
 ---
 
@@ -48,9 +52,15 @@ is a freeze decision rather than a definition problem.
 | Requirement | Clause | Status |
 | --- | --- | --- |
 | Build a **quantum circuit** that simulates signal propagation | §4.1, §8.1 | **not built.** The quantum layer is exact statevector linear algebra in NumPy. No circuit, no gate count, no transpilation. A method-layer document priced circuits on paper and is archived with it (ADR 0037); nothing was ever compiled |
-| Output a **ranking of residues by dynamic connectivity**, in most cases to an active site | §4.1 | **done.** Every scorer returns a residue-keyed ranking through `allo.scoring.score_arm` |
-| Score **significantly higher** on known distal regulatory residues than on **random background residues** | §4.1 | **done and measured.** This is the matched-patch null in the frozen evaluation layer |
-| …and than on **non-functional surface pockets** | §4.1 | **done and measured.** This is the decoy-pocket class, detector-defined (ADR 0024) |
+| Output a **ranking of residues by dynamic connectivity**, in most cases to an active site | §4.1 | **instrument ready, not met.** `allo.scoring.score_arm` returns a residue-keyed ranking for any scorer. No scorer exists on `main` |
+| Score **significantly higher** on known distal regulatory residues than on **random background residues** | §4.1 | **instrument ready, not met.** The matched-patch null is frozen and calibrated. Nothing has been scored against it |
+| …and than on **non-functional surface pockets** | §4.1 | **instrument ready, not met.** The decoy-pocket class is frozen and detector-defined (ADR 0024). Nothing has been scored against it |
+
+> **CORRECTED 2026-09-03 by round 6.** These three rows read "done" and "done and measured".
+> What is done is the measuring instrument. The requirement is a **result**, and no method
+> exists on `main` to produce one (ADR 0037). A conformance table whose rows describe the
+> harness in the words the challenge uses for the outcome is the most misleading thing this
+> page could say, so the two are now separated in every row.
 
 **The success criterion in §4.1 matches our frozen evaluation layer clause for clause.** The
 challenge names two negative classes — random background and non-functional surface pockets
