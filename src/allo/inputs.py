@@ -111,8 +111,29 @@ _THREE_TO_ONE = {
     "GLY": "G", "HIS": "H", "ILE": "I", "LEU": "L", "LYS": "K", "MET": "M", "PHE": "F",
     "PRO": "P", "SER": "S", "THR": "T", "TRP": "W", "TYR": "Y", "VAL": "V",
     # modified residues seen in the benchmark targets, mapped to their parent
-    "MSE": "M", "M3L": "K", "SEP": "S", "TPO": "T", "PTR": "Y",
+    "MSE": "M", "M3L": "K", "SEP": "S", "TPO": "T", "PTR": "Y", "CSD": "C",
 }  # fmt: skip
+
+# ADR 0006 clause 3: a modified residue stays a polymer node and contributes its PARENT's
+# topology, so the atoms the modification adds are removed before any contact is measured.
+# The parent comes from the entry's own `_pdbx_struct_mod_residue.parent_comp_id`, which is
+# in the deposited file and needs no network. The added atoms are the ones the parent's
+# standard atom set does not have.
+#
+# Two entries, because two modified residues occur across the fifteen frozen arms, and the
+# arm set is frozen. `test_no_modified_residue_reaches_a_prediction_structure` sweeps every
+# arm and fails on a third, so this table cannot go stale silently. That sweep is the guard
+# ADR 0006 claimed to have and did not: the test it named pinned two M3L residues on one
+# named arm, so it could not see CSD, and it left with that arm.
+_PARENT_TOPOLOGY = {
+    # Trimethyl-lysine. 8QYP at 129 and 549. ADR 0006.
+    "M3L": ("LYS", ("CM1", "CM2", "CM3")),
+    # 3-sulfinoalanine, oxidised cysteine. 1RTJ at 280, `parent_comp_id CYS`. Added
+    # 2026-09-03 by round 6, which found it taking the hydropathy and RSA fallbacks
+    # silently. Measured: removing the two oxygens moves NO graph edge on `hiv_rt`, so no
+    # scored value and no frozen value moves.
+    "CSD": ("CYS", ("OD1", "OD2")),
+}
 
 
 _LEAF = object()
@@ -234,11 +255,11 @@ def _prediction_structure(apo: Structure, chain: str, residues: tuple[int, ...])
     """Copy only admitted protein atoms into an immutable prediction-side structure."""
     keep = apo.protein & (apo.chain == chain) & np.isin(apo.seq_id, residues)
 
-    # ADR 0006 chooses the parent amino acid representation. M3L's three methyl carbons are
-    # PTM-specific topology, not lysine topology, so remove them before any contact graph can
-    # see them and rename the remaining residue to its parent.
-    m3l = apo.resname == "M3L"
-    keep &= ~(m3l & np.isin(apo.atom, ["CM1", "CM2", "CM3"]))
+    # ADR 0006 chooses the parent amino acid representation. M3L's three methyl carbons and
+    # CSD's two sulfinyl oxygens are PTM-specific topology, not the parent's, so remove them
+    # before any contact graph can see them and rename the residue to its parent.
+    for modified, (_, added) in _PARENT_TOPOLOGY.items():
+        keep &= ~((apo.resname == modified) & np.isin(apo.atom, list(added)))
 
     def immutable(array: np.ndarray) -> np.ndarray:
         """Read-only *and* un-unfreezable. Clearing the flag on an owning copy was not:
@@ -248,7 +269,8 @@ def _prediction_structure(apo: Structure, chain: str, residues: tuple[int, ...])
         selected = array[keep]
         if array is apo.resname:
             selected = selected.copy()
-            selected[selected == "M3L"] = "LYS"
+            for modified, (parent, _) in _PARENT_TOPOLOGY.items():
+                selected[selected == modified] = parent
         frozen = np.frombuffer(selected.tobytes(), dtype=selected.dtype)
         return frozen.reshape(selected.shape)
 

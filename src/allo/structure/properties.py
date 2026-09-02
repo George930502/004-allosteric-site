@@ -113,9 +113,28 @@ def solvent_accessibility(apo: ApoInput, *, points: int = 92) -> dict[int, float
         absolute[int(residue)] = absolute.get(int(residue), 0.0) + float(value)
         reference[int(residue)] = str(name)
     return {
-        residue: total / MAX_ACCESSIBLE_AREA.get(reference[residue], 200.0)
-        for residue, total in absolute.items()
+        residue: total / _maximum_area(reference[residue]) for residue, total in absolute.items()
     }
+
+
+def _maximum_area(name: str) -> float:
+    """The residue's theoretical maximum accessible area, or a refusal.
+
+    This read `MAX_ACCESSIBLE_AREA.get(name, 200.0)` until 2026-09-03, and 200.0 is not a
+    measured maximum for anything -- it is between cysteine's 167 and arginine's 274, so the
+    resulting RSA is wrong in an unknown direction and prints as an ordinary number. On
+    `hiv_rt` one oxidised cysteine took it, together with the hydropathy fallback below,
+    silently. Prediction structures carry parent-mapped names only (ADR 0006), so a name
+    outside the table now means the parent mapping did not run, and that is worth a stop.
+    """
+    try:
+        return MAX_ACCESSIBLE_AREA[name]
+    except KeyError:
+        raise KeyError(
+            f"{name} has no theoretical maximum accessible area. A prediction structure "
+            "carries parent-mapped standard residues only (ADR 0006); add it to "
+            "allo.inputs._PARENT_TOPOLOGY rather than approximating a denominator."
+        ) from None
 
 
 def residue_properties(apo: ApoInput) -> dict[str, dict[int, float]]:
@@ -147,7 +166,8 @@ def residue_properties(apo: ApoInput) -> dict[str, dict[int, float]]:
     return {
         "relative_solvent_accessibility": solvent_accessibility(apo),
         "normalised_b_factor": normalised,
-        "hydrophobicity": {
-            residue: KYTE_DOOLITTLE.get(name, 0.0) for residue, name in resname.items()
-        },
+        # Not `.get(name, 0.0)`. Kyte-Doolittle 0.0 is not neutral -- it sits between glycine
+        # at -0.4 and alanine at 1.8, so an unmapped residue prints as a plausible value and
+        # is read as one. Same argument as `_maximum_area` above, same 2026-09-03 finding.
+        "hydrophobicity": {residue: KYTE_DOOLITTLE[name] for residue, name in resname.items()},
     }

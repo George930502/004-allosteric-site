@@ -109,7 +109,15 @@ endpoints:
     # 1/19 = 0.0526. That is the detector's count, not the statistic.
     #
     # Descriptive, like `p`. Neither enters a confirmatory family.
-    - label_rank_vs_decoy_linings
+    - label_rank_vs_decoy_linings # written as `nulls.decoy_pockets.label_p`, ADR 0039
+    # Added to this list 2026-09-03 by round 6. `score_arm` has written it into every record
+    # since ADR 0030, `omitted.top_5_fragmentation` below says "NOT omitted at v3 -- added,
+    # see `reported` above", and this list did not hold it. A reported endpoint that no
+    # declaration names is the mirror of the rule this list exists to enforce. It moves no
+    # frozen value -- `reported` is not echoed into `frozen.json` -- and it moves
+    # NORMATIVE_DIGEST, which is what makes the change deliberate. `protocol_version` stays
+    # at 4: nothing a method is scored by has changed.
+    - top_5_components
   omitted:
     accuracy: >-
       At 1.6-11 % prevalence, answering "not a label" for every residue scores 0.89-0.98, so
@@ -142,7 +150,7 @@ endpoints:
       Not used anywhere in site prediction; both literature sweeps found zero instances.
       BEDROC alpha = 20 encodes "the top 8 % matters", which is meaningless at k = 5.
     top_5_fragmentation: >-
-      NOT omitted at v3 -- added. See `reported` above. CHALLENGE.md section 4.2 asks for
+      NOT omitted at v3 -- added, as `top_5_components` in `reported` above. CHALLENGE.md section 4.2 asks for
       actionable output, and nothing measured whether the five predicted residues are one
       place or five. Published precedent: Seq2Pocket's Pocket Fragmentation Index
       (doi:10.64898/2026.01.28.702257), which "measures the average number of predicted
@@ -176,8 +184,11 @@ nulls:
     # Matching those four properties is not enough on every arm. Radius of gyration is the
     # second moment of the patch about its centroid, and what sets the variance of a patch
     # mean under a spatially autocorrelated score is the whole within-patch distance
-    # distribution. The residual is measurable: type-I 0.059-0.075 on the two BCR-ABL1 arms
-    # and 0.034-0.037 on cardiac myosin, against a nominal 0.05. No moment tested closes it,
+    # distribution. The residual is measurable, per arm, in
+    # `../../../experiments/2026-09-02-null-recalibration/metrics.json` and in section 6.1 of
+    # README.md. It is not inlined here: this comment carried the version-2 bands
+    # 0.059-0.075 and 0.034-0.037 until 2026-09-03, and one of the four arms they named now
+    # falls outside them at both ends. No moment tested closes it,
     # and matching the variance factor itself is impossible in advance, because it depends
     # on the *method's* correlation length.
     #

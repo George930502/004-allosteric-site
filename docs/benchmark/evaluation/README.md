@@ -1125,10 +1125,20 @@ Written now, so the rebuttal is an argument rather than a scramble.
    near-universal convention. **Answer:** the challenge's scored artifact is a residue list
    (§5 of `CHALLENGE.md`), so residue-level scoring is the honest match to the deliverable.
    The objection targets threshold-dependent F1 and MCC, which §3.3 already drops. The
-   pocket-level view is reported beside it: `score_arm` ranks every detected pocket by the
-   mean midrank of its lining and reports `site_pocket_rank` out of `n_pockets_ranked`,
-   which is the top-N convention APOP states. It is reported, never tested — the detector,
-   not the method, fixes how many pockets exist.
+   pocket-level view is reported beside it: `score_arm` ranks the site pocket against **the
+   decoy linings** by mean midrank and reports `site_pocket_rank` out of
+   `n_pockets_ranked`, which is the top-N convention APOP states. It is reported, never
+   tested — the detector, not the method, fixes how many pockets exist.
+
+   > **CORRECTED 2026-09-03 by round 6.** This said "ranks every detected pocket", and the
+   > code ranks the site among the **decoys**. Pockets removed by the halo rule enter
+   > neither number, so `n_pockets_ranked` is below the detected count on 14 of 15 arms, by
+   > two to seven pockets. The gap is arm-dependent, and on one development arm a
+   > label-oracle scorer reads 1st of 34 as shipped and 7th of 41 against all detected
+   > pockets. **So this number is optimistic against APOP and PASSer by an unstated
+   > amount, and must not be quoted beside them without this sentence.** Ranking against
+   > every detected pocket would need the excluded linings in the freeze, which stores only
+   > their identifiers today, so it is a protocol change and not an edit.
 2. **"Your decoys are method-specific."** SiteFerret's objection
    (doi:10.1021/acs.jctc.2c01306): a detector-derived negative set "is method-specific" and
    "false negatives cannot be ruled out". **Answer:** true and

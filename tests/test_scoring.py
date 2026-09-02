@@ -1176,3 +1176,63 @@ def test_the_protocol_readme_quotes_the_numbers_its_own_sources_hold():
             f"{measured[arm][level]['alpha']:.4f}" for level in ("alpha", "alpha/2", "alpha/3")
         ]
         assert cells == expected, f"threshold row {arm}: README {cells}, run {expected}"
+
+
+def test_every_endpoint_the_record_writes_is_declared_in_the_manifest():
+    """`endpoints.reported` is a declaration, and until round 6 nothing checked it.
+
+    `score_arm` wrote `top_5_components` into every record from ADR 0030 onward, the omission
+    rationale for `top_5_fragmentation` said "added, see `reported` above", and `reported` did
+    not hold it. A reported endpoint that no declaration names is the mirror of the rule the
+    list exists to enforce, so this derives the written set from the source rather than
+    restating it.
+
+    One direction only, and the reason is stated rather than excepted away: two declared names
+    -- `auc_roc_vs_decoy_linings` is not one of them, it is written here -- live under `nulls`
+    and not in this block. `label_rank_vs_decoy_linings` is written as `nulls.decoy_pockets.
+    label_p`, which the manifest now says beside the entry. Checking that direction by name
+    would need a second map, and a map is the thing this test exists to avoid.
+    """
+    import ast
+    import inspect
+
+    from allo.scoring import harness
+
+    tree = ast.parse(inspect.getsource(harness))
+    k = harness.protocol()["endpoints"]["top_k"]
+
+    def resolved(node: ast.expr) -> str | None:
+        if isinstance(node, ast.Constant) and isinstance(node.value, str):
+            return node.value
+        if isinstance(node, ast.JoinedStr):
+            parts = []
+            for piece in node.values:
+                if isinstance(piece, ast.Constant):
+                    parts.append(str(piece.value))
+                elif isinstance(piece, ast.FormattedValue) and _is_k(piece.value):
+                    parts.append(str(k))
+                else:
+                    return None
+            return "".join(parts)
+        return None
+
+    def _is_k(node: ast.expr) -> bool:
+        return isinstance(node, ast.Name) and node.id == "k"
+
+    written: set[str] = set()
+    for function in ast.walk(tree):
+        if not (isinstance(function, ast.FunctionDef) and function.name == "score_arm"):
+            continue
+        for node in ast.walk(function):
+            if not (isinstance(node, ast.Dict) and node is not None):
+                continue
+            for key, value in zip(node.keys, node.values, strict=True):
+                if resolved(key) == "endpoints" and isinstance(value, ast.Dict):
+                    written = {resolved(inner) for inner in value.keys}
+    assert written and None not in written, f"the endpoints block did not parse: {written}"
+
+    settings = harness.protocol()
+    declared = {settings["endpoints"]["confirmatory"], *settings["endpoints"]["reported"]}
+    assert written <= declared, (
+        f"endpoints the record writes that no declaration names: {sorted(written - declared)}"
+    )

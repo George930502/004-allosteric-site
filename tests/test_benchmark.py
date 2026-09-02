@@ -775,3 +775,57 @@ def test_the_primary_readme_quotes_the_transplant_the_freeze_derives():
         assert cells[3] == values["transplant_clashes"], (
             f"{arm}: the row says {cells[3]}, the freeze says {values['transplant_clashes']}"
         )
+
+
+def test_no_modified_residue_reaches_a_prediction_structure():
+    """ADR 0006 clause 3, swept over every frozen arm instead of two named residues.
+
+    The ADR says a target "cannot be added on the untested path" and names a test as the
+    reason. That test pinned M3L at 129 and 549 on one arm by number, so it could not see a
+    different modification on a different arm, and it left the suite with that arm in
+    `0f1fe3f`. `hiv_rt` then entered the secondary set carrying `CSD` -- oxidised cysteine --
+    at 280, and took the hydropathy and RSA fallbacks in `allo.structure.properties` silently
+    for as long as it was frozen.
+
+    So the guard asks the general question. Every residue a method receives must carry a
+    standard three-letter name and no atom the parent does not have. Both property tables are
+    keyed on exactly that set, and both now raise rather than substitute, so this is what
+    keeps them reachable.
+    """
+    import numpy as np
+
+    from allo.inputs import (
+        _PARENT_TOPOLOGY,
+        _THREE_TO_ONE,
+        SECONDARY_MANIFEST,
+        apo_input,
+        load,
+    )
+    from allo.structure.properties import KYTE_DOOLITTLE, MAX_ACCESSIBLE_AREA
+
+    standard = set(KYTE_DOOLITTLE)
+    assert standard == set(MAX_ACCESSIBLE_AREA), "the two property tables disagree on the set"
+
+    arms = [t["id"] for t in load()["targets"]]
+    arms += [t["id"] for t in load(SECONDARY_MANIFEST)["targets"]]
+    seen: set[str] = set()
+    for arm in arms:
+        structure = apo_input(arm).structure
+        names = {str(n) for n in np.unique(structure.resname[structure.protein])}
+        seen |= names
+        assert names <= standard, (
+            f"{arm}: {sorted(names - standard)} reaches a prediction structure unmapped. "
+            "Add it to allo.inputs._PARENT_TOPOLOGY with its parent_comp_id and the atoms "
+            "the parent does not have."
+        )
+    assert seen, "no arm loaded, so this asserted nothing"
+
+    # Every entry in the table is live and correctly shaped: a real parent, and the sequence
+    # map agrees with the topology map. A table entry that names a parent the property tables
+    # do not hold would move the failure from here to a scoring run.
+    for modified, (parent, added) in _PARENT_TOPOLOGY.items():
+        assert parent in standard, f"{modified} maps to non-standard parent {parent}"
+        assert added, f"{modified} lists no PTM-specific atom"
+        assert _THREE_TO_ONE.get(modified) == _THREE_TO_ONE[parent], (
+            f"{modified}: the sequence map and the topology map disagree on the parent"
+        )

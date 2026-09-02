@@ -147,10 +147,13 @@ def _gate(target: str, settings: dict) -> dict:
     Matching size, components, burial and compactness is not enough on every arm. Radius of
     gyration is the second moment of the patch about its centroid, and what actually sets
     the variance of a patch mean under a spatially autocorrelated score is the whole
-    within-patch distance distribution. The residual shows up as a measured type-I rate of
-    0.059-0.075 on the two BCR-ABL1 arms and 0.034-0.037 on cardiac myosin, against a
-    nominal 0.05. No moment tested closes it, and matching the variance factor itself is
-    impossible in advance because it depends on the *method's* correlation length.
+    within-patch distance distribution. The residual is measurable, and the per-arm numbers
+    are in `experiments/2026-09-02-null-recalibration/metrics.json` and in section 6.1 of
+    the protocol README rather than inlined here, because the two inlined bands went stale
+    the day the input layer moved to fifteen arms (round 6, 2026-09-03). Six of fifteen arms
+    sit above the binomial band and one below it. No moment tested closes it, and matching
+    the variance factor itself is impossible in advance because it depends on the *method's*
+    correlation length.
 
     So the threshold is calibrated instead of the null being matched further. `size_ratio`
     is the factor by which the observed statistic's null is wider than the pool members',
@@ -1051,7 +1054,7 @@ def verify_evaluation(detect: bool = False) -> list[str]:
     return problems
 
 
-# The 18 leaves of the evaluation manifest that are DECLARATIVE: a rationale, a source note,
+# The leaves of the evaluation manifest that are DECLARATIVE: a rationale, a source note,
 # or a statement of why an endpoint was omitted. They may be reworded without changing a
 # number. Everything else is normative, and `NORMATIVE_DIGEST` below pins it.
 #
@@ -1096,7 +1099,12 @@ DECLARATIVE_SETTINGS = frozenset(
 # manifest and the code disagree, and the manifest is not the authority on what the code does.
 _MISSING = object()
 
-NORMATIVE_DIGEST = "b26ecd7ee94db1d1ee1c864afa0822e38fdd7d1d9b36797fc3e5f4df49a318d2"
+# Moved once at v4, on 2026-09-03, by round 6. `endpoints.reported` gained `top_5_components`,
+# which `score_arm` has written into every record since ADR 0030 and which no declaration
+# named. The digest is what made that edit deliberate rather than silent, which is its whole
+# purpose. `protocol_version` stays at 4: `reported` is not echoed into `frozen.json` and no
+# scored value moved.
+NORMATIVE_DIGEST = "b3a612ecfcffaa774468baf5f3ec91bfbe960523e6f970064934f4de20f6dde3"
 
 
 def _settings_leaves(node: object, path: str = "") -> Iterator[tuple[str, object]]:
@@ -1144,8 +1152,12 @@ def _conformance_problems(settings: dict) -> list[str]:
         "decision.claim_family.correction": "holm",
         # Added 2026-09-03. A mutation probe removed the v4 endpoint and flipped both
         # sidedness declarations, and all three left this function silent. `sided` is not
-        # decoration: `holm` applies it, and turning `decision.sided` from `upper` to `two`
-        # halves every confirmatory p-value's tail without moving one pinned value.
+        # decoration: the upper tail is baked into `nulls.permutation_p` and the two-sided
+        # form into `compare_methods`, so turning `decision.sided` from `upper` to `two`
+        # makes the manifest describe a different test from the one the code runs, and moves
+        # no pinned value. CORRECTED 2026-09-03: this used to say `holm` applies it. `holm`
+        # takes only p-values and alpha and never reads sidedness. The guard is unchanged;
+        # the sentence explaining it was wrong.
         "decision.sided": "upper",
         "decision.claim_family.sided": "two",
         # Added 2026-09-03. `confirmatory_verdict` reads `decision.alpha` straight from the

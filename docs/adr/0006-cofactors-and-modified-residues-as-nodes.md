@@ -47,10 +47,34 @@ protein-only, and every classical baseline we must compare against is defined th
    (2026-08-21).** `_THREE_TO_ONE` maps `MSE`, `SEP`, `TPO` and `PTR` for *sequence* purposes,
    but `allo.inputs._prediction_structure` performs the *topology* mapping for `M3L` alone.
    Selenomethionine would keep its `SE` atom and a phosphoresidue its phosphate, so their
-   contact edges would not be the parent's. This is latent, not live: `M3L` is the only
-   modified residue in any frozen node set, on the three `8QYP` arms.
-   `tests/test_benchmark.py::test_every_modified_residue_in_a_frozen_arm_has_parent_topology`
-   fails the moment that stops being true, so a target cannot be added on the untested path.
+   contact edges would not be the parent's.
+
+   **CORRECTED 2026-09-03 by the round-6 audit. The claim that followed here was wrong on
+   both halves, and it stood for thirteen days.** It said `M3L` is the only modified residue
+   in any frozen node set, and it named a test that fails the moment that stops being true.
+   The test it named does not exist. The test that did exist,
+   `test_modified_residues_are_parent_normalized_before_prediction`, asserted two `M3L`
+   residues on one arm **by number**, so it could never have seen a different modification on
+   a different arm, and it left the suite with that arm in `0f1fe3f`. Meanwhile `hiv_rt`
+   entered the secondary set carrying `CSD`, oxidised cysteine, at 280 — on exactly the
+   untested path this clause promised was closed. It kept its two sulfinyl oxygens, and in
+   `allo.structure.properties` it took the hydropathy fallback (0.0, where cysteine is 2.5)
+   and the RSA denominator fallback (200.0, where cysteine is 167.0), both silently.
+
+   **Three things changed, and the order matters.** The topology mapping is now a table,
+   `allo.inputs._PARENT_TOPOLOGY`, with `M3L` and `CSD` — two entries, because two modified
+   residues occur across the fifteen frozen arms and the arm set is frozen. Both property
+   tables now **raise** instead of substituting, because a fallback that is neither the
+   measured value nor an error is the failure mode here: 0.0 sits between glycine and alanine
+   and 200.0 between cysteine and arginine, so both print as plausible numbers.
+   `tests/test_benchmark.py::test_no_modified_residue_reaches_a_prediction_structure` sweeps
+   **every** arm and asks the general question, which is what this clause always described.
+
+   **No number moves.** Measured on `hiv_rt`: removing the two oxygens changes **zero** graph
+   edges, so no scored value and no frozen value moves, and all three verifiers re-derive
+   their freezes unchanged. What moves is three reported confounder columns — RSA on four
+   residues, by at most 0.045; hydropathy on one; and the chain's B-factor z-scores in the
+   fourth decimal, because residue 280's mean B is now taken over six atoms rather than eight.
 4. **The residue set the network is built on is `allo.inputs.apo_input(...).residues`**, and
    nothing else. It is the frozen `n_residues` count in `frozen.json`.
 
