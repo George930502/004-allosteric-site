@@ -17,10 +17,10 @@ stopped binding. It is never deleted.
 Thirty-seven decisions, grouped by what each one settles. Read the group that covers the
 layer you touch. Every entry is one file, and no file is ever deleted.
 
-**Eight were written on 2026-09-02**, after the organisers answered four questions
+**Nine were written on 2026-09-02**, after the organisers answered four questions
 ([`../benchmark/review/00-official-reply.md`](../benchmark/review/00-official-reply.md)) and
 the audit in [`../benchmark/review/`](../benchmark/review/) re-read all three frozen layers.
-They are 0029 to 0036. Two of them supersede earlier decisions, and both of those earlier
+They are 0029 to 0037. Two of them supersede earlier decisions, and both of those earlier
 decisions had been blocking Phase 2.
 
 ### How we work
@@ -73,12 +73,11 @@ decisions had been blocking Phase 2.
 | [0018](0018-null-calibration-is-unmet.md) | Matched-patch null calibration is unmet | accepted, cleared by 0023 |
 | [0022](0022-confirmatory-endpoint-is-the-mean-midrank.md) | The confirmatory endpoint is the mean midrank, not AUC-PR | accepted |
 | [0023](0023-matched-patch-null-is-calibrated-not-fully-matched.md) | The matched-patch null is calibrated, not fully matched | accepted, mechanism claim withdrawn by 0025 |
-| [0024](0024-decoy-pockets-are-detector-defined.md) | Decoy pockets: pyKVFinder at its defaults, zero halo, power floor disclosed | accepted |
+| [0024](0024-decoy-pockets-are-detector-defined.md) | Decoy pockets: pyKVFinder at its defaults, zero halo, power floor disclosed | accepted, detector settings superseded by 0030 |
 | [0025](0025-the-size-rescale-is-calibrated-at-every-holm-level.md) | The size rescale is calibrated at every Holm level, and clearing the null is a low bar | accepted |
 | [0030](0030-negative-class-b-is-tested-by-combination-across-arms.md) | Negative class B is tested by combination across arms, not per arm | accepted, opens protocol v3 |
 | [0032](0032-the-claim-threshold-is-its-own-confirmatory-family.md) | The claim threshold is its own confirmatory family | accepted |
 | [0034](0034-the-review-directory-is-a-protected-answer-key.md) | The review directory is a protected answer key, and its own tools are exempt by rule | accepted |
-
 | [0035](0035-conservation-is-the-fourth-confounder-column-and-coevolution-is-not.md) | Conservation is the fourth confounder column, and coevolution is not | accepted |
 | [0037](0037-the-method-layer-leaves-main-and-the-required-baselines-stay.md) | The method layer leaves `main`, and the nine required baselines stay behind | accepted |
 

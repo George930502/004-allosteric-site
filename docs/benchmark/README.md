@@ -9,9 +9,9 @@ Three frozen sets sit here as siblings. Shared material sits at this level.
 ```
 docs/benchmark/
   README.md      this page
-  primary/       the three disease areas CHALLENGE.md Table 1 assigns. 5 arms
+  primary/       the three disease areas CHALLENGE.md Table 1 assigns. 6 arms
   secondary/     9 further targets, in two disjoint tiers
-  evaluation/    how a score is computed. Protocol version 2
+  evaluation/    how a score is computed. Protocol version 3
   evidence/      the literature the three sets rest on
   review/        the 2026-09-02 audit of all three, and what the organisers' answers force
 ```
@@ -32,11 +32,13 @@ docs/benchmark/
 
 ## `primary/` — the three assigned disease areas
 
-Frozen **2026-08-24**. Five scoreable arms: for KRAS G12C, BCR-ABL1 and cardiac myosin, the
+Frozen **2026-08-24**, and a sixth arm added by ADR 0031 on 2026-09-02. Six scoreable arms:
+for KRAS G12C, BCR-ABL1 and cardiac myosin, the
 **mandated** pair exactly as `CHALLENGE.md` gives it, and a **corrected** pair for the same
 protein and the same site.
 
-All three mandated pairs are defective. One is unscoreable. `primary/audit/` holds the
+All three mandated pairs are defective. All three are now scoreable: ADR 0031 replaced the
+cardiac-myosin holo with `9GZ2`, which the organisers permit. `primary/audit/` holds the
 forensic audit per target, re-derived from the deposited coordinate files.
 
 ```
@@ -77,7 +79,7 @@ Nothing in this directory changes once a method has been scored.
 
 Shared across all three sets, which is why it sits at this level rather than inside one of
 them. Definitions, prior art, curation standard, per-target evidence, and the evaluation
-metric review. [`evidence/README.md`](evidence/README.md) indexes the twelve files and says
+metric review. [`evidence/README.md`](evidence/README.md) indexes the fourteen files and says
 which are superseded.
 
 ---

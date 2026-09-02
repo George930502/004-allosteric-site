@@ -2,6 +2,8 @@
 
 **Status:** accepted · 2026-09-02 · opens evaluation **protocol version 3** · supersedes
 item 1 of [`../benchmark/review/07-metrics-audit.md`](../benchmark/review/07-metrics-audit.md)
+and **the detector settings of [`0024`](0024-decoy-pockets-are-detector-defined.md)**, whose
+title, decision and two tables are the version 2 record
 
 ## Context
 

@@ -112,9 +112,9 @@ protein and the same site. Both are frozen before any method exists.
 | Target | Mandated pair | Status of the mandated pair | Corrected pair |
 |---|---|---|---|
 | KRAS G12C | `4OBE` → `6OIM` | usable; apo is **wild-type** Gly12, not G12C | `4LDJ` → `6OIM` |
-| BCR-ABL1 | `1OPL` → `5MO4` | apo has myristate **in the target pocket**, contacting 16 of 20 labels | `2G2H` → `5MO4` |
-| Cardiac myosin | `5TBY` → `6C1H` | **unscoreable** — `6C1H` is rat myosin-Ib with no mavacamten; `5TBY` is a 20 Å homology model | `9GZ3` → `9GZ2` |
-| c-Myc (stretch) | `1NKP` | no ground truth; consensus-judged | — |
+| BCR-ABL1 | `1OPL` **chain B** → `5MO4` | 17 labels; the nearest myristate atom is **16.0 Å** from the site (ADR 0029) | `2G2H` → `5MO4` |
+| Cardiac myosin | `5TBY` → **`9GZ2`** | the organisers permit the substitution; 954 residues, 12 labels, scored non-confirmatory (ADR 0031) | `9GZ3` → `9GZ2` |
+| c-Myc (stretch) | `1NKP` | scored against NMR segments, declared non-blind (ADR 0036) | — |
 
 The frozen benchmark, the corrected pairs and the evidence:
 [`docs/benchmark/primary/README.md`](docs/benchmark/primary/README.md). Ground-truth derivation policy:
@@ -129,8 +129,8 @@ re-derive them. This repo does that in two separate layers.
 ### The input layer — what a method receives
 
 Frozen 2026-08-24 in [`docs/benchmark/primary/`](docs/benchmark/primary/README.md). It pins the structure
-bytes, the chain, the node set, the active-site rule and the candidate set for **5 primary
-arms**, and a second set of **9 secondary targets** in
+bytes, the chain, the node set, the active-site rule and the candidate set for **6 primary
+arms** (five at the freeze, a sixth added by ADR 0031), and a second set of **9 secondary targets** in
 [`docs/benchmark/secondary/`](docs/benchmark/secondary/README.md).
 
 The secondary set is two disjoint tiers (ADR 0021). Every hyperparameter is chosen on the
@@ -164,7 +164,7 @@ and the report's claim threshold is **beating that baseline**, not clearing the 
 ### The separation is enforced, not promised
 
 Holo structures build the labels and never enter the prediction path (constraint C1). The
-import graph enforces it, `src/allo/groundtruth/` is a sink, and thirteen file-read routes that no
+import graph enforces it, `src/allo/groundtruth/` is a sink, and fourteen file-read routes that no
 import trace can see are named and guarded in
 [`tests/test_no_leakage.py`](tests/test_no_leakage.py).
 
@@ -231,11 +231,10 @@ src/allo/               the package, organised by pipeline stage
   benchmark.py          the freeze and its verification
   experiment.py         the run-directory scaffold behind `allo new-experiment`
   cli.py                the `allo` entry point
-  --- reserved, created when the phase needs it (AGENTS.md fixes the names) ---
-  network/              contact graph and elastic network construction (Phase 1.2, 4)
-  classical/            baselines: GNM/ANM, random walk, betweenness   (Phase 1.4)
-  quantum/              Hamiltonians, propagation metrics, circuits    (Phase 2, 3)
+  --- reserved, created when the phase needs it (AGENTS.md fixes the name) ---
   viz/                  2D plots and 3D structure rendering            (Phase 5)
+  --- built in Phase 2, then removed from main on 2026-09-02 (ADR 0037) ---
+  network/ classical/ quantum/   whole on the branch method-layer-archive
 
 docs/
   Cleveland-Clinic-Challenge-Statement-vF.pdf   the official source document
@@ -243,11 +242,11 @@ docs/
   PRINCIPLES.md         R1-R4 in full
   FIELD.md              the field, expert practice, and the traps in this challenge
   targets.md            per-protein chains and ground-truth derivation
-  adr/                  36 decision records, indexed by topic in adr/README.md
+  adr/                  37 decision records, indexed by topic in adr/README.md
   benchmark/            three frozen sets as siblings, indexed by benchmark/README.md
     primary/            the 3 assigned disease areas: manifest, frozen.json, audit
     secondary/          9 further targets in two disjoint tiers
-    evaluation/         how a score is computed. Protocol version 2
+    evaluation/         how a score is computed. Protocol version 3
     evidence/           the literature all three rest on
   playbooks/            phase-work, experiment and constraint-audit procedures
   agents/               issue tracker, triage labels, domain-doc layout

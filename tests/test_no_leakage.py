@@ -73,7 +73,7 @@ PROTECTED_PATHS = {
     (ROOT / "docs" / "benchmark" / "evaluation").resolve(),
     # The sixth route, added 2026-08-27 by a design-stage constraint audit. The matched-patch
     # cache is derived from the label set and it says so in its own array shapes: `members`
-    # has width equal to the arm's positive count for all fourteen arms -- 11 on `mkp5`, 18
+    # has width equal to the arm's positive count for all fifteen arms -- 11 on `mkp5`, 18
     # on `bcr_abl1_corrected`, and 12 to 19 on the five `generalisation` arms that are not
     # open yet. C1 forbids holo-derived information reaching prediction code and names this
     # exact case: "not even the residue count". Its `diagnostics` string carries more --

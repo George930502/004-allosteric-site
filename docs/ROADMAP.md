@@ -362,7 +362,7 @@ labels. Four extra admission clauses beyond the eight — single-chain lining, a
 classification, structure admission, within-set Pfam redundancy — each with a test.
 Tier split is seeded and size-stratified, and `allo.benchmark.size_stratified_split`
 reproduces it. `docs/benchmark/secondary/README.md` reports what the achieved N supports
-and, in §7, the eleven limitations a reviewer would otherwise find.
+and, in §7, the sixteen limitations a reviewer would otherwise find.
 
 **Exit met:** `allo benchmark verify --set all` is clean, `selection.json` records all 97
 candidates, 73 of them with the clause that decided each, and no primary-benchmark number

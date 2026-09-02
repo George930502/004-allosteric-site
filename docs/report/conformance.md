@@ -5,6 +5,13 @@
 > return to **not measured**, because the code and the runs behind them are now on the branch
 > `method-layer-archive`. Recording the regression is the point. A conformance table that
 > keeps a green row after the evidence leaves the branch is worse than one that is behind.
+>
+> **UPDATED 2026-09-03 for the input layer as well.** The rows below were written before
+> the organisers answered, and three ADRs of 2026-09-02 moved what they describe. ADR 0029
+> takes chain B of `1OPL`. ADR 0031 replaces the cardiac-myosin holo with `9GZ2` and makes
+> the mandated arm scoreable, so the primary set holds six arms and not five. ADR 0036
+> gives c-Myc a contract against NMR segments. Each row that moved is corrected in place
+> and names its ADR.
 
 **Source:** `CHALLENGE.md`, the verbatim restatement of
 `docs/Cleveland-Clinic-Challenge-Statement-vF.pdf`. Re-read against the PDF on 2026-08-26.
@@ -67,7 +74,7 @@ An archived experiment measured what happens when the source is something else
 | **Interpretability** for medicinal chemists without extensive training | §4.2 | **partly done by construction.** Residue identity is author numbering plus chain ID end to end, so a hit list is readable. No chemist-facing artifact exists |
 | **Actionable output** — 3D visualisation of the connectivity maps, prioritised | §4.2, §8.4 | **not started.** Phase 5. `viz/` is reserved and empty |
 | **Classical comparison**, where relevant | §4.2, §8.4 | **done and measured.** 43 classical scorers against 11 quantum, every one through the same harness |
-| **Statistical enrichment vs random and decoy residues** | §8.4 | **done and measured.** The frozen protocol, version 2 |
+| **Statistical enrichment vs random and decoy residues** | §8.4 | **done and measured.** The frozen protocol, version 3 |
 | **Near-term hardware feasibility / circuit depth analysis** | §8.4 | **on paper only.** Resource estimates exist; no compiled circuit backs them |
 
 ---
@@ -85,7 +92,7 @@ An archived experiment measured what happens when the source is something else
 | **Uses AWS Braket and/or Classiq** | §5.4, §9 | — | **open.** `pyproject.toml` carries the `hw` extra. Nothing has been run on either service |
 | **Open-source frameworks, for example Qiskit** | §6, §9 | — | **open.** The quantum layer is NumPy. It is reproducible and open source, but it is not a circuit framework |
 | All three artifacts per target | §9 | — | **open**, see §1 above |
-| **Minimum four targets** | §9, §8.2 | five primary arms | **open on identity, not on count** — see below |
+| **Minimum four targets** | §9, §8.2 | six primary arms | **open on identity, not on count** — see below |
 
 ---
 
@@ -100,8 +107,8 @@ stricter one: **produce artifacts for all four, c-Myc included.**
 | --- | --- | --- | --- |
 | KRAS G12C | 4OBE | `kras_g12c_mandated`, plus `kras_g12c_corrected` (4LDJ) | both scored, tiered |
 | BCR-ABL1 | 1OPL | `bcr_abl1_mandated`, plus `bcr_abl1_corrected` (2G2H) | both scored, tiered |
-| Cardiac myosin | 5TBY | `cardiac_myosin_corrected` (9GZ3) | **the mandated pair is unscoreable as assigned.** A method must still emit the three artifacts for 5TBY, because §8.2 asks for artifacts and not for a score |
-| c-Myc | 1NKP | **none** | **no arm exists.** ADR 0020 requires the c-Myc contract before method design, and it is unwritten |
+| Cardiac myosin | 5TBY | `cardiac_myosin_mandated` (9GZ2), plus `cardiac_myosin_corrected` (9GZ3) | both scored, tiered. The organisers permit the `9GZ2` substitution and ADR 0031 takes it; the arm is non-confirmatory and prints its measured defects |
+| c-Myc | 1NKP | **none** | **no arm exists**, and the contract now says why. ADR 0036 scores c-Myc against NMR segments and declares it non-blind, superseding ADR 0020 |
 
 Why the substitutions exist is in `docs/benchmark/primary/README.md`. The distinction that
 matters here: a defective pair blocks **scoring**, not **output**. Deliverable rows 1 and 2
@@ -121,8 +128,8 @@ better score:
 2. **Compile a circuit.** §4.1 says "must build a quantum circuit". A statevector simulation
    of a Hamiltonian is not one, however faithful. Braket or Classiq or Qiskit, with a gate
    count and a depth, on at least one target.
-3. **Give c-Myc a contract**, or state in the report why the target is excluded. ADR 0020
-   already says this blocks method design.
+3. **Give c-Myc a contract**, or state in the report why the target is excluded. ADR 0036
+   wrote the contract on 2026-09-02: NMR segments, non-blind, superseding ADR 0020.
 4. **Emit artifacts for the mandated accessions**, including the ones our benchmark cannot
    score, so that the deliverable list is complete on its own terms.
 

@@ -90,7 +90,7 @@ coupling does not report energetic coupling. **If it is ever added, it belongs b
 > `source: unknown`. Read the list as the work this ADR authorises, not as a description of
 > the repository. Two findings from review 24 of the 2026-09-02 audit bear on it: the
 > artifact-size objection dissolves, because 1.11 GB of Pfam alignments reduce to about
-> **163 KiB** of content -- and that content is **untracked** today, under
+> **163 KiB** of content -- seven files, 166,605 bytes, **tracked** since `fcd78a2`, under
 > `../benchmark/review/data/conservation/`. Review 24 says 172 KB and an earlier draft of
 > this box said "196 KB committed"; both were wrong, the second one twice, because 196 is
 > the `du` figure including an ignored `__pycache__`; and coverage, not size, is the real blocker, with four arms below 0.55

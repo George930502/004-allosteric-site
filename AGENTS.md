@@ -100,14 +100,14 @@ condition fires, not to browse.
 | `docs/playbooks/constraint-audit.md`  | Diff touches the prediction path, ground truth, or a quantum method. `/audit`, or the `constraint-auditor` subagent                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | `docs/FIELD.md`                       | Choosing or defending a method; writing anything for the report                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | `docs/PRINCIPLES.md`                  | The one-liners above are not enough to settle a call                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| `docs/benchmark/README.md`            | Not sure which of the three frozen sets answers your question. One page, four rows, then go straight to the set. Shared literature evidence lives beside it in `evidence/`, because all three rest on it                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `docs/benchmark/README.md`            | Not sure which of the three frozen sets answers your question. One page, five rows, then go straight to the set. Shared literature evidence lives beside it in `evidence/`, because all three rest on it                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | `docs/benchmark/primary/README.md`    | Any question about **what** a method receives and **what** it is scored against. `frozen.json` is the authority for every residue count, label set and active site — never quote one from prose. `n_residues` is what a method **receives**; `n_candidates` is what it is **scored against**, and they are not the same number (ADR 0011)                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| `docs/benchmark/secondary/README.md`  | Any question about the **generalisability or scalability** claim. Nine further targets, frozen 2026-08-24, in two tiers. `development` is where every hyperparameter is chosen; `generalisation` is not opened until the method is frozen. Same eight clauses plus four selection clauses (ADR 0021). §6 states what the achieved N supports and what it does not; §7 lists eleven limitations                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `docs/benchmark/secondary/README.md`  | Any question about the **generalisability or scalability** claim. Nine further targets, frozen 2026-08-24, in two tiers. `development` is where every hyperparameter is chosen; `generalisation` is not opened until the method is frozen. Same eight clauses plus four selection clauses (ADR 0021). §6 states what the achieved N supports and what it does not; §7 lists sixteen limitations                                                                                                                                                                                                                                                                                                                                                                                                  |
 | `docs/benchmark/evaluation/README.md` | Any question about **how** a score is computed — endpoint, estimator, null, decoys, multiplicity. **Protocol version 3**, frozen 2026-09-02 alongside `manifest.yaml` and `frozen.json` there; `uv run allo evaluate verify` re-derives it. Read **§0 first**: it lists the six things version 3 changes and why each is not a hyperparameter. Version 3 opened because the _input_ layer moved, not because a defect was found. Version 1 was frozen and reopened the same day by `AUDIT.md`, which audits version 2 and is the record of what was wrong — read it before trusting any number a pre-audit document quotes. Every method calls `allo.scoring.score_arm` and no other path. Nothing in it may change once a method has been scored. Do not merge it back into the input manifest |
 | `docs/benchmark/review/README.md`     | Quoting **any** number from a frozen set, or asking whether one is still right. The 2026-09-02 audit of all three frozen layers, opened when the organisers answered four questions. **`00-official-reply.md` holds their answers verbatim and outranks `CHALLENGE.md` where the two disagree.** `26-third-pass-synthesis.md` is the ranked list of what must change; `11` and `25` are the earlier passes, kept unedited. Corrections live here, not edited into the freezes                                                                                                                                                                                                                                                                                                                                                                                   |
 | `docs/evidence/method-landscape/` | Choosing or defending a **method**, in Phase 2 or later. A scoped literature survey of how the field predicts allosteric sites, 23 documents, every claim carrying a DOI. It holds no code and no scored number. `11-pipeline-decomposition.md` assigns each of the eleven pipeline stages to classical, AI or quantum. Read `10a-fact-check.md` before quoting any number from it, and **ADR 0026** before treating `00-conventions.md` §5 as closed. What happened when experiments actually ran is **not here** — it left `main` with the method layer on 2026-09-02 and is on the branch `method-layer-archive` (ADR 0037) |
 | `docs/targets.md`                     | Touching a specific protein, its chains, or its ground-truth labels                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| `docs/adr/`                           | Before choosing between credible alternatives; write one when the choice would be expensive to reverse. `README.md` there gives the format **and indexes all 37 by topic**. ADRs 0029-0036 were written on 2026-09-02 and two of them supersede blockers                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `docs/adr/`                           | Before choosing between credible alternatives; write one when the choice would be expensive to reverse. `README.md` there gives the format **and indexes all 37 by topic**. ADRs 0029-0037, nine of them, were written on 2026-09-02 and two supersede blockers                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | `experiments/README.md`               | Setting up a run directory                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | `docs/agents/`                        | An installed engineering skill needs the issue tracker, triage labels, or domain-doc layout                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | `CHALLENGE.md`                        | Any question about what the challenge actually requires. It is the spec; do not answer from memory                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
@@ -173,7 +173,7 @@ C1 expressed in the import graph: holo structures, ligand contacts and label set
 repo only through it. If anything on the prediction path imports it — directly or
 transitively — the blind prediction is compromised and the submission is invalid.
 
-**Thirteen data routes bypass the import graph, and each is guarded separately.**
+**Fourteen data routes bypass the import graph, and each is guarded separately.**
 
 1. **The freezes, and the trees around them.** `docs/benchmark/primary/` and
    `docs/benchmark/secondary/` are protected **whole**, not file by file. `frozen.json` was
@@ -199,7 +199,7 @@ transitively — the blind prediction is compromised and the submission is inval
    lining. `allo.scoring` reads it; nothing on the prediction path may.
 6. **The matched-patch cache.** `data/patches/` is derived from the label set and announces
    it in its own array shapes: `members` has width equal to the arm's positive count, for
-   all fourteen arms — including the five `generalisation` arms that are not open yet. C1
+   all fifteen arms — including the five `generalisation` arms that are not open yet. C1
    names this exact case, "not even the residue count". Its `diagnostics` string carries the
    true site's own geometry as `observed_median_distance_to_source`,
    `observed_radius_of_gyration` and `observed_mean_degree`. `allo.scoring` writes and reads
@@ -247,12 +247,27 @@ transitively — the blind prediction is compromised and the submission is inval
     `Scoreable` column that **is** the positive count, beside the holo accession, the holo
     chain and the effector component ID — for all five sealed `generalisation` arms as well.
     That is the payload routes 3 and 6 are protected for, sitting next to the file protected
-    first. Covered by the whole-tree protection in route 1.
-13. **The per-target input audits**, `docs/benchmark/primary/audit/`, which reproduce 21 of 21
-    KRAS label residues and 18 of 18 for BCR-ABL1 from the holo contact shell. Also covered by
-    route 1; kept as its own entry because it records what the 2026-09-02 sweep found.
+    first. Covered by the whole-tree protection in route 1, and kept as its own entry because
+    it records what the 2026-09-02 sweep found. The per-target input audits, `primary/audit/`,
+    were listed a second time below it until 2026-09-03; that entry duplicated route 8 and the
+    count said thirteen when eleven routes and two payload notes were listed.
+13. **The decision record.** `docs/adr/` was found on 2026-09-03 by re-running the sweep of
+    route 11 over the trees that sweep had cleared.
+    `0031-cardiac-myosin-holo-substitution.md:22` argues the `9GZ2` substitution from the
+    contact shell, so it prints the contact shell: 12 of 12 `label_residues` for both myosin
+    arms, in the same three-letter spelling that hid `docs/targets.md` from the first sweep.
+    An ADR argues from evidence, and the evidence lands in it. Protected whole, so ADR 0038
+    is protected the day it is written.
+14. **A former name.** A protected path is protected by its name, and a rename gives the same
+    bytes a second name no entry covers. `docs/benchmark/audit/kras-g12c.md` became
+    `docs/benchmark/primary/audit/kras-g12c.md` on 2026-08-31, and
+    `git show <sha>:docs/benchmark/audit/kras-g12c.md` still returns the 21-of-21 KRAS contact
+    shell, from `main`, with no network. Two of the five renames carried a frozen token in the
+    file name and were backstopped; the three audit files carried none. The list is derived
+    from `git log --diff-filter=R` rather than typed, so a rename made next week is protected
+    the day it is made.
 
-All thirteen are enforced by `tests/test_no_leakage.py`, which names them in
+All fourteen are enforced by `tests/test_no_leakage.py`, which names them in
 `PROTECTED_PATHS`, in `FROZEN_TOKENS` and — for route 10 — in `allowed_experiment_path`. An
 import trace cannot see a file-read route, so the file-read and content tests are what does.
 
@@ -260,10 +275,30 @@ import trace cannot see a file-read route, so the file-read and content tests ar
 `allo.network` read the whole matched-patch cache — every arm's positive count, the sealed
 tier included — by writing `Path("data").joinpath("patches")`. The guard modelled the `/`
 operator and not its method spelling, and `patches` is not a frozen token, so all 34 tests
-passed. `os.path.dirname` had the same hole. Both are closed and probed. This is the third
-instance of one failure mode: **the guard reads the text correctly and the interpreter accepts
-a form the text does not model.** Add the form to
-`test_constant_path_guard_catches_composition_and_quote_variants` before trusting a new route.
+passed. `os.path.dirname` had the same hole. Both are closed and probed. This is one failure
+mode: **the guard reads the text correctly and the interpreter accepts a form the text does not
+model.** It has now recurred four times, and the fourth was `Path("data") / Path("patches")`,
+where a `Path` on the right of `/` made the whole expression evaluate to None.
+
+**A whitelist of spellings loses this race, so the guard no longer relies on one.** An
+adversarial pass on 2026-09-03 listed 26 spellings the resolver does not model, and three of
+them ran together in one tracked runner and read the matched-patch cache, the per-target input
+audits and the sealed tier's positive counts with all 37 tests green.
+`segment_cover_violations` asks the question the other way round: not "which path does this
+expression build", which needs the whole language, but "does this file hold every component of
+a protected path", which needs no evaluation at all. The interpreter must still get the
+characters from somewhere. The resolver stays as the primary, because it names the concrete
+path a reader can act on, and 21 permanent probes hold the backstop. Add a new spelling to
+`test_the_segment_cover_backstop_catches_assembled_paths`, and a new resolver form to
+`test_constant_path_guard_catches_composition_and_quote_variants`, before trusting a new route.
+
+**A guard that scans the wrong tree scans nothing.** The package scans globbed `src/allo`
+while `NON_RUNNER_TREES` exempted the whole of `src/` on the ground that those scans covered
+it. A second package at `src/predict/` was therefore read by neither, and the editable install
+puts it on `sys.path` the day it is written. `.github/workflows/ci.yml` and `pyproject.toml`
+had the same shape: no suffix in `RUNNER_SUFFIXES` and no first path part in
+`NON_RUNNER_TREES`. Both holes were closed on 2026-09-03. Before adding an exemption, name the
+scan that covers what it excludes, and check that the scan actually looks there.
 
 **A submodule import executes its parent packages, and the import graph now says so.**
 `from allo.scoring.properties import residue_properties` names a module whose own imports are

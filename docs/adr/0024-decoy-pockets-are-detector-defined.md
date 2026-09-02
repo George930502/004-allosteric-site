@@ -39,6 +39,11 @@ decoys, and at 8 Å both KRAS arms do.
 **The challenge's negative class (b) cannot reject at α = 0.05 on three of five arms.** With
 three decoy pockets the smallest attainable p-value is 0.25.
 
+> The table below is the **version 2** record, at the detector's defaults. Version 3 re-froze
+> the detector at `probe_out 8.0 / removal_distance 1.2 / volume_cutoff 1.0` and the counts moved
+> with it: 13 and 18 on the two KRAS arms, 45 and 31 on BCR-ABL1, 84 on `cardiac_myosin_corrected`,
+> 777 decoys in total against 311 here. `../benchmark/evaluation/frozen.json` is the authority.
+
 | Arm | detected | decoys | min attainable p |
 | --- | ---: | ---: | ---: |
 | `kras_g12c_mandated` | 5 | 3 | **0.25** |
