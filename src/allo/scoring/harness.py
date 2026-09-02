@@ -142,6 +142,25 @@ def _aligned(graph: EvaluationGraph, scores: Mapping[int, float]) -> np.ndarray:
     return values
 
 
+def _checked_tolerance(value: float, target: str, side: str = "settings") -> float:
+    """A matching tolerance, or a refusal. Round 6, 2026-09-03.
+
+    `abs(nan - wanted) > 1e-9` is False, so a NaN on either side of `_gate`'s comparison
+    passed it. A sweep for the shape found the calibration-record side and guarded that one; a
+    codex pass then found the settings side, one argument over, inside the fix for the
+    identical mistake. Hence one function rather than two expressions: a comparison is only as
+    sound as the least sound of the two numbers in it.
+
+    The settings side is the worse of the two. `matched_patches` compares against it as well,
+    and with a NaN its size, degree, compactness and distance rejections all go false.
+    """
+    if not math.isfinite(value) or value <= 0:
+        raise ValueError(
+            f"{target}: the matching tolerance must be finite and positive; the {side} gave {value}"
+        )
+    return value
+
+
 def _gate(target: str, settings: dict) -> dict:
     """The arm's calibration record, read from the committed calibration experiment.
 
@@ -176,8 +195,19 @@ def _gate(target: str, settings: dict) -> dict:
     # a different one is applying a correction fitted to a null that was never run. Nothing
     # compared the two until 2026-09-03: a caller could set the tolerance to 0.5, get a much
     # wider pool, and still have the 0.10 ratio applied. Round 6.
-    wanted = float(settings["nulls"]["matched_patch"]["tolerance"])
-    if abs(float(record["tolerance"]) - wanted) > 1e-9:
+    # `abs(nan - wanted) > 1e-9` is False, so a NaN on EITHER side passed this gate. Round 6
+    # found the record side by sweeping for the shape, guarded that one, and left the settings
+    # side -- which a codex pass then found, one argument over, inside the fix for the
+    # identical mistake. So both are checked together, by construction: a comparison is only
+    # as sound as the least sound of the two numbers in it. The settings side is the worse of
+    # the two, because `sample_matched_patches` compares against it as well, and its degree,
+    # compactness and distance rejections all go false -- unmatched patches enter the pool and
+    # the frozen `size_ratio` is applied to a null that was never run.
+    wanted = _checked_tolerance(
+        float(settings["nulls"]["matched_patch"]["tolerance"]), target, "settings"
+    )
+    have = _checked_tolerance(float(record["tolerance"]), target, "calibration record")
+    if abs(have - wanted) > 1e-9:
         raise ValueError(
             f"{target}: `size_ratio` was calibrated at matching tolerance "
             f"{record['tolerance']} and the settings ask for {wanted}. A ratio fitted to one "
@@ -257,6 +287,11 @@ def calibrated_p(p: float, ratio: float) -> float:
 
 def _patch_null(graph, labels, settings, *, match_distance: bool):
     matched = settings["nulls"]["matched_patch"]
+    # Before sampling, not after. `_gate` checks this too, and it runs only once a pool
+    # exists -- so with a NaN tolerance every acceptance test inside the sampler goes false,
+    # the search never succeeds, and the run spends its whole budget before reaching the
+    # gate. Round 6: checked here so a bad tolerance is a fast, clear failure.
+    _checked_tolerance(float(matched["tolerance"]), graph.target)
     replicates = int(
         settings["nulls"]["matched_patch_distance"]["replicates"]
         if match_distance

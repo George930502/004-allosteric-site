@@ -1382,3 +1382,50 @@ def test_the_verdict_applies_the_frozen_decision_rule_and_no_other():
     assert confirmatory_verdict(dict.fromkeys(family, 0.001), settings=cheap)["family_1"][
         "n_reject"
     ] == len(family)
+
+
+def test_a_bad_matching_tolerance_is_refused_on_both_sides_of_the_comparison():
+    """Round 6, and the instructive part is that this line was fixed twice.
+
+    `abs(nan - wanted) > 1e-9` is False, so a NaN on EITHER side passed the gate that checks
+    the pool was drawn at the tolerance the `size_ratio` was calibrated at. A sweep for the
+    shape found the calibration-record side and guarded it. A codex pass then found the
+    SETTINGS side, one argument over, inside the fix for the identical mistake.
+
+    The settings side is the worse of the two. `sample_matched_patches` compares against it as
+    well, and with a NaN its degree, compactness and distance rejections all go false, so
+    unmatched patches enter the pool and the frozen `size_ratio` corrects a null that was never
+    run. That is anti-conservative, and it is why this is checked before sampling rather than
+    after.
+
+    Checked through `score_arm`, the public path, not only through `_gate`. And checked BEFORE
+    sampling: `_gate` runs only once a pool exists, so with a NaN the sampler searches for
+    patches that can never be accepted and spends the whole budget before reaching it.
+    """
+    import copy
+    import math
+
+    from allo.scoring.harness import _gate, protocol, score_arm
+
+    arm = "kras_g12c_corrected"
+    graph = evaluation_graph(apo_input(arm))
+    scores = {r: float(i) for i, r in enumerate(graph.order)}
+
+    for bad in (math.nan, math.inf, -math.inf, 0.0, -0.1):
+        settings = fast_protocol(199)
+        settings["nulls"]["matched_patch"]["tolerance"] = bad
+        with pytest.raises(ValueError, match="finite and positive"):
+            score_arm(arm, scores, method="probe", config=settings)
+        with pytest.raises(ValueError, match="the settings gave"):
+            _gate(arm, settings)
+
+    # A tolerance that is finite and positive but simply WRONG still gets the original
+    # message, so the two failures stay distinguishable to a reader.
+    settings = copy.deepcopy(protocol())
+    settings["nulls"]["matched_patch"]["tolerance"] = 0.5
+    with pytest.raises(ValueError, match="calibrated at matching tolerance"):
+        _gate(arm, settings)
+
+    assert _gate(arm, protocol())["tolerance"] == pytest.approx(
+        protocol()["nulls"]["matched_patch"]["tolerance"]
+    )

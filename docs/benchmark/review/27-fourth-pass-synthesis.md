@@ -475,6 +475,24 @@ added at one entry point and not at the class: `_aligned`, then the p-value func
 `holm`'s alpha, then this. **The recurring lesson of round 6 is not any one defect. It is that
 fixing the instance is what leaves the next one.**
 
+**A fifth pass found the other side of the line the fourth pass's fix had just touched, and
+that is the finding worth keeping.** `_gate` compares a configured matching tolerance against
+the one the `size_ratio` was calibrated at, and `abs(nan - wanted) > 1e-9` is False, so a NaN
+on **either** side passed. A sweep for the shape found the calibration-record side and guarded
+it. The next pass found the settings side, one argument over, **inside the fix for the
+identical mistake**. The settings side is the worse of the two, because `matched_patches`
+compares against it as well and every acceptance test goes false with a NaN. Both are now one
+function, `_checked_tolerance`, called before sampling rather than after — `_gate` runs only
+once a pool exists, so a NaN made the sampler search for patches that can never be accepted
+and spend the whole budget before reaching the check.
+
+**One half of that pass's claim is refuted by measurement.** It reported the consequence as
+anti-conservative: unmatched patches entering the pool and the frozen ratio correcting a null
+that was never run. Measured on the public path, the outcome was fail-safe, not
+anti-conservative — the sampler produced nothing, so the arm reported `available: false`,
+`confirmatory: false` and no p-value at all. The defect was real and the fix stands; the stated
+consequence was worse than the measured one, and both go in the record.
+
 **And the shipping conformance artifact understated the guarded surface.**
 `docs/report/conformance.md` said sixteen protected file routes where the other three
 documents said nineteen — and it was the one page of the four that the derived count test did
