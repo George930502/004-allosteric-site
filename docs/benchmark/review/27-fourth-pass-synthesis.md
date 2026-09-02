@@ -161,10 +161,40 @@ fpocket, CASTp, PDBbind — and proposes a three-class procedure: `APO`,
 `APO_WITH_ADDITIVE_IN_POCKET`, `NOT_APO`. The middle class is the one the repository needs and
 no single published instrument provides.
 
-### 3.4 `bcr_abl1_corrected` is scored against 18 of 20 of its pocket, and no shipped document says so
+### 3.4 `bcr_abl1_corrected` loses 2 of 20 labels, and the truncation is directional
 
-It sits in both confirmatory families. The truncation raises the confirmatory statistic on 6
-of 8 baselines. **Record the label-transfer standard** before any method is scored.
+The **count is disclosed**, at `primary/manifest.yaml:387`: "Kinase domain only, so 2 of the 20
+labels (525, 529) fall outside the model and are reported as unmapped." The audit brief said no
+shipped document says so; the frozen manifest does. What no document states is the
+**direction**.
+
+Measured on `1OPL:A`, the only ABL1 apo entry in the repository that models all 20 label
+residues, through the frozen default graph and the eight frozen `REQUIRED_BASELINES`. 440
+candidates, chance 220.5. Reproduced independently:
+
+| baseline | 20 labels | 18 labels | shift |
+| --- | ---: | ---: | ---: |
+| `closeness` | 299.85 | 315.47 | **+15.62** |
+| `gnm_or_essa` | 304.85 | 318.00 | **+13.15** |
+| `eigenvector_centrality` | 350.90 | 362.67 | **+11.77** |
+| `distance_from_source_negated` | 212.50 | 222.94 | **+10.44** |
+| `betweenness` | 259.60 | 267.33 | **+7.73** |
+| `degree` | 274.20 | 278.03 | **+3.83** |
+| `perturbation_response_scanning` | 65.90 | 58.28 | −7.62 |
+| `distance_from_source` | 228.50 | 218.06 | −10.44 |
+
+**Six of eight inflate, by up to 3.5 percentile points of the candidate set**, and the arm sits
+in both confirmatory families. That reproduces exactly.
+
+**The geometric explanation offered for it does not reproduce, and is withdrawn here.** The
+audit's prose says the two lost residues are "the two most distal, 22.0 and 25.9 Å against a
+kept range of 7.7 to 21.3". The audit's own script prints the opposite on minimum heavy-atom
+distance to the source: kept 18 at median 4.3 Å over 0.0 to 12.6, lost two at **3.9 Å and 7.7
+Å**, both inside the kept range. So the shift is real and its cause is not established.
+
+**What to do:** disclose the direction and the magnitude wherever the arm's confirmatory
+p-value is quoted. It is not repairable — `2G2H` stops at residue 523 — so disclosure is the
+whole remedy. Do not attach the distal-residue explanation to it until something reproduces it.
 
 ### 3.5 The orthosteric vocabulary is not shared across the sets
 
