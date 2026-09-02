@@ -6,7 +6,10 @@ two things allostery actually is — **coupling between two sites** and **transi
 functional states**. This document re-audits every frozen arm on the axes crypticity does not
 measure.
 
-**Re-run:** 2026-08-24, over the five scoreable arms of the reduced benchmark.
+**Re-run:** 2026-09-02, over the **six** arms of the re-frozen benchmark. The 2026-08-24 run
+covered five. Two arms changed after the organisers answered on 2026-09-02: `bcr_abl1_mandated`
+moved to `1OPL` chain B (ADR 0029) and `cardiac_myosin_mandated` was frozen for the first time
+(ADR 0031). Every number for the other four arms reproduced exactly.
 **Sources:** the deposited mmCIF files in `data/raw/`, plus `manifest.yaml` and
 `frozen.json`. Nothing is restated from memory.
 
@@ -20,17 +23,23 @@ This is evaluation-side evidence and is never imported by prediction code.
 ## 0. Headline
 
 **No arm supplies an isolated structural comparison from which an active-site response can be
-attributed to the allosteric ligand.** That is the finding, and it survived the reduction from
-eleven arms to five.
+attributed to the allosteric ligand.** That is the finding. It survived the reduction from
+eleven arms to five, and it survives the return to six.
 
-Concretely, across the five arms the two things that would have to co-occur never do:
+Concretely, across the six arms the two things that would have to co-occur never do:
 
 - On KRAS and on myosin the **label site moves and the active site does not** (active-site
   median displacement 0.23–0.43 Å, one-sided p = 1 against the rest of the chain).
-- On ABL1 the **active site does move** (median 0.71–1.35 Å, p = 0.017–0.031) — but both
-  ABL1 arms also swap their ATP-site occupant, `P16` in the apo for nilotinib in the holo. A
-  displacement at the active site cannot be attributed to asciminib when a second ligand
-  changed at that exact site.
+- On `bcr_abl1_corrected` the **active site does move** (median 0.90–0.93 Å, p = 0.025 on the
+  core fit) — but both ABL1 arms also swap their ATP-site occupant, `P16` in the apo for
+  nilotinib in the holo. A displacement at the active site cannot be attributed to asciminib
+  when a second ligand changed at that exact site.
+- **On the two arms added or changed on 2026-09-02 the axis does not apply at all**, and
+  saying so is the honest reading. `bcr_abl1_mandated` on chain B displaces by 22.89 Å over
+  345 common Cα, because chain B's regulatory module sits somewhere else entirely; that is a
+  domain placement, not a response to a ligand. `cardiac_myosin_mandated` displaces by 6.77 Å,
+  because the apo member is a 20 Å homology model. Neither number measures coupling and
+  neither is quoted as if it did.
 
 The consequence is not "the pairs are bad". It is that **the benchmark's ground truth is a
 binding-site label set, not a coupling label set** (ADR 0007). Allostery is inherited from the
@@ -48,8 +57,9 @@ site. This is the geometry a propagation method has to traverse.
 | --- | --: | --: | --: | --: | --: | --- |
 | `kras_g12c_mandated` | 1.32 Å | 16.08 Å | 7.79 Å | 1 hop | 2.0 hops | 11, 12, 13, 16, 34 |
 | `kras_g12c_corrected` | 1.31 Å | 15.93 Å | 7.81 Å | 1 hop | 2.0 hops | 11, 12, 13, 16, 34 |
-| `bcr_abl1_mandated` | 7.66 Å | 24.29 Å | 15.45 Å | 2 hops | 3.0 hops | none |
+| `bcr_abl1_mandated` | 7.66 Å | 23.18 Å | 14.28 Å | 2 hops | 3.0 hops | none |
 | `bcr_abl1_corrected` | 7.85 Å | 23.64 Å | 14.87 Å | 2 hops | 3.0 hops | none |
+| `cardiac_myosin_mandated` | 13.98 Å | 32.06 Å | 25.22 Å | 4 hops | 6.0 hops | none |
 | `cardiac_myosin_corrected` | 13.70 Å | 30.08 Å | 23.81 Å | 4 hops | 6.0 hops | none |
 
 **KRAS shares five residues between its label set and its propagation source.** Those five
@@ -59,8 +69,10 @@ separation is why a distance-only baseline is close to unbeatable on this target
 KRAS result must never be quoted without that baseline beside it.
 
 **Myosin is the genuine long-range case**: 13.7 Å and four hops at the closest approach, six
-hops at the median. It is also the arm with the lowest prevalence (1.6 %). Those two facts
-together make it the hardest arm and the most informative one.
+hops at the median. It is also the arm with the lowest prevalence (1.6 %, and 1.3 % on the
+mandated arm). Those two facts together make it the hardest arm and the most informative one.
+The two myosin arms agree on this axis to within 2 Å and to the hop, which is the one place the
+homology model and the measured structure do agree.
 
 ---
 
@@ -72,12 +84,18 @@ What sits in the catalytic site of each member, and how close it gets.
 | --- | --- | --- | --- |
 | `kras_g12c_mandated` | GDP 2.78 Å, MG 2.09 Å | GDP 2.72 Å, MG 2.16 Å (+ MOV 1.81 Å, the effector) | yes |
 | `kras_g12c_corrected` | GDP 2.70 Å, MG 2.11 Å | GDP 2.72 Å, MG 2.16 Å (+ MOV 1.81 Å) | yes |
-| `bcr_abl1_mandated` | P16 3.49 Å | NIL 3.01 Å | **no** |
+| `bcr_abl1_mandated` | P16 3.38 Å | NIL 3.01 Å | **no** |
 | `bcr_abl1_corrected` | P16 3.27 Å | NIL 3.01 Å | **no** |
+| `cardiac_myosin_mandated` | **nothing — the entry has zero heteroatoms** | ADP 2.34 Å, MG 2.07 Å, PO4 2.61 Å | **no** |
 | `cardiac_myosin_corrected` | ADP 2.29 Å, MG 2.09 Å, PO4 2.43 Å | ADP 2.34 Å, MG 2.07 Å, PO4 2.61 Å | yes |
 
 The effector is classified separately from the catalytic state, so MOV does not make the KRAS
 pair look mismatched. The ABL1 mismatch is real and is the confound named in §0.
+
+`cardiac_myosin_mandated` is a third kind of mismatch. `5TBY` is a homology model with no
+heteroatoms at all, so its catalytic site is empty of nucleotide while the holo carries
+ADP·Mg·Pi. Nothing was stripped: the entry never had any. This is also why the arm's
+propagation source comes from a family motif triple and not from a ligand (ADR 0031).
 
 ---
 
@@ -93,12 +111,22 @@ Mann-Whitney test of that group against the rest of the chain.
 | `kras_g12c_mandated` | core | 166 | 1.53 Å | 1.53 Å | 0.010 | 0.23 Å | 1 | 0.48 Å |
 | `kras_g12c_corrected` | global | 167 | 1.34 Å | 1.03 Å | **8.4e-05** | 0.29 Å | 1 | 0.48 Å |
 | `kras_g12c_corrected` | core | 167 | 1.38 Å | 1.21 Å | **0.00019** | 0.26 Å | 1 | 0.43 Å |
-| `bcr_abl1_mandated` | global | 429 | 0.98 Å | 0.37 Å | 1 | 0.71 Å | 0.031 | 0.56 Å |
-| `bcr_abl1_mandated` | core | 429 | 1.10 Å | 0.37 Å | 0.78 | 1.35 Å | 0.017 | 0.41 Å |
+| `bcr_abl1_mandated` † | global | 345 | 22.89 Å | 23.96 Å | 0.27 | 10.67 Å | 0.99 | 21.02 Å |
+| `bcr_abl1_mandated` † | core | 345 | 22.91 Å | 25.26 Å | 0.089 | 10.93 Å | 0.99 | 20.73 Å |
 | `bcr_abl1_corrected` | global | 252 | 1.78 Å | 0.64 Å | 0.86 | 0.93 Å | 0.11 | 0.87 Å |
 | `bcr_abl1_corrected` | core | 252 | 2.01 Å | 0.48 Å | 0.61 | 0.90 Å | 0.025 | 0.50 Å |
+| `cardiac_myosin_mandated` † | global | 761 | 6.77 Å | 1.83 Å | 0.88 | 1.45 Å | 1 | 2.60 Å |
+| `cardiac_myosin_mandated` † | core | 761 | 6.80 Å | 1.70 Å | 0.93 | 1.70 Å | 1 | 2.46 Å |
 | `cardiac_myosin_corrected` | global | 764 | 1.18 Å | 0.79 Å | **0.0019** | 0.29 Å | 1 | 0.59 Å |
 | `cardiac_myosin_corrected` | core | 764 | 1.26 Å | 0.74 Å | 0.036 | 0.29 Å | 1 | 0.43 Å |
+
+**† These two rows do not measure a conformational response, and must not be read as one.**
+Both arms have an apo member that differs from the holo for a reason unrelated to the ligand.
+`1OPL` chain B carries the same kinase domain in a different place — over the 239 Cα of the
+kinase domain alone it fits the holo at **1.08 Å**, against chain A's 1.00 Å (ADR 0029), so
+the 22.89 Å is the regulatory module and nothing else. `5TBY` is a 20 Å homology model whose
+long-range contact Jaccard against the measured `9GZ3` is 0.471 (ADR 0031). The rows are
+printed because omitting them would hide the size of the defect, not because the axis works.
 
 Read the pattern, not the individual p-values. **KRAS and myosin show a local response at the
 label site with a rigid active site.** That is consistent with a pocket forming or adjusting
@@ -121,7 +149,8 @@ would be the interesting signal if its ATP-site occupant had not changed too.
 
 **For the freeze.** Nothing changes. These axes are difficulty and confound descriptors, not
 admission criteria. ADR 0007 settled that crypticity and conformational response are reported,
-never used as pass or fail.
+never used as pass or fail. That settlement is what lets the two defective mandated arms be
+carried at all: they are disclosed, not admitted on merit, and they are non-confirmatory.
 
 **For the method, and this is the decision-relevant point.** A method that scores highly here
 has recovered a **drug-binding site**. Claiming it recovered an **allosteric** site requires

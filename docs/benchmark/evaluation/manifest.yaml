@@ -12,8 +12,8 @@
 #   uv run allo evaluate freeze     # re-derive frozen.json (needs the `eval` extra)
 #   uv run allo evaluate verify     # offline: everything except the pockets
 #
-version: 2
-frozen_on: 2026-08-25 # v2 re-freeze: same date, audit repairs. ADR 0025
+version: 3
+frozen_on: 2026-09-02 # v3: the organisers' Q4 answer and the 2026-09-02 audit. ADR 0030, 0032
 source: CHALLENGE.md section 4.1 (success criterion) and section 5 (scored artifact)
 seed: 0
 
@@ -78,17 +78,37 @@ endpoints:
       Allo-Allo Table 1 illustration (0.91-0.98 for every method, including one at AUPRC 0.07)
       is read from a bitmap table and is not independently verified.
     mcc_and_f1: >-
-      Both need a decision threshold, and no threshold can be chosen blind. Utges & Barton
-      2024 (doi:10.1186/s13321-024-00923-z) say directly that "the usefulness of
-      residue-level metrics as F1 score or MCC is limited". Threshold-free AUROC and AUPRC
-      are not covered by that objection.
+      The threshold is fixed at k = 5 by CHALLENGE.md section 5, so MCC and F1 are computable
+      here and the objection is a ceiling rather than a missing threshold. At a fixed-size-k
+      predictor the exact maximum is sqrt(k(n-p)/(p(n-k))), which runs 0.500-0.645 over the
+      five primary arms as they stood at v2 -- so a perfect top-5 scores about 0.6, and the
+      number cannot be compared to any published MCC computed at a free threshold. Reported
+      nowhere for that reason. The `sqrt(k/p)` shorthand overstates the ceiling by up to
+      4.1 %; use the exact form. CORRECTED at v3: v2 quoted Utges & Barton
+      (doi:10.1186/s13321-024-00923-z) as the argument, and the layer's own AUDIT.md withdrew
+      that reading. The paper's sentence is about residue-level metrics in general, not about
+      a fixed-k ceiling.
     jaccard: >-
-      Unreachable by construction here: a 5-residue list against a 12-20 residue label set
-      caps at about 0.31, below AlloBench's 0.5 reporting threshold.
-    dvo: no volume is predicted, and no standard threshold for it exists.
+      Reported nowhere because its ceiling is arm-dependent and low, not because it is
+      unreachable. CORRECTED at v3: v2 said "caps at about 0.31". The measured cap is 0.4545,
+      on a 5-residue list against an 11-residue label set. Both numbers sit below AlloBench's
+      0.5 reporting threshold, so the disposition is unchanged and the stated number was
+      wrong.
+    dvo: >-
+      No volume is predicted, so there is nothing to overlap. CORRECTED at v3: v2 carried a
+      second clause that the layer's own AUDIT.md called false, about no standard threshold
+      existing. DeepSite and Kalasanty both report DVO at a stated convention. The first
+      clause alone is the reason.
     enrichment_factor_bedroc_rie: >-
       Not used anywhere in site prediction; both literature sweeps found zero instances.
       BEDROC alpha = 20 encodes "the top 8 % matters", which is meaningless at k = 5.
+    top_5_fragmentation: >-
+      NOT omitted at v3 -- added. See `reported` above. CHALLENGE.md section 4.2 asks for
+      actionable output, and nothing measured whether the five predicted residues are one
+      place or five. Published precedent: Seq2Pocket's Pocket Fragmentation Index
+      (doi:10.64898/2026.01.28.702257), which "measures the average number of predicted
+      clusters assigned to each ground-truth pocket", ideal 1.0. Ours is the count of
+      connected components the top-5 induces in the evaluation graph, 1 to 5.
 
 # ---------------------------------------------------------------------------------------
 # Nulls. CHALLENGE.md section 4.1 names two negative classes; the first is split into the
@@ -108,7 +128,12 @@ nulls:
     match: [size, components, mean_degree, radius_of_gyration]
     tolerance: 0.10 # one relative bound on mean degree and on radius of gyration
     freeze_probe_patches: 200 # what `verify` re-draws to check the geometry has not moved
-    calibrated_by: experiments/2026-08-25-null-calibration
+    # v3 re-runs the calibration. The 2026-09-02 input re-freeze moved bcr_abl1_mandated
+    # from 1OPL chain A to chain B (ADR 0029) and exposed cardiac_myosin_mandated for the
+    # first time (ADR 0031), so the v2 gate is stale on one arm and absent on the other. The
+    # config differs from 2026-08-25 only in the arm list; every unchanged arm reproduces its
+    # v2 value.
+    calibrated_by: experiments/2026-09-02-null-recalibration
     # Matching those four properties is not enough on every arm. Radius of gyration is the
     # second moment of the patch about its centroid, and what sets the variance of a patch
     # mean under a spatially autocorrelated score is the whole within-patch distance
@@ -158,9 +183,37 @@ nulls:
     replicates: 1999
 
   # (b) non-functional surface pockets, as CHALLENGE.md section 4.1 words it.
+  #
+  # PER ARM THIS CANNOT CARRY A DECISION, AND THAT IS STRUCTURAL, NOT A DETECTOR PROBLEM.
+  # The statistic is one draw per pocket, so all within-pocket information is discarded and
+  # the power tends to 1 - Phi(z_(1-alpha) - delta). Eighty per cent power therefore needs a
+  # CORRECTED 2026-09-02: 2.487 is the n -> infinity NORMAL-QUANTILE limit, not the power of the discrete rank test the code runs. Integrating the exact binomial mixture at alpha = 0.05 gives power 0.7173 at 19 decoys, 0.6530 at 31, 0.7718 at 84, 0.7888 at 139 and only 0.7959 at 400 -- and rejection is IMPOSSIBLE at 18 or fewer. The direction is that the test is WEAKER than 2.487 implies at every frozen decoy count, so the disclosed floor understates the effect the test needs.
+  # pocket-level effect of delta >= z_0.95 + z_0.80 = 2.487 standard deviations AT ANY DECOY
+  # COUNT. Two replacements were measured against the ADR 0018 type-I gate before either was
+  # recommended: a residue-level rank test reads 0.132-0.384, worse than the unmatched null
+  # this protocol already rejects; and a size-matched patch inside the decoy union cannot be
+  # drawn, because on both KRAS arms no decoy pocket is as large as the label set. ADR 0030.
   decoy_pockets:
     kind: pocket_rank_permutation
     statistic: mean midrank of the lining residues
+    confirmatory: false
+
+  # (b) in the form that can reject. Fisher and Stouffer are unbounded below even when every
+  # input is floored, so a combination across arms escapes the 1/(1 + n_decoys) floor that
+  # binds each arm. Minimum attainable p on the three confirmatory arms, re-derived
+  # 2026-09-02 at the settings below: Fisher 0.00137, Stouffer 0.000453. At the v2 settings
+  # the same quantities were 0.0214 and 0.0115.
+  #
+  # LABEL IT CORRECTLY WHEREVER IT IS QUOTED. Fisher and Stouffer test the INTERSECTION null
+  # -- no arm has signal -- so a rejection licenses "at least one arm separates the site from
+  # non-functional surface pockets". It is not a generalisation claim. `allo.scoring.harness
+  # .combine_arms` is the one implementation. ADR 0030.
+  decoy_pockets_combined:
+    kind: across_arm_combination
+    combine: fisher
+    also_reported: stouffer
+    over: confirmatory_family
+    tests: intersection null
 
 decoys:
   detector: pyKVFinder
@@ -169,12 +222,42 @@ decoys:
   # The package's documented defaults for version 0.9.3, written out. The cited paper states
   # none of the five values, so `detector_version` above is the citation for them. Choosing
   # the defaults is the choice not to tune a detector on the benchmark it will score.
+  # RE-FROZEN AT v3, SELECTING ON `n_detected` ALONE. The organisers answered on 2026-09-02
+  # that no detector is prescribed and that each team designs its own decoy set, which
+  # removed the reason to treat the v2 floor as fixed.
+  #
+  # CORRECTED 2026-09-02. This block used to say `n_decoys` is label-free. It is not.
+  # `allo.scoring.decoys.classify` picks the site pocket by maximum label coverage and
+  # admits a pocket as a decoy only when its lining holds no label and clears the halo, so
+  # the count is a function of the label set. The criterion that IS label-free is
+  # `n_detected`, the number of pockets the detector returns before any label is consulted.
+  # It selects `po 8 rd1.2 vol1` on all five arms in `../review/data/decoy-power-sweep.json`,
+  # with no tie, which is the same setting `n_decoys` selects. The freeze does not move; the
+  # sentence justifying it was wrong and the criterion of record is now `n_detected`.
+  # Site coverage is reported as a CONSEQUENCE and was never the selection target: choosing
+  # a setting because it covers more labels would do exactly what this rule forbids.
+  #
+  # Measured over five settings x all 15 arms on 2026-09-02. This setting is the maximum on
+  # `n_decoys` for every arm, with no tie: total 777 decoy pockets against 311 at the v2
+  # defaults, median 45 against 16, and 12 of 15 arms at or above the 19 decoys a per-arm
+  # rejection at alpha would need, against 7 of 15.
+  #
+  # It also repairs a reporting defect that is independent of power. At the v2 settings the
+  # pocket this protocol calls "the site" on bcr_abl1_corrected covered 0.667 of its label
+  # set, so the field's pocket-rank convention was being applied to a pocket that was two
+  # thirds of the site. It now covers 0.944. On bcr_abl1_mandated 0.647 -> 1.000, on
+  # kras_g12c_corrected 0.750 -> 0.938, and the median over all arms 0.750 -> 0.917.
+  #
+  # WHAT IT DOES NOT FIX. kras_g12c_mandated reaches 13 decoys and mkp5 reaches 14, so
+  # neither can reject per arm at any effect size. A 169-residue protein does not carry 19
+  # non-functional surface pockets. That is arithmetic about small proteins and it is why
+  # `decoy_pockets_combined` exists. ADR 0030.
   detector_settings:
     step: 0.6
     probe_in: 1.4
-    probe_out: 4.0
-    removal_distance: 2.4
-    volume_cutoff: 5.0
+    probe_out: 8.0
+    removal_distance: 1.2
+    volume_cutoff: 1.0
   # A pocket is a decoy only if its lining shares no residue with the label set. The halo
   # is 0 because a larger one empties the class: at 5 A `kras_g12c_mandated` keeps zero
   # decoys and at 8 A both KRAS arms do. That is a property of a 169-residue protein with
@@ -194,13 +277,48 @@ decision:
     - bcr_abl1_corrected
     - cardiac_myosin_corrected
   correction: holm
-  # Why these three and not all five: the two `mandated` arms are the challenge's literal
-  # assignment and are reported for that reason, but they share a protein and a site with
-  # their corrected arm, so including both would test one disease area twice. The corrected
+
+  # SECOND CONFIRMATORY FAMILY, ADDED AT v3. ADR 0032.
+  #
+  # ADR 0025 makes "beat cavity_volume" the claim threshold, because clearing the matched
+  # patch null is a low bar: a label-blind, apo-only, zero-parameter geometric baseline
+  # rejects on all three confirmatory arms. Section 8 of README.md then declared everything
+  # except the matched-patch family descriptive. So the load-bearing comparison sat in a
+  # family the protocol declared unprotected. That is an internal contradiction and this
+  # closes it.
+  #
+  # The reference is `cavity_volume` and ONLY `cavity_volume`, pre-declared in ADR 0025, so
+  # the family stays fixed at three by the arms rather than growing with the number of
+  # methods a run happens to produce. Two-sided as `compare_methods` already is: between two
+  # methods there is no asymmetry to exploit, and a prior on which one wins is the bias this
+  # protocol exists to prevent.
+  #
+  # A method must clear BOTH families to support a claim. Every other baseline comparison is
+  # descriptive.
+  claim_family:
+    test: compare_methods
+    reference: cavity_volume
+    arms:
+      - kras_g12c_corrected
+      - bcr_abl1_corrected
+      - cardiac_myosin_corrected
+    correction: holm
+    sided: two
+  # Why these three and not all six: the three `mandated` arms are the challenge's literal
+  # assignment and are reported for that reason, but each shares a protein and a site with
+  # its corrected arm, so including both would test one disease area twice. The corrected
   # arm is where methods are compared (CONTEXT.md, "Tier").
+  #
+  # CORRECTED 2026-09-02. This list held two arms and its comment said "the two mandated
+  # arms" and "not all five", both written when the primary set had five arms and two
+  # mandated ones. `cardiac_myosin_mandated` was frozen by ADR 0031 and never added, so it
+  # was fully scored with no central reporting role -- its own manifest block says "reported
+  # and NEVER confirmatory" and this file did not agree. Every primary arm now appears
+  # exactly once across `confirmatory_family` and `supportive_only`.
   supportive_only:
     - kras_g12c_mandated
     - bcr_abl1_mandated
+    - cardiac_myosin_mandated
   # Everything on the secondary set's `development` tier is tuning, never a decision.
   # The `generalisation` tier carries the one across-target claim and opens in Phase 5.
   across_target_claim: secondary/generalisation
@@ -215,7 +333,11 @@ secondary_objectives:
     quantity: stability of the RANKING, not of the raw metric
     statistics: [spearman_rho, kendall_tau, overlap_at_5, jaccard_at_5]
     # All four together, following the only precedent that reports them
-    # (arXiv:2604.17486). RBO is principled and has no use in this literature; omitted.
+    # (arXiv:2604.17486). Rank-biased overlap is omitted, and the reason changed at v3: v2
+    # said it "has no use in this literature", which is a popularity argument and R1 forbids
+    # one. The first-principles reason is that RBO's contribution is top-weighting
+    # (doi:10.1145/1852102.1852106) and overlap@5 already carries it at exactly the k that
+    # ships, so RBO adds nothing here. ADR 0032.
   coarse_graining:
     quantity: retention of the topological signal under compression
     statistics:
@@ -228,11 +350,30 @@ secondary_objectives:
     # Priority order. A method that does not beat the first three has demonstrated nothing.
     required_baselines:
       # Score every candidate by the volume of the largest detected pocket that lines it, 0
-      # if none does. It uses no label and no network, and it rejects on all three
-      # confirmatory arms under the frozen null and Holm (p_calibrated 0.0047, 0.0001,
-      # 0.0001). So "significant against the matched-patch null" is NOT evidence that a
-      # method learned anything about allostery, and the report may not claim it is. This
-      # baseline is what a quantum result has to beat. It is also the field's own control:
+      # if none does. It uses no label and no network.
+      #
+      # RE-MEASURED AT v3, 2026-09-02. Under v2 it rejected on all three confirmatory arms
+      # (p_calibrated 0.0047, 0.0001, 0.0001) and this block said so. Under v3 it rejects on
+      # ONE of three: `p_calibrated` 0.0715 on `kras_g12c_corrected`, 0.3236 on
+      # `bcr_abl1_corrected`, 0.0046 on `cardiac_myosin_corrected`, against Holm thresholds
+      # 0.025, 0.05 and 0.016667.
+      #
+      # CORRECTED 2026-09-02. This block said the v3 input layer "moved bcr_abl1_corrected
+      # to a different apo chain". It did not. ADR 0029 moved bcr_abl1_MANDATED to 1OPL:B
+      # and says in its own title that 2G2H stays the comparison arm; bcr_abl1_corrected is
+      # and was 2G2H:A. The cause is the DETECTOR re-freeze (ADR 0030): cavity_volume is
+      # computed from the detector's own cavities, so re-freezing the decoys redefined the
+      # baseline. Its median AUC runs 0.795 at the v2 defaults and 0.696 at the v3 settings.
+      #
+      # The v2 triple is DISPUTED and neither value has been re-derived: this block said
+      # 0.0047 / 0.0001 / 0.0001 and README.md said 0.0073 / 0.0003 / 0.0001. Quote only the
+      # v3 triple, which is measured. Derivation: `../review/21-protocol-v3-statistics.md`.
+      #
+      # The conclusion survives at reduced strength. A zero-parameter detector score still
+      # clears the matched-patch null on one confirmatory arm, so a single rejection is not
+      # evidence that a method learned anything about allostery. It is no longer true that
+      # the baseline sweeps the family, and no document may say so. This baseline is what a
+      # quantum result has to beat. It is also the field's own control:
       # "rank by detector score alone" is the reference both PASSer2.0
       # (doi:10.1093/nar/gkad303) and DeepAllo (doi:10.1093/bioinformatics/btaf294) report
       # against. Added at the version-2 audit; it was the first blocker. ADR 0025.
@@ -305,6 +446,25 @@ confounders:
       Absent. It needs a multiple-sequence alignment against an external database, which the
       offline gate cannot carry. Recorded as unknown rather than approximated (R3). This is a
       disclosed gap: sequence conservation is the fourth property a reviewer will ask about.
+      The METHOD is decided and the COLUMN is not built. ADR 0035 fixes it as Jensen-Shannon
+      divergence in the Capra & Singh form (doi:10.1093/bioinformatics/btm270) against a
+      BLOSUM62 background with Henikoff-Henikoff sequence weights and lambda = 1/2, with the
+      window heuristic OFF, over Pfam 38.2 full alignments fetched from InterPro. What blocks
+      it is artifact size, not method: PF07714 alone is 191 MB gzipped, so the pinned artifact
+      has to become the derived per-residue column plus the alignment hash, never the
+      alignment. Coevolution was considered and rejected as a category error, not deferred.
+  # ADDED AT v3, and free -- the evaluation graph already holds both. They separate label from
+  # background about as strongly as the three above: degree reaches AUC 0.770 on `ns5b` and
+  # 0.751 on `mkp5`, distance reaches 0.932 on `hiv_rt` in its better direction
+  # (`../review/12-dataset-eda.md`). Apo-only and label-free, so C1 and C2 are untouched.
+  # Reported, never tested.
+  degree:
+    source: the evaluation graph's own node degree at the frozen 4.5 A heavy-atom cutoff
+  distance_to_source:
+    source: minimum Ca distance from the residue to any propagation-source residue
+    note: >-
+      Signed so that a LARGER value is FARTHER from the source. A propagation method is
+      expected to correlate negatively; the column exists to say by how much.
   statistic: spearman_rho between the method's score and the property, over the candidate set
 
 stratification:

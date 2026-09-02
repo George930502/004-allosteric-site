@@ -1,0 +1,185 @@
+{
+ "chem_comp": {
+  "formula": "Be F3",
+  "formula_weight": 66.007,
+  "id": "BEF",
+  "name": "BERYLLIUM TRIFLUORIDE ION",
+  "pdbx_ambiguous_flag": "N",
+  "pdbx_formal_charge": -1,
+  "pdbx_initial_date": "1999-07-08T00:00:00.000+00:00",
+  "pdbx_modified_date": "2026-07-31T00:00:00.000+00:00",
+  "pdbx_processing_site": "RCSB",
+  "pdbx_release_status": "REL",
+  "three_letter_code": "BEF",
+  "type": "non-polymer"
+ },
+ "pdbx_chem_comp_audit": [
+  {
+   "action_type": "Create component",
+   "comp_id": "BEF",
+   "date": "1999-07-08T00:00:00.000+00:00",
+   "ordinal": 1
+  },
+  {
+   "action_type": "Modify descriptor",
+   "comp_id": "BEF",
+   "date": "2011-06-04T00:00:00.000+00:00",
+   "ordinal": 2
+  },
+  {
+   "action_type": "Modify PCM",
+   "comp_id": "BEF",
+   "date": "2024-09-27T00:00:00.000+00:00",
+   "ordinal": 3
+  },
+  {
+   "action_type": "Other modification",
+   "comp_id": "BEF",
+   "date": "2026-07-17T00:00:00.000+00:00",
+   "ordinal": 4
+  },
+  {
+   "action_type": "Other modification",
+   "comp_id": "BEF",
+   "date": "2026-07-31T00:00:00.000+00:00",
+   "ordinal": 5
+  }
+ ],
+ "pdbx_chem_comp_descriptor": [
+  {
+   "comp_id": "BEF",
+   "descriptor": "F[Be-](F)F",
+   "program": "ACDLabs",
+   "program_version": "10.04",
+   "type": "SMILES"
+  },
+  {
+   "comp_id": "BEF",
+   "descriptor": "F[Be-](F)F",
+   "program": "CACTVS",
+   "program_version": "3.341",
+   "type": "SMILES_CANONICAL"
+  },
+  {
+   "comp_id": "BEF",
+   "descriptor": "F[Be-](F)F",
+   "program": "CACTVS",
+   "program_version": "3.341",
+   "type": "SMILES"
+  },
+  {
+   "comp_id": "BEF",
+   "descriptor": "[Be-](F)(F)F",
+   "program": "OpenEye OEToolkits",
+   "program_version": "1.5.0",
+   "type": "SMILES_CANONICAL"
+  },
+  {
+   "comp_id": "BEF",
+   "descriptor": "[Be-](F)(F)F",
+   "program": "OpenEye OEToolkits",
+   "program_version": "1.5.0",
+   "type": "SMILES"
+  },
+  {
+   "comp_id": "BEF",
+   "descriptor": "InChI=1S/Be.3FH/h;3*1H/q+2;;;/p-3",
+   "program": "InChI",
+   "program_version": "1.03",
+   "type": "InChI"
+  },
+  {
+   "comp_id": "BEF",
+   "descriptor": "OGIAHMCCNXDTIE-UHFFFAOYSA-K",
+   "program": "InChI",
+   "program_version": "1.03",
+   "type": "InChIKey"
+  }
+ ],
+ "pdbx_chem_comp_identifier": [
+  {
+   "comp_id": "BEF",
+   "identifier": "trifluoroberyllate(1-)",
+   "program": "ACDLabs",
+   "program_version": "10.04",
+   "type": "SYSTEMATIC NAME"
+  },
+  {
+   "comp_id": "BEF",
+   "identifier": "trifluoroberyllium",
+   "program": "OpenEye OEToolkits",
+   "program_version": "1.5.0",
+   "type": "SYSTEMATIC NAME"
+  }
+ ],
+ "rcsb_chem_comp_container_identifiers": {
+  "comp_id": "BEF",
+  "rcsb_id": "BEF"
+ },
+ "rcsb_chem_comp_descriptor": {
+  "InChI": "InChI=1S/Be.3FH/h;3*1H/q+2;;;/p-3",
+  "InChIKey": "OGIAHMCCNXDTIE-UHFFFAOYSA-K",
+  "SMILES": "[Be-](F)(F)F",
+  "SMILES_stereo": "[Be-](F)(F)F",
+  "comp_id": "BEF"
+ },
+ "rcsb_chem_comp_info": {
+  "atom_count": 4,
+  "atom_count_chiral": 0,
+  "atom_count_heavy": 4,
+  "bond_count": 3,
+  "bond_count_aromatic": 0,
+  "comp_id": "BEF",
+  "initial_deposition_date": "1999-07-08T00:00:00.000+00:00",
+  "initial_release_date": "1996-08-17T00:00:00.000+00:00",
+  "release_status": "REL",
+  "revision_date": "2026-07-31T00:00:00.000+00:00"
+ },
+ "rcsb_chem_comp_related": [
+  {
+   "comp_id": "BEF",
+   "ordinal": 1,
+   "related_mapping_method": "matching InChIKey in PubChem",
+   "resource_accession_code": "152255",
+   "resource_name": "PubChem"
+  },
+  {
+   "comp_id": "BEF",
+   "ordinal": 2,
+   "related_mapping_method": "matching InChIKey in PubChem",
+   "resource_accession_code": "23624244",
+   "resource_name": "PubChem"
+  },
+  {
+   "comp_id": "BEF",
+   "ordinal": 3,
+   "related_mapping_method": "matching InChIKey in PubChem",
+   "resource_accession_code": "3465631",
+   "resource_name": "PubChem"
+  }
+ ],
+ "rcsb_chem_comp_synonyms": [
+  {
+   "comp_id": "BEF",
+   "name": "BERYLLIUM TRIFLUORIDE ION",
+   "ordinal": 1,
+   "provenance_source": "PDB Reference Data",
+   "type": "Preferred Name"
+  },
+  {
+   "comp_id": "BEF",
+   "name": "trifluoroberyllate(1-)",
+   "ordinal": 2,
+   "provenance_source": "ACDLabs",
+   "type": "Systematic Name"
+  },
+  {
+   "comp_id": "BEF",
+   "name": "trifluoroberyllium",
+   "ordinal": 3,
+   "provenance_source": "OpenEye OEToolkits",
+   "type": "Systematic Name"
+  }
+ ],
+ "rcsb_id": "BEF"
+}

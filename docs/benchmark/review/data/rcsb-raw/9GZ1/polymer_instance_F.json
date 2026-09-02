@@ -1,0 +1,1418 @@
+{
+ "pdbx_vrpt_summary_entity_fit_to_map": [
+  {
+   "PDB_model_num": 1,
+   "Q_score": 0.036,
+   "average_residue_inclusion": 0.5652
+  }
+ ],
+ "pdbx_vrpt_summary_entity_geometry": [
+  {
+   "PDB_model_num": 1,
+   "angles_RMSZ": 0.83,
+   "bonds_RMSZ": 0.25,
+   "num_angles_RMSZ": 1587,
+   "num_bonds_RMSZ": 1179
+  }
+ ],
+ "rcsb_id": "9GZ1.F",
+ "rcsb_ligand_neighbors": [
+  {
+   "atom_id": "OD1",
+   "auth_seq_id": 48,
+   "comp_id": "ASP",
+   "distance": 2.085,
+   "ligand_asym_id": "P",
+   "ligand_atom_id": "MG",
+   "ligand_comp_id": "MG",
+   "ligand_entity_id": "4",
+   "ligand_model_id": 1,
+   "seq_id": 48
+  },
+  {
+   "atom_id": "OD1",
+   "auth_seq_id": 45,
+   "comp_id": "ASP",
+   "distance": 2.093,
+   "ligand_asym_id": "P",
+   "ligand_atom_id": "MG",
+   "ligand_comp_id": "MG",
+   "ligand_entity_id": "4",
+   "ligand_model_id": 1,
+   "seq_id": 45
+  },
+  {
+   "atom_id": "OD1",
+   "auth_seq_id": 39,
+   "comp_id": "ASN",
+   "distance": 2.357,
+   "ligand_asym_id": "P",
+   "ligand_atom_id": "MG",
+   "ligand_comp_id": "MG",
+   "ligand_entity_id": "4",
+   "ligand_model_id": 1,
+   "seq_id": 39
+  }
+ ],
+ "rcsb_polymer_entity_instance_container_identifiers": {
+  "asym_id": "F",
+  "auth_asym_id": "F",
+  "auth_to_entity_poly_seq_mapping": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6",
+   "7",
+   "8",
+   "9",
+   "10",
+   "11",
+   "12",
+   "13",
+   "14",
+   "15",
+   "16",
+   "17",
+   "18",
+   "19",
+   "20",
+   "21",
+   "22",
+   "23",
+   "24",
+   "25",
+   "26",
+   "27",
+   "28",
+   "29",
+   "30",
+   "31",
+   "32",
+   "33",
+   "34",
+   "35",
+   "36",
+   "37",
+   "38",
+   "39",
+   "40",
+   "41",
+   "42",
+   "43",
+   "44",
+   "45",
+   "46",
+   "47",
+   "48",
+   "49",
+   "50",
+   "51",
+   "52",
+   "53",
+   "54",
+   "55",
+   "56",
+   "57",
+   "58",
+   "59",
+   "60",
+   "61",
+   "62",
+   "63",
+   "64",
+   "65",
+   "66",
+   "67",
+   "68",
+   "69",
+   "70",
+   "71",
+   "72",
+   "73",
+   "74",
+   "75",
+   "76",
+   "77",
+   "78",
+   "79",
+   "80",
+   "81",
+   "82",
+   "83",
+   "84",
+   "85",
+   "86",
+   "87",
+   "88",
+   "89",
+   "90",
+   "91",
+   "92",
+   "93",
+   "94",
+   "95",
+   "96",
+   "97",
+   "98",
+   "99",
+   "100",
+   "101",
+   "102",
+   "103",
+   "104",
+   "105",
+   "106",
+   "107",
+   "108",
+   "109",
+   "110",
+   "111",
+   "112",
+   "113",
+   "114",
+   "115",
+   "116",
+   "117",
+   "118",
+   "119",
+   "120",
+   "121",
+   "122",
+   "123",
+   "124",
+   "125",
+   "126",
+   "127",
+   "128",
+   "129",
+   "130",
+   "131",
+   "132",
+   "133",
+   "134",
+   "135",
+   "136",
+   "137",
+   "138",
+   "139",
+   "140",
+   "141",
+   "142",
+   "143",
+   "144",
+   "145",
+   "146",
+   "147",
+   "148",
+   "149",
+   "150",
+   "151",
+   "152",
+   "153",
+   "154",
+   "155",
+   "156",
+   "157",
+   "158",
+   "159",
+   "160",
+   "161",
+   "162",
+   "163",
+   "164",
+   "165",
+   "166",
+   "167",
+   "168"
+  ],
+  "entity_id": "3",
+  "entry_id": "9GZ1",
+  "rcsb_id": "9GZ1.F"
+ },
+ "rcsb_polymer_instance_annotation": [
+  {
+   "annotation_id": "8102889",
+   "annotation_lineage": [
+    {
+     "depth": 1,
+     "id": "1",
+     "name": "Globular proteins"
+    },
+    {
+     "depth": 2,
+     "id": "1000000",
+     "name": "All alpha proteins"
+    },
+    {
+     "depth": 3,
+     "id": "2000120",
+     "name": "Pair of EF Hands-like"
+    },
+    {
+     "depth": 4,
+     "id": "3001983",
+     "name": "EF-hand"
+    }
+   ],
+   "assignment_version": "2022-06-29",
+   "name": "EF-hand",
+   "ordinal": 4,
+   "provenance_source": "SCOP2B",
+   "type": "SCOP2"
+  },
+  {
+   "annotation_id": "e9gz1F1",
+   "annotation_lineage": [
+    {
+     "depth": 1,
+     "id": "100020",
+     "name": "A: alpha arrays"
+    },
+    {
+     "depth": 2,
+     "id": "202366",
+     "name": "X: HTH"
+    },
+    {
+     "depth": 3,
+     "id": "303588",
+     "name": "H: HTH"
+    },
+    {
+     "depth": 4,
+     "id": "403727",
+     "name": "T: Three-helical HTH"
+    },
+    {
+     "depth": 5,
+     "id": "513779",
+     "name": "F: Beta-Casp"
+    }
+   ],
+   "assignment_version": "v295",
+   "name": "Beta-Casp",
+   "ordinal": 10,
+   "provenance_source": "ECOD",
+   "type": "ECOD"
+  }
+ ],
+ "rcsb_polymer_instance_feature": [
+  {
+   "additional_properties": [
+    {
+     "name": "SCOP2_SUPERFAMILY_NAME",
+     "values": [
+      "EF-hand"
+     ]
+    },
+    {
+     "name": "SCOP2_DOMAIN_ID",
+     "values": [
+      "8102889"
+     ]
+    },
+    {
+     "name": "SCOP2_SUPERFAMILY_ID",
+     "values": [
+      "3001983"
+     ]
+    }
+   ],
+   "assignment_version": "2022-06-29",
+   "feature_id": "8102889",
+   "feature_positions": [
+    {
+     "beg_seq_id": 20,
+     "end_seq_id": 160
+    }
+   ],
+   "name": "EF-hand",
+   "ordinal": 4,
+   "provenance_source": "SCOP2B",
+   "type": "SCOP2B_SUPERFAMILY"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "ECOD_FAMILY_NAME",
+     "values": [
+      "Beta-Casp"
+     ]
+    },
+    {
+     "name": "ECOD_DOMAIN_ID",
+     "values": [
+      "e9gz1F1"
+     ]
+    }
+   ],
+   "assignment_version": "v295",
+   "feature_id": "e9gz1F1",
+   "feature_positions": [
+    {
+     "beg_seq_id": 1,
+     "end_seq_id": 93
+    }
+   ],
+   "name": "Beta-Casp",
+   "ordinal": 17,
+   "provenance_source": "ECOD",
+   "type": "ECOD"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "ECOD_FAMILY_NAME",
+     "values": [
+      "Beta-Casp"
+     ]
+    },
+    {
+     "name": "ECOD_DOMAIN_ID",
+     "values": [
+      "e9gz1F2"
+     ]
+    }
+   ],
+   "assignment_version": "v295",
+   "feature_id": "e9gz1F2",
+   "feature_positions": [
+    {
+     "beg_seq_id": 94,
+     "end_seq_id": 168
+    }
+   ],
+   "name": "Beta-Casp",
+   "ordinal": 18,
+   "provenance_source": "ECOD",
+   "type": "ECOD"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P106",
+   "feature_positions": [
+    {
+     "beg_seq_id": 16,
+     "end_seq_id": 23
+    }
+   ],
+   "name": "helix",
+   "ordinal": 140,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P107",
+   "feature_positions": [
+    {
+     "beg_seq_id": 26,
+     "end_seq_id": 29
+    }
+   ],
+   "name": "helix",
+   "ordinal": 141,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P108",
+   "feature_positions": [
+    {
+     "beg_seq_id": 30,
+     "end_seq_id": 35
+    }
+   ],
+   "name": "helix",
+   "ordinal": 142,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P109",
+   "feature_positions": [
+    {
+     "beg_seq_id": 48,
+     "end_seq_id": 57
+    }
+   ],
+   "name": "helix",
+   "ordinal": 143,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P110",
+   "feature_positions": [
+    {
+     "beg_seq_id": 63,
+     "end_seq_id": 73
+    }
+   ],
+   "name": "helix",
+   "ordinal": 144,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P111",
+   "feature_positions": [
+    {
+     "beg_seq_id": 79,
+     "end_seq_id": 90
+    }
+   ],
+   "name": "helix",
+   "ordinal": 145,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P112",
+   "feature_positions": [
+    {
+     "beg_seq_id": 91,
+     "end_seq_id": 94
+    }
+   ],
+   "name": "helix",
+   "ordinal": 146,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P113",
+   "feature_positions": [
+    {
+     "beg_seq_id": 95,
+     "end_seq_id": 107
+    }
+   ],
+   "name": "helix",
+   "ordinal": 147,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P114",
+   "feature_positions": [
+    {
+     "beg_seq_id": 115,
+     "end_seq_id": 127
+    }
+   ],
+   "name": "helix",
+   "ordinal": 148,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P115",
+   "feature_positions": [
+    {
+     "beg_seq_id": 131,
+     "end_seq_id": 142
+    }
+   ],
+   "name": "helix",
+   "ordinal": 149,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P116",
+   "feature_positions": [
+    {
+     "beg_seq_id": 151,
+     "end_seq_id": 160
+    }
+   ],
+   "name": "helix",
+   "ordinal": 150,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "1",
+   "feature_positions": [
+    {
+     "beg_seq_id": 1,
+     "end_seq_id": 15
+    },
+    {
+     "beg_seq_id": 24,
+     "end_seq_id": 25
+    },
+    {
+     "beg_seq_id": 36,
+     "end_seq_id": 47
+    },
+    {
+     "beg_seq_id": 58,
+     "end_seq_id": 62
+    },
+    {
+     "beg_seq_id": 74,
+     "end_seq_id": 78
+    },
+    {
+     "beg_seq_id": 108,
+     "end_seq_id": 114
+    },
+    {
+     "beg_seq_id": 128,
+     "end_seq_id": 130
+    },
+    {
+     "beg_seq_id": 143,
+     "end_seq_id": 150
+    },
+    {
+     "beg_seq_id": 161,
+     "end_seq_id": 168
+    }
+   ],
+   "name": "unassigned secondary structure",
+   "ordinal": 156,
+   "provenance_source": "PROMOTIF",
+   "type": "UNASSIGNED_SEC_STRUCT"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PARTNER_ASYM_ID",
+     "values": [
+      "P"
+     ]
+    },
+    {
+     "name": "PARTNER_COMP_ID",
+     "values": [
+      "MG"
+     ]
+    }
+   ],
+   "assignment_version": "V1.0",
+   "description": "Software generated binding site for ligand entity 4 component MG instance P",
+   "feature_id": "LIGAND_INTERACTION_10",
+   "feature_positions": [
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 48
+    },
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 45
+    },
+    {
+     "beg_comp_id": "ASN",
+     "beg_seq_id": 39
+    }
+   ],
+   "name": "ligand MG",
+   "ordinal": 169,
+   "provenance_source": "PDB",
+   "type": "LIGAND_INTERACTION"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PARTNER_ASYM_ID",
+     "values": [
+      "P"
+     ]
+    },
+    {
+     "name": "PARTNER_COMP_ID",
+     "values": [
+      "MG"
+     ]
+    }
+   ],
+   "assignment_version": "V1.0",
+   "description": "Software generated binding site for ligand entity 4 component MG instance P",
+   "feature_id": "LIGAND_METAL_COORDINATION_LINKAGE_10",
+   "feature_positions": [
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 48
+    },
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 45
+    },
+    {
+     "beg_comp_id": "ASN",
+     "beg_seq_id": 39
+    }
+   ],
+   "name": "ligand MG",
+   "ordinal": 170,
+   "provenance_source": "PDB",
+   "type": "LIGAND_METAL_COORDINATION_LINKAGE"
+  },
+  {
+   "assignment_version": "V1.0",
+   "description": "No coordinates for this residue are reported in model 1",
+   "feature_id": "1",
+   "feature_positions": [
+    {
+     "beg_seq_id": 1,
+     "end_seq_id": 14
+    },
+    {
+     "beg_seq_id": 161,
+     "end_seq_id": 168
+    }
+   ],
+   "name": "unmodeled residue",
+   "ordinal": 176,
+   "provenance_source": "PDB",
+   "type": "UNOBSERVED_RESIDUE_XYZ"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PDB_MODEL_NUM",
+     "values": [
+      "1"
+     ]
+    }
+   ],
+   "feature_id": "CLASHES",
+   "feature_positions": [
+    {
+     "beg_comp_id": "VAL",
+     "beg_seq_id": 17,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "PHE",
+     "beg_seq_id": 21,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLN",
+     "beg_seq_id": 23,
+     "values": [
+      1.0,
+      1.0,
+      1.0,
+      4.0
+     ]
+    },
+    {
+     "beg_comp_id": "PHE",
+     "beg_seq_id": 29,
+     "values": [
+      2.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "VAL",
+     "beg_seq_id": 35,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "ILE",
+     "beg_seq_id": 43,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "PHE",
+     "beg_seq_id": 53,
+     "values": [
+      3.0
+     ]
+    },
+    {
+     "beg_comp_id": "VAL",
+     "beg_seq_id": 61,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 65,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "PRO",
+     "beg_seq_id": 76,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASN",
+     "beg_seq_id": 78,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "THR",
+     "beg_seq_id": 80,
+     "values": [
+      2.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 83,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "PHE",
+     "beg_seq_id": 86,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "LYS",
+     "beg_seq_id": 89,
+     "values": [
+      1.0,
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLY",
+     "beg_seq_id": 92,
+     "values": [
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "PRO",
+     "beg_seq_id": 95,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 106,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "THR",
+     "beg_seq_id": 113,
+     "values": [
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "LYS",
+     "beg_seq_id": 116,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "PHE",
+     "beg_seq_id": 118,
+     "values": [
+      2.0,
+      2.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 122,
+     "values": [
+      5.0,
+      3.0,
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLN",
+     "beg_seq_id": 126,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "PHE",
+     "beg_seq_id": 130,
+     "values": [
+      4.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 134,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASN",
+     "beg_seq_id": 137,
+     "values": [
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASN",
+     "beg_seq_id": 149,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ILE",
+     "beg_seq_id": 159,
+     "values": [
+      4.0
+     ]
+    }
+   ],
+   "name": "CLASHES",
+   "ordinal": 188,
+   "provenance_source": "PDB",
+   "type": "CLASHES"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PDB_MODEL_NUM",
+     "values": [
+      "1"
+     ]
+    }
+   ],
+   "feature_id": "ANGLE_OUTLIERS",
+   "feature_positions": [
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 94,
+     "values": [
+      1.0
+     ]
+    }
+   ],
+   "name": "ANGLE_OUTLIERS",
+   "ordinal": 189,
+   "provenance_source": "PDB",
+   "type": "ANGLE_OUTLIERS"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PDB_MODEL_NUM",
+     "values": [
+      "1"
+     ]
+    }
+   ],
+   "feature_id": "Q_SCORE",
+   "feature_positions": [
+    {
+     "beg_comp_id": "SER",
+     "beg_seq_id": 15,
+     "values": [
+      -0.212,
+      -0.148,
+      -0.114,
+      -0.092,
+      -0.112,
+      0.051,
+      0.327,
+      -0.235,
+      -0.108,
+      -0.159,
+      0.145,
+      0.143,
+      0.171,
+      0.226,
+      -0.198,
+      0.36,
+      0.176,
+      -0.09,
+      0.195,
+      -0.138,
+      0.136,
+      -0.061,
+      -0.054,
+      -0.074,
+      -0.279,
+      0.133,
+      -0.041,
+      -0.352,
+      -0.153,
+      -0.132,
+      -0.068,
+      0.228,
+      0.093,
+      0.372,
+      0.053,
+      0.177,
+      0.186,
+      0.275,
+      0.199,
+      -0.146,
+      -0.247,
+      -0.276,
+      -0.074,
+      -0.048,
+      -0.129,
+      -0.079,
+      -0.037,
+      0.151,
+      -0.047,
+      0.222,
+      -0.071,
+      -0.136,
+      -0.083,
+      0.312,
+      -0.133,
+      -0.1,
+      -0.128,
+      0.025,
+      -0.148,
+      -0.011,
+      -0.099,
+      -0.201,
+      -0.051,
+      0.085,
+      -0.114,
+      0.351,
+      0.239,
+      -0.061,
+      0.099,
+      0.043,
+      -0.073,
+      -0.213,
+      0.118,
+      0.19,
+      -0.125,
+      0.006,
+      0.213,
+      -0.075,
+      0.181,
+      0.286,
+      0.17,
+      0.055,
+      -0.025,
+      -0.171,
+      0.089,
+      0.075,
+      -0.117,
+      0.154,
+      -0.114,
+      0.103,
+      -0.23,
+      -0.038,
+      0.187,
+      -0.021,
+      -0.078,
+      0.041,
+      -0.01,
+      0.299,
+      0.149,
+      -0.236,
+      -0.004,
+      0.109,
+      -0.027,
+      0.313,
+      -0.146,
+      0.098,
+      -0.122,
+      0.145,
+      0.123,
+      0.245,
+      -0.047,
+      0.036,
+      -0.023,
+      0.183,
+      -0.063,
+      -0.026,
+      0.308,
+      0.047,
+      0.103,
+      0.169,
+      0.191,
+      0.243,
+      0.219,
+      0.125,
+      -0.003,
+      0.189,
+      0.23,
+      0.246,
+      -0.073,
+      -0.05,
+      0.227,
+      -0.05,
+      0.307,
+      -0.083,
+      -0.133,
+      0.164,
+      0.15,
+      0.231,
+      -0.035,
+      0.003,
+      0.215,
+      0.086,
+      -0.105,
+      -0.012,
+      0.106,
+      0.333
+     ]
+    }
+   ],
+   "name": "Q_SCORE",
+   "ordinal": 195,
+   "provenance_source": "PDB",
+   "type": "Q_SCORE"
+  },
+  {
+   "description": "The Accessible Surface Area considering this polymer entity instance by itself (unbound).",
+   "feature_positions": [
+    {
+     "beg_seq_id": 15,
+     "end_seq_id": 160,
+     "values": [
+      111.57817693256618,
+      87.59279057987303,
+      51.598442627435986,
+      113.60788203455274,
+      14.769989259100214,
+      37.67640189810325,
+      132.74658763065378,
+      114.51011979864838,
+      38.93563517170809,
+      78.72481342138119,
+      105.70805576730295,
+      1.6124513321073743,
+      105.66997966434144,
+      85.67031934488705,
+      92.18995599482056,
+      27.393896257954292,
+      98.23626270264533,
+      60.66097233577935,
+      13.694348146897035,
+      77.66310338764109,
+      96.35194296884455,
+      88.77405957691226,
+      3.31411635575433,
+      95.293128226894,
+      58.90829790053459,
+      172.74455864135857,
+      96.97305342937813,
+      24.888792789255913,
+      37.62386441583874,
+      37.749203909620476,
+      22.03716662431834,
+      147.157990477725,
+      76.49968366342247,
+      10.840653557356335,
+      28.451695637159204,
+      147.86402195759626,
+      35.22133520391712,
+      53.2645774948079,
+      21.6632894525258,
+      81.2305929608186,
+      79.18689143524178,
+      133.12106296168756,
+      50.392918021836905,
+      220.29207587826028,
+      90.18980196997073,
+      108.09579436101146,
+      110.46741281449587,
+      62.10828647836931,
+      119.36758501450173,
+      127.75135478048108,
+      41.060266637315515,
+      72.02282616746272,
+      89.97057409478084,
+      42.28468352449622,
+      37.92035787738805,
+      138.54254961637344,
+      171.31070056842248,
+      77.48627444690406,
+      18.07833513746843,
+      86.03270331411571,
+      16.054624194264925,
+      66.55584925115286,
+      137.87986457529934,
+      63.6353593752486,
+      119.0529482270594,
+      77.44973144115751,
+      59.30223853965001,
+      5.448039395794013,
+      45.0775317475222,
+      40.721821604107234,
+      58.28692605949225,
+      44.94060103348577,
+      0.0,
+      74.9223176380704,
+      124.06488681032681,
+      10.695773357269264,
+      102.2850719163682,
+      51.935706421806515,
+      61.45935407329555,
+      91.09835810521125,
+      34.66770364030855,
+      71.3554387905047,
+      130.99392827505375,
+      103.91334682235316,
+      45.14863729900649,
+      76.2121173515576,
+      32.93595472541082,
+      37.84477115814268,
+      64.12859696168456,
+      139.48519077526836,
+      123.81419274311858,
+      107.54654092092493,
+      34.77379648085733,
+      114.94575565546225,
+      130.70553509600245,
+      40.83255897523509,
+      119.17520896004064,
+      14.905879477649771,
+      64.09023183219892,
+      28.91929028771951,
+      125.11337953545473,
+      16.019679630860516,
+      109.08858790502828,
+      111.7689042792027,
+      60.180406677470906,
+      4.444534277465501,
+      121.28538909944152,
+      43.53618596689911,
+      48.104798074536674,
+      36.2066065184842,
+      114.69152289828901,
+      115.13446986952633,
+      88.2528869486006,
+      106.5760677643933,
+      219.33687840184743,
+      69.20252545119263,
+      53.029541125385165,
+      143.5952183200761,
+      103.06931648694324,
+      76.17518478832199,
+      41.654992746107176,
+      147.00199155291835,
+      100.77340287658797,
+      29.765909295475993,
+      111.51789353945497,
+      77.05876903187769,
+      79.66916611995379,
+      35.652781432768165,
+      92.21349280698126,
+      54.281744771268336,
+      62.952658619059946,
+      166.8346850192939,
+      52.69153088860014,
+      28.145933220644743,
+      40.39551065836416,
+      13.687773421791603,
+      52.76088971456903,
+      76.28890290255958,
+      100.9681439219987,
+      71.35890459552016,
+      44.87989541032192,
+      23.5050845881676,
+      159.4931976780848,
+      104.17878626884027,
+      105.23514051542452,
+      124.52466266509086
+     ]
+    }
+   ],
+   "name": "Unbound ASA",
+   "ordinal": 196,
+   "provenance_source": "biojava-7.2.2",
+   "type": "ASA"
+  }
+ ],
+ "rcsb_polymer_instance_feature_summary": [
+  {
+   "count": 1,
+   "coverage": 0.01786,
+   "type": "LIGAND_METAL_COORDINATION_LINKAGE"
+  },
+  {
+   "count": 1,
+   "coverage": 0.3869,
+   "maximum_length": 65,
+   "minimum_length": 65,
+   "type": "UNASSIGNED_SEC_STRUCT"
+  },
+  {
+   "count": 1,
+   "coverage": 0.83929,
+   "type": "SCOP2B_SUPERFAMILY"
+  },
+  {
+   "count": 1,
+   "coverage": 0.01786,
+   "type": "LIGAND_INTERACTION"
+  },
+  {
+   "count": 11,
+   "coverage": 0.6131,
+   "maximum_length": 13,
+   "minimum_length": 4,
+   "type": "HELIX_P"
+  },
+  {
+   "count": 2,
+   "coverage": 1.0,
+   "type": "ECOD"
+  },
+  {
+   "count": 22,
+   "coverage": 0.13095,
+   "maximum_length": 22,
+   "minimum_length": 22,
+   "type": "UNOBSERVED_RESIDUE_XYZ"
+  },
+  {
+   "count": 146,
+   "coverage": 0.86905,
+   "maximum_value": 0.372,
+   "minimum_value": -0.352,
+   "type": "Q_SCORE"
+  },
+  {
+   "count": 44,
+   "coverage": 0.2619,
+   "maximum_value": 0.0,
+   "minimum_value": 0.0,
+   "type": "CLASHES"
+  },
+  {
+   "count": 1,
+   "coverage": 0.00595,
+   "maximum_value": 0.0,
+   "minimum_value": 0.0,
+   "type": "ANGLE_OUTLIERS"
+  }
+ ],
+ "rcsb_polymer_instance_info": {
+  "modeled_residue_count": 146
+ },
+ "rcsb_polymer_struct_conn": [
+  {
+   "connect_partner": {
+    "label_asym_id": "P",
+    "label_atom_id": "MG",
+    "label_comp_id": "MG",
+    "symmetry": "1_555"
+   },
+   "connect_target": {
+    "auth_seq_id": "39",
+    "label_asym_id": "F",
+    "label_atom_id": "OD1",
+    "label_comp_id": "ASN",
+    "label_seq_id": 39,
+    "symmetry": "1_555"
+   },
+   "connect_type": "metal coordination",
+   "dist_value": 2.357,
+   "id": "metalc10",
+   "ordinal_id": 19
+  },
+  {
+   "connect_partner": {
+    "label_asym_id": "P",
+    "label_atom_id": "MG",
+    "label_comp_id": "MG",
+    "symmetry": "1_555"
+   },
+   "connect_target": {
+    "auth_seq_id": "45",
+    "label_asym_id": "F",
+    "label_atom_id": "OD1",
+    "label_comp_id": "ASP",
+    "label_seq_id": 45,
+    "symmetry": "1_555"
+   },
+   "connect_type": "metal coordination",
+   "dist_value": 2.093,
+   "id": "metalc11",
+   "ordinal_id": 21
+  },
+  {
+   "connect_partner": {
+    "label_asym_id": "P",
+    "label_atom_id": "MG",
+    "label_comp_id": "MG",
+    "symmetry": "1_555"
+   },
+   "connect_target": {
+    "auth_seq_id": "48",
+    "label_asym_id": "F",
+    "label_atom_id": "OD1",
+    "label_comp_id": "ASP",
+    "label_seq_id": 48,
+    "symmetry": "1_555"
+   },
+   "connect_type": "metal coordination",
+   "dist_value": 2.085,
+   "id": "metalc12",
+   "ordinal_id": 23
+  },
+  {
+   "connect_partner": {
+    "label_asym_id": "P",
+    "label_atom_id": "MG",
+    "label_comp_id": "MG",
+    "symmetry": "1_555"
+   },
+   "connect_target": {
+    "auth_seq_id": "48",
+    "label_asym_id": "F",
+    "label_atom_id": "OD2",
+    "label_comp_id": "ASP",
+    "label_seq_id": 48,
+    "symmetry": "1_555"
+   },
+   "connect_type": "metal coordination",
+   "dist_value": 2.187,
+   "id": "metalc13",
+   "ordinal_id": 25
+  }
+ ]
+}

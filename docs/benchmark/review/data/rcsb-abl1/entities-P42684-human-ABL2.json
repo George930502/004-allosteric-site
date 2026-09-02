@@ -1,0 +1,756 @@
+[
+ {
+  "rcsb_id": "2XYN_1",
+  "rcsb_polymer_entity": {
+   "pdbx_description": "TYROSINE-PROTEIN KINASE ABL2",
+   "pdbx_mutation": null
+  },
+  "entity_poly": {
+   "rcsb_sample_sequence_length": 292,
+   "type": "polypeptide(L)",
+   "pdbx_seq_one_letter_code_can": "MGHHHHHHSSGVDLGTENLYFQSMDKWEMERTDITMKHKLGGGQYGEVYVGVWKKYSLTVAVKTLKEDTMEVEEFLKEAAVMKEIKHPNLVQLLGVCTLEPPFYIVTEYMPYGNLLDYLRECNREEVTAVVLLYMATQISSAMEYLEKKNFIHRDLAARNCLVGENHVVKVADFGLSRLMTGDTYTAHAGAKFPIKWTAPESLAYNTFSIKSDVWAFGVLLWEIATYGMSPYPGIDLSQVYDLLEKGYRMEQPEGCPPKVYELMRACWKWSPADRPSFAETHQAFETMFHDS"
+  },
+  "rcsb_polymer_entity_container_identifiers": {
+   "entry_id": "2XYN",
+   "auth_asym_ids": [
+    "A",
+    "B",
+    "C"
+   ],
+   "asym_ids": [
+    "A",
+    "B",
+    "C"
+   ]
+  },
+  "rcsb_polymer_entity_align": [
+   {
+    "reference_database_accession": "P42684",
+    "reference_database_name": "UniProt",
+    "provenance_source": "SIFTS",
+    "aligned_regions": [
+     {
+      "entity_beg_seq_id": 25,
+      "length": 268,
+      "ref_beg_seq_id": 279
+     }
+    ]
+   }
+  ],
+  "rcsb_entity_source_organism": [
+   {
+    "scientific_name": "HOMO SAPIENS",
+    "ncbi_taxonomy_id": 9606
+   }
+  ],
+  "entry": {
+   "rcsb_id": "2XYN",
+   "struct": {
+    "title": "HUMAN ABL2 IN COMPLEX WITH AURORA KINASE INHIBITOR VX-680"
+   },
+   "exptl": [
+    {
+     "method": "X-RAY DIFFRACTION"
+    }
+   ],
+   "rcsb_entry_info": {
+    "resolution_combined": [
+     2.81
+    ],
+    "deposited_polymer_entity_instance_count": 3,
+    "experimental_method": "X-ray"
+   },
+   "rcsb_accession_info": {
+    "initial_release_date": "2010-12-01T00:00:00Z"
+   },
+   "citation": [
+    {
+     "id": "primary",
+     "title": "Crystal Structures of Abl-Related Gene (Abl2) in Complex with Imatinib, Tozasertib (Vx-680), and a Type I Inhibitor of the Triazole Carbothioamide Class.",
+     "pdbx_database_id_DOI": "10.1021/JM101506N",
+     "journal_abbrev": "J.Med.Chem.",
+     "year": 2011
+    }
+   ],
+   "nonpolymer_entities": [
+    {
+     "rcsb_id": "2XYN_2",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "SODIUM ION",
+      "formula_weight": 0.023
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A"
+      ],
+      "nonpolymer_comp_id": "NA"
+     }
+    },
+    {
+     "rcsb_id": "2XYN_3",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "CYCLOPROPANECARBOXYLIC ACID {4-[4-(4-METHYL-PIPERAZIN-1-YL)-6-(5-METHYL-2H-PYRAZOL-3-YLAMINO)-PYRIMIDIN-2-YLSULFANYL]-PHENYL}-AMIDE",
+      "formula_weight": 0.465
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A",
+       "B",
+       "C"
+      ],
+      "nonpolymer_comp_id": "VX6"
+     }
+    },
+    {
+     "rcsb_id": "2XYN_4",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "CHLORIDE ION",
+      "formula_weight": 0.035
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A"
+      ],
+      "nonpolymer_comp_id": "CL"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "rcsb_id": "3ULR_3",
+  "rcsb_polymer_entity": {
+   "pdbx_description": "Abelson tyrosine-protein kinase 2",
+   "pdbx_mutation": null
+  },
+  "entity_poly": {
+   "rcsb_sample_sequence_length": 17,
+   "type": "polypeptide(L)",
+   "pdbx_seq_one_letter_code_can": "SSVVPYLPRLPILPSKT"
+  },
+  "rcsb_polymer_entity_container_identifiers": {
+   "entry_id": "3ULR",
+   "auth_asym_ids": [
+    "C"
+   ],
+   "asym_ids": [
+    "C"
+   ]
+  },
+  "rcsb_polymer_entity_align": [
+   {
+    "reference_database_accession": "P42684",
+    "reference_database_name": "UniProt",
+    "provenance_source": "SIFTS",
+    "aligned_regions": [
+     {
+      "entity_beg_seq_id": 1,
+      "length": 17,
+      "ref_beg_seq_id": 563
+     }
+    ]
+   }
+  ],
+  "rcsb_entity_source_organism": [
+   {
+    "scientific_name": "Homo sapiens",
+    "ncbi_taxonomy_id": 9606
+   }
+  ],
+  "entry": {
+   "rcsb_id": "3ULR",
+   "struct": {
+    "title": "Lysozyme contamination facilitates crystallization of a hetero-trimericCortactin:Arg:Lysozyme complex"
+   },
+   "exptl": [
+    {
+     "method": "X-RAY DIFFRACTION"
+    }
+   ],
+   "rcsb_entry_info": {
+    "resolution_combined": [
+     1.65
+    ],
+    "deposited_polymer_entity_instance_count": 3,
+    "experimental_method": "X-ray"
+   },
+   "rcsb_accession_info": {
+    "initial_release_date": "2012-01-11T00:00:00Z"
+   },
+   "citation": [
+    {
+     "id": "primary",
+     "title": "Lysozyme contamination facilitates crystallization of a heterotrimeric cortactin-Arg-lysozyme complex.",
+     "pdbx_database_id_DOI": "10.1107/S1744309111056132",
+     "journal_abbrev": "Acta Crystallogr.,Sect.F",
+     "year": 2012
+    }
+   ],
+   "nonpolymer_entities": null
+  }
+ },
+ {
+  "rcsb_id": "5NP5_1",
+  "rcsb_polymer_entity": {
+   "pdbx_description": "Abelson tyrosine-protein kinase 2",
+   "pdbx_mutation": null
+  },
+  "entity_poly": {
+   "rcsb_sample_sequence_length": 61,
+   "type": "polypeptide(L)",
+   "pdbx_seq_one_letter_code_can": "GSHMNLFVALYDFVASGDNTLSITKGEKLRVLGYNQNGEWSEVRSKNGQGWVPSNYITPVN"
+  },
+  "rcsb_polymer_entity_container_identifiers": {
+   "entry_id": "5NP5",
+   "auth_asym_ids": [
+    "A",
+    "B"
+   ],
+   "asym_ids": [
+    "A",
+    "B"
+   ]
+  },
+  "rcsb_polymer_entity_align": [
+   {
+    "reference_database_accession": "P42684",
+    "reference_database_name": "UniProt",
+    "provenance_source": "SIFTS",
+    "aligned_regions": [
+     {
+      "entity_beg_seq_id": 5,
+      "length": 57,
+      "ref_beg_seq_id": 110
+     }
+    ]
+   }
+  ],
+  "rcsb_entity_source_organism": [
+   {
+    "scientific_name": "Homo sapiens",
+    "ncbi_taxonomy_id": 9606
+   }
+  ],
+  "entry": {
+   "rcsb_id": "5NP5",
+   "struct": {
+    "title": "Abl2 SH3 pTyr116/161"
+   },
+   "exptl": [
+    {
+     "method": "X-RAY DIFFRACTION"
+    }
+   ],
+   "rcsb_entry_info": {
+    "resolution_combined": [
+     1.4
+    ],
+    "deposited_polymer_entity_instance_count": 2,
+    "experimental_method": "X-ray"
+   },
+   "rcsb_accession_info": {
+    "initial_release_date": "2018-05-16T00:00:00Z"
+   },
+   "citation": [
+    {
+     "id": "primary",
+     "title": "Structural insights into the tyrosine phosphorylation-mediated inhibition of SH3 domain-ligand interactions.",
+     "pdbx_database_id_DOI": "10.1074/jbc.RA118.004732",
+     "journal_abbrev": "J.Biol.Chem.",
+     "year": 2019
+    }
+   ],
+   "nonpolymer_entities": [
+    {
+     "rcsb_id": "5NP5_2",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "SULFATE ION",
+      "formula_weight": 0.096
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A"
+      ],
+      "nonpolymer_comp_id": "SO4"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "rcsb_id": "5NP3_1",
+  "rcsb_polymer_entity": {
+   "pdbx_description": "Abelson tyrosine-protein kinase 2",
+   "pdbx_mutation": null
+  },
+  "entity_poly": {
+   "rcsb_sample_sequence_length": 61,
+   "type": "polypeptide(L)",
+   "pdbx_seq_one_letter_code_can": "GSHMNLFVALYDFVASGDNTLSITKGEKLRVLGYNQNGEWSEVRSKNGQGWVPSNYITPVN"
+  },
+  "rcsb_polymer_entity_container_identifiers": {
+   "entry_id": "5NP3",
+   "auth_asym_ids": [
+    "A",
+    "B",
+    "C",
+    "D"
+   ],
+   "asym_ids": [
+    "A",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  "rcsb_polymer_entity_align": [
+   {
+    "reference_database_accession": "P42684",
+    "reference_database_name": "UniProt",
+    "provenance_source": "SIFTS",
+    "aligned_regions": [
+     {
+      "entity_beg_seq_id": 5,
+      "length": 57,
+      "ref_beg_seq_id": 110
+     }
+    ]
+   }
+  ],
+  "rcsb_entity_source_organism": [
+   {
+    "scientific_name": "Homo sapiens",
+    "ncbi_taxonomy_id": 9606
+   }
+  ],
+  "entry": {
+   "rcsb_id": "5NP3",
+   "struct": {
+    "title": "Abl2 SH3"
+   },
+   "exptl": [
+    {
+     "method": "X-RAY DIFFRACTION"
+    }
+   ],
+   "rcsb_entry_info": {
+    "resolution_combined": [
+     2.0
+    ],
+    "deposited_polymer_entity_instance_count": 4,
+    "experimental_method": "X-ray"
+   },
+   "rcsb_accession_info": {
+    "initial_release_date": "2018-05-16T00:00:00Z"
+   },
+   "citation": [
+    {
+     "id": "primary",
+     "title": "Structural insights into the tyrosine phosphorylation-mediated inhibition of SH3 domain-ligand interactions.",
+     "pdbx_database_id_DOI": "10.1074/jbc.RA118.004732",
+     "journal_abbrev": "J.Biol.Chem.",
+     "year": 2019
+    }
+   ],
+   "nonpolymer_entities": null
+  }
+ },
+ {
+  "rcsb_id": "4EIH_1",
+  "rcsb_polymer_entity": {
+   "pdbx_description": "Abelson tyrosine-protein kinase 2",
+   "pdbx_mutation": null
+  },
+  "entity_poly": {
+   "rcsb_sample_sequence_length": 116,
+   "type": "polypeptide(L)",
+   "pdbx_seq_one_letter_code_can": "GPLGSVNSLEKHSWYHGPVSRSAAEYLLSSLINGSFLVRESESSPGQLSISLRYEGRVYHYRINTTADGKVYVTAESRFSTLAELVHHHSTVADGLVTTLHYPAPKCNKPTVYGIL"
+  },
+  "rcsb_polymer_entity_container_identifiers": {
+   "entry_id": "4EIH",
+   "auth_asym_ids": [
+    "A"
+   ],
+   "asym_ids": [
+    "A"
+   ]
+  },
+  "rcsb_polymer_entity_align": [
+   {
+    "reference_database_accession": "P42684",
+    "reference_database_name": "UniProt",
+    "provenance_source": "SIFTS",
+    "aligned_regions": [
+     {
+      "entity_beg_seq_id": 6,
+      "length": 109,
+      "ref_beg_seq_id": 165
+     }
+    ]
+   }
+  ],
+  "rcsb_entity_source_organism": [
+   {
+    "scientific_name": "Homo sapiens",
+    "ncbi_taxonomy_id": 9606
+   }
+  ],
+  "entry": {
+   "rcsb_id": "4EIH",
+   "struct": {
+    "title": "Crystal structure of Arg SH2 domain"
+   },
+   "exptl": [
+    {
+     "method": "X-RAY DIFFRACTION"
+    }
+   ],
+   "rcsb_entry_info": {
+    "resolution_combined": [
+     1.2
+    ],
+    "deposited_polymer_entity_instance_count": 1,
+    "experimental_method": "X-ray"
+   },
+   "rcsb_accession_info": {
+    "initial_release_date": "2013-04-10T00:00:00Z"
+   },
+   "citation": [
+    {
+     "id": "primary",
+     "title": "Two Amino Acid Residues Confer Different Binding Affinities of Abelson Family Kinase Src Homology 2 Domains for Phosphorylated Cortactin.",
+     "pdbx_database_id_DOI": "10.1074/jbc.M114.556480",
+     "journal_abbrev": "J.Biol.Chem.",
+     "year": 2014
+    }
+   ],
+   "nonpolymer_entities": [
+    {
+     "rcsb_id": "4EIH_2",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "CHLORIDE ION",
+      "formula_weight": 0.035
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A"
+      ],
+      "nonpolymer_comp_id": "CL"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "rcsb_id": "3HMI_1",
+  "rcsb_polymer_entity": {
+   "pdbx_description": "Tyrosine-protein kinase ABL2",
+   "pdbx_mutation": null
+  },
+  "entity_poly": {
+   "rcsb_sample_sequence_length": 292,
+   "type": "polypeptide(L)",
+   "pdbx_seq_one_letter_code_can": "MGHHHHHHSSGVDLGTENLYFQSMDKWEMERTDITMKHKLGGGQYGEVYVGVWKKYSLTVAVKTLKEDTMEVEEFLKEAAVMKEIKHPNLVQLLGVCTLEPPFYIVTEYMPYGNLLDYLRECNREEVTAVVLLYMATQISSAMEYLEKKNFIHRDLAARNCLVGENHVVKVADFGLSRLMTGDTYTAHAGAKFPIKWTAPESLAYNTFSIKSDVWAFGVLLWEIATYGMSPYPGIDLSQVYDLLEKGYRMEQPEGCPPKVYELMRACWKWSPADRPSFAETHQAFETMFHDS"
+  },
+  "rcsb_polymer_entity_container_identifiers": {
+   "entry_id": "3HMI",
+   "auth_asym_ids": [
+    "A"
+   ],
+   "asym_ids": [
+    "A"
+   ]
+  },
+  "rcsb_polymer_entity_align": [
+   {
+    "reference_database_accession": "P42684",
+    "reference_database_name": "UniProt",
+    "provenance_source": "SIFTS",
+    "aligned_regions": [
+     {
+      "entity_beg_seq_id": 25,
+      "length": 268,
+      "ref_beg_seq_id": 279
+     }
+    ]
+   }
+  ],
+  "rcsb_entity_source_organism": [
+   {
+    "scientific_name": "Homo sapiens",
+    "ncbi_taxonomy_id": 9606
+   }
+  ],
+  "entry": {
+   "rcsb_id": "3HMI",
+   "struct": {
+    "title": "The crystal structure of human ABL2 in complex with 5-AMINO-3-{[4-(AMINOSULFONYL)PHENYL]AMINO}-N-(2,6-DIFLUOROPHENYL)-1H-1,2,4-TRIAZOLE-1-CARBOTHIOAMIDE"
+   },
+   "exptl": [
+    {
+     "method": "X-RAY DIFFRACTION"
+    }
+   ],
+   "rcsb_entry_info": {
+    "resolution_combined": [
+     1.65
+    ],
+    "deposited_polymer_entity_instance_count": 1,
+    "experimental_method": "X-ray"
+   },
+   "rcsb_accession_info": {
+    "initial_release_date": "2009-07-07T00:00:00Z"
+   },
+   "citation": [
+    {
+     "id": "primary",
+     "title": "The crystal structure of human ABL2 in complex with 5-AMINO-3-{[4-(AMINOSULFONYL)PHENYL]AMINO}-N-(2,6-DIFLUOROPHENYL)-1H-1,2,4-TRIAZOLE-1-CARBOTHIOAMIDE",
+     "pdbx_database_id_DOI": null,
+     "journal_abbrev": "To be Published",
+     "year": null
+    }
+   ],
+   "nonpolymer_entities": [
+    {
+     "rcsb_id": "3HMI_2",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "5-AMINO-3-{[4-(AMINOSULFONYL)PHENYL]AMINO}-N-(2,6-DIFLUOROPHENYL)-1H-1,2,4-TRIAZOLE-1-CARBOTHIOAMIDE",
+      "formula_weight": 0.425
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A"
+      ],
+      "nonpolymer_comp_id": "DKI"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "rcsb_id": "3GVU_1",
+  "rcsb_polymer_entity": {
+   "pdbx_description": "Tyrosine-protein kinase ABL2",
+   "pdbx_mutation": null
+  },
+  "entity_poly": {
+   "rcsb_sample_sequence_length": 292,
+   "type": "polypeptide(L)",
+   "pdbx_seq_one_letter_code_can": "MGHHHHHHSSGVDLGTENLYFQSMDKWEMERTDITMKHKLGGGQYGEVYVGVWKKYSLTVAVKTLKEDTMEVEEFLKEAAVMKEIKHPNLVQLLGVCTLEPPFYIVTEYMPYGNLLDYLRECNREEVTAVVLLYMATQISSAMEYLEKKNFIHRDLAARNCLVGENHVVKVADFGLSRLMTGDTYTAHAGAKFPIKWTAPESLAYNTFSIKSDVWAFGVLLWEIATYGMSPYPGIDLSQVYDLLEKGYRMEQPEGCPPKVYELMRACWKWSPADRPSFAETHQAFETMFHDS"
+  },
+  "rcsb_polymer_entity_container_identifiers": {
+   "entry_id": "3GVU",
+   "auth_asym_ids": [
+    "A"
+   ],
+   "asym_ids": [
+    "A"
+   ]
+  },
+  "rcsb_polymer_entity_align": [
+   {
+    "reference_database_accession": "P42684",
+    "reference_database_name": "UniProt",
+    "provenance_source": "SIFTS",
+    "aligned_regions": [
+     {
+      "entity_beg_seq_id": 25,
+      "length": 268,
+      "ref_beg_seq_id": 279
+     }
+    ]
+   }
+  ],
+  "rcsb_entity_source_organism": [
+   {
+    "scientific_name": "Homo sapiens",
+    "ncbi_taxonomy_id": 9606
+   }
+  ],
+  "entry": {
+   "rcsb_id": "3GVU",
+   "struct": {
+    "title": "The crystal structure of human ABL2 in complex with GLEEVEC"
+   },
+   "exptl": [
+    {
+     "method": "X-RAY DIFFRACTION"
+    }
+   ],
+   "rcsb_entry_info": {
+    "resolution_combined": [
+     2.05
+    ],
+    "deposited_polymer_entity_instance_count": 1,
+    "experimental_method": "X-ray"
+   },
+   "rcsb_accession_info": {
+    "initial_release_date": "2009-04-21T00:00:00Z"
+   },
+   "citation": [
+    {
+     "id": "primary",
+     "title": "The crystal structure of human ABL2 in complex with GLEEVEC",
+     "pdbx_database_id_DOI": null,
+     "journal_abbrev": "To be Published",
+     "year": null
+    }
+   ],
+   "nonpolymer_entities": [
+    {
+     "rcsb_id": "3GVU_2",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "4-(4-METHYL-PIPERAZIN-1-YLMETHYL)-N-[4-METHYL-3-(4-PYRIDIN-3-YL-PYRIMIDIN-2-YLAMINO)-PHENYL]-BENZAMIDE",
+      "formula_weight": 0.494
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A"
+      ],
+      "nonpolymer_comp_id": "STI"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "rcsb_id": "2KK1_1",
+  "rcsb_polymer_entity": {
+   "pdbx_description": "Tyrosine-protein kinase ABL2",
+   "pdbx_mutation": null
+  },
+  "entity_poly": {
+   "rcsb_sample_sequence_length": 135,
+   "type": "polypeptide(L)",
+   "pdbx_seq_one_letter_code_can": "MGHHHHHHSHMANGAAGTKVALRKTKQAAEKISADKISKEALLECADLLSSALTEPVPNSQLVDTGHQLLDYCSGYVDCIPQTRNKFAFREAVSKLELSLQELQVSSAAAGVPGTNPVLNNLLSCVQEISDVVQR"
+  },
+  "rcsb_polymer_entity_container_identifiers": {
+   "entry_id": "2KK1",
+   "auth_asym_ids": [
+    "A"
+   ],
+   "asym_ids": [
+    "A"
+   ]
+  },
+  "rcsb_polymer_entity_align": [
+   {
+    "reference_database_accession": "P42684",
+    "reference_database_name": "UniProt",
+    "provenance_source": "SIFTS",
+    "aligned_regions": [
+     {
+      "entity_beg_seq_id": 11,
+      "length": 125,
+      "ref_beg_seq_id": 1058
+     }
+    ]
+   }
+  ],
+  "rcsb_entity_source_organism": [
+   {
+    "scientific_name": "Homo sapiens",
+    "ncbi_taxonomy_id": 9606
+   }
+  ],
+  "entry": {
+   "rcsb_id": "2KK1",
+   "struct": {
+    "title": "Solution structure of C-terminal Domain of Tyrosine-protein kinase ABL2 from Homo sapiens, Northeast Structural Genomics Consortium (NESG) target HR5537A"
+   },
+   "exptl": [
+    {
+     "method": "SOLUTION NMR"
+    }
+   ],
+   "rcsb_entry_info": {
+    "resolution_combined": null,
+    "deposited_polymer_entity_instance_count": 1,
+    "experimental_method": "NMR"
+   },
+   "rcsb_accession_info": {
+    "initial_release_date": "2009-08-11T00:00:00Z"
+   },
+   "citation": [
+    {
+     "id": "primary",
+     "title": "NMR structure of F-actin-binding domain of Arg/Abl2 from Homo sapiens.",
+     "pdbx_database_id_DOI": "10.1002/prot.22656",
+     "journal_abbrev": "Proteins",
+     "year": 2010
+    }
+   ],
+   "nonpolymer_entities": null
+  }
+ },
+ {
+  "rcsb_id": "2ECD_1",
+  "rcsb_polymer_entity": {
+   "pdbx_description": "Tyrosine-protein kinase ABL2",
+   "pdbx_mutation": null
+  },
+  "entity_poly": {
+   "rcsb_sample_sequence_length": 119,
+   "type": "polypeptide(L)",
+   "pdbx_seq_one_letter_code_can": "GSSGSSGTPVNSLEKHSWYHGPVSRSAAEYLLSSLINGSFLVRESESSPGQLSISLRYEGRVYHYRINTTADGKVYVTAESRFSTLAELVHHHSTVADGLVTTLHYPAPKCNKSGPSSG"
+  },
+  "rcsb_polymer_entity_container_identifiers": {
+   "entry_id": "2ECD",
+   "auth_asym_ids": [
+    "A"
+   ],
+   "asym_ids": [
+    "A"
+   ]
+  },
+  "rcsb_polymer_entity_align": [
+   {
+    "reference_database_accession": "P42684",
+    "reference_database_name": "UniProt",
+    "provenance_source": "SIFTS",
+    "aligned_regions": [
+     {
+      "entity_beg_seq_id": 8,
+      "length": 106,
+      "ref_beg_seq_id": 163
+     }
+    ]
+   }
+  ],
+  "rcsb_entity_source_organism": [
+   {
+    "scientific_name": "Homo sapiens",
+    "ncbi_taxonomy_id": 9606
+   }
+  ],
+  "entry": {
+   "rcsb_id": "2ECD",
+   "struct": {
+    "title": "Solution structure of the human ABL2 SH2 domain"
+   },
+   "exptl": [
+    {
+     "method": "SOLUTION NMR"
+    }
+   ],
+   "rcsb_entry_info": {
+    "resolution_combined": null,
+    "deposited_polymer_entity_instance_count": 1,
+    "experimental_method": "NMR"
+   },
+   "rcsb_accession_info": {
+    "initial_release_date": "2008-02-19T00:00:00Z"
+   },
+   "citation": [
+    {
+     "id": "primary",
+     "title": "Solution structure of the human ABL2 SH2 domain",
+     "pdbx_database_id_DOI": null,
+     "journal_abbrev": "To be Published",
+     "year": null
+    }
+   ],
+   "nonpolymer_entities": null
+  }
+ }
+]

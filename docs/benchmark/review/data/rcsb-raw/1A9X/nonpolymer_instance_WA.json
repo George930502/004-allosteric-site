@@ -1,0 +1,189 @@
+{
+ "rcsb_id": "1A9X.WA",
+ "rcsb_nonpolymer_entity_instance_container_identifiers": {
+  "asym_id": "WA",
+  "auth_asym_id": "C",
+  "auth_seq_id": "3940",
+  "comp_id": "K",
+  "entity_id": "5",
+  "entry_id": "1A9X",
+  "rcsb_id": "1A9X.WA"
+ },
+ "rcsb_nonpolymer_instance_annotation": [
+  {
+   "annotation_id": "METAL_COORDINATION_LINKAGE_56",
+   "assignment_version": "V1.0",
+   "comp_id": "K",
+   "description": "K has metal coordination with polymer instance C in model 1",
+   "ordinal": 96,
+   "provenance_source": "Primary Data",
+   "type": "HAS_METAL_COORDINATION_LINKAGE"
+  },
+  {
+   "annotation_id": "METAL_COORDINATION_LINKAGE_57",
+   "assignment_version": "V1.0",
+   "comp_id": "K",
+   "description": "K has metal coordination with water instance JD in model 1",
+   "ordinal": 97,
+   "provenance_source": "Primary Data",
+   "type": "HAS_METAL_COORDINATION_LINKAGE"
+  },
+  {
+   "comp_id": "K",
+   "ordinal": 98,
+   "provenance_source": "Primary Data",
+   "type": "HAS_NO_COVALENT_LINKAGE"
+  }
+ ],
+ "rcsb_nonpolymer_instance_validation_score": [
+  {
+   "completeness": 1.0,
+   "intermolecular_clashes": 0,
+   "is_best_instance": "N",
+   "is_subject_of_investigation": "N",
+   "mogul_angle_outliers": 0,
+   "mogul_bond_outliers": 0,
+   "stereo_outliers": 0,
+   "type": "RCSB_LIGAND_QUALITY_SCORE_2021"
+  }
+ ],
+ "rcsb_nonpolymer_struct_conn": [
+  {
+   "connect_partner": {
+    "label_asym_id": "C",
+    "label_atom_id": "O",
+    "label_comp_id": "ASP",
+    "label_seq_id": 84,
+    "symmetry": "1_555"
+   },
+   "connect_target": {
+    "auth_seq_id": "3940",
+    "label_asym_id": "WA",
+    "label_atom_id": "K",
+    "label_comp_id": "K",
+    "symmetry": "1_555"
+   },
+   "connect_type": "metal coordination",
+   "dist_value": 2.603,
+   "id": "metalc73",
+   "ordinal_id": 162
+  },
+  {
+   "connect_partner": {
+    "label_asym_id": "C",
+    "label_atom_id": "O",
+    "label_comp_id": "GLY",
+    "label_seq_id": 112,
+    "symmetry": "1_555"
+   },
+   "connect_target": {
+    "auth_seq_id": "3940",
+    "label_asym_id": "WA",
+    "label_atom_id": "K",
+    "label_comp_id": "K",
+    "symmetry": "1_555"
+   },
+   "connect_type": "metal coordination",
+   "dist_value": 2.955,
+   "id": "metalc74",
+   "ordinal_id": 164
+  },
+  {
+   "connect_partner": {
+    "label_asym_id": "C",
+    "label_atom_id": "OG1",
+    "label_comp_id": "THR",
+    "label_seq_id": 114,
+    "symmetry": "1_555"
+   },
+   "connect_target": {
+    "auth_seq_id": "3940",
+    "label_asym_id": "WA",
+    "label_atom_id": "K",
+    "label_comp_id": "K",
+    "symmetry": "1_555"
+   },
+   "connect_type": "metal coordination",
+   "dist_value": 2.815,
+   "id": "metalc75",
+   "ordinal_id": 166
+  },
+  {
+   "connect_partner": {
+    "label_asym_id": "C",
+    "label_atom_id": "N",
+    "label_comp_id": "THR",
+    "label_seq_id": 114,
+    "symmetry": "1_555"
+   },
+   "connect_target": {
+    "auth_seq_id": "3940",
+    "label_asym_id": "WA",
+    "label_atom_id": "K",
+    "label_comp_id": "K",
+    "symmetry": "1_555"
+   },
+   "connect_type": "metal coordination",
+   "dist_value": 3.548,
+   "id": "metalc76",
+   "ordinal_id": 168
+  },
+  {
+   "connect_partner": {
+    "label_asym_id": "JD",
+    "label_atom_id": "O",
+    "label_comp_id": "HOH",
+    "symmetry": "1_555"
+   },
+   "connect_target": {
+    "auth_seq_id": "3940",
+    "label_asym_id": "WA",
+    "label_atom_id": "K",
+    "label_comp_id": "K",
+    "symmetry": "1_555"
+   },
+   "connect_type": "metal coordination",
+   "dist_value": 3.354,
+   "id": "metalc131",
+   "ordinal_id": 277
+  }
+ ],
+ "rcsb_target_neighbors": [
+  {
+   "atom_id": "K",
+   "comp_id": "K",
+   "distance": 2.603,
+   "target_asym_id": "C",
+   "target_atom_id": "O",
+   "target_auth_seq_id": 2084,
+   "target_comp_id": "ASP",
+   "target_entity_id": "1",
+   "target_model_id": 1,
+   "target_seq_id": 84
+  },
+  {
+   "atom_id": "K",
+   "comp_id": "K",
+   "distance": 2.815,
+   "target_asym_id": "C",
+   "target_atom_id": "OG1",
+   "target_auth_seq_id": 2114,
+   "target_comp_id": "THR",
+   "target_entity_id": "1",
+   "target_model_id": 1,
+   "target_seq_id": 114
+  },
+  {
+   "atom_id": "K",
+   "comp_id": "K",
+   "distance": 2.955,
+   "target_asym_id": "C",
+   "target_atom_id": "O",
+   "target_auth_seq_id": 2112,
+   "target_comp_id": "GLY",
+   "target_entity_id": "1",
+   "target_model_id": 1,
+   "target_seq_id": 112
+  }
+ ]
+}

@@ -1,0 +1,26 @@
+{
+ "pdbx_entity_nonpoly": {
+  "comp_id": "AGX",
+  "entity_id": "2",
+  "name": "(1S)-1-(1H-benzimidazol-2-yl)ethyl (3,4-dichlorophenyl)carbamate"
+ },
+ "rcsb_id": "3JVR_2",
+ "rcsb_nonpolymer_entity": {
+  "formula_weight": 0.35,
+  "pdbx_description": "(1S)-1-(1H-benzimidazol-2-yl)ethyl (3,4-dichlorophenyl)carbamate",
+  "pdbx_number_of_molecules": 1
+ },
+ "rcsb_nonpolymer_entity_container_identifiers": {
+  "asym_ids": [
+   "B"
+  ],
+  "auth_asym_ids": [
+   "A"
+  ],
+  "chem_ref_def_id": "AGX",
+  "entity_id": "2",
+  "entry_id": "3JVR",
+  "nonpolymer_comp_id": "AGX",
+  "rcsb_id": "3JVR_2"
+ }
+}

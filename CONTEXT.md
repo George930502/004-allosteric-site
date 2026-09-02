@@ -103,6 +103,19 @@ protein and the same site, and is where methods are compared. There is no third 
 robustness arm varies one thing to test whether a conclusion survives, and a conclusion has to
 exist first, so those belong to the method phase (ADR 0003, amended).
 
+**Candidate method**:
+Something this project proposes as a predictor and wants scored. It is what Phase 2 builds.
+No candidate method exists on `main` (ADR 0037).
+_Avoid_: "method" alone, where the sentence could also mean a required baseline.
+
+**Required baseline**:
+A control the frozen evaluation protocol mandates as the reference a candidate has to beat.
+The nine are frozen in `docs/benchmark/evaluation/manifest.yaml` under `required_baselines`.
+Eight are implemented in `allo.scoring.baselines`; `cavity_volume` is in `allo.scoring.decoys`.
+A required baseline is **not** a candidate method, and the difference decides where its code
+lives: a control belongs to the evaluation layer, which is frozen, and a candidate belongs to
+the method layer, which is not.
+
 **Frozen input layer**:
 The fixed set of structures, chains, residues and active sites every method receives.
 Fixed before any method exists, so that a difference between two methods is a difference
@@ -117,7 +130,10 @@ targets with functionally validated allosteric sites, framed from RCSB and froze
 **`generalisation`** carries the generalisability and scalability claims and is not opened
 until the method is frozen (Phase 5). One set cannot do both jobs — that contradiction is
 what ADR 0021 settles. The term "selection set" is retired in favour of `development`.
-**Stretch target**: c-Myc, which has no characterised allosteric site and therefore no
-ground truth.
+**Stretch target**: c-Myc, which has no characterised allosteric site and no holo
+structure. **It is not ungrounded**: ADR 0036 supersedes ADR 0020 and scores it against
+NMR chemical-shift-perturbation segments, as a reported, explicitly NON-BLIND deliverable
+that enters no Holm family. The arm is DECIDED, NOT BUILT — `1NKP` is not in
+`primary/manifest.yaml` — so do not write in the present tense that it has an arm.
 _Avoid_: "the ASD set" — the frame is RCSB, not the Allosteric Database, for reasons
 recorded in `docs/benchmark/secondary/evidence/databases.md`.

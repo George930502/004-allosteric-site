@@ -1,0 +1,31 @@
+{
+ "pdbx_entity_nonpoly": {
+  "comp_id": "FMT",
+  "entity_id": "8",
+  "name": "FORMIC ACID"
+ },
+ "rcsb_id": "8QYQ_8",
+ "rcsb_nonpolymer_entity": {
+  "formula_weight": 0.046,
+  "pdbx_description": "FORMIC ACID",
+  "pdbx_number_of_molecules": 5
+ },
+ "rcsb_nonpolymer_entity_container_identifiers": {
+  "asym_ids": [
+   "I",
+   "J",
+   "K",
+   "O",
+   "P"
+  ],
+  "auth_asym_ids": [
+   "A",
+   "B"
+  ],
+  "chem_ref_def_id": "FMT",
+  "entity_id": "8",
+  "entry_id": "8QYQ",
+  "nonpolymer_comp_id": "FMT",
+  "rcsb_id": "8QYQ_8"
+ }
+}

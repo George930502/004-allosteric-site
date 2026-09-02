@@ -1,0 +1,208 @@
+{
+ "rcsb_id": "1A9X.GC",
+ "rcsb_nonpolymer_entity_instance_container_identifiers": {
+  "asym_id": "GC",
+  "auth_asym_id": "F",
+  "auth_seq_id": "5941",
+  "comp_id": "K",
+  "entity_id": "5",
+  "entry_id": "1A9X",
+  "rcsb_id": "1A9X.GC"
+ },
+ "rcsb_nonpolymer_instance_annotation": [
+  {
+   "annotation_id": "METAL_COORDINATION_LINKAGE_102",
+   "assignment_version": "V1.0",
+   "comp_id": "K",
+   "description": "K has metal coordination with polymer instance F in model 1",
+   "ordinal": 178,
+   "provenance_source": "Primary Data",
+   "type": "HAS_METAL_COORDINATION_LINKAGE"
+  },
+  {
+   "annotation_id": "METAL_COORDINATION_LINKAGE_103",
+   "assignment_version": "V1.0",
+   "comp_id": "K",
+   "description": "K has metal coordination with water instance MD in model 1",
+   "ordinal": 179,
+   "provenance_source": "Primary Data",
+   "type": "HAS_METAL_COORDINATION_LINKAGE"
+  },
+  {
+   "annotation_id": "METAL_COORDINATION_LINKAGE_104",
+   "assignment_version": "V1.0",
+   "comp_id": "K",
+   "description": "K has metal coordination with water instance LD in model 1",
+   "ordinal": 180,
+   "provenance_source": "Primary Data",
+   "type": "HAS_METAL_COORDINATION_LINKAGE"
+  },
+  {
+   "comp_id": "K",
+   "ordinal": 181,
+   "provenance_source": "Primary Data",
+   "type": "HAS_NO_COVALENT_LINKAGE"
+  }
+ ],
+ "rcsb_nonpolymer_instance_validation_score": [
+  {
+   "completeness": 1.0,
+   "intermolecular_clashes": 0,
+   "is_best_instance": "N",
+   "is_subject_of_investigation": "N",
+   "mogul_angle_outliers": 0,
+   "mogul_bond_outliers": 0,
+   "stereo_outliers": 0,
+   "type": "RCSB_LIGAND_QUALITY_SCORE_2021"
+  }
+ ],
+ "rcsb_nonpolymer_struct_conn": [
+  {
+   "connect_partner": {
+    "label_asym_id": "LD",
+    "label_atom_id": "O",
+    "label_comp_id": "HOH",
+    "symmetry": "1_555"
+   },
+   "connect_target": {
+    "auth_seq_id": "5941",
+    "label_asym_id": "GC",
+    "label_atom_id": "K",
+    "label_comp_id": "K",
+    "symmetry": "1_555"
+   },
+   "connect_type": "metal coordination",
+   "dist_value": 3.598,
+   "id": "metalc205",
+   "ordinal_id": 426
+  },
+  {
+   "connect_partner": {
+    "label_asym_id": "LD",
+    "label_atom_id": "O",
+    "label_comp_id": "HOH",
+    "symmetry": "1_555"
+   },
+   "connect_target": {
+    "auth_seq_id": "5941",
+    "label_asym_id": "GC",
+    "label_atom_id": "K",
+    "label_comp_id": "K",
+    "symmetry": "1_555"
+   },
+   "connect_type": "metal coordination",
+   "dist_value": 2.876,
+   "id": "metalc206",
+   "ordinal_id": 428
+  },
+  {
+   "connect_partner": {
+    "label_asym_id": "MD",
+    "label_atom_id": "O",
+    "label_comp_id": "HOH",
+    "symmetry": "1_555"
+   },
+   "connect_target": {
+    "auth_seq_id": "5941",
+    "label_asym_id": "GC",
+    "label_atom_id": "K",
+    "label_comp_id": "K",
+    "symmetry": "1_555"
+   },
+   "connect_type": "metal coordination",
+   "dist_value": 2.677,
+   "id": "metalc207",
+   "ordinal_id": 430
+  },
+  {
+   "connect_partner": {
+    "label_asym_id": "F",
+    "label_atom_id": "O",
+    "label_comp_id": "HIS",
+    "label_seq_id": 15,
+    "symmetry": "1_555"
+   },
+   "connect_target": {
+    "auth_seq_id": "5941",
+    "label_asym_id": "GC",
+    "label_atom_id": "K",
+    "label_comp_id": "K",
+    "symmetry": "1_555"
+   },
+   "connect_type": "metal coordination",
+   "dist_value": 2.735,
+   "id": "metalc208",
+   "ordinal_id": 432
+  },
+  {
+   "connect_partner": {
+    "label_asym_id": "F",
+    "label_atom_id": "O",
+    "label_comp_id": "ASP",
+    "label_seq_id": 111,
+    "symmetry": "1_555"
+   },
+   "connect_target": {
+    "auth_seq_id": "5941",
+    "label_asym_id": "GC",
+    "label_atom_id": "K",
+    "label_comp_id": "K",
+    "symmetry": "1_555"
+   },
+   "connect_type": "metal coordination",
+   "dist_value": 2.846,
+   "id": "metalc209",
+   "ordinal_id": 434
+  }
+ ],
+ "rcsb_target_neighbors": [
+  {
+   "atom_id": "K",
+   "comp_id": "K",
+   "distance": 2.735,
+   "target_asym_id": "F",
+   "target_atom_id": "O",
+   "target_auth_seq_id": 5516,
+   "target_comp_id": "HIS",
+   "target_entity_id": "2",
+   "target_model_id": 1,
+   "target_seq_id": 15
+  },
+  {
+   "atom_id": "K",
+   "comp_id": "K",
+   "distance": 2.846,
+   "target_asym_id": "F",
+   "target_atom_id": "O",
+   "target_auth_seq_id": 5612,
+   "target_comp_id": "ASP",
+   "target_entity_id": "2",
+   "target_model_id": 1,
+   "target_seq_id": 111
+  },
+  {
+   "atom_id": "K",
+   "comp_id": "K",
+   "distance": 4.488,
+   "target_asym_id": "F",
+   "target_atom_id": "CA",
+   "target_auth_seq_id": 5517,
+   "target_comp_id": "GLY",
+   "target_entity_id": "2",
+   "target_model_id": 1,
+   "target_seq_id": 16
+  },
+  {
+   "atom_id": "K",
+   "comp_id": "K",
+   "distance": 4.509,
+   "target_asym_id": "E",
+   "target_atom_id": "NH2",
+   "target_auth_seq_id": 4494,
+   "target_comp_id": "ARG",
+   "target_entity_id": "1",
+   "target_model_id": 1,
+   "target_seq_id": 494
+  }
+ ]
+}

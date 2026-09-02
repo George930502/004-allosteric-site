@@ -1,0 +1,454 @@
+{
+ "chem_comp": {
+  "formula": "C15 H22 N6 O5 S",
+  "formula_weight": 398.437,
+  "id": "SAM",
+  "name": "S-ADENOSYLMETHIONINE",
+  "pdbx_ambiguous_flag": "N",
+  "pdbx_formal_charge": 0,
+  "pdbx_initial_date": "1999-07-08T00:00:00.000+00:00",
+  "pdbx_modified_date": "2011-06-04T00:00:00.000+00:00",
+  "pdbx_processing_site": "PDBJ",
+  "pdbx_release_status": "REL",
+  "three_letter_code": "SAM",
+  "type": "non-polymer"
+ },
+ "pdbx_chem_comp_audit": [
+  {
+   "action_type": "Create component",
+   "comp_id": "SAM",
+   "date": "1999-07-08T00:00:00.000+00:00",
+   "ordinal": 1
+  },
+  {
+   "action_type": "Modify descriptor",
+   "comp_id": "SAM",
+   "date": "2011-06-04T00:00:00.000+00:00",
+   "ordinal": 2
+  }
+ ],
+ "pdbx_chem_comp_descriptor": [
+  {
+   "comp_id": "SAM",
+   "descriptor": "[O-]C(=O)C(N)CC[S+](C)CC3OC(n2cnc1c(ncnc12)N)C(O)C3O",
+   "program": "ACDLabs",
+   "program_version": "10.04",
+   "type": "SMILES"
+  },
+  {
+   "comp_id": "SAM",
+   "descriptor": "C[S@@+](CC[C@H](N)C([O-])=O)C[C@H]1O[C@H]([C@H](O)[C@@H]1O)n2cnc3c(N)ncnc23",
+   "program": "CACTVS",
+   "program_version": "3.341",
+   "type": "SMILES_CANONICAL"
+  },
+  {
+   "comp_id": "SAM",
+   "descriptor": "C[S+](CC[CH](N)C([O-])=O)C[CH]1O[CH]([CH](O)[CH]1O)n2cnc3c(N)ncnc23",
+   "program": "CACTVS",
+   "program_version": "3.341",
+   "type": "SMILES"
+  },
+  {
+   "comp_id": "SAM",
+   "descriptor": "C[S@@+](CC[C@@H](C(=O)[O-])N)C[C@@H]1[C@H]([C@H]([C@@H](O1)n2cnc3c2ncnc3N)O)O",
+   "program": "OpenEye OEToolkits",
+   "program_version": "1.5.0",
+   "type": "SMILES_CANONICAL"
+  },
+  {
+   "comp_id": "SAM",
+   "descriptor": "C[S+](CCC(C(=O)[O-])N)CC1C(C(C(O1)n2cnc3c2ncnc3N)O)O",
+   "program": "OpenEye OEToolkits",
+   "program_version": "1.5.0",
+   "type": "SMILES"
+  },
+  {
+   "comp_id": "SAM",
+   "descriptor": "InChI=1S/C15H22N6O5S/c1-27(3-2-7(16)15(24)25)4-8-10(22)11(23)14(26-8)21-6-20-9-12(17)18-5-19-13(9)21/h5-8,10-11,14,22-23H,2-4,16H2,1H3,(H2-,17,18,19,24,25)/t7-,8+,10+,11+,14+,27-/m0/s1",
+   "program": "InChI",
+   "program_version": "1.03",
+   "type": "InChI"
+  },
+  {
+   "comp_id": "SAM",
+   "descriptor": "MEFKEPWMEQBLKI-FCKMPRQPSA-N",
+   "program": "InChI",
+   "program_version": "1.03",
+   "type": "InChIKey"
+  }
+ ],
+ "pdbx_chem_comp_identifier": [
+  {
+   "comp_id": "SAM",
+   "identifier": "(2S)-2-amino-4-[{[(2S,3S,4R,5R)-5-(6-amino-9H-purin-9-yl)-3,4-dihydroxytetrahydrofuran-2-yl]methyl}(methyl)sulfonio]butanoate (non-preferred name)",
+   "program": "ACDLabs",
+   "program_version": "10.04",
+   "type": "SYSTEMATIC NAME"
+  },
+  {
+   "comp_id": "SAM",
+   "identifier": "(2S)-2-amino-4-[[(2S,3S,4R,5R)-5-(6-aminopurin-9-yl)-3,4-dihydroxy-oxolan-2-yl]methyl-methyl-sulfonio]butanoate",
+   "program": "OpenEye OEToolkits",
+   "program_version": "1.5.0",
+   "type": "SYSTEMATIC NAME"
+  }
+ ],
+ "rcsb_chem_comp_annotation": [
+  {
+   "annotation_id": "A16AA02",
+   "annotation_lineage": [
+    {
+     "id": "A",
+     "name": "ALIMENTARY TRACT AND METABOLISM DRUGS"
+    },
+    {
+     "depth": 1,
+     "id": "A16",
+     "name": "OTHER ALIMENTARY TRACT AND METABOLISM PRODUCTS in ATC"
+    },
+    {
+     "depth": 2,
+     "id": "A16A",
+     "name": "OTHER ALIMENTARY TRACT AND METABOLISM PRODUCTS in ATC"
+    },
+    {
+     "depth": 3,
+     "id": "A16AA",
+     "name": "Amino acids and derivatives"
+    },
+    {
+     "depth": 4,
+     "id": "A16AA02",
+     "name": "ademetionine"
+    }
+   ],
+   "assignment_version": "5.1",
+   "description": "ATC assigned by DrugBank resource",
+   "name": "ademetionine",
+   "provenance_source": "DrugBank",
+   "type": "ATC"
+  },
+  {
+   "annotation_id": "MOD:00361",
+   "annotation_lineage": [
+    {
+     "depth": 1,
+     "id": "MOD:00361",
+     "name": "tris-L-cysteinyl S-adenosylmethion-N,O-diyl tetrairon tetrasulfide"
+    },
+    {
+     "depth": 2,
+     "id": "MOD:00860",
+     "name": "sulfur containing modified residue"
+    },
+    {
+     "depth": 3,
+     "id": "MOD:00739",
+     "name": "iron-sulfur cluster containing modification"
+    },
+    {
+     "depth": 4,
+     "id": "MOD:01156",
+     "name": "protein modification categorized by chemical process"
+    },
+    {
+     "depth": 5,
+     "id": "MOD:00698",
+     "name": "metal or metal cluster containing modified residue"
+    },
+    {
+     "depth": 6,
+     "id": "MOD:00905",
+     "name": "modified L-cysteine residue"
+    },
+    {
+     "depth": 7,
+     "id": "MOD:00000",
+     "name": "protein modification"
+    },
+    {
+     "depth": 8,
+     "id": "MOD:01157",
+     "name": "protein modification categorized by amino acid modified"
+    },
+    {
+     "depth": 9,
+     "id": "MOD:00738",
+     "name": "iron containing modified residue"
+    }
+   ],
+   "assignment_version": "76.00",
+   "name": "tris-L-cysteinyl S-adenosylmethion-N,O-diyl tetrairon tetrasulfide",
+   "provenance_source": "RESID",
+   "type": "PSI-MOD"
+  }
+ ],
+ "rcsb_chem_comp_container_identifiers": {
+  "atc_codes": [
+   "A16AA02"
+  ],
+  "comp_id": "SAM",
+  "drugbank_id": "DB00118",
+  "rcsb_id": "SAM"
+ },
+ "rcsb_chem_comp_descriptor": {
+  "InChI": "InChI=1S/C15H22N6O5S/c1-27(3-2-7(16)15(24)25)4-8-10(22)11(23)14(26-8)21-6-20-9-12(17)18-5-19-13(9)21/h5-8,10-11,14,22-23H,2-4,16H2,1H3,(H2-,17,18,19,24,25)/t7-,8+,10+,11+,14+,27-/m0/s1",
+  "InChIKey": "MEFKEPWMEQBLKI-FCKMPRQPSA-N",
+  "SMILES": "C[S+](CCC(C(=O)[O-])N)CC1C(C(C(O1)n2cnc3c2ncnc3N)O)O",
+  "SMILES_stereo": "C[S@@+](CC[C@@H](C(=O)[O-])N)C[C@@H]1[C@H]([C@H]([C@@H](O1)n2cnc3c2ncnc3N)O)O",
+  "comp_id": "SAM"
+ },
+ "rcsb_chem_comp_info": {
+  "atom_count": 49,
+  "atom_count_chiral": 6,
+  "atom_count_heavy": 27,
+  "bond_count": 51,
+  "bond_count_aromatic": 10,
+  "comp_id": "SAM",
+  "initial_deposition_date": "1999-07-08T00:00:00.000+00:00",
+  "initial_release_date": "1993-10-31T00:00:00.000+00:00",
+  "release_status": "REL",
+  "revision_date": "2011-06-04T00:00:00.000+00:00"
+ },
+ "rcsb_chem_comp_related": [
+  {
+   "comp_id": "SAM",
+   "ordinal": 1,
+   "related_mapping_method": "assigned by DrugBank resource",
+   "resource_accession_code": "DB00118",
+   "resource_name": "DrugBank"
+  },
+  {
+   "comp_id": "SAM",
+   "ordinal": 2,
+   "related_mapping_method": "matching by RESID resource",
+   "resource_accession_code": "AA0356",
+   "resource_name": "RESID"
+  }
+ ],
+ "rcsb_chem_comp_synonyms": [
+  {
+   "comp_id": "SAM",
+   "name": "S-ADENOSYLMETHIONINE",
+   "ordinal": 1,
+   "provenance_source": "PDB Reference Data",
+   "type": "Preferred Name"
+  },
+  {
+   "comp_id": "SAM",
+   "name": "(2S)-2-amino-4-[{[(2S,3S,4R,5R)-5-(6-amino-9H-purin-9-yl)-3,4-dihydroxytetrahydrofuran-2-yl]methyl}(methyl)sulfonio]butanoate (non-preferred name)",
+   "ordinal": 2,
+   "provenance_source": "ACDLabs",
+   "type": "Systematic Name"
+  },
+  {
+   "comp_id": "SAM",
+   "name": "(2S)-2-amino-4-[[(2S,3S,4R,5R)-5-(6-aminopurin-9-yl)-3,4-dihydroxy-oxolan-2-yl]methyl-methyl-sulfonio]butanoate",
+   "ordinal": 3,
+   "provenance_source": "OpenEye OEToolkits",
+   "type": "Systematic Name"
+  },
+  {
+   "comp_id": "SAM",
+   "name": "AdoMet",
+   "ordinal": 4,
+   "provenance_source": "DrugBank",
+   "type": "Synonym"
+  },
+  {
+   "comp_id": "SAM",
+   "name": "SAM",
+   "ordinal": 5,
+   "provenance_source": "DrugBank",
+   "type": "Synonym"
+  },
+  {
+   "comp_id": "SAM",
+   "name": "Ademetionine disulfate tosylate",
+   "ordinal": 6,
+   "provenance_source": "DrugBank",
+   "type": "Synonym"
+  },
+  {
+   "comp_id": "SAM",
+   "name": "S-Adenosylmethionine",
+   "ordinal": 7,
+   "provenance_source": "DrugBank",
+   "type": "Synonym"
+  },
+  {
+   "comp_id": "SAM",
+   "name": "Ademetionine butanedisulfonate",
+   "ordinal": 8,
+   "provenance_source": "DrugBank",
+   "type": "Synonym"
+  },
+  {
+   "comp_id": "SAM",
+   "name": "L-S-Adenosylmethionine",
+   "ordinal": 9,
+   "provenance_source": "DrugBank",
+   "type": "Synonym"
+  },
+  {
+   "comp_id": "SAM",
+   "name": "Ademetionine disulfate ditosylate",
+   "ordinal": 10,
+   "provenance_source": "DrugBank",
+   "type": "Synonym"
+  },
+  {
+   "comp_id": "SAM",
+   "name": "SAMe",
+   "ordinal": 11,
+   "provenance_source": "DrugBank",
+   "type": "Synonym"
+  },
+  {
+   "comp_id": "SAM",
+   "name": "SAM-e",
+   "ordinal": 12,
+   "provenance_source": "DrugBank",
+   "type": "Synonym"
+  },
+  {
+   "comp_id": "SAM",
+   "name": "Ademetionine",
+   "ordinal": 13,
+   "provenance_source": "DrugBank",
+   "type": "Synonym"
+  },
+  {
+   "comp_id": "SAM",
+   "name": "Ademetionine tosylate",
+   "ordinal": 14,
+   "provenance_source": "DrugBank",
+   "type": "Synonym"
+  },
+  {
+   "comp_id": "SAM",
+   "name": "Ademetionine disulfate monotosylate",
+   "ordinal": 15,
+   "provenance_source": "DrugBank",
+   "type": "Synonym"
+  }
+ ],
+ "rcsb_chem_comp_target": [
+  {
+   "comp_id": "SAM",
+   "interaction_type": "target",
+   "name": "Catechol O-methyltransferase",
+   "ordinal": 1,
+   "provenance_source": "DrugBank",
+   "reference_database_accession_code": "P21964",
+   "reference_database_name": "UniProt",
+   "target_actions": [
+    "cofactor"
+   ]
+  },
+  {
+   "comp_id": "SAM",
+   "interaction_type": "target",
+   "name": "Cap-specific mRNA (nucleoside-2'-O-)-methyltransferase 1",
+   "ordinal": 2,
+   "provenance_source": "DrugBank",
+   "reference_database_accession_code": "Q8N1G2",
+   "reference_database_name": "UniProt"
+  },
+  {
+   "comp_id": "SAM",
+   "interaction_type": "target",
+   "name": "Arsenite methyltransferase",
+   "ordinal": 3,
+   "provenance_source": "DrugBank",
+   "reference_database_accession_code": "Q9HBK9",
+   "reference_database_name": "UniProt"
+  },
+  {
+   "comp_id": "SAM",
+   "interaction_type": "target",
+   "name": "Glycine N-methyltransferase",
+   "ordinal": 4,
+   "provenance_source": "DrugBank",
+   "reference_database_accession_code": "Q14749",
+   "reference_database_name": "UniProt",
+   "target_actions": [
+    "cofactor"
+   ]
+  },
+  {
+   "comp_id": "SAM",
+   "interaction_type": "target",
+   "name": "S-adenosylmethionine decarboxylase proenzyme",
+   "ordinal": 5,
+   "provenance_source": "DrugBank",
+   "reference_database_accession_code": "P17707",
+   "reference_database_name": "UniProt",
+   "target_actions": [
+    "cofactor"
+   ]
+  },
+  {
+   "comp_id": "SAM",
+   "interaction_type": "target",
+   "name": "S-adenosylmethionine synthase isoform type-2",
+   "ordinal": 6,
+   "provenance_source": "DrugBank",
+   "reference_database_accession_code": "P31153",
+   "reference_database_name": "UniProt",
+   "target_actions": [
+    "cofactor"
+   ]
+  },
+  {
+   "comp_id": "SAM",
+   "interaction_type": "target",
+   "name": "Cystathionine beta-synthase",
+   "ordinal": 7,
+   "provenance_source": "DrugBank",
+   "reference_database_accession_code": "P35520",
+   "reference_database_name": "UniProt",
+   "target_actions": [
+    "activator"
+   ]
+  },
+  {
+   "comp_id": "SAM",
+   "interaction_type": "target",
+   "name": "S-adenosylmethionine synthase isoform type-1",
+   "ordinal": 8,
+   "provenance_source": "DrugBank",
+   "reference_database_accession_code": "Q00266",
+   "reference_database_name": "UniProt",
+   "target_actions": [
+    "cofactor"
+   ]
+  },
+  {
+   "comp_id": "SAM",
+   "interaction_type": "enzyme",
+   "name": "Spermidine synthase",
+   "ordinal": 9,
+   "provenance_source": "DrugBank",
+   "reference_database_accession_code": "P19623",
+   "reference_database_name": "UniProt",
+   "target_actions": [
+    "substrate"
+   ]
+  },
+  {
+   "comp_id": "SAM",
+   "interaction_type": "enzyme",
+   "name": "Cytochrome P450 2E1",
+   "ordinal": 10,
+   "provenance_source": "DrugBank",
+   "reference_database_accession_code": "P05181",
+   "reference_database_name": "UniProt",
+   "target_actions": [
+    "inhibitor"
+   ]
+  }
+ ],
+ "rcsb_id": "SAM"
+}

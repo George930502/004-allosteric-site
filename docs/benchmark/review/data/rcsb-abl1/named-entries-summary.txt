@@ -1,0 +1,280 @@
+
+### 1OPL  Structural basis for the auto-inhibition of c-Abl tyrosine kinase
+  method=X-RAY DIFFRACTION  res=[3.42]  released=2003-04-08
+  citation: Cell(Cambridge,Mass.) 2003 DOI=10.1016/S0092-8674(03)00194-6
+  entity 1OPL_1: proto-oncogene tyrosine-protein kinase | chains=['A', 'B'] | len=537 | org=Homo sapiens
+      uniprot_align: P00519:6-12,13-512
+      mutation: D382N, K29R, E29D
+  ligand MYR  chains=['A']  MYRISTIC ACID
+  ligand P16  chains=['A', 'B']  6-(2,6-DICHLOROPHENYL)-2-{[3-(HYDROXYMETHYL)PHENYL]AMINO}-8-METHYLPYRIDO[2,3-D]PYRIMIDIN-7(8H)-ONE
+
+### 2FO0  Organization of the SH3-SH2 Unit in Active and Inactive Forms of the c-Abl Tyrosine Kinase
+  method=X-RAY DIFFRACTION  res=[2.27]  released=2006-03-21
+  citation: Mol.Cell 2006 DOI=10.1016/j.molcel.2006.01.035
+  entity 2FO0_1: Proto-oncogene tyrosine-protein kinase ABL1 (1B ISOFORM) | chains=['A'] | len=495 | org=Homo sapiens
+      uniprot_align: P00519:38-512
+      mutation: D382N
+  ligand MYR  chains=['A']  MYRISTIC ACID
+  ligand P16  chains=['A']  6-(2,6-DICHLOROPHENYL)-2-{[3-(HYDROXYMETHYL)PHENYL]AMINO}-8-METHYLPYRIDO[2,3-D]PYRIMIDIN-7(8H)-ONE
+  ligand GOL  chains=['A']  GLYCEROL
+
+### 1IEP  CRYSTAL STRUCTURE OF THE C-ABL KINASE DOMAIN IN COMPLEX WITH STI-571.
+  method=X-RAY DIFFRACTION  res=[2.1]  released=2001-04-18
+  citation: Cancer Res. 2002 DOI=None
+  entity 1IEP_1: PROTO-ONCOGENE TYROSINE-PROTEIN KINASE ABL | chains=['A', 'B'] | len=293 | org=Mus musculus
+      uniprot_align: P00520:229-515
+      mutation: None
+  ligand CL   chains=['A', 'B']  CHLORIDE ION
+  ligand STI  chains=['A', 'B']  4-(4-METHYL-PIPERAZIN-1-YLMETHYL)-N-[4-METHYL-3-(4-PYRIDIN-3-YL-PYRIMIDIN-2-YLAMINO)-PHENYL]-BENZAMIDE
+
+### 2G2H  A Src-like Inactive Conformation in the Abl Tyrosine Kinase Domain
+  method=X-RAY DIFFRACTION  res=[2.0]  released=2006-05-23
+  citation: Plos Biol. 2006 DOI=10.1371/journal.pbio.0040144
+  entity 2G2H_1: Abl Tyrosine | chains=['A', 'B'] | len=287 | org=Homo sapiens
+      uniprot_align: P00519:229-512
+      mutation: H396P
+  ligand P16  chains=['A', 'B']  6-(2,6-DICHLOROPHENYL)-2-{[3-(HYDROXYMETHYL)PHENYL]AMINO}-8-METHYLPYRIDO[2,3-D]PYRIMIDIN-7(8H)-ONE
+
+### 2G2I  A Src-like Inactive Conformation in the Abl Tyrosine Kinase Domain
+  method=X-RAY DIFFRACTION  res=[3.12]  released=2006-05-23
+  citation: Plos Biol. 2006 DOI=10.1371/journal.pbio.0040144
+  entity 2G2I_1: Abl Tyrosine Kinase | chains=['A', 'B'] | len=287 | org=Homo sapiens
+      uniprot_align: P00519:229-512
+      mutation: H396P
+  ligand ADP  chains=['A', 'B']  ADENOSINE-5'-DIPHOSPHATE
+
+### 2G1T  A Src-like Inactive Conformation in the Abl Tyrosine Kinase Domain
+  method=X-RAY DIFFRACTION  res=[1.8]  released=2006-05-23
+  citation: Plos Biol. 2006 DOI=10.1371/journal.pbio.0040144
+  entity 2G1T_1: Proto-oncogene tyrosine-protein kinase ABL1 | chains=['A', 'B', 'C', 'D'] | len=287 | org=Homo sapiens
+      uniprot_align: P00519:229-512
+      mutation: None
+  ligand MG   chains=['A', 'B', 'C', 'D']  MAGNESIUM ION
+  ligand 112  chains=['E', 'F', 'G', 'H']  THIOPHOSPHORIC ACID O-((ADENOSYL-PHOSPHO)PHOSPHO)-S-ACETAMIDYL-DIESTER
+
+### 2HYY  Human Abl kinase domain in complex with imatinib (STI571, Glivec)
+  method=X-RAY DIFFRACTION  res=[2.4]  released=2007-01-16
+  citation: ACTA CRYSTALLOGR.,SECT.D 2007 DOI=10.1107/S0907444906047287
+  entity 2HYY_1: Proto-oncogene tyrosine-protein kinase ABL1 | chains=['A', 'B', 'C', 'D'] | len=273 | org=Homo sapiens
+      uniprot_align: P00519:228-500
+      mutation: None
+  ligand STI  chains=['A', 'B', 'C', 'D']  4-(4-METHYL-PIPERAZIN-1-YLMETHYL)-N-[4-METHYL-3-(4-PYRIDIN-3-YL-PYRIMIDIN-2-YLAMINO)-PHENYL]-BENZAMIDE
+
+### 3K5V  Structure of Abl kinase in complex with imatinib and GNF-2
+  method=X-RAY DIFFRACTION  res=[1.74]  released=2010-01-19
+  citation: Nature 2010 DOI=10.1038/nature08675
+  entity 3K5V_1: Tyrosine-protein kinase ABL1 | chains=['A', 'B'] | len=293 | org=Mus musculus
+      uniprot_align: P00520:229-515
+      mutation: None
+  ligand STJ  chains=['A', 'B']  3-(6-{[4-(trifluoromethoxy)phenyl]amino}pyrimidin-4-yl)benzamide
+  ligand STI  chains=['A', 'B']  4-(4-METHYL-PIPERAZIN-1-YLMETHYL)-N-[4-METHYL-3-(4-PYRIDIN-3-YL-PYRIMIDIN-2-YLAMINO)-PHENYL]-BENZAMIDE
+  ligand CL   chains=['A']  CHLORIDE ION
+
+### 3K2M  Crystal Structure of Monobody HA4/Abl1 SH2 Domain Complex
+  method=X-RAY DIFFRACTION  res=[1.75]  released=2010-03-31
+  citation: Nat.Struct.Mol.Biol. 2010 DOI=10.1038/nsmb.1793
+  entity 3K2M_1: Proto-oncogene tyrosine-protein kinase ABL1 | chains=['A', 'B'] | len=112 | org=Homo sapiens
+      uniprot_align: P00519:121-232
+      mutation: None
+  ligand PO4  chains=['A', 'B']  PHOSPHATE ION
+
+### 6XR6  Abl 1b isoform active state
+  method=SOLUTION NMR  res=None  released=2020-10-07
+  citation: Science 2020 DOI=10.1126/science.abc2754
+  entity 6XR6_1: Tyrosine-protein kinase ABL1 | chains=['A'] | len=287 | org=Homo sapiens
+      uniprot_align: P00519:229-515
+      mutation: None
+
+### 6XR7  Abl isoform 1b inactive1 state
+  method=SOLUTION NMR  res=None  released=2020-10-07
+  citation: Science 2020 DOI=10.1126/science.abc2754
+  entity 6XR7_1: Tyrosine-protein kinase ABL1 | chains=['A'] | len=287 | org=Homo sapiens
+      uniprot_align: P00519:229-515
+      mutation: None
+
+### 6XRG  Abl 1b isoform inactive2 state
+  method=SOLUTION NMR  res=None  released=2020-10-07
+  citation: Science 2020 DOI=10.1126/science.abc2754
+  entity 6XRG_1: Tyrosine-protein kinase ABL1 | chains=['A'] | len=287 | org=Homo sapiens
+      uniprot_align: P00519:229-515
+      mutation: G269E, M309L, T408Y
+
+### 6NPE  C-abl Kinase domain with the activator(cmpd6), 2-cyano-N-(4-(3,4-dichlorophenyl)thiazol-2-yl)acetamide
+  method=X-RAY DIFFRACTION  res=[2.15]  released=2019-03-13
+  citation: J. Med. Chem. 2019 DOI=10.1021/acs.jmedchem.8b01872
+  entity 6NPE_1: Tyrosine-protein kinase ABL1 | chains=['A', 'B'] | len=298 | org=Homo sapiens
+      uniprot_align: P00519:229-512
+      mutation: None
+  ligand SO4  chains=['A', 'B']  SULFATE ION
+  ligand STI  chains=['A', 'B']  4-(4-METHYL-PIPERAZIN-1-YLMETHYL)-N-[4-METHYL-3-(4-PYRIDIN-3-YL-PYRIMIDIN-2-YLAMINO)-PHENYL]-BENZAMIDE
+  ligand KWD  chains=['A', 'B']  2-cyano-~{N}-[4-(3,4-dichlorophenyl)-1,3-thiazol-2-yl]ethanamide
+  ligand 2PE  chains=['B']  NONAETHYLENE GLYCOL
+
+### 6NPU  C-abl Kinase domain with the activator(cmpd29), N-(1-(3,4-dichlorophenyl)-4,5-dihydro-1H-pyrazol-3-yl)acetamide
+  method=X-RAY DIFFRACTION  res=[2.33]  released=2019-03-13
+  citation: J. Med. Chem. 2019 DOI=10.1021/acs.jmedchem.8b01872
+  entity 6NPU_1: Tyrosine-protein kinase ABL1 | chains=['A', 'B'] | len=298 | org=Homo sapiens
+      uniprot_align: P00519:229-512
+      mutation: None
+  ligand STI  chains=['A', 'B']  4-(4-METHYL-PIPERAZIN-1-YLMETHYL)-N-[4-METHYL-3-(4-PYRIDIN-3-YL-PYRIMIDIN-2-YLAMINO)-PHENYL]-BENZAMIDE
+  ligand KWV  chains=['A', 'B']  ~{N}-[2-(3,4-dichlorophenyl)-3,4-dihydropyrazol-5-yl]ethanamide
+  ligand SO4  chains=['B']  SULFATE ION
+  ligand GOL  chains=['B']  GLYCEROL
+  ligand 2PE  chains=['B']  NONAETHYLENE GLYCOL
+
+### 6NPV  C-abl Kinase domain with the activator(cmpd51), N-(1-(3,4-dichlorophenyl)-4-(2-hydroxyethyl)-4,5-dihydro-1H-pyrazol-3-yl)isonicotinamide
+  method=X-RAY DIFFRACTION  res=[1.86]  released=2019-03-13
+  citation: J. Med. Chem. 2019 DOI=10.1021/acs.jmedchem.8b01872
+  entity 6NPV_1: Tyrosine-protein kinase ABL1 | chains=['A', 'B'] | len=298 | org=Homo sapiens
+      uniprot_align: P00519:229-512
+      mutation: None
+  ligand SO4  chains=['A', 'B']  SULFATE ION
+  ligand STI  chains=['A', 'B']  4-(4-METHYL-PIPERAZIN-1-YLMETHYL)-N-[4-METHYL-3-(4-PYRIDIN-3-YL-PYRIMIDIN-2-YLAMINO)-PHENYL]-BENZAMIDE
+  ligand KWP  chains=['A', 'B']  ~{N}-[(4~{S})-2-(3,4-dichlorophenyl)-4-(2-hydroxyethyl)-3,4-dihydropyrazol-5-yl]pyridine-4-carboxamide
+  ligand GOL  chains=['B']  GLYCEROL
+  ligand 2PE  chains=['B']  NONAETHYLENE GLYCOL
+
+### 5MO4  ABL1 kinase (T334I_D382N) in complex with asciminib and nilotinib
+  method=X-RAY DIFFRACTION  res=[2.17]  released=2017-04-05
+  citation: Nature 2017 DOI=10.1038/nature21702
+  entity 5MO4_1: Tyrosine-protein kinase ABL1 | chains=['A'] | len=495 | org=Homo sapiens
+      uniprot_align: P00519:27-515
+      mutation: T334I D382N
+  ligand NIL  chains=['A']  Nilotinib
+  ligand AY7  chains=['A']  asciminib
+
+### 5HU9  Crystal structure of ABL1 in complex with CHMFL-074
+  method=X-RAY DIFFRACTION  res=[1.529]  released=2016-07-13
+  citation: Oncotarget 2016 DOI=10.18632/oncotarget.10037
+  entity 5HU9_1: Tyrosine-protein kinase ABL1 | chains=['A'] | len=277 | org=Homo sapiens
+      uniprot_align: P00519:229-500
+      mutation: None
+  ligand 66K  chains=['A']  4-[(4-methylpiperazin-1-yl)methyl]-N-(4-methyl-3-{[1-(pyridin-3-ylcarbonyl)piperidin-4-yl]oxy}phenyl)-3-(trifluoromethyl)benzamide
+  ligand EDO  chains=['A']  1,2-ETHANEDIOL
+  ligand CL   chains=['A']  CHLORIDE ION
+
+### 7DT2  Strategic design of catalytic lysine-targeting reversible covalent BCR-ABL Inhibitors
+  method=X-RAY DIFFRACTION  res=[2.3]  released=2021-06-09
+  citation: Angew.Chem.Int.Ed.Engl. 2021 DOI=10.1002/anie.202105383
+  entity 7DT2_1: Tyrosine-protein kinase ABL1 | chains=['A', 'B'] | len=310 | org=Homo sapiens
+      uniprot_align: P00519:229-510
+      mutation: None
+  ligand HJ9  chains=['A', 'B']  [4-[5-[5-(dimethylcarbamoyl)pyridin-3-yl]-1H-pyrrolo[2,3-b]pyridin-3-yl]-2-methanoyl-5-methoxy-phenyl]boronic acid
+
+### 8SSP  AurA bound to danusertib and activating monobody Mb1
+  method=X-RAY DIFFRACTION  res=[2.6]  released=2023-09-06
+  citation: Proc.Natl.Acad.Sci.USA 2023 DOI=10.1073/pnas.2304611120
+  entity 8SSP_2: Mb1 | chains=['B'] | len=96 | org=synthetic construct
+      uniprot_align: none
+      mutation: None
+  entity 8SSP_1: Aurora kinase A | chains=['A'] | len=284 | org=Homo sapiens
+      uniprot_align: O14965:122-403
+      mutation: None
+  ligand EDO  chains=['A']  1,2-ETHANEDIOL
+  ligand SO4  chains=['A']  SULFATE ION
+  ligand MES  chains=['A']  2-(N-MORPHOLINO)-ETHANESULFONIC ACID
+  ligand PO4  chains=['A']  PHOSPHATE ION
+  ligand PDO  chains=['A']  1,3-PROPANDIOL
+  ligand 627  chains=['A']  N-[(3E)-5-[(2R)-2-METHOXY-2-PHENYLACETYL]PYRROLO[3,4-C]PYRAZOL-3(5H)-YLIDENE]-4-(4-METHYLPIPERAZIN-1-YL)BENZAMIDE
+
+### 8SSN  Abl kinase in complex with SKI and asciminib
+  method=X-RAY DIFFRACTION  res=[2.86]  released=2023-09-06
+  citation: Proc.Natl.Acad.Sci.USA 2023 DOI=10.1073/pnas.2304611120
+  entity 8SSN_1: Tyrosine-protein kinase ABL1 | chains=['A', 'B'] | len=448 | org=Homo sapiens
+      uniprot_align: P00519:64-510
+      mutation: None
+  entity 8SSN_1: Tyrosine-protein kinase ABL1 | chains=['A', 'B'] | len=448 | org=Homo sapiens
+      uniprot_align: P00519:64-510
+      mutation: None
+  ligand AY7  chains=['A', 'B']  asciminib
+  ligand SKI  chains=['A', 'B']  6,7-dimethoxy-N-(4-phenoxyphenyl)quinazolin-4-amine
+  ligand CL   chains=['A']  CHLORIDE ION
+  ligand SO4  chains=['A', 'B']  SULFATE ION
+  ligand DMS  chains=['A', 'B']  DIMETHYL SULFOXIDE
+
+### 1OPK  Structural basis for the auto-inhibition of c-Abl tyrosine kinase
+  method=X-RAY DIFFRACTION  res=[1.8]  released=2003-04-08
+  citation: Cell(Cambridge,Mass.) 2003 DOI=10.1016/S0092-8674(03)00194-6
+  entity 1OPK_1: Proto-oncogene tyrosine-protein kinase ABL1 | chains=['A'] | len=495 | org=Mus musculus
+      uniprot_align: P00520:27-515
+      mutation: D382N
+  ligand MYR  chains=['A']  MYRISTIC ACID
+  ligand P16  chains=['A']  6-(2,6-DICHLOROPHENYL)-2-{[3-(HYDROXYMETHYL)PHENYL]AMINO}-8-METHYLPYRIDO[2,3-D]PYRIMIDIN-7(8H)-ONE
+  ligand GOL  chains=['A']  GLYCEROL
+
+### 4XEY  Crystal structure of an SH2-kinase domain construct of c-Abl tyrosine kinase
+  method=X-RAY DIFFRACTION  res=[2.891]  released=2015-04-01
+  citation: Biochem.J. 2015 DOI=10.1042/BJ20141492
+  entity 4XEY_1: Tyrosine-protein kinase ABL1 | chains=['A', 'B'] | len=408 | org=Homo sapiens
+      uniprot_align: P00519:119-515
+      mutation: None
+  ligand 1N1  chains=['A', 'B']  N-(2-CHLORO-6-METHYLPHENYL)-2-({6-[4-(2-HYDROXYETHYL)PIPERAZIN-1-YL]-2-METHYLPYRIMIDIN-4-YL}AMINO)-1,3-THIAZOLE-5-CARBOXAMIDE
+
+### 2ABL  SH3-SH2 DOMAIN FRAGMENT OF HUMAN BCR-ABL TYROSINE KINASE
+  method=X-RAY DIFFRACTION  res=[2.5]  released=1997-09-04
+  citation: Structure 1996 DOI=10.1016/S0969-2126(96)00116-5
+  entity 2ABL_1: ABL TYROSINE KINASE | chains=['A'] | len=163 | org=Homo sapiens
+      uniprot_align: P00519:57-218
+      mutation: INS(M76)
+
+### 6AMV  Abl 1b Regulatory Module 'inhibiting state'
+  method=SOLUTION NMR  res=None  released=2017-09-27
+  citation: Nat. Struct. Mol. Biol. 2017 DOI=10.1038/nsmb.3470
+  entity 6AMV_1: Tyrosine-protein kinase ABL1 | chains=['A'] | len=255 | org=Homo sapiens
+      uniprot_align: P00519:6-12,13-236
+      mutation: None
+
+### 6AMW  Abl1b Regulatory Module 'Activating' conformation
+  method=SOLUTION NMR  res=None  released=2017-09-27
+  citation: Nat. Struct. Mol. Biol. 2017 DOI=10.1038/nsmb.3470
+  entity 6AMW_1: Tyrosine-protein kinase ABL1 | chains=['A'] | len=255 | org=Homo sapiens
+      uniprot_align: P00519:6-12,13-236
+      mutation: None
+
+### 2G2F  A Src-like Inactive Conformation in the Abl Tyrosine Kinase Domain
+  method=X-RAY DIFFRACTION  res=[2.7]  released=2006-05-23
+  citation: Plos Biol. 2006 DOI=10.1371/journal.pbio.0040144
+  entity 2G2F_1: Abl Kinase | chains=['A', 'B'] | len=287 | org=Homo sapiens
+      uniprot_align: P00519:229-512
+      mutation: H396P
+  ligand AGS  chains=['B']  PHOSPHOTHIOPHOSPHORIC ACID-ADENYLATE ESTER
+  ligand 112  chains=['C']  THIOPHOSPHORIC ACID O-((ADENOSYL-PHOSPHO)PHOSPHO)-S-ACETAMIDYL-DIESTER
+
+### 2HZ0  Abl kinase domain in complex with NVP-AEG082
+  method=X-RAY DIFFRACTION  res=[2.1]  released=2007-01-16
+  citation: ACTA CRYSTALLOGR.,SECT.D 2007 DOI=10.1107/S0907444906047287
+  entity 2HZ0_1: Proto-oncogene tyrosine-protein kinase ABL1 | chains=['A', 'B'] | len=270 | org=Homo sapiens
+      uniprot_align: P00519:228-497
+      mutation: None
+  ligand GIN  chains=['A', 'B']  2-{[(6-OXO-1,6-DIHYDROPYRIDIN-3-YL)METHYL]AMINO}-N-[4-PROPYL-3-(TRIFLUOROMETHYL)PHENYL]BENZAMIDE
+
+### 2HZI  Abl kinase domain in complex with PD180970
+  method=X-RAY DIFFRACTION  res=[1.7]  released=2007-01-16
+  citation: ACTA CRYSTALLOGR.,SECT.D 2007 DOI=10.1107/S0907444906047287
+  entity 2HZI_1: Proto-oncogene tyrosine-protein kinase ABL1 | chains=['A', 'B'] | len=277 | org=Homo sapiens
+      uniprot_align: P00519:229-500
+      mutation: None
+  ligand JIN  chains=['A', 'B']  6-(2,6-DICHLOROPHENYL)-2-[(4-FLUORO-3-METHYLPHENYL)AMINO]-8-METHYLPYRIDO[2,3-D]PYRIMIDIN-7(8H)-ONE
+
+### 3CS9  Human ABL kinase in complex with nilotinib
+  method=X-RAY DIFFRACTION  res=[2.21]  released=2008-04-22
+  citation: Cancer Cell 2005 DOI=10.1016/j.ccr.2005.01.007
+  entity 3CS9_1: Proto-oncogene tyrosine-protein kinase ABL1 | chains=['A', 'B', 'C', 'D'] | len=277 | org=Homo sapiens
+      uniprot_align: P00519:229-500
+      mutation: None
+  ligand NIL  chains=['A', 'B', 'C', 'D']  Nilotinib
+
+### 7CC2  Strategic design of catalytic lysine-targeting reversible covalent BCR-ABL Inhibitors
+  method=X-RAY DIFFRACTION  res=[2.723]  released=2021-06-09
+  citation: Angew.Chem.Int.Ed.Engl. 2021 DOI=10.1002/anie.202105383
+  entity 7CC2_1: Tyrosine-protein kinase ABL1 | chains=['A', 'B'] | len=310 | org=Homo sapiens
+      uniprot_align: P00519:229-510
+      mutation: None
+  ligand FVC  chains=['A', 'B']  [4-[5-[5-(dimethylcarbamoyl)pyridin-3-yl]-1H-pyrrolo[2,3-b]pyridin-3-yl]-2-methyl-phenyl]boronic acid
+
+### 9KS5  The crystal structure of ABL1 in complex with K-CNBA-1
+  method=X-RAY DIFFRACTION  res=[2.2]  released=2025-12-03
+  citation: J.Am.Chem.Soc. 2025 DOI=10.1021/jacs.4c18006
+  entity 9KS5_1: Tyrosine-protein kinase ABL1 | chains=['A', 'B'] | len=272 | org=Homo sapiens
+      uniprot_align: P00519:229-500
+      mutation: None

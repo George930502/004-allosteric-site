@@ -1,0 +1,682 @@
+[
+ {
+  "rcsb_id": "9F01_2",
+  "rcsb_polymer_entity": {
+   "pdbx_description": "nanobody DAM21.3",
+   "pdbx_mutation": null
+  },
+  "entity_poly": {
+   "rcsb_sample_sequence_length": 98,
+   "type": "polypeptide(L)",
+   "pdbx_seq_one_letter_code_can": "GSMAASSVPTKLEVVAATPTSLLISWDAPAVTVDHYVITYGETGGNSPVQEFTVPGSKSTATISGLKPGVDYTITVYASDYYDGEISWYSPISINYRT"
+  },
+  "rcsb_polymer_entity_container_identifiers": {
+   "entry_id": "9F01",
+   "auth_asym_ids": [
+    "E",
+    "F",
+    "G",
+    "H"
+   ],
+   "asym_ids": [
+    "E",
+    "F",
+    "G",
+    "H"
+   ]
+  },
+  "rcsb_polymer_entity_align": null,
+  "rcsb_entity_source_organism": [
+   {
+    "scientific_name": "synthetic construct",
+    "ncbi_taxonomy_id": 32630
+   }
+  ],
+  "entry": {
+   "rcsb_id": "9F01",
+   "struct": {
+    "title": "Complex between D-SH2 domain of ABL with monobody 'DAM21"
+   },
+   "exptl": [
+    {
+     "method": "X-RAY DIFFRACTION"
+    }
+   ],
+   "rcsb_entry_info": {
+    "resolution_combined": [
+     2.73
+    ],
+    "deposited_polymer_entity_instance_count": 8,
+    "experimental_method": "X-ray"
+   },
+   "rcsb_accession_info": {
+    "initial_release_date": "2024-12-25T00:00:00Z"
+   },
+   "citation": [
+    {
+     "id": "primary",
+     "title": "Development of mirror-image monobodies targeting the oncogenic BCR::ABL1 kinase.",
+     "pdbx_database_id_DOI": "10.1038/s41467-024-54901-y",
+     "journal_abbrev": "Nat Commun",
+     "year": 2024
+    }
+   ],
+   "nonpolymer_entities": [
+    {
+     "rcsb_id": "9F01_3",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "CHLORIDE ION",
+      "formula_weight": 0.035
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A",
+       "B",
+       "C",
+       "D"
+      ],
+      "nonpolymer_comp_id": "CL"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "rcsb_id": "9F01_1",
+  "rcsb_polymer_entity": {
+   "pdbx_description": "synthetic D-SH2 domain NS1-10",
+   "pdbx_mutation": null
+  },
+  "entity_poly": {
+   "rcsb_sample_sequence_length": 99,
+   "type": "polypeptide(L)",
+   "pdbx_seq_one_letter_code_can": "EKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTCSDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPAPKRN"
+  },
+  "rcsb_polymer_entity_container_identifiers": {
+   "entry_id": "9F01",
+   "auth_asym_ids": [
+    "A",
+    "B",
+    "C",
+    "D"
+   ],
+   "asym_ids": [
+    "A",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  "rcsb_polymer_entity_align": null,
+  "rcsb_entity_source_organism": [
+   {
+    "scientific_name": "synthetic construct",
+    "ncbi_taxonomy_id": 32630
+   }
+  ],
+  "entry": {
+   "rcsb_id": "9F01",
+   "struct": {
+    "title": "Complex between D-SH2 domain of ABL with monobody 'DAM21"
+   },
+   "exptl": [
+    {
+     "method": "X-RAY DIFFRACTION"
+    }
+   ],
+   "rcsb_entry_info": {
+    "resolution_combined": [
+     2.73
+    ],
+    "deposited_polymer_entity_instance_count": 8,
+    "experimental_method": "X-ray"
+   },
+   "rcsb_accession_info": {
+    "initial_release_date": "2024-12-25T00:00:00Z"
+   },
+   "citation": [
+    {
+     "id": "primary",
+     "title": "Development of mirror-image monobodies targeting the oncogenic BCR::ABL1 kinase.",
+     "pdbx_database_id_DOI": "10.1038/s41467-024-54901-y",
+     "journal_abbrev": "Nat Commun",
+     "year": 2024
+    }
+   ],
+   "nonpolymer_entities": [
+    {
+     "rcsb_id": "9F01_3",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "CHLORIDE ION",
+      "formula_weight": 0.035
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A",
+       "B",
+       "C",
+       "D"
+      ],
+      "nonpolymer_comp_id": "CL"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "rcsb_id": "4XLI_1",
+  "rcsb_polymer_entity": {
+   "pdbx_description": "Non-specific protein-tyrosine kinase",
+   "pdbx_mutation": null
+  },
+  "entity_poly": {
+   "rcsb_sample_sequence_length": 268,
+   "type": "polypeptide(L)",
+   "pdbx_seq_one_letter_code_can": "DKWEMERTDITMKHKLGGGQYGEVYVGVWKKYSLTVAVKTLKEDTMEVEEFLKEAAVMKEIKHPNLVQLLGVCTLEPPFYIVTEYMPYGNLLDYLRECSREEVTAVVLLYMATQISSAMEYLEKKNFIHRDLAARNCLVGENHVVKVADFGLSRLMTGDTYTAHAGAKFPIKWTAPESLAYNTFSIKSDVWAFGVLLWEIATYGMSPYPGIDLSQVYDLLEKGYRMEQPEGCPPKVYELMRACWKWSPADRPSFAETHQAFETMFHDS"
+  },
+  "rcsb_polymer_entity_container_identifiers": {
+   "entry_id": "4XLI",
+   "auth_asym_ids": [
+    "A",
+    "B"
+   ],
+   "asym_ids": [
+    "A",
+    "B"
+   ]
+  },
+  "rcsb_polymer_entity_align": [
+   {
+    "reference_database_accession": "Q4JIM5",
+    "reference_database_name": "UniProt",
+    "provenance_source": "SIFTS",
+    "aligned_regions": [
+     {
+      "entity_beg_seq_id": 1,
+      "length": 268,
+      "ref_beg_seq_id": 279
+     }
+    ]
+   }
+  ],
+  "rcsb_entity_source_organism": [
+   {
+    "scientific_name": "Mus musculus",
+    "ncbi_taxonomy_id": 10090
+   }
+  ],
+  "entry": {
+   "rcsb_id": "4XLI",
+   "struct": {
+    "title": "Crystal structure of Abl2/Arg kinase in complex with dasatinib"
+   },
+   "exptl": [
+    {
+     "method": "X-RAY DIFFRACTION"
+    }
+   ],
+   "rcsb_entry_info": {
+    "resolution_combined": [
+     2.5
+    ],
+    "deposited_polymer_entity_instance_count": 2,
+    "experimental_method": "X-ray"
+   },
+   "rcsb_accession_info": {
+    "initial_release_date": "2015-04-01T00:00:00Z"
+   },
+   "citation": [
+    {
+     "id": "primary",
+     "title": "Structure of the ABL2/ARG kinase in complex with dasatinib.",
+     "pdbx_database_id_DOI": "10.1107/S2053230X15004793",
+     "journal_abbrev": "Acta Crystallogr.,Sect.F",
+     "year": 2015
+    }
+   ],
+   "nonpolymer_entities": [
+    {
+     "rcsb_id": "4XLI_2",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "N-(2-CHLORO-6-METHYLPHENYL)-2-({6-[4-(2-HYDROXYETHYL)PIPERAZIN-1-YL]-2-METHYLPYRIMIDIN-4-YL}AMINO)-1,3-THIAZOLE-5-CARBOXAMIDE",
+      "formula_weight": 0.488
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A",
+       "B"
+      ],
+      "nonpolymer_comp_id": "1N1"
+     }
+    },
+    {
+     "rcsb_id": "4XLI_3",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "ZINC ION",
+      "formula_weight": 0.065
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A"
+      ],
+      "nonpolymer_comp_id": "ZN"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "rcsb_id": "3HMI_1",
+  "rcsb_polymer_entity": {
+   "pdbx_description": "Tyrosine-protein kinase ABL2",
+   "pdbx_mutation": null
+  },
+  "entity_poly": {
+   "rcsb_sample_sequence_length": 292,
+   "type": "polypeptide(L)",
+   "pdbx_seq_one_letter_code_can": "MGHHHHHHSSGVDLGTENLYFQSMDKWEMERTDITMKHKLGGGQYGEVYVGVWKKYSLTVAVKTLKEDTMEVEEFLKEAAVMKEIKHPNLVQLLGVCTLEPPFYIVTEYMPYGNLLDYLRECNREEVTAVVLLYMATQISSAMEYLEKKNFIHRDLAARNCLVGENHVVKVADFGLSRLMTGDTYTAHAGAKFPIKWTAPESLAYNTFSIKSDVWAFGVLLWEIATYGMSPYPGIDLSQVYDLLEKGYRMEQPEGCPPKVYELMRACWKWSPADRPSFAETHQAFETMFHDS"
+  },
+  "rcsb_polymer_entity_container_identifiers": {
+   "entry_id": "3HMI",
+   "auth_asym_ids": [
+    "A"
+   ],
+   "asym_ids": [
+    "A"
+   ]
+  },
+  "rcsb_polymer_entity_align": [
+   {
+    "reference_database_accession": "P42684",
+    "reference_database_name": "UniProt",
+    "provenance_source": "SIFTS",
+    "aligned_regions": [
+     {
+      "entity_beg_seq_id": 25,
+      "length": 268,
+      "ref_beg_seq_id": 279
+     }
+    ]
+   }
+  ],
+  "rcsb_entity_source_organism": [
+   {
+    "scientific_name": "Homo sapiens",
+    "ncbi_taxonomy_id": 9606
+   }
+  ],
+  "entry": {
+   "rcsb_id": "3HMI",
+   "struct": {
+    "title": "The crystal structure of human ABL2 in complex with 5-AMINO-3-{[4-(AMINOSULFONYL)PHENYL]AMINO}-N-(2,6-DIFLUOROPHENYL)-1H-1,2,4-TRIAZOLE-1-CARBOTHIOAMIDE"
+   },
+   "exptl": [
+    {
+     "method": "X-RAY DIFFRACTION"
+    }
+   ],
+   "rcsb_entry_info": {
+    "resolution_combined": [
+     1.65
+    ],
+    "deposited_polymer_entity_instance_count": 1,
+    "experimental_method": "X-ray"
+   },
+   "rcsb_accession_info": {
+    "initial_release_date": "2009-07-07T00:00:00Z"
+   },
+   "citation": [
+    {
+     "id": "primary",
+     "title": "The crystal structure of human ABL2 in complex with 5-AMINO-3-{[4-(AMINOSULFONYL)PHENYL]AMINO}-N-(2,6-DIFLUOROPHENYL)-1H-1,2,4-TRIAZOLE-1-CARBOTHIOAMIDE",
+     "pdbx_database_id_DOI": null,
+     "journal_abbrev": "To be Published",
+     "year": null
+    }
+   ],
+   "nonpolymer_entities": [
+    {
+     "rcsb_id": "3HMI_2",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "5-AMINO-3-{[4-(AMINOSULFONYL)PHENYL]AMINO}-N-(2,6-DIFLUOROPHENYL)-1H-1,2,4-TRIAZOLE-1-CARBOTHIOAMIDE",
+      "formula_weight": 0.425
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A"
+      ],
+      "nonpolymer_comp_id": "DKI"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "rcsb_id": "3GVU_1",
+  "rcsb_polymer_entity": {
+   "pdbx_description": "Tyrosine-protein kinase ABL2",
+   "pdbx_mutation": null
+  },
+  "entity_poly": {
+   "rcsb_sample_sequence_length": 292,
+   "type": "polypeptide(L)",
+   "pdbx_seq_one_letter_code_can": "MGHHHHHHSSGVDLGTENLYFQSMDKWEMERTDITMKHKLGGGQYGEVYVGVWKKYSLTVAVKTLKEDTMEVEEFLKEAAVMKEIKHPNLVQLLGVCTLEPPFYIVTEYMPYGNLLDYLRECNREEVTAVVLLYMATQISSAMEYLEKKNFIHRDLAARNCLVGENHVVKVADFGLSRLMTGDTYTAHAGAKFPIKWTAPESLAYNTFSIKSDVWAFGVLLWEIATYGMSPYPGIDLSQVYDLLEKGYRMEQPEGCPPKVYELMRACWKWSPADRPSFAETHQAFETMFHDS"
+  },
+  "rcsb_polymer_entity_container_identifiers": {
+   "entry_id": "3GVU",
+   "auth_asym_ids": [
+    "A"
+   ],
+   "asym_ids": [
+    "A"
+   ]
+  },
+  "rcsb_polymer_entity_align": [
+   {
+    "reference_database_accession": "P42684",
+    "reference_database_name": "UniProt",
+    "provenance_source": "SIFTS",
+    "aligned_regions": [
+     {
+      "entity_beg_seq_id": 25,
+      "length": 268,
+      "ref_beg_seq_id": 279
+     }
+    ]
+   }
+  ],
+  "rcsb_entity_source_organism": [
+   {
+    "scientific_name": "Homo sapiens",
+    "ncbi_taxonomy_id": 9606
+   }
+  ],
+  "entry": {
+   "rcsb_id": "3GVU",
+   "struct": {
+    "title": "The crystal structure of human ABL2 in complex with GLEEVEC"
+   },
+   "exptl": [
+    {
+     "method": "X-RAY DIFFRACTION"
+    }
+   ],
+   "rcsb_entry_info": {
+    "resolution_combined": [
+     2.05
+    ],
+    "deposited_polymer_entity_instance_count": 1,
+    "experimental_method": "X-ray"
+   },
+   "rcsb_accession_info": {
+    "initial_release_date": "2009-04-21T00:00:00Z"
+   },
+   "citation": [
+    {
+     "id": "primary",
+     "title": "The crystal structure of human ABL2 in complex with GLEEVEC",
+     "pdbx_database_id_DOI": null,
+     "journal_abbrev": "To be Published",
+     "year": null
+    }
+   ],
+   "nonpolymer_entities": [
+    {
+     "rcsb_id": "3GVU_2",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "4-(4-METHYL-PIPERAZIN-1-YLMETHYL)-N-[4-METHYL-3-(4-PYRIDIN-3-YL-PYRIMIDIN-2-YLAMINO)-PHENYL]-BENZAMIDE",
+      "formula_weight": 0.494
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A"
+      ],
+      "nonpolymer_comp_id": "STI"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "rcsb_id": "2XYN_1",
+  "rcsb_polymer_entity": {
+   "pdbx_description": "TYROSINE-PROTEIN KINASE ABL2",
+   "pdbx_mutation": null
+  },
+  "entity_poly": {
+   "rcsb_sample_sequence_length": 292,
+   "type": "polypeptide(L)",
+   "pdbx_seq_one_letter_code_can": "MGHHHHHHSSGVDLGTENLYFQSMDKWEMERTDITMKHKLGGGQYGEVYVGVWKKYSLTVAVKTLKEDTMEVEEFLKEAAVMKEIKHPNLVQLLGVCTLEPPFYIVTEYMPYGNLLDYLRECNREEVTAVVLLYMATQISSAMEYLEKKNFIHRDLAARNCLVGENHVVKVADFGLSRLMTGDTYTAHAGAKFPIKWTAPESLAYNTFSIKSDVWAFGVLLWEIATYGMSPYPGIDLSQVYDLLEKGYRMEQPEGCPPKVYELMRACWKWSPADRPSFAETHQAFETMFHDS"
+  },
+  "rcsb_polymer_entity_container_identifiers": {
+   "entry_id": "2XYN",
+   "auth_asym_ids": [
+    "A",
+    "B",
+    "C"
+   ],
+   "asym_ids": [
+    "A",
+    "B",
+    "C"
+   ]
+  },
+  "rcsb_polymer_entity_align": [
+   {
+    "reference_database_accession": "P42684",
+    "reference_database_name": "UniProt",
+    "provenance_source": "SIFTS",
+    "aligned_regions": [
+     {
+      "entity_beg_seq_id": 25,
+      "length": 268,
+      "ref_beg_seq_id": 279
+     }
+    ]
+   }
+  ],
+  "rcsb_entity_source_organism": [
+   {
+    "scientific_name": "HOMO SAPIENS",
+    "ncbi_taxonomy_id": 9606
+   }
+  ],
+  "entry": {
+   "rcsb_id": "2XYN",
+   "struct": {
+    "title": "HUMAN ABL2 IN COMPLEX WITH AURORA KINASE INHIBITOR VX-680"
+   },
+   "exptl": [
+    {
+     "method": "X-RAY DIFFRACTION"
+    }
+   ],
+   "rcsb_entry_info": {
+    "resolution_combined": [
+     2.81
+    ],
+    "deposited_polymer_entity_instance_count": 3,
+    "experimental_method": "X-ray"
+   },
+   "rcsb_accession_info": {
+    "initial_release_date": "2010-12-01T00:00:00Z"
+   },
+   "citation": [
+    {
+     "id": "primary",
+     "title": "Crystal Structures of Abl-Related Gene (Abl2) in Complex with Imatinib, Tozasertib (Vx-680), and a Type I Inhibitor of the Triazole Carbothioamide Class.",
+     "pdbx_database_id_DOI": "10.1021/JM101506N",
+     "journal_abbrev": "J.Med.Chem.",
+     "year": 2011
+    }
+   ],
+   "nonpolymer_entities": [
+    {
+     "rcsb_id": "2XYN_2",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "SODIUM ION",
+      "formula_weight": 0.023
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A"
+      ],
+      "nonpolymer_comp_id": "NA"
+     }
+    },
+    {
+     "rcsb_id": "2XYN_4",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "CHLORIDE ION",
+      "formula_weight": 0.035
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A"
+      ],
+      "nonpolymer_comp_id": "CL"
+     }
+    },
+    {
+     "rcsb_id": "2XYN_3",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "CYCLOPROPANECARBOXYLIC ACID {4-[4-(4-METHYL-PIPERAZIN-1-YL)-6-(5-METHYL-2H-PYRAZOL-3-YLAMINO)-PYRIMIDIN-2-YLSULFANYL]-PHENYL}-AMIDE",
+      "formula_weight": 0.465
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A",
+       "B",
+       "C"
+      ],
+      "nonpolymer_comp_id": "VX6"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "rcsb_id": "1OPJ_1",
+  "rcsb_polymer_entity": {
+   "pdbx_description": "Proto-oncogene tyrosine-protein kinase ABL1",
+   "pdbx_mutation": null
+  },
+  "entity_poly": {
+   "rcsb_sample_sequence_length": 293,
+   "type": "polypeptide(L)",
+   "pdbx_seq_one_letter_code_can": "GAMDPSSPNYDKWEMERTDITMKHKLGGGQYGEVYEGVWKKYSLTVAVKTLKEDTMEVEEFLKEAAVMKEIKHPNLVQLLGVCTREPPFYIITEFMTYGNLLDYLRECNRQEVSAVVLLYMATQISSAMEYLEKKNFIHRDLAARNCLVGENHLVKVADFGLSRLMTGDTYTAHAGAKFPIKWTAPESLAYNKFSIKSDVWAFGVLLWEIATYGMSPYPGIDLSQVYELLEKDYRMERPEGCPEKVYELMRACWQWNPSDRPSFAEIHQAFETMFQESSISDEVEKELGKRGT"
+  },
+  "rcsb_polymer_entity_container_identifiers": {
+   "entry_id": "1OPJ",
+   "auth_asym_ids": [
+    "A",
+    "B"
+   ],
+   "asym_ids": [
+    "A",
+    "B"
+   ]
+  },
+  "rcsb_polymer_entity_align": [
+   {
+    "reference_database_accession": "P00520",
+    "reference_database_name": "UniProt",
+    "provenance_source": "SIFTS",
+    "aligned_regions": [
+     {
+      "entity_beg_seq_id": 7,
+      "length": 287,
+      "ref_beg_seq_id": 229
+     }
+    ]
+   }
+  ],
+  "rcsb_entity_source_organism": [
+   {
+    "scientific_name": "Mus musculus",
+    "ncbi_taxonomy_id": 10090
+   }
+  ],
+  "entry": {
+   "rcsb_id": "1OPJ",
+   "struct": {
+    "title": "Structural basis for the auto-inhibition of c-Abl tyrosine kinase"
+   },
+   "exptl": [
+    {
+     "method": "X-RAY DIFFRACTION"
+    }
+   ],
+   "rcsb_entry_info": {
+    "resolution_combined": [
+     1.75
+    ],
+    "deposited_polymer_entity_instance_count": 2,
+    "experimental_method": "X-ray"
+   },
+   "rcsb_accession_info": {
+    "initial_release_date": "2003-04-08T00:00:00Z"
+   },
+   "citation": [
+    {
+     "id": "primary",
+     "title": "Structural basis for the autoinhibition of c-Abl tyrosine kinase",
+     "pdbx_database_id_DOI": "10.1016/S0092-8674(03)00194-6",
+     "journal_abbrev": "Cell(Cambridge,Mass.)",
+     "year": 2003
+    },
+    {
+     "id": "1",
+     "title": "A myristoyl/phosphotyrosine switch regulates c-Abl",
+     "pdbx_database_id_DOI": "10.1016/S0092-8674(03)00191-0",
+     "journal_abbrev": "Cell(Cambridge,Mass.)",
+     "year": 2003
+    }
+   ],
+   "nonpolymer_entities": [
+    {
+     "rcsb_id": "1OPJ_2",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "CHLORIDE ION",
+      "formula_weight": 0.035
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A",
+       "B"
+      ],
+      "nonpolymer_comp_id": "CL"
+     }
+    },
+    {
+     "rcsb_id": "1OPJ_3",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "MYRISTIC ACID",
+      "formula_weight": 0.228
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A",
+       "B"
+      ],
+      "nonpolymer_comp_id": "MYR"
+     }
+    },
+    {
+     "rcsb_id": "1OPJ_4",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "4-(4-METHYL-PIPERAZIN-1-YLMETHYL)-N-[4-METHYL-3-(4-PYRIDIN-3-YL-PYRIMIDIN-2-YLAMINO)-PHENYL]-BENZAMIDE",
+      "formula_weight": 0.494
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A",
+       "B"
+      ],
+      "nonpolymer_comp_id": "STI"
+     }
+    }
+   ]
+  }
+ }
+]

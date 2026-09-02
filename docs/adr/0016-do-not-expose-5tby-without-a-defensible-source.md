@@ -1,6 +1,14 @@
 # 0016 — Do not expose 5TBY as a propagation input without a defensible source
 
-**Status:** accepted · 2026-08-21
+**Status:** **superseded** by
+[ADR 0031](0031-expose-5tby-as-a-reported-arm-with-both-defects-measured.md) · 2026-09-02 ·
+originally accepted 2026-08-21
+
+> The blocking condition below was "the organisers answer question (a)". They answered on
+> 2026-09-02 and sanctioned `9GZ2` in place of `6C1H`, so a label set now exists and the
+> label-side premise of this ADR is false. Its input-side reasoning survives as a disclosure
+> rather than as a block: the arm is exposed, non-confirmatory, with both defects measured.
+> Read 0031 for what runs today. This file records why the block was right at the time.
 
 ## Context
 

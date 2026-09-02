@@ -33,6 +33,7 @@ from allo.inputs import ROOT, ApoInput
 __all__ = [
     "PATCH_CACHE",
     "EvaluationGraph",
+    "MatchedPoolUnavailable",
     "component_sizes",
     "evaluation_graph",
     "field_factor",
@@ -41,6 +42,63 @@ __all__ = [
     "sample_matched_patches",
     "smooth_field",
 ]
+
+
+class MatchedPoolUnavailable(RuntimeError):
+    """The matched-patch pool cannot be drawn at the requested tolerance and attempt budget.
+
+    Raised, not returned, because a short pool is never a usable null: the replicate count
+    sets the p-value floor, so quietly returning fewer patches would move a number.
+
+    It is a distinct type because the callers must tell "this graph cannot supply a matched
+    pool at this tolerance" apart from any other RuntimeError. **No caller may answer it by
+    widening the tolerance for the arm that failed.** The scoring tolerance is frozen at
+    0.10 by the ADR 0023 sweep, and a per-arm tolerance chosen after an arm failed is a
+    per-arm hyperparameter, which is the one thing this protocol exists to prevent.
+
+    Where it fires, and where it does not. On 2026-09-02 it fired on
+    `cardiac_myosin_mandated` -- the 20 A homology model ADR 0031 exposes as defective --
+    on the **0.05 rung of the calibration sweep**, at 822 of 999 patches in 3 996 000
+    attempts. It does **not** fire on that arm at the frozen 0.10, where 999 patches draw at
+    an acceptance rate of 0.000884. So the sweep records the rung as undrawable and the
+    scored arm keeps its null. A caller that runs at the frozen tolerance and still sees
+    this exception has an arm whose graph is unlike every graph the protocol was calibrated
+    on, and must report that arm without a matched-patch null rather than retune it.
+    """
+
+    def __init__(
+        self,
+        message: str,
+        *,
+        target: str,
+        drawn: int,
+        wanted: int,
+        attempts: int,
+        rejected: dict[str, int],
+        observed: dict,
+    ) -> None:
+        super().__init__(message)
+        self.target = target
+        self.drawn = drawn
+        self.wanted = wanted
+        self.attempts = attempts
+        self.rejected = rejected
+        # The properties the draw was matching on. They are what a reader needs to see why
+        # no patch matched, and carrying them keeps the record the same shape as a
+        # successful draw's.
+        self.observed = observed
+
+    def diagnostics(self) -> dict:
+        return {
+            "available": False,
+            "reason": "matched pool undrawable at the frozen tolerance",
+            "drawn": self.drawn,
+            "wanted": self.wanted,
+            "attempts": self.attempts,
+            "acceptance_rate": round(self.drawn / self.attempts, 8) if self.attempts else 0.0,
+            "rejected": self.rejected,
+            **self.observed,
+        }
 
 
 @dataclass(frozen=True)
@@ -211,6 +269,12 @@ def sample_matched_patches(
     ).min(axis=1)
     wanted_distance = float(np.median(to_source[mask]))
     wanted_rg = graph.radius_of_gyration(observed)
+    observed_geometry = {
+        "observed_components": list(wanted_components),
+        "observed_mean_degree": round(wanted_degree, 4),
+        "observed_radius_of_gyration": round(wanted_rg, 4),
+        "observed_median_distance_to_source": round(wanted_distance, 4),
+    }
 
     patches = np.zeros((n_patches, len(graph.order)), dtype=bool)
     rejected = {"frontier": 0, "adjacent": 0, "degree": 0, "compactness": 0, "distance": 0}
@@ -253,19 +317,22 @@ def sample_matched_patches(
         drawn += 1
 
     if drawn < n_patches:
-        raise RuntimeError(
+        raise MatchedPoolUnavailable(
             f"{graph.target}: drew {drawn} of {n_patches} matched patches in {attempts} "
             f"attempts (rejections {rejected}). Widen the tolerance deliberately and "
-            f"re-freeze; do not shrink the replicate count."
+            f"re-freeze; do not shrink the replicate count.",
+            target=graph.target,
+            drawn=drawn,
+            wanted=n_patches,
+            attempts=attempts,
+            rejected=dict(rejected),
+            observed=observed_geometry,
         )
     diagnostics = {
         "attempts": attempts,
         "acceptance_rate": round(n_patches / attempts, 6),
         "rejected": rejected,
-        "observed_components": list(wanted_components),
-        "observed_mean_degree": round(wanted_degree, 4),
-        "observed_radius_of_gyration": round(wanted_rg, 4),
-        "observed_median_distance_to_source": round(wanted_distance, 4),
+        **observed_geometry,
         "sampled_mean_degree": round(float((patches @ graph.degree / patches.sum(1)).mean()), 4),
         "sampled_radius_of_gyration": round(
             float(
@@ -356,8 +423,28 @@ def matched_patches(
     # depends on the observed patch and on the graph, and leaving those out meant a changed
     # label set or contact cutoff returned stale patches and `allo evaluate verify` still
     # exited 0 -- a false green in exactly the case verification exists to catch.
+    # The digest covers every input the sampler reads, which until 2026-09-02 it did not.
+    # `order` and `source` do not move with the contact cutoff, so the digest was identical
+    # at cutoffs 4.5, 6.0 and 8.0 on `cardiac_myosin_corrected` while the mean degree ran
+    # 9.531, 13.398, 24.262 -- and the pool is matched on `mean_degree` and
+    # `radius_of_gyration`. A cutoff change returned a pool matched to the wrong geometry
+    # and `allo evaluate verify` still exited 0, because `_derive_arm` writes the cached
+    # diagnostics into the freeze and the comparison was stale against stale.
+    #
+    # `adjacency` and not just `degree`, because the sampler grows patches and counts
+    # components from the neighbour sets, so an edge rewiring at unchanged degree is a
+    # different sampler. `ca_coord` because `radius_of_gyration` and the distance match read
+    # coordinates directly. The cutoff had never moved, so no recorded number was affected.
     digest = sha256(
-        repr((sorted(set(observed)), graph.order, tuple(sorted(graph.source)))).encode()
+        repr(
+            (
+                sorted(set(observed)),
+                graph.order,
+                tuple(sorted(graph.source)),
+                tuple(tuple(sorted(s)) for s in graph.adjacency),
+                np.ascontiguousarray(graph.ca_coord, dtype=np.float64).tobytes(),
+            )
+        ).encode()
     ).hexdigest()[:12]
     key = f"{graph.target}-n{n_patches}-t{tolerance}-s{seed}-d{int(match_distance)}-{digest}.npz"
     path = cache / key

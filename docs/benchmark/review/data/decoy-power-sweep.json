@@ -1,0 +1,372 @@
+{
+  "kras_g12c_mandated": {
+    "frozen": {
+      "n_detected": 5,
+      "n_scoreable": 5,
+      "n_decoys": 3,
+      "decoy_residues": 23,
+      "min_p": 0.25,
+      "site_coverage": 0.75
+    },
+    "vol 2.0": {
+      "n_detected": 5,
+      "n_scoreable": 5,
+      "n_decoys": 3,
+      "decoy_residues": 23,
+      "min_p": 0.25,
+      "site_coverage": 0.75
+    },
+    "vol 1.0": {
+      "n_detected": 6,
+      "n_scoreable": 6,
+      "n_decoys": 4,
+      "decoy_residues": 29,
+      "min_p": 0.2,
+      "site_coverage": 0.75
+    },
+    "po 5.0": {
+      "n_detected": 5,
+      "n_scoreable": 5,
+      "n_decoys": 3,
+      "decoy_residues": 22,
+      "min_p": 0.25,
+      "site_coverage": 0.75
+    },
+    "po 6.0": {
+      "n_detected": 5,
+      "n_scoreable": 5,
+      "n_decoys": 3,
+      "decoy_residues": 25,
+      "min_p": 0.25,
+      "site_coverage": 0.75
+    },
+    "po 8.0": {
+      "n_detected": 7,
+      "n_scoreable": 7,
+      "n_decoys": 5,
+      "decoy_residues": 36,
+      "min_p": 0.16666666666666666,
+      "site_coverage": 0.75
+    },
+    "rd 1.2": {
+      "n_detected": 9,
+      "n_scoreable": 9,
+      "n_decoys": 6,
+      "decoy_residues": 41,
+      "min_p": 0.14285714285714285,
+      "site_coverage": 0.75
+    },
+    "po 6 vol 1": {
+      "n_detected": 6,
+      "n_scoreable": 6,
+      "n_decoys": 4,
+      "decoy_residues": 31,
+      "min_p": 0.2,
+      "site_coverage": 0.75
+    },
+    "po 8 rd1.2 vol1": {
+      "n_detected": 16,
+      "n_scoreable": 16,
+      "n_decoys": 13,
+      "decoy_residues": 76,
+      "min_p": 0.07142857142857142,
+      "site_coverage": 0.8125
+    }
+  },
+  "kras_g12c_corrected": {
+    "frozen": {
+      "n_detected": 5,
+      "n_scoreable": 4,
+      "n_decoys": 3,
+      "decoy_residues": 25,
+      "min_p": 0.25,
+      "site_coverage": 0.75
+    },
+    "vol 2.0": {
+      "n_detected": 5,
+      "n_scoreable": 4,
+      "n_decoys": 3,
+      "decoy_residues": 25,
+      "min_p": 0.25,
+      "site_coverage": 0.75
+    },
+    "vol 1.0": {
+      "n_detected": 7,
+      "n_scoreable": 6,
+      "n_decoys": 5,
+      "decoy_residues": 26,
+      "min_p": 0.16666666666666666,
+      "site_coverage": 0.75
+    },
+    "po 5.0": {
+      "n_detected": 4,
+      "n_scoreable": 4,
+      "n_decoys": 3,
+      "decoy_residues": 27,
+      "min_p": 0.25,
+      "site_coverage": 0.75
+    },
+    "po 6.0": {
+      "n_detected": 5,
+      "n_scoreable": 5,
+      "n_decoys": 3,
+      "decoy_residues": 28,
+      "min_p": 0.25,
+      "site_coverage": 0.75
+    },
+    "po 8.0": {
+      "n_detected": 5,
+      "n_scoreable": 5,
+      "n_decoys": 3,
+      "decoy_residues": 29,
+      "min_p": 0.25,
+      "site_coverage": 0.75
+    },
+    "rd 1.2": {
+      "n_detected": 9,
+      "n_scoreable": 9,
+      "n_decoys": 7,
+      "decoy_residues": 41,
+      "min_p": 0.125,
+      "site_coverage": 0.75
+    },
+    "po 6 vol 1": {
+      "n_detected": 9,
+      "n_scoreable": 9,
+      "n_decoys": 6,
+      "decoy_residues": 33,
+      "min_p": 0.14285714285714285,
+      "site_coverage": 0.75
+    },
+    "po 8 rd1.2 vol1": {
+      "n_detected": 21,
+      "n_scoreable": 21,
+      "n_decoys": 18,
+      "decoy_residues": 64,
+      "min_p": 0.05263157894736842,
+      "site_coverage": 0.9375
+    }
+  },
+  "bcr_abl1_mandated": {
+    "frozen": {
+      "n_detected": 27,
+      "n_scoreable": 27,
+      "n_decoys": 24,
+      "decoy_residues": 197,
+      "min_p": 0.04,
+      "site_coverage": 0.85
+    },
+    "vol 2.0": {
+      "n_detected": 29,
+      "n_scoreable": 29,
+      "n_decoys": 26,
+      "decoy_residues": 201,
+      "min_p": 0.037037037037037035,
+      "site_coverage": 0.85
+    },
+    "vol 1.0": {
+      "n_detected": 30,
+      "n_scoreable": 30,
+      "n_decoys": 27,
+      "decoy_residues": 201,
+      "min_p": 0.03571428571428571,
+      "site_coverage": 0.85
+    },
+    "po 5.0": {
+      "n_detected": 20,
+      "n_scoreable": 20,
+      "n_decoys": 17,
+      "decoy_residues": 197,
+      "min_p": 0.05555555555555555,
+      "site_coverage": 0.95
+    },
+    "po 6.0": {
+      "n_detected": 18,
+      "n_scoreable": 18,
+      "n_decoys": 15,
+      "decoy_residues": 190,
+      "min_p": 0.0625,
+      "site_coverage": 1.0
+    },
+    "po 8.0": {
+      "n_detected": 15,
+      "n_scoreable": 15,
+      "n_decoys": 11,
+      "decoy_residues": 138,
+      "min_p": 0.08333333333333333,
+      "site_coverage": 1.0
+    },
+    "rd 1.2": {
+      "n_detected": 34,
+      "n_scoreable": 34,
+      "n_decoys": 30,
+      "decoy_residues": 237,
+      "min_p": 0.03225806451612903,
+      "site_coverage": 1.0
+    },
+    "po 6 vol 1": {
+      "n_detected": 24,
+      "n_scoreable": 24,
+      "n_decoys": 20,
+      "decoy_residues": 204,
+      "min_p": 0.047619047619047616,
+      "site_coverage": 1.0
+    },
+    "po 8 rd1.2 vol1": {
+      "n_detected": 44,
+      "n_scoreable": 44,
+      "n_decoys": 41,
+      "decoy_residues": 222,
+      "min_p": 0.023809523809523808,
+      "site_coverage": 1.0
+    }
+  },
+  "bcr_abl1_corrected": {
+    "frozen": {
+      "n_detected": 12,
+      "n_scoreable": 12,
+      "n_decoys": 9,
+      "decoy_residues": 73,
+      "min_p": 0.1,
+      "site_coverage": 0.6667
+    },
+    "vol 2.0": {
+      "n_detected": 15,
+      "n_scoreable": 15,
+      "n_decoys": 12,
+      "decoy_residues": 85,
+      "min_p": 0.07692307692307693,
+      "site_coverage": 0.6667
+    },
+    "vol 1.0": {
+      "n_detected": 19,
+      "n_scoreable": 19,
+      "n_decoys": 16,
+      "decoy_residues": 94,
+      "min_p": 0.058823529411764705,
+      "site_coverage": 0.6667
+    },
+    "po 5.0": {
+      "n_detected": 12,
+      "n_scoreable": 12,
+      "n_decoys": 10,
+      "decoy_residues": 89,
+      "min_p": 0.09090909090909091,
+      "site_coverage": 0.9444
+    },
+    "po 6.0": {
+      "n_detected": 14,
+      "n_scoreable": 14,
+      "n_decoys": 12,
+      "decoy_residues": 105,
+      "min_p": 0.07692307692307693,
+      "site_coverage": 0.9444
+    },
+    "po 8.0": {
+      "n_detected": 17,
+      "n_scoreable": 17,
+      "n_decoys": 15,
+      "decoy_residues": 129,
+      "min_p": 0.0625,
+      "site_coverage": 0.9444
+    },
+    "rd 1.2": {
+      "n_detected": 25,
+      "n_scoreable": 25,
+      "n_decoys": 22,
+      "decoy_residues": 144,
+      "min_p": 0.043478260869565216,
+      "site_coverage": 0.9444
+    },
+    "po 6 vol 1": {
+      "n_detected": 20,
+      "n_scoreable": 20,
+      "n_decoys": 17,
+      "decoy_residues": 120,
+      "min_p": 0.05555555555555555,
+      "site_coverage": 0.9444
+    },
+    "po 8 rd1.2 vol1": {
+      "n_detected": 35,
+      "n_scoreable": 35,
+      "n_decoys": 31,
+      "decoy_residues": 198,
+      "min_p": 0.03125,
+      "site_coverage": 0.9444
+    }
+  },
+  "cardiac_myosin_corrected": {
+    "frozen": {
+      "n_detected": 42,
+      "n_scoreable": 42,
+      "n_decoys": 41,
+      "decoy_residues": 291,
+      "min_p": 0.023809523809523808,
+      "site_coverage": 1.0
+    },
+    "vol 2.0": {
+      "n_detected": 51,
+      "n_scoreable": 51,
+      "n_decoys": 50,
+      "decoy_residues": 315,
+      "min_p": 0.0196078431372549,
+      "site_coverage": 1.0
+    },
+    "vol 1.0": {
+      "n_detected": 53,
+      "n_scoreable": 53,
+      "n_decoys": 52,
+      "decoy_residues": 318,
+      "min_p": 0.018867924528301886,
+      "site_coverage": 1.0
+    },
+    "po 5.0": {
+      "n_detected": 46,
+      "n_scoreable": 46,
+      "n_decoys": 45,
+      "decoy_residues": 324,
+      "min_p": 0.021739130434782608,
+      "site_coverage": 1.0
+    },
+    "po 6.0": {
+      "n_detected": 49,
+      "n_scoreable": 49,
+      "n_decoys": 48,
+      "decoy_residues": 368,
+      "min_p": 0.02040816326530612,
+      "site_coverage": 1.0
+    },
+    "po 8.0": {
+      "n_detected": 43,
+      "n_scoreable": 43,
+      "n_decoys": 42,
+      "decoy_residues": 405,
+      "min_p": 0.023255813953488372,
+      "site_coverage": 1.0
+    },
+    "rd 1.2": {
+      "n_detected": 72,
+      "n_scoreable": 72,
+      "n_decoys": 71,
+      "decoy_residues": 458,
+      "min_p": 0.013888888888888888,
+      "site_coverage": 1.0
+    },
+    "po 6 vol 1": {
+      "n_detected": 61,
+      "n_scoreable": 61,
+      "n_decoys": 60,
+      "decoy_residues": 386,
+      "min_p": 0.01639344262295082,
+      "site_coverage": 1.0
+    },
+    "po 8 rd1.2 vol1": {
+      "n_detected": 85,
+      "n_scoreable": 85,
+      "n_decoys": 84,
+      "decoy_residues": 464,
+      "min_p": 0.011764705882352941,
+      "site_coverage": 1.0
+    }
+  }
+}

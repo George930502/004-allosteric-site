@@ -1,0 +1,2861 @@
+{
+ "entity_poly": {
+  "nstd_linkage": "no",
+  "nstd_monomer": "yes",
+  "pdbx_seq_one_letter_code": "IKSALLVLEDGTQFHGRAIGATGSAVGEVVFNTSMTGYQEILTDPSYSRQIVTLTYPHIGNVGTNDADEESSQVHAQGLVIRDLPLIASNFRNTEDLSSYLKRHNIVAIADIDTRKLTRLLREKGAQNGCIIAGDNPDAALALEKARAFPGLNGMDLAKEVTTAEAYSWTQGSWTLTGGLPQAKKEDELPFHVVAYDFGAKRNILRMLVDRGCRLTIVPAQTSAEDVLKMNPDGIFLSNGPGDPAPCDYAITAIQKFLETDIPVFGI(CYG)LGHQLLALASGAKTVKMKFGHHGGNHPVKDVEKNVVMITAQNHGFAVDEATLPANLRVTHKSLFDGTLQGIHRTDKPAFSFQGNPEASPGPHDAAPLFDHFIELIEQYRKT",
+  "pdbx_seq_one_letter_code_can": "IKSALLVLEDGTQFHGRAIGATGSAVGEVVFNTSMTGYQEILTDPSYSRQIVTLTYPHIGNVGTNDADEESSQVHAQGLVIRDLPLIASNFRNTEDLSSYLKRHNIVAIADIDTRKLTRLLREKGAQNGCIIAGDNPDAALALEKARAFPGLNGMDLAKEVTTAEAYSWTQGSWTLTGGLPQAKKEDELPFHVVAYDFGAKRNILRMLVDRGCRLTIVPAQTSAEDVLKMNPDGIFLSNGPGDPAPCDYAITAIQKFLETDIPVFGICLGHQLLALASGAKTVKMKFGHHGGNHPVKDVEKNVVMITAQNHGFAVDEATLPANLRVTHKSLFDGTLQGIHRTDKPAFSFQGNPEASPGPHDAAPLFDHFIELIEQYRKT",
+  "pdbx_strand_id": "B,D,F,H",
+  "rcsb_artifact_monomer_count": 0,
+  "rcsb_conflict_count": 1,
+  "rcsb_deletion_count": 0,
+  "rcsb_entity_polymer_type": "Protein",
+  "rcsb_insertion_count": 0,
+  "rcsb_mutation_count": 2,
+  "rcsb_non_std_monomer_count": 1,
+  "rcsb_non_std_monomers": [
+   "CYG"
+  ],
+  "rcsb_sample_sequence_length": 379,
+  "type": "polypeptide(L)"
+ },
+ "entity_src_gen": [
+  {
+   "gene_src_genus": "Escherichia",
+   "host_org_genus": "Escherichia",
+   "pdbx_alt_source_flag": "sample",
+   "pdbx_gene_src_ncbi_taxonomy_id": "562",
+   "pdbx_gene_src_scientific_name": "Escherichia coli",
+   "pdbx_host_org_ncbi_taxonomy_id": "562",
+   "pdbx_host_org_scientific_name": "Escherichia coli",
+   "pdbx_src_id": 1
+  }
+ ],
+ "rcsb_cluster_membership": [
+  {
+   "cluster_id": 5825,
+   "identity": 100
+  },
+  {
+   "cluster_id": 6130,
+   "identity": 95
+  },
+  {
+   "cluster_id": 6834,
+   "identity": 90
+  },
+  {
+   "cluster_id": 4443,
+   "identity": 70
+  },
+  {
+   "cluster_id": 1682,
+   "identity": 50
+  },
+  {
+   "cluster_id": 1355,
+   "identity": 30
+  }
+ ],
+ "rcsb_entity_host_organism": [
+  {
+   "ncbi_common_names": [
+    "Bacillus coli",
+    "Bacterium coli",
+    "Bacterium coli commune",
+    "E. coli",
+    "Enterococcus coli",
+    "Escherichia/Shigella coli"
+   ],
+   "ncbi_parent_scientific_name": "Bacteria",
+   "ncbi_scientific_name": "Escherichia coli",
+   "ncbi_taxonomy_id": 562,
+   "pdbx_src_id": 1,
+   "provenance_source": "Primary Data",
+   "scientific_name": "Escherichia coli",
+   "taxonomy_lineage": [
+    {
+     "depth": 1,
+     "id": "131567",
+     "name": "cellular organisms"
+    },
+    {
+     "depth": 1,
+     "id": "131567",
+     "name": "biota"
+    },
+    {
+     "depth": 2,
+     "id": "2",
+     "name": "Bacteria"
+    },
+    {
+     "depth": 2,
+     "id": "2",
+     "name": "Bacteria (ex Cavalier-Smith 1987)"
+    },
+    {
+     "depth": 2,
+     "id": "2",
+     "name": "Bacteria Woese et al. 2024"
+    },
+    {
+     "depth": 2,
+     "id": "2",
+     "name": "Bacteriobiota"
+    },
+    {
+     "depth": 2,
+     "id": "2",
+     "name": "bacteria"
+    },
+    {
+     "depth": 2,
+     "id": "2",
+     "name": "eubacteria"
+    },
+    {
+     "depth": 3,
+     "id": "3379134",
+     "name": "Pseudomonadati"
+    },
+    {
+     "depth": 4,
+     "id": "1224",
+     "name": "Pseudomonadota"
+    },
+    {
+     "depth": 4,
+     "id": "1224",
+     "name": "\"Alphaproteobacteriota\" Whitman et al. 2018"
+    },
+    {
+     "depth": 4,
+     "id": "1224",
+     "name": "Alphaproteobacteriota"
+    },
+    {
+     "depth": 4,
+     "id": "1224",
+     "name": "Proteobacteria"
+    },
+    {
+     "depth": 4,
+     "id": "1224",
+     "name": "Proteobacteriota"
+    },
+    {
+     "depth": 4,
+     "id": "1224",
+     "name": "proteobacteria"
+    },
+    {
+     "depth": 4,
+     "id": "1224",
+     "name": "purple photosynthetic bacteria and relatives"
+    },
+    {
+     "depth": 5,
+     "id": "1236",
+     "name": "Gammaproteobacteria"
+    },
+    {
+     "depth": 5,
+     "id": "1236",
+     "name": "Proteobacteria gamma subdivision"
+    },
+    {
+     "depth": 5,
+     "id": "1236",
+     "name": "Pseudomonadia"
+    },
+    {
+     "depth": 5,
+     "id": "1236",
+     "name": "Purple bacteria, gamma subdivision"
+    },
+    {
+     "depth": 5,
+     "id": "1236",
+     "name": "g-proteobacteria"
+    },
+    {
+     "depth": 5,
+     "id": "1236",
+     "name": "gamma proteobacteria"
+    },
+    {
+     "depth": 5,
+     "id": "1236",
+     "name": "gamma subdivision"
+    },
+    {
+     "depth": 5,
+     "id": "1236",
+     "name": "gamma subgroup"
+    },
+    {
+     "depth": 6,
+     "id": "91347",
+     "name": "Enterobacterales"
+    },
+    {
+     "depth": 6,
+     "id": "91347",
+     "name": "Enterobacteriaceae and related endosymbionts"
+    },
+    {
+     "depth": 6,
+     "id": "91347",
+     "name": "Enterobacteriaceae group"
+    },
+    {
+     "depth": 6,
+     "id": "91347",
+     "name": "Enterobacteriales"
+    },
+    {
+     "depth": 7,
+     "id": "543",
+     "name": "Enterobacteriaceae"
+    },
+    {
+     "depth": 7,
+     "id": "543",
+     "name": "Enterobacteraceae"
+    },
+    {
+     "depth": 7,
+     "id": "543",
+     "name": "enterobacteria"
+    },
+    {
+     "depth": 8,
+     "id": "561",
+     "name": "Escherichia"
+    },
+    {
+     "depth": 9,
+     "id": "562",
+     "name": "Escherichia coli"
+    },
+    {
+     "depth": 9,
+     "id": "562",
+     "name": "Bacillus coli"
+    },
+    {
+     "depth": 9,
+     "id": "562",
+     "name": "Bacterium coli"
+    },
+    {
+     "depth": 9,
+     "id": "562",
+     "name": "Bacterium coli commune"
+    },
+    {
+     "depth": 9,
+     "id": "562",
+     "name": "E. coli"
+    },
+    {
+     "depth": 9,
+     "id": "562",
+     "name": "Enterococcus coli"
+    },
+    {
+     "depth": 9,
+     "id": "562",
+     "name": "Escherichia/Shigella coli"
+    }
+   ]
+  }
+ ],
+ "rcsb_entity_source_organism": [
+  {
+   "ncbi_common_names": [
+    "Bacillus coli",
+    "Bacterium coli",
+    "Bacterium coli commune",
+    "E. coli",
+    "Enterococcus coli",
+    "Escherichia/Shigella coli"
+   ],
+   "ncbi_parent_scientific_name": "Bacteria",
+   "ncbi_scientific_name": "Escherichia coli",
+   "ncbi_taxonomy_id": 562,
+   "pdbx_src_id": 1,
+   "provenance_source": "Primary Data",
+   "scientific_name": "Escherichia coli",
+   "source_type": "genetically engineered",
+   "taxonomy_lineage": [
+    {
+     "depth": 1,
+     "id": "131567",
+     "name": "cellular organisms"
+    },
+    {
+     "depth": 1,
+     "id": "131567",
+     "name": "biota"
+    },
+    {
+     "depth": 2,
+     "id": "2",
+     "name": "Bacteria"
+    },
+    {
+     "depth": 2,
+     "id": "2",
+     "name": "Bacteria (ex Cavalier-Smith 1987)"
+    },
+    {
+     "depth": 2,
+     "id": "2",
+     "name": "Bacteria Woese et al. 2024"
+    },
+    {
+     "depth": 2,
+     "id": "2",
+     "name": "Bacteriobiota"
+    },
+    {
+     "depth": 2,
+     "id": "2",
+     "name": "bacteria"
+    },
+    {
+     "depth": 2,
+     "id": "2",
+     "name": "eubacteria"
+    },
+    {
+     "depth": 3,
+     "id": "3379134",
+     "name": "Pseudomonadati"
+    },
+    {
+     "depth": 4,
+     "id": "1224",
+     "name": "Pseudomonadota"
+    },
+    {
+     "depth": 4,
+     "id": "1224",
+     "name": "\"Alphaproteobacteriota\" Whitman et al. 2018"
+    },
+    {
+     "depth": 4,
+     "id": "1224",
+     "name": "Alphaproteobacteriota"
+    },
+    {
+     "depth": 4,
+     "id": "1224",
+     "name": "Proteobacteria"
+    },
+    {
+     "depth": 4,
+     "id": "1224",
+     "name": "Proteobacteriota"
+    },
+    {
+     "depth": 4,
+     "id": "1224",
+     "name": "proteobacteria"
+    },
+    {
+     "depth": 4,
+     "id": "1224",
+     "name": "purple photosynthetic bacteria and relatives"
+    },
+    {
+     "depth": 5,
+     "id": "1236",
+     "name": "Gammaproteobacteria"
+    },
+    {
+     "depth": 5,
+     "id": "1236",
+     "name": "Proteobacteria gamma subdivision"
+    },
+    {
+     "depth": 5,
+     "id": "1236",
+     "name": "Pseudomonadia"
+    },
+    {
+     "depth": 5,
+     "id": "1236",
+     "name": "Purple bacteria, gamma subdivision"
+    },
+    {
+     "depth": 5,
+     "id": "1236",
+     "name": "g-proteobacteria"
+    },
+    {
+     "depth": 5,
+     "id": "1236",
+     "name": "gamma proteobacteria"
+    },
+    {
+     "depth": 5,
+     "id": "1236",
+     "name": "gamma subdivision"
+    },
+    {
+     "depth": 5,
+     "id": "1236",
+     "name": "gamma subgroup"
+    },
+    {
+     "depth": 6,
+     "id": "91347",
+     "name": "Enterobacterales"
+    },
+    {
+     "depth": 6,
+     "id": "91347",
+     "name": "Enterobacteriaceae and related endosymbionts"
+    },
+    {
+     "depth": 6,
+     "id": "91347",
+     "name": "Enterobacteriaceae group"
+    },
+    {
+     "depth": 6,
+     "id": "91347",
+     "name": "Enterobacteriales"
+    },
+    {
+     "depth": 7,
+     "id": "543",
+     "name": "Enterobacteriaceae"
+    },
+    {
+     "depth": 7,
+     "id": "543",
+     "name": "Enterobacteraceae"
+    },
+    {
+     "depth": 7,
+     "id": "543",
+     "name": "enterobacteria"
+    },
+    {
+     "depth": 8,
+     "id": "561",
+     "name": "Escherichia"
+    },
+    {
+     "depth": 9,
+     "id": "562",
+     "name": "Escherichia coli"
+    },
+    {
+     "depth": 9,
+     "id": "562",
+     "name": "Bacillus coli"
+    },
+    {
+     "depth": 9,
+     "id": "562",
+     "name": "Bacterium coli"
+    },
+    {
+     "depth": 9,
+     "id": "562",
+     "name": "Bacterium coli commune"
+    },
+    {
+     "depth": 9,
+     "id": "562",
+     "name": "E. coli"
+    },
+    {
+     "depth": 9,
+     "id": "562",
+     "name": "Enterococcus coli"
+    },
+    {
+     "depth": 9,
+     "id": "562",
+     "name": "Escherichia/Shigella coli"
+    }
+   ]
+  }
+ ],
+ "rcsb_id": "1A9X_2",
+ "rcsb_polymer_entity": {
+  "formula_weight": 41.255,
+  "pdbx_description": "CARBAMOYL PHOSPHATE SYNTHETASE (SMALL CHAIN)",
+  "pdbx_mutation": "H353N",
+  "pdbx_number_of_molecules": 4,
+  "rcsb_ec_lineage": [
+   {
+    "depth": 1,
+    "id": "6",
+    "name": "Ligases"
+   },
+   {
+    "depth": 2,
+    "id": "6.3",
+    "name": "Forming carbon-nitrogen bonds"
+   },
+   {
+    "depth": 3,
+    "id": "6.3.5",
+    "name": "Carbon-nitrogen ligases with glutamine as amido-N-donor"
+   },
+   {
+    "depth": 4,
+    "id": "6.3.5.5",
+    "name": "carbamoyl-phosphate synthase (glutamine-hydrolysing)"
+   }
+  ],
+  "rcsb_enzyme_class_combined": [
+   {
+    "depth": 4,
+    "ec": "6.3.5.5",
+    "provenance_source": "UniProt"
+   }
+  ],
+  "rcsb_macromolecular_names_combined": [
+   {
+    "name": "CARBAMOYL PHOSPHATE SYNTHETASE (SMALL CHAIN)",
+    "provenance_code": "ECO:0000304",
+    "provenance_source": "PDB Preferred Name"
+   }
+  ],
+  "rcsb_multiple_source_flag": "N",
+  "rcsb_polymer_name_combined": {
+   "names": [
+    "Carbamoyl phosphate synthase small chain"
+   ],
+   "provenance_source": "UniProt Name"
+  },
+  "rcsb_source_part_count": 1,
+  "rcsb_source_taxonomy_count": 1,
+  "src_method": "man"
+ },
+ "rcsb_polymer_entity_align": [
+  {
+   "aligned_regions": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 379,
+     "ref_beg_seq_id": 2
+    }
+   ],
+   "provenance_source": "SIFTS",
+   "reference_database_accession": "P0A6F1",
+   "reference_database_name": "UniProt"
+  }
+ ],
+ "rcsb_polymer_entity_annotation": [
+  {
+   "annotation_id": "PF00117",
+   "assignment_version": "34.0",
+   "name": "Glutamine amidotransferase class-I (GATase)",
+   "provenance_source": "Pfam",
+   "type": "Pfam"
+  },
+  {
+   "annotation_id": "PF00988",
+   "assignment_version": "34.0",
+   "name": "Carbamoyl-phosphate synthase small chain, CPSase domain (CPSase_sm_chain)",
+   "provenance_source": "Pfam",
+   "type": "Pfam"
+  },
+  {
+   "annotation_id": "GO:0005951",
+   "annotation_lineage": [
+    {
+     "id": "GO:0032991",
+     "name": "protein-containing complex"
+    },
+    {
+     "id": "GO:0005575",
+     "name": "cellular_component"
+    },
+    {
+     "id": "GO:0110165",
+     "name": "cellular anatomical structure"
+    },
+    {
+     "id": "GO:0005622",
+     "name": "intracellular anatomical structure"
+    },
+    {
+     "id": "GO:1902494",
+     "name": "catalytic complex"
+    },
+    {
+     "id": "GO:0005951",
+     "name": "carbamoyl-phosphate synthase complex"
+    },
+    {
+     "id": "GO:0005737",
+     "name": "cytoplasm"
+    }
+   ],
+   "name": "carbamoyl-phosphate synthase complex",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "IPR029062",
+   "annotation_lineage": [
+    {
+     "id": "IPR029062",
+     "name": "Class I glutamine amidotransferase-like"
+    }
+   ],
+   "name": "Class I glutamine amidotransferase-like",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "GO:0005524",
+   "annotation_lineage": [
+    {
+     "id": "GO:0005488",
+     "name": "binding"
+    },
+    {
+     "id": "GO:0032559",
+     "name": "adenyl ribonucleotide binding"
+    },
+    {
+     "id": "GO:0000166",
+     "name": "nucleotide binding"
+    },
+    {
+     "id": "GO:0032555",
+     "name": "purine ribonucleotide binding"
+    },
+    {
+     "id": "GO:0035639",
+     "name": "purine ribonucleoside triphosphate binding"
+    },
+    {
+     "id": "GO:1901265",
+     "name": "nucleoside phosphate binding"
+    },
+    {
+     "id": "GO:0043167",
+     "name": "ion binding"
+    },
+    {
+     "id": "GO:0017076",
+     "name": "purine nucleotide binding"
+    },
+    {
+     "id": "GO:0043168",
+     "name": "anion binding"
+    },
+    {
+     "id": "GO:0030554",
+     "name": "adenyl nucleotide binding"
+    },
+    {
+     "id": "GO:0005524",
+     "name": "ATP binding"
+    },
+    {
+     "id": "GO:1901363",
+     "name": "heterocyclic compound binding"
+    },
+    {
+     "id": "GO:0003674",
+     "name": "molecular_function"
+    },
+    {
+     "id": "GO:0097367",
+     "name": "carbohydrate derivative binding"
+    },
+    {
+     "id": "GO:0032553",
+     "name": "ribonucleotide binding"
+    },
+    {
+     "id": "GO:0036094",
+     "name": "small molecule binding"
+    }
+   ],
+   "name": "ATP binding",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "GO:0019856",
+   "annotation_lineage": [
+    {
+     "id": "GO:0072527",
+     "name": "pyrimidine-containing compound metabolic process"
+    },
+    {
+     "id": "GO:0046112",
+     "name": "nucleobase biosynthetic process"
+    },
+    {
+     "id": "GO:0019856",
+     "name": "pyrimidine nucleobase biosynthetic process"
+    },
+    {
+     "id": "GO:0044238",
+     "name": "primary metabolic process"
+    },
+    {
+     "id": "GO:0006139",
+     "name": "nucleobase-containing compound metabolic process"
+    },
+    {
+     "id": "GO:0006206",
+     "name": "pyrimidine nucleobase metabolic process"
+    },
+    {
+     "id": "GO:0009058",
+     "name": "biosynthetic process"
+    },
+    {
+     "id": "GO:0055086",
+     "name": "nucleobase-containing small molecule metabolic process"
+    },
+    {
+     "id": "GO:0009112",
+     "name": "nucleobase metabolic process"
+    },
+    {
+     "id": "GO:0008150",
+     "name": "biological_process"
+    },
+    {
+     "id": "GO:0044281",
+     "name": "small molecule metabolic process"
+    },
+    {
+     "id": "GO:0008152",
+     "name": "metabolic process"
+    },
+    {
+     "id": "GO:0009987",
+     "name": "cellular process"
+    },
+    {
+     "id": "GO:0072528",
+     "name": "pyrimidine-containing compound biosynthetic process"
+    }
+   ],
+   "name": "pyrimidine nucleobase biosynthetic process",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "IPR006274",
+   "annotation_lineage": [
+    {
+     "id": "IPR006274",
+     "name": "Carbamoyl-phosphate synthase, small subunit"
+    }
+   ],
+   "name": "Carbamoyl-phosphate synthase, small subunit",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "GO:0006526",
+   "annotation_lineage": [
+    {
+     "id": "GO:0006526",
+     "name": "L-arginine biosynthetic process"
+    },
+    {
+     "id": "GO:0043436",
+     "name": "oxoacid metabolic process"
+    },
+    {
+     "id": "GO:0009084",
+     "name": "glutamate family amino acid biosynthetic process"
+    },
+    {
+     "id": "GO:0044283",
+     "name": "small molecule biosynthetic process"
+    },
+    {
+     "id": "GO:0019752",
+     "name": "carboxylic acid metabolic process"
+    },
+    {
+     "id": "GO:0006520",
+     "name": "amino acid metabolic process"
+    },
+    {
+     "id": "GO:0044238",
+     "name": "primary metabolic process"
+    },
+    {
+     "id": "GO:0046394",
+     "name": "carboxylic acid biosynthetic process"
+    },
+    {
+     "id": "GO:0006525",
+     "name": "arginine metabolic process"
+    },
+    {
+     "id": "GO:0170039",
+     "name": "proteinogenic amino acid metabolic process"
+    },
+    {
+     "id": "GO:0008652",
+     "name": "amino acid biosynthetic process"
+    },
+    {
+     "id": "GO:0009058",
+     "name": "biosynthetic process"
+    },
+    {
+     "id": "GO:0008150",
+     "name": "biological_process"
+    },
+    {
+     "id": "GO:0170038",
+     "name": "proteinogenic amino acid biosynthetic process"
+    },
+    {
+     "id": "GO:0008152",
+     "name": "metabolic process"
+    },
+    {
+     "id": "GO:0009987",
+     "name": "cellular process"
+    },
+    {
+     "id": "GO:0044281",
+     "name": "small molecule metabolic process"
+    }
+   ],
+   "name": "L-arginine biosynthetic process",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "GO:0004359",
+   "annotation_lineage": [
+    {
+     "id": "GO:0016811",
+     "name": "hydrolase activity, acting on carbon-nitrogen (but not peptide) bonds, in linear amides"
+    },
+    {
+     "id": "GO:0004359",
+     "name": "glutaminase activity"
+    },
+    {
+     "id": "GO:0016787",
+     "name": "hydrolase activity"
+    },
+    {
+     "id": "GO:0003824",
+     "name": "catalytic activity"
+    },
+    {
+     "id": "GO:0003674",
+     "name": "molecular_function"
+    },
+    {
+     "id": "GO:0016810",
+     "name": "hydrolase activity, acting on carbon-nitrogen (but not peptide) bonds"
+    }
+   ],
+   "name": "glutaminase activity",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "IPR002474",
+   "annotation_lineage": [
+    {
+     "id": "IPR002474",
+     "name": "Carbamoyl-phosphate synthase small subunit, N-terminal domain"
+    }
+   ],
+   "name": "Carbamoyl-phosphate synthase small subunit, N-terminal domain",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "GO:0005829",
+   "annotation_lineage": [
+    {
+     "id": "GO:0110165",
+     "name": "cellular anatomical structure"
+    },
+    {
+     "id": "GO:0005575",
+     "name": "cellular_component"
+    },
+    {
+     "id": "GO:0005622",
+     "name": "intracellular anatomical structure"
+    },
+    {
+     "id": "GO:0005737",
+     "name": "cytoplasm"
+    },
+    {
+     "id": "GO:0005829",
+     "name": "cytosol"
+    }
+   ],
+   "name": "cytosol",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "GO:0006207",
+   "annotation_lineage": [
+    {
+     "id": "GO:0072527",
+     "name": "pyrimidine-containing compound metabolic process"
+    },
+    {
+     "id": "GO:0046112",
+     "name": "nucleobase biosynthetic process"
+    },
+    {
+     "id": "GO:0019856",
+     "name": "pyrimidine nucleobase biosynthetic process"
+    },
+    {
+     "id": "GO:0044238",
+     "name": "primary metabolic process"
+    },
+    {
+     "id": "GO:0006139",
+     "name": "nucleobase-containing compound metabolic process"
+    },
+    {
+     "id": "GO:0006206",
+     "name": "pyrimidine nucleobase metabolic process"
+    },
+    {
+     "id": "GO:0009058",
+     "name": "biosynthetic process"
+    },
+    {
+     "id": "GO:0055086",
+     "name": "nucleobase-containing small molecule metabolic process"
+    },
+    {
+     "id": "GO:0009112",
+     "name": "nucleobase metabolic process"
+    },
+    {
+     "id": "GO:0008150",
+     "name": "biological_process"
+    },
+    {
+     "id": "GO:0006207",
+     "name": "'de novo' pyrimidine nucleobase biosynthetic process"
+    },
+    {
+     "id": "GO:0044281",
+     "name": "small molecule metabolic process"
+    },
+    {
+     "id": "GO:0008152",
+     "name": "metabolic process"
+    },
+    {
+     "id": "GO:0009987",
+     "name": "cellular process"
+    },
+    {
+     "id": "GO:0072528",
+     "name": "pyrimidine-containing compound biosynthetic process"
+    }
+   ],
+   "name": "'de novo' pyrimidine nucleobase biosynthetic process",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "GO:0046982",
+   "annotation_lineage": [
+    {
+     "id": "GO:0046982",
+     "name": "protein heterodimerization activity"
+    },
+    {
+     "id": "GO:0005515",
+     "name": "protein binding"
+    },
+    {
+     "id": "GO:0005488",
+     "name": "binding"
+    },
+    {
+     "id": "GO:0046983",
+     "name": "protein dimerization activity"
+    },
+    {
+     "id": "GO:0003674",
+     "name": "molecular_function"
+    }
+   ],
+   "name": "protein heterodimerization activity",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "IPR017926",
+   "annotation_lineage": [
+    {
+     "depth": 1,
+     "id": "IPR017926",
+     "name": "Glutamine amidotransferase"
+    }
+   ],
+   "name": "Glutamine amidotransferase",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "GO:0006541",
+   "annotation_lineage": [
+    {
+     "id": "GO:0006541",
+     "name": "L-glutamine metabolic process"
+    },
+    {
+     "id": "GO:0170039",
+     "name": "proteinogenic amino acid metabolic process"
+    },
+    {
+     "id": "GO:0043436",
+     "name": "oxoacid metabolic process"
+    },
+    {
+     "id": "GO:0008150",
+     "name": "biological_process"
+    },
+    {
+     "id": "GO:0019752",
+     "name": "carboxylic acid metabolic process"
+    },
+    {
+     "id": "GO:0006520",
+     "name": "amino acid metabolic process"
+    },
+    {
+     "id": "GO:0044238",
+     "name": "primary metabolic process"
+    },
+    {
+     "id": "GO:0008152",
+     "name": "metabolic process"
+    },
+    {
+     "id": "GO:0009987",
+     "name": "cellular process"
+    },
+    {
+     "id": "GO:0044281",
+     "name": "small molecule metabolic process"
+    }
+   ],
+   "name": "glutamine metabolic process",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "IPR035686",
+   "annotation_lineage": [
+    {
+     "depth": 2,
+     "id": "IPR035686",
+     "name": "Carbamoyl-phosphate synthase small subunit, GATase1 domain"
+    },
+    {
+     "depth": 1,
+     "id": "IPR017926",
+     "name": "Glutamine amidotransferase"
+    }
+   ],
+   "name": "Carbamoyl-phosphate synthase small subunit, GATase1 domain",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "IPR036480",
+   "annotation_lineage": [
+    {
+     "id": "IPR036480",
+     "name": "Carbamoyl-phosphate synthase small subunit, N-terminal domain superfamily"
+    }
+   ],
+   "name": "Carbamoyl-phosphate synthase small subunit, N-terminal domain superfamily",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "GO:0044205",
+   "annotation_lineage": [
+    {
+     "id": "GO:0019693",
+     "name": "ribose phosphate metabolic process"
+    },
+    {
+     "id": "GO:0009165",
+     "name": "nucleotide biosynthetic process"
+    },
+    {
+     "id": "GO:1901135",
+     "name": "carbohydrate derivative metabolic process"
+    },
+    {
+     "id": "GO:0006220",
+     "name": "pyrimidine nucleotide metabolic process"
+    },
+    {
+     "id": "GO:0044205",
+     "name": "'de novo' UMP biosynthetic process"
+    },
+    {
+     "id": "GO:0006139",
+     "name": "nucleobase-containing compound metabolic process"
+    },
+    {
+     "id": "GO:0009260",
+     "name": "ribonucleotide biosynthetic process"
+    },
+    {
+     "id": "GO:0006222",
+     "name": "UMP biosynthetic process"
+    },
+    {
+     "id": "GO:0009259",
+     "name": "ribonucleotide metabolic process"
+    },
+    {
+     "id": "GO:0055086",
+     "name": "nucleobase-containing small molecule metabolic process"
+    },
+    {
+     "id": "GO:0008150",
+     "name": "biological_process"
+    },
+    {
+     "id": "GO:0046049",
+     "name": "UMP metabolic process"
+    },
+    {
+     "id": "GO:0044281",
+     "name": "small molecule metabolic process"
+    },
+    {
+     "id": "GO:0072528",
+     "name": "pyrimidine-containing compound biosynthetic process"
+    },
+    {
+     "id": "GO:0006793",
+     "name": "phosphorus metabolic process"
+    },
+    {
+     "id": "GO:0009123",
+     "name": "nucleoside monophosphate metabolic process"
+    },
+    {
+     "id": "GO:0046390",
+     "name": "ribose phosphate biosynthetic process"
+    },
+    {
+     "id": "GO:0009218",
+     "name": "pyrimidine ribonucleotide metabolic process"
+    },
+    {
+     "id": "GO:0006753",
+     "name": "nucleoside phosphate metabolic process"
+    },
+    {
+     "id": "GO:1901137",
+     "name": "carbohydrate derivative biosynthetic process"
+    },
+    {
+     "id": "GO:0009129",
+     "name": "pyrimidine nucleoside monophosphate metabolic process"
+    },
+    {
+     "id": "GO:0009173",
+     "name": "pyrimidine ribonucleoside monophosphate metabolic process"
+    },
+    {
+     "id": "GO:0072527",
+     "name": "pyrimidine-containing compound metabolic process"
+    },
+    {
+     "id": "GO:0044238",
+     "name": "primary metabolic process"
+    },
+    {
+     "id": "GO:0034654",
+     "name": "nucleobase-containing compound biosynthetic process"
+    },
+    {
+     "id": "GO:0009117",
+     "name": "nucleotide metabolic process"
+    },
+    {
+     "id": "GO:0009124",
+     "name": "nucleoside monophosphate biosynthetic process"
+    },
+    {
+     "id": "GO:0009058",
+     "name": "biosynthetic process"
+    },
+    {
+     "id": "GO:0009174",
+     "name": "pyrimidine ribonucleoside monophosphate biosynthetic process"
+    },
+    {
+     "id": "GO:0019637",
+     "name": "organophosphate metabolic process"
+    },
+    {
+     "id": "GO:0090407",
+     "name": "organophosphate biosynthetic process"
+    },
+    {
+     "id": "GO:1901293",
+     "name": "nucleoside phosphate biosynthetic process"
+    },
+    {
+     "id": "GO:0008152",
+     "name": "metabolic process"
+    },
+    {
+     "id": "GO:0009987",
+     "name": "cellular process"
+    },
+    {
+     "id": "GO:0009130",
+     "name": "pyrimidine nucleoside monophosphate biosynthetic process"
+    },
+    {
+     "id": "GO:0009156",
+     "name": "ribonucleoside monophosphate biosynthetic process"
+    },
+    {
+     "id": "GO:0006221",
+     "name": "pyrimidine nucleotide biosynthetic process"
+    },
+    {
+     "id": "GO:0009220",
+     "name": "pyrimidine ribonucleotide biosynthetic process"
+    }
+   ],
+   "name": "'de novo' UMP biosynthetic process",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "GO:0005737",
+   "annotation_lineage": [
+    {
+     "id": "GO:0110165",
+     "name": "cellular anatomical structure"
+    },
+    {
+     "id": "GO:0005575",
+     "name": "cellular_component"
+    },
+    {
+     "id": "GO:0005622",
+     "name": "intracellular anatomical structure"
+    },
+    {
+     "id": "GO:0005737",
+     "name": "cytoplasm"
+    }
+   ],
+   "name": "cytoplasm",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "IPR050472",
+   "annotation_lineage": [
+    {
+     "id": "IPR050472",
+     "name": "Anthranilate Synthase/Amidotransferase"
+    }
+   ],
+   "name": "Anthranilate Synthase/Amidotransferase",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "GO:0004088",
+   "annotation_lineage": [
+    {
+     "id": "GO:0016884",
+     "name": "carbon-nitrogen ligase activity, with glutamine as amido-N-donor"
+    },
+    {
+     "id": "GO:0003824",
+     "name": "catalytic activity"
+    },
+    {
+     "id": "GO:0003674",
+     "name": "molecular_function"
+    },
+    {
+     "id": "GO:0016879",
+     "name": "ligase activity, forming carbon-nitrogen bonds"
+    },
+    {
+     "id": "GO:0004088",
+     "name": "carbamoyl-phosphate synthase (glutamine-hydrolyzing) activity"
+    },
+    {
+     "id": "GO:0016874",
+     "name": "ligase activity"
+    }
+   ],
+   "name": "carbamoyl-phosphate synthase (glutamine-hydrolyzing) activity",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  }
+ ],
+ "rcsb_polymer_entity_container_identifiers": {
+  "asym_ids": [
+   "B",
+   "D",
+   "F",
+   "H"
+  ],
+  "auth_asym_ids": [
+   "B",
+   "D",
+   "F",
+   "H"
+  ],
+  "chem_comp_monomers": [
+   "ALA",
+   "ARG",
+   "ASN",
+   "ASP",
+   "CYG",
+   "CYS",
+   "GLN",
+   "GLU",
+   "GLY",
+   "HIS",
+   "ILE",
+   "LEU",
+   "LYS",
+   "MET",
+   "PHE",
+   "PRO",
+   "SER",
+   "THR",
+   "TRP",
+   "TYR",
+   "VAL"
+  ],
+  "chem_comp_nstd_monomers": [
+   "CYG"
+  ],
+  "entity_id": "2",
+  "entry_id": "1A9X",
+  "rcsb_id": "1A9X_2",
+  "reference_sequence_identifiers": [
+   {
+    "database_accession": "P0A6F1",
+    "database_name": "UniProt",
+    "entity_sequence_coverage": 1.0,
+    "provenance_source": "SIFTS",
+    "reference_sequence_coverage": 0.9921465968586387
+   }
+  ],
+  "uniprot_ids": [
+   "P0A6F1"
+  ]
+ },
+ "rcsb_polymer_entity_feature": [
+  {
+   "assignment_version": "34.0",
+   "feature_id": "PF00988",
+   "feature_positions": [
+    {
+     "beg_seq_id": 6,
+     "end_seq_id": 131
+    }
+   ],
+   "name": "Carbamoyl-phosphate synthase small chain, CPSase domain (CPSase_sm_chain)",
+   "provenance_source": "Pfam",
+   "type": "Pfam"
+  },
+  {
+   "assignment_version": "34.0",
+   "feature_id": "PF00117",
+   "feature_positions": [
+    {
+     "beg_seq_id": 194,
+     "end_seq_id": 372
+    }
+   ],
+   "name": "Glutamine amidotransferase class-I (GATase)",
+   "provenance_source": "Pfam",
+   "type": "Pfam"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PARENT_COMP_ID",
+     "values": [
+      "CYS"
+     ]
+    }
+   ],
+   "assignment_version": "V1.0",
+   "feature_id": "monomer_feature_1",
+   "feature_positions": [
+    {
+     "beg_seq_id": 268
+    }
+   ],
+   "name": "Parent monomer CYS",
+   "provenance_source": "PDB",
+   "type": "modified_monomer"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "monomer_feature_2",
+   "feature_positions": [
+    {
+     "beg_seq_id": 268
+    }
+   ],
+   "name": "modified residue",
+   "provenance_source": "PDB",
+   "type": "mutation"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "monomer_feature_3",
+   "feature_positions": [
+    {
+     "beg_seq_id": 352
+    }
+   ],
+   "name": "engineered mutation",
+   "provenance_source": "PDB",
+   "type": "mutation"
+  },
+  {
+   "feature_positions": [
+    {
+     "beg_seq_id": 5,
+     "values": [
+      1.52,
+      0.63,
+      1.02,
+      1.03,
+      0.44,
+      0.33,
+      -0.44,
+      -0.96,
+      -1.88,
+      -1.29,
+      -0.4,
+      -0.4,
+      -0.12,
+      0.19,
+      -0.17,
+      0.1,
+      0.34,
+      1.31,
+      1.07,
+      0.18,
+      0.69,
+      0.96,
+      1.34,
+      1.0,
+      1.01,
+      0.72,
+      0.47,
+      0.43,
+      0.78,
+      0.17,
+      -0.69,
+      -1.39,
+      -0.5,
+      0.0,
+      0.01,
+      -0.59,
+      -0.69,
+      -0.73,
+      -0.73,
+      -0.43,
+      -0.54,
+      -1.43,
+      -1.36,
+      -0.81,
+      -0.5,
+      0.1,
+      0.11,
+      0.11,
+      0.02,
+      0.17,
+      1.06,
+      0.51,
+      -0.34,
+      0.2,
+      -0.27,
+      -0.27,
+      -0.51,
+      -0.72,
+      -0.17,
+      -1.06,
+      -1.4,
+      -1.4,
+      -1.96,
+      -2.0,
+      -2.31,
+      -1.46,
+      -1.42,
+      -1.42,
+      -1.42,
+      -1.08,
+      -0.27,
+      0.29,
+      0.88,
+      0.77,
+      -0.09,
+      0.69,
+      0.31,
+      1.12,
+      1.67,
+      1.44,
+      0.89,
+      0.0,
+      0.81,
+      0.7,
+      -0.11,
+      -0.01,
+      -0.82,
+      -1.71,
+      -1.49,
+      -1.49,
+      -1.19,
+      -1.64,
+      -0.72,
+      -0.77,
+      -1.19,
+      -1.16,
+      -1.16,
+      -1.08,
+      -0.52,
+      -0.23,
+      0.41,
+      0.19,
+      0.23,
+      1.23,
+      1.2,
+      1.51,
+      0.51,
+      -0.39,
+      -0.17,
+      -0.74,
+      -1.44,
+      -0.63,
+      -0.71,
+      -0.82,
+      -1.13,
+      -1.07,
+      -0.68,
+      -0.9,
+      -1.21,
+      -1.1,
+      -1.57,
+      -1.71,
+      -0.71,
+      0.18,
+      0.81,
+      0.81,
+      0.22,
+      0.22,
+      0.43,
+      0.09,
+      0.01,
+      -0.29,
+      -0.37,
+      -0.37,
+      0.1,
+      0.1,
+      0.06,
+      0.43,
+      0.32,
+      0.32,
+      0.43,
+      -0.17,
+      -0.41,
+      -0.41,
+      -0.41,
+      -0.02,
+      -0.01,
+      0.1,
+      0.32,
+      0.21,
+      -0.04,
+      -0.39,
+      -0.34,
+      -0.03,
+      -0.07,
+      -0.08,
+      -0.08,
+      -0.3,
+      -0.64,
+      -0.3,
+      -0.01,
+      -0.56,
+      -0.87,
+      -0.83,
+      -1.12,
+      -0.83,
+      -1.11,
+      -0.54,
+      -0.53,
+      -0.48,
+      -0.44,
+      0.37,
+      0.23,
+      -0.07,
+      0.23,
+      -0.12,
+      -0.98,
+      -1.29,
+      -1.63,
+      -1.98,
+      -1.98,
+      -1.98,
+      -1.28,
+      -1.83,
+      -0.93,
+      -0.03,
+      0.56,
+      0.8,
+      0.8,
+      0.69,
+      0.82,
+      0.71,
+      0.63,
+      -0.33,
+      -1.19,
+      -0.89,
+      -0.32,
+      -0.43,
+      -0.53,
+      -0.07,
+      0.2,
+      0.24,
+      0.24,
+      0.59,
+      0.37,
+      -0.56,
+      0.37,
+      0.08,
+      0.16,
+      0.16,
+      0.37,
+      1.07,
+      0.72,
+      0.37,
+      0.78,
+      0.56,
+      0.24,
+      -0.64,
+      -0.64,
+      -0.04,
+      -0.68,
+      -0.08,
+      -0.39,
+      -0.48,
+      -1.07,
+      -0.72,
+      0.17,
+      0.01,
+      0.01,
+      0.36,
+      -0.24,
+      0.1,
+      0.1,
+      0.44,
+      0.1,
+      -0.58,
+      -0.69,
+      -1.29,
+      -0.92,
+      -0.92,
+      -1.02,
+      -0.64,
+      -0.1,
+      0.21,
+      0.59,
+      0.89,
+      0.68,
+      -0.03,
+      0.67,
+      1.23,
+      0.64,
+      0.07,
+      -0.24,
+      0.06,
+      -0.62,
+      0.23,
+      0.98,
+      0.62,
+      0.7,
+      1.37,
+      1.87,
+      2.21,
+      1.36,
+      1.14,
+      1.1,
+      1.21,
+      1.46,
+      1.38,
+      1.3,
+      0.79,
+      0.79,
+      1.34,
+      1.3,
+      0.8,
+      0.84,
+      0.21,
+      0.0,
+      -0.63,
+      -0.23,
+      -0.23,
+      -0.79,
+      -0.71,
+      -0.68,
+      -1.19,
+      -1.14,
+      -1.71,
+      -1.46,
+      -1.3,
+      -1.69,
+      -1.72,
+      -0.9,
+      -1.24,
+      -1.63,
+      -1.63,
+      -0.81,
+      -0.17,
+      -0.42,
+      0.51,
+      0.82,
+      0.56,
+      0.56,
+      0.6,
+      0.63,
+      0.12,
+      -0.03,
+      -0.04,
+      -0.08,
+      -0.39,
+      -0.98,
+      -0.39,
+      -0.08,
+      0.7,
+      0.57,
+      0.46,
+      -0.13,
+      -0.18,
+      -0.29,
+      0.57,
+      0.29,
+      0.01,
+      -0.84,
+      -0.76,
+      -0.53,
+      0.17,
+      -0.64,
+      -0.19,
+      -0.73,
+      -0.23,
+      -0.27,
+      0.12,
+      0.71,
+      -0.07,
+      -0.88,
+      -0.57,
+      -0.91,
+      -1.27,
+      -1.87,
+      -1.28,
+      -0.92,
+      -1.51,
+      -0.84,
+      -0.73,
+      -0.7,
+      -0.7,
+      -0.44,
+      -0.66,
+      -0.66,
+      -1.06,
+      -1.14,
+      -1.5,
+      -1.29,
+      -1.6,
+      -1.6,
+      -1.22,
+      -0.63,
+      -1.01,
+      -0.5,
+      -0.01,
+      -0.36,
+      -0.53,
+      0.13,
+      1.02,
+      0.43,
+      0.66,
+      1.33,
+      0.52,
+      -0.18,
+      0.07,
+      -0.08,
+      -0.82,
+      -1.4
+     ]
+    }
+   ],
+   "name": "Hydropathy values",
+   "provenance_source": "biojava-7.2.4",
+   "type": "hydropathy"
+  },
+  {
+   "feature_positions": [
+    {
+     "beg_seq_id": 1,
+     "values": [
+      0.38,
+      0.38,
+      0.39,
+      0.4,
+      0.4,
+      0.41,
+      0.42,
+      0.42,
+      0.41,
+      0.41,
+      0.4,
+      0.39,
+      0.38,
+      0.37,
+      0.36,
+      0.34,
+      0.32,
+      0.31,
+      0.31,
+      0.31,
+      0.32,
+      0.33,
+      0.34,
+      0.35,
+      0.37,
+      0.38,
+      0.4,
+      0.43,
+      0.42,
+      0.41,
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.42,
+      0.42,
+      0.43,
+      0.43,
+      0.43,
+      0.42,
+      0.42,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.42,
+      0.42,
+      0.42,
+      0.42,
+      0.42,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.42,
+      0.42,
+      0.42,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.42,
+      0.42,
+      0.42,
+      0.42,
+      0.42,
+      0.42,
+      0.42,
+      0.42,
+      0.41,
+      0.41,
+      0.4,
+      0.4,
+      0.4,
+      0.41,
+      0.42,
+      0.42,
+      0.43,
+      0.43,
+      0.41,
+      0.4,
+      0.38,
+      0.37,
+      0.35,
+      0.35,
+      0.35,
+      0.35,
+      0.35,
+      0.35,
+      0.34,
+      0.34,
+      0.34,
+      0.34,
+      0.34,
+      0.35,
+      0.35,
+      0.35,
+      0.35,
+      0.35,
+      0.35,
+      0.35,
+      0.35,
+      0.36,
+      0.37,
+      0.37,
+      0.38,
+      0.38,
+      0.39,
+      0.39,
+      0.4,
+      0.4,
+      0.42,
+      0.43,
+      0.43,
+      0.42,
+      0.41,
+      0.41,
+      0.4,
+      0.4,
+      0.39,
+      0.38,
+      0.37,
+      0.38,
+      0.38,
+      0.39,
+      0.39,
+      0.4,
+      0.4,
+      0.41,
+      0.41,
+      0.43,
+      0.43,
+      0.43,
+      0.42,
+      0.42,
+      0.42,
+      0.42,
+      0.43,
+      0.43,
+      0.43,
+      0.42,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.43,
+      0.43,
+      0.41,
+      0.39,
+      0.37,
+      0.36,
+      0.36,
+      0.35,
+      0.35,
+      0.36,
+      0.36,
+      0.38,
+      0.4,
+      0.43,
+      0.42,
+      0.39,
+      0.38,
+      0.38,
+      0.38,
+      0.39,
+      0.39,
+      0.4,
+      0.41,
+      0.42,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.41,
+      0.41,
+      0.4,
+      0.4,
+      0.41,
+      0.42,
+      0.43,
+      0.43,
+      0.41,
+      0.4,
+      0.39,
+      0.38,
+      0.37,
+      0.36,
+      0.35,
+      0.35,
+      0.34,
+      0.33,
+      0.33,
+      0.32,
+      0.31,
+      0.31,
+      0.3,
+      0.29,
+      0.28,
+      0.28,
+      0.27,
+      0.27,
+      0.27,
+      0.27,
+      0.26,
+      0.27,
+      0.26,
+      0.26,
+      0.25,
+      0.25,
+      0.25,
+      0.25,
+      0.24,
+      0.24,
+      0.24,
+      0.24,
+      0.24,
+      0.25,
+      0.26,
+      0.28,
+      0.3,
+      0.31,
+      0.33,
+      0.36,
+      0.38,
+      0.41,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.42,
+      0.42,
+      0.41,
+      0.41,
+      0.4,
+      0.39,
+      0.38,
+      0.37,
+      0.37,
+      0.37,
+      0.38,
+      0.37,
+      0.37,
+      0.37,
+      0.36,
+      0.35,
+      0.35,
+      0.35,
+      0.34,
+      0.34,
+      0.34,
+      0.34,
+      0.34,
+      0.35,
+      0.36,
+      0.37,
+      0.38,
+      0.39,
+      0.4,
+      0.41,
+      0.4,
+      0.4,
+      0.4,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.42,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.42,
+      0.42,
+      0.41,
+      0.41,
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.42,
+      0.42,
+      0.42,
+      0.42,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.42,
+      0.42,
+      0.42,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.42,
+      0.42,
+      0.42,
+      0.42,
+      0.42,
+      0.42,
+      0.42,
+      0.42,
+      0.42,
+      0.42,
+      0.42,
+      0.42,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.42,
+      0.43,
+      0.43,
+      0.44,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.42,
+      0.42
+     ]
+    }
+   ],
+   "name": "Disordered binding sites",
+   "provenance_source": "Anchor2",
+   "type": "disorder_binding"
+  },
+  {
+   "feature_positions": [
+    {
+     "beg_seq_id": 1,
+     "values": [
+      0.69,
+      0.66,
+      0.62,
+      0.5,
+      0.46,
+      0.41,
+      0.37,
+      0.29,
+      0.17,
+      0.14,
+      0.09,
+      0.15,
+      0.15,
+      0.15,
+      0.15,
+      0.16,
+      0.23,
+      0.31,
+      0.32,
+      0.25,
+      0.16,
+      0.17,
+      0.16,
+      0.16,
+      0.2,
+      0.19,
+      0.2,
+      0.13,
+      0.17,
+      0.26,
+      0.19,
+      0.17,
+      0.17,
+      0.18,
+      0.21,
+      0.24,
+      0.24,
+      0.24,
+      0.22,
+      0.3,
+      0.29,
+      0.33,
+      0.32,
+      0.26,
+      0.25,
+      0.23,
+      0.26,
+      0.27,
+      0.27,
+      0.27,
+      0.25,
+      0.26,
+      0.33,
+      0.33,
+      0.32,
+      0.3,
+      0.27,
+      0.35,
+      0.36,
+      0.38,
+      0.37,
+      0.44,
+      0.5,
+      0.45,
+      0.52,
+      0.49,
+      0.57,
+      0.54,
+      0.47,
+      0.5,
+      0.42,
+      0.41,
+      0.49,
+      0.4,
+      0.44,
+      0.36,
+      0.27,
+      0.27,
+      0.27,
+      0.25,
+      0.16,
+      0.16,
+      0.16,
+      0.15,
+      0.2,
+      0.19,
+      0.14,
+      0.13,
+      0.14,
+      0.13,
+      0.11,
+      0.16,
+      0.16,
+      0.15,
+      0.22,
+      0.12,
+      0.13,
+      0.17,
+      0.12,
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.09,
+      0.06,
+      0.1,
+      0.1,
+      0.06,
+      0.06,
+      0.1,
+      0.11,
+      0.11,
+      0.11,
+      0.09,
+      0.15,
+      0.2,
+      0.23,
+      0.25,
+      0.2,
+      0.14,
+      0.18,
+      0.18,
+      0.18,
+      0.18,
+      0.22,
+      0.3,
+      0.27,
+      0.25,
+      0.26,
+      0.31,
+      0.23,
+      0.24,
+      0.23,
+      0.2,
+      0.23,
+      0.19,
+      0.14,
+      0.16,
+      0.22,
+      0.23,
+      0.31,
+      0.33,
+      0.3,
+      0.31,
+      0.24,
+      0.18,
+      0.18,
+      0.22,
+      0.19,
+      0.26,
+      0.29,
+      0.33,
+      0.33,
+      0.31,
+      0.26,
+      0.26,
+      0.23,
+      0.3,
+      0.28,
+      0.28,
+      0.35,
+      0.29,
+      0.29,
+      0.26,
+      0.24,
+      0.31,
+      0.34,
+      0.27,
+      0.28,
+      0.34,
+      0.31,
+      0.3,
+      0.32,
+      0.32,
+      0.35,
+      0.43,
+      0.35,
+      0.45,
+      0.36,
+      0.34,
+      0.27,
+      0.21,
+      0.25,
+      0.17,
+      0.24,
+      0.16,
+      0.16,
+      0.13,
+      0.19,
+      0.16,
+      0.16,
+      0.13,
+      0.09,
+      0.09,
+      0.07,
+      0.04,
+      0.03,
+      0.05,
+      0.04,
+      0.07,
+      0.05,
+      0.07,
+      0.06,
+      0.07,
+      0.08,
+      0.05,
+      0.11,
+      0.09,
+      0.12,
+      0.12,
+      0.13,
+      0.1,
+      0.17,
+      0.24,
+      0.19,
+      0.16,
+      0.21,
+      0.23,
+      0.23,
+      0.26,
+      0.27,
+      0.33,
+      0.27,
+      0.29,
+      0.22,
+      0.31,
+      0.37,
+      0.34,
+      0.4,
+      0.38,
+      0.4,
+      0.42,
+      0.41,
+      0.44,
+      0.34,
+      0.41,
+      0.4,
+      0.38,
+      0.32,
+      0.32,
+      0.25,
+      0.17,
+      0.18,
+      0.23,
+      0.22,
+      0.2,
+      0.21,
+      0.21,
+      0.22,
+      0.12,
+      0.15,
+      0.09,
+      0.04,
+      0.05,
+      0.03,
+      0.02,
+      0.01,
+      0.02,
+      0.03,
+      0.05,
+      0.03,
+      0.02,
+      0.03,
+      0.01,
+      0.01,
+      0.02,
+      0.04,
+      0.03,
+      0.03,
+      0.03,
+      0.03,
+      0.03,
+      0.03,
+      0.05,
+      0.03,
+      0.05,
+      0.1,
+      0.17,
+      0.17,
+      0.17,
+      0.17,
+      0.26,
+      0.38,
+      0.35,
+      0.44,
+      0.47,
+      0.41,
+      0.43,
+      0.47,
+      0.47,
+      0.42,
+      0.45,
+      0.42,
+      0.39,
+      0.38,
+      0.45,
+      0.47,
+      0.47,
+      0.47,
+      0.48,
+      0.4,
+      0.37,
+      0.3,
+      0.27,
+      0.34,
+      0.31,
+      0.3,
+      0.29,
+      0.31,
+      0.27,
+      0.27,
+      0.24,
+      0.3,
+      0.26,
+      0.32,
+      0.33,
+      0.35,
+      0.34,
+      0.27,
+      0.2,
+      0.21,
+      0.29,
+      0.31,
+      0.31,
+      0.34,
+      0.33,
+      0.3,
+      0.31,
+      0.38,
+      0.35,
+      0.39,
+      0.39,
+      0.5,
+      0.47,
+      0.47,
+      0.47,
+      0.39,
+      0.41,
+      0.42,
+      0.49,
+      0.58,
+      0.59,
+      0.56,
+      0.56,
+      0.65,
+      0.64,
+      0.67,
+      0.71,
+      0.73,
+      0.71,
+      0.69,
+      0.71,
+      0.66,
+      0.57,
+      0.61,
+      0.68,
+      0.63,
+      0.64,
+      0.64,
+      0.58,
+      0.53,
+      0.51,
+      0.53,
+      0.48,
+      0.47,
+      0.42,
+      0.42,
+      0.43,
+      0.47,
+      0.49,
+      0.55,
+      0.61,
+      0.62,
+      0.7,
+      0.8,
+      0.82,
+      0.85
+     ]
+    }
+   ],
+   "name": "Disordered regions",
+   "provenance_source": "IUPred2(short)",
+   "type": "disorder"
+  }
+ ],
+ "rcsb_polymer_entity_feature_summary": [
+  {
+   "count": 2,
+   "coverage": 0.80475,
+   "type": "Pfam"
+  },
+  {
+   "count": 2,
+   "coverage": 0.00528,
+   "type": "mutation"
+  },
+  {
+   "count": 1,
+   "coverage": 0.00264,
+   "type": "modified_monomer"
+  }
+ ],
+ "rcsb_polymer_entity_group_membership": [
+  {
+   "aggregation_method": "sequence_identity",
+   "aligned_regions": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 379,
+     "ref_beg_seq_id": 2
+    }
+   ],
+   "group_id": "6834_90",
+   "similarity_cutoff": 90.0
+  },
+  {
+   "aggregation_method": "sequence_identity",
+   "aligned_regions": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 379,
+     "ref_beg_seq_id": 2
+    }
+   ],
+   "group_id": "6130_95",
+   "similarity_cutoff": 95.0
+  },
+  {
+   "aggregation_method": "sequence_identity",
+   "aligned_regions": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 23,
+     "ref_beg_seq_id": 110
+    },
+    {
+     "entity_beg_seq_id": 24,
+     "length": 49,
+     "ref_beg_seq_id": 136
+    },
+    {
+     "entity_beg_seq_id": 73,
+     "length": 66,
+     "ref_beg_seq_id": 188
+    },
+    {
+     "entity_beg_seq_id": 139,
+     "length": 26,
+     "ref_beg_seq_id": 259
+    },
+    {
+     "entity_beg_seq_id": 165,
+     "length": 9,
+     "ref_beg_seq_id": 286
+    },
+    {
+     "entity_beg_seq_id": 174,
+     "length": 7,
+     "ref_beg_seq_id": 298
+    },
+    {
+     "entity_beg_seq_id": 181,
+     "length": 3,
+     "ref_beg_seq_id": 306
+    },
+    {
+     "entity_beg_seq_id": 184,
+     "length": 76,
+     "ref_beg_seq_id": 323
+    },
+    {
+     "entity_beg_seq_id": 260,
+     "length": 63,
+     "ref_beg_seq_id": 400
+    },
+    {
+     "entity_beg_seq_id": 323,
+     "length": 57,
+     "ref_beg_seq_id": 494
+    }
+   ],
+   "group_id": "1682_50",
+   "similarity_cutoff": 50.0
+  },
+  {
+   "aggregation_method": "sequence_identity",
+   "aligned_regions": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 72,
+     "ref_beg_seq_id": 10
+    },
+    {
+     "entity_beg_seq_id": 73,
+     "length": 187,
+     "ref_beg_seq_id": 85
+    },
+    {
+     "entity_beg_seq_id": 260,
+     "length": 120,
+     "ref_beg_seq_id": 273
+    }
+   ],
+   "group_id": "4443_70",
+   "similarity_cutoff": 70.0
+  },
+  {
+   "aggregation_method": "sequence_identity",
+   "aligned_regions": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 23,
+     "ref_beg_seq_id": 110
+    },
+    {
+     "entity_beg_seq_id": 24,
+     "length": 44,
+     "ref_beg_seq_id": 136
+    },
+    {
+     "entity_beg_seq_id": 68,
+     "length": 5,
+     "ref_beg_seq_id": 190
+    },
+    {
+     "entity_beg_seq_id": 73,
+     "length": 4,
+     "ref_beg_seq_id": 198
+    },
+    {
+     "entity_beg_seq_id": 77,
+     "length": 58,
+     "ref_beg_seq_id": 206
+    },
+    {
+     "entity_beg_seq_id": 135,
+     "length": 4,
+     "ref_beg_seq_id": 269
+    },
+    {
+     "entity_beg_seq_id": 139,
+     "length": 11,
+     "ref_beg_seq_id": 285
+    },
+    {
+     "entity_beg_seq_id": 150,
+     "length": 23,
+     "ref_beg_seq_id": 300
+    },
+    {
+     "entity_beg_seq_id": 173,
+     "length": 8,
+     "ref_beg_seq_id": 326
+    },
+    {
+     "entity_beg_seq_id": 181,
+     "length": 3,
+     "ref_beg_seq_id": 343
+    },
+    {
+     "entity_beg_seq_id": 184,
+     "length": 47,
+     "ref_beg_seq_id": 348
+    },
+    {
+     "entity_beg_seq_id": 231,
+     "length": 17,
+     "ref_beg_seq_id": 399
+    },
+    {
+     "entity_beg_seq_id": 248,
+     "length": 12,
+     "ref_beg_seq_id": 417
+    },
+    {
+     "entity_beg_seq_id": 260,
+     "length": 62,
+     "ref_beg_seq_id": 434
+    },
+    {
+     "entity_beg_seq_id": 322,
+     "length": 21,
+     "ref_beg_seq_id": 527
+    },
+    {
+     "entity_beg_seq_id": 343,
+     "length": 24,
+     "ref_beg_seq_id": 554
+    },
+    {
+     "entity_beg_seq_id": 367,
+     "length": 13,
+     "ref_beg_seq_id": 579
+    }
+   ],
+   "group_id": "1355_30",
+   "similarity_cutoff": 30.0
+  },
+  {
+   "aggregation_method": "sequence_identity",
+   "aligned_regions": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 379,
+     "ref_beg_seq_id": 2
+    }
+   ],
+   "group_id": "5825_100",
+   "similarity_cutoff": 100.0
+  },
+  {
+   "aggregation_method": "matching_uniprot_accession",
+   "aligned_regions": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 379,
+     "ref_beg_seq_id": 2
+    }
+   ],
+   "group_id": "P0A6F1"
+  }
+ ]
+}

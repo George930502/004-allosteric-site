@@ -1,0 +1,54 @@
+{
+ "pdbx_entity_nonpoly": {
+  "comp_id": "VO4",
+  "entity_id": "3",
+  "name": "VANADATE ION"
+ },
+ "rcsb_id": "8QYP_3",
+ "rcsb_nonpolymer_entity": {
+  "formula_weight": 0.115,
+  "pdbx_description": "VANADATE ION",
+  "pdbx_number_of_molecules": 1
+ },
+ "rcsb_nonpolymer_entity_annotation": [
+  {
+   "annotation_id": "entity_annotation_2",
+   "assignment_version": "V1.0",
+   "comp_id": "VO4",
+   "description": "Ligand targeted in this investigation",
+   "name": "VO4",
+   "provenance_source": "PDB",
+   "type": "SUBJECT_OF_INVESTIGATION"
+  }
+ ],
+ "rcsb_nonpolymer_entity_container_identifiers": {
+  "asym_ids": [
+   "C"
+  ],
+  "auth_asym_ids": [
+   "A"
+  ],
+  "chem_ref_def_id": "VO4",
+  "entity_id": "3",
+  "entry_id": "8QYP",
+  "nonpolymer_comp_id": "VO4",
+  "rcsb_id": "8QYP_3"
+ },
+ "rcsb_nonpolymer_entity_feature": [
+  {
+   "assignment_version": "V1.0",
+   "comp_id": "VO4",
+   "description": "Ligand targeted in this investigation",
+   "feature_id": "entity_feature_2",
+   "name": "VO4",
+   "provenance_source": "PDB",
+   "type": "SUBJECT_OF_INVESTIGATION"
+  }
+ ],
+ "rcsb_nonpolymer_entity_feature_summary": [
+  {
+   "count": 1,
+   "type": "SUBJECT_OF_INVESTIGATION"
+  }
+ ]
+}

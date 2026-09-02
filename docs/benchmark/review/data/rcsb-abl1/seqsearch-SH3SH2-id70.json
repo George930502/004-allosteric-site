@@ -1,0 +1,1707 @@
+{
+ "query_id": "50395efa-f565-4195-a4cb-a5664ad79f9c",
+ "result_type": "polymer_entity",
+ "total_count": 50,
+ "result_set": [
+  {
+   "identifier": "1OPK_1",
+   "score": 1.0,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 334.0,
+       "norm_score": 1.0,
+       "match_context": [
+        {
+         "sequence_identity": 1.0,
+         "evalue": 7.504e-105,
+         "bitscore": 334,
+         "alignment_length": 157,
+         "mismatches": 0,
+         "gaps_opened": 0,
+         "query_beg": 1,
+         "query_end": 157,
+         "subject_beg": 41,
+         "subject_end": 197,
+         "query_length": 157,
+         "subject_length": 495,
+         "query_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA",
+         "subject_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "1OPL_1",
+   "score": 1.0,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 334.0,
+       "norm_score": 1.0,
+       "match_context": [
+        {
+         "sequence_identity": 1.0,
+         "evalue": 7.504e-105,
+         "bitscore": 334,
+         "alignment_length": 157,
+         "mismatches": 0,
+         "gaps_opened": 0,
+         "query_beg": 1,
+         "query_end": 157,
+         "subject_beg": 80,
+         "subject_end": 236,
+         "query_length": 157,
+         "subject_length": 537,
+         "query_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA",
+         "subject_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "2ABL_1",
+   "score": 1.0,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 334.0,
+       "norm_score": 1.0,
+       "match_context": [
+        {
+         "sequence_identity": 1.0,
+         "evalue": 7.504e-105,
+         "bitscore": 334,
+         "alignment_length": 157,
+         "mismatches": 0,
+         "gaps_opened": 0,
+         "query_beg": 1,
+         "query_end": 157,
+         "subject_beg": 6,
+         "subject_end": 162,
+         "query_length": 157,
+         "subject_length": 163,
+         "query_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA",
+         "subject_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "2FO0_1",
+   "score": 1.0,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 334.0,
+       "norm_score": 1.0,
+       "match_context": [
+        {
+         "sequence_identity": 1.0,
+         "evalue": 7.504e-105,
+         "bitscore": 334,
+         "alignment_length": 157,
+         "mismatches": 0,
+         "gaps_opened": 0,
+         "query_beg": 1,
+         "query_end": 157,
+         "subject_beg": 38,
+         "subject_end": 194,
+         "query_length": 157,
+         "subject_length": 495,
+         "query_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA",
+         "subject_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "5MO4_1",
+   "score": 1.0,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 334.0,
+       "norm_score": 1.0,
+       "match_context": [
+        {
+         "sequence_identity": 1.0,
+         "evalue": 7.504e-105,
+         "bitscore": 334,
+         "alignment_length": 157,
+         "mismatches": 0,
+         "gaps_opened": 0,
+         "query_beg": 1,
+         "query_end": 157,
+         "subject_beg": 41,
+         "subject_end": 197,
+         "query_length": 157,
+         "subject_length": 495,
+         "query_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA",
+         "subject_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "6AMV_1",
+   "score": 0.9866666666666667,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 331.0,
+       "norm_score": 0.9866666666666667,
+       "match_context": [
+        {
+         "sequence_identity": 0.993,
+         "evalue": 1.285e-103,
+         "bitscore": 331,
+         "alignment_length": 157,
+         "mismatches": 1,
+         "gaps_opened": 0,
+         "query_beg": 1,
+         "query_end": 157,
+         "subject_beg": 80,
+         "subject_end": 236,
+         "query_length": 157,
+         "subject_length": 255,
+         "query_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA",
+         "subject_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWAEAQTKNGQGWVPSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "6AMW_1",
+   "score": 0.9866666666666667,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 331.0,
+       "norm_score": 0.9866666666666667,
+       "match_context": [
+        {
+         "sequence_identity": 0.993,
+         "evalue": 1.285e-103,
+         "bitscore": 331,
+         "alignment_length": 157,
+         "mismatches": 1,
+         "gaps_opened": 0,
+         "query_beg": 1,
+         "query_end": 157,
+         "subject_beg": 80,
+         "subject_end": 236,
+         "query_length": 157,
+         "subject_length": 255,
+         "query_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA",
+         "subject_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWAEAQTKNGQGWVPSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "8SSN_1",
+   "score": 0.9688888888888889,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 327.0,
+       "norm_score": 0.9688888888888889,
+       "match_context": [
+        {
+         "sequence_identity": 1.0,
+         "evalue": 3.019e-102,
+         "bitscore": 327,
+         "alignment_length": 154,
+         "mismatches": 0,
+         "gaps_opened": 0,
+         "query_beg": 4,
+         "query_end": 157,
+         "subject_beg": 2,
+         "subject_end": 155,
+         "query_length": 157,
+         "subject_length": 448,
+         "query_aligned_seq": "NLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA",
+         "subject_aligned_seq": "NLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "3T04_1",
+   "score": 0.5111111111111111,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 224.0,
+       "norm_score": 0.5111111111111111,
+       "match_context": [
+        {
+         "sequence_identity": 1.0,
+         "evalue": 1.805e-66,
+         "bitscore": 224,
+         "alignment_length": 106,
+         "mismatches": 0,
+         "gaps_opened": 0,
+         "query_beg": 52,
+         "query_end": 157,
+         "subject_beg": 3,
+         "subject_end": 108,
+         "query_length": 157,
+         "subject_length": 123,
+         "query_aligned_seq": "PSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA",
+         "subject_aligned_seq": "PSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "3UYO_1",
+   "score": 0.5111111111111111,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 224.0,
+       "norm_score": 0.5111111111111111,
+       "match_context": [
+        {
+         "sequence_identity": 1.0,
+         "evalue": 1.805e-66,
+         "bitscore": 224,
+         "alignment_length": 106,
+         "mismatches": 0,
+         "gaps_opened": 0,
+         "query_beg": 52,
+         "query_end": 157,
+         "subject_beg": 3,
+         "subject_end": 108,
+         "query_length": 157,
+         "subject_length": 123,
+         "query_aligned_seq": "PSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA",
+         "subject_aligned_seq": "PSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "5DC0_2",
+   "score": 0.5111111111111111,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 224.0,
+       "norm_score": 0.5111111111111111,
+       "match_context": [
+        {
+         "sequence_identity": 1.0,
+         "evalue": 1.805e-66,
+         "bitscore": 224,
+         "alignment_length": 106,
+         "mismatches": 0,
+         "gaps_opened": 0,
+         "query_beg": 52,
+         "query_end": 157,
+         "subject_beg": 1,
+         "subject_end": 106,
+         "query_length": 157,
+         "subject_length": 121,
+         "query_aligned_seq": "PSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA",
+         "subject_aligned_seq": "PSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "5DC4_1",
+   "score": 0.5111111111111111,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 224.0,
+       "norm_score": 0.5111111111111111,
+       "match_context": [
+        {
+         "sequence_identity": 1.0,
+         "evalue": 1.805e-66,
+         "bitscore": 224,
+         "alignment_length": 106,
+         "mismatches": 0,
+         "gaps_opened": 0,
+         "query_beg": 52,
+         "query_end": 157,
+         "subject_beg": 3,
+         "subject_end": 108,
+         "query_length": 157,
+         "subject_length": 123,
+         "query_aligned_seq": "PSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA",
+         "subject_aligned_seq": "PSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "5DC9_1",
+   "score": 0.5111111111111111,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 224.0,
+       "norm_score": 0.5111111111111111,
+       "match_context": [
+        {
+         "sequence_identity": 1.0,
+         "evalue": 1.805e-66,
+         "bitscore": 224,
+         "alignment_length": 106,
+         "mismatches": 0,
+         "gaps_opened": 0,
+         "query_beg": 52,
+         "query_end": 157,
+         "subject_beg": 3,
+         "subject_end": 108,
+         "query_length": 157,
+         "subject_length": 123,
+         "query_aligned_seq": "PSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA",
+         "subject_aligned_seq": "PSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "4XEY_1",
+   "score": 0.4444444444444444,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 209.0,
+       "norm_score": 0.4444444444444444,
+       "match_context": [
+        {
+         "sequence_identity": 0.97,
+         "evalue": 3.997e-61,
+         "bitscore": 209,
+         "alignment_length": 102,
+         "mismatches": 3,
+         "gaps_opened": 0,
+         "query_beg": 56,
+         "query_end": 157,
+         "subject_beg": 1,
+         "subject_end": 102,
+         "query_length": 157,
+         "subject_length": 408,
+         "query_aligned_seq": "ITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA",
+         "subject_aligned_seq": "MASVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "1AB2_1",
+   "score": 0.4311111111111111,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 206.0,
+       "norm_score": 0.4311111111111111,
+       "match_context": [
+        {
+         "sequence_identity": 1.0,
+         "evalue": 2.655e-60,
+         "bitscore": 206,
+         "alignment_length": 98,
+         "mismatches": 0,
+         "gaps_opened": 0,
+         "query_beg": 60,
+         "query_end": 157,
+         "subject_beg": 4,
+         "subject_end": 101,
+         "query_length": 157,
+         "subject_length": 109,
+         "query_aligned_seq": "NSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA",
+         "subject_aligned_seq": "NSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "3K2M_1",
+   "score": 0.4222222222222222,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 204.0,
+       "norm_score": 0.4222222222222222,
+       "match_context": [
+        {
+         "sequence_identity": 1.0,
+         "evalue": 1.763e-59,
+         "bitscore": 204,
+         "alignment_length": 97,
+         "mismatches": 0,
+         "gaps_opened": 0,
+         "query_beg": 61,
+         "query_end": 157,
+         "subject_beg": 1,
+         "subject_end": 97,
+         "query_length": 157,
+         "subject_length": 112,
+         "query_aligned_seq": "SLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA",
+         "subject_aligned_seq": "SLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "9F01_1",
+   "score": 0.4,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 199.0,
+       "norm_score": 0.4,
+       "match_context": [
+        {
+         "sequence_identity": 0.9890000000000001,
+         "evalue": 1.066e-57,
+         "bitscore": 199,
+         "alignment_length": 95,
+         "mismatches": 1,
+         "gaps_opened": 0,
+         "query_beg": 63,
+         "query_end": 157,
+         "subject_beg": 1,
+         "subject_end": 95,
+         "query_length": 157,
+         "subject_length": 99,
+         "query_aligned_seq": "EKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA",
+         "subject_aligned_seq": "EKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTCSDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "2ECD_1",
+   "score": 0.38666666666666666,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 196.0,
+       "norm_score": 0.38666666666666666,
+       "match_context": [
+        {
+         "sequence_identity": 0.9,
+         "evalue": 1.331e-56,
+         "bitscore": 196,
+         "alignment_length": 101,
+         "mismatches": 10,
+         "gaps_opened": 0,
+         "query_beg": 57,
+         "query_end": 157,
+         "subject_beg": 8,
+         "subject_end": 108,
+         "query_length": 157,
+         "subject_length": 119,
+         "query_aligned_seq": "TPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA",
+         "subject_aligned_seq": "TPVNSLEKHSWYHGPVSRSAAEYLLSSLINGSFLVRESESSPGQLSISLRYEGRVYHYRINTTADGKVYVTAESRFSTLAELVHHHSTVADGLVTTLHYPA"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "4EIH_1",
+   "score": 0.36444444444444446,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 191.0,
+       "norm_score": 0.36444444444444446,
+       "match_context": [
+        {
+         "sequence_identity": 0.898,
+         "evalue": 5.868e-55,
+         "bitscore": 191,
+         "alignment_length": 99,
+         "mismatches": 10,
+         "gaps_opened": 0,
+         "query_beg": 59,
+         "query_end": 157,
+         "subject_beg": 6,
+         "subject_end": 104,
+         "query_length": 157,
+         "subject_length": 116,
+         "query_aligned_seq": "VNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPA",
+         "subject_aligned_seq": "VNSLEKHSWYHGPVSRSAAEYLLSSLINGSFLVRESESSPGQLSISLRYEGRVYHYRINTTADGKVYVTAESRFSTLAELVHHHSTVADGLVTTLHYPA"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "1ABO_1",
+   "score": 0.12444444444444444,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 137.0,
+       "norm_score": 0.12444444444444444,
+       "match_context": [
+        {
+         "sequence_identity": 1.0,
+         "evalue": 3.405e-36,
+         "bitscore": 137,
+         "alignment_length": 61,
+         "mismatches": 0,
+         "gaps_opened": 0,
+         "query_beg": 1,
+         "query_end": 61,
+         "subject_beg": 2,
+         "subject_end": 62,
+         "query_length": 157,
+         "subject_length": 62,
+         "query_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS",
+         "subject_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "1ABQ_1",
+   "score": 0.12444444444444444,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 137.0,
+       "norm_score": 0.12444444444444444,
+       "match_context": [
+        {
+         "sequence_identity": 1.0,
+         "evalue": 3.405e-36,
+         "bitscore": 137,
+         "alignment_length": 61,
+         "mismatches": 0,
+         "gaps_opened": 0,
+         "query_beg": 1,
+         "query_end": 61,
+         "subject_beg": 2,
+         "subject_end": 62,
+         "query_length": 157,
+         "subject_length": 62,
+         "query_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS",
+         "subject_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "4J9F_1",
+   "score": 0.12444444444444444,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 137.0,
+       "norm_score": 0.12444444444444444,
+       "match_context": [
+        {
+         "sequence_identity": 1.0,
+         "evalue": 3.405e-36,
+         "bitscore": 137,
+         "alignment_length": 61,
+         "mismatches": 0,
+         "gaps_opened": 0,
+         "query_beg": 1,
+         "query_end": 61,
+         "subject_beg": 3,
+         "subject_end": 63,
+         "query_length": 157,
+         "subject_length": 63,
+         "query_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS",
+         "subject_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "4J9G_1",
+   "score": 0.12444444444444444,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 137.0,
+       "norm_score": 0.12444444444444444,
+       "match_context": [
+        {
+         "sequence_identity": 1.0,
+         "evalue": 3.405e-36,
+         "bitscore": 137,
+         "alignment_length": 61,
+         "mismatches": 0,
+         "gaps_opened": 0,
+         "query_beg": 1,
+         "query_end": 61,
+         "subject_beg": 3,
+         "subject_end": 63,
+         "query_length": 157,
+         "subject_length": 63,
+         "query_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS",
+         "subject_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "4J9H_1",
+   "score": 0.12444444444444444,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 137.0,
+       "norm_score": 0.12444444444444444,
+       "match_context": [
+        {
+         "sequence_identity": 1.0,
+         "evalue": 3.405e-36,
+         "bitscore": 137,
+         "alignment_length": 61,
+         "mismatches": 0,
+         "gaps_opened": 0,
+         "query_beg": 1,
+         "query_end": 61,
+         "subject_beg": 3,
+         "subject_end": 63,
+         "query_length": 157,
+         "subject_length": 63,
+         "query_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS",
+         "subject_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "4J9I_1",
+   "score": 0.12444444444444444,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 137.0,
+       "norm_score": 0.12444444444444444,
+       "match_context": [
+        {
+         "sequence_identity": 1.0,
+         "evalue": 3.405e-36,
+         "bitscore": 137,
+         "alignment_length": 61,
+         "mismatches": 0,
+         "gaps_opened": 0,
+         "query_beg": 1,
+         "query_end": 61,
+         "subject_beg": 3,
+         "subject_end": 63,
+         "query_length": 157,
+         "subject_length": 63,
+         "query_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS",
+         "subject_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "4JJB_1",
+   "score": 0.12444444444444444,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 137.0,
+       "norm_score": 0.12444444444444444,
+       "match_context": [
+        {
+         "sequence_identity": 1.0,
+         "evalue": 3.405e-36,
+         "bitscore": 137,
+         "alignment_length": 61,
+         "mismatches": 0,
+         "gaps_opened": 0,
+         "query_beg": 1,
+         "query_end": 61,
+         "subject_beg": 3,
+         "subject_end": 63,
+         "query_length": 157,
+         "subject_length": 63,
+         "query_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS",
+         "subject_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "4JJC_1",
+   "score": 0.12444444444444444,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 137.0,
+       "norm_score": 0.12444444444444444,
+       "match_context": [
+        {
+         "sequence_identity": 1.0,
+         "evalue": 3.405e-36,
+         "bitscore": 137,
+         "alignment_length": 61,
+         "mismatches": 0,
+         "gaps_opened": 0,
+         "query_beg": 1,
+         "query_end": 61,
+         "subject_beg": 3,
+         "subject_end": 63,
+         "query_length": 157,
+         "subject_length": 63,
+         "query_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS",
+         "subject_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "5OAZ_1",
+   "score": 0.12444444444444444,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 137.0,
+       "norm_score": 0.12444444444444444,
+       "match_context": [
+        {
+         "sequence_identity": 1.0,
+         "evalue": 3.405e-36,
+         "bitscore": 137,
+         "alignment_length": 61,
+         "mismatches": 0,
+         "gaps_opened": 0,
+         "query_beg": 1,
+         "query_end": 61,
+         "subject_beg": 3,
+         "subject_end": 63,
+         "query_length": 157,
+         "subject_length": 63,
+         "query_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS",
+         "subject_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "1JU5_3",
+   "score": 0.1111111111111111,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 134.0,
+       "norm_score": 0.1111111111111111,
+       "match_context": [
+        {
+         "sequence_identity": 1.0,
+         "evalue": 2.255e-35,
+         "bitscore": 134,
+         "alignment_length": 60,
+         "mismatches": 0,
+         "gaps_opened": 0,
+         "query_beg": 2,
+         "query_end": 61,
+         "subject_beg": 1,
+         "subject_end": 60,
+         "query_length": 157,
+         "subject_length": 61,
+         "query_aligned_seq": "DPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS",
+         "subject_aligned_seq": "DPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "3EG0_1",
+   "score": 0.1111111111111111,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 134.0,
+       "norm_score": 0.1111111111111111,
+       "match_context": [
+        {
+         "sequence_identity": 0.983,
+         "evalue": 2.255e-35,
+         "bitscore": 134,
+         "alignment_length": 61,
+         "mismatches": 1,
+         "gaps_opened": 0,
+         "query_beg": 1,
+         "query_end": 61,
+         "subject_beg": 3,
+         "subject_end": 63,
+         "query_length": 157,
+         "subject_length": 63,
+         "query_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS",
+         "subject_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSTYITPVNS"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "3EG1_1",
+   "score": 0.1111111111111111,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 134.0,
+       "norm_score": 0.1111111111111111,
+       "match_context": [
+        {
+         "sequence_identity": 0.983,
+         "evalue": 2.255e-35,
+         "bitscore": 134,
+         "alignment_length": 61,
+         "mismatches": 1,
+         "gaps_opened": 0,
+         "query_beg": 1,
+         "query_end": 61,
+         "subject_beg": 3,
+         "subject_end": 63,
+         "query_length": 157,
+         "subject_length": 63,
+         "query_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS",
+         "subject_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSQYITPVNS"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "3EG2_1",
+   "score": 0.1111111111111111,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 134.0,
+       "norm_score": 0.1111111111111111,
+       "match_context": [
+        {
+         "sequence_identity": 0.983,
+         "evalue": 2.255e-35,
+         "bitscore": 134,
+         "alignment_length": 61,
+         "mismatches": 1,
+         "gaps_opened": 0,
+         "query_beg": 1,
+         "query_end": 61,
+         "subject_beg": 3,
+         "subject_end": 63,
+         "query_length": 157,
+         "subject_length": 63,
+         "query_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS",
+         "subject_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSQYITPVNS"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "3EG3_1",
+   "score": 0.1111111111111111,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 134.0,
+       "norm_score": 0.1111111111111111,
+       "match_context": [
+        {
+         "sequence_identity": 0.983,
+         "evalue": 4.236e-35,
+         "bitscore": 134,
+         "alignment_length": 61,
+         "mismatches": 1,
+         "gaps_opened": 0,
+         "query_beg": 1,
+         "query_end": 61,
+         "subject_beg": 3,
+         "subject_end": 63,
+         "query_length": 157,
+         "subject_length": 63,
+         "query_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS",
+         "subject_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSAYITPVNS"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "3EGU_1",
+   "score": 0.1111111111111111,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 134.0,
+       "norm_score": 0.1111111111111111,
+       "match_context": [
+        {
+         "sequence_identity": 0.983,
+         "evalue": 4.236e-35,
+         "bitscore": 134,
+         "alignment_length": 61,
+         "mismatches": 1,
+         "gaps_opened": 0,
+         "query_beg": 1,
+         "query_end": 61,
+         "subject_beg": 3,
+         "subject_end": 63,
+         "query_length": 157,
+         "subject_length": 63,
+         "query_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS",
+         "subject_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSAYITPVNS"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "4J9D_1",
+   "score": 0.1111111111111111,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 134.0,
+       "norm_score": 0.1111111111111111,
+       "match_context": [
+        {
+         "sequence_identity": 0.983,
+         "evalue": 4.236e-35,
+         "bitscore": 134,
+         "alignment_length": 61,
+         "mismatches": 1,
+         "gaps_opened": 0,
+         "query_beg": 1,
+         "query_end": 61,
+         "subject_beg": 3,
+         "subject_end": 63,
+         "query_length": 157,
+         "subject_length": 63,
+         "query_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS",
+         "subject_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSAYITPVNS"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "4J9E_1",
+   "score": 0.1111111111111111,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 134.0,
+       "norm_score": 0.1111111111111111,
+       "match_context": [
+        {
+         "sequence_identity": 0.983,
+         "evalue": 4.236e-35,
+         "bitscore": 134,
+         "alignment_length": 61,
+         "mismatches": 1,
+         "gaps_opened": 0,
+         "query_beg": 1,
+         "query_end": 61,
+         "subject_beg": 3,
+         "subject_end": 63,
+         "query_length": 157,
+         "subject_length": 63,
+         "query_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS",
+         "subject_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSAYITPVNS"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "4JJD_1",
+   "score": 0.1111111111111111,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 134.0,
+       "norm_score": 0.1111111111111111,
+       "match_context": [
+        {
+         "sequence_identity": 0.983,
+         "evalue": 4.236e-35,
+         "bitscore": 134,
+         "alignment_length": 61,
+         "mismatches": 1,
+         "gaps_opened": 0,
+         "query_beg": 1,
+         "query_end": 61,
+         "subject_beg": 3,
+         "subject_end": 63,
+         "query_length": 157,
+         "subject_length": 63,
+         "query_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS",
+         "subject_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSAYITPVNS"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "4J9B_1",
+   "score": 0.09777777777777778,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 131.0,
+       "norm_score": 0.09777777777777778,
+       "match_context": [
+        {
+         "sequence_identity": 0.9670000000000001,
+         "evalue": 2.805e-34,
+         "bitscore": 131,
+         "alignment_length": 61,
+         "mismatches": 2,
+         "gaps_opened": 0,
+         "query_beg": 1,
+         "query_end": 61,
+         "subject_beg": 3,
+         "subject_end": 63,
+         "query_length": 157,
+         "subject_length": 63,
+         "query_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS",
+         "subject_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNQTGEWCEAQTKNGQGWVPSNYITPVNS"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "4J9C_1",
+   "score": 0.09777777777777778,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 131.0,
+       "norm_score": 0.09777777777777778,
+       "match_context": [
+        {
+         "sequence_identity": 0.9670000000000001,
+         "evalue": 2.805e-34,
+         "bitscore": 131,
+         "alignment_length": 61,
+         "mismatches": 2,
+         "gaps_opened": 0,
+         "query_beg": 1,
+         "query_end": 61,
+         "subject_beg": 3,
+         "subject_end": 63,
+         "query_length": 157,
+         "subject_length": 63,
+         "query_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS",
+         "subject_aligned_seq": "NDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNQTGEWCEAQTKNGQGWVPSNYITPVNS"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "1BBZ_1",
+   "score": 0.08888888888888889,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 129.0,
+       "norm_score": 0.08888888888888889,
+       "match_context": [
+        {
+         "sequence_identity": 1.0,
+         "evalue": 1.355e-33,
+         "bitscore": 129,
+         "alignment_length": 58,
+         "mismatches": 0,
+         "gaps_opened": 0,
+         "query_beg": 4,
+         "query_end": 61,
+         "subject_beg": 1,
+         "subject_end": 58,
+         "query_length": 157,
+         "subject_length": 58,
+         "query_aligned_seq": "NLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS",
+         "subject_aligned_seq": "NLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "5NP2_1",
+   "score": 0.08444444444444445,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 128.0,
+       "norm_score": 0.08444444444444445,
+       "match_context": [
+        {
+         "sequence_identity": 1.0,
+         "evalue": 4.777e-33,
+         "bitscore": 128,
+         "alignment_length": 57,
+         "mismatches": 0,
+         "gaps_opened": 0,
+         "query_beg": 4,
+         "query_end": 60,
+         "subject_beg": 5,
+         "subject_end": 61,
+         "query_length": 157,
+         "subject_length": 61,
+         "query_aligned_seq": "NLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVN",
+         "subject_aligned_seq": "NLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVN"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "2O88_1",
+   "score": 0.07555555555555556,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 126.0,
+       "norm_score": 0.07555555555555556,
+       "match_context": [
+        {
+         "sequence_identity": 0.982,
+         "evalue": 1.684e-32,
+         "bitscore": 126,
+         "alignment_length": 58,
+         "mismatches": 1,
+         "gaps_opened": 0,
+         "query_beg": 4,
+         "query_end": 61,
+         "subject_beg": 1,
+         "subject_end": 58,
+         "query_length": 157,
+         "subject_length": 58,
+         "query_aligned_seq": "NLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS",
+         "subject_aligned_seq": "NLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSAYITPVNS"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "1AWO_1",
+   "score": 0.06666666666666667,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 124.0,
+       "norm_score": 0.06666666666666667,
+       "match_context": [
+        {
+         "sequence_identity": 0.9640000000000001,
+         "evalue": 1.114e-31,
+         "bitscore": 124,
+         "alignment_length": 57,
+         "mismatches": 2,
+         "gaps_opened": 0,
+         "query_beg": 4,
+         "query_end": 60,
+         "subject_beg": 6,
+         "subject_end": 62,
+         "query_length": 157,
+         "subject_length": 62,
+         "query_aligned_seq": "NLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVN",
+         "subject_aligned_seq": "SLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVS"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "7PW2_1",
+   "score": 0.04888888888888889,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 120.0,
+       "norm_score": 0.04888888888888889,
+       "match_context": [
+        {
+         "sequence_identity": 0.9129999999999999,
+         "evalue": 1.895e-30,
+         "bitscore": 120,
+         "alignment_length": 58,
+         "mismatches": 5,
+         "gaps_opened": 0,
+         "query_beg": 3,
+         "query_end": 60,
+         "subject_beg": 3,
+         "subject_end": 60,
+         "query_length": 157,
+         "subject_length": 60,
+         "query_aligned_seq": "PNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVN",
+         "subject_aligned_seq": "PNLFVALYDFESRTENTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVN"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "7PVV_1",
+   "score": 0.044444444444444446,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 119.0,
+       "norm_score": 0.044444444444444446,
+       "match_context": [
+        {
+         "sequence_identity": 0.9309999999999999,
+         "evalue": 4.872e-30,
+         "bitscore": 119,
+         "alignment_length": 58,
+         "mismatches": 4,
+         "gaps_opened": 0,
+         "query_beg": 3,
+         "query_end": 60,
+         "subject_beg": 2,
+         "subject_end": 59,
+         "query_length": 157,
+         "subject_length": 59,
+         "query_aligned_seq": "PNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVN",
+         "subject_aligned_seq": "PNLFVALYDFVASGDNTLSITKGEKLRVLNNTENGEWCEAQTKNGQGWVPSNYITPVN"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "5NP3_1",
+   "score": 0.03111111111111111,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 116.0,
+       "norm_score": 0.03111111111111111,
+       "match_context": [
+        {
+         "sequence_identity": 0.912,
+         "evalue": 6.043e-29,
+         "bitscore": 116,
+         "alignment_length": 57,
+         "mismatches": 5,
+         "gaps_opened": 0,
+         "query_beg": 4,
+         "query_end": 60,
+         "subject_beg": 5,
+         "subject_end": 61,
+         "query_length": 157,
+         "subject_length": 61,
+         "query_aligned_seq": "NLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVN",
+         "subject_aligned_seq": "NLFVALYDFVASGDNTLSITKGEKLRVLGYNQNGEWSEVRSKNGQGWVPSNYITPVN"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "5NP5_1",
+   "score": 0.03111111111111111,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 116.0,
+       "norm_score": 0.03111111111111111,
+       "match_context": [
+        {
+         "sequence_identity": 0.912,
+         "evalue": 6.043e-29,
+         "bitscore": 116,
+         "alignment_length": 57,
+         "mismatches": 5,
+         "gaps_opened": 0,
+         "query_beg": 4,
+         "query_end": 60,
+         "subject_beg": 5,
+         "subject_end": 61,
+         "query_length": 157,
+         "subject_length": 61,
+         "query_aligned_seq": "NLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVN",
+         "subject_aligned_seq": "NLFVALYDFVASGDNTLSITKGEKLRVLGYNQNGEWSEVRSKNGQGWVPSNYITPVN"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "7PVQ_1",
+   "score": 0.0,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 109.0,
+       "norm_score": 0.0,
+       "match_context": [
+        {
+         "sequence_identity": 0.8440000000000001,
+         "evalue": 1.741e-26,
+         "bitscore": 109,
+         "alignment_length": 58,
+         "mismatches": 9,
+         "gaps_opened": 0,
+         "query_beg": 3,
+         "query_end": 60,
+         "subject_beg": 2,
+         "subject_end": 59,
+         "query_length": 157,
+         "subject_length": 59,
+         "query_aligned_seq": "PNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVN",
+         "subject_aligned_seq": "PNLFVALYDFESRTENTLSITKGEKLRVLNNTENGEWCEAQTKNGQGWVPSNYITPVN"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "7PVR_1",
+   "score": 0.0,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 109.0,
+       "norm_score": 0.0,
+       "match_context": [
+        {
+         "sequence_identity": 0.8440000000000001,
+         "evalue": 1.741e-26,
+         "bitscore": 109,
+         "alignment_length": 58,
+         "mismatches": 9,
+         "gaps_opened": 0,
+         "query_beg": 3,
+         "query_end": 60,
+         "subject_beg": 2,
+         "subject_end": 59,
+         "query_length": 157,
+         "subject_length": 59,
+         "query_aligned_seq": "PNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVN",
+         "subject_aligned_seq": "PNLFVALYDFESRTENTLSITKGEKLRVLNNTENGEWCEAQTKNGQGWVPSNYITPVN"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "identifier": "7PVS_1",
+   "score": 0.0,
+   "services": [
+    {
+     "service_type": "sequence",
+     "nodes": [
+      {
+       "node_id": 24628,
+       "original_score": 109.0,
+       "norm_score": 0.0,
+       "match_context": [
+        {
+         "sequence_identity": 0.8440000000000001,
+         "evalue": 1.741e-26,
+         "bitscore": 109,
+         "alignment_length": 58,
+         "mismatches": 9,
+         "gaps_opened": 0,
+         "query_beg": 3,
+         "query_end": 60,
+         "subject_beg": 2,
+         "subject_end": 59,
+         "query_length": 157,
+         "subject_length": 59,
+         "query_aligned_seq": "PNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVN",
+         "subject_aligned_seq": "PNLFVALYDFESRTENTLSITKGEKLRVLNNTENGEWCEAQTKNGQGWVPSNYITPVN"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -1,6 +1,22 @@
 # 0002 — Working hypothesis for the quantum metric
 
-**Status:** proposed · 2026-08-19 · _to be accepted, revised or superseded in Phase 2_
+**Status:** **withdrawn** 2026-09-02 by [`0037`](0037-the-method-layer-leaves-main-and-the-required-baselines-stay.md) ·
+proposed 2026-08-19
+
+> **WITHDRAWN 2026-09-02.** Its subject, the quantum metric, was never accepted and its code
+> left `main` with the method layer. The file stays, because `docs/adr/README.md` states that
+> no ADR file is ever deleted and that a withdrawn ADR keeps the rule it established.
+>
+> **One thing here is load-bearing for the frozen layer and must not be lost.** This ADR is
+> the recorded source of two entries in the frozen evaluation manifest's `required_baselines`
+> list: `degree` and `eigenvector_centrality`. They are mandated controls, not candidate
+> methods, and they survive in `allo.scoring.baselines` (ADR 0037 decision 2). If this ADR is
+> ever revisited, that provenance is the part that already bound something.
+>
+> **What to read instead.** Nothing supersedes it. Phase 2 restarts from an empty method
+> package, and the hypothesis below is a starting point that has not been tested here. The
+> code that once implemented it is on the branch `method-layer-archive`.
+
 
 ## Context
 

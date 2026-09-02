@@ -22,6 +22,15 @@ reproducibly re-fetchable or re-derivable, and PDB files are large.
 - `processed/` — contact networks, label sets, and other inputs to scoring.
 - `external/` — third-party datasets (e.g. Allosteric Database exports) with their
   provenance recorded here when added.
+  - `external/asd/` — the **Allosteric Database** 2023 bulk release, all 12 archives, fetched
+    2026-09-01T20:58Z from `http://mdl.shsmu.edu.cn/ASD2023Common/static_file/archive_2023/`.
+    Release 5.1, newest file dated 2023-09-20. Per-file sizes and sha256 are in
+    `docs/benchmark/review/data/extension-candidates-2026-09.json` under `_asd_provenance`, and
+    the retrieval recipe is in `docs/benchmark/review/09-extension-sweep.md` §1.3.
+    **Licence: research use only, and ASD forbids redistribution to a third party.** Never
+    commit a verbatim ASD file. A derived candidate list — names, accessions, DOIs — is fine.
+    ASD is a **recall device only**: its evidence bar sits on the protein, not the site, and its
+    2023 release mixes 3102 curated sites with 66,589 machine-predicted ones (ADR 0021).
 
 Every derived artifact records the code version and config that produced it. If you
 cannot say which config produced a file, delete it and regenerate.

@@ -4,6 +4,13 @@
 Status now: CONFIRMED at protocol version 2. Every finding in this file is repaired,
 disclosed, or declined with a reason. Nothing is left silently open.**
 
+> **This file audits version 2. The layer is now at version 3, frozen 2026-09-02.** Nothing
+> here was reopened by that: version 3 was forced by the **input** layer moving, not by a
+> defect found here. What changed, and why each change is not a hyperparameter, is in
+> [`README.md`](README.md) §0. The wider audit that produced it is
+> [`../review/`](../review/), and the decisions are ADRs 0029 to 0036. Read this file for the
+> version-1 defects and their repairs; read §0 for what version 3 does differently.
+
 Eight independent audits ran against `README.md`, `manifest.yaml`, `frozen.json`,
 `src/allo/scoring/`, ADRs 0022–0024, `docs/benchmark/evidence/evaluation-metrics.md` and
 `experiments/2026-08-25-null-calibration/`. Every number below was recomputed from a

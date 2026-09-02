@@ -28,6 +28,21 @@ Use whenever a run produces a number worth comparing to another number.
    underperformed is a result the next agent needs; deleting it guarantees someone
    re-runs it in three weeks.
 
+## Resuming a run across a protocol change
+
+A long sweep writes `records.jsonl` incrementally and skips a key it already holds. Two rules
+make that safe.
+
+- **Put the protocol version in the resume key.** `score_arm` stamps `protocol_frozen_on` into
+  every record. If the key is only `arm|graph|scorer|detrend`, a re-run after the evaluation
+  layer is re-frozen keeps every old row and appends nothing. The 2026-08-26 sweeps did this,
+  and their decoy columns stayed at protocol version 1 with no visible sign.
+- **If a run's records predate the current freeze, say so in `notes.md` and measure the gap.**
+  Do not assume that every column moved, and do not assume that none did. Re-score a sample
+  through the current harness and print the per-field table. For the 2026-08-26 sweeps, the
+  decoy columns all moved and the screening statistic moved on none of 216 records, so the
+  selection stood and no re-run was needed.
+
 ## Comparison hygiene
 
 - Every method — classical baseline or quantum — is scored by the same harness on the

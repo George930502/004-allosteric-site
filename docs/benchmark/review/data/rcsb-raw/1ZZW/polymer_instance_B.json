@@ -1,0 +1,2472 @@
+{
+ "pdbx_vrpt_summary_entity_geometry": [
+  {
+   "PDB_model_num": 1,
+   "angles_RMSZ": 0.98,
+   "bonds_RMSZ": 0.55,
+   "num_angles_RMSZ": 1646,
+   "num_bonds_RMSZ": 1219
+  }
+ ],
+ "rcsb_id": "1ZZW.B",
+ "rcsb_ligand_neighbors": [
+  {
+   "atom_id": "O",
+   "auth_seq_id": 409,
+   "comp_id": "GLN",
+   "distance": 2.725,
+   "ligand_asym_id": "D",
+   "ligand_atom_id": "O1",
+   "ligand_comp_id": "SO4",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 91
+  },
+  {
+   "atom_id": "O",
+   "auth_seq_id": 410,
+   "comp_id": "ALA",
+   "distance": 2.848,
+   "ligand_asym_id": "D",
+   "ligand_atom_id": "O2",
+   "ligand_comp_id": "SO4",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 92
+  },
+  {
+   "atom_id": "N",
+   "auth_seq_id": 413,
+   "comp_id": "SER",
+   "distance": 3.006,
+   "ligand_asym_id": "D",
+   "ligand_atom_id": "O2",
+   "ligand_comp_id": "SO4",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 95
+  },
+  {
+   "atom_id": "OG",
+   "auth_seq_id": 413,
+   "comp_id": "SER",
+   "distance": 3.196,
+   "ligand_asym_id": "E",
+   "ligand_atom_id": "O2",
+   "ligand_comp_id": "EDO",
+   "ligand_entity_id": "3",
+   "ligand_model_id": 1,
+   "seq_id": 95
+  },
+  {
+   "atom_id": "N",
+   "auth_seq_id": 414,
+   "comp_id": "ARG",
+   "distance": 3.076,
+   "ligand_asym_id": "D",
+   "ligand_atom_id": "O4",
+   "ligand_comp_id": "SO4",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 96
+  },
+  {
+   "atom_id": "SG",
+   "auth_seq_id": 408,
+   "comp_id": "CYS",
+   "distance": 3.29,
+   "ligand_asym_id": "D",
+   "ligand_atom_id": "O4",
+   "ligand_comp_id": "SO4",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 90
+  },
+  {
+   "atom_id": "N",
+   "auth_seq_id": 412,
+   "comp_id": "VAL",
+   "distance": 3.334,
+   "ligand_asym_id": "D",
+   "ligand_atom_id": "O2",
+   "ligand_comp_id": "SO4",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 94
+  },
+  {
+   "atom_id": "O",
+   "auth_seq_id": 446,
+   "comp_id": "SER",
+   "distance": 2.707,
+   "ligand_asym_id": "E",
+   "ligand_atom_id": "O2",
+   "ligand_comp_id": "EDO",
+   "ligand_entity_id": "3",
+   "ligand_model_id": 1,
+   "seq_id": 128
+  },
+  {
+   "atom_id": "OG1",
+   "auth_seq_id": 417,
+   "comp_id": "THR",
+   "distance": 2.836,
+   "ligand_asym_id": "E",
+   "ligand_atom_id": "O1",
+   "ligand_comp_id": "EDO",
+   "ligand_entity_id": "3",
+   "ligand_model_id": 1,
+   "seq_id": 99
+  },
+  {
+   "atom_id": "CB",
+   "auth_seq_id": 451,
+   "comp_id": "PHE",
+   "distance": 3.147,
+   "ligand_asym_id": "E",
+   "ligand_atom_id": "O1",
+   "ligand_comp_id": "EDO",
+   "ligand_entity_id": "3",
+   "ligand_model_id": 1,
+   "seq_id": 133
+  },
+  {
+   "atom_id": "N",
+   "auth_seq_id": 448,
+   "comp_id": "ASN",
+   "distance": 3.323,
+   "ligand_asym_id": "E",
+   "ligand_atom_id": "O2",
+   "ligand_comp_id": "EDO",
+   "ligand_entity_id": "3",
+   "ligand_model_id": 1,
+   "seq_id": 130
+  },
+  {
+   "atom_id": "CG2",
+   "auth_seq_id": 445,
+   "comp_id": "ILE",
+   "distance": 3.663,
+   "ligand_asym_id": "E",
+   "ligand_atom_id": "C2",
+   "ligand_comp_id": "EDO",
+   "ligand_entity_id": "3",
+   "ligand_model_id": 1,
+   "seq_id": 127
+  },
+  {
+   "atom_id": "N",
+   "auth_seq_id": 452,
+   "comp_id": "MET",
+   "distance": 3.816,
+   "ligand_asym_id": "E",
+   "ligand_atom_id": "O1",
+   "ligand_comp_id": "EDO",
+   "ligand_entity_id": "3",
+   "ligand_model_id": 1,
+   "seq_id": 134
+  }
+ ],
+ "rcsb_polymer_entity_instance_container_identifiers": {
+  "asym_id": "B",
+  "auth_asym_id": "B",
+  "auth_to_entity_poly_seq_mapping": [
+   "319",
+   "320",
+   "321",
+   "322",
+   "323",
+   "324",
+   "325",
+   "326",
+   "327",
+   "328",
+   "329",
+   "330",
+   "331",
+   "332",
+   "333",
+   "334",
+   "335",
+   "336",
+   "337",
+   "338",
+   "339",
+   "340",
+   "341",
+   "342",
+   "343",
+   "344",
+   "345",
+   "346",
+   "347",
+   "348",
+   "349",
+   "350",
+   "351",
+   "352",
+   "353",
+   "354",
+   "355",
+   "356",
+   "357",
+   "358",
+   "359",
+   "360",
+   "361",
+   "362",
+   "363",
+   "364",
+   "365",
+   "366",
+   "367",
+   "368",
+   "369",
+   "370",
+   "371",
+   "372",
+   "373",
+   "374",
+   "375",
+   "376",
+   "377",
+   "378",
+   "379",
+   "380",
+   "381",
+   "382",
+   "383",
+   "384",
+   "385",
+   "386",
+   "387",
+   "388",
+   "389",
+   "390",
+   "391",
+   "392",
+   "393",
+   "394",
+   "395",
+   "396",
+   "397",
+   "398",
+   "399",
+   "400",
+   "401",
+   "402",
+   "403",
+   "404",
+   "405",
+   "406",
+   "407",
+   "408",
+   "409",
+   "410",
+   "411",
+   "412",
+   "413",
+   "414",
+   "415",
+   "416",
+   "417",
+   "418",
+   "419",
+   "420",
+   "421",
+   "422",
+   "423",
+   "424",
+   "425",
+   "426",
+   "427",
+   "428",
+   "429",
+   "430",
+   "431",
+   "432",
+   "433",
+   "434",
+   "435",
+   "436",
+   "437",
+   "438",
+   "439",
+   "440",
+   "441",
+   "442",
+   "443",
+   "444",
+   "445",
+   "446",
+   "447",
+   "448",
+   "449",
+   "450",
+   "451",
+   "452",
+   "453",
+   "454",
+   "455",
+   "456",
+   "457",
+   "458",
+   "459",
+   "460",
+   "461",
+   "462",
+   "463",
+   "464",
+   "465",
+   "466",
+   "467"
+  ],
+  "entity_id": "1",
+  "entry_id": "1ZZW",
+  "rcsb_id": "1ZZW.B"
+ },
+ "rcsb_polymer_instance_annotation": [
+  {
+   "annotation_id": "3.90.190.10",
+   "annotation_lineage": [
+    {
+     "depth": 1,
+     "id": "3",
+     "name": "Alpha Beta"
+    },
+    {
+     "depth": 2,
+     "id": "3.90",
+     "name": "Alpha-Beta Complex"
+    },
+    {
+     "depth": 3,
+     "id": "3.90.190",
+     "name": "Protein-Tyrosine Phosphatase"
+    },
+    {
+     "depth": 4,
+     "id": "3.90.190.10",
+     "name": "Chain A"
+    }
+   ],
+   "assignment_version": "v4_3_0",
+   "name": "Protein tyrosine phosphatase superfamily",
+   "ordinal": 2,
+   "provenance_source": "CATH",
+   "type": "CATH"
+  },
+  {
+   "annotation_id": "d1zzwb_",
+   "annotation_lineage": [
+    {
+     "depth": 1,
+     "id": "51349",
+     "name": "Alpha and beta proteins (a/b)"
+    },
+    {
+     "depth": 2,
+     "id": "52798",
+     "name": "(Phosphotyrosine protein) phosphatases II"
+    },
+    {
+     "depth": 3,
+     "id": "52799",
+     "name": "(Phosphotyrosine protein) phosphatases II"
+    },
+    {
+     "depth": 4,
+     "id": "191381",
+     "name": "automated matches"
+    },
+    {
+     "depth": 5,
+     "id": "190475",
+     "name": "automated matches"
+    }
+   ],
+   "assignment_version": "2.08-stable",
+   "name": "automated matches",
+   "ordinal": 4,
+   "provenance_source": "SCOPe",
+   "type": "SCOP"
+  },
+  {
+   "annotation_id": "8081827",
+   "annotation_lineage": [
+    {
+     "depth": 1,
+     "id": "1",
+     "name": "Globular proteins"
+    },
+    {
+     "depth": 2,
+     "id": "1000002",
+     "name": "Alpha and beta proteins (a/b)"
+    },
+    {
+     "depth": 3,
+     "id": "2000246",
+     "name": "(Phosphotyrosine protein) phosphatases II"
+    },
+    {
+     "depth": 4,
+     "id": "3000304",
+     "name": "(Phosphotyrosine protein) phosphatases II"
+    }
+   ],
+   "assignment_version": "2022-06-29",
+   "name": "(Phosphotyrosine protein) phosphatases II",
+   "ordinal": 7,
+   "provenance_source": "SCOP2B",
+   "type": "SCOP2"
+  },
+  {
+   "annotation_id": "e1zzwB1",
+   "annotation_lineage": [
+    {
+     "depth": 1,
+     "id": "100020",
+     "name": "A: alpha arrays"
+    },
+    {
+     "depth": 2,
+     "id": "201626",
+     "name": "X: HTH"
+    },
+    {
+     "depth": 3,
+     "id": "302414",
+     "name": "H: Nudix"
+    },
+    {
+     "depth": 4,
+     "id": "402569",
+     "name": "T: winged helix domain"
+    },
+    {
+     "depth": 5,
+     "id": "507423",
+     "name": "F: PCNA_N"
+    }
+   ],
+   "assignment_version": "v295",
+   "name": "PCNA_N",
+   "ordinal": 9,
+   "provenance_source": "ECOD",
+   "type": "ECOD"
+  }
+ ],
+ "rcsb_polymer_instance_feature": [
+  {
+   "additional_properties": [
+    {
+     "name": "CATH_NAME",
+     "values": [
+      "Protein tyrosine phosphatase superfamily"
+     ]
+    },
+    {
+     "name": "CATH_DOMAIN_ID",
+     "values": [
+      "1zzwB00"
+     ]
+    }
+   ],
+   "assignment_version": "v4_3_0",
+   "feature_id": "3.90.190.10",
+   "feature_positions": [
+    {
+     "beg_seq_id": 3,
+     "end_seq_id": 149
+    }
+   ],
+   "name": "Protein tyrosine phosphatase superfamily",
+   "ordinal": 2,
+   "provenance_source": "CATH",
+   "type": "CATH"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "SCOP_NAME",
+     "values": [
+      "automated matches"
+     ]
+    },
+    {
+     "name": "SCOP_DOMAIN_ID",
+     "values": [
+      "d1zzwb_"
+     ]
+    },
+    {
+     "name": "SCOP_SUN_ID",
+     "values": [
+      "190475"
+     ]
+    }
+   ],
+   "assignment_version": "2.08-stable",
+   "feature_id": "d1zzwb_",
+   "feature_positions": [
+    {
+     "beg_seq_id": 1,
+     "end_seq_id": 149
+    }
+   ],
+   "name": "automated matches",
+   "ordinal": 4,
+   "provenance_source": "SCOPe",
+   "type": "SCOP"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "SCOP2_SUPERFAMILY_NAME",
+     "values": [
+      "(Phosphotyrosine protein) phosphatases II"
+     ]
+    },
+    {
+     "name": "SCOP2_DOMAIN_ID",
+     "values": [
+      "8081827"
+     ]
+    },
+    {
+     "name": "SCOP2_SUPERFAMILY_ID",
+     "values": [
+      "3000304"
+     ]
+    }
+   ],
+   "assignment_version": "2022-06-29",
+   "feature_id": "8081827",
+   "feature_positions": [
+    {
+     "beg_seq_id": 3,
+     "end_seq_id": 147
+    }
+   ],
+   "name": "(Phosphotyrosine protein) phosphatases II",
+   "ordinal": 7,
+   "provenance_source": "SCOP2B",
+   "type": "SCOP2B_SUPERFAMILY"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "ECOD_FAMILY_NAME",
+     "values": [
+      "PCNA_N"
+     ]
+    },
+    {
+     "name": "ECOD_DOMAIN_ID",
+     "values": [
+      "e1zzwB1"
+     ]
+    }
+   ],
+   "assignment_version": "v295",
+   "feature_id": "e1zzwB1",
+   "feature_positions": [
+    {
+     "beg_seq_id": 3,
+     "end_seq_id": 149
+    }
+   ],
+   "name": "PCNA_N",
+   "ordinal": 9,
+   "provenance_source": "ECOD",
+   "type": "ECOD"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "SHEET_SENSE",
+     "values": [
+      "mixed"
+     ]
+    }
+   ],
+   "assignment_version": "V1.0",
+   "description": "mixed sense sheet",
+   "feature_id": "B",
+   "feature_positions": [
+    {
+     "beg_seq_id": 5,
+     "end_seq_id": 8
+    },
+    {
+     "beg_seq_id": 11,
+     "end_seq_id": 14
+    },
+    {
+     "beg_seq_id": 85,
+     "end_seq_id": 89
+    },
+    {
+     "beg_seq_id": 30,
+     "end_seq_id": 35
+    },
+    {
+     "beg_seq_id": 51,
+     "end_seq_id": 54
+    }
+   ],
+   "name": "sheet",
+   "ordinal": 11,
+   "provenance_source": "PROMOTIF",
+   "type": "SHEET"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P9",
+   "feature_positions": [
+    {
+     "beg_seq_id": 17,
+     "end_seq_id": 20
+    }
+   ],
+   "name": "helix",
+   "ordinal": 20,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P10",
+   "feature_positions": [
+    {
+     "beg_seq_id": 21,
+     "end_seq_id": 28
+    }
+   ],
+   "name": "helix",
+   "ordinal": 21,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P11",
+   "feature_positions": [
+    {
+     "beg_seq_id": 44,
+     "end_seq_id": 48
+    }
+   ],
+   "name": "helix",
+   "ordinal": 22,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P12",
+   "feature_positions": [
+    {
+     "beg_seq_id": 65,
+     "end_seq_id": 67
+    }
+   ],
+   "name": "helix",
+   "ordinal": 23,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P13",
+   "feature_positions": [
+    {
+     "beg_seq_id": 68,
+     "end_seq_id": 82
+    }
+   ],
+   "name": "helix",
+   "ordinal": 24,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P14",
+   "feature_positions": [
+    {
+     "beg_seq_id": 94,
+     "end_seq_id": 109
+    }
+   ],
+   "name": "helix",
+   "ordinal": 25,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P15",
+   "feature_positions": [
+    {
+     "beg_seq_id": 112,
+     "end_seq_id": 124
+    }
+   ],
+   "name": "helix",
+   "ordinal": 26,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P16",
+   "feature_positions": [
+    {
+     "beg_seq_id": 130,
+     "end_seq_id": 146
+    }
+   ],
+   "name": "helix",
+   "ordinal": 27,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "1",
+   "feature_positions": [
+    {
+     "beg_seq_id": 1,
+     "end_seq_id": 4
+    },
+    {
+     "beg_seq_id": 9,
+     "end_seq_id": 10
+    },
+    {
+     "beg_seq_id": 15,
+     "end_seq_id": 16
+    },
+    {
+     "beg_seq_id": 29,
+     "end_seq_id": 29
+    },
+    {
+     "beg_seq_id": 36,
+     "end_seq_id": 43
+    },
+    {
+     "beg_seq_id": 49,
+     "end_seq_id": 50
+    },
+    {
+     "beg_seq_id": 55,
+     "end_seq_id": 64
+    },
+    {
+     "beg_seq_id": 83,
+     "end_seq_id": 84
+    },
+    {
+     "beg_seq_id": 90,
+     "end_seq_id": 93
+    },
+    {
+     "beg_seq_id": 110,
+     "end_seq_id": 111
+    },
+    {
+     "beg_seq_id": 125,
+     "end_seq_id": 129
+    },
+    {
+     "beg_seq_id": 147,
+     "end_seq_id": 149
+    }
+   ],
+   "name": "unassigned secondary structure",
+   "ordinal": 29,
+   "provenance_source": "PROMOTIF",
+   "type": "UNASSIGNED_SEC_STRUCT"
+  },
+  {
+   "assignment_version": "V1.0",
+   "description": "Software generated binding site for ligand entity 2 component SO4 instance D chain B",
+   "feature_id": "AC2",
+   "feature_positions": [
+    {
+     "beg_seq_id": 90
+    },
+    {
+     "beg_seq_id": 91
+    },
+    {
+     "beg_seq_id": 92
+    },
+    {
+     "beg_seq_id": 93
+    },
+    {
+     "beg_seq_id": 94
+    },
+    {
+     "beg_seq_id": 95
+    },
+    {
+     "beg_seq_id": 96
+    }
+   ],
+   "name": "ligand SO4",
+   "ordinal": 31,
+   "provenance_source": "PDB",
+   "type": "BINDING_SITE"
+  },
+  {
+   "assignment_version": "V1.0",
+   "description": "Software generated binding site for ligand entity 3 component EDO instance E chain B",
+   "feature_id": "AC3",
+   "feature_positions": [
+    {
+     "beg_seq_id": 95
+    },
+    {
+     "beg_seq_id": 99
+    },
+    {
+     "beg_seq_id": 127
+    },
+    {
+     "beg_seq_id": 128
+    },
+    {
+     "beg_seq_id": 130
+    },
+    {
+     "beg_seq_id": 133
+    }
+   ],
+   "name": "ligand EDO",
+   "ordinal": 32,
+   "provenance_source": "PDB",
+   "type": "BINDING_SITE"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PARTNER_ASYM_ID",
+     "values": [
+      "D"
+     ]
+    },
+    {
+     "name": "PARTNER_COMP_ID",
+     "values": [
+      "SO4"
+     ]
+    }
+   ],
+   "assignment_version": "V1.0",
+   "description": "Software generated binding site for ligand entity 2 component SO4 instance D",
+   "feature_id": "LIGAND_INTERACTION_2",
+   "feature_positions": [
+    {
+     "beg_comp_id": "GLN",
+     "beg_seq_id": 91
+    },
+    {
+     "beg_comp_id": "ALA",
+     "beg_seq_id": 92
+    },
+    {
+     "beg_comp_id": "SER",
+     "beg_seq_id": 95
+    },
+    {
+     "beg_comp_id": "ARG",
+     "beg_seq_id": 96
+    },
+    {
+     "beg_comp_id": "CYS",
+     "beg_seq_id": 90
+    },
+    {
+     "beg_comp_id": "VAL",
+     "beg_seq_id": 94
+    }
+   ],
+   "name": "ligand SO4",
+   "ordinal": 34,
+   "provenance_source": "PDB",
+   "type": "LIGAND_INTERACTION"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PARTNER_ASYM_ID",
+     "values": [
+      "E"
+     ]
+    },
+    {
+     "name": "PARTNER_COMP_ID",
+     "values": [
+      "EDO"
+     ]
+    }
+   ],
+   "assignment_version": "V1.0",
+   "description": "Software generated binding site for ligand entity 3 component EDO instance E",
+   "feature_id": "LIGAND_INTERACTION_3",
+   "feature_positions": [
+    {
+     "beg_comp_id": "SER",
+     "beg_seq_id": 128
+    },
+    {
+     "beg_comp_id": "THR",
+     "beg_seq_id": 99
+    },
+    {
+     "beg_comp_id": "PHE",
+     "beg_seq_id": 133
+    },
+    {
+     "beg_comp_id": "SER",
+     "beg_seq_id": 95
+    },
+    {
+     "beg_comp_id": "ASN",
+     "beg_seq_id": 130
+    },
+    {
+     "beg_comp_id": "ILE",
+     "beg_seq_id": 127
+    },
+    {
+     "beg_comp_id": "MET",
+     "beg_seq_id": 134
+    }
+   ],
+   "name": "ligand EDO",
+   "ordinal": 35,
+   "provenance_source": "PDB",
+   "type": "LIGAND_INTERACTION"
+  },
+  {
+   "assignment_version": "V1.0",
+   "description": "No coordinates for this residue are reported in model 1",
+   "feature_id": "1",
+   "feature_positions": [
+    {
+     "beg_seq_id": 1,
+     "end_seq_id": 2
+    }
+   ],
+   "name": "unmodeled residue",
+   "ordinal": 37,
+   "provenance_source": "PDB",
+   "type": "UNOBSERVED_RESIDUE_XYZ"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PDB_MODEL_NUM",
+     "values": [
+      "1"
+     ]
+    }
+   ],
+   "feature_id": "CLASHES",
+   "feature_positions": [
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 4,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "PRO",
+     "beg_seq_id": 6,
+     "values": [
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 40,
+     "values": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 46,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "TYR",
+     "beg_seq_id": 52,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 59,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASN",
+     "beg_seq_id": 61,
+     "values": [
+      1.0,
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 70,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 74,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ILE",
+     "beg_seq_id": 76,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 86,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "CYS",
+     "beg_seq_id": 90,
+     "values": [
+      1.0,
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "VAL",
+     "beg_seq_id": 94,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ARG",
+     "beg_seq_id": 110,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "MET",
+     "beg_seq_id": 113,
+     "values": [
+      3.0
+     ]
+    },
+    {
+     "beg_comp_id": "LYS",
+     "beg_seq_id": 123,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 138,
+     "values": [
+      3.0
+     ]
+    }
+   ],
+   "name": "CLASHES",
+   "ordinal": 40,
+   "provenance_source": "PDB",
+   "type": "CLASHES"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PDB_MODEL_NUM",
+     "values": [
+      "1"
+     ]
+    }
+   ],
+   "feature_id": "ANGLE_OUTLIERS",
+   "feature_positions": [
+    {
+     "beg_comp_id": "ILE",
+     "beg_seq_id": 7,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLN",
+     "beg_seq_id": 17,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "HIS",
+     "beg_seq_id": 39,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 42,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 55,
+     "values": [
+      1.0
+     ]
+    }
+   ],
+   "name": "ANGLE_OUTLIERS",
+   "ordinal": 41,
+   "provenance_source": "PDB",
+   "type": "ANGLE_OUTLIERS"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PDB_MODEL_NUM",
+     "values": [
+      "1"
+     ]
+    }
+   ],
+   "feature_id": "RSCC",
+   "feature_positions": [
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 3,
+     "values": [
+      0.743,
+      0.827,
+      0.946,
+      0.931,
+      0.969,
+      0.959,
+      0.957,
+      0.974,
+      0.959,
+      0.959,
+      0.962,
+      0.96,
+      0.944,
+      0.873,
+      0.849,
+      0.85,
+      0.911,
+      0.875,
+      0.871,
+      0.912,
+      0.89,
+      0.919,
+      0.932,
+      0.863,
+      0.727,
+      0.91,
+      0.915,
+      0.909,
+      0.94,
+      0.947,
+      0.966,
+      0.974,
+      0.978,
+      0.934,
+      0.965,
+      0.945,
+      0.951,
+      0.965,
+      0.96,
+      0.918,
+      0.954,
+      0.915,
+      0.937,
+      0.813,
+      0.898,
+      0.919,
+      0.868,
+      0.931,
+      0.89,
+      0.933,
+      0.962,
+      0.944,
+      0.963,
+      0.94,
+      0.916,
+      0.887,
+      0.694,
+      0.947,
+      0.82,
+      0.887,
+      0.965,
+      0.954,
+      0.974,
+      0.961,
+      0.951,
+      0.965,
+      0.961,
+      0.917,
+      0.954,
+      0.969,
+      0.943,
+      0.938,
+      0.967,
+      0.956,
+      0.927,
+      0.884,
+      0.936,
+      0.934,
+      0.904,
+      0.927,
+      0.95,
+      0.874,
+      0.963,
+      0.901,
+      0.965,
+      0.956,
+      0.969,
+      0.985,
+      0.915,
+      0.898,
+      0.938,
+      0.899,
+      0.939,
+      0.961,
+      0.971,
+      0.961,
+      0.966,
+      0.954,
+      0.977,
+      0.964,
+      0.974,
+      0.974,
+      0.955,
+      0.985,
+      0.935,
+      0.934,
+      0.932,
+      0.88,
+      0.971,
+      0.982,
+      0.979,
+      0.966,
+      0.963,
+      0.985,
+      0.958,
+      0.942,
+      0.958,
+      0.935,
+      0.935,
+      0.957,
+      0.93,
+      0.963,
+      0.915,
+      0.861,
+      0.882,
+      0.899,
+      0.817,
+      0.917,
+      0.959,
+      0.948,
+      0.953,
+      0.927,
+      0.953,
+      0.97,
+      0.961,
+      0.957,
+      0.959,
+      0.959,
+      0.955,
+      0.919,
+      0.968,
+      0.946,
+      0.958,
+      0.967,
+      0.958,
+      0.886,
+      0.796
+     ]
+    }
+   ],
+   "name": "RSCC",
+   "ordinal": 46,
+   "provenance_source": "PDB",
+   "type": "RSCC"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PDB_MODEL_NUM",
+     "values": [
+      "1"
+     ]
+    }
+   ],
+   "feature_id": "RSR",
+   "feature_positions": [
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 3,
+     "values": [
+      0.185,
+      0.154,
+      0.1,
+      0.093,
+      0.078,
+      0.07,
+      0.071,
+      0.053,
+      0.078,
+      0.07,
+      0.066,
+      0.057,
+      0.082,
+      0.142,
+      0.19,
+      0.137,
+      0.096,
+      0.127,
+      0.159,
+      0.112,
+      0.126,
+      0.109,
+      0.098,
+      0.135,
+      0.194,
+      0.113,
+      0.107,
+      0.096,
+      0.081,
+      0.068,
+      0.076,
+      0.061,
+      0.047,
+      0.074,
+      0.069,
+      0.091,
+      0.081,
+      0.072,
+      0.069,
+      0.106,
+      0.07,
+      0.12,
+      0.08,
+      0.153,
+      0.124,
+      0.103,
+      0.135,
+      0.078,
+      0.126,
+      0.086,
+      0.083,
+      0.074,
+      0.056,
+      0.071,
+      0.102,
+      0.143,
+      0.258,
+      0.111,
+      0.192,
+      0.154,
+      0.06,
+      0.071,
+      0.064,
+      0.062,
+      0.075,
+      0.058,
+      0.053,
+      0.104,
+      0.087,
+      0.053,
+      0.073,
+      0.115,
+      0.054,
+      0.06,
+      0.101,
+      0.117,
+      0.088,
+      0.084,
+      0.141,
+      0.114,
+      0.077,
+      0.141,
+      0.072,
+      0.095,
+      0.081,
+      0.07,
+      0.048,
+      0.056,
+      0.121,
+      0.119,
+      0.095,
+      0.103,
+      0.078,
+      0.096,
+      0.056,
+      0.064,
+      0.054,
+      0.065,
+      0.059,
+      0.055,
+      0.055,
+      0.049,
+      0.069,
+      0.047,
+      0.095,
+      0.084,
+      0.094,
+      0.172,
+      0.079,
+      0.045,
+      0.068,
+      0.054,
+      0.062,
+      0.054,
+      0.08,
+      0.114,
+      0.073,
+      0.084,
+      0.113,
+      0.071,
+      0.107,
+      0.06,
+      0.109,
+      0.164,
+      0.112,
+      0.126,
+      0.201,
+      0.11,
+      0.063,
+      0.072,
+      0.067,
+      0.101,
+      0.065,
+      0.05,
+      0.055,
+      0.066,
+      0.105,
+      0.057,
+      0.078,
+      0.129,
+      0.055,
+      0.067,
+      0.067,
+      0.052,
+      0.089,
+      0.112,
+      0.177
+     ]
+    }
+   ],
+   "name": "RSR",
+   "ordinal": 47,
+   "provenance_source": "PDB",
+   "type": "RSR"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PDB_MODEL_NUM",
+     "values": [
+      "1"
+     ]
+    }
+   ],
+   "feature_id": "RSRZ",
+   "feature_positions": [
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 3,
+     "values": [
+      2.192,
+      2.8,
+      0.97,
+      0.697,
+      0.322,
+      0.0,
+      0.015,
+      -0.37,
+      0.267,
+      0.218,
+      -0.133,
+      -0.231,
+      0.203,
+      1.161,
+      2.618,
+      1.565,
+      1.0,
+      1.047,
+      2.149,
+      1.4,
+      1.273,
+      1.242,
+      0.588,
+      1.247,
+      2.601,
+      1.433,
+      0.872,
+      0.932,
+      0.471,
+      0.14,
+      0.34,
+      -0.254,
+      -0.733,
+      0.271,
+      0.03,
+      0.697,
+      0.287,
+      0.067,
+      -0.046,
+      1.2,
+      0.208,
+      1.332,
+      0.549,
+      1.424,
+      0.661,
+      1.114,
+      2.167,
+      0.495,
+      1.38,
+      0.754,
+      -0.377,
+      -0.319,
+      -0.467,
+      0.015,
+      1.19,
+      2.273,
+      4.775,
+      1.057,
+      3.144,
+      1.42,
+      -0.623,
+      -0.091,
+      -0.2,
+      -0.611,
+      -0.249,
+      -0.201,
+      -0.37,
+      0.249,
+      -0.158,
+      -0.365,
+      0.322,
+      0.513,
+      -0.336,
+      -0.288,
+      0.177,
+      0.561,
+      0.746,
+      0.367,
+      1.397,
+      1.743,
+      0.354,
+      1.091,
+      0.208,
+      0.833,
+      0.367,
+      0.051,
+      -0.598,
+      -0.172,
+      0.898,
+      1.73,
+      0.88,
+      1.278,
+      0.156,
+      0.217,
+      -0.445,
+      -0.016,
+      -0.424,
+      -0.119,
+      -0.25,
+      -0.458,
+      -0.302,
+      -0.509,
+      -0.033,
+      -0.716,
+      -0.073,
+      0.367,
+      0.788,
+      2.066,
+      0.102,
+      -0.697,
+      -0.179,
+      -0.424,
+      -0.424,
+      -0.333,
+      0.549,
+      0.408,
+      0.322,
+      0.618,
+      0.382,
+      0.178,
+      0.23,
+      -0.659,
+      1.192,
+      3.237,
+      1.475,
+      1.467,
+      4.04,
+      0.952,
+      -0.233,
+      -0.064,
+      0.114,
+      0.665,
+      0.003,
+      -0.873,
+      -0.5,
+      -0.133,
+      0.273,
+      -0.232,
+      -0.374,
+      0.849,
+      -0.61,
+      -0.1,
+      -0.198,
+      -0.599,
+      0.705,
+      1.59,
+      3.303
+     ]
+    }
+   ],
+   "name": "RSRZ",
+   "ordinal": 48,
+   "provenance_source": "PDB",
+   "type": "RSRZ"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PDB_MODEL_NUM",
+     "values": [
+      "1"
+     ]
+    }
+   ],
+   "feature_id": "NATOMS_EDS",
+   "feature_positions": [
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 3,
+     "values": [
+      9.0,
+      8.0,
+      7.0,
+      7.0,
+      8.0,
+      8.0,
+      7.0,
+      11.0,
+      8.0,
+      11.0,
+      8.0,
+      4.0,
+      8.0,
+      9.0,
+      9.0,
+      8.0,
+      5.0,
+      9.0,
+      8.0,
+      8.0,
+      8.0,
+      7.0,
+      8.0,
+      9.0,
+      11.0,
+      8.0,
+      8.0,
+      8.0,
+      4.0,
+      12.0,
+      7.0,
+      8.0,
+      8.0,
+      7.0,
+      7.0,
+      7.0,
+      10.0,
+      8.0,
+      7.0,
+      8.0,
+      12.0,
+      10.0,
+      12.0,
+      9.0,
+      9.0,
+      4.0,
+      8.0,
+      11.0,
+      8.0,
+      12.0,
+      9.0,
+      11.0,
+      8.0,
+      7.0,
+      5.0,
+      7.0,
+      8.0,
+      6.0,
+      8.0,
+      9.0,
+      9.0,
+      8.0,
+      8.0,
+      11.0,
+      9.0,
+      12.0,
+      11.0,
+      9.0,
+      9.0,
+      5.0,
+      11.0,
+      9.0,
+      11.0,
+      8.0,
+      9.0,
+      9.0,
+      5.0,
+      10.0,
+      9.0,
+      6.0,
+      4.0,
+      9.0,
+      4.0,
+      8.0,
+      8.0,
+      8.0,
+      10.0,
+      6.0,
+      9.0,
+      5.0,
+      4.0,
+      7.0,
+      6.0,
+      11.0,
+      6.0,
+      5.0,
+      7.0,
+      8.0,
+      7.0,
+      8.0,
+      5.0,
+      12.0,
+      8.0,
+      8.0,
+      9.0,
+      10.0,
+      7.0,
+      11.0,
+      8.0,
+      7.0,
+      8.0,
+      7.0,
+      8.0,
+      5.0,
+      12.0,
+      9.0,
+      11.0,
+      7.0,
+      9.0,
+      4.0,
+      9.0,
+      11.0,
+      7.0,
+      8.0,
+      8.0,
+      6.0,
+      7.0,
+      8.0,
+      8.0,
+      8.0,
+      11.0,
+      8.0,
+      4.0,
+      9.0,
+      8.0,
+      8.0,
+      9.0,
+      11.0,
+      9.0,
+      9.0,
+      8.0,
+      8.0,
+      8.0,
+      8.0,
+      4.0,
+      7.0,
+      8.0
+     ]
+    }
+   ],
+   "name": "NATOMS_EDS",
+   "ordinal": 49,
+   "provenance_source": "PDB",
+   "type": "NATOMS_EDS"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PDB_MODEL_NUM",
+     "values": [
+      "1"
+     ]
+    }
+   ],
+   "feature_id": "OWAB",
+   "feature_positions": [
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 3,
+     "values": [
+      47.62,
+      32.9,
+      18.98,
+      15.68,
+      11.06,
+      10.74,
+      11.17,
+      12.63,
+      9.82,
+      12.86,
+      11.93,
+      12.46,
+      18.3,
+      26.36,
+      36.23,
+      26.18,
+      20.99,
+      26.25,
+      34.48,
+      25.68,
+      33.18,
+      25.54,
+      24.03,
+      31.14,
+      37.69,
+      24.86,
+      21.68,
+      20.72,
+      14.52,
+      15.84,
+      12.21,
+      9.66,
+      11.69,
+      10.43,
+      12.94,
+      16.06,
+      16.51,
+      14.3,
+      12.86,
+      14.43,
+      15.91,
+      24.97,
+      19.01,
+      34.33,
+      31.05,
+      23.71,
+      24.25,
+      18.32,
+      18.79,
+      13.27,
+      17.13,
+      10.78,
+      11.92,
+      14.22,
+      17.79,
+      24.81,
+      44.32,
+      25.18,
+      39.05,
+      31.98,
+      15.03,
+      13.3,
+      12.15,
+      11.52,
+      13.41,
+      12.39,
+      9.34,
+      22.95,
+      19.18,
+      10.85,
+      12.44,
+      24.37,
+      12.63,
+      12.49,
+      19.29,
+      22.05,
+      17.12,
+      17.63,
+      26.01,
+      24.0,
+      20.61,
+      24.64,
+      16.37,
+      12.13,
+      17.27,
+      12.86,
+      10.22,
+      12.77,
+      25.58,
+      22.11,
+      19.96,
+      16.11,
+      14.46,
+      17.32,
+      11.68,
+      8.23,
+      8.78,
+      10.54,
+      8.18,
+      8.38,
+      8.41,
+      9.51,
+      9.68,
+      9.93,
+      19.47,
+      20.09,
+      20.76,
+      36.71,
+      11.59,
+      10.77,
+      12.72,
+      11.05,
+      13.14,
+      9.94,
+      16.12,
+      17.06,
+      12.12,
+      9.91,
+      23.25,
+      16.94,
+      23.15,
+      16.8,
+      19.84,
+      25.39,
+      21.66,
+      24.72,
+      26.23,
+      16.76,
+      12.93,
+      11.21,
+      10.6,
+      17.3,
+      11.35,
+      9.34,
+      10.35,
+      11.89,
+      20.86,
+      10.59,
+      11.13,
+      21.54,
+      12.51,
+      10.77,
+      12.51,
+      13.7,
+      15.51,
+      23.03,
+      34.98
+     ]
+    }
+   ],
+   "name": "OWAB",
+   "ordinal": 52,
+   "provenance_source": "PDB",
+   "type": "OWAB"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PDB_MODEL_NUM",
+     "values": [
+      "1"
+     ]
+    }
+   ],
+   "feature_id": "AVERAGE_OCCUPANCY",
+   "feature_positions": [
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 3,
+     "values": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   ],
+   "name": "AVERAGE_OCCUPANCY",
+   "ordinal": 53,
+   "provenance_source": "PDB",
+   "type": "AVERAGE_OCCUPANCY"
+  },
+  {
+   "description": "The Accessible Surface Area considering this polymer entity instance by itself (unbound).",
+   "feature_positions": [
+    {
+     "beg_seq_id": 3,
+     "end_seq_id": 149,
+     "values": [
+      139.94974939068823,
+      7.0425208179228544,
+      14.833341359915446,
+      74.01129598091532,
+      3.368350298051781,
+      30.47658781920046,
+      122.47215714026163,
+      29.01682794315404,
+      0.0,
+      8.281861526845168,
+      0.0,
+      0.0,
+      30.6446177872333,
+      33.67842868006374,
+      115.75121225963433,
+      9.010233500394653,
+      2.5976547882731333,
+      79.67847780057903,
+      39.685819851369985,
+      36.93578776630126,
+      112.88757264438942,
+      15.728230310475805,
+      2.418676998161062,
+      97.02476907100444,
+      180.937980565094,
+      43.285047050171144,
+      70.65623587642528,
+      6.790064945554501,
+      9.853685782756319,
+      11.465677185699205,
+      5.374837773691248,
+      0.0,
+      0.5374837773691248,
+      0.0,
+      0.0,
+      65.76237845127275,
+      104.33442579544734,
+      17.611647778866484,
+      73.86907482485024,
+      41.976329922361074,
+      39.110204679008646,
+      30.00351925760054,
+      136.50702879806656,
+      172.98847943480564,
+      111.01061931704278,
+      64.77968575595574,
+      91.1548439411228,
+      21.03381732898544,
+      73.16505647755139,
+      42.750956192867896,
+      45.02432824761512,
+      81.34439903965048,
+      0.8062256660536872,
+      52.97717705903513,
+      0.0,
+      62.45458046666333,
+      128.88695507343363,
+      57.22861648564039,
+      146.28504492353147,
+      175.82064783148394,
+      15.868903289681185,
+      68.9318206954181,
+      0.0,
+      63.24990103629787,
+      108.0940526620443,
+      31.754514825731228,
+      1.6124513321073743,
+      81.43299697902998,
+      68.4988086967885,
+      0.0,
+      2.669642498974552,
+      115.51503737703395,
+      22.156677835409138,
+      0.0,
+      42.17402155159205,
+      90.61661120806507,
+      0.0,
+      68.79926559162959,
+      128.91007970863816,
+      75.1677363428947,
+      52.92852509856458,
+      82.2435354234785,
+      2.3138433079478316,
+      0.0,
+      0.0,
+      0.0,
+      1.4027839516809144,
+      4.791471663934976,
+      63.47457014996375,
+      86.35391482666347,
+      17.344260544934148,
+      0.8062256660536872,
+      21.163793813523885,
+      35.11738618619514,
+      0.0,
+      1.343709443422812,
+      5.931095708758225,
+      0.0,
+      0.0,
+      5.912321551060373,
+      0.0,
+      5.033866899989471,
+      0.0,
+      2.9200349732880264,
+      41.80964455598397,
+      70.85302524024614,
+      58.78035214148743,
+      153.2201961576511,
+      50.63001276276627,
+      73.26296358428199,
+      28.99135088337049,
+      70.96286034596389,
+      77.78669364263331,
+      0.0,
+      76.7638388268328,
+      128.02219525305827,
+      67.36007686427888,
+      0.0,
+      85.41638566733445,
+      63.976440833011786,
+      82.44098829166782,
+      32.85707561706448,
+      95.16855276844561,
+      134.83916982464635,
+      26.633407154388628,
+      48.20657059686823,
+      125.94721100447404,
+      50.547057123792634,
+      149.3616116357402,
+      44.48014910798266,
+      10.269713074863539,
+      96.31013214053647,
+      35.69123201357398,
+      22.86029657212246,
+      10.749675547382497,
+      83.81138870627552,
+      96.67247087083089,
+      2.2586895073214093,
+      32.35428256241336,
+      103.67384436481407,
+      23.269460112600115,
+      22.78726585266005,
+      118.86017004873862,
+      102.07804850031897,
+      61.09081258246587,
+      101.90214695773331,
+      59.60574906255038
+     ]
+    }
+   ],
+   "name": "Unbound ASA",
+   "ordinal": 54,
+   "provenance_source": "biojava-7.2.2",
+   "type": "ASA"
+  }
+ ],
+ "rcsb_polymer_instance_feature_summary": [
+  {
+   "count": 1,
+   "coverage": 0.15436,
+   "maximum_length": 23,
+   "minimum_length": 23,
+   "type": "SHEET"
+  },
+  {
+   "count": 2,
+   "coverage": 0.01342,
+   "maximum_length": 2,
+   "minimum_length": 2,
+   "type": "UNOBSERVED_RESIDUE_XYZ"
+  },
+  {
+   "count": 8,
+   "coverage": 0.54362,
+   "maximum_length": 17,
+   "minimum_length": 3,
+   "type": "HELIX_P"
+  },
+  {
+   "count": 1,
+   "coverage": 1.0,
+   "maximum_length": 149,
+   "minimum_length": 149,
+   "type": "SCOP"
+  },
+  {
+   "count": 1,
+   "coverage": 0.97315,
+   "type": "SCOP2B_SUPERFAMILY"
+  },
+  {
+   "count": 1,
+   "coverage": 0.30201,
+   "maximum_length": 45,
+   "minimum_length": 45,
+   "type": "UNASSIGNED_SEC_STRUCT"
+  },
+  {
+   "count": 1,
+   "coverage": 0.98658,
+   "maximum_length": 147,
+   "minimum_length": 147,
+   "type": "CATH"
+  },
+  {
+   "count": 1,
+   "coverage": 0.98658,
+   "type": "ECOD"
+  },
+  {
+   "count": 2,
+   "coverage": 0.08725,
+   "type": "BINDING_SITE"
+  },
+  {
+   "count": 2,
+   "coverage": 0.08725,
+   "type": "LIGAND_INTERACTION"
+  },
+  {
+   "count": 5,
+   "coverage": 0.03356,
+   "maximum_value": 0.0,
+   "minimum_value": 0.0,
+   "type": "ANGLE_OUTLIERS"
+  },
+  {
+   "count": 147,
+   "coverage": 0.98658,
+   "maximum_value": 47.62,
+   "minimum_value": 8.18,
+   "type": "OWAB"
+  },
+  {
+   "count": 147,
+   "coverage": 0.98658,
+   "maximum_value": 0.0,
+   "minimum_value": 0.0,
+   "type": "NATOMS_EDS"
+  },
+  {
+   "count": 23,
+   "coverage": 0.15436,
+   "maximum_value": 0.0,
+   "minimum_value": 0.0,
+   "type": "CLASHES"
+  },
+  {
+   "count": 147,
+   "coverage": 0.98658,
+   "maximum_value": 0.985,
+   "minimum_value": 0.694,
+   "type": "RSCC"
+  },
+  {
+   "count": 147,
+   "coverage": 0.98658,
+   "maximum_value": 0.258,
+   "minimum_value": 0.045,
+   "type": "RSR"
+  },
+  {
+   "count": 147,
+   "coverage": 0.98658,
+   "maximum_value": 4.775,
+   "minimum_value": -0.873,
+   "type": "RSRZ"
+  },
+  {
+   "count": 147,
+   "coverage": 0.98658,
+   "maximum_value": 1.0,
+   "minimum_value": 1.0,
+   "type": "AVERAGE_OCCUPANCY"
+  }
+ ],
+ "rcsb_polymer_instance_info": {
+  "modeled_residue_count": 147
+ }
+}

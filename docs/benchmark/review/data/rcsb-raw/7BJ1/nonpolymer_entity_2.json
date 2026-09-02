@@ -1,0 +1,26 @@
+{
+ "pdbx_entity_nonpoly": {
+  "comp_id": "SAM",
+  "entity_id": "2",
+  "name": "S-ADENOSYLMETHIONINE"
+ },
+ "rcsb_id": "7BJ1_2",
+ "rcsb_nonpolymer_entity": {
+  "formula_weight": 0.398,
+  "pdbx_description": "S-ADENOSYLMETHIONINE",
+  "pdbx_number_of_molecules": 1
+ },
+ "rcsb_nonpolymer_entity_container_identifiers": {
+  "asym_ids": [
+   "B"
+  ],
+  "auth_asym_ids": [
+   "A"
+  ],
+  "chem_ref_def_id": "SAM",
+  "entity_id": "2",
+  "entry_id": "7BJ1",
+  "nonpolymer_comp_id": "SAM",
+  "rcsb_id": "7BJ1_2"
+ }
+}

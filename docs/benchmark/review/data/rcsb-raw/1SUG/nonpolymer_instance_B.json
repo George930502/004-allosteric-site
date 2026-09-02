@@ -1,0 +1,58 @@
+{
+ "rcsb_id": "1SUG.B",
+ "rcsb_nonpolymer_entity_instance_container_identifiers": {
+  "asym_id": "B",
+  "auth_asym_id": "A",
+  "auth_seq_id": "322",
+  "comp_id": "TRS",
+  "entity_id": "2",
+  "entry_id": "1SUG",
+  "rcsb_id": "1SUG.B"
+ },
+ "rcsb_nonpolymer_instance_annotation": [
+  {
+   "comp_id": "TRS",
+   "ordinal": 1,
+   "provenance_source": "Primary Data",
+   "type": "HAS_NO_COVALENT_LINKAGE"
+  }
+ ],
+ "rcsb_nonpolymer_instance_validation_score": [
+  {
+   "RSCC": 0.685,
+   "RSR": 0.201,
+   "average_occupancy": 1.0,
+   "completeness": 1.0,
+   "intermolecular_clashes": 0,
+   "is_best_instance": "Y",
+   "is_subject_of_investigation": "N",
+   "mogul_angle_outliers": 4,
+   "mogul_angles_RMSZ": 2.14,
+   "mogul_bond_outliers": 2,
+   "mogul_bonds_RMSZ": 2.0,
+   "natoms_eds": 8,
+   "num_mogul_angles_RMSZ": 9,
+   "num_mogul_bonds_RMSZ": 7,
+   "ranking_model_fit": 0.0386,
+   "ranking_model_geometry": 0.1108,
+   "score_model_fit": 2.5811,
+   "score_model_geometry": 1.5406,
+   "stereo_outliers": 0,
+   "type": "RCSB_LIGAND_QUALITY_SCORE_2021"
+  }
+ ],
+ "rcsb_target_neighbors": [
+  {
+   "atom_id": "O2",
+   "comp_id": "TRS",
+   "distance": 2.729,
+   "target_asym_id": "A",
+   "target_atom_id": "ND1",
+   "target_auth_seq_id": 54,
+   "target_comp_id": "HIS",
+   "target_entity_id": "1",
+   "target_model_id": 1,
+   "target_seq_id": 54
+  }
+ ]
+}

@@ -1,0 +1,14 @@
+1OPL: res=[3.42] SG=C 2 2 21 Rwork=0.306 Rfree=0.315 Bmean=123.3 assemblies=3 released=2003-04-08
+2FO0: res=[2.27] SG=P 21 21 2 Rwork=0.21 Rfree=0.246 Bmean=38.8 assemblies=1 released=2006-03-21
+1OPK: res=[1.8] SG=C 2 2 21 Rwork=0.196 Rfree=0.221 Bmean=30.9 assemblies=1 released=2003-04-08
+4XEY: res=[2.891] SG=P 21 21 2 Rwork=0.2308 Rfree=0.2593 Bmean=None assemblies=2 released=2015-04-01
+5MO4: res=[2.17] SG=C 2 2 21 Rwork=0.1818 Rfree=0.217 Bmean=36.73 assemblies=1 released=2017-04-05
+8SSN: res=[2.86] SG=P 21 21 21 Rwork=0.2977 Rfree=0.348 Bmean=None assemblies=2 released=2023-09-06
+2G2H: res=[2.0] SG=P 21 21 2 Rwork=0.193 Rfree=0.213 Bmean=None assemblies=2 released=2006-05-23
+6XR6: res=None SG=None Rwork=None Rfree=None Bmean=None assemblies=1 released=2020-10-07
+6XR7: res=None SG=None Rwork=None Rfree=None Bmean=None assemblies=1 released=2020-10-07
+6XRG: res=None SG=None Rwork=None Rfree=None Bmean=None assemblies=1 released=2020-10-07
+2ABL: res=[2.5] SG=C 1 2 1 Rwork=0.183 Rfree=0.27 Bmean=None assemblies=1 released=1997-09-04
+6AMV: res=None SG=None Rwork=None Rfree=None Bmean=None assemblies=1 released=2017-09-27
+6AMW: res=None SG=None Rwork=None Rfree=None Bmean=None assemblies=1 released=2017-09-27
+1OPJ: res=[1.75] SG=P 1 Rwork=0.21 Rfree=0.242 Bmean=30.0 assemblies=2 released=2003-04-08

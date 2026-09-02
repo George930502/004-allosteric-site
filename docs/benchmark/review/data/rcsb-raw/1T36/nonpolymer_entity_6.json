@@ -1,0 +1,58 @@
+{
+ "pdbx_entity_nonpoly": {
+  "comp_id": "CL",
+  "entity_id": "6",
+  "name": "CHLORIDE ION"
+ },
+ "rcsb_id": "1T36_6",
+ "rcsb_nonpolymer_entity": {
+  "formula_weight": 0.035,
+  "pdbx_description": "CHLORIDE ION",
+  "pdbx_number_of_molecules": 27
+ },
+ "rcsb_nonpolymer_entity_container_identifiers": {
+  "asym_ids": [
+   "BC",
+   "DC",
+   "EC",
+   "FB",
+   "FC",
+   "GC",
+   "HB",
+   "HC",
+   "IA",
+   "IB",
+   "JB",
+   "KA",
+   "KB",
+   "LA",
+   "LB",
+   "MA",
+   "NA",
+   "OA",
+   "OC",
+   "P",
+   "PC",
+   "R",
+   "S",
+   "SB",
+   "T",
+   "U",
+   "WA"
+  ],
+  "auth_asym_ids": [
+   "A",
+   "C",
+   "D",
+   "E",
+   "F",
+   "G",
+   "H"
+  ],
+  "chem_ref_def_id": "CL",
+  "entity_id": "6",
+  "entry_id": "1T36",
+  "nonpolymer_comp_id": "CL",
+  "rcsb_id": "1T36_6"
+ }
+}

@@ -1,0 +1,40 @@
+{
+ "pdbx_entity_nonpoly": {
+  "comp_id": "MN",
+  "entity_id": "3",
+  "name": "MANGANESE (II) ION"
+ },
+ "rcsb_id": "1T36_3",
+ "rcsb_nonpolymer_entity": {
+  "formula_weight": 0.055,
+  "pdbx_description": "MANGANESE (II) ION",
+  "pdbx_number_of_molecules": 12
+ },
+ "rcsb_nonpolymer_entity_container_identifiers": {
+  "asym_ids": [
+   "BA",
+   "CA",
+   "CB",
+   "GA",
+   "I",
+   "J",
+   "N",
+   "TB",
+   "UB",
+   "XA",
+   "YA",
+   "YB"
+  ],
+  "auth_asym_ids": [
+   "A",
+   "C",
+   "E",
+   "G"
+  ],
+  "chem_ref_def_id": "MN",
+  "entity_id": "3",
+  "entry_id": "1T36",
+  "nonpolymer_comp_id": "MN",
+  "rcsb_id": "1T36_3"
+ }
+}

@@ -55,8 +55,11 @@ leak produces excellent results that mean nothing, and no test failure tells you
 
 - All holo-reading code lives in `src/allo/groundtruth/`. That package is a **sink**. Only
   scoring and reporting import it.
-- Five file-read routes bypass the import graph. All five are named in
-  [`tests/test_no_leakage.py`](tests/test_no_leakage.py). If you add a sixth, add it there.
+- **Thirteen** file-read routes bypass the import graph. All thirteen are named in
+  [`tests/test_no_leakage.py`](tests/test_no_leakage.py) and listed in `AGENTS.md`. If you
+  add a fourteenth, add it there. Two of them were found on 2026-09-02 by a sweep whose
+  first version matched bare integers and so could not see `Tyr164`; **normalise
+  three-letter residue codes before trusting any label sweep.**
 - Leakage also has forms that no import reveals: a cutoff tuned until enrichment looked good,
   a `top_k` picked because it matched the known pocket size, a threshold chosen on the
   validation targets. The
@@ -75,7 +78,7 @@ These files are closed. Nothing in them changes once a method has been scored ag
 ```
 docs/benchmark/primary/frozen.json              the primary input layer
 docs/benchmark/secondary/frozen.json    the secondary input layer
-docs/benchmark/evaluation/frozen.json   the evaluation layer, protocol version 2
+docs/benchmark/evaluation/frozen.json   the evaluation layer, protocol version 3
 ```
 
 Their manifests carry the choices, and `frozen.json` carries the consequences. `make verify`
@@ -98,6 +101,14 @@ A recalled number is not evidence. Where evidence is absent, write "unknown".
 ## 4. How to add a prediction method
 
 This is the Phase 2 workflow. Every method follows it.
+
+**There is no method package on `main`.** It was removed on 2026-09-02 and is preserved on
+the branch `method-layer-archive` (ADR 0037). Step 1 below therefore includes reading that
+branch, so that a dead end is not re-run. Two things stayed, because the frozen evaluation
+protocol requires them: the graph builder is `allo.structure.graph`, and the nine controls a
+method must beat are `allo.scoring.baselines.REQUIRED_BASELINES` plus `cavity_volume`. Do not
+copy a baseline into a new method package. Compute it from `scoring/` and pass it to
+`score_arm` as `against=`.
 
 1. **Read the contract.** [`docs/benchmark/README.md`](docs/benchmark/README.md) indexes the
    three frozen sets. `primary/` states what a method receives, `evaluation/` states how it is
@@ -153,7 +164,7 @@ Write one in [`docs/adr/`](docs/adr/README.md) when a choice is expensive to rev
 - A constraint interpretation is settled.
 
 Do not write one for a routine implementation detail. The index in
-[`docs/adr/README.md`](docs/adr/README.md) groups all 25 by topic, and the format is at the
+[`docs/adr/README.md`](docs/adr/README.md) groups all 37 by topic, and the format is at the
 top of that file. An ADR is never deleted. A decision that stops binding becomes
 `withdrawn` and says why.
 
@@ -180,9 +191,10 @@ labels.
 
 - `src/allo/` is organised by **pipeline stage**, not by abstraction. Add a module when a
   stage needs one, not before.
-- Dependencies point inward toward the network and propagation logic, never outward toward
-  I/O, cloud backends or plotting. `quantum/` must be callable without Braket credentials.
-  `network/` must be callable without a PDB fetch. Pass the capability in.
+- Dependencies point inward toward the graph and propagation logic, never outward toward
+  I/O, cloud backends or plotting. `structure/graph.py` must be callable without a PDB fetch,
+  and a future quantum package must be callable without Braket credentials. Pass the
+  capability in.
 - Ruff formats and lints. Line length 100. `make fmt` fixes what it can.
 - Add a dependency only when something imports it today. Phase-ahead dependencies were
   removed once already.

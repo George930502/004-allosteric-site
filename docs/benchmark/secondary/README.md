@@ -4,7 +4,13 @@
 choice to demonstrate **generalizability and scalability**". This set is that. It froze on
 2026-08-24, alongside the primary set and through the same code.
 
-**Read `docs/benchmark/primary/README.md` first.** Clauses (i)–(viii), the authority behind each of
+**Read `docs/benchmark/primary/README.md` first.**
+
+> **Read [`../review/README.md`](../review/README.md) before quoting a number from this page.**
+> An audit closed on 2026-09-02, after the organisers answered four questions about the
+> benchmark. It ratifies most of this document, corrects two stated facts in it, and lists the
+> decisions it forces. Corrections are recorded there rather than edited in here, so that this
+> freeze stays a freeze. Clauses (i)–(viii), the authority behind each of
 them, and the freeze mechanics are all there and all bind this set unchanged. Only what
 **differs** is explained here.
 
@@ -80,8 +86,17 @@ source, and used RCSB instead. The full survey is `evidence/databases.md`. The s
   publishes no inclusion criteria, ASBench's rules are behind a paywall and its licence
   forbids redistribution, CASBench unions its site over every deposited structure, and
   AlloBench has no apo step at all.
-- **ASD is not reachable as a data source.** Checked 2026-08-24: HTTPS fails with an expired
-  certificate, and the download page carries no data file.
+- **ASD is reachable, and the 2026-08-24 claim that it is not was a method failure.**
+  Corrected 2026-09-02. HTTPS still fails on the deployed certificate, but plain HTTP serves
+  all twelve release archives — 143 687 774 bytes, on disk and re-measured. The anonymous
+  download page builds its list from a `dataRecord2023` JavaScript array rather than from
+  `<a href>` elements, which is what the 2026-08-24 scrape missed. What ASD supplies is
+  unchanged and is the reason the frame is still RCSB: its evidence bar sits on the protein,
+  not the site, and its 2023 release mixes 3102 curated sites with 66,589 machine-predicted
+  ones. **It is a recall device, not a certification.** A 2026-09-02 sweep took 34 leads from
+  it and **zero** new admissible arms, because none has been through clause (ii). ASD states
+  a research-use-only licence and forbids redistribution, so no ASD file is ever committed.
+  `../review/09-extension-sweep.md` §1.3 holds the retrieval recipe.
 - **AHoJ-DB's apo call is not our clause (iii).** Queried for `AY7` it returns `1opl` — the
   exact pair this repo's own audit rejected, because myristate contacts 16 of 20 labels at
   3.29 Å.
@@ -272,7 +287,9 @@ Stated plainly, because a set this size is easy to over-claim.
 
 ## 7. Limitations
 
-Recorded rather than absorbed. Each is a thing a reviewer would find.
+Recorded rather than absorbed. Each is a thing a reviewer would find. Twelve were written on
+2026-08-24; items 13 to 16 were added by the 2026-09-02 audit, and the last two are properties
+of the **whole** benchmark rather than of this set.
 
 1. **The set is smaller than the power analysis asked for, and the reason is now measured
    rather than asserted.** 12 development and 16 generalisation targets were the design
@@ -331,10 +348,28 @@ Recorded rather than absorbed. Each is a thing a reviewer would find.
 
    **The design target of 28 is not reachable from this frame.** Two independent exhaustive
    frames produced 5 further admissible targets between them. That is the supply. The size
-   ladder is **not** repairable either. No new admissible target is below 272 residues, and the
-   mechanism is now measured rather than inferred: small catalytic domains are overwhelmingly
-   obligate oligomers, so they fail clause (ix) before size is ever the question. §7.2 stands,
-   with that as its cause.
+   ladder is **not** repairable either. No new admissible target is below 272 residues **from
+   that frame** — the qualifier matters and was missing until 2026-09-02 — and the mechanism is
+   now measured rather than inferred: small catalytic domains are overwhelmingly obligate
+   oligomers, so they fail clause (ix) before size is ever the question. §7.2 stands, with that
+   as its cause.
+
+   **A third frame was swept on 2026-09-02 and it changes the supply estimate, not the
+   decision.** ASD proved reachable over plain HTTP after all — the 2026-08-24 "a script cannot
+   fetch ASD" conclusion was falsified — and 3147 site records yielded **34 survivors of every
+   structural clause the sweep could measure**. Four of them are under 272 residues, the
+   smallest at **158**, so the sentence above is frame-bound and not a fact about the world.
+   Thirteen carry a **physiological** effector, against zero in the frozen set, which is the
+   one gap §5.2 admits to. Then clause (ii) was read for all 34
+   ([`../review/14-clause-ii-literature-pass.md`](../review/14-clause-ii-literature-pass.md)):
+   **13 pass, 5 fail, 16 unread behind publisher paywalls**, and seven of the thirteen passes
+   carry a separate structural problem. **The honest count of new admissible arms today is
+   zero, and the honest count of new leads is 13.** Six of those thirteen have no known
+   structural blocker — `hisG`, `UBE2I`, `PDC1`, `LGMN`, `proRS`, `fbpC` — and `hisG` is the
+   best single lead: a metabolite effector, a new organism, 284 residues, inhibition kinetics
+   measured three ways in an open-access primary paper. **The set is not re-frozen for this
+   submission**, because adding an arm re-runs the seeded tier split and reassigns every
+   existing arm. That is a re-freeze, not a repair. `../review/09-extension-sweep.md`.
 
 2. **The size ladder is thin at the bottom, and one arm carries it.** Eleven candidates
    with a recorded size below 272 residues reached a deciding clause. One survived: `mkp5`,
@@ -443,3 +478,42 @@ Recorded rather than absorbed. Each is a thing a reviewer would find.
     `FROZEN_TOKENS`, so no prediction-path module and no experiment runner can open it.
     It is the **third** data route that bypasses the import graph, after `frozen.json` and
     `manifest.yaml`.
+
+13. **Four pinned X-ray entries have no released structure factors, so density validation is
+    unavailable for them.** Added 2026-09-02, measured: `https://files.rcsb.org/download/<id>-sf.cif.gz`
+    returns **404** for `1IA8`, `1RTJ`, `1A9X` and `1VRT`, and 200 for the entries that do have
+    them. **Both halves of `hiv_rt` are in that list** (`1RTJ` and `1VRT`), so no real-space
+    validation of either member is possible: no RSRZ per residue, no real-space correlation, no
+    independent check on the label residues' own density. `1IA8` and `1A9X` are single members
+    of two further arms. These are pre-2000 depositions, when structure-factor release was not
+    mandatory, and nothing can repair it. Record it as a difficulty axis: on `hiv_rt` the label
+    set's coordinate quality rests on the depositors' R-factors alone.
+
+14. **Family disjointness was achieved. Rule-level disjointness was not.** Added 2026-09-02.
+    `chk1` sits in the `generalisation` tier and derives its propagation source with
+    `{from_motifs: [VAIK, HRD, DFG]}` — the identical rule that locates BCR-ABL1's active site
+    in the primary set. ADR 0012 asks for family disjointness and site disjointness, and both
+    hold: CHK1 and ABL1 are different Pfam families at different sites. But the *rule* is
+    shared, so an error in that rule would move a primary arm and a generalisation arm the same
+    way, and the generalisation set would not detect it. Nothing is repaired here. It is
+    disclosed because a shared rule is a shared failure mode, and the set's whole purpose is to
+    be an independent check.
+
+15. **All nine arms use a synthetic small molecule as the effector, and so do all five primary
+    arms.** Added 2026-09-02, promoted from §5.2 because it is a property of the **whole**
+    benchmark and not of this set. Classical allosteric enzymology — cooperativity, metabolite
+    feedback, a physiological effector such as AMP, GTP or acetyl-CoA — is untested on all
+    fifteen arms. The cause is measured and is clause (ix): of 32 physiological-effector holo
+    entries screened, **23 were killed by the single-chain lining requirement**, because
+    metabolite feedback and cooperativity are quaternary phenomena. The gap and the clause are
+    the same fact. Any claim about "allosteric sites" from this benchmark is a claim about
+    **drug-like allosteric pockets in a single chain**, and the report says it that way.
+
+16. **The negative class has an unknown false-negative rate.** Added 2026-09-02. Every arm
+    labels one site positive and everything else negative. Beltran 2026
+    (doi:10.1126/sciadv.aea2726) reports dozens of functionally allosteric surfaces on Src
+    alone, and that computational methods fail to find them. A residue this benchmark scores as
+    a false positive may be a real allosteric site nobody has annotated. The consequence is
+    directional and it is worth stating: **precision-style endpoints are more trustworthy here
+    than recall-style ones**, and a low AUC-ROC against this negative class is weaker evidence
+    against a method than a low precision@5 is.

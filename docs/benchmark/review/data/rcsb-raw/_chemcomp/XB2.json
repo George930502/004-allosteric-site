@@ -1,0 +1,332 @@
+{
+ "chem_comp": {
+  "formula": "C15 H19 N3 O2",
+  "formula_weight": 273.33,
+  "id": "XB2",
+  "name": "Mavacamten",
+  "pdbx_ambiguous_flag": "N",
+  "pdbx_formal_charge": 0,
+  "pdbx_initial_date": "2023-10-26T00:00:00.000+00:00",
+  "pdbx_modified_date": "2025-11-04T00:00:00.000+00:00",
+  "pdbx_processing_site": "PDBE",
+  "pdbx_release_status": "REL",
+  "three_letter_code": "XB2",
+  "type": "non-polymer"
+ },
+ "pdbx_chem_comp_audit": [
+  {
+   "action_type": "Create component",
+   "comp_id": "XB2",
+   "date": "2023-10-26T00:00:00.000+00:00",
+   "ordinal": 1
+  },
+  {
+   "action_type": "Initial release",
+   "comp_id": "XB2",
+   "date": "2023-12-13T00:00:00.000+00:00",
+   "ordinal": 2
+  },
+  {
+   "action_type": "Modify name",
+   "comp_id": "XB2",
+   "date": "2025-11-04T00:00:00.000+00:00",
+   "ordinal": 3
+  }
+ ],
+ "pdbx_chem_comp_descriptor": [
+  {
+   "comp_id": "XB2",
+   "descriptor": "InChI=1S/C15H19N3O2/c1-10(2)18-14(19)9-13(17-15(18)20)16-11(3)12-7-5-4-6-8-12/h4-11,16H,1-3H3,(H,17,20)/t11-/m0/s1",
+   "program": "InChI",
+   "program_version": "1.06",
+   "type": "InChI"
+  },
+  {
+   "comp_id": "XB2",
+   "descriptor": "RLCLASQCAPXVLM-NSHDSACASA-N",
+   "program": "InChI",
+   "program_version": "1.06",
+   "type": "InChIKey"
+  },
+  {
+   "comp_id": "XB2",
+   "descriptor": "CC(C)N1C(=O)NC(=CC1=O)N[C@@H](C)c2ccccc2",
+   "program": "CACTVS",
+   "program_version": "3.385",
+   "type": "SMILES_CANONICAL"
+  },
+  {
+   "comp_id": "XB2",
+   "descriptor": "CC(C)N1C(=O)NC(=CC1=O)N[CH](C)c2ccccc2",
+   "program": "CACTVS",
+   "program_version": "3.385",
+   "type": "SMILES"
+  },
+  {
+   "comp_id": "XB2",
+   "descriptor": "C[C@@H](c1ccccc1)NC2=CC(=O)N(C(=O)N2)C(C)C",
+   "program": "OpenEye OEToolkits",
+   "program_version": "2.0.7",
+   "type": "SMILES_CANONICAL"
+  },
+  {
+   "comp_id": "XB2",
+   "descriptor": "CC(C)N1C(=O)C=C(NC1=O)NC(C)c2ccccc2",
+   "program": "OpenEye OEToolkits",
+   "program_version": "2.0.7",
+   "type": "SMILES"
+  }
+ ],
+ "pdbx_chem_comp_identifier": [
+  {
+   "comp_id": "XB2",
+   "identifier": "6-[[(1~{S})-1-phenylethyl]amino]-3-propan-2-yl-1~{H}-pyrimidine-2,4-dione",
+   "program": "OpenEye OEToolkits",
+   "program_version": "2.0.7",
+   "type": "SYSTEMATIC NAME"
+  }
+ ],
+ "rcsb_chem_comp_annotation": [
+  {
+   "annotation_id": "C01EB24",
+   "annotation_lineage": [
+    {
+     "id": "C",
+     "name": "CARDIOVASCULAR SYSTEM DRUGS"
+    },
+    {
+     "depth": 1,
+     "id": "C01",
+     "name": "CARDIAC THERAPY DRUGS"
+    },
+    {
+     "depth": 2,
+     "id": "C01E",
+     "name": "OTHER CARDIAC PREPARATIONS in ATC"
+    },
+    {
+     "depth": 3,
+     "id": "C01EB",
+     "name": "Other plain cardiac preparations in ATC"
+    },
+    {
+     "depth": 4,
+     "id": "C01EB24",
+     "name": "mavacamten"
+    }
+   ],
+   "assignment_version": "5.1",
+   "description": "ATC matching InChIKey in DrugBank",
+   "name": "mavacamten",
+   "provenance_source": "DrugBank",
+   "type": "ATC"
+  }
+ ],
+ "rcsb_chem_comp_container_identifiers": {
+  "atc_codes": [
+   "C01EB24"
+  ],
+  "comp_id": "XB2",
+  "drugbank_id": "DB14921",
+  "rcsb_id": "XB2"
+ },
+ "rcsb_chem_comp_descriptor": {
+  "InChI": "InChI=1S/C15H19N3O2/c1-10(2)18-14(19)9-13(17-15(18)20)16-11(3)12-7-5-4-6-8-12/h4-11,16H,1-3H3,(H,17,20)/t11-/m0/s1",
+  "InChIKey": "RLCLASQCAPXVLM-NSHDSACASA-N",
+  "SMILES": "CC(C)N1C(=O)C=C(NC1=O)NC(C)c2ccccc2",
+  "SMILES_stereo": "C[C@@H](c1ccccc1)NC2=CC(=O)N(C(=O)N2)C(C)C",
+  "comp_id": "XB2"
+ },
+ "rcsb_chem_comp_info": {
+  "atom_count": 39,
+  "atom_count_chiral": 1,
+  "atom_count_heavy": 20,
+  "bond_count": 40,
+  "bond_count_aromatic": 6,
+  "comp_id": "XB2",
+  "initial_deposition_date": "2023-10-26T00:00:00.000+00:00",
+  "initial_release_date": "2023-12-13T00:00:00.000+00:00",
+  "release_status": "REL",
+  "revision_date": "2025-11-04T00:00:00.000+00:00"
+ },
+ "rcsb_chem_comp_related": [
+  {
+   "comp_id": "XB2",
+   "ordinal": 1,
+   "related_mapping_method": "matching InChIKey in DrugBank",
+   "resource_accession_code": "DB14921",
+   "resource_name": "DrugBank"
+  },
+  {
+   "comp_id": "XB2",
+   "ordinal": 2,
+   "related_mapping_method": "matching InChIKey in PubChem",
+   "resource_accession_code": "117761397",
+   "resource_name": "PubChem"
+  },
+  {
+   "comp_id": "XB2",
+   "ordinal": 3,
+   "related_mapping_method": "assigned by PubChem resource",
+   "resource_accession_code": "1642288-47-8",
+   "resource_name": "CAS"
+  },
+  {
+   "comp_id": "XB2",
+   "ordinal": 4,
+   "related_mapping_method": "assigned by PubChem resource",
+   "resource_accession_code": "CHEMBL4297517",
+   "resource_name": "ChEMBL"
+  },
+  {
+   "comp_id": "XB2",
+   "ordinal": 5,
+   "related_mapping_method": "matching ChEMBL ID in Pharos",
+   "resource_accession_code": "CHEMBL4297517",
+   "resource_name": "Pharos"
+  }
+ ],
+ "rcsb_chem_comp_synonyms": [
+  {
+   "comp_id": "XB2",
+   "name": "Mavacamten",
+   "ordinal": 1,
+   "provenance_source": "PDB Reference Data",
+   "type": "Preferred Name"
+  },
+  {
+   "comp_id": "XB2",
+   "name": "6-[[(1~{S})-1-phenylethyl]amino]-3-propan-2-yl-1~{H}-pyrimidine-2,4-dione",
+   "ordinal": 2,
+   "provenance_source": "PDB Reference Data",
+   "type": "Synonym"
+  },
+  {
+   "comp_id": "XB2",
+   "name": "6-[[(1~{S})-1-phenylethyl]amino]-3-propan-2-yl-1~{H}-pyrimidine-2,4-dione",
+   "ordinal": 3,
+   "provenance_source": "OpenEye OEToolkits",
+   "type": "Systematic Name"
+  },
+  {
+   "comp_id": "XB2",
+   "name": "Mavacamten",
+   "ordinal": 4,
+   "provenance_source": "DrugBank",
+   "type": "Synonym"
+  },
+  {
+   "comp_id": "XB2",
+   "name": "6-(((1S)-1-Phenylethyl)amino)-3-(propan-2-yl)-1,2,3,4 tetrahydropyrimidine-2,4-dione",
+   "ordinal": 5,
+   "provenance_source": "DrugBank",
+   "type": "Synonym"
+  },
+  {
+   "comp_id": "XB2",
+   "name": "MYK-461",
+   "ordinal": 6,
+   "provenance_source": "DrugBank",
+   "type": "Synonym"
+  }
+ ],
+ "rcsb_chem_comp_target": [
+  {
+   "comp_id": "XB2",
+   "interaction_type": "target",
+   "name": "Myosin-7",
+   "ordinal": 1,
+   "provenance_source": "DrugBank",
+   "reference_database_accession_code": "P12883",
+   "reference_database_name": "UniProt",
+   "target_actions": [
+    "inhibitory allosteric modulator"
+   ]
+  },
+  {
+   "comp_id": "XB2",
+   "interaction_type": "enzyme",
+   "name": "Cytochrome P450 2C8",
+   "ordinal": 2,
+   "provenance_source": "DrugBank",
+   "reference_database_accession_code": "P10632",
+   "reference_database_name": "UniProt",
+   "target_actions": [
+    "substrate"
+   ]
+  },
+  {
+   "comp_id": "XB2",
+   "interaction_type": "enzyme",
+   "name": "Cytochrome P450 3A5",
+   "ordinal": 3,
+   "provenance_source": "DrugBank",
+   "reference_database_accession_code": "P20815",
+   "reference_database_name": "UniProt",
+   "target_actions": [
+    "substrate"
+   ]
+  },
+  {
+   "comp_id": "XB2",
+   "interaction_type": "enzyme",
+   "name": "Cytochrome P450 2C9",
+   "ordinal": 4,
+   "provenance_source": "DrugBank",
+   "reference_database_accession_code": "P11712",
+   "reference_database_name": "UniProt",
+   "target_actions": [
+    "substrate",
+    "inducer"
+   ]
+  },
+  {
+   "comp_id": "XB2",
+   "interaction_type": "enzyme",
+   "name": "Cytochrome P450 2C19",
+   "ordinal": 5,
+   "provenance_source": "DrugBank",
+   "reference_database_accession_code": "P33261",
+   "reference_database_name": "UniProt",
+   "target_actions": [
+    "substrate",
+    "inducer"
+   ]
+  },
+  {
+   "comp_id": "XB2",
+   "interaction_type": "enzyme",
+   "name": "Cytochrome P450 3A4",
+   "ordinal": 6,
+   "provenance_source": "DrugBank",
+   "reference_database_accession_code": "P08684",
+   "reference_database_name": "UniProt",
+   "target_actions": [
+    "substrate",
+    "inducer"
+   ]
+  },
+  {
+   "comp_id": "XB2",
+   "interaction_type": "enzyme",
+   "name": "Cytochrome P450 2B6",
+   "ordinal": 7,
+   "provenance_source": "DrugBank",
+   "reference_database_accession_code": "P20813",
+   "reference_database_name": "UniProt",
+   "target_actions": [
+    "inducer"
+   ]
+  },
+  {
+   "comp_id": "XB2",
+   "interaction_type": "enzyme",
+   "name": "Cytochrome P450 2D6",
+   "ordinal": 8,
+   "provenance_source": "DrugBank",
+   "reference_database_accession_code": "P10635",
+   "reference_database_name": "UniProt"
+  }
+ ],
+ "rcsb_id": "XB2"
+}

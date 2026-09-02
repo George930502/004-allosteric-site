@@ -66,16 +66,30 @@ def test_a_defective_target_says_so(manifest):
 
 
 def test_mandated_tier_still_matches_the_challenge_table(manifest):
-    """If CHALLENGE.md is ever re-read and differs, this fails rather than drifting."""
+    """If CHALLENGE.md is ever re-read and differs, this fails rather than drifting.
+
+    The organisers sanctioned documented substitution on 2026-09-02, and one arm uses it:
+    the cardiac myosin holo is `9GZ2` and not the `6C1H` of Table 1 (ADR 0031). So the
+    assertion is not "the manifest equals the table". It is "the manifest equals the table
+    once every declared substitution is put back", which fails on an undeclared change and
+    passes on a declared one.
+    """
     table = CHALLENGE.read_text()
     mandated = [t for t in manifest["targets"] if t["tier"] == "mandated"]
-    assert {(t["apo"]["pdb"], t["holo"]["pdb"]) for t in mandated} == {
+    tabled = {
+        t["id"]: t.get("substituted_from", {}).get("holo", t["holo"]["pdb"]) for t in mandated
+    }
+    assert {(t["apo"]["pdb"], tabled[t["id"]]) for t in mandated} == {
         ("4OBE", "6OIM"),
         ("1OPL", "5MO4"),
         ("5TBY", "6C1H"),
     }
     for target in mandated:
-        for pdb in (target["apo"]["pdb"], target["holo"]["pdb"]):
+        substituted = target.get("substituted_from", {})
+        assert not substituted or substituted.get("reason"), (
+            f"{target['id']} substitutes an accession and records no reason"
+        )
+        for pdb in (target["apo"]["pdb"], tabled[target["id"]]):
             assert re.search(rf"\b{pdb}\b", table), f"{pdb} is no longer in CHALLENGE.md"
 
 
@@ -92,26 +106,45 @@ def test_excluded_targets_are_not_frozen(manifest):
         "label_footprints",
         "targets",
     } == set(frozen)
-    assert excluded and not (excluded & set(frozen["targets"]))
+    assert not (excluded & set(frozen["targets"]))
+    # `excluded` is empty since ADR 0031 exposed the cardiac myosin arm, so the line above
+    # is vacuous on its own. This is what stops it passing vacuously: every manifest arm
+    # that is not excluded has to be in the freeze, and nothing else may be.
+    assert {t["id"] for t in manifest["targets"]} - excluded == set(frozen["targets"])
 
 
-def test_frozen_assembly_is_biological_metadata_not_asymmetric_unit_count():
+def test_frozen_assembly_is_biological_metadata_not_asymmetric_unit_count(manifest):
+    """Clause (v) asks the two members to model the same oligomeric state.
+
+    One arm fails it and says so: `5TBY` deposits the hexameric interacting-heads motif and
+    `9GZ2` is monomeric (ADR 0031). A failure is admissible only when the manifest declares
+    it and states both copy counts, so this asserts the declaration, not the equality.
+    """
     import json
 
     frozen = json.loads(benchmark.FROZEN.read_text())["targets"]
-    for target in frozen.values():
+    declared = {t["id"]: t.get("assembly_exception", "") for t in manifest["targets"]}
+    for name, target in frozen.items():
         apo = target["apo_site_occupancy"]
         holo = target["holo_site_occupancy"]
         assert "polymer_chains" not in apo and "polymer_chains" not in holo
         assert apo["biological_assembly"]["id"] == "1"
         assert holo["biological_assembly"]["id"] == "1"
-        assert (
-            apo["biological_assembly"]["selected_chain_entity_copies"]
-            == holo["biological_assembly"]["selected_chain_entity_copies"]
-        )
         agreement = target["assembly_agreement"]
-        assert agreement["selected_target_copies_match"]
-        assert agreement["polymer_composition_matches"] or agreement["exception"]
+        assert (agreement["exception"] or "") == declared[name], f"{name}: freeze/manifest differ"
+        copies = (
+            apo["biological_assembly"]["selected_chain_entity_copies"],
+            holo["biological_assembly"]["selected_chain_entity_copies"],
+        )
+        assert agreement["selected_target_copies_match"] == (copies[0] == copies[1])
+        if agreement["selected_target_copies_match"] and agreement["polymer_composition_matches"]:
+            assert not agreement["exception"], f"{name}: declares an exception it does not need"
+            continue
+        note = agreement["exception"]
+        assert note, f"{name}: the two assemblies differ with no declared exception"
+        assert f"apo {copies[0]}, holo {copies[1]}" in note, (
+            f"{name}: the declared exception does not state both copy counts"
+        )
     assert frozen["kras_g12c_mandated"]["apo_site_occupancy"]["biological_assembly"] == {
         "id": "1",
         "polymer_entity_copies": {"1": 1},
@@ -155,6 +188,7 @@ def test_the_readme_table_matches_the_freeze():
 # Every label an arm does not score, declared. A label vanishing silently -- through an
 # alignment gap or a node-set trim -- would shrink the positive class without anyone seeing.
 DECLARED_LABEL_LOSS = {
+    "bcr_abl1_mandated": {"unmapped": ["A:ILE521", "A:VAL525", "A:LEU529"], "outside": []},
     "bcr_abl1_corrected": {"unmapped": ["A:VAL525", "A:LEU529"], "outside": []},
 }
 
@@ -273,6 +307,16 @@ def test_the_freeze_recovers_its_bytes_with_no_network(tmp_path, monkeypatch, ma
         for role in ("apo", "holo")
         if role in spec
     }
+    # An accession the manifest substituted away from is still referenced: the organisers
+    # asked that substitutions be documented, and the evidence for one is the file it
+    # replaced. `6C1H` reaches the store this way and no other (ADR 0031).
+    named |= {
+        spec["substituted_from"]["holo"]
+        for path in BENCHMARK_MANIFESTS
+        if path.exists()
+        for spec in yaml.safe_load(path.read_text())["targets"]
+        if "substituted_from" in spec
+    }
     del manifest
     # Reached through the evaluation-side root. `allo.inputs` deliberately exports only the
     # apo partition, so there is no prediction-path constant one `/ "holo"` from the answers.
@@ -322,7 +366,7 @@ def test_versioned_archive_reproduces_every_pinned_structure():
             with urllib.request.urlopen(request, timeout=120) as response:  # noqa: S310
                 restored = gzip.decompress(response.read())
             assert hashlib.sha256(restored).hexdigest() == record["sha256"], pdb
-    assert checked == 26, f"expected 26 pinned structures across both sets, fetched {checked}"
+    assert checked == 27, f"expected 27 pinned structures across both sets, fetched {checked}"
 
 
 def test_the_scoring_universe_excludes_what_scores_by_construction():

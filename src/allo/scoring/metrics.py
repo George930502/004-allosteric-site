@@ -110,11 +110,20 @@ def p_at_least_one_hit(n_positive: int, n_candidates: int, k: int) -> float:
     return float(hypergeom.sf(0, n_candidates, n_positive, k))
 
 
-def top_k_indices(scores: np.ndarray, positive: np.ndarray, k: int) -> np.ndarray:
-    """The `k` rows a method's list holds, under the same pessimistic tie rule as above."""
+def top_k_indices(scores: np.ndarray, k: int) -> np.ndarray:
+    """The `k` rows a method's list holds. Ties break by candidate order, never by label.
+
+    This is the deliverable itself, not a metric about it: `CHALLENGE.md` section 5 asks for
+    a top-5 residue list, and `top_k_components` and `dcc` both describe that list. Until
+    2026-09-02 the tie rule here was the pessimistic one `precision_at_k` uses, which sorts
+    negatives ahead of positives inside a tie. That is right for a metric, where it stops a
+    method gaining from a plateau, and wrong for an artifact: it made the residues a reader
+    is handed a function of the answer key, which is what C1 forbids. `precision_at_k` and
+    `recall_at_k` keep the pessimistic rule and do not come through here.
+    """
     if k <= 0 or k > len(scores):
         raise ValueError(f"k={k} is outside 1..{len(scores)}")
-    return np.lexsort((positive, -scores))[:k]
+    return np.argsort(-scores, kind="stable")[:k]
 
 
 def dcc(coordinates: np.ndarray, chosen: np.ndarray, labels: np.ndarray) -> float:

@@ -1,0 +1,703 @@
+{
+ "audit_author": [
+  {
+   "identifier_ORCID": "0000-0001-6102-2025",
+   "name": "Robert-Paganin, J.",
+   "pdbx_ordinal": 1
+  },
+  {
+   "identifier_ORCID": "0000-0001-5928-2776",
+   "name": "Kikuti, C.",
+   "pdbx_ordinal": 2
+  },
+  {
+   "identifier_ORCID": "0000-0003-4713-9096",
+   "name": "Auguin, D.",
+   "pdbx_ordinal": 3
+  },
+  {
+   "identifier_ORCID": "0000-0002-2089-6727",
+   "name": "Rety, S.",
+   "pdbx_ordinal": 4
+  },
+  {
+   "identifier_ORCID": "0000-0002-3284-4115",
+   "name": "David, A.",
+   "pdbx_ordinal": 5
+  },
+  {
+   "identifier_ORCID": "0000-0002-8566-0336",
+   "name": "Houdusse, A.",
+   "pdbx_ordinal": 6
+  }
+ ],
+ "cell": {
+  "Z_PDB": 4,
+  "angle_alpha": 90.0,
+  "angle_beta": 91.62,
+  "angle_gamma": 90.0,
+  "length_a": 102.801,
+  "length_b": 147.977,
+  "length_c": 116.751
+ },
+ "citation": [
+  {
+   "country": "US",
+   "id": "primary",
+   "journal_abbrev": "Biorxiv",
+   "journal_id_ISSN": "2692-8205",
+   "pdbx_database_id_DOI": "10.1101/2023.11.15.567213",
+   "pdbx_database_id_PubMed": 38014327,
+   "rcsb_authors": [
+    "Auguin, D.",
+    "Robert-Paganin, J.",
+    "Rety, S.",
+    "Kikuti, C.",
+    "David, A.",
+    "Theumer, G.",
+    "Schmidt, A.W.",
+    "Knolker, H.J.",
+    "Houdusse, A."
+   ],
+   "rcsb_is_primary": "Y",
+   "rcsb_journal_abbrev": "bioRxiv",
+   "title": "Omecamtiv mecarbil and Mavacamten target the same myosin pocket despite antagonistic effects in heart contraction.",
+   "year": 2023
+  }
+ ],
+ "database_2": [
+  {
+   "database_code": "8QYQ",
+   "database_id": "PDB",
+   "pdbx_DOI": "10.2210/pdb8qyq/pdb",
+   "pdbx_database_accession": "pdb_00008qyq"
+  },
+  {
+   "database_code": "D_1292133876",
+   "database_id": "WWPDB"
+  }
+ ],
+ "diffrn": [
+  {
+   "ambient_temp": 100.0,
+   "crystal_id": "1",
+   "id": "1",
+   "pdbx_serial_crystal_experiment": "N"
+  }
+ ],
+ "diffrn_detector": [
+  {
+   "detector": "PIXEL",
+   "diffrn_id": "1",
+   "pdbx_collection_date": "2018-01-26T00:00:00.000+00:00",
+   "type": "DECTRIS EIGER X 16M"
+  }
+ ],
+ "diffrn_radiation": [
+  {
+   "diffrn_id": "1",
+   "pdbx_diffrn_protocol": "SINGLE WAVELENGTH",
+   "pdbx_monochromatic_or_laue_m_l": "M",
+   "pdbx_scattering_type": "x-ray",
+   "wavelength_id": "1"
+  }
+ ],
+ "diffrn_source": [
+  {
+   "diffrn_id": "1",
+   "pdbx_synchrotron_beamline": "PROXIMA 1",
+   "pdbx_synchrotron_site": "SOLEIL",
+   "pdbx_wavelength_list": "0.98400",
+   "source": "SYNCHROTRON",
+   "type": "SOLEIL BEAMLINE PROXIMA 1"
+  }
+ ],
+ "entry": {
+  "id": "8QYQ"
+ },
+ "exptl": [
+  {
+   "crystals_number": 1,
+   "method": "X-RAY DIFFRACTION"
+  }
+ ],
+ "exptl_crystal": [
+  {
+   "density_Matthews": 4.34,
+   "density_percent_sol": 71.64,
+   "id": "1"
+  }
+ ],
+ "exptl_crystal_grow": [
+  {
+   "crystal_id": "1",
+   "method": "VAPOR DIFFUSION, HANGING DROP",
+   "pH": 6.0,
+   "pdbx_details": "5mM Mg.ADP.BeFx\n5mM Mavacamten\n20.5% PEG 3350\n7.5% Na Tacsimate\n5mM TCEP",
+   "temp": 277.0
+  }
+ ],
+ "pdbx_audit_revision_category": [
+  {
+   "category": "chem_comp",
+   "data_content_type": "Structure model",
+   "ordinal": 1,
+   "revision_ordinal": 2
+  },
+  {
+   "category": "entity",
+   "data_content_type": "Structure model",
+   "ordinal": 2,
+   "revision_ordinal": 2
+  },
+  {
+   "category": "pdbx_entity_nonpoly",
+   "data_content_type": "Structure model",
+   "ordinal": 3,
+   "revision_ordinal": 2
+  },
+  {
+   "category": "pdbx_entry_details",
+   "data_content_type": "Structure model",
+   "ordinal": 4,
+   "revision_ordinal": 2
+  },
+  {
+   "category": "pdbx_modification_feature",
+   "data_content_type": "Structure model",
+   "ordinal": 5,
+   "revision_ordinal": 2
+  }
+ ],
+ "pdbx_audit_revision_details": [
+  {
+   "data_content_type": "Structure model",
+   "ordinal": 1,
+   "provider": "repository",
+   "revision_ordinal": 1,
+   "type": "Initial release"
+  }
+ ],
+ "pdbx_audit_revision_group": [
+  {
+   "data_content_type": "Structure model",
+   "group": "Derived calculations",
+   "ordinal": 1,
+   "revision_ordinal": 2
+  },
+  {
+   "data_content_type": "Structure model",
+   "group": "Structure summary",
+   "ordinal": 2,
+   "revision_ordinal": 2
+  }
+ ],
+ "pdbx_audit_revision_history": [
+  {
+   "data_content_type": "Structure model",
+   "major_revision": 1,
+   "minor_revision": 0,
+   "ordinal": 1,
+   "revision_date": "2023-12-13T00:00:00.000+00:00"
+  },
+  {
+   "data_content_type": "Structure model",
+   "major_revision": 1,
+   "minor_revision": 1,
+   "ordinal": 2,
+   "revision_date": "2025-11-12T00:00:00.000+00:00"
+  }
+ ],
+ "pdbx_audit_revision_item": [
+  {
+   "data_content_type": "Structure model",
+   "item": "_chem_comp.name",
+   "ordinal": 1,
+   "revision_ordinal": 2
+  },
+  {
+   "data_content_type": "Structure model",
+   "item": "_chem_comp.pdbx_synonyms",
+   "ordinal": 2,
+   "revision_ordinal": 2
+  },
+  {
+   "data_content_type": "Structure model",
+   "item": "_entity.pdbx_description",
+   "ordinal": 3,
+   "revision_ordinal": 2
+  },
+  {
+   "data_content_type": "Structure model",
+   "item": "_pdbx_entity_nonpoly.name",
+   "ordinal": 4,
+   "revision_ordinal": 2
+  },
+  {
+   "data_content_type": "Structure model",
+   "item": "_pdbx_entry_details.has_protein_modification",
+   "ordinal": 5,
+   "revision_ordinal": 2
+  }
+ ],
+ "pdbx_audit_support": [
+  {
+   "country": "France",
+   "funding_organization": "The French Muscular Dystrophy Telethon (AFM-Telethon)",
+   "grant_number": "21805",
+   "ordinal": 1
+  },
+  {
+   "country": "France",
+   "funding_organization": "Fondation pour la Recherche Medicale (FRM)",
+   "grant_number": "DCM20181039553",
+   "ordinal": 2
+  },
+  {
+   "country": "France",
+   "funding_organization": "Agence Nationale de la Recherche (ANR)",
+   "grant_number": "21-CE11-0022-01",
+   "ordinal": 3
+  },
+  {
+   "country": "United States",
+   "funding_organization": "National Institutes of Health/National Institute of General Medical Sciences (NIH/NIGMS)",
+   "grant_number": "RM1GM131981-01",
+   "ordinal": 4
+  }
+ ],
+ "pdbx_database_status": {
+  "SG_entry": "N",
+  "deposit_site": "PDBE",
+  "pdb_format_compatible": "Y",
+  "process_site": "PDBE",
+  "recvd_initial_deposition_date": "2023-10-26T00:00:00.000+00:00",
+  "status_code": "REL",
+  "status_code_sf": "REL"
+ },
+ "pdbx_initial_refinement_model": [
+  {
+   "accession_code": "5N69",
+   "id": 1,
+   "source_name": "PDB",
+   "type": "experimental model"
+  }
+ ],
+ "pdbx_vrpt_summary": {
+  "attempted_validation_steps": "molprobity,validation-pack,xtriage,eds,mogul,buster-report,validation_schema,percentiles,writexml,writecif,writepdf",
+  "ligands_for_buster_report": "Y",
+  "report_creation_date": "2026-03-09T09:16:00.000+00:00"
+ },
+ "pdbx_vrpt_summary_diffraction": [
+  {
+   "B_factor_type": "FULL",
+   "CCP4_version": "9.0.010 (Gargrove)",
+   "DCC_R": 0.1848,
+   "DCC_Rfree": 0.2197,
+   "EDS_R": 0.1864,
+   "EDS_res_high": 2.61,
+   "EDS_res_low": 91.64,
+   "Fo_Fc_correlation": 0.937,
+   "I_over_sigma": "1.25(2.62A)",
+   "Padilla_Yeates_L2_mean": 0.325,
+   "Padilla_Yeates_L_mean": 0.496,
+   "Wilson_B_aniso": "[49.855,55.361,50.250,0.000,-0.022,0.000]",
+   "Wilson_B_estimate": 50.075,
+   "acentric_outliers": 0,
+   "bulk_solvent_b": 79.568,
+   "bulk_solvent_k": 0.343,
+   "centric_outliers": 0,
+   "data_anisotropy": 0.106,
+   "data_completeness": 65.97,
+   "density_fitness_version": "1.0.12",
+   "exp_method": "x-ray",
+   "num_miller_indices": 69881,
+   "number_reflns_R_free": 3478,
+   "percent_RSRZ_outliers": 9.45,
+   "percent_free_reflections": 4.98,
+   "trans_NCS_details": "The largest off-origin peak in the Patterson function is 3.50% of the height of the origin peak. No significant pseudotranslation is detected.",
+   "twin_fraction": "h,-k,-l:0.021"
+  }
+ ],
+ "pdbx_vrpt_summary_geometry": [
+  {
+   "angles_RMSZ": 1.37,
+   "bonds_RMSZ": 0.86,
+   "clashscore": 3.06,
+   "num_H_reduce": 14278,
+   "num_angles_RMSZ": 19693,
+   "num_bonds_RMSZ": 14622,
+   "percent_ramachandran_outliers": 0.57,
+   "percent_rotamer_outliers": 4.98
+  }
+ ],
+ "rcsb_accession_info": {
+  "deposit_date": "2023-10-26T00:00:00.000+00:00",
+  "has_released_experimental_data": "Y",
+  "initial_release_date": "2023-12-13T00:00:00.000+00:00",
+  "major_revision": 1,
+  "minor_revision": 1,
+  "revision_date": "2025-11-12T00:00:00.000+00:00",
+  "status_code": "REL"
+ },
+ "rcsb_entry_container_identifiers": {
+  "assembly_ids": [
+   "1",
+   "2"
+  ],
+  "entity_ids": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6",
+   "7",
+   "8",
+   "9",
+   "10"
+  ],
+  "entry_id": "8QYQ",
+  "model_ids": [
+   1
+  ],
+  "non_polymer_entity_ids": [
+   "4",
+   "5",
+   "6",
+   "7",
+   "8",
+   "9"
+  ],
+  "polymer_entity_ids": [
+   "1",
+   "2",
+   "3"
+  ],
+  "pubmed_id": 38014327,
+  "rcsb_id": "8QYQ"
+ },
+ "rcsb_entry_info": {
+  "assembly_count": 2,
+  "branched_entity_count": 0,
+  "cis_peptide_count": 0,
+  "deposited_atom_count": 14993,
+  "deposited_deuterated_water_count": 0,
+  "deposited_hydrogen_atom_count": 0,
+  "deposited_model_count": 1,
+  "deposited_modeled_polymer_monomer_count": 1793,
+  "deposited_nonpolymer_entity_instance_count": 14,
+  "deposited_polymer_entity_instance_count": 4,
+  "deposited_polymer_monomer_count": 2012,
+  "deposited_solvent_atom_count": 485,
+  "deposited_unmodeled_polymer_monomer_count": 219,
+  "diffrn_radiation_wavelength_maximum": 0.984,
+  "diffrn_radiation_wavelength_minimum": 0.984,
+  "diffrn_resolution_high": {
+   "provenance_source": "Depositor assigned",
+   "value": 2.61
+  },
+  "disulfide_bond_count": 0,
+  "entity_count": 10,
+  "experimental_method": "X-ray",
+  "experimental_method_count": 1,
+  "inter_mol_covalent_bond_count": 10,
+  "inter_mol_metalic_bond_count": 12,
+  "molecular_weight": 230.51,
+  "na_polymer_entity_types": "Other",
+  "nonpolymer_bound_components": [
+   "ADP",
+   "BEF",
+   "MG"
+  ],
+  "nonpolymer_entity_count": 6,
+  "nonpolymer_molecular_weight_maximum": 0.43,
+  "nonpolymer_molecular_weight_minimum": 0.02,
+  "polymer_composition": "heteromeric protein",
+  "polymer_entity_count": 3,
+  "polymer_entity_count_DNA": 0,
+  "polymer_entity_count_RNA": 0,
+  "polymer_entity_count_nucleic_acid": 0,
+  "polymer_entity_count_nucleic_acid_hybrid": 0,
+  "polymer_entity_count_protein": 3,
+  "polymer_entity_taxonomy_count": 3,
+  "polymer_molecular_weight_maximum": 92.33,
+  "polymer_molecular_weight_minimum": 21.97,
+  "polymer_monomer_count_maximum": 807,
+  "polymer_monomer_count_minimum": 199,
+  "resolution_combined": [
+   2.61
+  ],
+  "selected_polymer_entity_types": "Protein (only)",
+  "software_programs_combined": [
+   "AUTOPROC",
+   "BUSTER",
+   "PHASER",
+   "STARANISO"
+  ],
+  "solvent_entity_count": 1,
+  "structure_determination_methodology": "experimental",
+  "structure_determination_methodology_priority": 10
+ },
+ "rcsb_id": "8QYQ",
+ "rcsb_primary_citation": {
+  "country": "US",
+  "id": "primary",
+  "journal_abbrev": "Biorxiv",
+  "journal_id_ISSN": "2692-8205",
+  "pdbx_database_id_DOI": "10.1101/2023.11.15.567213",
+  "pdbx_database_id_PubMed": 38014327,
+  "rcsb_ORCID_identifiers": [
+   "?",
+   "?",
+   "?",
+   "?",
+   "?",
+   "?",
+   "?",
+   "?",
+   "0000-0002-8566-0336"
+  ],
+  "rcsb_authors": [
+   "Auguin, D.",
+   "Robert-Paganin, J.",
+   "Rety, S.",
+   "Kikuti, C.",
+   "David, A.",
+   "Theumer, G.",
+   "Schmidt, A.W.",
+   "Knolker, H.J.",
+   "Houdusse, A."
+  ],
+  "rcsb_journal_abbrev": "bioRxiv",
+  "title": "Omecamtiv mecarbil and Mavacamten target the same myosin pocket despite antagonistic effects in heart contraction.",
+  "year": 2023
+ },
+ "refine": [
+  {
+   "B_iso_mean": 63.44,
+   "aniso_B_1_1": -3.57,
+   "aniso_B_1_2": 0.0,
+   "aniso_B_1_3": -1.9547,
+   "aniso_B_2_2": 6.4543,
+   "aniso_B_2_3": 0.0,
+   "aniso_B_3_3": -2.8844,
+   "correlation_coeff_Fo_to_Fc": 0.933,
+   "correlation_coeff_Fo_to_Fc_free": 0.901,
+   "ls_R_factor_R_free": 0.217,
+   "ls_R_factor_R_free_error": 0.0,
+   "ls_R_factor_R_work": 0.178,
+   "ls_R_factor_obs": 0.18,
+   "ls_d_res_high": 2.61,
+   "ls_d_res_low": 91.64,
+   "ls_number_reflns_R_free": 3478,
+   "ls_number_reflns_obs": 69881,
+   "ls_percent_reflns_R_free": 4.98,
+   "ls_percent_reflns_obs": 66.0,
+   "overall_SU_R_Cruickshank_DPI": 0.654,
+   "pdbx_R_Free_selection_details": "RANDOM",
+   "pdbx_diffrn_id": [
+    "1"
+   ],
+   "pdbx_ls_cross_valid_method": "THROUGHOUT",
+   "pdbx_ls_sigma_F": 0.0,
+   "pdbx_method_to_determine_struct": "MOLECULAR REPLACEMENT",
+   "pdbx_overall_SU_R_Blow_DPI": 0.607,
+   "pdbx_overall_SU_R_free_Blow_DPI": 0.293,
+   "pdbx_overall_SU_R_free_Cruickshank_DPI": 0.3,
+   "pdbx_refine_id": "X-RAY DIFFRACTION"
+  }
+ ],
+ "refine_analyze": [
+  {
+   "Luzzati_coordinate_error_obs": 0.34,
+   "pdbx_refine_id": "X-RAY DIFFRACTION"
+  }
+ ],
+ "refine_hist": [
+  {
+   "cycle_id": "LAST",
+   "d_res_high": 2.61,
+   "d_res_low": 91.64,
+   "number_atoms_solvent": 485,
+   "number_atoms_total": 14943,
+   "pdbx_number_atoms_ligand": 173,
+   "pdbx_number_atoms_nucleic_acid": 0,
+   "pdbx_number_atoms_protein": 14285,
+   "pdbx_refine_id": "X-RAY DIFFRACTION"
+  }
+ ],
+ "refine_ls_restr": [
+  {
+   "dev_ideal": 0.01,
+   "number": 14798,
+   "pdbx_refine_id": "X-RAY DIFFRACTION",
+   "pdbx_restraint_function": "HARMONIC",
+   "type": "t_bond_d",
+   "weight": 2.0
+  },
+  {
+   "dev_ideal": 1.15,
+   "number": 19940,
+   "pdbx_refine_id": "X-RAY DIFFRACTION",
+   "pdbx_restraint_function": "HARMONIC",
+   "type": "t_angle_deg",
+   "weight": 2.0
+  },
+  {
+   "number": 5310,
+   "pdbx_refine_id": "X-RAY DIFFRACTION",
+   "pdbx_restraint_function": "SINUSOIDAL",
+   "type": "t_dihedral_angle_d",
+   "weight": 2.0
+  },
+  {
+   "pdbx_refine_id": "X-RAY DIFFRACTION",
+   "type": "t_incorr_chiral_ct"
+  },
+  {
+   "pdbx_refine_id": "X-RAY DIFFRACTION",
+   "type": "t_pseud_angle"
+  },
+  {
+   "number": 410,
+   "pdbx_refine_id": "X-RAY DIFFRACTION",
+   "pdbx_restraint_function": "HARMONIC",
+   "type": "t_trig_c_planes",
+   "weight": 2.0
+  },
+  {
+   "number": 2131,
+   "pdbx_refine_id": "X-RAY DIFFRACTION",
+   "pdbx_restraint_function": "HARMONIC",
+   "type": "t_gen_planes",
+   "weight": 5.0
+  },
+  {
+   "number": 14798,
+   "pdbx_refine_id": "X-RAY DIFFRACTION",
+   "pdbx_restraint_function": "HARMONIC",
+   "type": "t_it",
+   "weight": 20.0
+  },
+  {
+   "number": 3,
+   "pdbx_refine_id": "X-RAY DIFFRACTION",
+   "pdbx_restraint_function": "SEMIHARMONIC",
+   "type": "t_nbd",
+   "weight": 5.0
+  },
+  {
+   "dev_ideal": 2.83,
+   "pdbx_refine_id": "X-RAY DIFFRACTION",
+   "type": "t_omega_torsion"
+  },
+  {
+   "dev_ideal": 20.13,
+   "pdbx_refine_id": "X-RAY DIFFRACTION",
+   "type": "t_other_torsion"
+  },
+  {
+   "pdbx_refine_id": "X-RAY DIFFRACTION",
+   "type": "t_improper_torsion"
+  },
+  {
+   "number": 1894,
+   "pdbx_refine_id": "X-RAY DIFFRACTION",
+   "pdbx_restraint_function": "SEMIHARMONIC",
+   "type": "t_chiral_improper_torsion",
+   "weight": 5.0
+  },
+  {
+   "pdbx_refine_id": "X-RAY DIFFRACTION",
+   "type": "t_sum_occupancies"
+  },
+  {
+   "pdbx_refine_id": "X-RAY DIFFRACTION",
+   "type": "t_utility_distance"
+  },
+  {
+   "pdbx_refine_id": "X-RAY DIFFRACTION",
+   "type": "t_utility_angle"
+  },
+  {
+   "pdbx_refine_id": "X-RAY DIFFRACTION",
+   "type": "t_utility_torsion"
+  },
+  {
+   "number": 17175,
+   "pdbx_refine_id": "X-RAY DIFFRACTION",
+   "pdbx_restraint_function": "SEMIHARMONIC",
+   "type": "t_ideal_dist_contact",
+   "weight": 4.0
+  }
+ ],
+ "reflns": [
+  {
+   "B_iso_Wilson_estimate": 61.92,
+   "d_resolution_high": 2.607,
+   "d_resolution_low": 91.64,
+   "number_obs": 69889,
+   "pdbx_CC_half": 0.985,
+   "pdbx_Rmerge_I_obs": 0.2,
+   "pdbx_diffrn_id": [
+    "1"
+   ],
+   "pdbx_netI_over_sigmaI": 7.4,
+   "pdbx_ordinal": 1,
+   "pdbx_redundancy": 4.5,
+   "percent_possible_obs": 93.6
+  }
+ ],
+ "reflns_shell": [
+  {
+   "Rmerge_I_obs": 1.212,
+   "d_res_high": 2.607,
+   "d_res_low": 2.859,
+   "meanI_over_sigI_obs": 1.5,
+   "number_unique_obs": 3494,
+   "pdbx_CC_half": 0.476,
+   "pdbx_diffrn_id": [
+    "1"
+   ],
+   "pdbx_ordinal": 1,
+   "pdbx_redundancy": 5.3,
+   "percent_possible_all": 61.2
+  }
+ ],
+ "software": [
+  {
+   "classification": "refinement",
+   "name": "BUSTER",
+   "pdbx_ordinal": 1,
+   "version": "2.10.2"
+  },
+  {
+   "classification": "data reduction",
+   "name": "autoPROC",
+   "pdbx_ordinal": 2
+  },
+  {
+   "classification": "data scaling",
+   "name": "STARANISO",
+   "pdbx_ordinal": 3
+  },
+  {
+   "classification": "phasing",
+   "name": "PHASER",
+   "pdbx_ordinal": 4
+  }
+ ],
+ "struct": {
+  "pdbx_CASP_flag": "N",
+  "title": "Beta-cardiac myosin S1 fragment in the pre-powerstroke state complexed to Mavacamten"
+ },
+ "struct_keywords": {
+  "pdbx_keywords": "CONTRACTILE PROTEIN",
+  "text": "cardiac myosin modulators inherited cardiomyopathies mavcamten, CONTRACTILE PROTEIN"
+ },
+ "symmetry": {
+  "Int_Tables_number": 4,
+  "space_group_name_H_M": "P 1 21 1"
+ }
+}

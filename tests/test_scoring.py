@@ -72,14 +72,21 @@ def test_auc_roc_equals_normalised_mann_whitney():
 
 
 def test_chance_lines_reproduce_the_recorded_benchmark_numbers():
-    """`experiments/REGISTRY.md` recorded these before this harness existed."""
+    """`experiments/REGISTRY.md` recorded these before this harness existed.
+
+    Two moved on 2026-09-02 and neither is a drift. `bcr_abl1_mandated` is a different chain
+    (ADR 0029), 17 labels in 354 candidates against 20 in 440, and `cardiac_myosin_mandated`
+    is a new arm (ADR 0031). The other three must not move.
+    """
     recorded = {
         "kras_g12c_mandated": 0.445,
         "kras_g12c_corrected": 0.440,
-        "bcr_abl1_mandated": 0.208,
+        "bcr_abl1_mandated": 0.219,
         "bcr_abl1_corrected": 0.302,
+        "cardiac_myosin_mandated": 0.063,
         "cardiac_myosin_corrected": 0.078,
     }
+    assert set(recorded) == set(PRIMARY), "every frozen arm needs a pinned chance line"
     for target, expected in recorded.items():
         frozen = PRIMARY[target]
         got = metrics.p_at_least_one_hit(
@@ -115,15 +122,23 @@ def test_evaluation_graph_agrees_with_the_input_freeze(target):
 
 
 def test_label_component_structure_is_what_the_protocol_claims():
-    """Two of five label sets are disconnected. A null sampling connected blobs against
-    them would impose a property the observation lacks."""
+    """Three of six label sets are disconnected. A null sampling connected blobs against
+    them would impose a property the observation lacks.
+
+    `cardiac_myosin_mandated` is the most fragmented at (7, 4, 1), against (8, 4) for the same
+    twelve residues on the measured `9GZ3` structure. The label sets are identical, so the
+    difference is entirely the homology model's contact graph — the same defect ADR 0031
+    measures as a long-range contact Jaccard of 0.471, seen here from the label set's own side.
+    """
     expected = {
         "kras_g12c_mandated": (16,),
         "kras_g12c_corrected": (16,),
-        "bcr_abl1_mandated": (20,),
+        "bcr_abl1_mandated": (17,),
         "bcr_abl1_corrected": (17, 1),
+        "cardiac_myosin_mandated": (7, 4, 1),
         "cardiac_myosin_corrected": (8, 4),
     }
+    assert set(expected) == set(PRIMARY), "every frozen arm needs a pinned component structure"
     for target, sizes in expected.items():
         graph = evaluation_graph(apo_input(target))
         assert component_sizes(graph, PRIMARY[target]["scoreable_label_residues"]) == sizes
@@ -309,6 +324,25 @@ def test_protocol_declares_one_confirmatory_family_of_three():
     assert decision["sided"] == "upper"
 
 
+def test_every_primary_arm_has_exactly_one_declared_reporting_role():
+    """Disjointness is not enough; an arm can be in neither list and be scored anyway.
+
+    `cardiac_myosin_mandated` was in neither between the ADR 0031 re-freeze and 2026-09-02.
+    It was fully scored, at 932 candidates and 139 decoys, with its role declared only in
+    its own input-manifest block and not in the decision rule -- a free parameter in the one
+    file that exists to have none.
+    """
+    decision = harness.protocol()["decision"]
+    frozen = set(json.loads(harness.INPUT_FROZEN.read_text())["targets"])
+    declared = list(decision["confirmatory_family"]) + list(decision["supportive_only"])
+
+    assert len(declared) == len(set(declared)), f"an arm has two roles: {declared}"
+    assert set(declared) == frozen, (
+        f"every primary arm needs exactly one role. missing: {sorted(frozen - set(declared))}; "
+        f"unknown: {sorted(set(declared) - frozen)}"
+    )
+
+
 # --------------------------------------------------------------------------------------
 # The size calibration (ADR 0023, rescale corrected by ADR 0025). Matching size, components,
 # burial and compactness is not enough on every arm, so the threshold is calibrated instead of
@@ -429,6 +463,29 @@ def test_the_site_pocket_rank_is_pessimistic_under_ties():
     assert decoy["site_pocket_rank"] == decoy["n_pockets_ranked"]
 
 
+def test_the_decoy_p_value_is_built_from_the_site_pocket_and_not_the_label_set():
+    """ADR 0030 writes this test as `(1 + #{decoy_rank >= site_rank}) / (1 + n_decoys)`.
+
+    Its type-I simulation drew the site's number from the same unit-variance law as the
+    decoys', which holds only while both halves are a pocket lining. Passing the label
+    set's own mean midrank instead compares a mean over `|labels|` draws with a mean over
+    `|lining|` draws. That statistic is not exchangeable with the decoys and no measured
+    type-I rate in `decoy-typeI.json` covers it. The code did exactly that until
+    2026-09-02, so the identity below is the regression check.
+    """
+    target = "cardiac_myosin_corrected"
+    graph = evaluation_graph(apo_input(target))
+    # Deterministic, non-flat and label-blind: a flat score makes both statistics equal
+    # and would pass whichever one the code used.
+    scores = {residue: float(residue) for residue in graph.order}
+    decoy = harness.score_arm(target, scores, method="residue-number", config=fast_protocol(199))[
+        "nulls"
+    ]["decoy_pockets"]
+    assert decoy["p"] == pytest.approx(decoy["site_pocket_rank"] / decoy["n_pockets_ranked"]), (
+        "the reported p and the reported rank are no longer the same statistic"
+    )
+
+
 # --------------------------------------------------------------------------------------
 # The residue-list criterion and the confounder columns (ADR 0025). Both were declared in
 # prose and computed by nothing until the version-2 audit.
@@ -448,7 +505,12 @@ def test_dcc_measures_centre_to_centre_and_falls_to_zero_on_a_perfect_list():
     assert dcc(coords, np.array([0, 1, 2]), labels) == pytest.approx(10.0)
     # A score that ranks the labels first must give exactly the perfect list.
     scores = np.array([0.0, 0.0, 0.0, 1.0, 1.0, 1.0])
-    assert dcc(coords, top_k_indices(scores, labels, 3), labels) == pytest.approx(0.0)
+    assert dcc(coords, top_k_indices(scores, 3), labels) == pytest.approx(0.0)
+    # And the list is a function of the scores alone: flipping the labels cannot move it.
+    assert list(top_k_indices(scores, 3)) == list(top_k_indices(scores, 3))
+    assert set(top_k_indices(np.array([1.0] * 6), 3)) == {0, 1, 2}, (
+        "a flat score must give the first three candidates, not the three negatives"
+    )
     # The chance line sits between the two, and it is deterministic.
     chance = chance_dcc(coords, labels, 3)
     assert 0.0 < chance < 10.0
@@ -485,7 +547,7 @@ def test_solvent_accessibility_agrees_with_an_independent_implementation():
     from Bio.PDB import PDBParser
     from Bio.PDB.SASA import ShrakeRupley
 
-    from allo.scoring.properties import MAX_ACCESSIBLE_AREA, solvent_accessibility
+    from allo.structure.properties import MAX_ACCESSIBLE_AREA, solvent_accessibility
 
     apo = apo_input("kras_g12c_corrected")
     structure = apo.structure
@@ -528,8 +590,8 @@ def test_solvent_accessibility_agrees_with_an_independent_implementation():
     assert float(np.abs(ours - reference).max()) < 0.10
 
 
-def test_every_scored_record_carries_all_four_confounder_columns():
-    from allo.scoring.properties import residue_properties
+def test_every_scored_record_carries_every_declared_confounder_column():
+    from allo.structure.properties import residue_properties
 
     target = "kras_g12c_corrected"
     graph = evaluation_graph(apo_input(target))
@@ -598,3 +660,97 @@ def test_the_paired_comparison_is_symmetric_in_its_two_arguments():
     assert forward["p"] == pytest.approx(backward["p"])
     assert forward["auc_roc_difference"] == pytest.approx(-backward["auc_roc_difference"])
     assert forward["leader"] == backward["leader"], "the winner must not depend on argument order"
+
+
+def test_top_k_components_counts_places_not_residues():
+    """One pocket must read 1 and a scattered list must read k.
+
+    The endpoint exists to separate "five residues a chemist can design against" from "five
+    residues in five places" (`CHALLENGE.md` §4.2). A count that cannot tell those apart is
+    worse than no count, so both ends are pinned here rather than trusted.
+    """
+    graph = evaluation_graph(apo_input("kras_g12c_corrected"))
+    k = 5
+    inside = set(graph.candidates)
+
+    # One place: a residue and four of its own graph neighbours, all inside the candidate set.
+    seed = next(r for r in graph.candidates if len(graph.neighbours(r) & inside) >= 4)
+    clique = [seed, *sorted(graph.neighbours(seed) & inside)[:4]]
+    top = {r: (1.0 if r in set(clique) else 0.0) for r in graph.candidates}
+    values = np.array([top[r] for r in graph.candidates])
+    assert harness.top_k_components(graph, values, k) == 1
+
+    # Five places: five residues no two of which are adjacent.
+    scattered: list[int] = []
+    for residue in graph.candidates:
+        if len(scattered) == k:
+            break
+        if all(residue not in graph.neighbours(other) for other in scattered):
+            scattered.append(residue)
+    assert len(scattered) == k, "the arm is too small to hold five mutually non-adjacent residues"
+    spread = {r: (1.0 if r in set(scattered) else 0.0) for r in graph.candidates}
+    values = np.array([spread[r] for r in graph.candidates])
+    assert harness.top_k_components(graph, values, k) == k
+
+
+def test_combining_arms_tests_the_intersection_null_and_is_labelled_as_such():
+    """Fisher and Stouffer escape the per-arm floor, and the record must say what they test.
+
+    A rejection here licenses "at least one arm separates the site from non-functional surface
+    pockets" and nothing stronger. The label is the point of the test (ADR 0030).
+    """
+    floors = {"a": 0.25, "b": 0.1, "c": 0.04}
+    combined = harness.combine_arms(floors)
+    assert combined["p"] < min(floors.values()), "combination must beat every per-arm floor"
+    assert combined["tests"] == "intersection null: no arm has signal"
+    assert combined["arms"] == sorted(floors)
+    assert combined["p_per_arm"] == floors
+    # Identical inputs, both directions: a uniform p-vector must not reject.
+    assert harness.combine_arms(dict.fromkeys("abc", 0.5))["p"] > 0.05
+
+
+def test_the_frozen_decision_rule_reads_the_frozen_family():
+    """The manifest froze a confirmatory family and until 2026-09-02 no code read it.
+
+    `decision.alpha`, `decision.confirmatory_family` and `decision.correction` had no reader
+    in `src/` or `experiments/`, and `holm` had no caller outside this file. Nothing would
+    have noticed a fourth arm entering the family or Holm running over six.
+    """
+    settings = harness.protocol()
+    declared = list(settings["decision"]["confirmatory_family"])
+    assert len(declared) == 3
+
+    verdict = harness.confirmatory_verdict(dict.fromkeys(declared, 0.001))
+    assert verdict["alpha"] == 0.05
+    assert verdict["correction"] == "holm"
+    assert verdict["family_1"]["n_reject"] == 3
+    # Holm over three: the smallest p is tested at alpha/3.
+    assert verdict["family_1"]["arms"][declared[0]]["threshold"] == pytest.approx(
+        0.05 / 3, abs=5e-7
+    )
+
+    # Step-down stops at the first failure, and the count reflects it.
+    ps = dict(zip(declared, [0.001, 0.9, 0.002], strict=True))
+    assert harness.confirmatory_verdict(ps)["family_1"]["n_reject"] == 2
+
+
+def test_the_decision_rule_refuses_a_family_that_is_not_the_declared_one():
+    """Correcting over the wrong m is the failure this guard exists to make loud."""
+    settings = harness.protocol()
+    declared = list(settings["decision"]["confirmatory_family"])
+
+    with pytest.raises(ValueError, match="family_1 must be exactly"):
+        harness.confirmatory_verdict(dict.fromkeys([*declared, "kras_g12c_mandated"], 0.01))
+    with pytest.raises(ValueError, match="family_1 must be exactly"):
+        harness.confirmatory_verdict(dict.fromkeys(declared[:2], 0.01))
+
+    claim = settings["decision"]["claim_family"]
+    with pytest.raises(ValueError, match="family_2 must be exactly"):
+        harness.confirmatory_verdict(
+            dict.fromkeys(declared, 0.01), dict.fromkeys(declared[:1], 0.01)
+        )
+    both = harness.confirmatory_verdict(
+        dict.fromkeys(declared, 0.01), dict.fromkeys(list(claim["arms"]), 0.01)
+    )
+    assert both["family_2"]["reference"] == "cavity_volume"
+    assert both["family_2"]["sided"] == "two"

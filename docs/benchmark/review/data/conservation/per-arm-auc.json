@@ -1,0 +1,701 @@
+{
+ "kras_g12c_mandated": {
+  "set": "primary",
+  "apo": "4OBE",
+  "chain": "A",
+  "uniprot": "P01116",
+  "families": [
+   {
+    "family": "PF00071",
+    "kind": "full",
+    "rows": 221818,
+    "match_columns": 162,
+    "sha256_gz": "b2788664fa52febeb06bb1df9c9a3ae9b88f35aa111e537919d302c34b3d1ee9",
+    "alignment_width": 2148,
+    "status": "ok",
+    "row": "RASK_HUMAN/5-165",
+    "residues_scored": 159,
+    "uniprot_span": [
+     5,
+     165
+    ]
+   }
+  ],
+  "n_candidates": 146,
+  "n_scored": 136,
+  "coverage": 0.9315,
+  "n_labels_total": 16,
+  "n_labels_scored": 16,
+  "auc": 0.6219,
+  "mean_label_jsd": 0.3082,
+  "mean_background_jsd": 0.2547
+ },
+ "kras_g12c_corrected": {
+  "set": "primary",
+  "apo": "4LDJ",
+  "chain": "A",
+  "uniprot": "P01116",
+  "families": [
+   {
+    "family": "PF00071",
+    "kind": "full",
+    "rows": 221818,
+    "match_columns": 162,
+    "sha256_gz": "b2788664fa52febeb06bb1df9c9a3ae9b88f35aa111e537919d302c34b3d1ee9",
+    "alignment_width": 2148,
+    "status": "ok",
+    "row": "RASK_HUMAN/5-165",
+    "residues_scored": 159,
+    "uniprot_span": [
+     5,
+     165
+    ]
+   }
+  ],
+  "n_candidates": 148,
+  "n_scored": 137,
+  "coverage": 0.9257,
+  "n_labels_total": 16,
+  "n_labels_scored": 16,
+  "auc": 0.625,
+  "mean_label_jsd": 0.3082,
+  "mean_background_jsd": 0.2534
+ },
+ "bcr_abl1_mandated": {
+  "set": "primary",
+  "apo": "1OPL",
+  "chain": "B",
+  "uniprot": "P00519",
+  "families": [
+   {
+    "family": "PF00017",
+    "kind": "full",
+    "rows": 118027,
+    "match_columns": 77,
+    "sha256_gz": "0c459f7c859580cb9da7631ebb656e90be18c67fb95d8bae405f4e22d52b67ed",
+    "alignment_width": 605,
+    "status": "ok",
+    "row": "ABL1_HUMAN/127-202",
+    "residues_scored": 76,
+    "uniprot_span": [
+     127,
+     202
+    ]
+   },
+   {
+    "family": "PF00018",
+    "kind": "full",
+    "rows": 176305,
+    "match_columns": 48,
+    "sha256_gz": "a979cf8570af133ef185fa7c38ec1e27c4b2754157bdafd46354503e2e9e2fdf",
+    "alignment_width": 380,
+    "status": "ok",
+    "row": "ABL1_HUMAN/67-113",
+    "residues_scored": 46,
+    "uniprot_span": [
+     67,
+     113
+    ]
+   },
+   {
+    "family": "PF07714",
+    "kind": "full",
+    "rows": 400321,
+    "match_columns": 258,
+    "sha256_gz": "dd9edbfbebd349a0cfdf7ee6e436e9011ed91d160a911652ab079a71cd0389ea",
+    "alignment_width": 3839,
+    "status": "ok",
+    "row": "ABL1_HUMAN/242-493",
+    "residues_scored": 250,
+    "uniprot_span": [
+     242,
+     493
+    ]
+   }
+  ],
+  "n_candidates": 354,
+  "n_scored": 292,
+  "coverage": 0.8249,
+  "n_labels_total": 17,
+  "n_labels_scored": 16,
+  "auc": 0.4907,
+  "mean_label_jsd": 0.2654,
+  "mean_background_jsd": 0.26
+ },
+ "bcr_abl1_corrected": {
+  "set": "primary",
+  "apo": "2G2H",
+  "chain": "A",
+  "uniprot": "P00519",
+  "families": [
+   {
+    "family": "PF07714",
+    "kind": "full",
+    "rows": 400321,
+    "match_columns": 258,
+    "sha256_gz": "dd9edbfbebd349a0cfdf7ee6e436e9011ed91d160a911652ab079a71cd0389ea",
+    "alignment_width": 3839,
+    "status": "ok",
+    "row": "ABL1_HUMAN/242-493",
+    "residues_scored": 250,
+    "uniprot_span": [
+     242,
+     493
+    ]
+   }
+  ],
+  "n_candidates": 261,
+  "n_scored": 239,
+  "coverage": 0.9157,
+  "n_labels_total": 18,
+  "n_labels_scored": 16,
+  "auc": 0.4893,
+  "mean_label_jsd": 0.2214,
+  "mean_background_jsd": 0.2445
+ },
+ "cardiac_myosin_mandated": {
+  "set": "primary",
+  "apo": "5TBY",
+  "chain": "A",
+  "uniprot": "P12883",
+  "families": [
+   {
+    "family": "PF00063",
+    "kind": "full",
+    "rows": 88756,
+    "match_columns": 679,
+    "sha256_gz": "92c4a026e6252231ed6749c5a1b70e1dcd6bb85980dd4cc46b118a3668c06ea6",
+    "alignment_width": 7487,
+    "status": "ok",
+    "row": "MYH7_HUMAN/87-766",
+    "residues_scored": 669,
+    "uniprot_span": [
+     87,
+     766
+    ]
+   },
+   {
+    "family": "PF01576",
+    "kind": "full",
+    "rows": 29731,
+    "match_columns": 1081,
+    "sha256_gz": "97a3998621df92ec8bb2994890568ab3c1c61e43f842c502a59e69088c46fba9",
+    "alignment_width": 6546,
+    "status": "ok",
+    "row": "MYH7_HUMAN/843-1924",
+    "residues_scored": 1078,
+    "uniprot_span": [
+     843,
+     1924
+    ]
+   },
+   {
+    "family": "PF02736",
+    "kind": "full",
+    "rows": 22182,
+    "match_columns": 58,
+    "sha256_gz": "e42565dbc1c98405aabc42b505d918ce7fea5c089f404039964b140e82718745",
+    "alignment_width": 229,
+    "status": "ok",
+    "row": "MYH7_HUMAN/23-80",
+    "residues_scored": 58,
+    "uniprot_span": [
+     23,
+     80
+    ]
+   }
+  ],
+  "n_candidates": 932,
+  "n_scored": 820,
+  "coverage": 0.8798,
+  "n_labels_total": 12,
+  "n_labels_scored": 10,
+  "auc": 0.4873,
+  "mean_label_jsd": 0.2806,
+  "mean_background_jsd": 0.2893
+ },
+ "cardiac_myosin_corrected": {
+  "set": "primary",
+  "apo": "9GZ3",
+  "chain": "A",
+  "uniprot": "P12883",
+  "families": [
+   {
+    "family": "PF00063",
+    "kind": "full",
+    "rows": 88756,
+    "match_columns": 679,
+    "sha256_gz": "92c4a026e6252231ed6749c5a1b70e1dcd6bb85980dd4cc46b118a3668c06ea6",
+    "alignment_width": 7487,
+    "status": "ok",
+    "row": "MYH7_HUMAN/87-766",
+    "residues_scored": 669,
+    "uniprot_span": [
+     87,
+     766
+    ]
+   },
+   {
+    "family": "PF02736",
+    "kind": "full",
+    "rows": 22182,
+    "match_columns": 58,
+    "sha256_gz": "e42565dbc1c98405aabc42b505d918ce7fea5c089f404039964b140e82718745",
+    "alignment_width": 229,
+    "status": "ok",
+    "row": "MYH7_HUMAN/23-80",
+    "residues_scored": 58,
+    "uniprot_span": [
+     23,
+     80
+    ]
+   }
+  ],
+  "n_candidates": 743,
+  "n_scored": 682,
+  "coverage": 0.9179,
+  "n_labels_total": 12,
+  "n_labels_scored": 10,
+  "auc": 0.4603,
+  "mean_label_jsd": 0.2806,
+  "mean_background_jsd": 0.3074
+ },
+ "mkp5": {
+  "set": "secondary",
+  "apo": "1ZZW",
+  "chain": "A",
+  "uniprot": "Q9Y6W6",
+  "families": [
+   {
+    "family": "PF00782",
+    "kind": "full",
+    "rows": 53414,
+    "match_columns": 133,
+    "sha256_gz": "c935064960eae047317c426492e404416719342ce114056a59d6b1577664dd5d",
+    "alignment_width": 973,
+    "status": "ok",
+    "row": "DUS10_HUMAN/329-461",
+    "residues_scored": 131,
+    "uniprot_span": [
+     329,
+     461
+    ]
+   }
+  ],
+  "n_candidates": 136,
+  "n_scored": 120,
+  "coverage": 0.8824,
+  "n_labels_total": 11,
+  "n_labels_scored": 11,
+  "auc": 0.7389,
+  "mean_label_jsd": 0.3379,
+  "mean_background_jsd": 0.2235
+ },
+ "chk1": {
+  "set": "secondary",
+  "apo": "1IA8",
+  "chain": "A",
+  "uniprot": "O14757",
+  "families": [
+   {
+    "family": "PF00069",
+    "kind": "full",
+    "rows": 1051874,
+    "match_columns": 262,
+    "sha256_gz": "9c04fc573fb4c8c8ed696a9af869e567677e0d0d9af9e9f13907e35aa63ae3bb",
+    "alignment_width": 3667,
+    "status": "ok",
+    "row": "CHK1_HUMAN/9-265",
+    "residues_scored": 250,
+    "uniprot_span": [
+     9,
+     265
+    ]
+   }
+  ],
+  "n_candidates": 261,
+  "n_scored": 236,
+  "coverage": 0.9042,
+  "n_labels_total": 12,
+  "n_labels_scored": 12,
+  "auc": 0.5428,
+  "mean_label_jsd": 0.2359,
+  "mean_background_jsd": 0.2187
+ },
+ "ptp1b": {
+  "set": "secondary",
+  "apo": "1SUG",
+  "chain": "A",
+  "uniprot": "P18031",
+  "families": [
+   {
+    "family": "PF00102",
+    "kind": "full",
+    "rows": 98421,
+    "match_columns": 234,
+    "sha256_gz": "0e3f48ebda5580c46c358ab8519df342c5b5a19884390db7251fa299f8134166",
+    "alignment_width": 1862,
+    "status": "ok",
+    "row": "PTN1_HUMAN/40-276",
+    "residues_scored": 231,
+    "uniprot_span": [
+     40,
+     276
+    ]
+   }
+  ],
+  "n_candidates": 287,
+  "n_scored": 220,
+  "coverage": 0.7666,
+  "n_labels_total": 11,
+  "n_labels_scored": 6,
+  "auc": 0.3287,
+  "mean_label_jsd": 0.1779,
+  "mean_background_jsd": 0.2818
+ },
+ "smyd3": {
+  "set": "secondary",
+  "apo": "6P7Z",
+  "chain": "A",
+  "uniprot": "Q9H7B4",
+  "families": [
+   {
+    "family": "PF00856",
+    "kind": "full",
+    "rows": 87742,
+    "match_columns": 105,
+    "sha256_gz": "ea88eda017b5da37a126e367a38a9da7de99f0e0b151fb57336804982d751680",
+    "alignment_width": 1700,
+    "status": "ok",
+    "row": "SMYD3_HUMAN/15-240",
+    "residues_scored": 90,
+    "uniprot_span": [
+     15,
+     240
+    ]
+   },
+   {
+    "family": "PF01753",
+    "kind": "full",
+    "rows": 48633,
+    "match_columns": 39,
+    "sha256_gz": "2a2a53a1ea642d9eb0251b4996dea00cd74aa97f3f2b24e54421d58c889258d1",
+    "alignment_width": 267,
+    "status": "ok",
+    "row": "SMYD3_HUMAN/49-87",
+    "residues_scored": 39,
+    "uniprot_span": [
+     49,
+     87
+    ]
+   }
+  ],
+  "n_candidates": 408,
+  "n_scored": 103,
+  "coverage": 0.2525,
+  "n_labels_total": 12,
+  "n_labels_scored": 2,
+  "auc": 0.0446,
+  "mean_label_jsd": 0.0493,
+  "mean_background_jsd": 0.295
+ },
+ "glucokinase": {
+  "set": "secondary",
+  "apo": "3IDH",
+  "chain": "A",
+  "uniprot": "P35557",
+  "families": [
+   {
+    "family": "PF00349",
+    "kind": "full",
+    "rows": 19118,
+    "match_columns": 201,
+    "sha256_gz": "6bf5f0351a5f7e977869be200f3b58faafe8229f857ddbaa9dfa6b3b6e38772a",
+    "alignment_width": 1056,
+    "status": "ok",
+    "row": "HXK4_HUMAN/15-215",
+    "residues_scored": 194,
+    "uniprot_span": [
+     15,
+     215
+    ]
+   },
+   {
+    "family": "PF03727",
+    "kind": "full",
+    "rows": 19513,
+    "match_columns": 241,
+    "sha256_gz": "2054f30af7cb14cf79b14dd2d8a350807079aea6f46830355b8dc00acde6708c",
+    "alignment_width": 1278,
+    "status": "ok",
+    "row": "HXK4_HUMAN/221-455",
+    "residues_scored": 230,
+    "uniprot_span": [
+     221,
+     455
+    ]
+   }
+  ],
+  "n_candidates": 438,
+  "n_scored": 409,
+  "coverage": 0.9338,
+  "n_labels_total": 19,
+  "n_labels_scored": 15,
+  "auc": 0.6195,
+  "mean_label_jsd": 0.3701,
+  "mean_background_jsd": 0.3133
+ },
+ "hiv_rt": {
+  "set": "secondary",
+  "apo": "1RTJ",
+  "chain": "A",
+  "uniprot": "P04585",
+  "families": [
+   {
+    "family": "PF00078",
+    "kind": "full",
+    "rows": 197745,
+    "match_columns": 200,
+    "sha256_gz": "ab1deb5634d586d76d3473a8d617e44f93a5eb58255c2835d1d462ad83b460be",
+    "alignment_width": 1609,
+    "status": "ok",
+    "row": "POL_HV1H2/650-821",
+    "residues_scored": 169,
+    "uniprot_span": [
+     650,
+     821
+    ]
+   },
+   {
+    "family": "PF06815",
+    "kind": "full",
+    "rows": 42,
+    "match_columns": 102,
+    "sha256_gz": "28f30739ae629797159f3c3c781bc2a4dde4b3c16904829c95fdeac8bf5f1b5d",
+    "alignment_width": 111,
+    "status": "ok",
+    "row": "POL_HV1H2/905-1006",
+    "residues_scored": 102,
+    "uniprot_span": [
+     905,
+     1006
+    ]
+   },
+   {
+    "family": "PF06817",
+    "kind": "full",
+    "rows": 2871,
+    "match_columns": 66,
+    "sha256_gz": "a05f45e7de2b4ce4259bbf09655e654e07dd064d6f1759f75a654a9f8b99b816",
+    "alignment_width": 135,
+    "status": "ok",
+    "row": "POL_HV1H2/828-891",
+    "residues_scored": 63,
+    "uniprot_span": [
+     828,
+     891
+    ]
+   },
+   {
+    "family": "PF00075",
+    "kind": "full",
+    "rows": 31636,
+    "match_columns": 141,
+    "sha256_gz": "454cc92601e7c67fce6bbe20111e8e0f259f1042789ef2810262eaf0262025b7",
+    "alignment_width": 1033,
+    "status": "ok",
+    "row": "POL_HV1H2/1023-1144",
+    "residues_scored": 119,
+    "uniprot_span": [
+     1023,
+     1144
+    ]
+   }
+  ],
+  "n_candidates": 534,
+  "n_scored": 430,
+  "coverage": 0.8052,
+  "n_labels_total": 16,
+  "n_labels_scored": 14,
+  "auc": 0.2692,
+  "mean_label_jsd": 0.1602,
+  "mean_background_jsd": 0.3303
+ },
+ "ns5b": {
+  "set": "secondary",
+  "apo": "1QUV",
+  "chain": "A",
+  "uniprot": "P26663",
+  "families": [
+   {
+    "family": "PF00998",
+    "kind": "full",
+    "rows": 267,
+    "match_columns": 486,
+    "sha256_gz": "3743756d5f2caac74248ee9b4473c251bd5df76c4c70f336442fdf3a94d491d2",
+    "alignment_width": 1144,
+    "status": "accession-absent"
+   }
+  ],
+  "n_candidates": 550,
+  "n_scored": 0,
+  "coverage": 0.0,
+  "n_labels_total": 16,
+  "n_labels_scored": 0,
+  "auc": null,
+  "mean_label_jsd": null,
+  "mean_background_jsd": null
+ },
+ "p97_vcp": {
+  "set": "secondary",
+  "apo": "5FTK",
+  "chain": "A",
+  "uniprot": "P55072",
+  "families": [
+   {
+    "family": "PF00004",
+    "kind": "full",
+    "rows": 277508,
+    "match_columns": 131,
+    "sha256_gz": "bc277ce6575c2be1993ce0bcb42d89496fdfb31d84fc83b72ad3a04e578545b5",
+    "alignment_width": 1484,
+    "status": "ok",
+    "row": "TERA_HUMAN/514-647",
+    "residues_scored": 130,
+    "uniprot_span": [
+     514,
+     647
+    ]
+   },
+   {
+    "family": "PF02359",
+    "kind": "full",
+    "rows": 7600,
+    "match_columns": 85,
+    "sha256_gz": "dd8ed8cb210447abcbf6aff6e7bdca9ba415251a73f34dfd137862b4a22e58de",
+    "alignment_width": 244,
+    "status": "ok",
+    "row": "TERA_HUMAN/25-108",
+    "residues_scored": 79,
+    "uniprot_span": [
+     25,
+     108
+    ]
+   },
+   {
+    "family": "PF02933",
+    "kind": "full",
+    "rows": 8470,
+    "match_columns": 64,
+    "sha256_gz": "b9c801b7c610de8cb3c51fbe919b4872a934ad8ff6920ad4128a85d868d1f138",
+    "alignment_width": 273,
+    "status": "ok",
+    "row": "TERA_HUMAN/125-191",
+    "residues_scored": 62,
+    "uniprot_span": [
+     125,
+     191
+    ]
+   },
+   {
+    "family": "PF17862",
+    "kind": "full",
+    "rows": 107783,
+    "match_columns": 45,
+    "sha256_gz": "ff2b194d9ca780bd3d69a3717845bab16804aed81f07e6c07650dfa53fd3d0fd",
+    "alignment_width": 218,
+    "status": "ok",
+    "row": "TERA_HUMAN/669-712",
+    "residues_scored": 40,
+    "uniprot_span": [
+     669,
+     712
+    ]
+   }
+  ],
+  "n_candidates": 688,
+  "n_scored": 297,
+  "coverage": 0.4317,
+  "n_labels_total": 17,
+  "n_labels_scored": 8,
+  "auc": 0.2643,
+  "mean_label_jsd": 0.1715,
+  "mean_background_jsd": 0.2857
+ },
+ "ecoli_cps": {
+  "set": "secondary",
+  "apo": "1A9X",
+  "chain": "A",
+  "uniprot": "P00968",
+  "families": [
+   {
+    "family": "PF02786",
+    "kind": "full",
+    "rows": 73138,
+    "match_columns": 211,
+    "sha256_gz": "8dd6d8eab2bc9037b4ab46daf6a36a7919e1943fb1bc387e2f1fd266a8d8323a",
+    "alignment_width": 2413,
+    "status": "ok",
+    "row": "CARB_ECOLI/128-335",
+    "residues_scored": 204,
+    "uniprot_span": [
+     128,
+     335
+    ]
+   },
+   {
+    "family": "PF02787",
+    "kind": "full",
+    "rows": 15537,
+    "match_columns": 134,
+    "sha256_gz": "9f0007ce5a471fc59905e7041e26d81a45b172880810a3bfa6fd650209d79f22",
+    "alignment_width": 597,
+    "status": "ok",
+    "row": "CARB_ECOLI/383-521",
+    "residues_scored": 133,
+    "uniprot_span": [
+     383,
+     521
+    ]
+   },
+   {
+    "family": "PF25596",
+    "kind": "full",
+    "rows": 30814,
+    "match_columns": 118,
+    "sha256_gz": "6d1b51bcc96cc1829caac32a7f744828c3b65da31aaac77dfbe81113e03e7d46",
+    "alignment_width": 594,
+    "status": "ok",
+    "row": "CARB_ECOLI/6-125",
+    "residues_scored": 117,
+    "uniprot_span": [
+     6,
+     125
+    ]
+   },
+   {
+    "family": "PF02142",
+    "kind": "full",
+    "rows": 27842,
+    "match_columns": 94,
+    "sha256_gz": "5fe40b9c971d96f014ea4cd9af7cbd2912ddf7c609452087f6267b3c524740fe",
+    "alignment_width": 456,
+    "status": "ok",
+    "row": "CARB_ECOLI/956-1042",
+    "residues_scored": 86,
+    "uniprot_span": [
+     956,
+     1042
+    ]
+   }
+  ],
+  "n_candidates": 997,
+  "n_scored": 512,
+  "coverage": 0.5135,
+  "n_labels_total": 19,
+  "n_labels_scored": 15,
+  "auc": 0.4794,
+  "mean_label_jsd": 0.3396,
+  "mean_background_jsd": 0.3444
+ }
+}

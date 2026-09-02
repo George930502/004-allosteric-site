@@ -58,8 +58,19 @@ the frozen benchmark and the corrected pairs are in `docs/benchmark/`.
 | Pair | Verdict | The finding |
 |---|---|---|
 | KRAS `4OBE` → `6OIM` | usable with caveats | `4OBE` is **wild-type** KRAS (Gly12), not G12C |
-| BCR-ABL1 `1OPL` → `5MO4` | not blind | `1OPL` carries myristate **in the target pocket**; apo and holo are the same conformation (1.00 Å) |
-| Cardiac myosin `5TBY` → `6C1H` | **unscoreable** | `6C1H` is rat myosin-Ib + actin, no mavacamten; `5TBY` is a 20 Å homology model |
+| BCR-ABL1 `1OPL` → `5MO4` | not blind **on chain A** | chain A carries myristate **in the target pocket**; apo and holo are the same conformation (1.00 Å) |
+| Cardiac myosin `5TBY` → `6C1H` | **unscoreable as assigned** | `6C1H` is rat myosin-Ib + actin, no mavacamten; `5TBY` is a 20 Å homology model |
+
+**Two verdicts were reopened on 2026-09-02, when the organisers answered four questions.**
+Their answers outrank `CHALLENGE.md`. Both mandated arms now run, both are non-confirmatory,
+and both print their measured defects. One page states every departure from Table 1:
+[`report/substitutions.md`](report/substitutions.md).
+
+| Pair | What changed | Record |
+|---|---|---|
+| BCR-ABL1 | the input is **`1OPL` chain B**, which the organisers designated. Chain B's myristoyl pocket is genuinely empty — nearest ligand atom 16.0 Å. The cost is that chain B was rigid-body placed with three group B-factors | [ADR 0029](adr/0029-bcr-abl1-uses-the-designated-chain-b-as-a-reported-arm.md) |
+| Cardiac myosin | the holo is **`9GZ2`**, which the organisers sanctioned in place of `6C1H`. All twelve mavacamten-contact residues transfer onto `5TBY`:A with none unmapped, so a label set exists. Both input defects stand and are measured | [ADR 0031](adr/0031-expose-5tby-as-a-reported-arm-with-both-defects-measured.md) |
+| c-Myc | `1NKP` becomes a reported deliverable, scored against NMR chemical-shift segments with a hypergeometric null, and **declared non-blind** | [ADR 0036](adr/0036-cmyc-is-a-reported-deliverable-scored-against-nmr-segments.md) |
 
 ### KRAS G12C (`4OBE` → `6OIM`)
 
@@ -95,8 +106,14 @@ the frozen benchmark and the corrected pairs are in `docs/benchmark/`.
   convention is resolved **per entry**, never assumed.
 - `5MO4` is a **ternary** complex: asciminib (`AY7`) in the myristoyl pocket **and** nilotinib
   (`NIL`) in the ATP site, on a T334I/D382N background. The holo is not singly liganded.
-- ⚠️ corrected: `5MO4` is **not** kinase-domain-only. It models auth 83–531 continuously —
-  SH3, SH2 and kinase, the same architecture as `1OPL`. The alignment step does not break.
+- ⚠️ corrected: `5MO4` is **not** kinase-domain-only. It spans auth 83–531 — SH3, SH2 and
+  kinase, the same architecture as `1OPL`. The alignment step does not break.
+- ⚠️ corrected again, 2026-09-02: that span is **not continuous**. `5MO4`:A models **429**
+  residues over 83–531 with two gaps, **296–297** and **402–419**. The second gap is the
+  activation loop and it swallows the DFG motif at 400–402. An earlier version of the line
+  above said "continuously", which is wrong. It moves no label — all twenty are modelled — and
+  it does not move the propagation source, because the `{from_motifs: [VAIK, HRD, DFG]}` rule
+  runs on the apo member. Measured with `gemmi` from the tracked mmCIF.
 - `1OPL` quality: 3.42 Å, R-free 0.315, **22.18 % RSRZ outliers**, which is the **0.4th
   absolute percentile** of the PDB (wwPDB `percent-RSRZ-outliers`; re-fetched 2026-08-24 from
   `ebi.ac.uk/pdbe/api/validation/global-percentiles/entry/1opl`, which returns
@@ -104,6 +121,22 @@ the frozen benchmark and the corrected pairs are in `docs/benchmark/`.
   and said the 22.2 % was "a percentile read as a percentage". It is the other way round: 22.18
   is the value and 0.4 is the percentile. Chains A and B differ by 23 Å globally; chain B lacks
   the myristate and the αI helix.
+- **`1OPL` chain B is the frozen input since 2026-09-02**, on the organisers' designation
+  (ADR 0029). Its dossier, all measured from the tracked mmCIF:
+  - Models **365** residues over auth **140–518**, with one gap at **238–251**. Chain A models
+    451 over 81–531 with no gap. **Chain B models no SH3 domain at all** — the SH3 domain
+    starts at 81 — and its SH2 domain sits on the N-lobe rather than clamped on the C-lobe.
+  - **Three of the twenty label residues are unmodelled** (Ile521, Val525, Leu529) and are
+    reported as `unmapped`. Chain A loses none.
+  - The myristoyl pocket is genuinely empty: nearest ligand heavy atom **16.0 Å**. Chain A's
+    myristate contacts 16 of the 20 labels at 3.29 Å.
+  - The coordinates are a rigid-body placement, and the depositors say so in `_refine.details`:
+    "only overall domain B-factors were applied to molecule B, whereas individual B-factors
+    were refined for molecule A". Chain B carries **three** group B-factors; chain A carries
+    3041 distinct values.
+  - **22.89 Å** Cα RMSD to `5MO4`:A over 345 common residues. Read it with its decomposition:
+    over the 239 Cα of the **kinase domain alone**, chain B fits the holo at **1.08 Å** against
+    chain A's 1.00 Å. The 22.89 Å is the regulatory module and nothing else.
 - Strict-C5 scope was measured and does not repair the mandated pair. Admitting only
   UniProt-derived kinase residues 261–512 of the same `1OPL`:A bytes gives 252 nodes and 17
   labels, and myristate still contacts 13 of them. The arm was removed on 2026-08-24 as a
@@ -121,7 +154,8 @@ the frozen benchmark and the corrected pairs are in `docs/benchmark/`.
   and calmodulin, cryo-EM 3.9 Å, ligands ADP and Mg only, all five in the **actin**
   nucleotide clefts (Mentes 2018, doi 10.1073/pnas.1718316115). It contains no mavacamten
   and no cardiac myosin. MYH7 vs MYO1B is 39.6 % identical — different gene, class and
-  species. No label set can be derived.
+  species. No label set can be derived. **Superseded as the holo on 2026-09-02**: the
+  organisers sanctioned `9GZ2` in its place, and `9GZ2` does supply a label set.
 - `5TBY` is a SWISS-MODEL homology model of the human sequence on a **tarantula** template
   (`3JBH`), rigid-body fitted; the entry records 20 Å and its source map `EMD-2240` is 28 Å
   (Alamo 2017). It is cited by challenge reference [23] (Anderson 2018), which explains the
@@ -148,11 +182,24 @@ the frozen benchmark and the corrected pairs are in `docs/benchmark/`.
 ### c-Myc (`1NKP`)
 
 - Myc/Max heterodimer on DNA: 4 DNA chains, two copies of the dimer. The chain/copy, canonical
-  mapping, node set, source semantics, output contract, and consensus/docking evaluation are
-  unresolved and block Phase 2 (ADR 0020); they are not deferred until final evaluation.
-- Numbering hazard recorded now: the two Myc copies carry **different arbitrary offsets** —
-  chain A auth 897–984 and chain D auth 499–581 both map to UniProt P01106 353–434. Any hit
-  list must be reported in canonical MYC numbering, not author numbering.
+  mapping, node set, source semantics, output contract and evaluation were unresolved and
+  blocked Phase 2 under ADR 0020. **They were settled on 2026-09-02 by
+  [ADR 0036](adr/0036-cmyc-is-a-reported-deliverable-scored-against-nmr-segments.md)**, which
+  supersedes 0020.
+- **Identifier-space collision, and it is a real bug source.** In **author** numbering chains
+  `A` and `D` are c-Myc, `B` and `E` are Max, and `F`, `G`, `H`, `J` are the four DNA strands.
+  In `label_asym_id` space, **`A` to `D` are the DNA strands.** A parser that resolves "chain A"
+  without declaring its space loads DNA or protein depending on the library. The manifest
+  declares `identifier_space: auth`.
+- Numbering hazard recorded now: the two Myc copies carry **different arbitrary offsets**.
+  Measured from the deposited `_struct_ref_seq` on 2026-09-02: chain A **900–981** and chain D
+  **500–581** both map to UniProt P01106 **353–434**, so the offsets are **+547** and **+147**.
+  Any hit list must be reported in canonical MYC numbering, not author numbering.
+- ⚠️ corrected: the *modelled* ranges are 897–984 (chain A) and 499–581 (chain D), and they are
+  **not** the native content. Chain A carries a `GHM` expression-tag remnant at 897–899 and an
+  engineered C-terminal `GGC` at 982–984. **The native c-Myc content is exactly 82 residues.**
+  An earlier version of this line gave the modelled range and the UniProt range as if they
+  matched; 88 author positions cannot map onto 82 UniProt positions.
 
 ---
 

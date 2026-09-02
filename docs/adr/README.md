@@ -14,8 +14,14 @@ stopped binding. It is never deleted.
 
 ## The record
 
-Twenty-five decisions, grouped by what each one settles. Read the group that covers the
+Thirty-seven decisions, grouped by what each one settles. Read the group that covers the
 layer you touch. Every entry is one file, and no file is ever deleted.
+
+**Eight were written on 2026-09-02**, after the organisers answered four questions
+([`../benchmark/review/00-official-reply.md`](../benchmark/review/00-official-reply.md)) and
+the audit in [`../benchmark/review/`](../benchmark/review/) re-read all three frozen layers.
+They are 0029 to 0036. Two of them supersede earlier decisions, and both of those earlier
+decisions had been blocking Phase 2.
 
 ### How we work
 
@@ -52,9 +58,13 @@ layer you touch. Every entry is one file, and no file is ever deleted.
 | [0003](0003-frozen-benchmark-and-defective-pairs.md) | Freeze the benchmark, and answer the challenge's defective pairs with tiers | accepted |
 | [0012](0012-selection-set-is-disjoint-from-the-primary-targets.md) | The tuning set must be family-disjoint and site-disjoint from every primary target | accepted |
 | [0013](0013-answer-informed-apo-selection.md) | Do not select an apo structure by comparison against holo geometry | withdrawn as a live blocker, the rule stands |
-| [0016](0016-do-not-expose-5tby-without-a-defensible-source.md) | Do not expose 5TBY as a propagation input without a defensible source | accepted, **blocks Phase 2 for that arm** |
-| [0020](0020-cmyc-contract-must-precede-method-design.md) | Freeze the c-Myc contract before method design | accepted, **blocks Phase 2 for c-Myc** |
+| [0016](0016-do-not-expose-5tby-without-a-defensible-source.md) | Do not expose 5TBY as a propagation input without a defensible source | **superseded by 0031** |
+| [0020](0020-cmyc-contract-must-precede-method-design.md) | Freeze the c-Myc contract before method design | **superseded by 0036** |
 | [0021](0021-secondary-benchmark-is-two-disjoint-sets.md) | The secondary benchmark is two disjoint sets, and its frame is RCSB | accepted |
+| [0029](0029-bcr-abl1-uses-the-designated-chain-b-as-a-reported-arm.md) | BCR-ABL1 uses the organisers' chain B as a reported arm, and 2G2H stays the comparison arm | accepted |
+| [0031](0031-expose-5tby-as-a-reported-arm-with-both-defects-measured.md) | Expose 5TBY as a reported cardiac-myosin arm, with both input defects measured beside it | accepted, supersedes 0016 |
+| [0033](0033-stripping-scopes-the-node-set-and-the-source-rule-is-reported.md) | "Uniformly stripped" scopes the node set. The source rule is reported, not re-frozen | accepted |
+| [0036](0036-cmyc-is-a-reported-deliverable-scored-against-nmr-segments.md) | c-Myc is a reported deliverable, scored against NMR segments and declared non-blind | accepted, supersedes 0020 |
 
 ### The evaluation layer — how a score is computed
 
@@ -65,12 +75,30 @@ layer you touch. Every entry is one file, and no file is ever deleted.
 | [0023](0023-matched-patch-null-is-calibrated-not-fully-matched.md) | The matched-patch null is calibrated, not fully matched | accepted, mechanism claim withdrawn by 0025 |
 | [0024](0024-decoy-pockets-are-detector-defined.md) | Decoy pockets: pyKVFinder at its defaults, zero halo, power floor disclosed | accepted |
 | [0025](0025-the-size-rescale-is-calibrated-at-every-holm-level.md) | The size rescale is calibrated at every Holm level, and clearing the null is a low bar | accepted |
+| [0030](0030-negative-class-b-is-tested-by-combination-across-arms.md) | Negative class B is tested by combination across arms, not per arm | accepted, opens protocol v3 |
+| [0032](0032-the-claim-threshold-is-its-own-confirmatory-family.md) | The claim threshold is its own confirmatory family | accepted |
+| [0034](0034-the-review-directory-is-a-protected-answer-key.md) | The review directory is a protected answer key, and its own tools are exempt by rule | accepted |
+
+| [0035](0035-conservation-is-the-fourth-confounder-column-and-coevolution-is-not.md) | Conservation is the fourth confounder column, and coevolution is not | accepted |
+| [0037](0037-the-method-layer-leaves-main-and-the-required-baselines-stay.md) | The method layer leaves `main`, and the nine required baselines stay behind | accepted |
+
+**0035 was filed under "the method" until 2026-09-02 and does not belong there.** Its
+decision writes `jsd_conservation` into the evaluation manifest and its data lives in
+`docs/benchmark/review/data/conservation/`. Only one line of it mentions a method module, as
+an analogy.
 
 ### The method
 
+`main` holds no method layer. It was removed on 2026-09-02 by ADR 0037 and is preserved on
+the branch `method-layer-archive`. Two decisions in this group bind the frozen layer and
+stay accepted. Two were withdrawn with their subject.
+
 | # | Decision | Status |
 | --- | --- | --- |
-| [0002](0002-quantum-metric-hypothesis.md) | Working hypothesis for the quantum metric | proposed, Phase 2 accepts or supersedes it |
+| [0026](0026-teammate-benchmark-is-prior-not-verdict.md) | The teammate benchmark fails 0012's disjointness test, so it is prior and not verdict | accepted |
+| [0027](0027-constraint-c2-is-three-tiers-not-a-ban.md) | C2 is three tiers of provenance, not a single ban, and the primary result stands on tier A | accepted |
+| [0002](0002-quantum-metric-hypothesis.md) | Working hypothesis for the quantum metric | **withdrawn** by 0037. It is the recorded source of two frozen required baselines |
+| [0028](0028-per-protein-adaptation-is-not-testable-at-four-arms.md) | Per-protein adaptation is not testable at four arms, and no fitted rule enters the pipeline | **withdrawn** by 0037, with its five measurements inlined |
 
 ---
 

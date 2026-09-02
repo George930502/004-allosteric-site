@@ -1,0 +1,54 @@
+{
+ "pdbx_entity_nonpoly": {
+  "comp_id": "NUU",
+  "entity_id": "2",
+  "name": "1-{[(10aP)-5,6-dihydropyrido[2,3-h]quinazolin-2-yl]sulfanyl}-3,3-dimethylbutan-2-one"
+ },
+ "rcsb_id": "7UMV_2",
+ "rcsb_nonpolymer_entity": {
+  "formula_weight": 0.313,
+  "pdbx_description": "1-{[(10aP)-5,6-dihydropyrido[2,3-h]quinazolin-2-yl]sulfanyl}-3,3-dimethylbutan-2-one",
+  "pdbx_number_of_molecules": 1
+ },
+ "rcsb_nonpolymer_entity_annotation": [
+  {
+   "annotation_id": "entity_annotation_1",
+   "assignment_version": "V1.0",
+   "comp_id": "NUU",
+   "description": "Ligand targeted in this investigation",
+   "name": "NUU",
+   "provenance_source": "PDB",
+   "type": "SUBJECT_OF_INVESTIGATION"
+  }
+ ],
+ "rcsb_nonpolymer_entity_container_identifiers": {
+  "asym_ids": [
+   "B"
+  ],
+  "auth_asym_ids": [
+   "A"
+  ],
+  "chem_ref_def_id": "NUU",
+  "entity_id": "2",
+  "entry_id": "7UMV",
+  "nonpolymer_comp_id": "NUU",
+  "rcsb_id": "7UMV_2"
+ },
+ "rcsb_nonpolymer_entity_feature": [
+  {
+   "assignment_version": "V1.0",
+   "comp_id": "NUU",
+   "description": "Ligand targeted in this investigation",
+   "feature_id": "entity_feature_1",
+   "name": "NUU",
+   "provenance_source": "PDB",
+   "type": "SUBJECT_OF_INVESTIGATION"
+  }
+ ],
+ "rcsb_nonpolymer_entity_feature_summary": [
+  {
+   "count": 1,
+   "type": "SUBJECT_OF_INVESTIGATION"
+  }
+ ]
+}

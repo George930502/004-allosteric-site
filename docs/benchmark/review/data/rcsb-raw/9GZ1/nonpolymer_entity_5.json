@@ -1,0 +1,28 @@
+{
+ "pdbx_entity_nonpoly": {
+  "comp_id": "ADP",
+  "entity_id": "5",
+  "name": "ADENOSINE-5'-DIPHOSPHATE"
+ },
+ "rcsb_id": "9GZ1_5",
+ "rcsb_nonpolymer_entity": {
+  "formula_weight": 0.427,
+  "pdbx_description": "ADENOSINE-5'-DIPHOSPHATE",
+  "pdbx_number_of_molecules": 2
+ },
+ "rcsb_nonpolymer_entity_container_identifiers": {
+  "asym_ids": [
+   "H",
+   "L"
+  ],
+  "auth_asym_ids": [
+   "A",
+   "B"
+  ],
+  "chem_ref_def_id": "ADP",
+  "entity_id": "5",
+  "entry_id": "9GZ1",
+  "nonpolymer_comp_id": "ADP",
+  "rcsb_id": "9GZ1_5"
+ }
+}

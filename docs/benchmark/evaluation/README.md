@@ -1,7 +1,19 @@
 # The frozen evaluation layer
 
-**Status: frozen 2026-08-25.** `uv run allo evaluate verify` re-derives every pinned value
-and exits 0 only if nothing moved.
+**Status: protocol version 3, frozen 2026-09-02.** `uv run allo evaluate verify` re-derives
+every pinned value and exits 0 only if nothing moved. Version 1 was frozen and reopened on
+2026-08-25 by an audit; version 2 was frozen the same day; version 3 opened on 2026-09-02.
+**No method had been scored under version 2 for a reported result**, which is the only
+condition under which this layer may move at all. Methods were run under version 2 — the
+2026-08-26 sweep, the five gate controls — but every one of those is a development-tier
+measurement or a control, and none is a claim this submission makes. Version 3 re-measures
+the controls; §8 carries the new numbers.
+
+> **Read [`../review/README.md`](../review/README.md) before quoting a number from this page.**
+> An audit closed on 2026-09-02, after the organisers answered four questions about the
+> benchmark. It ratifies most of this document, corrects four stated facts in it, and lists the
+> decisions it forces. Corrections are recorded there rather than edited in here, so that this
+> freeze stays a freeze.
 
 The input layer answers **what** is scored: which structures, which residues, which labels,
 which candidate set. It is frozen separately, in [`../README.md`](../primary/README.md). This layer
@@ -14,7 +26,8 @@ null model blocked a finished input layer, so they were split. Do not merge them
 | [`manifest.yaml`](manifest.yaml)                                         | every pinned choice, with the reason beside it          |
 | `frozen.json`                                                            | the consequences — chance lines, patch geometry, decoys |
 | [`../evidence/evaluation-metrics.md`](../evidence/evaluation-metrics.md) | the literature basis for every choice                   |
-| `experiments/2026-08-25-null-calibration/`                               | the run that fixed the one free parameter               |
+| `experiments/2026-08-25-null-calibration/`                               | the v2 run that fixed the one free parameter            |
+| `experiments/2026-09-02-null-recalibration/`                             | the v3 re-run, over six primary arms and fifteen in all |
 
 **What this layer is for.** It makes methods comparable. Classical, quantum, AI and hybrid
 methods all pass through one function, `allo.scoring.score_arm`, and none of them chooses
@@ -23,6 +36,69 @@ classical number computed differently is not evidence.
 
 **Nothing here may change once a method is scored.** A threshold picked with results
 in hand is a hyperparameter, not a protocol.
+
+---
+
+## 0. What version 3 changes, and why it was allowed to change
+
+Four questions went to the organisers and were answered on 2026-09-02
+([`../review/00-official-reply.md`](../review/00-official-reply.md)). Their answers outrank
+`CHALLENGE.md`. An audit of all three frozen layers followed
+([`../review/README.md`](../review/README.md)). Six changes came out of it. Each names the ADR
+that decided it, and the reason it is not a hyperparameter.
+
+| #   | Change                                                                                                                                                                                                                                                                   | Why it is not tuning                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 1   | **The input layer moved, so the calibration had to move with it.** `bcr_abl1_mandated` is now `1OPL` chain B (365 nodes, not 451) and `cardiac_myosin_mandated` is frozen for the first time. Both arms are recalibrated in `experiments/2026-09-02-null-recalibration/` | A threshold measured _after_ a method is scored is a hyperparameter. Nothing has been scored. Every unchanged arm must reproduce its 2026-08-25 value exactly, and any that does not is a finding                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| 2   | **The decoy detector is re-frozen at `probe_out 8.0, removal_distance 1.2, volume_cutoff 1.0`**, selecting on `n_decoys` alone (ADR 0030)                                                                                                                                | The organisers answered that no detector is prescribed and each team defines its own decoy set, which removed the reason to hold the v2 defaults fixed. **CORRECTED 2026-09-02: this cell said `n_decoys` is label-free and that is false.** `decoys.classify` picks the site pocket by maximum label coverage and admits a decoy only when its lining holds no label, so the count is a function of the answer key. The label-free criterion is `n_detected`, the pocket count before any label is consulted, and it selects the identical setting on all five arms with no tie — so the freeze does not move, only the justification. Site coverage improved as a consequence and was never the selection target |
+| 3   | **The pocket-rank test stays descriptive, and a Fisher combination across the three confirmatory arms is added as `decoy_pockets_combined`** (ADR 0030)                                                                                                                  | Per arm the p-value floor is `1/(1 + n_decoys)`, so `kras_g12c_mandated` at 13 decoys cannot reject at any effect size. A combination escapes the floor. It tests the **intersection null**, so a rejection licenses "at least one arm separates the site from non-functional pockets" and **not** a generalisation claim                                                                                                                                                                                                                                                                                                                                                                                          |
+| 4   | **The claim threshold becomes its own confirmatory family**: a paired `compare_methods` against `cavity_volume` on the same three arms, Holm over three, two-sided (ADR 0032)                                                                                            | ADR 0025 already made "beat `cavity_volume`" the claim threshold, and §8 then declared everything except the matched-patch family descriptive. The load-bearing comparison sat in an unprotected family. This closes the contradiction rather than lowering a bar                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| 5   | **`top_5_components` is added as a reported endpoint** — how many connected components the top-5 list lands in                                                                                                                                                           | Reported, never tested. `CHALLENGE.md` §4.2 asks for actionable output and nothing else here measured it                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| 6   | **Four omission rationales in §3.3 are corrected**, and one (RBO) was wrong about its reason                                                                                                                                                                             | A stated reason that is false is worse than no reason                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+
+**What did not change.** The confirmatory endpoint is still the mean midrank. The confirmatory
+family is still the three `corrected` arms. The matched-patch tolerance is still 0.10 and the
+size-ratio rescale is still calibrated at every Holm level. Alpha is still 0.05.
+
+### 0.1 What the recalibration measured
+
+`experiments/2026-09-02-null-recalibration/`, fifteen gate arms at 9999 replicates.
+
+**The pre-registered check passed.** Thirteen of the fifteen arms reproduce their 2026-08-25
+`size_ratio` and `alpha_star` **to six decimal places**. The two that moved are the two the
+input re-freeze changed. Nothing else drifted.
+
+| Arm                       | `size_ratio` | `alpha_star` | Against version 2              |
+| ------------------------- | -----------: | -----------: | ------------------------------ |
+| `bcr_abl1_mandated`       |   **1.2073** |   **0.0277** | was 1.0960 / 0.0357 on chain A |
+| `cardiac_myosin_mandated` |   **1.0509** |   **0.0485** | new arm, no prior value        |
+| the other thirteen        |    unchanged |    unchanged | bit-for-bit                    |
+
+**The organisers' chain B needs more tightening than chain A did.** Its matched-patch type-I
+rate is 0.054 / 0.071 / 0.069 / 0.079 across λ = 4–20 Å, so three of four correlation lengths
+sit above the binomial band [0.0370, 0.0640]. That is what a `size_ratio` of 1.2073 is for.
+Calibration may tighten and may never loosen, so the arm is tested at a stricter threshold
+rather than at a wrong one.
+
+**The homology-model arm is the best-calibrated arm in the set, and the reason matters.**
+`cardiac_myosin_mandated` sits inside the band at every λ (0.051 / 0.048 / 0.046 / 0.054),
+while the _measured_ `cardiac_myosin_corrected` sits **below** it at two. A calibrated null
+says the matched-patch construction works on that arm. It says nothing about whether the arm's
+contact graph is right — and that graph agrees with the measured structure at long-range
+Jaccard 0.471. No null calibration can see that, which is exactly why the arm is
+non-confirmatory and prints the Jaccard beside every number.
+
+**The positive control is 0.0001 on all fifteen arms**, the smallest value 9999 replicates can
+produce. The type-I band is not being passed by a test that rejects nothing.
+
+**One measurement to record about the matched-patch pool.** On the 0.05 rung of the tolerance
+sweep, `cardiac_myosin_mandated` cannot supply a pool: 822 of 999 patches in 3 996 000
+attempts, acceptance 0.000206. At the frozen 0.10 it draws all 9999 gate patches in 11 390 541
+attempts at acceptance **0.000878** — within 1 % of the 0.000884 a standalone probe measured,
+which is the determinism check on the sampler. The sweep records the rung as undrawable and
+continues; the scored arm keeps its null. **No arm's tolerance is widened because that arm
+failed** — a per-arm tolerance chosen after the fact is the hyperparameter this protocol exists
+to prevent, and `allo.scoring.nulls.MatchedPoolUnavailable` says so at the raise site.
 
 ---
 
@@ -87,14 +163,14 @@ groups report it, including CryptoSite (doi:10.1016/j.jmb.2016.01.029), PocketMi
 
 ### 3.2 What is reported beside it
 
-| Metric                        | Estimator                                         | Tie rule                     |
-| ----------------------------- | ------------------------------------------------- | ---------------------------- |
-| AUC-ROC                       | rank-based Mann-Whitney                           | midrank                      |
+| Metric                        | Estimator                                                    | Tie rule                     |
+| ----------------------------- | ------------------------------------------------------------ | ---------------------------- |
+| AUC-ROC                       | rank-based Mann-Whitney                                      | midrank                      |
 | AUC-PR                        | `allo.scoring.metrics.auc_pr`, step: AP = Σ (Rᵢ − Rᵢ₋₁) · Pᵢ | one point per distinct score |
-| precision@5, hits@5, recall@5 | top 5 of the ranking                              | pessimistic                  |
-| DCC, angstrom                 | centre of the top 5 to centre of the site         | pessimistic                  |
-| AUC-ROC against decoy linings | rank-based Mann-Whitney                           | midrank                      |
-| site pocket rank              | pockets ordered by lining mean midrank            | pessimistic                  |
+| precision@5, hits@5, recall@5 | top 5 of the ranking                                         | pessimistic                  |
+| DCC, angstrom                 | centre of the top 5 to centre of the site                    | pessimistic                  |
+| AUC-ROC against decoy linings | rank-based Mann-Whitney                                      | midrank                      |
+| site pocket rank              | pockets ordered by lining mean midrank                       | pessimistic                  |
 
 **recall@5 is printed, because it is the number this field reads first.** Of 22 tools
 surveyed, 17 report a recall-style top-N success rate. It is one division from hits@5 —
@@ -174,8 +250,8 @@ Recorded so the omissions read as decisions rather than gaps.
   quoted here for agreement in direction and not as the argument. Threshold-free AUROC and
   AUPRC are unaffected either way, which is why those stay.
 - **Jaccard.** Determined by the label set rather than by the method. Five predicted
-  residues against an 11–20 residue label set cap at **0.25 to 0.4545** across the 14 frozen
-  arms (0.25 to 0.4167 on the five primary ones), and a perfect method hits that ceiling. So
+  residues against an 11–19 residue label set cap at **0.2632 to 0.4545** across the 15 frozen
+  arms (0.2778 to 0.4167 on the six primary ones), and a perfect method hits that ceiling. So
   Jaccard@5 ranks arms by how few labels they carry. AlloBench tabulates values of 0.1–0.4,
   which these ceilings reach, so "below the reporting threshold" is not the reason — the
   reason is that the statistic is not about the method.
@@ -223,7 +299,7 @@ m residues beat m random ones, and a method answers that correctly by finding an
 blob.
 
 This is measured, not asserted. Under a site-uninformative spatially autocorrelated score,
-the unmatched null's rejection rate across all 14 frozen arms is **0.10 to 0.32** against a
+the unmatched null's rejection rate across all 15 frozen arms is **0.096 to 0.323** against a
 nominal 0.05, and it rises monotonically with the correlation length on every arm. A test
 with a type-I rate of 0.30 is not a test.
 
@@ -303,11 +379,13 @@ acceptance rate to 0.0018 on the myosin arm, and a secondary endpoint does not n
 p-value floor below 5 × 10⁻⁴.
 
 **A distance-only baseline is not a substitute for this null, and it is weaker than it
-looks.** Scoring each candidate by minus its distance to the source gives AUC-ROC 0.589 on
-`kras_g12c_mandated`, 0.215 on `bcr_abl1_corrected` and 0.335 on
-`cardiac_myosin_corrected` — below chance on three of five arms. Two of those arms are
-distal, so the _inverted_ baseline is the strong one there. Both directions are required
-baselines (`manifest.yaml`, `secondary_objectives.classical_comparison`).
+looks.** Scoring each candidate by minus its distance to the source gives AUC-ROC, over the
+six primary arms: **0.589 / 0.588 / 0.385 / 0.215 / 0.442 / 0.335** for
+`kras_g12c_mandated`, `kras_g12c_corrected`, `bcr_abl1_mandated`, `bcr_abl1_corrected`,
+`cardiac_myosin_mandated`, `cardiac_myosin_corrected`. **It is below chance on four of the
+six**, re-measured at version 3; the two arms added on 2026-09-02 are both below chance too.
+Those arms are distal, so the _inverted_ baseline is the strong one there. Both directions are
+required baselines (`manifest.yaml`, `secondary_objectives.classical_comparison`).
 
 ---
 
@@ -345,31 +423,56 @@ so the key was removed rather than left standing as a promise.
 
 ### 5.3 What the detector found, before any method ran
 
+**Re-derived at protocol version 3**, at the re-frozen detector settings and over fifteen arms.
+The version-2 table is kept below it, because the change in the floor is the reason the
+detector was re-frozen at all.
+
 | Arm                        | detected | decoys | decoy residues | site coverage | min attainable p |
 | -------------------------- | -------: | -----: | -------------: | ------------: | ---------------: |
-| `kras_g12c_mandated`       |        5 |      3 |             23 |          0.75 |         **0.25** |
-| `kras_g12c_corrected`      |        5 |      3 |             25 |          0.75 |         **0.25** |
-| `bcr_abl1_mandated`        |       27 |     24 |            197 |          0.85 |            0.040 |
-| `bcr_abl1_corrected`       |       12 |      9 |             73 |          0.67 |         **0.10** |
-| `cardiac_myosin_corrected` |       42 |     41 |            291 |          1.00 |            0.024 |
+| `kras_g12c_mandated`       |       14 |     13 |             76 |        0.8125 |     **0.071429** |
+| `kras_g12c_corrected`      |       19 |     18 |             64 |        0.9375 |     **0.052632** |
+| `bcr_abl1_mandated`        |       46 |     45 |            272 |        1.0000 |         0.021739 |
+| `bcr_abl1_corrected`       |       32 |     31 |            198 |        0.9444 |         0.031250 |
+| `cardiac_myosin_mandated`  |      140 |    139 |            537 |        0.9167 |         0.007143 |
+| `cardiac_myosin_corrected` |       85 |     84 |            464 |        1.0000 |         0.011765 |
+| `chk1`                     |       40 |     39 |            158 |        0.9167 |         0.025000 |
+| `ecoli_cps`                |       96 |     95 |            576 |        0.9474 |         0.010417 |
+| `glucokinase`              |       50 |     49 |            277 |        1.0000 |         0.020000 |
+| `hiv_rt`                   |       69 |     68 |            383 |        0.6250 |         0.014493 |
+| `mkp5`                     |       15 |     14 |             66 |        0.4545 |     **0.066667** |
+| `ns5b`                     |       51 |     50 |            260 |        0.3125 |         0.019608 |
+| `p97_vcp`                  |       68 |     67 |            391 |        0.7059 |         0.014706 |
+| `ptp1b`                    |       34 |     33 |            175 |        0.3636 |         0.029412 |
+| `smyd3`                    |       33 |     32 |            189 |        1.0000 |         0.030303 |
 
-Two consequences, both disclosed here rather than discovered later.
+At the version-2 defaults the same five primary arms read **3 / 3 / 24 / 9 / 41** decoys, with
+floors of **0.25 / 0.25 / 0.040 / 0.10 / 0.024** and site coverage 0.75 / 0.75 / 0.85 / 0.67 /
+1.00. Total decoys went **311 → 777** and the median per arm **16 → 45**.
 
-**The challenge's negative class (b) cannot reject at α = 0.05 on three of five primary arms,
-and on 7 of the 14 frozen arms.** With three decoy pockets the smallest attainable p is 0.25.
-This is arithmetic about small proteins, not a defect in the method or in the detector.
+Three consequences, disclosed here rather than discovered later.
 
-**Two of the three confirmatory arms are among them**, and that is the sharper statement the
-version-2 audit demanded (`AUDIT.md` M10). `kras_g12c_corrected` floors at p = 0.25 and
-`bcr_abl1_corrected` at p = 0.10, so on two thirds of the confirmatory family this null cannot
-reject at any effect size whatever. It is reported for completeness and it decides nothing.
+**The per-arm floor still binds, on three of fifteen arms rather than seven of fourteen.**
+`kras_g12c_mandated` floors at 0.071, `mkp5` at 0.067 and `kras_g12c_corrected` at 0.053, so
+none of those three can reject at α = 0.05 at any effect size. A 169-residue protein does not
+carry 19 non-functional surface pockets. That is arithmetic about small proteins, and it is
+why the combined test `decoy_pockets_combined` exists (ADR 0030).
 
-**What sets the floor is arm size, not difficulty.** The decoy count tracks the candidate
-count at Spearman **ρ = +0.95** across the 14 arms. So the class is least informative exactly
-where the protein is smallest, which is the opposite of what a negative class should do.
+**One of the three confirmatory arms is among them**, down from two. `kras_g12c_corrected`
+floors at 0.053, just above α. `bcr_abl1_corrected` moved from a floor of 0.10 to 0.031 and can
+now reject. The per-arm test is descriptive either way at version 3; the family is tested by
+combination.
 
-**The decoy null is conservative, from a size mismatch nobody chose.** A decoy lining is
-smaller than the label set on **14 of 14 arms**, median ratio **0.55**. The statistic is a mean
+**What sets the floor is arm size, not difficulty.** The decoy count tracks the candidate count
+at Spearman **ρ = +0.953** across the fifteen arms, essentially unchanged from version 2's
++0.95. Re-freezing the detector raised every arm's count; it did not decouple the count from
+the protein's size, and nothing available would.
+
+**The decoy null is conservative, from a size mismatch nobody chose — and version 3 made it
+worse.** A decoy lining is smaller than the label set on **15 of 15 arms**, median ratio
+**0.412**, against 0.55 at the version-2 settings. The re-frozen detector finds more pockets
+and the extra ones are smaller, so the null gained replicates and lost comparability at the
+same time. That trade was accepted because the per-arm test is descriptive at version 3 and the
+decision runs on the combination (ADR 0030), but it is a cost and it is stated as one. The statistic is a mean
 midrank, whose null variance goes as the reciprocal of the set size, so a decoy patch is
 noisier than the observed one and the comparison is biased toward not rejecting. Three audits
 measured the effect at 2.3× to 5.3×, putting the real size at α = 0.05 somewhere near
@@ -377,10 +480,14 @@ measured the effect at 2.3× to 5.3×, putting the real size at α = 0.05 somewh
 the linings would fix it and would also stop the statistic from being the thing the challenge
 asked for, so the mismatch is disclosed instead.
 
-**The detector misses the site entirely on some secondary arms.** Site coverage runs 0.09 on
-`mkp5`, 0.19 on `ns5b` and 0.36 on `ptp1b`. That is the challenge's own premise — static
-pocket detection fails on exactly these targets — measured on our benchmark before any
-method existed. It is a difficulty axis, never a selection rule.
+**The detector covers the site poorly on four secondary arms.** At the version-3 settings,
+site coverage runs 0.3125 on `ns5b`, 0.3636 on `ptp1b`, 0.4545 on `mkp5` and 0.6250 on
+`hiv_rt` — the four values in the table above that sit below 0.70. That is the challenge's own
+premise, static pocket detection failing on exactly these targets, measured on our benchmark
+before any method existed. It is a difficulty axis, never a selection rule. **CORRECTED
+2026-09-02:** this paragraph quoted 0.09 / 0.19 / 0.36, which were version-2 numbers left
+standing under a version-3 heading, and two of the three contradicted the table forty lines
+above.
 
 ---
 
@@ -414,35 +521,49 @@ Read the two together. Three arms carry `alpha_star` = 0.05, meaning they need n
 **at α** — and two of them still carry a `size_ratio` above 1, because they are
 anti-conservative at a tighter Holm step. That is the version-1 defect in one line.
 
-| Arm | λ = 4 | λ = 8 | λ = 12 | λ = 20 | `alpha_star` | `size_ratio` |
-| --- | ----: | ----: | -----: | -----: | -----------: | -----------: |
-| `kras_g12c_mandated` | 0.040 | 0.048 | 0.048 | 0.044 | 0.05000 | 1.0411 |
-| `kras_g12c_corrected` | 0.053 | 0.055 | 0.053 | 0.050 | 0.04326 | 1.0827 |
-| `bcr_abl1_mandated` | 0.059 | **0.066** | **0.069** | **0.075** | 0.03572 | 1.0960 |
-| `bcr_abl1_corrected` | 0.060 | **0.067** | **0.065** | **0.068** | 0.03558 | 1.0970 |
-| `cardiac_myosin_corrected` | 0.037 | **0.034** | 0.037 | **0.035** | 0.05000 | 1.0000 |
-| `chk1` | **0.073** | **0.069** | **0.069** | **0.066** | 0.03106 | 1.1832 |
-| `ecoli_cps` | 0.055 | 0.055 | 0.053 | 0.046 | 0.04559 | 1.0727 |
-| `glucokinase` | 0.051 | 0.062 | **0.066** | **0.065** | 0.03799 | 1.0788 |
-| `hiv_rt` | 0.044 | 0.054 | 0.058 | 0.053 | 0.04689 | 1.1541 |
-| `mkp5` | **0.068** | **0.071** | **0.077** | **0.069** | 0.03042 | 1.1398 |
-| `ns5b` | 0.041 | 0.043 | 0.045 | 0.051 | 0.04954 | 1.0027 |
-| `p97_vcp` | **0.068** | **0.071** | **0.072** | 0.061 | 0.02525 | 1.2487 |
-| `ptp1b` | 0.059 | 0.063 | 0.060 | 0.057 | 0.03827 | 1.0768 |
-| `smyd3` | 0.042 | 0.047 | 0.040 | 0.039 | 0.05000 | 1.0301 |
+| Arm                        |     λ = 4 |     λ = 8 |    λ = 12 |    λ = 20 | `alpha_star` | `size_ratio` |
+| -------------------------- | --------: | --------: | --------: | --------: | -----------: | -----------: |
+| `kras_g12c_mandated`       |     0.040 |     0.048 |     0.048 |     0.044 |      0.05000 |       1.0411 |
+| `kras_g12c_corrected`      |     0.053 |     0.055 |     0.053 |     0.050 |      0.04326 |       1.0827 |
+| `bcr_abl1_mandated`        |     0.054 | **0.071** | **0.069** | **0.079** |      0.02771 |       1.2073 |
+| `bcr_abl1_corrected`       |     0.060 | **0.067** | **0.065** | **0.068** |      0.03558 |       1.0970 |
+| `cardiac_myosin_mandated`  |     0.051 |     0.048 |     0.046 |     0.054 |      0.04848 |       1.0509 |
+| `cardiac_myosin_corrected` |     0.037 | **0.034** |     0.037 | **0.035** |      0.05000 |       1.0000 |
+| `chk1`                     | **0.073** | **0.069** | **0.069** | **0.066** |      0.03106 |       1.1832 |
+| `ecoli_cps`                |     0.055 |     0.055 |     0.053 |     0.046 |      0.04559 |       1.0727 |
+| `glucokinase`              |     0.051 |     0.062 | **0.066** | **0.065** |      0.03799 |       1.0788 |
+| `hiv_rt`                   |     0.044 |     0.054 |     0.058 |     0.053 |      0.04689 |       1.1541 |
+| `mkp5`                     | **0.068** | **0.071** | **0.077** | **0.069** |      0.03042 |       1.1398 |
+| `ns5b`                     |     0.041 |     0.043 |     0.045 |     0.051 |      0.04954 |       1.0027 |
+| `p97_vcp`                  | **0.068** | **0.071** | **0.072** |     0.061 |      0.02525 |       1.2487 |
+| `ptp1b`                    |     0.059 |     0.063 |     0.060 |     0.057 |      0.03827 |       1.0768 |
+| `smyd3`                    |     0.042 |     0.047 |     0.040 |     0.039 |      0.05000 |       1.0301 |
 
-**Six of fourteen arms sit above the band and one sits below it**, and 13 of 14 need some
-tightening once every Holm level is checked. The matched null holds its
-size on both KRAS arms and on five secondary arms, runs conservative on cardiac myosin, and
-runs anti-conservative on both BCR-ABL1 arms and on four secondary arms. This is systematic,
-not a property of one protein.
+**Re-measured at protocol version 3 over fifteen arms.** Two rows changed: `bcr_abl1_mandated`
+because the arm is a different chain, and `cardiac_myosin_mandated` because it is new. The
+other thirteen reproduce their 2026-08-25 values to six decimals.
+
+**Six of fifteen arms sit above the band and one sits below it**, and 14 of 15 need some
+tightening once every Holm level is checked. The matched null holds its size on both KRAS arms,
+on the mandated myosin arm and on five secondary arms, runs conservative on
+`cardiac_myosin_corrected`, and runs anti-conservative on both BCR-ABL1 arms and on four
+secondary arms. This is systematic, not a property of one protein.
+
+**The organisers' chain B is worse than chain A was**, 0.054 / 0.071 / 0.069 / 0.079 against
+0.059 / 0.066 / 0.069 / 0.075, which is what its `size_ratio` of 1.2073 pays for.
+
+**The 20 Å homology model is the best-calibrated arm in the set**, inside the band at every
+correlation length, while the _measured_ myosin structure is below it at two. That is
+counter-intuitive and it is worth reading correctly: a calibrated null says the matched-patch
+construction works on that arm's graph. It cannot see that the graph is largely invented, which
+is a separate defect the arm discloses separately (long-range contact Jaccard 0.471, ADR 0031).
 
 Tightening the tolerance does not fix it. At 0.05 the BCR-ABL1 rates are 0.066 / 0.072 /
 0.074 / 0.089, which is worse than at 0.10, and the sampler's acceptance rate falls to 0.0027
 on myosin.
 
 **The positive control passes decisively.** A score built from the answer returns p = 0.0001
-on all 14 arms, which is the smallest value 9999 replicates can produce. The null is not
+on all **15** arms, which is the smallest value 9999 replicates can produce. The null is not
 inert.
 
 ### 6.2 Why, measured
@@ -455,13 +576,20 @@ and equal radius of gyration can differ in that sum.
 The observed patch's own value of that sum, as a percentile of its matched pool, **orders the
 arms the way the type-I rate does** — Spearman ρ = 0.821 over 12 arm-by-λ cells:
 
-| Arm | percentile at λ = 8 | measured type-I at λ = 8 |
-| --- | ---: | ---: |
-| `cardiac_myosin_corrected` | 32.5 % | 0.034 |
-| `kras_g12c_mandated` | 55.6 % | 0.048 |
-| `kras_g12c_corrected` | 57.3 % | 0.055 |
-| `bcr_abl1_mandated` | 70.1 % | 0.066 |
-| `bcr_abl1_corrected` | 76.7 % | 0.067 |
+| Arm                        | percentile at λ = 8 | measured type-I at λ = 8 |
+| -------------------------- | ------------------: | -----------------------: |
+| `cardiac_myosin_corrected` |              32.5 % |                    0.034 |
+| `kras_g12c_mandated`       |              55.6 % |                    0.048 |
+| `kras_g12c_corrected`      |              57.3 % |                    0.055 |
+| `bcr_abl1_mandated`        |              70.1 % |                    0.066 |
+| `bcr_abl1_corrected`       |              76.7 % |                    0.067 |
+
+**This table is version-2 data and was not re-measured at version 3.** The percentile comes
+from `experiments/2026-08-25-null-repairs/`, which is a separate experiment from the
+calibration, so `bcr_abl1_mandated`'s row is chain A's and `cardiac_myosin_mandated` has no
+row. Neither omission changes anything, because §6.2 ends by **withdrawing** this relation as a
+mechanism: an intervention that moves the percentile by 18 points moves the type-I rate by
+0.0012. The table is kept as the description that failed, not as a working model.
 
 Above the median the null's members have lower variance than the observed statistic and the
 test over-rejects; below it, it under-rejects. That reading is consistent with every arm.
@@ -470,10 +598,10 @@ test over-rejects; below it, it under-rejects. That reading is consistent with e
 `experiments/2026-08-25-null-repairs/` moves the percentile on purpose and measures what the
 type-I rate does.
 
-| Repair                                                             | mean move in percentile | mean move in type-I | ρ of the two moves |
-| ------------------------------------------------------------------ | ----------------------: | ------------------: | -----------------: |
-| **C** — centre the acceptance window on the observed Rg            |        **−18.1 points** |             −0.0012 |             −0.193 |
-| **D** — match the whole within-patch pairwise-distance ECDF        |             −4.8 points |             −0.0011 |             +0.049 |
+| Repair                                                      | mean move in percentile | mean move in type-I | ρ of the two moves |
+| ----------------------------------------------------------- | ----------------------: | ------------------: | -----------------: |
+| **C** — centre the acceptance window on the observed Rg     |        **−18.1 points** |             −0.0012 |             −0.193 |
+| **D** — match the whole within-patch pairwise-distance ECDF |             −4.8 points |             −0.0011 |             +0.049 |
 
 Repair C moves the percentile by up to 26 points and the type-I rate by about one thousandth.
 Fitted on the frozen cells, the relation in the table above predicts a mean type-I of **0.0407**
@@ -534,7 +662,8 @@ Three properties, stated plainly:
   correctly under the model, since a wider null puts less mass above a point already below the
   null mean. No decision threshold lies above 0.5, so the clamp costs nothing and keeps the
   "may never loosen" rule true as written.
-- This costs power on the **13 of 14 arms** whose ratio exceeds 1. §7 reports the minimum
+- This costs power on the **14 of 15 arms** whose ratio exceeds 1. Only
+  `cardiac_myosin_corrected` sits at exactly 1.0000. §7 reports the minimum
   detectable effect at the **effective** threshold, at every Holm level, so the number a
   reader sees is the number the procedure delivers.
 - **The ratio is an estimate, and it is frozen forever.** It comes from tail quantiles of 1000
@@ -545,14 +674,15 @@ Three properties, stated plainly:
   10 000 fields would tighten it and is the obvious improvement if this ever reopens.
 - **The pool is not centred on the observation, and that is a known residual.** The ±10 %
   matching band is symmetric, but the sampler's frontier growth populates it asymmetrically:
-  the sampled patches' mean radius of gyration exceeds the observed value on **14 of 14 arms**,
-  by 3.95 % on average (sign test p = 1.2 × 10⁻⁴). Centring the window was tested as repair C
+  the sampled patches' mean radius of gyration exceeds the observed value on **15 of 15 arms**,
+  by **3.97 %** on average (sign test p = 3.05 × 10⁻⁵). Re-measured at version 3; at version 2
+  it was 14 of 14 and 3.95 %, so adding an arm changed nothing about the direction or the size. Centring the window was tested as repair C
   and it does not fix the type-I rate (§6.2), so the bias is disclosed rather than corrected.
 
 **Result: `metrics.json` in the experiment directory**, section `gate`, keys `size_ratio` and
-`alpha_star` per arm. It runs on all 14 frozen arms, not only the five the tolerance sweep uses: a threshold
-measured after a method is scored is a hyperparameter, and the secondary set is where
-hyperparameters get chosen.
+`alpha_star` per arm. It runs on all 15 frozen arms, not only the six the tolerance sweep uses:
+a threshold measured after a method is scored is a hyperparameter, and the secondary set is
+where hyperparameters get chosen.
 
 Distance-only and degree-only scores are diagnostics on the matching, not part of the gate.
 Each yields one p-value per arm, which cannot separate 0.05 from 0.15.
@@ -589,33 +719,33 @@ standard-deviation units and the median AUC-ROC achieved at that shift.
 
 **At α, the loosest threshold Holm can present.**
 
-| Arm | λ = 4 Å | λ = 8 Å | λ = 12 Å | λ = 20 Å |
-| --- | --- | --- | --- | --- |
-| `kras_g12c_mandated` | 1.01 / **0.776** | 1.21 / **0.841** | 1.21 / **0.860** | 1.17 / **0.888** |
-| `kras_g12c_corrected` | 1.05 / **0.786** | 1.24 / **0.842** | 1.28 / **0.868** | 1.23 / **0.895** |
-| `bcr_abl1_mandated` | 0.95 / **0.773** | 1.22 / **0.835** | 1.35 / **0.867** | 1.43 / **0.913** |
-| `bcr_abl1_corrected` | 1.00 / **0.762** | 1.31 / **0.850** | 1.38 / **0.880** | 1.36 / **0.908** |
+| Arm                        | λ = 4 Å          | λ = 8 Å          | λ = 12 Å         | λ = 20 Å         |
+| -------------------------- | ---------------- | ---------------- | ---------------- | ---------------- |
+| `kras_g12c_mandated`       | 1.01 / **0.776** | 1.21 / **0.841** | 1.21 / **0.860** | 1.17 / **0.888** |
+| `kras_g12c_corrected`      | 1.05 / **0.786** | 1.24 / **0.842** | 1.28 / **0.868** | 1.23 / **0.895** |
+| `bcr_abl1_mandated`        | 0.95 / **0.773** | 1.22 / **0.835** | 1.35 / **0.867** | 1.43 / **0.913** |
+| `bcr_abl1_corrected`       | 1.00 / **0.762** | 1.31 / **0.850** | 1.38 / **0.880** | 1.36 / **0.908** |
 | `cardiac_myosin_corrected` | 1.02 / **0.769** | 1.37 / **0.850** | 1.52 / **0.897** | 1.63 / **0.936** |
 
 **At α/3, the tightest.** This is the threshold the first arm Holm tests must clear, and which
 arm that is cannot be known in advance.
 
-| Arm | λ = 4 Å | λ = 8 Å | λ = 12 Å | λ = 20 Å |
-| --- | --- | --- | --- | --- |
-| `kras_g12c_mandated` | 1.18 / **0.813** | 1.36 / **0.871** | 1.37 / **0.891** | 1.28 / **0.908** |
-| `kras_g12c_corrected` | 1.27 / **0.827** | 1.45 / **0.881** | 1.41 / **0.891** | 1.35 / **0.914** |
-| `bcr_abl1_mandated` | 1.10 / **0.804** | 1.43 / **0.875** | 1.54 / **0.900** | 1.56 / **0.931** |
-| `bcr_abl1_corrected` | 1.17 / **0.799** | 1.50 / **0.883** | 1.57 / **0.911** | 1.52 / **0.933** |
+| Arm                        | λ = 4 Å          | λ = 8 Å          | λ = 12 Å         | λ = 20 Å         |
+| -------------------------- | ---------------- | ---------------- | ---------------- | ---------------- |
+| `kras_g12c_mandated`       | 1.18 / **0.813** | 1.36 / **0.871** | 1.37 / **0.891** | 1.28 / **0.908** |
+| `kras_g12c_corrected`      | 1.27 / **0.827** | 1.45 / **0.881** | 1.41 / **0.891** | 1.35 / **0.914** |
+| `bcr_abl1_mandated`        | 1.10 / **0.804** | 1.43 / **0.875** | 1.54 / **0.900** | 1.56 / **0.931** |
+| `bcr_abl1_corrected`       | 1.17 / **0.799** | 1.50 / **0.883** | 1.57 / **0.911** | 1.52 / **0.933** |
 | `cardiac_myosin_corrected` | 1.22 / **0.810** | 1.62 / **0.892** | 1.79 / **0.931** | 1.89 / **0.961** |
 
 The effective raw-p threshold behind each column, per arm:
 
-| Arm | at α | at α/2 | at α/3 |
-| --- | ---: | ---: | ---: |
-| `kras_g12c_mandated` | 0.0434 | 0.0206 | 0.0134 |
-| `kras_g12c_corrected` | 0.0375 | 0.0169 | 0.0106 |
-| `bcr_abl1_mandated` | 0.0357 | 0.0159 | 0.0098 |
-| `bcr_abl1_corrected` | 0.0356 | 0.0158 | 0.0098 |
+| Arm                        |   at α | at α/2 | at α/3 |
+| -------------------------- | -----: | -----: | -----: |
+| `kras_g12c_mandated`       | 0.0434 | 0.0206 | 0.0134 |
+| `kras_g12c_corrected`      | 0.0375 | 0.0169 | 0.0106 |
+| `bcr_abl1_mandated`        | 0.0357 | 0.0159 | 0.0098 |
+| `bcr_abl1_corrected`       | 0.0356 | 0.0158 | 0.0098 |
 | `cardiac_myosin_corrected` | 0.0500 | 0.0250 | 0.0167 |
 
 **Read it as a band, never as one number: AUC-ROC 0.76 to 0.96.** Two axes make the band, and
@@ -630,7 +760,7 @@ The second is **which Holm step the arm draws**. At α the band is 0.762–0.936
 arms is decided by the results.
 
 The band is remarkably flat across arms at fixed λ, which is worth stating: prevalence spans
-6.79× across all 14 arms and candidate counts span 5.09× across the five primary arms
+8.51× across all 15 arms and candidate counts span 6.38× across the six primary arms
 (7.33× across all 14), yet the minimum detectable AUC moves by at most **0.0488** at any fixed
 λ (0.0526 at α/3). The label patch geometry, not the arm size, sets the sensitivity.
 
@@ -742,11 +872,23 @@ method ranking allosteric residues below background is broken, not competing. Be
 methods there is no such asymmetry, and a prior on which one wins is the bias this protocol
 exists to prevent.
 
-**It is not a formality.** `cavity_volume` beats `distance_from_source_negated` by AUC-ROC
-**+0.24** on `kras_g12c_corrected`, and the paired test reads **p = 0.60**: a gap that size is
-inside what patch geometry produces on that arm. On `bcr_abl1_corrected` and
-`cardiac_myosin_corrected` the same comparison reads p = 0.0003 and 0.0001. Comparing two AUC
-values would have called all three a win.
+**It is not a formality.** Re-measured under version 3 on 2026-09-02, `cavity_volume` against
+`distance_from_source_negated`:
+
+| arm                        | AUC-ROC difference | `p_calibrated` | Holm threshold | reject |
+| -------------------------- | -----------------: | -------------: | -------------: | ------ |
+| `cardiac_myosin_corrected` |             +0.472 |         0.0343 |       0.016667 | no     |
+| `bcr_abl1_corrected`       |             +0.348 |         0.0550 |          0.025 | no     |
+| `kras_g12c_corrected`      |             +0.255 |         0.8281 |           0.05 | no     |
+
+Comparing two AUC values would have called all three a win. The paired test calls none of
+them. On `kras_g12c_corrected` a gap of a quarter of an AUC point reads p = 0.83, because a
+gap that size is inside what patch geometry produces on that arm.
+
+**Family 2 rejects nothing under version 3, where under version 2 it rejected on two arms**
+(p = 0.0003 and 0.0001). The version-3 input layer moved `bcr_abl1_corrected` to a different
+apo chain. Read this as the family having little power rather than as a negative finding:
+review 21 of the audit measures it at 3.7x conservative at alpha on `kras_g12c_corrected`.
 
 **Report the rank correlation against every baseline.** This is not decoration. The only
 published quantum walk on protein residue networks reports per-protein Spearman ρ against
@@ -857,6 +999,7 @@ Written now, so the rebuttal is an argument rather than a scramble.
    report that **every** spatially constrained null they tested has an inflated false-positive
    rate, reaching about **13 %** for the best of them at high autocorrelation. The residual
    here is 6.6–7.7 % before calibration, and it is calibrated away rather than left standing.
+
 8. **"Apo is harder than the numbers you are compared against."** For **allosteric and
    cryptic** sites, yes, and that must be said in the report rather than left for a
    reviewer: ESSA scores 10/14 on holo and 7/14 on apo, and AllositePro 8/14 against 2/14
@@ -887,18 +1030,42 @@ All five passed on 2026-08-25 under protocol version 2.
 `p_calibrated` gives 0.286, 0.920 and 0.656 on the confirmatory family. A geometry-only
 control must not clear a geometry-matched null, and it does not.
 
-**The positive control rejects on all three, and that is the uncomfortable one.**
+**The positive control rejects on one of three, and that is still the uncomfortable one.**
 `cavity_volume` — the volume of the largest detected cavity lining each residue, label-blind
-and zero-parameter — gives AUC-ROC 0.830 / 0.795 / 0.977 and `p_calibrated` 0.0073 / 0.0003 /
-0.0001, every one below its Holm threshold. It also puts the site pocket at rank 1 of 42, 3 of
-10 and 4 of 25, so it "succeeds" on two of three arms under the field's own top-3 convention.
+and zero-parameter — was re-measured under version 3 on 2026-09-02:
 
-Its recall@5 is **0.00 on every arm**, and on `bcr_abl1_corrected` its DCC is **26.5 Å
-against a chance line of 17.7 Å** — the predicted centre is farther from the site than a
-random five-residue list, on the same arm where it rejects at `p_calibrated` 0.0003.
+| arm                        | AUC-ROC | `p_calibrated` | Holm threshold | reject  | site pocket rank | recall@5 |
+| -------------------------- | ------- | -------------- | -------------- | ------- | ---------------- | -------- |
+| `cardiac_myosin_corrected` | 0.8064  | **0.0046**     | 0.016667       | **yes** | 2 of 85          | 0.00     |
+| `kras_g12c_corrected`      | 0.8430  | 0.0715         | 0.025          | no      | 1 of 19          | 0.00     |
+| `bcr_abl1_corrected`       | 0.5626  | 0.3236         | 0.05           | no      | 8 of 32          | 0.00     |
+
+Under version 2 it rejected on all three. **CORRECTED 2026-09-02, twice.** The sentence here
+used to say version 3 "moved `bcr_abl1_corrected` to a different apo chain", and that is
+false: ADR 0029 moved `bcr_abl1_**mandated**` to `1OPL:B` and states explicitly that `2G2H`
+stays the comparison arm. `bcr_abl1_corrected` is and was `2G2H:A`. **The cause is the
+detector re-freeze** (ADR 0030): `cavity_volume` is computed from the detector's own
+cavities, so re-freezing the decoy detector redefined the baseline the claim is measured
+against. Its median AUC over the arms runs 0.795 at the version-2 defaults and 0.696 at the
+version-3 settings. And the version-2 triple itself is **disputed**: this file said
+0.0073 / 0.0003 / 0.0001 and `manifest.yaml` said 0.0047 / 0.0001 / 0.0001. Neither has been
+re-derived, so the honest record is that the version-2 numbers are unresolved and only the
+version-3 triple above is measured. It still "succeeds" on two of three arms under the
+field's own top-3 pocket convention.
+
+**The point the version-2 text made survives, at reduced strength and on a different arm.**
+`cardiac_myosin_corrected` rejects at `p_calibrated` 0.0046 with recall@5 = **0.00** and zero
+label residues in its top five. A label-blind, zero-parameter detector score can still clear
+the confirmatory null while naming no label residue at all.
+
+**One half of the version-2 argument no longer holds and is withdrawn.** The arm whose
+predicted centre pointed away from the site was `bcr_abl1_corrected`, at DCC 26.7 Å against a
+chance line of 17.7 Å. That arm no longer rejects. On the arm that does reject, DCC is 26.1 Å
+against a chance line of 28.7 Å — better than chance, not worse. No document may say that the
+baseline rejects while pointing away from the site.
 
 That is the whole reason gate item 5 exists. This benchmark's confirmatory null can be
-cleared, decisively, by a score whose top five contains no label residue and whose centre
-points away from the site. Clearing the null is a low bar. **The claim threshold is beating
+cleared by a score whose top five contains no label residue. Clearing the null is a low bar.
+**The claim threshold is beating
 `cavity_volume`, not rejecting the null** (ADR 0025), and the report must print recall@5, DCC
 against its chance line, and the pocket rank beside every p-value it quotes.

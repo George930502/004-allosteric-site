@@ -27,14 +27,14 @@ Read it once at the start of any non-trivial task. It is the spec.
 These come from the challenge statement, not from us. Never trade them away for
 convenience, and flag it loudly if a task appears to require breaking one.
 
-| #   | Rule                                                                                                                                                                                                                               |
-| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| C1  | **Apo input only.** Holo structures are used _exclusively_ to build ground-truth labels for scoring. No holo-derived information may enter the prediction path — not coordinates, not pocket residues, not even the residue count. |
-| C2  | **No classical MD trajectories as input.** Dynamics must be predicted _ab initio_ from topology. No GROMACS/AMBER/OpenMM trajectories, no MD-derived covariance matrices, no MD-trained ML weights in the prediction path.         |
-| C3  | **Near-term hardware viability.** Circuit depth, qubit count, and connectivity must be reported for every quantum method. Deep unoptimised circuits are explicitly penalised. Every quantum claim needs a stated resource cost.    |
-| C4  | **Credible quantum execution path.** Gate-based, quantum-inspired, and hybrid are all allowed, but a quantum-inspired method must state how it maps to hardware.                                                                   |
-| C5  | **Scope:** catalytic domains only. Waters, co-factors and PTMs excluded unless modelled as simple nodes. Read as scoping the _system_, not as trimming a chain — the node set is every modelled residue of the frozen chain (ADR 0010, accepted).                                                                                                                           |
-| C6  | **Elastic network hypothesis** is the modelling assumption: contact topology drives propagation; atomic force fields are abstracted away.                                                                                          |
+| #   | Rule                                                                                                                                                                                                                                                                                                                      |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| C1  | **Apo input only.** Holo structures are used _exclusively_ to build ground-truth labels for scoring. No holo-derived information may enter the prediction path — not coordinates, not pocket residues, not even the residue count.                                                                                        |
+| C2  | **No classical MD trajectories as input.** Dynamics must be predicted _ab initio_ from topology. No GROMACS/AMBER/OpenMM trajectories and no MD-derived covariance matrices, ever. MD-**trained** weights are a separate tier: admissible, disclosed, and never load-bearing for the primary result (ADR 0027, accepted). |
+| C3  | **Near-term hardware viability.** Circuit depth, qubit count, and connectivity must be reported for every quantum method. Deep unoptimised circuits are explicitly penalised. Every quantum claim needs a stated resource cost.                                                                                           |
+| C4  | **Credible quantum execution path.** Gate-based, quantum-inspired, and hybrid are all allowed, but a quantum-inspired method must state how it maps to hardware.                                                                                                                                                          |
+| C5  | **Scope:** catalytic domains only. Waters, co-factors and PTMs excluded unless modelled as simple nodes. Read as scoping the _system_, not as trimming a chain — the node set is every modelled residue of the frozen chain (ADR 0010, accepted).                                                                         |
+| C6  | **Elastic network hypothesis** is the modelling assumption: contact topology drives propagation; atomic force fields are abstracted away.                                                                                                                                                                                 |
 
 Leakage from C1 is the easiest mistake to make and the hardest to notice. Any code
 that loads a holo PDB lives under `src/allo/groundtruth/` and is never imported by
@@ -67,9 +67,13 @@ produce a confident but hollow submission: `docs/FIELD.md`. Enforcement checkpoi
 ## Required deliverables (what "done" means for the project)
 
 Per target — KRAS G12C `4OBE`, BCR-ABL1 `1OPL`, cardiac myosin `5TBY`, c-Myc `1NKP`.
-All three mandated apo/holo pairs are defective and are scored in tiers; the cardiac
-myosin pair is unscoreable as assigned. See `docs/benchmark/primary/README.md` before using any
-of these accessions:
+All three mandated apo/holo pairs are defective and are scored in tiers. **All four now have a
+contract**, since the organisers answered on 2026-09-02: the BCR-ABL1 input is `1OPL` chain
+**B**, the cardiac-myosin holo is **`9GZ2`** in place of `6C1H`, and c-Myc is scored against
+NMR segments and declared non-blind (ADRs 0029, 0031, 0036). Both mandated arms that moved are
+**non-confirmatory** and print their measured defects. Every departure from `CHALLENGE.md`
+Table 1 is on one page: `docs/report/substitutions.md`. See
+`docs/benchmark/primary/README.md` before using any of these accessions:
 
 1. **N x N connectivity matrix** (`results/<target>/connectivity.npz`)
 2. **Top-5 ranked allosteric residue hit list** (`results/<target>/hits.csv`)
@@ -86,26 +90,28 @@ comparison, circuit-resource analysis.
 Start every task with the first two rows. The rest are on-demand — open one when its
 condition fires, not to browse.
 
-| Open this                            | When                                                                                                                                                                                  |
-| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `docs/ROADMAP.md`                    | Always, first. Which phase is current and what its exit criterion is                                                                                                                  |
-| `experiments/REGISTRY.md`            | Always, second. What has been tried, and what failed — do not re-run a dead end                                                                                                       |
-| `CONTEXT.md`                         | Writing the word "site", "pocket", "target" or "pair" anywhere. The settled vocabulary — cryptic and allosteric are **not** synonyms and the difference decides what we are scored on |
-| `docs/playbooks/phase-work.md`       | Starting or finishing any unit of work. `/phase` in Claude Code                                                                                                                       |
-| `docs/playbooks/experiment.md`       | About to produce a number worth comparing to another number. `/exp`                                                                                                                   |
-| `docs/playbooks/constraint-audit.md` | Diff touches the prediction path, ground truth, or a quantum method. `/audit`, or the `constraint-auditor` subagent                                                                   |
-| `docs/FIELD.md`                      | Choosing or defending a method; writing anything for the report                                                                                                                       |
-| `docs/PRINCIPLES.md`                 | The one-liners above are not enough to settle a call                                                                                                                                  |
-| `docs/benchmark/README.md`           | Not sure which of the three frozen sets answers your question. One page, four rows, then go straight to the set. Shared literature evidence lives beside it in `evidence/`, because all three rest on it |
-| `docs/benchmark/primary/README.md`           | Any question about **what** a method receives and **what** it is scored against. `frozen.json` is the authority for every residue count, label set and active site — never quote one from prose. `n_residues` is what a method **receives**; `n_candidates` is what it is **scored against**, and they are not the same number (ADR 0011) |
-| `docs/benchmark/secondary/README.md`  | Any question about the **generalisability or scalability** claim. Nine further targets, frozen 2026-08-24, in two tiers. `development` is where every hyperparameter is chosen; `generalisation` is not opened until the method is frozen. Same eight clauses plus four selection clauses (ADR 0021). §6 states what the achieved N supports and what it does not; §7 lists eleven limitations |
-| `docs/benchmark/evaluation/README.md`  | Any question about **how** a score is computed — endpoint, estimator, null, decoys, multiplicity. **Protocol version 2**, frozen 2026-08-25 alongside `manifest.yaml` and `frozen.json` there; `uv run allo evaluate verify` re-derives it. Version 1 was frozen and reopened the same day by `AUDIT.md`, which is the record of what was wrong — read it before trusting any number a pre-audit document quotes. Every method calls `allo.scoring.score_arm` and no other path. Nothing in it may change once a method has been scored. Do not merge it back into the input manifest |
-| `docs/targets.md`                    | Touching a specific protein, its chains, or its ground-truth labels                                                                                                                   |
-| `docs/adr/`                          | Before choosing between credible alternatives; write one when the choice would be expensive to reverse. `README.md` there gives the format **and indexes all 25 by topic**            |
-| `experiments/README.md`              | Setting up a run directory                                                                                                                                                            |
-| `docs/agents/`                       | An installed engineering skill needs the issue tracker, triage labels, or domain-doc layout                                                                                           |
-| `CHALLENGE.md`                       | Any question about what the challenge actually requires. It is the spec; do not answer from memory                                                                                    |
-| `CONTRIBUTING.md`                    | Writing anything a human contributor reads, or changing setup, the gates, the PR checklist or the experiment procedure. It states the same rules for people that this file states for agents — keep the two in step, and do not duplicate one into the other |
+| Open this                             | When                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `docs/ROADMAP.md`                     | Always, first. Which phase is current and what its exit criterion is                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `experiments/REGISTRY.md`             | Always, second. What has been tried, and what failed — do not re-run a dead end                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `CONTEXT.md`                          | Writing the word "site", "pocket", "target" or "pair" anywhere. The settled vocabulary — cryptic and allosteric are **not** synonyms and the difference decides what we are scored on                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `docs/playbooks/phase-work.md`        | Starting or finishing any unit of work. `/phase` in Claude Code                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `docs/playbooks/experiment.md`        | About to produce a number worth comparing to another number. `/exp`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `docs/playbooks/constraint-audit.md`  | Diff touches the prediction path, ground truth, or a quantum method. `/audit`, or the `constraint-auditor` subagent                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `docs/FIELD.md`                       | Choosing or defending a method; writing anything for the report                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `docs/PRINCIPLES.md`                  | The one-liners above are not enough to settle a call                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `docs/benchmark/README.md`            | Not sure which of the three frozen sets answers your question. One page, four rows, then go straight to the set. Shared literature evidence lives beside it in `evidence/`, because all three rest on it                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `docs/benchmark/primary/README.md`    | Any question about **what** a method receives and **what** it is scored against. `frozen.json` is the authority for every residue count, label set and active site — never quote one from prose. `n_residues` is what a method **receives**; `n_candidates` is what it is **scored against**, and they are not the same number (ADR 0011)                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `docs/benchmark/secondary/README.md`  | Any question about the **generalisability or scalability** claim. Nine further targets, frozen 2026-08-24, in two tiers. `development` is where every hyperparameter is chosen; `generalisation` is not opened until the method is frozen. Same eight clauses plus four selection clauses (ADR 0021). §6 states what the achieved N supports and what it does not; §7 lists eleven limitations                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `docs/benchmark/evaluation/README.md` | Any question about **how** a score is computed — endpoint, estimator, null, decoys, multiplicity. **Protocol version 3**, frozen 2026-09-02 alongside `manifest.yaml` and `frozen.json` there; `uv run allo evaluate verify` re-derives it. Read **§0 first**: it lists the six things version 3 changes and why each is not a hyperparameter. Version 3 opened because the _input_ layer moved, not because a defect was found. Version 1 was frozen and reopened the same day by `AUDIT.md`, which audits version 2 and is the record of what was wrong — read it before trusting any number a pre-audit document quotes. Every method calls `allo.scoring.score_arm` and no other path. Nothing in it may change once a method has been scored. Do not merge it back into the input manifest |
+| `docs/benchmark/review/README.md`     | Quoting **any** number from a frozen set, or asking whether one is still right. The 2026-09-02 audit of all three frozen layers, opened when the organisers answered four questions. **`00-official-reply.md` holds their answers verbatim and outranks `CHALLENGE.md` where the two disagree.** `26-third-pass-synthesis.md` is the ranked list of what must change; `11` and `25` are the earlier passes, kept unedited. Corrections live here, not edited into the freezes                                                                                                                                                                                                                                                                                                                                                                                   |
+| `docs/evidence/method-landscape/` | Choosing or defending a **method**, in Phase 2 or later. A scoped literature survey of how the field predicts allosteric sites, 23 documents, every claim carrying a DOI. It holds no code and no scored number. `11-pipeline-decomposition.md` assigns each of the eleven pipeline stages to classical, AI or quantum. Read `10a-fact-check.md` before quoting any number from it, and **ADR 0026** before treating `00-conventions.md` §5 as closed. What happened when experiments actually ran is **not here** — it left `main` with the method layer on 2026-09-02 and is on the branch `method-layer-archive` (ADR 0037) |
+| `docs/targets.md`                     | Touching a specific protein, its chains, or its ground-truth labels                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `docs/adr/`                           | Before choosing between credible alternatives; write one when the choice would be expensive to reverse. `README.md` there gives the format **and indexes all 37 by topic**. ADRs 0029-0036 were written on 2026-09-02 and two of them supersede blockers                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `experiments/README.md`               | Setting up a run directory                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `docs/agents/`                        | An installed engineering skill needs the issue tracker, triage labels, or domain-doc layout                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `CHALLENGE.md`                        | Any question about what the challenge actually requires. It is the spec; do not answer from memory                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `CONTRIBUTING.md`                     | Writing anything a human contributor reads, or changing setup, the gates, the PR checklist or the experiment procedure. It states the same rules for people that this file states for agents — keep the two in step, and do not duplicate one into the other                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 
 Not in context and not worth loading: `docs/Cleveland-Clinic-Challenge-Statement-vF.pdf`
 (4.2 MB — `CHALLENGE.md` is the complete restatement), and anything under `data/raw/`
@@ -118,26 +124,47 @@ Not in context and not worth loading: `docs/Cleveland-Clinic-Challenge-Statement
 `src/allo/` is organised by pipeline stage, not by abstraction. Add a module when a stage
 needs one, not before.
 
-**What exists today.** Phase 1 built the substrate. Nothing quantum is written yet.
+**What exists today.** Phase 1 built the substrate; Phase 2 built the method layer on top
+of it.
 
 ```
-structure/    PDB fetch/parse -> coordinates, residue indexing
+structure/    apo-only, and every module here is on the prediction path.
+              `pdb` fetch/parse -> coordinates, residue indexing.
+              `properties` the three apo-only score confounders -- here, not in `scoring/`,
+                so that an apo-only caller does not execute `allo/scoring/__init__.py`.
+              `graph` `build(apo, contact=, cutoff=, weighting=)` returns a ResidueGraph
+                carrying residue identity, coordinates, deposited B-factor and the source
+                set. The default build reproduces the evaluation graph exactly, and a test
+                says so. Here rather than in `scoring/` because a future prediction package
+                needs it and may not import the evaluation layer (ADR 0037)
 scoring/      the frozen evaluation harness: `score_arm` and `compare_methods` are the
-              only paths a number may take; also nulls, decoys, metrics, calibration
-groundtruth/  holo-derived labels ONLY — never imported by prediction code (C1)
+              only paths a number may take; also nulls, decoys, metrics, calibration.
+              `baselines` holds eight of the nine controls the frozen protocol requires,
+                keyed by manifest name as `REQUIRED_BASELINES`. The ninth, `cavity_volume`,
+                is in `decoys`. These are controls a method must beat, never candidates
+groundtruth/  holo-derived labels ONLY -- never imported by prediction code (C1)
 inputs.py     the one prediction-path module that opens the manifest
-benchmark.py  the freeze and its verification — evaluation side
+benchmark.py  the freeze and its verification -- evaluation side
 experiment.py the run-directory scaffold behind `allo new-experiment`
 cli.py        `allo <stage> ...` entry point
 ```
 
-**The names reserved for later phases.** Do not create one until its stage needs it. The
-name is fixed here so that two agents do not invent two names for the same stage.
+**There is no method layer on `main`.** `network/`, `classical/` and `quantum/` were removed
+on 2026-09-02 and are preserved whole on the branch `method-layer-archive` (ADR 0037). Phase
+2 restarts from an empty package against a frozen substrate. Two things moved rather than
+left, because the frozen evaluation protocol requires them: the graph builder is now
+`structure/graph.py`, and the eight required baselines are now `scoring/baselines.py`.
+
+Every scorer takes a `ResidueGraph` and returns one array in the graph's own residue order.
+`graph.as_scores(values)` is what turns that array into the residue-keyed mapping
+`score_arm` requires. **No prediction-path module imports `allo.groundtruth` or
+`allo.scoring`.** The prediction path is `allo.structure`, `allo.inputs` and
+`allo.experiment`, and `test_the_prediction_path_is_the_set_this_contract_names` pins that
+set, so a new prediction package is a decision rather than a side effect.
+
+**The names still reserved.** Do not create one until its stage needs it.
 
 ```
-network/      contact graph / elastic network construction, coarse-graining   (Phase 1.2, 4)
-quantum/      Hamiltonians, propagation metrics, circuits, noise models       (Phase 2, 3)
-classical/    baselines (GNM/ANM, random walk, betweenness, eigenvector)      (Phase 1.4)
 viz/          2D plots and 3D structure rendering                             (Phase 5)
 ```
 
@@ -146,10 +173,12 @@ C1 expressed in the import graph: holo structures, ligand contacts and label set
 repo only through it. If anything on the prediction path imports it — directly or
 transitively — the blind prediction is compromised and the submission is invalid.
 
-**Five data routes bypass the import graph, and each is guarded separately.**
+**Thirteen data routes bypass the import graph, and each is guarded separately.**
 
-1. **The freezes.** `docs/benchmark/primary/frozen.json` and `docs/benchmark/secondary/frozen.json`
-   hold the label sets. No prediction-path module may name either.
+1. **The freezes, and the trees around them.** `docs/benchmark/primary/` and
+   `docs/benchmark/secondary/` are protected **whole**, not file by file. `frozen.json` was
+   guarded on the first day and its own siblings were not, which is how route 12 below
+   survived nine days. A file added to either tree is now protected by default.
 2. **The manifests.** `docs/benchmark/primary/manifest.yaml` holds the holo accessions, the effector
    component IDs and — in `blind.why`, `defect` and `note` — label residue numbers written
    out in prose. The secondary set has its own manifest with the same shape. `allo.inputs` is
@@ -168,14 +197,89 @@ transitively — the blind prediction is compromised and the submission is inval
 5. **The evaluation layer.** The whole of `docs/benchmark/evaluation/` is protected by
    default, because `frozen.json` names the site pocket's lining residues and every decoy
    lining. `allo.scoring` reads it; nothing on the prediction path may.
+6. **The matched-patch cache.** `data/patches/` is derived from the label set and announces
+   it in its own array shapes: `members` has width equal to the arm's positive count, for
+   all fourteen arms — including the five `generalisation` arms that are not open yet. C1
+   names this exact case, "not even the residue count". Its `diagnostics` string carries the
+   true site's own geometry as `observed_median_distance_to_source`,
+   `observed_radius_of_gyration` and `observed_mean_degree`. `allo.scoring` writes and reads
+   it under the constant `PATCH_CACHE`; nothing on the prediction path may. Added 2026-08-27
+   by a design-stage constraint audit, which found the directory unprotected.
 
-All five are enforced by `tests/test_no_leakage.py`, which names them in `PROTECTED_PATHS`
-and in `FROZEN_TOKENS`. An import trace cannot see a file-read route, so the file-read and
-content tests are what does.
+7. **The multi-axis review.** `docs/benchmark/review/` carries per-arm positive counts, five
+   real KRAS label residues in `03-kras-mask.md`, and a candidate ledger with holo accessions
+   and effector component IDs. C1 names the residue count directly, and
+   `extension-candidates.md` is already protected as a Markdown answer key on the identical
+   argument. Protected whole, so a file added there later is protected by default. Its **own**
+   tools are exempt, by a rule rather than a name list: a tracked file inside the tree that
+   imports no `allo` module may name paths **inside that tree only**. A prediction runner has
+   to import the package, so a file that does not cannot be one. Added 2026-09-02 by ADR 0034.
 
-Dependencies point inward toward the network/propagation logic, never outward toward I/O,
-cloud backends or plotting. `quantum/` must be callable without Braket credentials,
-`network/` without a PDB fetch. Pass the capability in.
+8. **The per-target input audits.** `docs/benchmark/primary/audit/` derives its ligand-contact
+   tables from the holo structure, so it reproduces the label sets outright: 21 of 21 residues
+   for both KRAS arms in `kras-g12c.md`, 18 of 18 and 17 of 17 in `bcr-abl1.md`. Protected
+   whole. Found 2026-09-02 by sweeping every tracked `.md`, `.yaml`, `.json` and `.txt`
+   outside the seven trees above for a run of label residues inside one 400-character window.
+
+9. **The shared literature evidence.** `docs/benchmark/evidence/` prints the KRAS distal label
+   set as running prose in `allosteric-prediction-prior-art.md`, to make a point about how
+   little of it the ASD covers. Protected whole, on the `evaluation/` argument. Same sweep.
+
+10. **The experiment record.** Every `metrics.json` and `records.jsonl` a scoring run writes
+    carries the matched-patch sampler diagnostics, and `observed_radius_of_gyration` is the
+    true site's own geometry — 65 such fields in the 2026-09-02 recalibration alone, naming
+    all five sealed `generalisation` arms. `data/patches/` was protected for exactly this
+    content in August; the copy beside the runner was not. The tree cannot be protected
+    outright, because the runners write into it, so the rule is narrower and is the one thing
+    here that is not a path: **no file may name a record it did not write.** A run script may
+    name the two records beside it. A `config.yaml` is not a record, which is why one runner
+    legitimately reads another run's config. Added 2026-09-02. The tree **is** in
+    `PROTECTED_PATHS`; `allowed_experiment_path` is the exemption on top of it, not a
+    replacement for it.
+11. **The target dossier.** `docs/targets.md` prints the cardiac myosin site in three-letter
+    codes — `Tyr164, Thr167, Asp168, …` — which is **12 of 12** `label_residues` for both
+    myosin arms, plus the minimum label-to-source distance per arm. The sweep that cleared
+    this file on 2026-09-02 matched bare integers on a word boundary, so `Tyr164` never
+    matched `164` and a true finding was recorded as refuted. **Re-run any label sweep with
+    three-letter codes normalised.** Protecting the file does not change how you read it:
+    `PROTECTED_PATHS` binds prediction modules, not agents.
+12. **The two benchmark READMEs.** `primary/README.md` and `secondary/README.md` tabulate a
+    `Scoreable` column that **is** the positive count, beside the holo accession, the holo
+    chain and the effector component ID — for all five sealed `generalisation` arms as well.
+    That is the payload routes 3 and 6 are protected for, sitting next to the file protected
+    first. Covered by the whole-tree protection in route 1.
+13. **The per-target input audits**, `docs/benchmark/primary/audit/`, which reproduce 21 of 21
+    KRAS label residues and 18 of 18 for BCR-ABL1 from the holo contact shell. Also covered by
+    route 1; kept as its own entry because it records what the 2026-09-02 sweep found.
+
+All thirteen are enforced by `tests/test_no_leakage.py`, which names them in
+`PROTECTED_PATHS`, in `FROZEN_TOKENS` and — for route 10 — in `allowed_experiment_path`. An
+import trace cannot see a file-read route, so the file-read and content tests are what does.
+
+**Protecting a path the detector cannot resolve protects nothing.** On 2026-09-02 a module in
+`allo.network` read the whole matched-patch cache — every arm's positive count, the sealed
+tier included — by writing `Path("data").joinpath("patches")`. The guard modelled the `/`
+operator and not its method spelling, and `patches` is not a frozen token, so all 34 tests
+passed. `os.path.dirname` had the same hole. Both are closed and probed. This is the third
+instance of one failure mode: **the guard reads the text correctly and the interpreter accepts
+a form the text does not model.** Add the form to
+`test_constant_path_guard_catches_composition_and_quote_variants` before trusting a new route.
+
+**A submodule import executes its parent packages, and the import graph now says so.**
+`from allo.scoring.properties import residue_properties` names a module whose own imports are
+`numpy`, `scipy` and `allo.inputs`. Reading the source it is clean. Running it, the
+interpreter executes `allo/scoring/__init__.py` first and `allo.groundtruth` is in the
+process — with no protected path, no frozen token and no `groundtruth` anywhere in the text.
+The graph fixture in `tests/test_no_leakage.py` adds the parent edges Python adds, and a
+second test states the rule this file has always promised: **no prediction-path module
+imports `allo.scoring` by any route.** Both were unchecked until 2026-08-27. The rule named
+three packages until 2026-09-02, when they were removed and it started passing over an empty
+set.
+
+Dependencies point inward toward the graph and propagation logic, never outward toward
+I/O, cloud backends or plotting. `structure/graph.py` must be callable without a PDB fetch,
+and a future quantum package must be callable without Braket credentials. Pass the
+capability in.
 
 **Conventions.** Residue identity is **author numbering plus chain ID**, preserved end to
 end — a hit list indexed by matrix row is not readable by a medicinal chemist and is not a
