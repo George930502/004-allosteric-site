@@ -517,7 +517,7 @@ def holm(pvalues: Mapping[str, float], alpha: float = 0.05) -> dict[str, dict]:
 
 def confirmatory_verdict(
     family_1: Mapping[str, float],
-    family_2: Mapping[str, float] | None = None,
+    family_2: Mapping[str, Mapping] | None = None,
     *,
     settings: dict | None = None,
 ) -> dict:
@@ -534,10 +534,20 @@ def confirmatory_verdict(
     scoring path.
 
     `family_1` is the matched-patch `p_calibrated` per arm, one-sided upper. `family_2` is
-    the paired `compare_methods` `p_calibrated` against `cavity_volume`, two-sided (ADR 0032).
+    the whole `compare_methods` record per arm, against `cavity_volume`, two-sided (ADR 0032).
     Both are corrected by Holm over three at the frozen alpha, and the arms supplied must be
     exactly the declared family -- passing four arms, or the wrong three, raises rather than
     silently correcting over the wrong m.
+
+    **Family 2 takes records, not bare p-values, because the test is two-sided and the claim
+    is directional.** ADR 0032's own table says a family-2 rejection licenses "the method
+    beats the pre-declared reference on that arm". A two-sided p-value cannot say which
+    method won, so the first implementation counted a method that was significantly WORSE
+    than `cavity_volume` as clearing the claim family. Requiring the record makes the
+    direction available: an arm rejects only when Holm rejects AND `leader` is not the
+    reference. A record whose `comparison` is not against the frozen reference raises, so a
+    caller cannot reverse the direction by swapping the two arguments of `compare_methods`.
+    Found 2026-09-03 by an adversarial pass.
 
     **It returns per-arm verdicts and no aggregate.** ADR 0032's own table says a rejection
     licenses that *the arm* has signal, and neither the ADR nor README section 8 defines what
@@ -569,13 +579,36 @@ def confirmatory_verdict(
     if family_2 is None:
         return verdict
     claim = decision["claim_family"]
+    reference = str(claim["reference"])
+    leads: dict[str, bool] = {}
+    pvalues: dict[str, float] = {}
+    for arm, record in family_2.items():
+        if not isinstance(record, Mapping) or "leader" not in record:
+            raise TypeError(
+                f"family_2[{arm!r}] must be a compare_methods record, not a bare p-value: "
+                "a two-sided p cannot say which method won, and ADR 0032 licenses "
+                f"'the method beats {reference}'"
+            )
+        comparison = str(record.get("comparison", ""))
+        if not comparison.endswith(f" against {reference}"):
+            raise ValueError(
+                f"family_2[{arm!r}] compares {comparison!r}; the frozen reference is "
+                f"{reference!r} and it must be the second argument to compare_methods"
+            )
+        pvalues[arm] = float(record["p_calibrated"])
+        leads[arm] = str(record["leader"]) != reference
+    arms = _check(pvalues, list(claim["arms"]), "family_2")
+    for arm, outcome in arms.items():
+        # Holm rejects a two-sided test in either direction. Only one of them is the claim.
+        outcome["leads"] = leads[arm]
+        outcome["reject"] = bool(outcome["reject"] and leads[arm])
     verdict["family_2"] = {
         "test": claim["test"],
-        "reference": claim["reference"],
+        "reference": reference,
         "sided": claim["sided"],
-        "arms": _check(family_2, list(claim["arms"]), "family_2"),
+        "arms": arms,
     }
-    verdict["family_2"]["n_reject"] = sum(a["reject"] for a in verdict["family_2"]["arms"].values())
+    verdict["family_2"]["n_reject"] = sum(a["reject"] for a in arms.values())
     return verdict
 
 
@@ -766,14 +799,26 @@ def freeze_evaluation(settings: dict | None = None) -> dict:
     does not: it reads the committed result.
     """
     settings = settings or protocol()
-    targets = sorted(json.loads(INPUT_FROZEN.read_text())["targets"])
-    if SECONDARY_INPUT_FROZEN.exists():
-        targets += sorted(json.loads(SECONDARY_INPUT_FROZEN.read_text())["targets"])
     return {
         "frozen_on": str(settings["frozen_on"]),
         "protocol_version": settings["version"],
-        "targets": {t: _derive_arm(t, settings, detect=True) for t in targets},
+        "targets": {t: _derive_arm(t, settings, detect=True) for t in _arms_from_the_input_layer()},
     }
+
+
+def _arms_from_the_input_layer() -> list[str]:
+    """Every arm the evaluation layer must cover, taken from the two INPUT freezes.
+
+    The authority for *which* arms exist is the input layer, never the evaluation freeze
+    itself. `verify_evaluation` used to iterate the arms recorded in `frozen.json`, so an arm
+    deleted from that file was simply not checked and the verifier exited 0 over fourteen
+    arms. Both the freeze and the verification now derive the list here, so the two cannot
+    disagree about the set they cover.
+    """
+    targets = sorted(json.loads(INPUT_FROZEN.read_text())["targets"])
+    if SECONDARY_INPUT_FROZEN.exists():
+        targets += sorted(json.loads(SECONDARY_INPUT_FROZEN.read_text())["targets"])
+    return targets
 
 
 def verify_evaluation(detect: bool = False) -> list[str]:
@@ -782,17 +827,72 @@ def verify_evaluation(detect: bool = False) -> list[str]:
     `detect=False` is the offline check: it re-derives the chance lines and the matched-patch
     geometry from the committed apo bytes and skips the pockets, so `make check` stays
     offline and free of the `eval` extra. `make verify` runs it with `detect=True`.
+
+    **The whole root is diffed, not the arms one at a time.** Until 2026-09-03 this function
+    compared `frozen_on` and then looped over whichever arms `frozen.json` happened to hold.
+    Deleting an arm from that file and setting `protocol_version` to 999 left it exiting 0.
+    Both are release-gate failures: `README.md` advertises this command as the check that
+    "re-derives every pinned value and exits 0 only if nothing moved". `deep_diff` already
+    reports a key present on one side and absent on the other, so building the derived root
+    exactly as `freeze_evaluation` does and diffing once closes the arm set, the protocol
+    version and the freeze date together.
     """
     settings = protocol()
     frozen = json.loads(EVALUATION_FROZEN.read_text())
+    current = {
+        "frozen_on": str(settings["frozen_on"]),
+        "protocol_version": settings["version"],
+        "targets": {
+            t: _derive_arm(t, settings, detect=detect) for t in _arms_from_the_input_layer()
+        },
+    }
+    if not detect:
+        # The pockets are the one part the offline check cannot re-derive, so drop them from
+        # both sides rather than reporting every arm as changed.
+        frozen = dict(frozen)
+        frozen["targets"] = {
+            target: {key: value for key, value in record.items() if key != "decoys"}
+            for target, record in frozen["targets"].items()
+        }
     problems: list[str] = []
-    if str(frozen["frozen_on"]) != str(settings["frozen_on"]):
-        problems.append(
-            f"frozen_on: freeze {frozen['frozen_on']} != manifest {settings['frozen_on']}"
-        )
-    for target, recorded in frozen["targets"].items():
-        current = _derive_arm(target, settings, detect=detect)
-        if not detect:
-            recorded = {key: value for key, value in recorded.items() if key != "decoys"}
-        deep_diff(recorded, current, target, problems)
+    deep_diff(frozen, current, "", problems)
+    problems += _conformance_problems(settings)
+    return problems
+
+
+def _conformance_problems(settings: dict) -> list[str]:
+    """Manifest fields that describe implemented behaviour, checked against the code.
+
+    A mutation sweep on 2026-09-03 changed one manifest leaf at a time and asked whether
+    `verify_evaluation` noticed. Six of seventy-four leaves moved a derived value; the rest
+    could be edited freely with the verifier still exiting 0. Most of the rest are declarative
+    prose -- the omission rationales, the confounder sources, the Phase 3 and 4 endpoint
+    declarations -- and prose is what they are meant to be.
+
+    The ones below are different. Each is a NORMATIVE claim about what the code does, so a
+    divergence between the manifest and the implementation would change a number while the
+    release gate stayed green. They are checked here rather than folded into `frozen.json`,
+    because a freeze records what was derived and this records what was implemented. Adding
+    them to the freeze would move it, and this moves nothing.
+    """
+    from allo.scoring import decoys as decoy_module
+    from allo.scoring.nulls import IMPLEMENTED_GRAPH_RULE
+
+    implemented = {
+        "graph": IMPLEMENTED_GRAPH_RULE,
+        "endpoints.confirmatory": "mean_rank",
+        "decoys.detector": "pyKVFinder",
+        "decoys.detector_version": decoy_module.DETECTOR_VERSION,
+        "decision.correction": "holm",
+        "decision.claim_family.correction": "holm",
+    }
+    problems: list[str] = []
+    for key, expected in implemented.items():
+        node: object = settings
+        for part in key.split("."):
+            node = node[part] if isinstance(node, dict) and part in node else None
+            if node is None:
+                break
+        if node != expected:
+            problems.append(f"conformance {key}: manifest {node!r} != implemented {expected!r}")
     return problems

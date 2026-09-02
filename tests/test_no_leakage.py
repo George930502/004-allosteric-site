@@ -14,12 +14,22 @@ import re
 import shlex
 import subprocess
 import sys
-from pathlib import Path
+from pathlib import Path, PurePath
 
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
-SRC = ROOT / "src" / "allo"
+# Everything importable from the installed package root. The scans below rglob SRC_ROOT,
+# not the `allo` package: `NON_RUNNER_TREES` exempts the whole of `src/` from the runner scan
+# on the stated ground that "package import-graph tests cover it", and until 2026-09-03 those
+# tests globbed `src/allo` only. A probe package at `src/predict/` was therefore scanned by
+# neither -- it imported `allo.groundtruth.labels`, read the evaluation freeze by literal
+# path, and recovered the positive count for all fifteen arms with the whole suite green. The
+# editable install puts `src/` on `sys.path`, so a second package there is importable the day
+# it is written. `module_name` already names modules relative to `src/`, so widening the glob
+# is all that was missing.
+SRC_ROOT = ROOT / "src"
+SRC = SRC_ROOT / "allo"
 GROUND_TRUTH = "allo.groundtruth"
 PROTECTED_PATHS = {
     (ROOT / "structures" / "holo").resolve(),
@@ -114,7 +124,67 @@ PROTECTED_PATHS = {
     # kind of finding that closes a question instead of opening it, which is why the sweep
     # that replaced it normalises the codes.
     (ROOT / "docs" / "targets.md").resolve(),
+    # The twelfth route, found 2026-09-03 by the same sweep run over the trees the eleventh
+    # cleared. `docs/adr/0031-cardiac-myosin-holo-substitution.md:22` prints the `9GZ2`
+    # contact shell as "Tyr164, Thr167, Asp168, His666, Pro710, Asn711, Arg712, Ile713,
+    # Glu774, Arg721, Tyr722, Leu770" -- 12 of 12 `label_residues` for both myosin arms,
+    # the same set `docs/targets.md` was protected for one day earlier. An ADR argues from
+    # the evidence, so the evidence lands in it, and the tree holds 37 of them. Protected
+    # whole rather than file by file, for the reason `evaluation/` and `review/` are: an ADR
+    # written next week is protected by default rather than leaked by default.
+    (ROOT / "docs" / "adr").resolve(),
 }
+
+
+def renamed_into_protected() -> set[Path]:
+    """Every path a protected file has lived at before.
+
+    A protected path is protected by its name, and a rename gives the same bytes a second
+    name that no entry above covers. `docs/benchmark/audit/kras-g12c.md` became
+    `docs/benchmark/primary/audit/kras-g12c.md` on 2026-08-31, and
+    `git show <sha>:docs/benchmark/audit/kras-g12c.md` still returns the 21-of-21 KRAS
+    contact shell -- from `main`, with no network, under a path the guard reads as ordinary
+    documentation. The segment-cover backstop does not reach it either: the old name is
+    missing the `primary` component, so it covers no protected root.
+
+    Two of the five renames were backstopped by a `FROZEN_TOKEN` (`frozen.json`,
+    `manifest.yaml`) and the three audit files were not, which is the same asymmetry that
+    made `data/patches` the hole in September. Deriving the list from git closes the class
+    instead of the instance: a rename next week is protected the day it is made.
+    """
+    result = subprocess.run(
+        [
+            "git",
+            "-C",
+            str(ROOT),
+            "log",
+            "--all",
+            "-M",
+            "--diff-filter=R",
+            "--name-status",
+            "--format=",
+        ],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    former: set[Path] = set()
+    for line in result.stdout.splitlines():
+        fields = line.split("\t")
+        if len(fields) != 3 or not fields[0].startswith("R"):
+            continue
+        was, now = (ROOT / fields[1]).resolve(), (ROOT / fields[2]).resolve()
+        if any(now == guarded or guarded in now.parents for guarded in PROTECTED_PATHS):
+            former.add(was)
+    return former
+
+
+# Kept apart from `PROTECTED_PATHS` on purpose. The resolver compares a concrete path and
+# must know the former names; the segment cover asks whether a file holds every component of
+# a path, and a former name shares most of its components with the current one -- so folding
+# these in would fire on `allo.inputs` for `docs/benchmark/manifest.yaml` the moment it
+# spells `docs/benchmark/primary/manifest.yaml`, which is its one exemption.
+FORMER_PROTECTED_PATHS = renamed_into_protected()
 ALLOWED_PREDICTION_PATHS = {(ROOT / "data" / "raw" / "apo").resolve()}
 
 # `allo.inputs` needs the chain and the active-site rule, so it is the one prediction-path
@@ -195,7 +265,7 @@ def is_prediction_path(module: str) -> bool:
 
 
 def module_name(path: Path) -> str:
-    parts = path.relative_to(SRC.parent).with_suffix("").parts
+    parts = path.relative_to(SRC_ROOT).with_suffix("").parts
     return ".".join(parts[:-1] if parts[-1] == "__init__" else parts)
 
 
@@ -256,6 +326,20 @@ def _dotted_name(node: ast.AST) -> str | None:
     return None
 
 
+# What the interpreter accepts as a path component. `Path` belongs here because
+# `Path("data") / Path("patches")` and `d.joinpath(Path("patches"))` both resolve at runtime.
+# The guard modelled `str` and `int` only, so a `Path` on the right of `/` made the whole
+# expression evaluate to None and the composed protected path vanished from the scan --
+# `data/patches` is protected as a path and is NOT a frozen token, so nothing backstopped it.
+# Fourth instance of one failure mode: the guard reads the text correctly and the interpreter
+# accepts a form the text does not model. Found 2026-09-03 by an adversarial pass. One
+# constant is used by every composition branch below, so a fifth spelling has one place to fix.
+_PATH_PART = (str, int, Path, PurePath)
+# A base is what a path can start from. `int` is excluded because `Path(1)` raises, and an
+# integer on the left of `/` is arithmetic rather than a path.
+_PATH_BASE = (str, Path, PurePath)
+
+
 def constant_paths_from_source(source: str, filename: Path) -> set[Path]:
     """Paths that can be resolved from constants without executing the source."""
     tree = ast.parse(source)
@@ -305,8 +389,8 @@ def constant_paths_from_source(source: str, filename: Path) -> set[Path]:
                 return left + right
             if (
                 isinstance(node.op, ast.Div)
-                and isinstance(left, (str, Path))
-                and isinstance(right, (str, int))
+                and isinstance(left, _PATH_BASE)
+                and isinstance(right, _PATH_PART)
             ):
                 return Path(left) / str(right)
         if isinstance(node, ast.Attribute):
@@ -325,9 +409,9 @@ def constant_paths_from_source(source: str, filename: Path) -> set[Path]:
         if isinstance(node, ast.Call):
             name = _dotted_name(node.func)
             args = [evaluate(arg) for arg in node.args]
-            if name in call_names and all(isinstance(arg, (str, Path)) for arg in args):
+            if name in call_names and all(isinstance(arg, _PATH_PART) for arg in args):
                 return Path(*args)
-            if name in join_names and args and all(isinstance(arg, (str, Path)) for arg in args):
+            if name in join_names and args and all(isinstance(arg, _PATH_PART) for arg in args):
                 return Path(os.path.join(*(str(arg) for arg in args)))
             if isinstance(node.func, ast.Attribute) and node.func.attr == "resolve":
                 base = evaluate(node.func.value)
@@ -342,7 +426,7 @@ def constant_paths_from_source(source: str, filename: Path) -> set[Path]:
             if isinstance(node.func, ast.Attribute) and node.func.attr == "joinpath":
                 base = evaluate(node.func.value)
                 args = [evaluate(arg) for arg in node.args]
-                if isinstance(base, Path) and args and all(isinstance(a, (str, int)) for a in args):
+                if isinstance(base, Path) and args and all(isinstance(a, _PATH_PART) for a in args):
                     return base.joinpath(*(str(a) for a in args))
             # `os.path.dirname` walks up the way `.parent` does. Without it a prefix built
             # from `dirname(__file__)` evaluates to None and every path concatenated onto
@@ -359,7 +443,7 @@ def constant_paths_from_source(source: str, filename: Path) -> set[Path]:
                     return base / pattern
             if _dotted_name(node.func) in dirname_names and len(node.args) == 1:
                 base = evaluate(node.args[0])
-                if isinstance(base, (str, Path)):
+                if isinstance(base, _PATH_BASE):
                     # A str, as the real function returns, so that `dirname(...) + "/x"`
                     # composes through the string-addition branch below.
                     return os.path.dirname(str(base))
@@ -393,15 +477,108 @@ def constant_paths_from_source(source: str, filename: Path) -> set[Path]:
     return found
 
 
+def literal_segments(source: str) -> set[str]:
+    """Every path component that appears as a literal anywhere in the source.
+
+    Split on the separators and on whitespace, so a component survives being glued to a
+    command word. `os.system("cat docs/benchmark/primary/audit/kras-g12c.md")` yields
+    `docs` as well as `cat`, and a one-word prefix no longer hides the route.
+
+    A `bytes` literal is decoded first. `open`, `os.open` and `os.stat` all accept one, and
+    both `evaluate` and the fallback scan test `isinstance(value, str)`, so `b"data/patches"`
+    was invisible to the resolver at two places at once.
+    """
+    segments: set[str] = set()
+    try:
+        tree = ast.parse(source)
+    except SyntaxError:
+        return segments
+    docstrings = {
+        node.body[0].value
+        for node in ast.walk(tree)
+        if isinstance(node, ast.Module | ast.ClassDef | ast.FunctionDef | ast.AsyncFunctionDef)
+        and node.body
+        and isinstance(node.body[0], ast.Expr)
+        and isinstance(node.body[0].value, ast.Constant)
+    }
+    for node in ast.walk(tree):
+        if not isinstance(node, ast.Constant) or node in docstrings:
+            continue
+        value = node.value
+        if isinstance(value, bytes):
+            value = value.decode("utf-8", errors="ignore")
+        if not isinstance(value, str):
+            continue
+        if "/" in value or "\\" in value:
+            # Colon as well as whitespace, so a revision prefix does not hide a component.
+            # `git show HEAD~9:docs/benchmark/audit/kras-g12c.md` glues `HEAD~9:` onto `docs`
+            # and the resolver reads the whole thing as one directory name.
+            segments.update(part for part in re.split(r"[/\\\s:]+", value) if part)
+        elif value and not value.split()[1:]:
+            segments.add(value.strip())
+    return segments
+
+
+def segment_cover_violations(source: str) -> set[Path]:
+    """Protected roots whose every component appears as a literal in this file.
+
+    The resolver above is a whitelist of spellings, and a whitelist loses this race. An
+    adversarial pass on 2026-09-03 listed 26 spellings that assemble a protected path out of
+    separator-free components and vanish from it: `"/".join(["data", "patches"])`,
+    `"{}/{}".format(...)`, `os.sep.join`, `chr(47)`, a tuple assignment, a walrus, an
+    augmented assignment, a for-loop accumulation, a dict lookup, `Path.cwd() / ...`,
+    `Path.home() / ...`, a starred `Path(*parts)`, `.with_name`, and a shell string with a
+    command word in front. Three of them ran together in one tracked probe runner and read
+    the matched-patch cache, the per-target input audits and the sealed tier's positive
+    counts with all 37 tests green.
+
+    Every one of them leaves the components behind as literals in the same file, because the
+    interpreter has to get the characters from somewhere. So this asks the question the other
+    way round: not "which path does this expression build", which needs the whole language,
+    but "does this file hold every piece of a protected path", which needs no evaluation at
+    all. It is the backstop, not the primary: the resolver still reports the concrete path,
+    which is the message a reader can act on.
+
+    Two rules keep it honest. Only roots of two or more components are covered, because a
+    one-word root such as `experiments` is a word before it is a path, and the resolver plus
+    `allowed_experiment_path` already handle that tree. And a root is excused when the file
+    also covers a deeper path that is explicitly allowed, which is what lets
+    `allo.structure.pdb` spell `data/raw/apo` without `data/raw` firing underneath it.
+    """
+    segments = literal_segments(source)
+
+    def covered(path: Path) -> bool:
+        parts = path.relative_to(ROOT).parts
+        return len(parts) >= 2 and all(part in segments for part in parts)
+
+    # A former name enters the cover only when no `FROZEN_TOKEN` already backstops it. Two of
+    # the five renames carry their token in the file name (`frozen.json`, `manifest.yaml`) and
+    # are caught in a runner by the token scan and in a module by
+    # `test_prediction_path_never_reads_the_frozen_label_sets`; covering them here would fire
+    # on `allo.inputs`, whose one exemption is to spell the manifest. The three audit files
+    # carry no token, which is the asymmetry that left them readable.
+    former = {
+        path
+        for path in FORMER_PROTECTED_PATHS
+        if not any(token in path.name for token in FROZEN_TOKENS)
+    }
+    allowed = {path for path in ALLOWED_PREDICTION_PATHS if covered(path)}
+    return {
+        protected
+        for protected in PROTECTED_PATHS | former
+        if covered(protected) and not any(protected in path.parents for path in allowed)
+    }
+
+
 def protected_path_violations(source: str, filename: Path) -> set[Path]:
     violations = set()
     for path in constant_paths_from_source(source, filename):
         if any(path == allowed or allowed in path.parents for allowed in ALLOWED_PREDICTION_PATHS):
             continue
-        for protected in PROTECTED_PATHS:
+        for protected in PROTECTED_PATHS | FORMER_PROTECTED_PATHS:
             if path == protected or protected in path.parents:
                 violations.add(path)
-    return violations
+    return violations | segment_cover_violations(source)
 
 
 @pytest.fixture(scope="module")
@@ -421,7 +598,7 @@ def graph() -> dict[str, set[str]]:
     does, so it introduces no false positive: if the parent package is clean, the edge leads
     nowhere.
     """
-    direct = {module_name(p): direct_imports(p) for p in sorted(SRC.rglob("*.py"))}
+    direct = {module_name(p): direct_imports(p) for p in sorted(SRC_ROOT.rglob("*.py"))}
     for module, deps in direct.items():
         for dep in list(deps):
             parts = dep.split(".")
@@ -539,7 +716,7 @@ def test_the_prediction_path_is_the_set_this_contract_names():
         "allo.structure.pdb",
         "allo.structure.properties",
     }
-    found = {module_name(p) for p in SRC.rglob("*.py") if is_prediction_path(module_name(p))}
+    found = {module_name(p) for p in SRC_ROOT.rglob("*.py") if is_prediction_path(module_name(p))}
     assert found == declared, (
         "the prediction path changed. Update this list and say why in `AGENTS.md`:\n"
         f"  added:   {sorted(found - declared)}\n"
@@ -581,7 +758,7 @@ def test_the_prediction_path_cannot_build_either_route_out_of_pieces():
     dynamic = []
     capability_importers = []
     protected_path_names = []
-    for path in sorted(SRC.rglob("*.py")):
+    for path in sorted(SRC_ROOT.rglob("*.py")):
         module = module_name(path)
         text = path.read_text()
         if "importlib" in text or "__import__" in text:
@@ -629,7 +806,7 @@ def test_the_prediction_path_cannot_build_either_route_out_of_pieces():
     # Found 2026-09-02 by an adversarial pass; the route it demonstrated used `importlib`
     # and was already caught by the assertion above, this variant was not.
     composed = []
-    for path in [*sorted(SRC.rglob("*.py")), *outside_runner_files()]:
+    for path in [*sorted(SRC_ROOT.rglob("*.py")), *outside_runner_files()]:
         if path.suffix != ".py":
             continue
         for node in ast.walk(ast.parse(path.read_text(errors="ignore"))):
@@ -698,9 +875,169 @@ def test_constant_path_guard_catches_composition_and_quote_variants(tmp_path):
         "dirname_prefix.py": (
             "import os\nb = os.path.dirname('data/patches/x.npz')\nopen(b + '/y.npz').read()\n"
         ),
+        # Fourth instance of the same failure mode, found 2026-09-03. The `/` operator was
+        # modelled with a `str` or `int` on the right, and `Path("data") / Path("patches")`
+        # resolves at runtime with a `Path` there. Neither operand is protected on its own,
+        # so the composed path evaluated to None and left no violation and no frozen token.
+        # Every composition branch now shares one operand rule, `_PATH_PART`.
+        "path_div_path.py": ("from pathlib import Path\np = Path('data') / Path('patches')\n"),
+        "joinpath_path.py": (
+            "from pathlib import Path\np = Path('data').joinpath(Path('patches'))\n"
+        ),
+        "purepath_div.py": ("from pathlib import PurePath\np = PurePath('data') / 'patches'\n"),
+        "path_of_purepath.py": (
+            "from pathlib import Path, PurePath\np = Path(PurePath('data'), 'patches')\n"
+        ),
+        "osjoin_of_paths.py": (
+            "import os\nfrom pathlib import Path\np = os.path.join(Path('data'), Path('patches'))\n"
+        ),
     }
     for name, source in probes.items():
         assert protected_path_violations(source, tmp_path / name), f"detector missed {name}"
+
+
+def test_the_segment_cover_backstop_catches_assembled_paths(tmp_path):
+    """Twenty-one spellings that build a protected path without ever writing one.
+
+    The resolver above models path expressions, and an adversarial pass on 2026-09-03
+    listed twenty-six spellings it does not model. Three of them ran together in one tracked
+    probe runner and read the matched-patch cache, the per-target input audits and the sealed
+    tier's positive counts with all thirty-seven tests green. A whitelist of spellings loses
+    this race, so `segment_cover_violations` asks the other question: does this file hold
+    every component of a protected path. It needs no evaluation, so no new spelling defeats
+    it -- the interpreter must still get the characters from somewhere.
+
+    The two `process` entries are the sharpest of the twenty-six. The resolver catches
+    `subprocess.run(["cat", "docs/..."])` because the path is its own argument, and a one-word
+    prefix glued to the front defeated it. The `bytes` entry was invisible at two places at
+    once: `evaluate` and the fallback scan both test `isinstance(value, str)`, while `open`,
+    `os.open` and `os.stat` all accept a `bytes` path.
+    """
+    probes = {
+        # pathlib bases and chains the resolver does not walk
+        "cwd_div.py": "from pathlib import Path\np = Path.cwd() / 'data' / 'patches'\n",
+        "cwd_joinpath.py": (
+            "from pathlib import Path\np = Path.cwd().joinpath('data').joinpath('patches')\n"
+        ),
+        "file_absolute.py": (
+            "from pathlib import Path\np = Path(__file__).absolute().parent / 'data' / 'patches'\n"
+        ),
+        "home_div.py": "from pathlib import Path\np = Path.home() / 'data' / 'patches'\n",
+        "starred_parts.py": (
+            "from pathlib import Path\nparts = ('data', 'patches')\np = Path(*parts)\n"
+        ),
+        "with_name.py": (
+            "from pathlib import Path\np = Path('data').joinpath('x').with_name('patches')\n"
+        ),
+        # string assembly, where no component carries a separator
+        "format.py": "p = '{}/{}'.format('data', 'patches')\n",
+        "percent.py": "p = '%s/%s' % ('data', 'patches')\n",
+        "str_join.py": "p = '/'.join(['data', 'patches', 'x.npz'])\n",
+        "os_sep_join.py": "import os\np = os.sep.join(['data', 'patches'])\n",
+        "chr_separator.py": "p = 'data' + chr(47) + 'patches'\n",
+        "bytes_literal.py": "f = open(b'data/patches/x.npz')\n",
+        "fstring_dynamic.py": "n = 'patches'\np = f'data/{n}'\n",
+        # bindings the resolver does not track
+        "tuple_assign.py": (
+            "from pathlib import Path\na, b = 'data', 'patches'\np = Path(a) / b\n"
+        ),
+        "walrus.py": "from pathlib import Path\np = (d := Path('data')) / 'patches'\n",
+        "aug_assign.py": "from pathlib import Path\np = Path('data')\np /= 'patches'\n",
+        "for_loop.py": (
+            "from pathlib import Path\np = Path('.')\n"
+            "for s in ['data', 'patches']:\n    p = p / s\n"
+        ),
+        "dict_lookup.py": (
+            "from pathlib import Path\nD = {'a': 'data', 'b': 'patches'}\n"
+            "p = Path(D['a']) / D['b']\n"
+        ),
+        # a shell, where the path never becomes a Python path at all
+        "os_system.py": ("import os\nos.system('cat docs/benchmark/primary/audit/kras-g12c.md')\n"),
+        "subprocess_shell.py": (
+            "import subprocess\n"
+            "subprocess.run('cat docs/benchmark/primary/audit/x.md', shell=True)\n"
+        ),
+        "chdir_then_open.py": (
+            "import os\nos.chdir('docs')\nopen('benchmark/primary/audit/kras-g12c.md')\n"
+        ),
+    }
+    missed = [
+        name for name, src in probes.items() if not protected_path_violations(src, tmp_path / name)
+    ]
+    assert not missed, f"segment cover missed {missed}"
+
+    # A guard that fires on everything is not a guard. Prose is where the false positive
+    # would come from, so a docstring contributes no component and neither does a phrase.
+    clean = (
+        '"""Score residues against the data in the raw patches under docs/benchmark."""\n'
+        "import numpy as np\n\n\n"
+        "def score(graph):\n"
+        '    """Return one array in the graph\'s own residue order."""\n'
+        "    label = 'data patches are not a path here'\n"
+        "    return np.zeros(len(graph.residues)), label\n"
+    )
+    assert not segment_cover_violations(clean), "prose must not read as a path"
+
+
+def test_a_rename_leaves_no_second_unprotected_name(tmp_path):
+    """`git show <sha>:<old path>` returns the same bytes under a name no entry covers.
+
+    Five tracked files were renamed into a protected tree, and three of them are the
+    per-target input audits: `docs/benchmark/audit/kras-g12c.md` became
+    `docs/benchmark/primary/audit/kras-g12c.md` on 2026-08-31 and still reproduces 21 of 21
+    KRAS label residues at its former name, from `main`, with no network. The other two carry
+    a `FROZEN_TOKEN` in the file name and were backstopped by the token scan, which is the
+    same asymmetry that left `data/patches` readable in September.
+
+    The list is derived from git rather than typed, so a rename made next week is protected
+    the day it is made.
+    """
+    assert FORMER_PROTECTED_PATHS, "no rename history found; the derivation is not running"
+    audits = {p for p in FORMER_PROTECTED_PATHS if p.parent.name == "audit"}
+    assert len(audits) == 3, f"expected the three input audits, got {sorted(audits)}"
+    for former in sorted(audits):
+        relative = former.relative_to(ROOT)
+        assert protected_path_violations(f"open({str(relative)!r})\n", tmp_path / "p.py")
+        revision = f"import subprocess\nsubprocess.run(['git', 'show', 'HEAD~9:{relative}'])\n"
+        assert protected_path_violations(revision, tmp_path / "p.py"), (
+            f"a revision prefix hides {relative}"
+        )
+
+
+def test_the_decision_record_is_guarded_like_the_dossier(tmp_path):
+    """ADR 0031 argues the myosin substitution from the `9GZ2` contact shell, so it prints it.
+
+    `docs/adr/0031-cardiac-myosin-holo-substitution.md:22` names 12 of 12 `label_residues`
+    for both myosin arms -- the same set `docs/targets.md` was protected for one day earlier,
+    in the same three-letter spelling that made the first sweep miss it.
+    """
+    adr = (ROOT / "docs" / "adr").resolve()
+    assert adr in PROTECTED_PATHS
+    source = "from pathlib import Path\np = Path('docs') / 'adr' / '0031-x.md'\n"
+    assert protected_path_violations(source, tmp_path / "p.py")
+
+
+def test_the_runner_scan_reaches_the_two_files_that_run_on_every_push():
+    """`.github/workflows/ci.yml` and `pyproject.toml` had no suffix here and no exempt tree.
+
+    Both execute: one runs commands on every push, the other declares the console scripts.
+    Neither was scanned by the runner guard nor by the package import-graph tests, so a step
+    that imported `allo.benchmark` -- which re-exports the unredacted manifest and the label
+    sets -- would have been invisible to all thirty-eight tests.
+
+    The frozen manifests come with the widening and must NOT be scanned: a file that IS the
+    evaluation side answers a different question, and `PROTECTED_PATHS` is what guards it.
+    """
+    scanned = set(outside_runner_files())
+    for name in (".github/workflows/ci.yml", "pyproject.toml"):
+        path = ROOT / name
+        if path.exists():
+            assert path in scanned, f"{name} is executable configuration and is scanned by nothing"
+    for name in ("primary", "secondary", "evaluation"):
+        manifest = ROOT / "docs" / "benchmark" / name / "manifest.yaml"
+        if manifest.exists():
+            assert manifest not in scanned, f"{name} manifest is frozen data, not a runner"
+            assert frozen_data(manifest)
 
 
 def test_prediction_parser_has_no_filesystem_or_evaluation_capability():
@@ -720,8 +1057,8 @@ def test_prediction_path_never_reads_the_frozen_label_sets():
     directly. This is the cheapest way for a prediction stage to cheat.
     """
     offenders = [
-        p.relative_to(SRC.parent)
-        for p in sorted(SRC.rglob("*.py"))
+        p.relative_to(SRC_ROOT)
+        for p in sorted(SRC_ROOT.rglob("*.py"))
         if is_prediction_path(module_name(p))
         and ("frozen.json" in (text := p.read_text()) or "FROZEN" in text)
     ]
@@ -741,8 +1078,8 @@ def test_prediction_path_never_names_the_answer_key_ledgers():
     """
     tokens = ("selection.json", "extension-candidates")
     offenders = [
-        f"{p.relative_to(SRC.parent)} -> {token}"
-        for p in sorted(SRC.rglob("*.py"))
+        f"{p.relative_to(SRC_ROOT)} -> {token}"
+        for p in sorted(SRC_ROOT.rglob("*.py"))
         if is_prediction_path(module_name(p))
         for token in tokens
         if token in p.read_text()
@@ -900,8 +1237,8 @@ def test_only_the_boundary_module_reads_the_manifest():
     and getting the unredacted one.
     """
     offenders = [
-        p.relative_to(SRC.parent)
-        for p in sorted(SRC.rglob("*.py"))
+        p.relative_to(SRC_ROOT)
+        for p in sorted(SRC_ROOT.rglob("*.py"))
         if is_prediction_path(module_name(p))
         and module_name(p) != "allo.inputs"
         and ("manifest.yaml" in (text := p.read_text()) or "MANIFEST" in text)
@@ -960,7 +1297,12 @@ def test_the_manifest_guard_would_catch_the_route_it_missed(graph):
 # manifest) and `FROZEN` (the label sets). A run script that imports it has the answer key,
 # by a route with no `groundtruth` and no `frozen.json` anywhere in its text.
 FORBIDDEN_OUTSIDE = (GROUND_TRUTH, "allo.benchmark")
-RUNNER_SUFFIXES = {".py", ".sh", ".ipynb"}
+# `.yml` and `.toml` joined on 2026-09-03. `.github/workflows/ci.yml` runs commands on every
+# push and `pyproject.toml` declares the console scripts, and neither had a suffix here nor a
+# first path part in `NON_RUNNER_TREES`, so both were scanned by nothing at all. `.yaml` comes
+# with them rather than after them, because the difference between `ci.yml` and `ci.yaml` is
+# a spelling and this guard has lost to a spelling four times.
+RUNNER_SUFFIXES = {".py", ".sh", ".ipynb", ".yml", ".yaml", ".toml"}
 FROZEN_TOKENS = (
     "frozen.json",
     "FROZEN",
@@ -1003,7 +1345,25 @@ def outside_runner_files(root: Path = ROOT) -> list[Path]:
     ).stdout.split(b"\0")
     relative = [Path(name.decode()) for name in tracked if name]
     candidates = [root / path for path in relative if path.parts[0] not in NON_RUNNER_TREES]
-    return sorted(path for path in candidates if path.is_file() and is_runner(path))
+    return sorted(
+        path for path in candidates if path.is_file() and is_runner(path) and not frozen_data(path)
+    )
+
+
+def frozen_data(path: Path) -> bool:
+    """A config file inside a protected tree is the answer key, not a runner.
+
+    Widening `RUNNER_SUFFIXES` to `.yml`, `.yaml` and `.toml` pulled the three frozen
+    manifests into the runner scan, where each one names itself and fails. The scan asks
+    whether a file reaches the evaluation side; a file that IS the evaluation side answers a
+    different question, and `PROTECTED_PATHS` is what guards it. A `.py` or `.sh` inside such
+    a tree still scans, because the review directory's own tools are executable and the rule
+    that exempts them is stated separately.
+    """
+    resolved = path.resolve()
+    return resolved.suffix in {".yml", ".yaml", ".toml"} and any(
+        guarded in resolved.parents for guarded in PROTECTED_PATHS
+    )
 
 
 def joined_continuations(text: str) -> str:
@@ -1103,7 +1463,7 @@ def runner_violations(path: Path) -> set[str]:
         f"evaluation path {hit}"
         for source in sources
         for hit in protected_path_violations(source, path)
-        if (own_tree is None or own_tree not in hit.parents)
+        if (own_tree is None or (hit != own_tree and own_tree not in hit.parents))
         and not allowed_experiment_path(hit, path)
     )
     if "_EVALUATION_ACCESS" in text:

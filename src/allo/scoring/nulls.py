@@ -140,6 +140,24 @@ class EvaluationGraph:
         return float(np.sqrt(((coords - coords.mean(0)) ** 2).sum(1).mean()))
 
 
+# What `evaluation_graph` below actually implements. The manifest declares the same three
+# values in its `graph:` block and nothing read them, so `allo evaluate verify` exited 0 with
+# `graph.atoms` set to `CA_ONLY`. A declared rule that no code reads is documentation, not a
+# freeze. `verify_evaluation` compares the manifest against this constant, so the two can no
+# longer diverge in silence. Keep it beside the implementation: a change to one is a change
+# to the other. Added 2026-09-03.
+IMPLEMENTED_GRAPH_RULE = {
+    # `structure.protein` selects protein heavy atoms; hydrogens are never in the mask.
+    "atoms": "heavy",
+    # `query_pairs` over every heavy atom, so two residues are linked when their CLOSEST
+    # heavy-atom pair is within the cutoff.
+    "distance": "minimum",
+    # `apo.cutoff`, which `allo.inputs` reads from the input manifest's
+    # `defaults.contact_cutoff_angstrom`. This layer does not carry its own cutoff.
+    "cutoff_angstrom": "from_input_layer",
+}
+
+
 def evaluation_graph(apo: ApoInput) -> EvaluationGraph:
     """Build the fixed evaluation graph from what a method receives, and nothing else.
 

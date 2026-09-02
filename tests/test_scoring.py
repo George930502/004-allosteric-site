@@ -745,12 +745,56 @@ def test_the_decision_rule_refuses_a_family_that_is_not_the_declared_one():
         harness.confirmatory_verdict(dict.fromkeys(declared[:2], 0.01))
 
     claim = settings["decision"]["claim_family"]
+    reference = claim["reference"]
+
+    def won(p=0.01):
+        return {"comparison": f"ctqw against {reference}", "leader": "ctqw", "p_calibrated": p}
+
     with pytest.raises(ValueError, match="family_2 must be exactly"):
-        harness.confirmatory_verdict(
-            dict.fromkeys(declared, 0.01), dict.fromkeys(declared[:1], 0.01)
-        )
+        harness.confirmatory_verdict(dict.fromkeys(declared, 0.01), {declared[0]: won()})
     both = harness.confirmatory_verdict(
-        dict.fromkeys(declared, 0.01), dict.fromkeys(list(claim["arms"]), 0.01)
+        dict.fromkeys(declared, 0.01), {arm: won() for arm in claim["arms"]}
     )
     assert both["family_2"]["reference"] == "cavity_volume"
     assert both["family_2"]["sided"] == "two"
+
+
+def test_the_claim_family_counts_a_rejection_only_when_the_method_wins():
+    """ADR 0032 licenses "the method beats the reference"; the test that licenses it is two-sided.
+
+    The first implementation took bare p-values, so a method significantly WORSE than
+    `cavity_volume` cleared the claim family: Holm rejects either tail and the direction was
+    discarded. Two records with identical p-values and opposite leaders must give opposite
+    verdicts, or the family does not test what the ADR says it tests.
+    """
+    settings = harness.protocol()
+    family_1 = dict.fromkeys(settings["decision"]["confirmatory_family"], 1e-6)
+    claim = settings["decision"]["claim_family"]
+    arms, reference = list(claim["arms"]), claim["reference"]
+
+    def record(leader):
+        return {
+            "comparison": f"ctqw against {reference}",
+            "leader": leader,
+            "p_calibrated": 1e-6,
+        }
+
+    wins = harness.confirmatory_verdict(family_1, {a: record("ctqw") for a in arms})
+    loses = harness.confirmatory_verdict(family_1, {a: record(reference) for a in arms})
+    assert wins["family_2"]["n_reject"] == 3
+    assert loses["family_2"]["n_reject"] == 0
+    assert all(a["leads"] for a in wins["family_2"]["arms"].values())
+    assert not any(a["leads"] for a in loses["family_2"]["arms"].values())
+
+    # A bare p-value carries no direction, so it is refused rather than assumed favourable.
+    with pytest.raises(TypeError, match="compare_methods record"):
+        harness.confirmatory_verdict(family_1, dict.fromkeys(arms, 1e-6))
+    # Swapping the two arguments of `compare_methods` would reverse the direction silently.
+    with pytest.raises(ValueError, match="the frozen reference is"):
+        harness.confirmatory_verdict(
+            family_1,
+            {
+                a: {"comparison": "ctqw against degree", "leader": "ctqw", "p_calibrated": 1e-6}
+                for a in arms
+            },
+        )
