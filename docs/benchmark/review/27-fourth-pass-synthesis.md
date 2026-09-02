@@ -464,6 +464,17 @@ as known. What was genuinely missing is that the limit was written at the path g
 the capability guard, so it is now stated at both and in the ADR, with the runtime boundary
 that would close it named as the next step rather than attempted at the end of an audit round.
 
+**A fourth pass found one more, one argument over from the third.** `calibrated_p` was given
+the non-finite guard on its p-value and not on its size ratio, and `max(float(ratio), 1.0)`
+keeps a NaN. `norm.sf(nan)` is nan, `max(p, nan)` returns p, so **the calibration silently
+disappears and the raw p-value reaches Holm untightened** — the one direction that matters,
+since the rescale exists to tighten. A ratio below 1 was clamped up, which hid a broken gate
+rather than reporting it, and the function's own docstring says `ratio >= 1` holds by
+construction. Both now raise. That makes four separate places in this round where a guard was
+added at one entry point and not at the class: `_aligned`, then the p-value functions, then
+`holm`'s alpha, then this. **The recurring lesson of round 6 is not any one defect. It is that
+fixing the instance is what leaves the next one.**
+
 **And the shipping conformance artifact understated the guarded surface.**
 `docs/report/conformance.md` said sixteen protected file routes where the other three
 documents said nineteen — and it was the one page of the four that the derived count test did

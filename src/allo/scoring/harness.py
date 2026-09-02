@@ -239,7 +239,19 @@ def calibrated_p(p: float, ratio: float) -> float:
     # happens to see first, so a NaN would propagate into `p_calibrated` and from there into
     # `holm`. Checked at the same boundary as the family functions below.
     _checked_pvalues({"p": p}, "calibrated_p")
-    ratio = max(float(ratio), 1.0)
+    # The ratio needed the same guard and did not have it, one argument over. A third codex
+    # pass measured what `max(float(ratio), 1.0)` does with a bad one: NaN keeps the NaN,
+    # `norm.sf(nan)` is nan, `max(p, nan)` returns p -- so the calibration **silently
+    # disappears** and the raw p-value reaches Holm untightened. That is the direction that
+    # matters; +inf gives 0.5 and is merely nonsense. A ratio below 1 was clamped up, which
+    # hid a broken gate rather than reporting it: the docstring above says `ratio >= 1` holds
+    # BY CONSTRUCTION, so a smaller one means the construction failed and is worth a stop.
+    ratio = float(ratio)
+    if not math.isfinite(ratio) or ratio < 1.0:
+        raise ValueError(
+            f"calibrated_p needs a finite size ratio of at least 1; got {ratio}. "
+            "The rescale is conservative only when the observed null is the wider one"
+        )
     return float(min(1.0, max(p, norm.sf(norm.isf(p) / ratio))))
 
 

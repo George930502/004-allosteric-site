@@ -1319,6 +1319,14 @@ def test_no_decision_function_accepts_a_non_finite_p_value():
         with pytest.raises(ValueError, match="finite"):
             calibrated_p(bad, 1.2)
 
+    # The SIZE RATIO needed the same guard and did not have it, one argument over. A NaN there
+    # is the dangerous direction: `norm.sf(nan)` is nan, `max(p, nan)` returns p, so the
+    # calibration silently disappears and the raw p-value reaches Holm untightened. A ratio
+    # below 1 was clamped up, which hid a broken gate instead of reporting it.
+    for bad in (math.nan, math.inf, -math.inf, 0.0, -3.0, 0.5):
+        with pytest.raises(ValueError, match="size ratio"):
+            calibrated_p(0.01, bad)
+
     # And the family still works, so the guard is a filter and not a wall.
     valid = dict.fromkeys(family, 0.01)
     assert all(row["reject"] for row in holm(valid, alpha=0.05).values())
