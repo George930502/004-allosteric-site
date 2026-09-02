@@ -942,25 +942,44 @@ def test_the_size_simulation_draws_four_distinct_rank_laws():
     within that column, so its ranks were bit-identical to `smooth_gaussian`'s at the same
     seed, and the run behind ADR 0039 measured three laws while claiming four.
 
-    Same seed per generator is what makes this discriminating. Two independent draws from one
-    law also differ; two draws from one law at the SAME seed and stream position do not.
+    **Checked on the law, not on the byte.** The first version of this test asserted only that
+    two generators give different rank arrays at the same seed. That catches the exact bug
+    above and nothing else: two generators drawing the SAME law while consuming the random
+    stream differently would also differ, and would pass. So the comparison is a signature of
+    the dependence structure -- the mean between-residue rank correlation at short and at long
+    spatial separation -- because the copula is the only thing a rank test can see. A monotone
+    duplicate scores exactly 0 on it. The four generators' closest pair is about 0.16 apart, so
+    the 0.05 floor below has three times the margin it needs.
     """
     import itertools
 
     import numpy as np
 
+    from allo.scoring.nulls import field_factor
     from allo.scoring.simulate import GENERATORS, _draw, _ranks
 
     assert len(GENERATORS) == 4, GENERATORS
-    n, k, b, seed = 60, 8, 30, 7
-    factor = np.random.default_rng(1).standard_normal((n, k))
-    coords = np.random.default_rng(2).standard_normal((n, 3))
-    laws = {
-        name: _ranks(_draw(name, factor, coords, np.random.default_rng(seed), b))
-        for name in GENERATORS
-    }
+    n, replicates = 100, 1200
+    coordinates = np.random.default_rng(11).standard_normal((n, 3)) * 12
+    factor = field_factor(coordinates, 8.0)
+    pairs = np.triu_indices(n, 1)
+    separation = np.linalg.norm(coordinates[:, None, :] - coordinates[None, :, :], axis=-1)[pairs]
+    near = separation <= np.quantile(separation, 0.15)
+    far = separation >= np.quantile(separation, 0.85)
+
+    signature = {}
+    for name in GENERATORS:
+        ranks = _ranks(
+            _draw(name, factor, coordinates, np.random.default_rng(5), replicates)
+        ).astype(np.float64)
+        ranks = (ranks - ranks.mean(0)) / ranks.std(0)
+        correlation = ((ranks @ ranks.T) / replicates)[pairs]
+        signature[name] = (float(correlation[near].mean()), float(correlation[far].mean()))
+
     for left, right in itertools.combinations(GENERATORS, 2):
-        assert not np.array_equal(laws[left], laws[right]), (
-            f"{left} and {right} give identical ranks at seed {seed}, so they are one law "
-            "under a rank statistic and the run measures one fewer null than it reports"
+        gap = max(abs(a - b) for a, b in zip(signature[left], signature[right], strict=True))
+        assert gap > 0.05, (
+            f"{left} and {right} have the same rank-correlation signature, {gap:.4f} apart. "
+            "They are one law under a rank statistic, so the run measures one fewer null than "
+            f"it reports. Signatures: {signature}"
         )
