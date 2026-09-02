@@ -128,12 +128,28 @@ method design.
 
 ### 3.2 ADR 0012 clause 2 contradicts itself, and clause (xii) ships one level shallower
 
-The headline sentence says "by Pfam clan"; the operational sentence rejects on Pfam **family**.
-The two disagree about `p97_vcp`, and applying the clan rule would exclude it and break the
-N greater than or equal to 5 floor. **Recommendation:** re-operationalise on PANTHER family,
-which separates all three primary targets from all nine secondary arms and costs no arm. Pin
-`interpro_release`, `pfam_release` and `panther_release` in both manifests and add `uniprot:`
-per target, so the clause derives from an accession instead of a hand-typed family list.
+**Closed on 2026-09-03 by [ADR 0042](../../adr/0042-clause-xii-is-pfam-family-plus-panther-narrowing.md).**
+The headline sentence names three biological groups; the operational sentence rejects on Pfam
+**clan**, and the two disagree about `p97_vcp`. Measured live against InterPro 109.0: the two
+anchor clans collapse to two because `PF00071` and `PF00063` are both in **CL0023**, which holds
+**316 Pfam families** — effectively every P-loop NTP-binding enzyme. `PF00004` (AAA), which
+`p97_vcp` carries, is that clan's first member. Applying the rule verbatim would drop `p97_vcp`,
+take the `generalisation` tier from 5 arms to 4 and break the N greater than or equal to 5
+floor; applied within the secondary set it would also collide `hiv_rt` with `ns5b` and `mkp5`
+with `ptp1b`. And it cannot bind the primary set at all, because KRAS and cardiac myosin are
+both in CL0023 and `CHALLENGE.md` mandates both.
+
+The clan sentence is withdrawn. The rule is Pfam family, narrowed by PANTHER where families
+collide. PANTHER cannot be the primary instrument: fourteen of fifteen arms carry one distinct
+PANTHER family and `ns5b` carries none at all. Per-arm assignment and the releases are in
+`data/clause-xii-2026-09-03.json`.
+
+**Still open, and it is work rather than a decision:** pin `interpro_release`, `pfam_release`
+and `panther_release` in both manifests and add `uniprot:` per target, so the clause derives
+from an accession rather than from a hand-typed family list. Both manifests are frozen input
+artifacts, so this needs the PI's call on whether provenance fields may be added to a freeze.
+Note that `ns5b`'s `pfam` value cannot have come from RCSB, which carries no Pfam annotation for
+either of that arm's entries. The value is right; its stated provenance is not.
 
 ### 3.3 The occupant instrument is undefined — **ADR required**
 

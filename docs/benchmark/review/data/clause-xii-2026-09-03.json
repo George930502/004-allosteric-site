@@ -1,0 +1,306 @@
+{
+ "measured_on": "2026-09-03",
+ "why": "ADR 0042. Clause (xii) resolves against a moving database and the freezes pin no release. This records the release and the per-arm assignment that ADR 0042 was decided on, so the clause is reproducible without editing a frozen manifest.",
+ "releases": {
+  "interpro": {
+   "version": "109.0",
+   "released": "2026-06-11"
+  },
+  "pfam": {
+   "version": "38.2",
+   "released": "2026-03-26"
+  },
+  "panther": {
+   "version": "19.0",
+   "released": "2024-06-20"
+  }
+ },
+ "note_on_provenance": "Every `pfam` value in both frozen manifests was read from RCSB, whose annotations carry assignment_version 34.0. The manifests are pinned to Pfam 34.0 in fact and to nothing in writing.",
+ "arms": {
+  "kras_g12c_mandated": {
+   "set": "primary",
+   "uniprot": "P01116",
+   "pfam_families": [
+    "PF00071"
+   ],
+   "pfam_clans": {
+    "PF00071": "CL0023"
+   },
+   "panther_families": [
+    "PTHR24070"
+   ]
+  },
+  "kras_g12c_corrected": {
+   "set": "primary",
+   "uniprot": "P01116",
+   "pfam_families": [
+    "PF00071"
+   ],
+   "pfam_clans": {
+    "PF00071": "CL0023"
+   },
+   "panther_families": [
+    "PTHR24070"
+   ]
+  },
+  "bcr_abl1_mandated": {
+   "set": "primary",
+   "uniprot": "P00519",
+   "pfam_families": [
+    "PF00017",
+    "PF00018",
+    "PF07714",
+    "PF08919"
+   ],
+   "pfam_clans": {
+    "PF00017": "CL0541",
+    "PF00018": "CL0010",
+    "PF07714": "CL0016",
+    "PF08919": null
+   },
+   "panther_families": [
+    "PTHR24418"
+   ]
+  },
+  "bcr_abl1_corrected": {
+   "set": "primary",
+   "uniprot": "P00519",
+   "pfam_families": [
+    "PF00017",
+    "PF00018",
+    "PF07714",
+    "PF08919"
+   ],
+   "pfam_clans": {
+    "PF00017": "CL0541",
+    "PF00018": "CL0010",
+    "PF07714": "CL0016",
+    "PF08919": null
+   },
+   "panther_families": [
+    "PTHR24418"
+   ]
+  },
+  "cardiac_myosin_mandated": {
+   "set": "primary",
+   "uniprot": "P12883",
+   "pfam_families": [
+    "PF00063",
+    "PF01576",
+    "PF02736"
+   ],
+   "pfam_clans": {
+    "PF00063": "CL0023",
+    "PF01576": null,
+    "PF02736": "CL0010"
+   },
+   "panther_families": [
+    "PTHR45615"
+   ]
+  },
+  "cardiac_myosin_corrected": {
+   "set": "primary",
+   "uniprot": "P12883",
+   "pfam_families": [
+    "PF00063",
+    "PF01576",
+    "PF02736"
+   ],
+   "pfam_clans": {
+    "PF00063": "CL0023",
+    "PF01576": null,
+    "PF02736": "CL0010"
+   },
+   "panther_families": [
+    "PTHR45615"
+   ]
+  },
+  "mkp5": {
+   "set": "secondary",
+   "uniprot": "Q9Y6W6",
+   "pfam_families": [
+    "PF00581",
+    "PF00782"
+   ],
+   "pfam_clans": {
+    "PF00581": "CL0031",
+    "PF00782": "CL0031"
+   },
+   "panther_families": [
+    "PTHR10159"
+   ]
+  },
+  "chk1": {
+   "set": "secondary",
+   "uniprot": "O14757",
+   "pfam_families": [
+    "PF00069"
+   ],
+   "pfam_clans": {
+    "PF00069": "CL0016"
+   },
+   "panther_families": [
+    "PTHR24346"
+   ]
+  },
+  "ptp1b": {
+   "set": "secondary",
+   "uniprot": "P18031",
+   "pfam_families": [
+    "PF00102"
+   ],
+   "pfam_clans": {
+    "PF00102": "CL0031"
+   },
+   "panther_families": [
+    "PTHR46047"
+   ]
+  },
+  "smyd3": {
+   "set": "secondary",
+   "uniprot": "Q9H7B4",
+   "pfam_families": [
+    "PF00856",
+    "PF01753"
+   ],
+   "pfam_clans": {
+    "PF00856": "CL0489",
+    "PF01753": "CL0175"
+   },
+   "panther_families": [
+    "PTHR12197"
+   ]
+  },
+  "glucokinase": {
+   "set": "secondary",
+   "uniprot": "P35557",
+   "pfam_families": [
+    "PF00349",
+    "PF03727"
+   ],
+   "pfam_clans": {
+    "PF00349": "CL0108",
+    "PF03727": "CL0108"
+   },
+   "panther_families": [
+    "PTHR19443"
+   ]
+  },
+  "hiv_rt": {
+   "set": "secondary",
+   "uniprot": "P04585",
+   "pfam_families": [
+    "PF00075",
+    "PF00077",
+    "PF00078",
+    "PF00098",
+    "PF00540",
+    "PF00552",
+    "PF00665",
+    "PF02022",
+    "PF06815",
+    "PF06817",
+    "PF19317"
+   ],
+   "pfam_clans": {
+    "PF00075": "CL0219",
+    "PF00077": "CL0129",
+    "PF00078": "CL0027",
+    "PF00098": "CL0511",
+    "PF00540": "CL0074",
+    "PF00552": "CL0010",
+    "PF00665": "CL0219",
+    "PF02022": "CL0123",
+    "PF06815": null,
+    "PF06817": null,
+    "PF19317": "CL0148"
+   },
+   "panther_families": [
+    "PTHR41694"
+   ]
+  },
+  "ns5b": {
+   "set": "secondary",
+   "uniprot": "P26663",
+   "pfam_families": [
+    "PF00998",
+    "PF01001",
+    "PF01006",
+    "PF01506",
+    "PF01538",
+    "PF01539",
+    "PF01542",
+    "PF01543",
+    "PF01560",
+    "PF02907",
+    "PF07652",
+    "PF08300",
+    "PF08301",
+    "PF12941",
+    "PF22027"
+   ],
+   "pfam_clans": {
+    "PF00998": "CL0027",
+    "PF01001": null,
+    "PF01006": null,
+    "PF01506": null,
+    "PF01538": null,
+    "PF01539": null,
+    "PF01542": null,
+    "PF01543": null,
+    "PF01560": null,
+    "PF02907": "CL0124",
+    "PF07652": "CL0023",
+    "PF08300": null,
+    "PF08301": null,
+    "PF12941": null,
+    "PF22027": null
+   },
+   "panther_families": []
+  },
+  "p97_vcp": {
+   "set": "secondary",
+   "uniprot": "P55072",
+   "pfam_families": [
+    "PF00004",
+    "PF02359",
+    "PF02933",
+    "PF17862"
+   ],
+   "pfam_clans": {
+    "PF00004": "CL0023",
+    "PF02359": "CL0199",
+    "PF02933": "CL0402",
+    "PF17862": "CL0671"
+   },
+   "panther_families": [
+    "PTHR23077"
+   ]
+  },
+  "ecoli_cps": {
+   "set": "secondary",
+   "uniprot": "P00968",
+   "pfam_families": [
+    "PF02142",
+    "PF02786",
+    "PF02787",
+    "PF25596"
+   ],
+   "pfam_clans": {
+    "PF02142": null,
+    "PF02786": "CL0179",
+    "PF02787": "CL0123",
+    "PF25596": "CL0063"
+   },
+   "panther_families": [
+    "PTHR11405"
+   ]
+  }
+ },
+ "anchor_clan_sizes": {
+  "CL0023": 316,
+  "CL0016": 48,
+  "CL0031": 27,
+  "CL0027": 15
+ }
+}

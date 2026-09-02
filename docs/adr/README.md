@@ -17,10 +17,10 @@ stopped binding. It is never deleted.
 Thirty-seven decisions, grouped by what each one settles. Read the group that covers the
 layer you touch. Every entry is one file, and no file is ever deleted.
 
-**Nine were written on 2026-09-02**, and four more on 2026-09-03 by the fourth pass, after the organisers answered four questions
+**Nine were written on 2026-09-02**, and five more on 2026-09-03 by the fourth pass, after the organisers answered four questions
 ([`../benchmark/review/00-official-reply.md`](../benchmark/review/00-official-reply.md)) and
 the audit in [`../benchmark/review/`](../benchmark/review/) re-read all three frozen layers.
-They are 0029 to 0037; the fourth pass added 0038 to 0041. Two of the nine supersede earlier decisions, and both of those earlier
+They are 0029 to 0037; the fourth pass added 0038 to 0042. Two of the nine supersede earlier decisions, and both of those earlier
 decisions had been blocking Phase 2.
 
 ### How we work
@@ -84,6 +84,7 @@ decisions had been blocking Phase 2.
 | [0039](0039-negative-class-b-also-scores-the-label-set.md) | Negative class (b) also scores the label set, beside the site pocket | accepted, opens protocol v4 |
 | [0040](0040-the-sampler-budget-is-a-named-constant.md) | The matched-patch sampler's rejection budget is a named constant | accepted |
 | [0041](0041-the-generalisation-tier-was-never-sealed-against-storage.md) | The `generalisation` tier was never sealed against storage, and scoring is what the seal now guards | accepted, amends 0021 |
+| [0042](0042-clause-xii-is-pfam-family-plus-panther-narrowing.md) | Clause (xii) is Pfam family plus PANTHER narrowing, and the clan sentence is withdrawn | accepted, corrects 0012 |
 
 **0035 was filed under "the method" until 2026-09-02 and does not belong there.** Its
 decision writes `jsd_conservation` into the evaluation manifest and its data lives in
