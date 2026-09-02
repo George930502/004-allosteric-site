@@ -824,17 +824,37 @@ never run. `binomial_band` returned `(nan, nan)` for any invalid alpha, coverage
 count, which reads as "outside the band" and is therefore fail-safe, but tells a reader nothing
 about which of the two things went wrong. Both now raise.
 
-**Twelve sites of one shape across seven passes**, and the count is stated here because two
+**An eighth pass found the thirteenth site, and it is the third one inside a computation.**
+`cavity_volume_score` builds its score with `max(score[residue], volume)`, and `max(0.0, nan)`
+returns 0.0 because `nan > 0.0` is False. So a non-finite volume dropped the pocket from the
+score with nothing said — and this score is the **pre-declared reference** of the second claim
+family (ADR 0032), so weakening it moves the margin toward the candidate. Measured: on a site
+pocket of volume NaN against a decoy of volume 100, the reference falls from AUC **1.00 to
+0.25**, and a candidate that lost by −0.50 wins by +0.25 on the same labels. Anti-conservative.
+
+Three of the five anti-conservative sites are now of this shape — `permutation_p`,
+`sample_matched_patches` and `cavity_volume_score` — where the comparison sits inside a
+computation and no raise-guard sweep can see it. **If a fourteenth exists, it is there.**
+
+The same pass found the C1 hole that matters more. `from os import walk as traverse` renames
+the capability at the import, so the call site is a bare name and the traversal word survives
+only inside the `ast.alias` node — which the capability scan did not visit. Run as a live
+module: all four guard helpers returned empty and it read a protected label-count field for
+**all fifteen arms**, the sealed tier included. The scan now reads `ast.alias`, which closes it
+for every enumerator at once. The lesson is one line and it is in `AGENTS.md`: **a guard that
+models how a name is used must also model how it is bound.**
+
+**Thirteen sites of one shape across eight passes**, and the count is stated here because two
 earlier drafts of this section and of the registry row disagreed about it — one said eight
 counting guarded functions, the other eight counting something else. Every site, with the
 number a NaN actually produced there and the direction it points, is tabulated in
-`data/non-finite-directions-2026-09-03.md`: **four anti-conservative, seven fail-safe, one
+`data/non-finite-directions-2026-09-03.md`: **five anti-conservative, seven fail-safe, one
 decided by array order.** Nothing in that table is recalled; every row names the expression it
 was measured from.
 
 Each was found only after the previous fix shipped, and the guard now lives in one function per
 layer — `_checked_pvalues` and `_checked_tolerance` in the harness, `_finite_scores` in the
-metrics, in-place checks in `nulls` and `calibration`. The standing test
-`test_no_raise_guard_compares_a_float_a_non_finite_value_would_slip_past` caught the twelfth
+metrics, in-place checks in `nulls`, `calibration` and `decoys`. The standing test
+`test_no_raise_guard_compares_a_float_a_non_finite_value_would_slip_past` caught the eleventh
 site's own new guard on its first run, which is the first time in this round that the sweep
 found a defect before a pass did.

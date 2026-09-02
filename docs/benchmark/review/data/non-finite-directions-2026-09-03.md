@@ -1,6 +1,6 @@
-# What one NaN did, at each of the twelve sites — measured 2026-09-03
+# What one NaN did, at each of the thirteen sites — measured 2026-09-03
 
-Round 6 of the audit found the same defect twelve times: **a NaN makes every comparison
+Round 6 of the audit found the same defect thirteen times: **a NaN makes every comparison
 false, and false is the direction that helps a method.** Every site is guarded now. This
 page records what each one did *before* its guard, so that the grade each finding was given
 rests on a measurement rather than on the example that happened to be tried first.
@@ -23,6 +23,7 @@ that comes out. No guard is removed. Every row is re-derivable from the expressi
 | 10 | `sample_matched_patches`, the tolerance | **anti-conservative** | the three rejections read `diff > tolerance * wanted`, and `abs(5.0 - 4.0) > nan * 4.0` is False. Degree, compactness and distance are all skipped: **20 patches of the right size** come back and the pool still reports itself matched |
 | 11 | `binomial_band` | fail-safe | `binom.ppf(0.025, 1000, nan)/1000` is nan, so `low <= rate <= high` is False both ways, which reads as a **failing** calibration |
 | 12 | the exported metrics | **two of five anti-conservative** | see below |
+| 13 | `cavity_volume_score`, the pocket volume | **anti-conservative** | `max(0.0, nan)` returns 0.0, so a non-finite volume drops the pocket from the score with nothing said. This is the **pre-declared reference** of the second claim family, so weakening it moves the margin toward the candidate: on `lining [10,11] volume nan` against `lining [12] volume 100`, the reference falls from AUC **1.00 to 0.25** and a candidate that lost by **-0.50 wins by +0.25** |
 
 ## Row 12, which was graded wrong the first time
 
@@ -49,9 +50,13 @@ Pinned by `test_no_exported_metric_ranks_a_non_finite_score`.
 
 ## The tally
 
-**Four anti-conservative, seven fail-safe, one whose direction is decided by array order.**
-Twelve sites, found across seven adversarial passes, each one only after the previous fix
+**Five anti-conservative, seven fail-safe, one whose direction is decided by array order.**
+Thirteen sites, found across eight adversarial passes, each one only after the previous fix
 shipped. The class was the finding, and it took seven passes to say so.
+
+**Three of the five sit inside a computation, not inside a guard** — `permutation_p`,
+`sample_matched_patches` and `cavity_volume_score`. That is the shape a raise-guard sweep
+cannot see, and all three are anti-conservative. If a fourteenth exists, it is there.
 
 The guards now live one per layer: `_checked_pvalues` and `_checked_tolerance` in
 `allo.scoring.harness`, `_finite_scores` in `allo.scoring.metrics`, and in-place checks in

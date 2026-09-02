@@ -1626,3 +1626,50 @@ def test_a_non_finite_binomial_band_would_have_read_as_a_passing_calibration():
 
     low, high = binomial_band(1000, 0.05)
     assert low < 0.05 < high
+
+
+def test_the_pre_declared_reference_refuses_a_non_finite_cavity_volume():
+    """The thirteenth site of round 6's class, from codex pass 8, and the third of its kind.
+
+    `max(0.0, nan)` returns 0.0, because `nan > 0.0` is False. So a non-finite volume made
+    the lined residues keep their default and the pocket vanish from `cavity_volume_score`
+    with nothing said. Like `permutation_p` and `sample_matched_patches`, the comparison sits
+    inside a COMPUTATION rather than a guard, which is why the raise-guard sweep cannot see it.
+
+    **Direction: anti-conservative.** This score is the pre-declared reference of the second
+    claim family (ADR 0032), so weakening it moves the margin toward the candidate. Measured
+    below on this example: the reference falls from AUC 1.00 to 0.25, and a candidate that
+    lost by -0.50 wins by +0.25 on the same labels. The codex pass that found this reported
+    1.00 to 0.50 and -0.33 to +0.17 on its own example; the effect is the same and the size
+    is example-specific, so the numbers here are the ones this test measures.
+    """
+    import math
+
+    from allo.scoring.decoys import cavity_volume_score
+    from allo.scoring.metrics import auc_roc
+
+    candidates = [10, 11, 12, 13]
+    positive = np.array([True, True, False, False])
+    pockets = {
+        "site": {"lining": [10, 11], "volume": 500.0},
+        "decoy": {"lining": [12], "volume": 100.0},
+    }
+    reference = np.array([cavity_volume_score(pockets, candidates)[r] for r in candidates])
+    assert auc_roc(reference, positive) == pytest.approx(1.0)
+
+    # What the missing guard did. Built by hand, because the function now refuses to build it:
+    # the site pocket drops out and only the decoy scores anything.
+    weakened = np.array([0.0, 0.0, 100.0, 0.0])
+    assert auc_roc(weakened, positive) == pytest.approx(0.25)
+    candidate = np.array([3.0, 2.0, 4.0, 1.0])
+    assert auc_roc(candidate, positive) - auc_roc(reference, positive) == pytest.approx(-0.5)
+    assert auc_roc(candidate, positive) - auc_roc(weakened, positive) == pytest.approx(0.25)
+
+    for bad in (math.nan, math.inf, -math.inf, -1.0):
+        spoiled = {"site": {"lining": [10, 11], "volume": bad}, "decoy": pockets["decoy"]}
+        with pytest.raises(ValueError, match="finite and non-negative"):
+            cavity_volume_score(spoiled, candidates)
+
+    # A zero volume is legitimate -- it is the default every unlined candidate carries.
+    flat = {"site": {"lining": [10], "volume": 0.0}}
+    assert cavity_volume_score(flat, candidates) == dict.fromkeys(candidates, 0.0)

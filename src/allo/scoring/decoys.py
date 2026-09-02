@@ -42,6 +42,8 @@ evaluation side.
 
 from __future__ import annotations
 
+import math
+
 import numpy as np
 
 from allo.inputs import ApoInput
@@ -223,9 +225,22 @@ def cavity_volume_score(pockets: dict[str, dict], candidates) -> dict[int, float
     Lives here because the detector does, and because it is the ninth of the nine baselines
     the frozen protocol requires. The other eight are in `allo.scoring.baselines` (ADR 0037).
     """
+    # `max(0.0, nan)` returns 0.0, because `nan > 0.0` is False. So a non-finite volume made
+    # the lined residue keep its default and the pocket vanish from the score with nothing
+    # said. This is the PRE-DECLARED REFERENCE of the second claim family, so weakening it is
+    # the direction that helps the candidate: measured on a controlled example, the reference
+    # falls from AUC 1.0 to 0.5 and the candidate's margin flips from -0.333 to +0.167. Round
+    # 6, 2026-09-03, the thirteenth site of the class -- and the third found where the
+    # comparison sits inside a COMPUTATION rather than a guard.
     score = dict.fromkeys(candidates, 0.0)
-    for pocket in pockets.values():
+    for name, pocket in pockets.items():
+        volume = float(pocket["volume"])
+        if not math.isfinite(volume) or volume < 0:
+            raise ValueError(
+                f"pocket {name!r} has volume {volume}; a cavity volume must be finite and "
+                "non-negative, and `max` would silently drop this pocket from the reference"
+            )
         for residue in pocket["lining"]:
             if residue in score:
-                score[residue] = max(score[residue], float(pocket["volume"]))
+                score[residue] = max(score[residue], volume)
     return score
