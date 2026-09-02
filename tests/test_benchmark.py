@@ -716,3 +716,30 @@ def test_the_four_secondary_clauses_still_give_the_verdicts_the_readme_prints(ma
         f"clause (xii) verdict moved: {by_protein}. The README says it fails by design "
         "because each protein contributes exactly one mandated and one corrected arm"
     )
+
+
+def test_the_primary_readme_quotes_the_rmsd_the_freeze_derives():
+    """A number a reader classifies an arm with must come from the freeze, not from prose.
+
+    Added 2026-09-03. The page said `bcr_abl1_mandated` has a pocket-lining RMSD of 0.50 A,
+    one sentence before CryptoBench's 2 A cryptic-site criterion, so the arm read as
+    maximally pre-formed. The freeze says 26.31 A -- a factor of 52, and the opposite
+    conclusion. The value was stale from before ADR 0029 moved that arm to `1OPL` chain B,
+    and the correct one had been sitting in the review tree since 2026-09-02.
+    """
+    import json
+
+    from allo.inputs import ROOT
+
+    frozen = json.loads((ROOT / "docs/benchmark/primary/frozen.json").read_text())["targets"]
+    page = (ROOT / "docs/benchmark/primary/README.md").read_text()
+    header = "| arm | core RMSD | pocket-lining RMSD | pocket max |"
+    assert header in page, "the re-derived RMSD table is gone from the page"
+    table = page[page.index(header) :].split("\n\n")[0].splitlines()
+    for arm, values in frozen.items():
+        rmsd = values["apo_holo_rmsd"]["pocket_lining"]
+        rows = [one for one in table if one.startswith(f"| `{arm}` |")]
+        assert len(rows) == 1, f"{arm} has {len(rows)} rows in the RMSD table"
+        assert f"{rmsd:.2f}" in rows[0], (
+            f"{arm}: the table row is {rows[0].strip()}, and the freeze says {rmsd}"
+        )

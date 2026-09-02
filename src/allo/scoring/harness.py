@@ -480,10 +480,16 @@ def score_arm(
     record["confounders"]["degree"] = _spearman(values, graph.degree[on_candidates])
     record["confounders"]["distance_to_source"] = _spearman(values, to_source[on_candidates])
 
-    if against:
-        record["rank_correlation"] = {
-            name: _spearman(values, _aligned(graph, baseline)) for name, baseline in against.items()
-        }
+    # The manifest MANDATES a correlation against every baseline
+    # (`secondary_objectives.classical_comparison.also_report`). The key used to be omitted
+    # when no baselines were supplied, which made a non-conforming record indistinguishable
+    # from a conforming one. It is always present now, and `None` says the caller supplied
+    # nothing, so a reader of the record can tell. Found 2026-09-03.
+    record["rank_correlation"] = (
+        {name: _spearman(values, _aligned(graph, baseline)) for name, baseline in against.items()}
+        if against
+        else None
+    )
     return record
 
 

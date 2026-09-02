@@ -324,9 +324,29 @@ count clashes below 2.5 Å.
 | `bcr_abl1_corrected`       |                                        1.95 Å | 2/31    | pre-formed even with the pocket empty                     |
 | `cardiac_myosin_corrected` |                                        2.63 Å | 0/20    | pre-formed                                                |
 
-Pocket-lining RMSD tells the same story: KRAS 2.61/2.62 Å, ABL1 0.50 Å mandated and 2.38 Å
-corrected, myosin 1.10 Å. CryptoBench's cryptic-site entry criterion is 2 Å, quoted here as a
-yardstick and not as a pass mark.
+**Two rows of that table are stale and are corrected here rather than in place, 2026-09-03.**
+`bcr_abl1_mandated`'s 2.60 Å predates ADR 0029's move to `1OPL` chain **B**, and
+`cardiac_myosin_mandated` has no row at all although ADR 0031 froze it on 2026-09-02. Neither
+quantity is in `frozen.json`, so neither can be re-derived by a command and neither is guessed
+at here. The pocket-lining RMSD below is in the freeze and is re-derived.
+
+Pocket-lining RMSD does **not** tell the same story, and the sentence that said it did was
+wrong by a factor of 52 on one arm. Re-derived from `frozen.json` on 2026-09-03:
+
+| arm | core RMSD | pocket-lining RMSD | pocket max |
+| --- | ---: | ---: | ---: |
+| `kras_g12c_mandated` | 1.07 Å | 2.61 Å | 8.9 Å |
+| `kras_g12c_corrected` | 1.05 Å | 2.62 Å | 8.9 Å |
+| `bcr_abl1_mandated` | **22.79 Å** | **26.31 Å** | 36.8 Å |
+| `bcr_abl1_corrected` | 1.72 Å | 2.38 Å | 9.6 Å |
+| `cardiac_myosin_mandated` | 6.82 Å | 2.94 Å | 5.3 Å |
+| `cardiac_myosin_corrected` | 1.18 Å | 1.10 Å | 1.9 Å |
+
+This page previously read "ABL1 0.50 Å mandated", a pre-chain-B value, immediately before
+CryptoBench's 2 Å cryptic-site criterion — so a reader used it to classify the arm as
+maximally pre-formed. At 26.31 Å the two halves are not the same fold in the same place, which
+is the measured defect ADR 0029 records and the reason that arm is non-confirmatory.
+CryptoBench's 2 Å entry criterion is quoted as a yardstick and not as a pass mark.
 
 ### 4a. What the difference numbers are measured against
 

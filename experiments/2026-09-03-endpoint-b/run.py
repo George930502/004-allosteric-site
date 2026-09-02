@@ -31,7 +31,10 @@ for target in config["targets"]:
         alpha=float(config["alpha"]),
         seed=int(config["seed"]),
     )
-    result["arms"][target]["seconds"] = round(time.time() - started, 1)
-    print(target, "done", result["arms"][target]["seconds"], "s", flush=True)
+    # Wall time is printed and NOT persisted. It was written into `metrics.json` until
+    # 2026-09-03, which made the config's promise of an exact rerun impossible to keep for a
+    # reason that has nothing to do with the science. A rerun now reproduces the artifact
+    # byte for byte.
+    print(target, "done", round(time.time() - started, 1), "s", flush=True)
     (HERE / "metrics.json").write_text(json.dumps(result, indent=1) + "\n")
 print("written", HERE / "metrics.json")

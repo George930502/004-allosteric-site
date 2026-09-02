@@ -346,7 +346,8 @@ demonstrated nothing.
 
 Frozen in `docs/benchmark/evaluation/`: `manifest.yaml` holds every pinned choice with its
 reason, `frozen.json` holds the consequences for all 15 arms, and `README.md` is the argument.
-`uv run allo evaluate verify` re-derives the freeze and exits 0 only if nothing moved.
+`uv run allo evaluate verify --detect` re-derives the freeze and exits 0 only if nothing
+moved. The bare form skips the decoy half and says so.
 
 **Version 3, 2026-09-02.** It opened because the **input** layer moved under it, not because a
 defect was found here. Six changes, each with the ADR that decided it, in that `README.md` §0.

@@ -66,10 +66,14 @@ endpoints:
     # continuous distance is frozen and both conventions print beside it.
     #
     # It is not redundant with the p-value, and one measurement shows why. On
-    # bcr_abl1_corrected the cavity-volume baseline rejects the confirmatory null at
-    # p_calibrated 0.0003 while its predicted centre sits FARTHER from the true site than a
-    # random five-residue list: DCC 26.5 A against a chance line of 17.7 A. A confirmatory
-    # rejection and a useful hit list are not the same claim. ADR 0025.
+    # cardiac_myosin_corrected the cavity-volume baseline rejects the confirmatory null at
+    # p_calibrated 0.0046 while its top five hold no label and its predicted centre sits no
+    # closer to the true site than chance: DCC 26.14 A against a chance line of 28.73 A. A
+    # confirmatory rejection and a useful hit list are not the same claim. ADR 0025.
+    #
+    # CORRECTED 2026-09-03. This ran on bcr_abl1_corrected at 0.0003 and 26.5 A against
+    # 17.7 A, which are version-2 numbers. That arm reads 0.3236 under version 3 and rejects
+    # nothing, so the example was withdrawn by README section 13 and never replaced here.
     - dcc_angstrom
     - auc_roc_vs_decoy_linings
     # ADDED AT v4. ADR 0039. The same permutation as `decoy_pockets.p`, with the LABEL SET as

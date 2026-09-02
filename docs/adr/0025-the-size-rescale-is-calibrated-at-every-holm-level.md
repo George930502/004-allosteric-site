@@ -160,6 +160,12 @@ from the true site than a random five-residue list: **DCC 26.5 Å against a chan
 to contradict it. That is the clearest available evidence that a p-value and a usable hit list
 are different claims.
 
+**RE-MEASURED 2026-09-03 and the arm changed.** Those are version-2 numbers: under version 3
+`bcr_abl1_corrected` reads `p_calibrated` 0.3236 and rejects nothing. The finding survives on
+`cardiac_myosin_corrected`, which rejects at **0.0046** with **no** label in its top five and
+DCC **26.14 Å** against a chance line of **28.73 Å**. An ADR keeps the reasoning it was
+decided on; the current numbers are in `../benchmark/evaluation/README.md` §13.
+
 **For the confounders, the computation needs a method but the declaration does not** — and the
 declaration is the part that must be frozen before any method exists. The manifest already
 works this way for `classical_comparison`, which lists eight baselines Phase 3 implements.

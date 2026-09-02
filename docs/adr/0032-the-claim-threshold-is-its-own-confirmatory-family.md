@@ -82,6 +82,12 @@ broken, not competing.
   line of 17.7 Å. Clearing a null and producing a useful hit list are different claims.
 - The RBO omission reason is rewritten in the manifest and in §10 of the protocol README.
 
+**RE-MEASURED 2026-09-03 and the arm changed.** Those are version-2 numbers: under version 3
+`bcr_abl1_corrected` reads `p_calibrated` 0.3236 and rejects nothing. The finding survives on
+`cardiac_myosin_corrected`, which rejects at **0.0046** with **no** label in its top five and
+DCC **26.14 Å** against a chance line of **28.73 Å**. An ADR keeps the reasoning it was
+decided on; the current numbers are in `../benchmark/evaluation/README.md` §13.
+
 ## Alternatives rejected
 
 **Leave everything but family 1 descriptive, and drop the "beat `cavity_volume`" threshold.**

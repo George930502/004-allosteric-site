@@ -1,7 +1,9 @@
 # The frozen evaluation layer
 
-**Status: protocol version 4, frozen 2026-09-03.** `uv run allo evaluate verify` re-derives
-every pinned value and exits 0 only if nothing moved. Version 1 was frozen and reopened on
+**Status: protocol version 4, frozen 2026-09-03.** `uv run allo evaluate verify --detect`
+re-derives every pinned value and exits 0 only if nothing moved. **The bare form skips the
+decoy half**, because pocket detection needs the structures, and it says so in its own output.
+Corrected 2026-09-03: this line promised the whole re-derivation for the offline command. Version 1 was frozen and reopened on
 2026-08-25 by an audit; version 2 was frozen the same day; version 3 opened on 2026-09-02, and
 version 4 on 2026-09-03. **Section 0a below is what version 4 changes.** Every version number
 in the body of this page below section 0a describes version 3 and is left as written.
@@ -217,11 +219,16 @@ in a live disagreement, so the continuous distance is frozen and both convention
 it.
 
 **DCC is not redundant with the p-value, and one measurement settles that.** On
-`bcr_abl1_corrected` the cavity-volume baseline rejects the confirmatory null at
-`p_calibrated` 0.0003 — while its predicted centre sits **farther from the true site than a
-random five-residue list**: DCC 26.5 Å against a chance line of 17.7 Å. A confirmatory
-rejection and a useful hit list are different claims, and without this column the report would
-print only the first. The other published residue-list criterion, Jaccard on residue sets
+`cardiac_myosin_corrected` the cavity-volume baseline rejects the confirmatory null at
+`p_calibrated` **0.0046** — while its top five hold **no** label at all and its predicted
+centre sits no closer to the true site than chance: DCC **26.14 Å** against a chance line of
+**28.73 Å**. A confirmatory rejection and a useful hit list are different claims, and without
+this column the report would print only the first.
+
+**CORRECTED 2026-09-03.** This argument used to run on `bcr_abl1_corrected` at
+`p_calibrated` 0.0003 and DCC 26.5 Å against 17.7 Å. Those are version-2 numbers; §13 of this
+page withdrew them and that arm now reads 0.3236, which is no rejection at all. The point
+survives, on the arm that still makes it under version 3. The other published residue-list criterion, Jaccard on residue sets
 (AlloBench, doi:10.1021/acsomega.5c01263), is declined in §3.3 on its own merits.
 
 **Every top-5 number is printed against its exact hypergeometric chance line**, computed from
@@ -412,11 +419,16 @@ required baselines (`manifest.yaml`, `secondary_objectives.classical_comparison`
 
 ### 5.1 The detector
 
-**pyKVFinder 0.9.3** (doi:10.1186/s12859-021-04519-4), at **the package's documented defaults
-for version 0.9.3** — the paper states none of the five values, so the version is the citation
-for them — run on the
-apo input alone. Step 0.6 Å, probe_in 1.4 Å, probe_out 4.0 Å, removal_distance 2.4 Å,
-volume_cutoff 5.0 Å³.
+**pyKVFinder 0.9.3** (doi:10.1186/s12859-021-04519-4), run on the apo input alone. The frozen
+settings are **step 0.6 Å, probe_in 1.4 Å, probe_out 8.0 Å, removal_distance 1.2 Å,
+volume_cutoff 1.0 Å³**, and `manifest.yaml` is the authority for them.
+
+**CORRECTED 2026-09-03.** This section gave the package's version-0.9.3 defaults — probe_out
+4.0, removal_distance 2.4, volume_cutoff 5.0 — as though they were current. ADR 0030 re-froze
+the detector on 2026-09-02 and §0 and §5.3 of this same page have carried the new triple
+since. §5.1 is the section a reader opens to answer "what is the detector", so it was the one
+place the withdrawn values could do damage. The package defaults are now history and are
+quoted as such in §5.3.
 
 The deciding argument is that it is purely geometric, so it raises no C2 question, and that
 it is versioned and installable, so this configuration is reproducible. Choosing the
@@ -892,8 +904,11 @@ the ranking is the deliverable. Statistics: Spearman ρ, Kendall τ, overlap@5 a
 all four, following the only precedent that reports them together
 (doi:10.1021/jacs.6c08053, preprinted as arXiv:2604.17486 — one paper, not two). That paper
 computes its overlap at k = 10 and compares two methods rather than one ranking under noise;
-we compute the same four statistics at **k = 5**, which is the deliverable. RBO is
-principled and has no use in this literature, so it is omitted.
+we compute the same four statistics at **k = 5**, which is the deliverable. RBO is omitted because **overlap@5 already carries top-weighting at exactly the k that
+ships**, so it adds nothing here. CORRECTED 2026-09-03: this read "principled and has no
+use in this literature", which is a popularity argument, and R1 forbids one. ADR 0032
+struck that sentence and mandated this rewrite; the rewrite reached the manifest and
+missed this page.
 
 **Coarse-graining.** Prove that compression retains the topological signal, using spectral
 distance between the full and coarse propagators, rank correlation of residue scores, and
@@ -937,8 +952,10 @@ them. On `kras_g12c_corrected` a gap of a quarter of an AUC point reads p = 0.83
 gap that size is inside what patch geometry produces on that arm.
 
 **Family 2 rejects nothing under version 3, where under version 2 it rejected on two arms**
-(p = 0.0003 and 0.0001). The version-3 input layer moved `bcr_abl1_corrected` to a different
-apo chain. Read this as the family having little power rather than as a negative finding:
+(p = 0.0003 and 0.0001). **CORRECTED 2026-09-03:** this named a chain change on
+`bcr_abl1_corrected` as the cause. That arm's apo input did not move; `manifest.yaml` records
+it at `2G2H:A` under both versions, and what moved is the detector re-freeze (ADR 0030), which
+changed the decoy set and so the paired comparison. Read this as the family having little power rather than as a negative finding:
 review 21 of the audit measures it at 3.7x conservative at alpha on `kras_g12c_corrected`.
 
 **Report the rank correlation against every baseline.** This is not decoration. The only

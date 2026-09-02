@@ -324,8 +324,7 @@
      "n": 10000,
      "power": 0.0
     }
-   },
-   "seconds": 4.0
+   }
   },
   "bcr_abl1_corrected": {
    "target": "bcr_abl1_corrected",
@@ -635,8 +634,7 @@
      "n": 10000,
      "power": 0.9989
     }
-   },
-   "seconds": 8.5
+   }
   },
   "cardiac_myosin_corrected": {
    "target": "cardiac_myosin_corrected",
@@ -999,8 +997,7 @@
      "n": 10000,
      "power": 0.9999
     }
-   },
-   "seconds": 38.1
+   }
   }
  }
 }

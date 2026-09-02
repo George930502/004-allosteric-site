@@ -1059,3 +1059,23 @@ def test_every_normative_manifest_leaf_is_bound_by_conformance():
         f"{sorted(survived - set(DECLARATIVE_SETTINGS))}; declared prose that is nonetheless "
         f"bound: {sorted(set(DECLARATIVE_SETTINGS) - survived)}"
     )
+
+
+def test_the_protocol_readme_states_the_frozen_detector_settings():
+    """§5.1 is where a reader looks up the detector, so it must not hold withdrawn values.
+
+    Added 2026-09-03. ADR 0030 re-froze the detector on 2026-09-02 and §0 and §5.3 of the
+    protocol README were updated. §5.1 kept the package's version-0.9.3 defaults and read as
+    current for a day. Derived from the manifest here rather than retyped.
+    """
+    from allo.inputs import ROOT
+    from allo.scoring.harness import protocol
+
+    detector = protocol()["decoys"]["detector_settings"]
+    section = (ROOT / "docs/benchmark/evaluation/README.md").read_text()
+    section = section[section.index("### 5.1 The detector") :].split("### 5.2")[0]
+    for field in ("step", "probe_in", "probe_out", "removal_distance", "volume_cutoff"):
+        value = detector[field]
+        assert f"{field} {value}" in section or f"**{field} {value}" in section, (
+            f"§5.1 does not state the frozen {field} of {value}"
+        )

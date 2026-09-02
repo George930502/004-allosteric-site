@@ -212,7 +212,8 @@ Phase detail and exit criteria: [`docs/ROADMAP.md`](docs/ROADMAP.md).
 
 **Both per-target blockers are cleared.** ADR 0031 supersedes ADR 0016 and exposes the
 mandated 5TBY arm; ADR 0036 supersedes ADR 0020 and freezes the c-Myc contract. One gate
-condition replaces them: protocol version 4 must be frozen before any method is scored.
+condition replaced them: protocol version 4 had to be frozen before any method was scored. It
+was frozen on 2026-09-03, so the gate is met.
 
 ## Repository layout
 
@@ -275,7 +276,8 @@ Read [`CONTRIBUTING.md`](CONTRIBUTING.md). The short version:
 
 MIT licensed. If you use the frozen benchmark or the evaluation protocol, cite this
 repository and state the protocol version. The freezes are versioned artifacts, and a number
-produced under protocol version 1 is not comparable to one produced under version 2.
+produced under one protocol version is not comparable to one produced under another. The
+layer is at version 4.
 
 ## License
 
