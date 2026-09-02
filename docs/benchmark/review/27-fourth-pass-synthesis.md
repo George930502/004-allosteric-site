@@ -484,7 +484,7 @@ distance to the source: kept 18 at median 4.3 Å over 0.0 to 12.6, lost two at *
 p-value is quoted. It is not repairable — `2G2H` stops at residue 523 — so disclosure is the
 whole remedy. Do not attach the distal-residue explanation to it until something reproduces it.
 
-### 3.5 The orthosteric vocabulary is not shared across the sets
+### 3.5 The orthosteric vocabulary is not shared across the sets — **closed 2026-09-03 by ADR 0044**
 
 Glycerol is a catalytic-state component on one set and unlisted on the other.
 

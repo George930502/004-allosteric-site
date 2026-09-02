@@ -33,7 +33,13 @@
 # secondary set, the derived `matches_apo` on three arms. `version` is not among the six keys
 # `freeze()` echoes, so this bump moves no frozen value and `allo benchmark verify` re-derives
 # clean without a re-freeze.
-version: 3
+#
+# VERSION 4 -- 2026-09-03. `substituted_from.reason` described 6C1H as bovine cardiac myosin
+# S1. It is not, and this file already said so correctly in the same arm's note. Corrected
+# against a live RCSB fetch. `substituted_from` is not among the six keys `freeze()` echoes,
+# so this moves no frozen value either, and the version bump is for the same reason as
+# version 3: two different sets of bytes cannot carry one identity.
+version: 4
 frozen_on: 2026-08-24
 source: CHALLENGE.md section 6, Table 1
 
@@ -490,10 +496,17 @@ targets:
     substituted_from:
       holo: 6C1H
       reason: >
-        6C1H is bovine cardiac myosin S1 with no mavacamten bound, so it supplies no label
-        set for the human MYH7 mavacamten site. The organisers answered on 2026-09-02: "To
-        better represent the human MYH7-mavacamten complex for this challenge, you may
+        6C1H is an actin-bound myosin-Ib complex with no mavacamten bound, so it supplies no
+        label set for the human MYH7 mavacamten site. The organisers answered on 2026-09-02:
+        "To better represent the human MYH7-mavacamten complex for this challenge, you may
         substitute 9GZ2 for 6C1H." ADR 0031.
+        CORRECTED 2026-09-03: this said "bovine cardiac myosin S1", which is wrong on the
+        organism and on the protein, and which the same file contradicts thirty lines below.
+        Re-fetched from RCSB: the three polymer entities are alpha skeletal muscle actin from
+        Oryctolagus cuniculus in five copies, unconventional myosin-Ib from Rattus norvegicus
+        in one, and calmodulin in one. The only heteroatoms are ADP and MG, at 3.9 A. The
+        substitution stands for exactly the reason it always did; the description of what was
+        substituted away was wrong.
     # 5TBY has zero heteroatoms, so no ligand-derived source exists. The family motif triple
     # is validated against the ligand-derived source on the two entries where that truth
     # exists: Jaccard 0.483 on 9GZ3:A and 0.516 on 9GZ2:A, centroid offset 5.96 and 5.92 A.

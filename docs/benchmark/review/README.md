@@ -50,7 +50,7 @@ unedited as the record of each pass.
 | Read                                                         | When                                                                                          |
 | ------------------------------------------------------------ | --------------------------------------------------------------------------------------------- |
 | [`00-official-reply.md`](00-official-reply.md)               | **Always first.** The organisers' four answers, verbatim, and what each one forces            |
-| [`27-fourth-pass-synthesis.md`](27-fourth-pass-synthesis.md) | **The current ranked list.** What the fourth pass repaired, the corrections to the freezes, and seven open items |
+| [`27-fourth-pass-synthesis.md`](27-fourth-pass-synthesis.md) | **The current ranked list.** What the fourth and fifth passes repaired, the corrections to the freezes, and the open items, ranked |
 | [`26-third-pass-synthesis.md`](26-third-pass-synthesis.md)   | The third pass's ranked list, kept as the record of what it found                              |
 | [`25-second-pass-synthesis.md`](25-second-pass-synthesis.md) | The second pass's ranked list, kept as the record of what it found                             |
 | [`11-synthesis.md`](11-synthesis.md)                         | The first pass's ranked list, kept as the record of what it found                             |
