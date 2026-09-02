@@ -493,6 +493,22 @@ anti-conservative — the sampler produced nothing, so the arm reported `availab
 `confirmatory: false` and no p-value at all. The defect was real and the fix stands; the stated
 consequence was worse than the measured one, and both go in the record.
 
+**A sixth pass found the sixth instance, and it is at the statistical primitive.**
+`permutation_p` computes `(1 + #{null >= observed}) / (1 + B)`, and `null >= observed` is false
+against a NaN. So a NaN observed statistic counts **zero** exceedances and returns
+`1 / (1 + B)` — the minimum attainable p-value, the strongest possible evidence, manufactured
+out of a missing number. A NaN inside the null lowers p the same way. Reproduced:
+`permutation_p(nan, [1, 2, 3])` returned 0.25. It is the primitive every other path sits on,
+it is public, and the calibration shares it, so the guard belongs there rather than at each
+caller.
+
+**My own sweep missed it, and the reason is worth recording.** I had swept for
+`if <comparison>: raise` and reported the scoring path clean. `null >= observed` is a
+comparison inside a **computation**, not a guard, so the shape never matched. The sweep is now
+a test, it names the primitives a shape sweep cannot decide for, and it probes them directly.
+Six instances of one shape in one round, each found only after the previous fix: **the class
+was the finding, and it took six passes to say so.**
+
 **And the shipping conformance artifact understated the guarded surface.**
 `docs/report/conformance.md` said sixteen protected file routes where the other three
 documents said nineteen — and it was the one page of the four that the derived count test did

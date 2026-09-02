@@ -144,6 +144,17 @@ sub-phase 1.6, the frozen **evaluation** layer, are both **closed**. 1.6 was clo
 > guarded surface at sixteen routes against nineteen, because it was the one of four that the
 > derived count test did not bind.
 >
+> **Six passes found six instances of one shape, each after the previous fix.** A NaN makes
+> every comparison false, and false is the direction that helps a method. `_aligned` let one
+> win every endpoint and every null; `combine_arms` and `holm` let one stop a step-down that
+> would otherwise reject twice; `holm`'s alpha was unchecked, so `alpha = 2.0` cleared both
+> families at p = 0.6; `calibrated_p`'s size ratio made the calibration silently disappear;
+> both sides of `_gate`'s matching tolerance passed one, the second found inside the fix for
+> the first; and `permutation_p` returned the **minimum attainable p-value** for a NaN
+> statistic. A sweep for the shape now runs as a test, and it names the primitives whose
+> comparison is a computation rather than a guard, because that is what the sweep's own first
+> version missed. **The class was the finding.**
+>
 > **One frozen value moved in the whole round**, a decoy cavity volume, found only under
 > `--detect`; the evaluation layer is re-frozen on it at `protocol_version: 4`.
 

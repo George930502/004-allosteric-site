@@ -1429,3 +1429,126 @@ def test_a_bad_matching_tolerance_is_refused_on_both_sides_of_the_comparison():
     assert _gate(arm, protocol())["tolerance"] == pytest.approx(
         protocol()["nulls"]["matched_patch"]["tolerance"]
     )
+
+
+def test_no_raise_guard_compares_a_float_a_non_finite_value_would_slip_past():
+    """The recurring defect of round 6, made into a rule instead of five more fixes.
+
+    A NaN makes every comparison false, so `if x > limit: raise` lets one through while
+    `if x <= limit: ok` rejects one. Round 6 found that shape five times -- `_aligned`,
+    `combine_arms`, `holm`'s alpha, `calibrated_p`'s ratio, and both sides of `_gate`'s
+    tolerance -- and each fix left the next one, because each was written at an instance.
+
+    So this sweeps `src/allo` for the shape. Every `if <ordered comparison>: raise` must either
+    check finiteness in the same test, or compare values that cannot be non-finite: a set, a
+    length, a counter, an integer index bound. The second kind is listed by name with its
+    reason, because "it is an int today" is a fact about the code that a reader must be able
+    to re-check, and because listing it is cheaper than proving it.
+
+    **The first version of this test swept only raise-guards, and that was too narrow.** A
+    codex pass found `permutation_p` immediately: `null >= observed` is a comparison inside a
+    COMPUTATION, not a guard, and against a NaN it is false -- which counts zero exceedances
+    and returns the minimum attainable p-value. The strongest possible evidence, manufactured
+    out of a missing number. So the statistical primitives are named below and asserted to
+    validate their own inputs, which a shape sweep cannot decide for them.
+    """
+    import ast
+
+    from allo.inputs import ROOT
+
+    # location -> why a non-finite value cannot reach this comparison
+    integral = {
+        "allo/inputs.py": "set containment, no number in the comparison",
+        "allo/scoring/metrics.py": "`k` is an index bound against `len(scores)`, built as int",
+        "allo/scoring/nulls.py": "`drawn` and `n_patches` are counters; the other is a set",
+        "allo/structure/graph.py": "`count` is the component count from `connected_components`",
+    }
+
+    def checked_names(scope: ast.AST) -> set[str]:
+        """Locals assigned from a `_checked_*` call. `harness.py:210` is guarded that way.
+
+        The check runs on the line above the comparison rather than inside it, which is the
+        readable arrangement and the one the fix chose. Recognising it keeps `harness.py`
+        under this sweep, and `harness.py` is where all five instances were found.
+        """
+        names = set()
+        for node in ast.walk(scope):
+            if not (isinstance(node, ast.Assign) and isinstance(node.value, ast.Call)):
+                continue
+            callee = node.value.func
+            label = callee.id if isinstance(callee, ast.Name) else getattr(callee, "attr", "")
+            if not label.startswith("_checked"):
+                continue
+            for target in node.targets:
+                if isinstance(target, ast.Name):
+                    names.add(target.id)
+        return names
+
+    unguarded = []
+    for path in sorted((ROOT / "src" / "allo").rglob("*.py")):
+        tree = ast.parse(path.read_text())
+        scopes = [
+            node
+            for node in ast.walk(tree)
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.Module))
+        ]
+        for node in ast.walk(tree):
+            if not (isinstance(node, ast.If) and any(isinstance(n, ast.Raise) for n in node.body)):
+                continue
+            test = ast.unparse(node.test)
+            ordered = any(
+                isinstance(inner, ast.Compare)
+                and any(isinstance(op, (ast.Gt, ast.GtE, ast.Lt, ast.LtE)) for op in inner.ops)
+                for inner in ast.walk(node.test)
+            )
+            if not ordered or "isfinite" in test or "isnan" in test:
+                continue
+            relative = str(path.relative_to(ROOT / "src"))
+            if relative in integral:
+                continue
+            # `abs(have - wanted) > 1e-9` names `abs` too, and a called name is not a value
+            # under comparison. Drop every name that is the callee of a call.
+            called = {
+                inner.func.id
+                for inner in ast.walk(node.test)
+                if isinstance(inner, ast.Call) and isinstance(inner.func, ast.Name)
+            }
+            used = {n.id for n in ast.walk(node.test) if isinstance(n, ast.Name)} - called
+            enclosing = [
+                scope
+                for scope in scopes
+                if getattr(scope, "lineno", 0) <= node.lineno <= getattr(scope, "end_lineno", 0)
+            ]
+            if used and any(used <= checked_names(scope) for scope in enclosing):
+                continue
+            unguarded.append(f"{relative}:{node.lineno}  {test[:80]}")
+
+    assert not unguarded, (
+        "a raise-guard compares a float that a NaN would slip past, with no finiteness check: "
+        + "; ".join(unguarded)
+        + ". Either check finiteness in the same test, or add the file to `integral` above "
+        "with the reason a non-finite value cannot reach it."
+    )
+    # The listed files must still exist, so the allow-list cannot silently cover nothing.
+    for relative in integral:
+        assert (ROOT / "src" / relative).exists(), f"{relative} is listed but absent"
+
+    # And the primitives whose comparison is a computation rather than a guard. A shape sweep
+    # cannot tell that `null >= observed` decides a p-value, so they are named and probed.
+    import math
+
+    import numpy as np
+
+    from allo.scoring.harness import calibrated_p, combine_arms, holm
+    from allo.scoring.nulls import permutation_p
+
+    with pytest.raises(ValueError, match="finite observed"):
+        permutation_p(math.nan, np.array([1.0, 2.0, 3.0]))
+    with pytest.raises(ValueError, match="finite observed"):
+        permutation_p(math.inf, np.array([1.0, 2.0, 3.0]))
+    with pytest.raises(ValueError, match="finite null"):
+        permutation_p(2.0, np.array([1.0, math.nan, 3.0]))
+    assert permutation_p(2.0, np.array([1.0, 2.0, 3.0])) == pytest.approx(0.75)
+
+    # The five earlier instances, so this one test says which functions carry the guarantee.
+    assert callable(calibrated_p) and callable(combine_arms) and callable(holm)

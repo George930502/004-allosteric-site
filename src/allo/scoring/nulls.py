@@ -398,7 +398,26 @@ def permutation_p(observed: float, null: np.ndarray) -> float:
 
     One-sided by design and not by convenience. A method that ranks allosteric residues
     *below* background is a broken method, not a competing finding.
+
+    **Both operands are checked, because `null >= observed` is false against a NaN and false
+    is the direction that helps the method.** A NaN `observed` counts zero exceedances and
+    returns `1 / (1 + B)`, the minimum attainable p-value: the strongest possible evidence,
+    manufactured out of a missing number. A NaN inside `null` removes one exceedance and
+    lowers p by the same reasoning. Added 2026-09-03, round 6, and it is the sixth instance of
+    that shape this round -- the first five were `_aligned`, `combine_arms`, `holm`'s alpha,
+    `calibrated_p`'s ratio and both sides of `_gate`'s tolerance. This one is the statistical
+    primitive the other paths sit on top of, and it is public and shared with the calibration,
+    so guarding it here is what makes the guarantee hold for a caller that is not `score_arm`.
     """
+    null = np.asarray(null, dtype=float)
+    if not np.isfinite(observed):
+        raise ValueError(f"permutation_p needs a finite observed statistic; got {observed}")
+    if not np.isfinite(null).all():
+        bad = int((~np.isfinite(null)).sum())
+        raise ValueError(
+            f"permutation_p needs a finite null; {bad} of {null.size} replicates are not. "
+            "`null >= observed` is false against a NaN, which LOWERS p"
+        )
     return float((1 + int((null >= observed).sum())) / (1 + len(null)))
 
 
