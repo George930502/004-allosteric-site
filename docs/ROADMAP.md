@@ -68,6 +68,21 @@ sub-phase 1.6, the frozen **evaluation** layer, are both **closed**. 1.6 was clo
 > stricter than any roster. Twenty-one leaves moved across both freezes, **all inside the
 > annotation and none outside it**. The same review found the `ptp1b` WPD-loop strings
 > backwards, confirmed by measurement: apo 6.52 angstrom against its own holo at 12.62.
+>
+> **Round 4 returned four findings, and three are defects in round 3's own repairs.** The
+> replacement generator was scored with **ordinal ranks**, not midranks, and it is the only
+> one of the four that ties anything: it is piecewise constant, a column of 80 residues holds
+> a median of 3 distinct values, and every tie was broken by residue index, which runs along
+> the chain. Repeated at the same seed, only that row moved and the other three are
+> bit-identical. **Conformance was a deny-list** binding 6 of 74 manifest leaves; inverted to
+> an allow-list plus a digest, it now binds 55 and the 19 survivors are exactly the declared
+> prose set. **`docs/evidence/method-landscape/` reproduces positive counts** and was
+> unprotected, so the count of data routes is **fourteen**; a standing sweep now fails on any
+> unprotected file that puts an arm, its count and a cue word in one window. And **pinning a
+> release did not make the values that release**: the recorded Pfam lists were RCSB
+> per-entity assignments, a strict subset of the accession sets clause (xii) resolves on.
+> Both manifests carry the accession-derived sets now and **the verdict holds at that full
+> width**. No frozen value moved.
 
 > **A second audit pass ran on 2026-09-02, audited the first one, and its findings were
 > repaired the same day. Read
