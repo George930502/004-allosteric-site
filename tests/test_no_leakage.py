@@ -840,6 +840,15 @@ def traversal_capability_violations(source: str) -> set[Path]:
     hook or a sandbox that denies the protected roots however the traversal is obtained -- not
     another spelling.
 
+    **`as` renames the capability at the door, and that was the hole.** The three branches
+    below visit a `Name`, an `Attribute` and a string `Constant`. `from os import walk as
+    traverse` puts the traversal word in none of them: the call site is `traverse(...)`, a
+    bare name, and `walk` survives only inside the `ast.alias` node. Found 2026-09-03 by a
+    codex pass, run end to end -- all four guard helpers returned empty and the live module
+    read a protected label-count field for all fifteen arms. The `alias` branch closes it for
+    every enumerator at once, and the dotted tail is checked so that `import os.path as p`
+    stays clean rather than being special-cased.
+
     **Prediction path only.** A run script under `experiments/` and a review tool both
     legitimately enumerate their own trees, and both are scanned by the same combined helper,
     so this is unioned in at the prediction-path call site instead of inside it. It costs
@@ -849,14 +858,24 @@ def traversal_capability_violations(source: str) -> set[Path]:
     """
     hits: set[Path] = set()
     for node in ast.walk(ast.parse(source)):
-        named = None
+        named: str | list[str] | None = None
         if isinstance(node, ast.Attribute):
             named = node.attr
         elif isinstance(node, ast.Name):
             named = node.id
         elif isinstance(node, ast.Constant) and isinstance(node.value, str):
             named = node.value
-        if named in TRAVERSAL_NAMES:
+        elif isinstance(node, ast.alias):
+            # `from os import walk as traverse` renames the capability at the door. The call
+            # site is then `traverse(...)`, a bare Name that is not a traversal word, and the
+            # only place `walk` survives is this node -- which the three branches above do not
+            # visit, because an `ast.alias` is neither a Name nor an Attribute nor a Constant.
+            # Found 2026-09-03 by a codex pass, as a live module: all four guard helpers
+            # returned empty and the probe read a protected label-count field for all fifteen
+            # arms. `import os.path as p` is why the dotted tail is checked too.
+            named = [node.name, node.name.rsplit(".", 1)[-1]]
+        wanted = named if isinstance(named, list) else [named]
+        if any(name in TRAVERSAL_NAMES for name in wanted):
             hits |= PROTECTED_PATHS | FORMER_PROTECTED_PATHS
     return hits
 
@@ -2585,6 +2604,23 @@ def test_an_enumeration_cannot_see_a_protected_path_by_any_spelling():
         + f"def pick():{NL}    return ROOT.iterdir{NL}{NL}for f in pick()(): pass",
         "the name in a container, then indexed": root
         + f'ops = [ROOT.glob]{NL}for f in ops[0]("*/*"): pass',
+        # Round 6, 2026-09-03, from a codex pass, and the one that ran end to end: all four
+        # helpers returned empty and the live module read a protected label-count field for
+        # all fifteen arms. `as` renames the capability at the door, so the call site is a
+        # bare name and the traversal word survives only in the `ast.alias` node -- which the
+        # scan did not visit. The other three below are the same door, other spellings.
+        "an import renamed by `as`": f"from os import walk as traverse{NL}"
+        + root
+        + 'for a, b, c in traverse(ROOT / "data"): pass',
+        "a lazy glob renamed by `as`": f"from glob import iglob as fetch{NL}"
+        + root
+        + 'for f in fetch(str(ROOT / "data" / "*")): pass',
+        "a directory lister renamed by `as`": f"from os import listdir as names{NL}"
+        + root
+        + 'for f in names(ROOT / "data"): pass',
+        "a module renamed by `as`, then its member": f"import glob as gg{NL}"
+        + root
+        + 'for f in gg.iglob(str(ROOT / "data" / "*")): pass',
     }
     escaped = [
         name for name, source in aliased.items() if not traversal_capability_violations(source)

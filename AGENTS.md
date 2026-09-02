@@ -345,6 +345,13 @@ path a reader can act on, and 22 permanent probes hold the backstop. Add a new s
 `test_the_segment_cover_backstop_catches_assembled_paths`, and a new resolver form to
 `test_constant_path_guard_catches_composition_and_quote_variants`, before trusting a new route.
 
+The race has a second track, and it is the import statement rather than the call. `from os
+import walk as traverse` leaves the call site a bare name, so the capability scan — which
+reads a `Name`, an `Attribute` and a string — saw no traversal word anywhere. A codex pass ran
+it as a live module on 2026-09-03: all four guard helpers returned empty and it read a
+protected label-count field for all fifteen arms. The scan now reads `ast.alias` as well.
+**A guard that models how a name is used must also model how it is bound.**
+
 **A guard that scans the wrong tree scans nothing.** The package scans globbed `src/allo`
 while `NON_RUNNER_TREES` exempted the whole of `src/` on the ground that those scans covered
 it. A second package at `src/predict/` was therefore read by neither, and the editable install
