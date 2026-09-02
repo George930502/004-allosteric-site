@@ -904,3 +904,115 @@ def test_the_altloc_policy_is_the_one_this_adr_states():
         moves = [abs(with_all[r] - primary_only[r]) for r in with_all]
         assert sum(move > 1e-6 for move in moves) == n_rsa, (arm, sum(m > 1e-6 for m in moves))
         assert round(max(moves), 4) == max_rsa, (arm, round(max(moves), 4))
+
+
+def test_same_site_labels_are_not_negatives_in_a_sibling_arm():
+    """ADR 0011 names this test as the second half of its rule. It did not exist until round 6.
+
+    The first half, `test_the_scoring_universe_excludes_what_scores_by_construction`, is
+    within-arm: a residue that a connectivity score ranks top by construction is in neither
+    class. The second half is across arms of the same protein. Two arms of one protein are two
+    entries of the same molecule, so a residue the ground truth calls allosteric in one of them
+    is not a negative in the other merely because the other's holo did not resolve it.
+
+    Measured at the time of writing: the rule holds. One `bcr_abl1_corrected` label is absent
+    from its sibling's positive and excluded sets, and it is absent because that residue is not
+    modelled in the sibling at all, so it is in neither class there either.
+    """
+    import json
+
+    from allo.inputs import apo_input
+
+    frozen = json.loads(benchmark.FROZEN.read_text())["targets"]
+    siblings: dict[str, list[str]] = {}
+    for arm in frozen:
+        siblings.setdefault(arm.rsplit("_", 1)[0], []).append(arm)
+    pairs = [(a, b) for arms in siblings.values() for a in arms for b in arms if a != b]
+    assert pairs, "no protein has two arms, so this asserted nothing"
+
+    for source, other in pairs:
+        labels = set(frozen[source]["scoreable_label_residues"])
+        neither = (
+            labels
+            - set(frozen[other]["scoreable_label_residues"])
+            - set(frozen[other]["excluded_from_scoring"])
+        )
+        scored_as_negative = neither & set(apo_input(other).residues)
+        assert not scored_as_negative, (
+            f"{other} scores {len(scored_as_negative)} of {source}'s labels as negatives; "
+            "ADR 0011 requires both classes to lose a residue or neither"
+        )
+
+
+def test_no_document_cites_a_test_the_suite_does_not_define():
+    """Round 6's two largest findings were declarations describing code that is not there.
+
+    ADR 0006 named a guard that does not exist, so the path it promised was closed had been
+    open since the arm that carried the real test left the suite. A sweep then found four more
+    citations of the same shape: three stale names -- a test renamed, two consolidated into one
+    -- and `simulate.py` naming a test that pins its ranks against the shipped statistic, which
+    nobody had written. A citation that resolves to nothing is worse than no citation, because
+    it reads as a guarantee.
+
+    So the class is closed rather than the five instances. Any tracked document or comment that
+    names a `test_*` symbol must name one the suite defines.
+    """
+    import ast
+    import pathlib
+    import re
+    import subprocess
+
+    root = pathlib.Path(benchmark.ROOT)
+    tracked = subprocess.run(
+        ["git", "ls-files"], capture_output=True, text=True, cwd=root, check=True
+    ).stdout.split()
+
+    defined = set()
+    modules = set()
+    for name in (path for path in tracked if path.startswith("tests/") and path.endswith(".py")):
+        modules.add(pathlib.Path(name).stem)
+        for node in ast.walk(ast.parse((root / name).read_text())):
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and node.name.startswith(
+                "test"
+            ):
+                defined.add(node.name)
+    assert len(defined) > 100, "the suite did not parse"
+
+    # A citation may wrap across lines inside a Markdown paragraph, so join a line that ends
+    # mid-identifier to the next one before matching. The round-6 sweep read three real
+    # citations as missing for exactly this reason.
+    unwrap = re.compile(r"(test_[a-z0-9_]*[a-z0-9_])\n\s*([a-z0-9_]+)")
+    symbol = re.compile(r"\btest_[a-z0-9_]{4,}\b")
+    # The one deliberate reference to a test that no longer exists. ADR 0006 records the guard
+    # it wrongly claimed to have, by name, because naming it is the correction.
+    allowed = {"test_modified_residues_are_parent_normalized_before_prediction"}
+
+    missing: dict[str, set[str]] = {}
+    for name in tracked:
+        path = pathlib.Path(name)
+        # Third-party skill documentation is not this repository's claim to keep true.
+        if path.suffix not in {".md", ".py", ".yaml", ".yml", ".txt", ".json"}:
+            continue
+        if name.startswith(".claude/"):
+            continue
+        try:
+            text = (root / name).read_text()
+        except (OSError, UnicodeDecodeError):
+            continue
+        while unwrap.search(text):
+            text = unwrap.sub(r"\1\2", text)
+        for match in symbol.finditer(text):
+            cited = match.group(0)
+            # A citation spelled with its extension names a FILE, and a removed file is
+            # legitimate history: ADR 0037 records `tests/test_method.py` leaving with the
+            # method layer. A bare name is a claim about a symbol, and that is what this
+            # checks. `modules` covers the bare spelling of a module that still exists.
+            if text[match.end() : match.end() + 3] == ".py":
+                continue
+            if cited in defined or cited in modules or cited in allowed:
+                continue
+            missing.setdefault(cited, set()).add(name)
+
+    assert not missing, "documents cite tests that do not exist: " + "; ".join(
+        f"{cited} in {sorted(where)}" for cited, where in sorted(missing.items())
+    )

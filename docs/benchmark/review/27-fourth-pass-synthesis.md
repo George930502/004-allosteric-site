@@ -371,8 +371,18 @@ different modification on a different arm, and it left the suite with that arm i
 two sulfinyl oxygens, and in `allo.structure.properties` took the hydropathy fallback (0.0,
 where cysteine is 2.5) and the RSA denominator fallback (200.0, where cysteine is 167.0).
 Neither fallback is a measured value and both print as plausible numbers, so both now raise.
-The sweep that replaced the old test asks the general question over every arm. **No number
-moves**: removing the two oxygens changes zero graph edges.
+The sweep that replaced the old test asks the general question over every arm. **The graph does
+not move**: removing the two oxygens changes zero graph edges, so no null, no endpoint and no
+scored value moves.
+
+**One frozen value does move, and the first report of this repair missed it.** That report ran
+`allo evaluate verify` offline, which skips the pocket detector by design, and the detector
+reads the atoms. Under `--detect`, one decoy's cavity volume on `hiv_rt` moved by 0.54 %.
+**A verifier that skips a stage cannot certify that stage.** The full extent is that one
+number: 72 pockets before and after with the same identifiers, `n_scoreable`, the halo
+exclusions and `minimum_attainable_p` unchanged, and the site pocket keeping its identifier,
+its lining and its volume. Re-frozen at `protocol_version: 4` on ADR 0044's precedent, since
+no endpoint, null, decoy rule or decision changed.
 
 **One finding was real, measured, and deliberately not acted on.** Four frozen apo entries
 model alternate conformations, and three code paths answered that question three ways by
@@ -383,6 +393,26 @@ declines the change, because adopting the better primary-conformer rule is a pro
 re-freeze of three layers for an effect that is **identical for every method**. What is closed
 is the part that was a defect rather than a choice: two functions computed the same quantity
 and disagreed, with nothing to notice.
+
+**The ADR 0006 finding generalised, and the sweep that generalised it found five more.**
+`gpt-5.6-sol` ran the same sweep and returned zero issues on the round's diff, so this half is
+a Claude finding, reproduced before it was accepted. Every `test_*` symbol any tracked document
+or comment names was resolved against the symbols the suite defines. **Five citations resolved
+to nothing.** Three were stale names: one in the leakage guard's own comment for a test that
+was renamed, and two per-table names in the protocol README for tests that round 5
+consolidated into one. Two named guarantees nobody had written: ADR 0011's second half,
+that a residue the ground truth calls allosteric in one arm is not a negative in a sibling arm
+of the same protein; and `simulate.py`'s claim that its ranks are pinned against the shipped
+statistic — which is the exact guarantee whose absence let the ordinal-rank defect ship in
+round 3. Both were measured first and both hold, so both are now tests rather than sentences.
+
+**The class is closed rather than the five instances.**
+`test_no_document_cites_a_test_the_suite_does_not_define` resolves every citation in every
+tracked document. It un-wraps a Markdown line break inside an identifier, which the first
+hand-run of the sweep needed and did not have — three real citations read as missing for that
+reason alone. A citation spelled with its `.py` extension names a file, and a removed file is
+legitimate history, so those pass. One name is allowed: ADR 0006 records the guard it wrongly
+claimed to have, and naming it is the correction.
 
 **Four sentences were wrong where the code was right.** `site_pocket_rank` ranks the site
 against the decoy linings and not against every detected pocket, and the halo rule makes the

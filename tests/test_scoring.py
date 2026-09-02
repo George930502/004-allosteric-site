@@ -1236,3 +1236,40 @@ def test_every_endpoint_the_record_writes_is_declared_in_the_manifest():
     assert written <= declared, (
         f"endpoints the record writes that no declaration names: {sorted(written - declared)}"
     )
+
+
+def test_the_simulation_ranks_agree_with_the_shipped_statistic():
+    """`simulate._ranks` names this test and it did not exist until round 6.
+
+    The docstring at `src/allo/scoring/simulate.py` says the simulation's ranking "is the same
+    call" as `metrics.rank_vector` and that this test "pins that they agree". Nothing checked
+    it, and the reason to check it is that the simulation already got this wrong once: it
+    assigned ordinal ranks by stable sort until 2026-09-03, so `cluster_blocks` -- whose whole
+    construction is tied blocks -- had every tie broken by residue index, which runs along the
+    chain and therefore correlates with space. The published cells were not the statistic they
+    claimed to be.
+
+    Ties are the whole point, so the fixture is built to have them.
+    """
+    import numpy as np
+
+    from allo.scoring.metrics import rank_vector
+    from allo.scoring.simulate import _ranks
+
+    rng = np.random.default_rng(0)
+    fields = np.round(rng.normal(size=(64, 7)) * 2).astype(float)
+    distinct = [len(np.unique(column)) for column in fields.T]
+    assert max(distinct) < 64, "the fixture has no ties, so it cannot see the defect"
+
+    simulated = _ranks(fields)
+    for column in range(fields.shape[1]):
+        shipped = rank_vector(fields[:, column])
+        assert np.allclose(simulated[:, column], shipped), (
+            f"column {column}: the simulation's ranks are not the shipped statistic's"
+        )
+
+    # And the defect itself: ordinal ranks would pass a shape check and fail this one.
+    from scipy.stats import rankdata
+
+    ordinal = rankdata(fields, method="ordinal", axis=0).astype(np.float32)
+    assert not np.allclose(ordinal, simulated), "the fixture cannot distinguish the two methods"

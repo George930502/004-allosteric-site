@@ -70,11 +70,29 @@ protein-only, and every classical baseline we must compare against is defined th
    `tests/test_benchmark.py::test_no_modified_residue_reaches_a_prediction_structure` sweeps
    **every** arm and asks the general question, which is what this clause always described.
 
-   **No number moves.** Measured on `hiv_rt`: removing the two oxygens changes **zero** graph
-   edges, so no scored value and no frozen value moves, and all three verifiers re-derive
-   their freezes unchanged. What moves is three reported confounder columns — RSA on four
-   residues, by at most 0.045; hydropathy on one; and the chain's B-factor z-scores in the
-   fourth decimal, because residue 280's mean B is now taken over six atoms rather than eight.
+   **The graph does not move. One frozen decoy volume does, and the first version of this
+   paragraph missed it.** Measured on `hiv_rt`: removing the two oxygens changes **zero** graph
+   edges, so no null, no endpoint and no scored value moves. What moves is three reported
+   confounder columns — RSA on four residues, by at most 0.045; hydropathy on one; and the
+   chain's B-factor z-scores in the fourth decimal, because residue 280's mean B is now taken
+   over six atoms rather than eight.
+
+   **CORRECTED the same day.** This said "no frozen value moves, and all three verifiers
+   re-derive their freezes unchanged". Those runs were `allo evaluate verify` **offline**,
+   which skips the pocket detector by design, and the detector reads the atoms. Under
+   `--detect` one decoy's cavity volume on `hiv_rt` moved, from 1727.57 to 1718.28 cubic
+   angstrom, a drop of 0.54 %. **A verifier that skips a stage cannot certify that stage**,
+   and the claim should have named the mode it ran in.
+
+   The extent was then measured in full, and it is that one number. The detector finds 72
+   pockets before and after, with the same identifiers; `n_scoreable`, the three halo
+   exclusions and `minimum_attainable_p` are unchanged; and the site pocket keeps its
+   identifier, its lining and its volume. The evaluation layer is re-frozen on that one value
+   and **`protocol_version` stays at 4**, which is ADR 0044's precedent exactly: an
+   input-layer correction that moves a derived value while changing no endpoint, null, decoy
+   rule or decision does not open a protocol version. Nothing is invalidated by the re-freeze,
+   because no method has been scored on `main` since ADR 0037 removed the method layer, and
+   `hiv_rt` is a sealed `generalisation` arm in any case.
 4. **The residue set the network is built on is `allo.inputs.apo_input(...).residues`**, and
    nothing else. It is the frozen `n_residues` count in `frozen.json`.
 

@@ -285,7 +285,7 @@ MANIFEST_READS = {
 #
 # The exemption is a rule, not a list of names. A prediction runner must import `allo` to
 # run a method, so a tracked review-side file that imports no `allo` module cannot be one.
-# `test_every_exempt_review_tool_imports_no_package_module` holds the second half.
+# `test_every_review_tool_imports_no_package_module` holds the second half.
 REVIEW_TOOLS = (ROOT / "docs" / "benchmark" / "review").resolve()
 
 # The tenth route is a tree the runners themselves write into, so it cannot be protected

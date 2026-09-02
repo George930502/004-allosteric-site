@@ -383,6 +383,11 @@ The mechanics that make the principles enforceable.
 
 - **Run `make check` before reporting any task complete.** Fast, offline, the same gate
   CI runs. "It should work" is not a status.
+- **If the diff can change what an apo structure contains, run `make verify` too.** `make
+  check` and `allo evaluate verify` are offline, and offline **skips the pocket detector** —
+  the verifier says so, in its own output line. On 2026-09-03 a one-residue input correction
+  was reported as moving no frozen value on the strength of an offline run, and it had moved a
+  decoy cavity volume. **A verifier that skips a stage cannot certify that stage.**
 - **State assumptions up front.** If two readings of a task give materially different
   work, ask before building.
 - **Surgical diffs.** Every changed line traces to the request. Don't reformat or

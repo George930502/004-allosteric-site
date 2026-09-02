@@ -489,7 +489,7 @@ of the difference is excluded by the halo rule, so `detected = 1 + halo + decoys
 
 **CORRECTED 2026-09-03 by the round-5 audit.** The `detected` column held `decoys + 1` on every
 row, which is the count after the halo rule and not what the detector found. The halo column is
-new and makes the arithmetic checkable. `test_the_protocol_readme_quotes_the_decoys_the_freeze_derives`
+new and makes the arithmetic checkable. `test_the_protocol_readme_quotes_the_numbers_its_own_sources_hold`
 re-derives every cell from `frozen.json`, so the column cannot drift from its own source again.
 
 At the version-2 defaults the same five primary arms read **3 / 3 / 24 / 9 / 41** decoys, with
@@ -843,7 +843,7 @@ The band is flat across arms at fixed λ, which is worth stating: prevalence spa
 λ (0.0526 at α/3). The label patch geometry, not the arm size, sets the sensitivity.
 
 Every cell above is read from `experiments/2026-09-02-null-recalibration/metrics.json`,
-section `power`, and `test_the_protocol_readme_quotes_the_power_the_experiment_measured`
+section `power`, and `test_the_protocol_readme_quotes_the_numbers_its_own_sources_hold`
 re-derives all three tables from it. **CORRECTED 2026-09-03 by the round-5 audit**, which
 found the `bcr_abl1_mandated` row still carrying the version 2 chain-A numbers — its
 `size_ratio` moved from 1.0960 to 1.2073 with the chain, which tightens its effective
