@@ -152,7 +152,11 @@ def test_clause_x_no_apo_occupant_touches_a_label(frozen):
     fragment of the same series, in the same pocket, cleared that check by half an angstrom
     during screening. So this asserts on the FULL label set.
     """
+    # Counted: every assertion is inside the loop, so a filter that matched everything
+    # or an emptied source would make this pass by asserting nothing. Round 6.
+    checked = 0
     for name, values in frozen["targets"].items():
+        checked += 1
         occupancy = values["apo_site_occupancy"]
         assert occupancy["scoreable_labels_contacted"] == 0, (
             f"{name}: an apo component contacts {occupancy['scoreable_labels_contacted']} "
@@ -183,6 +187,7 @@ def test_clause_x_no_apo_occupant_touches_a_label(frozen):
             f"but only {len(overlap)} labels are active-site residues, so at least one "
             "contact lands on a label that is allosteric and nothing else"
         )
+    assert checked, "the freeze carried no target, so this asserted nothing"
 
 
 def test_every_frozen_target_is_an_admitted_row_in_the_ledger(frozen, ledger):
@@ -225,10 +230,14 @@ def test_the_admitted_entries_meet_the_resolution_ceiling(ledger):
     It is checked here rather than against `frozen.json` on purpose: resolution is a
     SELECTION fact, so it belongs in the record of the selection.
     """
+    # Counted: every assertion is inside the loop, so a filter that matched everything
+    # or an emptied source would make this pass by asserting nothing. Round 6.
+    checked = 0
     for row in ledger["candidates"]:
         if row["decided_by"] != "admitted":
             continue
         for role, entry in row["structure_admission"].items():
+            checked += 1
             resolution, method = entry["resolution_angstrom"], entry["method"]
             assert resolution is not None, f"{row['name']} {role}: no resolution recorded"
             ceiling = 4.0 if "ELECTRON" in method.upper() else 2.5
@@ -236,6 +245,7 @@ def test_the_admitted_entries_meet_the_resolution_ceiling(ledger):
                 f"{row['name']} {role}: {resolution} A by {method} exceeds the {ceiling} A "
                 "ceiling for that method"
             )
+    assert checked, "the ledger admitted no structure, so this asserted nothing"
 
 
 def test_the_secondary_manifest_redacts_exactly_as_the_primary_one_does(manifest):
@@ -256,7 +266,11 @@ def test_the_secondary_manifest_redacts_exactly_as_the_primary_one_does(manifest
         "allosteric_evidence",
         "note",
     }
+    # Counted: every assertion is inside the loop, so a filter that matched everything
+    # or an emptied source would make this pass by asserting nothing. Round 6.
+    checked = 0
     for spec in full["targets"]:
+        checked += 1
         assert evaluation_only & set(spec), f"{spec['id']}: nothing to redact, so nothing is proved"
 
     from allo.inputs import load
@@ -264,6 +278,7 @@ def test_the_secondary_manifest_redacts_exactly_as_the_primary_one_does(manifest
     for spec in load(SECONDARY_MANIFEST)["targets"]:
         leaked = evaluation_only & set(spec)
         assert not leaked, f"{spec['id']}: prediction path can see {sorted(leaked)}"
+    assert checked, "the manifest declared no target, so this asserted nothing"
 
 
 def test_the_offline_structure_store_holds_both_sets(frozen):

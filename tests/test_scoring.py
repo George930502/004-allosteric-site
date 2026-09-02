@@ -375,11 +375,16 @@ def test_every_primary_arm_has_exactly_one_declared_reporting_role():
 def test_every_frozen_arm_carries_a_calibrated_threshold_that_only_tightens():
     settings = harness.protocol()
     alpha = float(settings["decision"]["alpha"])
+    # Counted: every assertion is inside the loop, so a filter that matched everything
+    # or an emptied source would make this pass by asserting nothing. Round 6.
+    checked = 0
     for target, record in EVALUATION.items():
+        checked += 1
         star = record["matched_patch"]["alpha_star"]
         assert 0 < star <= alpha, f"{target}: alpha_star {star} is not a tightening of {alpha}"
         ratio = record["matched_patch"]["size_ratio"]
         assert ratio >= 1.0, f"{target}: size_ratio {ratio} would loosen the test"
+    assert checked, "the evaluation freeze carried no arm, so this asserted nothing"
 
 
 def test_the_calibration_is_conservative_at_every_holm_level_not_only_at_alpha():
@@ -420,9 +425,14 @@ def test_the_freeze_quotes_the_calibration_experiment_and_does_not_restate_it():
             ROOT / str(settings["nulls"]["matched_patch"]["calibrated_by"]) / "metrics.json"
         ).read_text()
     )["gate"]
+    # Counted: every assertion is inside the loop, so a filter that matched everything
+    # or an emptied source would make this pass by asserting nothing. Round 6.
+    checked = 0
     for target, record in EVALUATION.items():
+        checked += 1
         assert record["matched_patch"]["alpha_star"] == pytest.approx(gate[target]["alpha_star"])
         assert record["matched_patch"]["size_ratio"] == pytest.approx(gate[target]["size_ratio"])
+    assert checked, "the evaluation freeze carried no arm, so this asserted nothing"
 
 
 def test_the_calibrated_p_is_never_smaller_than_the_raw_one():
@@ -543,7 +553,11 @@ def test_the_frozen_chance_dcc_is_reproducible_from_the_committed_seed():
     from allo.scoring.metrics import chance_dcc
 
     settings = harness.protocol()
+    # Counted: every assertion is inside the loop, so a filter that matched everything
+    # or an emptied source would make this pass by asserting nothing. Round 6.
+    checked = 0
     for target, record in EVALUATION.items():
+        checked += 1
         graph = evaluation_graph(apo_input(target))
         labels, _ = _positives(target)
         mask = np.array([r in set(labels) for r in graph.candidates], dtype=bool)
@@ -554,6 +568,7 @@ def test_the_frozen_chance_dcc_is_reproducible_from_the_committed_seed():
             seed=int(settings["seed"]),
         )
         assert record["chance"]["dcc_angstrom"] == pytest.approx(again, abs=5e-4), target
+    assert checked, "the evaluation freeze carried no arm, so this asserted nothing"
 
 
 def test_solvent_accessibility_agrees_with_an_independent_implementation():
@@ -1273,3 +1288,39 @@ def test_the_simulation_ranks_agree_with_the_shipped_statistic():
 
     ordinal = rankdata(fields, method="ordinal", axis=0).astype(np.float32)
     assert not np.allclose(ordinal, simulated), "the fixture cannot distinguish the two methods"
+
+
+def test_no_decision_function_accepts_a_non_finite_p_value():
+    """Round 6, from a codex adversarial pass. `nan <= 0` and `nan > 1` are both false.
+
+    So `np.any((values <= 0) | (values > 1))` let a NaN through, and the consequence is not
+    only a record that serialises as bare `NaN`, which is not JSON. `holm` sorts the NaN
+    FIRST, gives it the tightest threshold, fails to reject it, and the step-down then stops:
+    measured on the frozen confirmatory family, one NaN turned two rejections at p = 0.01 into
+    none.
+
+    `_aligned` was given the identical guard earlier in this round, for the identical reason,
+    and the multiplicity path was left with the hole. That is the root-cause lesson here, so
+    the check lives in one function that all four entry points call.
+    """
+    import math
+
+    from allo.scoring.harness import calibrated_p, combine_arms, holm, protocol
+
+    family = sorted(protocol()["decision"]["confirmatory_family"])
+    for bad in (math.nan, math.inf, -math.inf, 0.0, -0.5, 1.5):
+        pvalues = dict.fromkeys(family, 0.01)
+        pvalues[family[0]] = bad
+        with pytest.raises(ValueError, match="finite"):
+            combine_arms(pvalues)
+        with pytest.raises(ValueError, match="finite"):
+            holm(pvalues, alpha=0.05)
+    for bad in (math.nan, math.inf, 0.0, 1.5):
+        with pytest.raises(ValueError, match="finite"):
+            calibrated_p(bad, 1.2)
+
+    # And the family still works, so the guard is a filter and not a wall.
+    valid = dict.fromkeys(family, 0.01)
+    assert all(row["reject"] for row in holm(valid, alpha=0.05).values())
+    assert combine_arms(valid)["p"] < 0.05
+    assert calibrated_p(0.01, 1.2) >= 0.01

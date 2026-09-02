@@ -414,6 +414,38 @@ reason alone. A citation spelled with its `.py` extension names a file, and a re
 legitimate history, so those pass. One name is allowed: ADR 0006 records the guard it wrongly
 claimed to have, and naming it is the correction.
 
+**The second codex pass found three more, after the first one approved.** The first pass on
+the round's diff returned zero issues while running the very sweep that had just found five
+citation defects. Told that, and told to treat its own approve as unreliable, it returned
+three findings and all three reproduce.
+
+**A seventh spelling of the enumeration hole, and the first that defeats the enumeration guard
+itself.** `enumeration_violations` inspects a call whose callee is an attribute, so
+`scan = ROOT.rglob` followed by `scan("*.json")` escapes it: at the call site the callee is a
+bare name, and at the assignment there is no call. Installed as a live method on
+`allo.structure.graph` it enumerated 1304 files including all three `frozen.json`, with all 48
+tests green. The fix is the third question again, the one round 5 arrived at for paths: not
+"which path is this", not "are the pieces present", but **does this file obtain a traversal
+capability at all**. `traversal_capability_violations` answers it with no dataflow analysis,
+and it is free because no module under `src/allo` names a traversal function in any position.
+Four aliasing spellings are now permanent probes, the `getattr` string form among them.
+
+**A NaN defeats the multiplicity path, and this one is my own miss.** `_aligned` was given a
+non-finite guard earlier in this round, for the reason that one NaN score sorts to the top of
+every endpoint and every null at once. The same argument applies to every p-value a decision
+reads, and `np.any((values <= 0) | (values > 1))` does not reject a NaN because every
+comparison with a NaN is false. The consequence is worse than a record that serialises as bare
+`NaN`, which is not JSON: `holm` sorts the NaN **first**, gives it the tightest threshold,
+fails to reject it, and the step-down then stops. Measured on the frozen confirmatory family,
+one NaN turned two rejections at p = 0.01 into none. Patching one entry point and not the
+class is the lesson; the check now lives in one function that `holm`, `combine_arms` and
+`calibrated_p` all call.
+
+**And the shipping conformance artifact understated the guarded surface.**
+`docs/report/conformance.md` said sixteen protected file routes where the other three
+documents said nineteen — and it was the one page of the four that the derived count test did
+not bind, which is exactly why the other three stayed in step. It is bound now.
+
 **Four sentences were wrong where the code was right.** `site_pocket_rank` ranks the site
 against the decoy linings and not against every detected pocket, and the halo rule makes the
 published number optimistic against APOP by an unstated amount. `holm` never reads

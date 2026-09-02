@@ -127,8 +127,25 @@ sub-phase 1.6, the frozen **evaluation** layer, are both **closed**. 1.6 was clo
 > of CA — and declines the change, because the better rule is a protocol v5 and a re-freeze of
 > three layers for an effect that is **identical for every method**. The part that was a
 > defect rather than a choice is closed: two functions computed the same quantity and
-> disagreed. **No frozen value moved in the whole round**, and all three verifiers re-derive
-> unchanged. `benchmark/review/27-fourth-pass-synthesis.md` §1.8.
+> disagreed. `benchmark/review/27-fourth-pass-synthesis.md` §1.8.
+>
+> **The round's last pass found three more, after the first pass on the same diff had
+> approved.** A seventh spelling of the enumeration hole, and the first that defeats the
+> enumeration guard itself: `scan = ROOT.rglob` binds the method to a local, so at the call
+> site the callee is a bare name and at the assignment there is no call. As a live method on a
+> prediction module it enumerated 1304 files including all three `frozen.json`, with the suite
+> green. The answer is the third question round 5 arrived at for paths, asked now of the
+> capability: **does this file obtain a traversal function at all**, which needs no dataflow
+> and costs nothing, because no module under `src/allo` names one. A **NaN** then defeated the
+> multiplicity path: `holm` sorts it first, gives it the tightest threshold, fails to reject
+> it, and the step-down stops, so one NaN turned two rejections at p = 0.01 into none. That
+> was a miss of my own — the identical guard went into `_aligned` earlier in the round and not
+> into the class. And `docs/report/conformance.md`, the page a judge reads, understated the
+> guarded surface at sixteen routes against nineteen, because it was the one of four that the
+> derived count test did not bind.
+>
+> **One frozen value moved in the whole round**, a decoy cavity volume, found only under
+> `--detect`; the evaluation layer is re-frozen on it at `protocol_version: 4`.
 
 > **A second audit pass ran on 2026-09-02, audited the first one, and its findings were
 > repaired the same day. Read

@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 from collections.abc import Iterator, Mapping
 from pathlib import Path
 
@@ -185,6 +186,32 @@ def _gate(target: str, settings: dict) -> dict:
     return record
 
 
+def _checked_pvalues(pvalues: Mapping[str, float], where: str) -> dict[str, float]:
+    """Every p-value a decision reads, checked once. Round 6, 2026-09-03.
+
+    `np.any((values <= 0) | (values > 1))` does not reject a NaN, because every comparison
+    with a NaN is false. `_aligned` was given this guard earlier in round 6 for the identical
+    reason -- one NaN score sorts to the top of every endpoint and every null at once -- and
+    the multiplicity path was left with the same hole. It is worse here than a NaN record:
+    `holm` sorts the NaN FIRST, gives it the tightest threshold, fails to reject it, and the
+    step-down then stops, so a family of three that would reject twice at 0.01 rejects
+    **nothing**. Measured on the frozen confirmatory family before this guard existed.
+
+    `float("nan")` also serialises as bare `NaN`, which is not JSON, so a record carrying one
+    cannot be read back by a conforming parser.
+    """
+    values = {name: float(value) for name, value in pvalues.items()}
+    bad = sorted(
+        name for name, value in values.items() if not math.isfinite(value) or not 0 < value <= 1
+    )
+    if bad:
+        raise ValueError(
+            f"{where}: p-values must be finite and inside (0, 1]; "
+            f"{ {name: values[name] for name in bad} } is not"
+        )
+    return values
+
+
 def calibrated_p(p: float, ratio: float) -> float:
     """`p` rescaled so the test holds its size at **every** Holm threshold, not only at alpha.
 
@@ -208,6 +235,10 @@ def calibrated_p(p: float, ratio: float) -> float:
     untouched, and the composite stays monotone in `p`, which is what Holm needs. What it
     buys is that "calibration may tighten and may never loosen" holds as written.
     """
+    # Round 6: `norm.isf(nan)` is nan and `max(nan, ...)` returns whichever operand numpy
+    # happens to see first, so a NaN would propagate into `p_calibrated` and from there into
+    # `holm`. Checked at the same boundary as the family functions below.
+    _checked_pvalues({"p": p}, "calibrated_p")
     ratio = max(float(ratio), 1.0)
     return float(min(1.0, max(p, norm.sf(norm.isf(p) / ratio))))
 
@@ -603,8 +634,7 @@ def combine_arms(pvalues: Mapping[str, float], *, method: str | None = None) -> 
     values = np.array([float(pvalues[n]) for n in names], dtype=float)
     if not values.size:
         raise ValueError("combine_arms needs at least one arm")
-    if np.any((values <= 0) | (values > 1)):
-        raise ValueError(f"p-values outside (0, 1]: {dict(zip(names, values, strict=True))}")
+    _checked_pvalues(dict(zip(names, values, strict=True)), "combine_arms")
     if method == "fisher":
         statistic = float(-2 * np.log(values).sum())
         p = float(chi2.sf(statistic, 2 * values.size))
@@ -652,7 +682,7 @@ def holm(pvalues: Mapping[str, float], alpha: float = 0.05) -> dict[str, dict]:
     than Bonferroni and needs no independence assumption -- which matters here, because two
     arms of the same disease area are not independent.
     """
-    ordered = sorted(pvalues.items(), key=lambda kv: kv[1])
+    ordered = sorted(_checked_pvalues(pvalues, "holm").items(), key=lambda kv: kv[1])
     m = len(ordered)
     verdict: dict[str, dict] = {}
     still_rejecting = True

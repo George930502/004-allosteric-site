@@ -805,6 +805,50 @@ def enumeration_violations(source: str, filename: Path) -> set[Path]:
     return hits
 
 
+def traversal_capability_violations(source: str) -> set[Path]:
+    """Does this file OBTAIN a directory-traversal capability at all? Round 6, 2026-09-03.
+
+    `enumeration_violations` inspects a CALL whose callee is an attribute, so
+    `scan = ROOT.rglob` followed by `scan("*.json")` escapes it: at the call site the callee
+    is a bare `Name`, and at the assignment there is no call at all.
+
+    Measured, as a live method on a prediction module: it enumerated 1304 files including all
+    three `frozen.json`, with all 48 tests green. The resolver and the segment cover miss it
+    for the reasons `enumeration_violations` gives, so this asks the third question again --
+    not "which path", not "are the pieces present", but **does this file obtain a traversal
+    capability**. Tracking the alias through the assignment would be a dataflow whitelist, and
+    round 5 already lost that race once.
+
+    **Prediction path only.** A run script under `experiments/` and a review tool both
+    legitimately enumerate their own trees, and both are scanned by the same combined helper,
+    so this is unioned in at the prediction-path call site instead of inside it. It costs
+    nothing there: no module under `src/allo` names a traversal function in any position, so
+    the rule is free until someone needs one, and then it is a decision rather than an
+    accident.
+    """
+    hits: set[Path] = set()
+    for node in ast.walk(ast.parse(source)):
+        named = None
+        if isinstance(node, ast.Attribute):
+            named = node.attr
+        elif isinstance(node, ast.Name):
+            named = node.id
+        elif isinstance(node, ast.Constant) and isinstance(node.value, str):
+            named = node.value
+        if named in TRAVERSAL_NAMES:
+            hits |= PROTECTED_PATHS | FORMER_PROTECTED_PATHS
+    return hits
+
+
+# The traversal subset of `ENUMERATORS`, for the containment scan above. `ENUMERATORS` is
+# derived from `dir(glob)` and so also carries `escape`, `translate` and `has_magic`, which
+# enumerate nothing and are ordinary enough words to false-positive a scan over every string
+# in a file. A traversal name is one that says so: it walks, globs, scans or lists a dir.
+TRAVERSAL_NAMES = frozenset(
+    name for name in ENUMERATORS if any(word in name for word in ("glob", "walk", "dir", "scan"))
+)
+
+
 def _resolve_one(node: ast.AST, tree: ast.Module, filename: Path) -> Path | None:
     """The path one expression resolves to, in its own file's context, or None.
 
@@ -1043,7 +1087,13 @@ def test_the_prediction_path_cannot_build_either_route_out_of_pieces():
         if (
             is_prediction_path(module)
             and module != "allo.structure.pdb"  # owns the runtime denial for these roots
-            and (hits := protected_path_violations(text, path))
+            # `traversal_capability_violations` is unioned HERE and not inside
+            # `protected_path_violations`, because run scripts and review tools share that
+            # helper and both legitimately enumerate their own trees. See its docstring.
+            and (
+                hits := protected_path_violations(text, path)
+                | traversal_capability_violations(text)
+            )
         ):
             if module == "allo.inputs":
                 # This intermediate node is required to spell `data/raw/apo`; the parser
@@ -2497,6 +2547,29 @@ def test_an_enumeration_cannot_see_a_protected_path_by_any_spelling():
     ]
     assert not missed, f"a prediction module can still reach a protected path: {missed}"
 
+    # Round 6, 2026-09-03. A codex adversarial pass pointed at the shape all four share: the
+    # rule above inspects a CALL whose callee is an attribute, and none of these is one at the
+    # point where the capability is obtained. Reproduced as a live method on
+    # `allo.structure.graph`: 1304 files enumerated, all three `frozen.json` among them, all
+    # 48 tests green. `traversal_capability_violations` is what catches them, and it is
+    # unioned in at the prediction-path call site rather than inside the helper below, so
+    # these are checked through that function directly.
+    NL = "\n"  # spelled once, so the probe sources below stay one line each
+    aliased = {
+        "a bound method assigned to a local": root
+        + f'scan = ROOT.rglob{NL}for f in scan("*"): pass',
+        "the method name as a getattr string": root
+        + f'fn = getattr(ROOT, "rglob"){NL}for f in fn("*"): pass',
+        "the alias returned from a helper": root
+        + f"def pick():{NL}    return ROOT.iterdir{NL}{NL}for f in pick()(): pass",
+        "the name in a container, then indexed": root
+        + f'ops = [ROOT.glob]{NL}for f in ops[0]("*/*"): pass',
+    }
+    escaped = [
+        name for name, source in aliased.items() if not traversal_capability_violations(source)
+    ]
+    assert not escaped, f"an aliased traversal capability is still invisible: {escaped}"
+
     clean = {
         "a glob well away from any protected root": lib
         + 'for f in Path("results").glob("*.csv"): pass',
@@ -2573,6 +2646,11 @@ def test_the_counts_the_documents_assert_are_the_counts_the_repository_has():
             f"**{spelled[routes]}** file-read routes bypass the import graph. "
             f"All {lower[routes]} are named"
         ),
+        # Added 2026-09-03 by round 6, from a codex adversarial pass. This page said sixteen
+        # while the other three said nineteen, and it is the SHIPPING conformance artifact --
+        # the one a judge reads. It was not in this list, which is the whole reason the other
+        # three stayed in step and it did not.
+        "docs/report/conformance.md": f"{lower[routes]} protected file routes",
     }.items():
         assert pattern in (ROOT / name).read_text(), (
             f"{name} does not state the true route count of {routes}"

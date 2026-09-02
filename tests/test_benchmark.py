@@ -23,11 +23,16 @@ def test_target_ids_are_unique(manifest):
 
 
 def test_every_target_declares_what_it_is(manifest):
+    # Counted, because every assertion below is inside the loop: a filter that matched
+    # everything, or an emptied source, would make this test pass by asserting nothing.
+    checked = 0
     for target in manifest["targets"]:
+        checked += 1
         assert {"id", "tier", "protein", "site", "apo", "holo"} <= set(target)
         assert target["tier"] in {"mandated", "corrected", "sensitivity"}
         assert {"pdb", "chain"} <= set(target["apo"])
         assert {"pdb", "chain"} <= set(target["holo"])
+    assert checked, "the manifest declared no target, so this asserted nothing"
 
 
 def test_every_target_says_why_its_site_is_allosteric(manifest):
@@ -379,7 +384,11 @@ def test_the_scoring_universe_excludes_what_scores_by_construction():
     import json
 
     frozen = json.loads(benchmark.FROZEN.read_text())
+    # Counted: every assertion is inside the loop, so a filter that matched everything
+    # or an emptied source would make this pass by asserting nothing. Round 6.
+    checked = 0
     for target, derived in frozen["targets"].items():
+        checked += 1
         excluded = set(derived["excluded_from_scoring"])
         assert set(derived["active_site"]) <= excluded, (
             f"{target}: active-site residues {sorted(set(derived['active_site']) - excluded)} "
@@ -390,6 +399,7 @@ def test_the_scoring_universe_excludes_what_scores_by_construction():
         )
         assert derived["n_candidates"] == derived["n_residues"] - len(excluded)
         assert derived["n_candidates"] > len(derived["scoreable_label_residues"])
+    assert checked, "the freeze carried no target, so this asserted nothing"
 
 
 def test_the_manifest_pins_the_same_apo_bytes_as_the_freeze(manifest):
@@ -400,13 +410,18 @@ def test_the_manifest_pins_the_same_apo_bytes_as_the_freeze(manifest):
     import json
 
     frozen = json.loads(benchmark.FROZEN.read_text())
+    # Counted: every assertion is inside the loop, so a filter that matched everything
+    # or an emptied source would make this pass by asserting nothing. Round 6.
+    checked = 0
     for spec in manifest["targets"]:
         if spec.get("status") == "excluded":
             continue
+        checked += 1
         pdb = spec["apo"]["pdb"]
         assert spec["apo"].get("sha256") == frozen["targets"][spec["id"]]["hashes"][pdb], (
             f"{spec['id']}: manifest and freeze disagree on {pdb}'s bytes"
         )
+    assert checked, "every target was excluded, so this asserted nothing"
 
 
 def test_label_footprints_are_an_authority_not_a_prose_count(manifest):
@@ -621,9 +636,13 @@ def test_label_sets_do_not_depend_on_a_minor_conformer(manifest):
     from allo.structure.pdb import contacts
 
     cutoff = manifest["defaults"]["contact_cutoff_angstrom"]
+    # Counted: every assertion is inside the loop, so a filter that matched everything
+    # or an emptied source would make this pass by asserting nothing. Round 6.
+    checked = 0
     for spec in manifest["targets"]:
         if spec.get("status") == "excluded":
             continue
+        checked += 1
         holo = parse_mmcif(fetch_mmcif(spec["holo"]["pdb"], EVAL_CACHE), spec["holo"]["pdb"])
         chain, comp = spec["holo"]["chain"], spec["holo"]["ligand"]
         ligand = holo.ligand & (holo.resname == comp) & (holo.chain == chain)
@@ -637,6 +656,7 @@ def test_label_sets_do_not_depend_on_a_minor_conformer(manifest):
         assert full == prim, (
             f"{spec['id']}: labels {sorted(full - prim)} enter only via a minor conformer"
         )
+    assert checked, "every target was excluded, so this asserted nothing"
 
 
 def test_the_four_secondary_clauses_still_give_the_verdicts_the_readme_prints(manifest):
