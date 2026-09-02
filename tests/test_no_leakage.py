@@ -2487,6 +2487,10 @@ def test_the_counts_the_documents_assert_are_the_counts_the_repository_has():
     ]
     assert not wrong, f"these documents do not state the true ADR count of {len(adrs)}: {wrong}"
 
+    index = (ROOT / "docs/adr/README.md").read_text()
+    missing = [adr.name for adr in adrs if adr.name not in index]
+    assert not missing, f"docs/adr/README.md indexes every ADR by file name except: {missing}"
+
     directories = sorted(p for p in (ROOT / "experiments").iterdir() if p.is_dir())
     registry = (ROOT / "experiments" / "REGISTRY.md").read_text()
     words = {3: "three", 4: "four", 5: "five", 6: "six"}
