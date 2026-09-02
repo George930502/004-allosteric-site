@@ -819,6 +819,16 @@ detected at 80 % power at α, and **0.89–0.96** at Holm's tightest step. The p
 the detectable band do not overlap. An ordinary publishable result in this sub-field can fail
 on this benchmark, and the report must say so before its numbers rather than after them.
 
+> **The 0.75–0.82 band is the weakest evidence on this page and the report must not lean on
+> it.** Added 2026-09-03. `../evidence/evaluation-metrics.md` derives it from **two data
+> points, both marked `[UNVERIFIED]`**, and records that most of this family — PARS, Ohm,
+> ESSA, bond-to-bond propensity, STRESS — reports no AUC at all, using top-N, TPR/PPV,
+> quantile scores or z-score enrichment instead. So "the two bands do not overlap" rests on
+> two unverified numbers, and R3 ranks that below every other claim here. The **detectable**
+> band is measured and stands on its own; the comparison to the literature does not, and
+> saying which is which is the point. Verifying both sources, or widening the survey until the
+> band has a stated null, is what would settle it.
+
 **Three targets is a small family, and a negative result is weak evidence of absence.**
 
 ## 8. Multiplicity, and what generalises

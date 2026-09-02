@@ -1,5 +1,7 @@
 # 0012 — The tuning set must be family- and site-disjoint from every primary target
 
+**Clause 2's operational sentence is superseded on the clan reading by [ADR 0042](0042-clause-xii-is-pfam-family-plus-panther-narrowing.md), 2026-09-03.**
+
 **Status:** accepted · 2026-08-20
 
 ## Context
@@ -45,6 +47,15 @@ is examined, and frozen as a list of accessions before a single hyperparameter i
    InterPro/Pfam at a **release pinned and recorded in the artifact**, to any clan containing
    `PF00071` (Ras), `PF07714` (PK_Tyr_Ser-Thr) narrowed to the ABL/SRC branch by its
    InterPro/PANTHER family assignment, or `PF00063` (Myosin_head).
+
+   > **WITHDRAWN 2026-09-03 by [ADR 0042](0042-clause-xii-is-pfam-family-plus-panther-narrowing.md).**
+   > The word **clan** in the sentence above is superseded and the rule is Pfam **family**
+   > disjointness, narrowed by PANTHER where two arms share a family. `PF00071` and `PF00063`
+   > are both in CL0023, which holds 316 families — most of the druggable enzyme universe —
+   > and applying the sentence verbatim would drop `p97_vcp`, take the sealed tier below its
+   > N floor, and still fail to bind the primary set, which is not clan-disjoint from itself.
+   > The headline sentence above it stands and is what the rule means. Kept unedited because an
+   > ADR records the decision it was made on; ADR 0042 is the current rule.
 3. **Homologous site.** No record whose curated site is the structural equivalent of a
    primary site in _any_ protein — no myristoyl/SH3-clamp pocket, no switch-II or
    helix-3/loop-7 pocket, no myosin N-terminal/converter or blebbistatin site — even in an

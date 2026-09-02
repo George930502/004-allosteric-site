@@ -522,6 +522,17 @@ def combine_arms(pvalues: Mapping[str, float], *, method: str = "fisher") -> dic
     least one arm distinguishes the site from non-functional surface pockets". It is not a
     generalisation claim, and it must be labelled that way wherever it is quoted.
     """
+    # The manifest declares this combination `over: confirmatory_family`, and until
+    # 2026-09-03 nothing enforced it: two arms, or three that are not the family, were
+    # accepted without complaint while `confirmatory_verdict` next door checked its own.
+    # A combination over a set chosen after seeing the numbers is a different test from the
+    # one the protocol froze, so the family is checked here on the same argument.
+    declared = sorted(protocol()["decision"]["confirmatory_family"])
+    if sorted(pvalues) != declared:
+        raise ValueError(
+            f"combine_arms is declared over the confirmatory family, which is {declared}; "
+            f"got {sorted(pvalues)}. Combining a set chosen after the fact is a different test"
+        )
     names = sorted(pvalues)
     values = np.array([float(pvalues[n]) for n in names], dtype=float)
     if not values.size:

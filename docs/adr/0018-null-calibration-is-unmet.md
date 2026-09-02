@@ -1,5 +1,7 @@
 # 0018 — Matched-patch null calibration is unmet
 
+**Cleared 2026-08-25 by [ADR 0023](0023-the-null-is-calibrated-before-it-is-used.md).**
+
 **Status:** accepted · 2026-08-21
 
 ## Context

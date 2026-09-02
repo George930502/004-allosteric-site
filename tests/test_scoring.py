@@ -719,15 +719,26 @@ def test_combining_arms_tests_the_intersection_null_and_is_labelled_as_such():
 
     A rejection here licenses "at least one arm separates the site from non-functional surface
     pockets" and nothing stronger. The label is the point of the test (ADR 0030).
+
+    The arm names are the FROZEN family from 2026-09-03. The manifest declares this
+    combination `over: confirmatory_family` and nothing enforced it, so this test used three
+    made-up names and passed. A combination over a set chosen after seeing the numbers is a
+    different test from the one the protocol froze.
     """
-    floors = {"a": 0.25, "b": 0.1, "c": 0.04}
+    family = sorted(harness.protocol()["decision"]["confirmatory_family"])
+    floors = dict(zip(family, (0.25, 0.1, 0.04), strict=True))
     combined = harness.combine_arms(floors)
     assert combined["p"] < min(floors.values()), "combination must beat every per-arm floor"
     assert combined["tests"] == "intersection null: no arm has signal"
-    assert combined["arms"] == sorted(floors)
+    assert combined["arms"] == family
     assert combined["p_per_arm"] == floors
     # Identical inputs, both directions: a uniform p-vector must not reject.
-    assert harness.combine_arms(dict.fromkeys("abc", 0.5))["p"] > 0.05
+    assert harness.combine_arms(dict.fromkeys(family, 0.5))["p"] > 0.05
+
+    # And a set that is not the family is refused, which is the whole repair.
+    for wrong in ({family[0]: 0.01, family[1]: 0.01}, {"a": 0.01, "b": 0.01, "c": 0.01}):
+        with pytest.raises(ValueError, match="confirmatory family"):
+            harness.combine_arms(wrong)
 
 
 def test_the_frozen_decision_rule_reads_the_frozen_family():
