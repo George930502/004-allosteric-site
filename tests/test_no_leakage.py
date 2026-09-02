@@ -1966,9 +1966,31 @@ def test_the_boundary_module_is_exempt_for_the_manifests_and_nothing_else():
 
 # Three-letter codes, so a sweep for `164` also sees `Tyr164`. The 2026-09-02 sweep matched
 # bare integers on a word boundary and recorded a true finding as refuted for want of this.
-THREE_LETTER = (
-    "ALA ARG ASN ASP CYS GLN GLU GLY HIS ILE LEU LYS MET PHE PRO SER THR TRP TYR VAL MSE"
-).split()
+THREE_LETTER = [
+    # fmt: off
+    "ALA",
+    "ARG",
+    "ASN",
+    "ASP",
+    "CYS",
+    "GLN",
+    "GLU",
+    "GLY",
+    "HIS",
+    "ILE",
+    "LEU",
+    "LYS",
+    "MET",
+    "PHE",
+    "PRO",
+    "SER",
+    "THR",
+    "TRP",
+    "TYR",
+    "VAL",
+    "MSE",
+    # fmt: on
+]
 
 
 def tracked_files() -> set[str]:
