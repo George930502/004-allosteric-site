@@ -9,6 +9,10 @@ second coding agent, and seven scoped audits of the sealed tier, the occupant qu
 deposited structures, cross-set consistency, the extension pool, the C1 leak surface and the
 statistics.
 
+**It now carries a fifth round as well.** §1.7 records it. The file keeps its name, because a
+rename gives the same bytes a second name the former-name ledger has to be told about (ADR
+0043), and every document that points here points at this name.
+
 **Nothing here was decided from prose.** Every finding below was reproduced independently
 before it was accepted, and every one that was rejected was rejected against a measurement.
 
@@ -232,6 +236,101 @@ manifest set is a strict subset of the accession set on all fifteen arms and sev
 **the verdict is unchanged at that full width**: the only two family collisions among fifteen
 arms are between two arms of one protein. The test re-derives both the lists and the verdict.
 See ADR 0042.
+
+
+### 1.7 The fifth adversarial round: the guards were reading the wrong thing, twice
+
+Round 5 ran a `gpt-5.6-sol` adversarial pass over the whole repository beside three scoped
+audits — the C1 leak surface, the statistics, and the documents. It returned the largest C1
+finding this repository has had, and it found that round 4's own repair had been passing over
+every prose document on `main`.
+
+**An enumeration sees what it contains, and neither guard could ask that question.**
+`ROOT.rglob("*.npz")` hands back every file in the matched-patch cache. It resolves to no
+protected path, so the constant-path resolver clears it, and it spells no protected component,
+so the segment cover clears it too. **Both mechanisms miss it by construction**: the resolver
+models a glob pattern as a path component, which works only where the component is written
+out, and a wildcard is the one spelling where it never has to be. Ten spellings were installed
+as live prediction modules and recovered the positive count for all fifteen arms, the sealed
+`generalisation` tier included, with the whole suite green. C1 names that exact payload. The
+fix asks a third question — not "which path is this" and not "are the pieces present", but
+**can this call see a protected path** — which is a containment test in both directions and
+needs no pattern analysis. Three more spellings fell out of the same pass: case folding, since
+`Path("DATA")/"patches"` opens the cache on this filesystem; `list(x.parents)[i]`, which the
+resolver modelled without the sequence conversion around it; and `"".join([...])`, whose
+`+` twin constant folding already caught.
+
+**The round-4 count sweep matched identifiers, and prose does not use identifiers.** The sweep
+looked for an arm's exact positive count beside its identifier. Every document writes "both
+myosin arms", never `cardiac_myosin_corrected`, so the whole documentation set passed over it.
+Widening the needles to the identifier's own underscore-separated tokens found **nine real
+instances in eight files**, and the worst are the four most-read files on `main`: `AGENTS.md`,
+which is in context for every session, `README.md` and `docs/ROADMAP.md`. **Each of them was
+describing a leak route and reproducing its payload while doing it.** The rule they break is
+stated in the guard's own comment: describe an answer key by its shape and its location, never
+by its contents. Three more sites spelled the count as an English word, which a numeral sweep
+cannot see, and one printed real label residues in three-letter codes, which is below the
+complete-set floor the identity sweep uses.
+
+**Four smaller routes, each reproduced before it was accepted.** The manifest redaction
+allow-list bound only beside a schema key and never underneath one, so turning any of eight
+leaves from a scalar into a mapping put everything inside it on the prediction path; a leaf
+must now be a scalar or a flat sequence and fails closed otherwise. A shell runner's check ran
+only over extracted Python, so a bare `sed` on a protected path passed. `docs/report/` was
+unprotected and its substitutions page names the effector component ID beside the holo
+accession. And the contract itself was one route behind the code.
+
+**The conformance rule called nine operational leaves prose.** `DECLARATIVE_SETTINGS` was
+inverted in round 4 and the exempt list was drawn too wide. `pairwise_test` is the frozen
+definition of "beat", and an adversarial probe changed it to a Wilcoxon signed-rank test with
+the verifier silent. The exempt set is now the ten rationale leaves, the digest covers 64
+leaves instead of 55, and each of the nine is probed.
+
+**A freeze claim was false inside the ADR that made the change.** ADR 0044 said the primary
+freeze is byte-identical; the same commit moved `orthosteric_vocabulary.additives`, because
+the vocabulary is echoed into the freeze verbatim. What is true is that no primary target
+moved. Both input manifests also kept one version number across two different sets of bytes.
+
+**Five documents asserted four different ADR counts.** Each had been repaired once and
+re-broke with the next batch, so the repair is a test that derives every drifting count rather
+than a sixth retyping.
+
+**Six numeric drifts, all in the same class: a document restating a number a machine already
+holds.** The protocol README's `detected` column held decoys plus one on every row rather than
+what the detector returned; its calibration table quoted an `alpha_star` the freeze
+contradicts at the fifth decimal; its three power tables still held the version 2 chain-A row
+for `bcr_abl1_mandated`, whose `size_ratio` moved with the chain, and omitted
+`cardiac_myosin_mandated` entirely, which moves the published band and the flatness bound. The
+primary README's crypticity table carried a stale distance, and the round-4 note beside it
+asserted that neither quantity is in the freeze when both are. Every one of these tables is
+now derived by a test, with a mutation probe per table.
+
+**And three numbers traced to nothing.** A 95 % interval for `alpha_star` that no record
+holds, replaced by review 21's out-of-sample measurement of the same quantity; ADR 0023's
+claim that twelve estimates shrink the under-tightening chance below the four-estimate
+scheme's 0.27, which review 21 measures at 0.275 to 0.300 and refutes; and ADR 0038's 0.2631
+for the uncorrected conjunction, which is in neither cited record while its other five numbers
+are, now marked `[UNVERIFIED]` with the bound the records do support.
+
+**Two claims were stated more strongly than their evidence.** §7.2's conclusion that the
+published AUC band and the detectable band do not overlap rests, on the published half, on two
+data points its own source file marks `[UNVERIFIED]`. And the reason given for printing
+recall@5 was a field convention, citing 17 of 22 surveyed tools — where the count is right and
+the inference is a category error, since the field's top-N is a per-protein binary over
+detected pockets. Both now say what they rest on. Neither number changed.
+
+**One finding was disclosed rather than repaired, and it is the most consequential.** Review
+21's S3 measured the combined decoy test's true size at nominal 0.05 as **0.0014 to 0.0066**
+by Fisher — 7.6 to 36 times conservative — and no frozen document carried it. ADR 0030 ran the
+type-I gate on the per-arm test and on the two replacements it rejected, never on the
+construction it adopted. Most of the gap is the discrete support of the per-arm p-value: by
+exact enumeration a nominal-0.05 Fisher test is an actual-0.0206 test on its own. **A
+rejection there is strong and a non-rejection means very little**, and both readings are now
+in §8 and in the manifest. Nothing is retuned, because a size fitted after the construction
+was adopted is a hyperparameter chosen with the design in hand.
+
+**One refutation.** §6.2's version-2 percentiles were flagged as stale. The table already
+declares itself version-2 data and says it was not re-measured, so nothing is wrong with it.
 
 
 ## 2. Corrections to the frozen layers

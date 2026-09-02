@@ -83,6 +83,28 @@ sub-phase 1.6, the frozen **evaluation** layer, are both **closed**. 1.6 was clo
 > per-entity assignments, a strict subset of the accession sets clause (xii) resolves on.
 > Both manifests carry the accession-derived sets now and **the verdict holds at that full
 > width**. No frozen value moved.
+>
+> **Round 5 found the guards reading the wrong thing, twice, and the second is the largest C1
+> hole this repository has had.** An **enumeration** — `rglob`, `glob`, `iterdir`, `os.walk`,
+> `listdir` — hands back a protected tree's contents without naming it, so the constant-path
+> resolver clears it and the segment cover clears it too. Ten spellings ran as live prediction
+> modules and recovered the positive count for every arm, the sealed tier included, with the
+> whole suite green. The rule now asks whether a call **can see** a protected path, which is a
+> containment test and needs no pattern analysis. Case folding, `list(x.parents)[i]` and
+> `"".join([...])` fell out of the same pass. Separately, **round 4's count sweep matched
+> identifiers and prose does not use identifiers**: widening the needles to the identifier's
+> own tokens found nine instances in eight files, including `AGENTS.md`, `README.md` and this
+> file, each describing a leak route while reproducing its payload. Data routes now number
+> **sixteen**.
+>
+> **The round also found six numeric drifts of one kind: a document restating a number a
+> machine already holds.** Four tables in the protocol README and one in the primary README
+> are now derived by tests with a mutation probe each. Three further numbers traced to no
+> record and are replaced by measurements or marked `[UNVERIFIED]`. **One high finding is
+> disclosed rather than repaired**: the combined decoy test's true size at nominal 0.05 is
+> 0.0014 to 0.0066, which is 7.6 to 36 times conservative, mostly from the discrete support of
+> the per-arm p-value. A rejection there is strong and a non-rejection means very little. No
+> frozen value moved for any of this. `benchmark/review/27-fourth-pass-synthesis.md` §1.7.
 
 > **A second audit pass ran on 2026-09-02, audited the first one, and its findings were
 > repaired the same day. Read
