@@ -25,6 +25,17 @@ control makes the stakes concrete: `cavity_volume` clears family 1 under the dis
 fails it under the conjunction, so the two readings disagree about the repository's own
 declared reference method.
 
+
+**These are the recorded outputs, not a re-runnable script.** The simulations import
+`allo.inputs` and `allo.scoring`, and a tracked file inside the review tree may import no
+`allo` module (ADR 0034), so the scripts could not live beside their output and
+`experiments/` could not hold them either. Each JSON carries the seed, the sample size, the
+arm and the interval, which is enough to check the arithmetic and to rebuild the run, and it
+is less than the repository asks for elsewhere. `../benchmark/review/data/endpoint-b-2026-09-03/README.md`
+states the rule that produced the gap. The endpoint-b measurement was afterwards moved into
+`allo.scoring.simulate` and re-run as a tracked experiment; the FWER and budget simulations
+were not, and that is recorded here rather than claimed away.
+
 ## Decision
 
 **A family is cleared when Holm rejects at least one of its arms.** The composite verdict
@@ -40,7 +51,7 @@ the secondary `generalisation` tier.
 ## Why the disjunction and not the conjunction
 
 Measured, not argued. Scripts and raw output:
-`../benchmark/review/data/endpoint-b-2026-09-03/s1_fwer.py`, `s1_lfc.py`.
+`../benchmark/review/data/endpoint-b-2026-09-03/s1_fwer.json`, `s1_lfc.json`.
 
 1. **Holm controls the disjunction, and only the disjunction.** Measured global-null
    familywise error is 0.0416 to 0.0457 against a nominal 0.05, and the closed form is

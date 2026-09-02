@@ -985,34 +985,38 @@ def verify_evaluation(detect: bool = False) -> list[str]:
 # class looks like.
 DECLARATIVE_SETTINGS = frozenset(
     {
+        # Rationale prose, and nothing else. Each says WHY a choice was made or why an
+        # endpoint is absent. None of them states what the code computes, so none can move a
+        # number by disagreeing with the implementation.
+        #
+        # SHRUNK from 19 to 10 on 2026-09-03. The first cut called a leaf declarative when it
+        # read like prose, and nine of them were operational: `pairwise_test` is the frozen
+        # definition of "beat", `also_report` mandates a correlation against every baseline,
+        # `confounders.statistic` names the estimator, five `source` and `normalised_by`
+        # fields name the exact quantity the code derives, and `frozen_on` dates the freeze.
+        # An adversarial pass moved `pairwise_test` to a Wilcoxon signed-rank test and
+        # `verify_evaluation` returned no problems. Prose is what a reviewer reads; a rule is
+        # what the code obeys, and the test for the difference is whether the implementation
+        # could contradict it.
         "confounders.conservation.note",
-        "confounders.degree.source",
         "confounders.distance_to_source.note",
-        "confounders.distance_to_source.source",
-        "confounders.hydrophobicity.source",
         "confounders.normalised_b_factor.note",
-        "confounders.normalised_b_factor.source",
-        "confounders.relative_solvent_accessibility.normalised_by",
-        "confounders.statistic",
         "endpoints.omitted.accuracy",
         "endpoints.omitted.dvo",
         "endpoints.omitted.enrichment_factor_bedroc_rie",
         "endpoints.omitted.jaccard",
         "endpoints.omitted.mcc_and_f1",
         "endpoints.omitted.top_5_fragmentation",
-        "frozen_on",
-        "secondary_objectives.classical_comparison.also_report",
-        "secondary_objectives.classical_comparison.pairwise_test",
         "source",
     }
 )
 
-# sha256 over the 55 normative leaves, canonical JSON, sorted keys. Recomputed deliberately
+# sha256 over the 64 normative leaves, canonical JSON, sorted keys. Recomputed deliberately
 # when the protocol version moves, never to make a failure go away: a mismatch means the
 # manifest and the code disagree, and the manifest is not the authority on what the code does.
 _MISSING = object()
 
-NORMATIVE_DIGEST = "cc9731251793d9613df6ae0ea2a6b6ea9588478a749bd8c552bc7a22f572a0cd"
+NORMATIVE_DIGEST = "b26ecd7ee94db1d1ee1c864afa0822e38fdd7d1d9b36797fc3e5f4df49a318d2"
 
 
 def _settings_leaves(node: object, path: str = "") -> Iterator[tuple[str, object]]:

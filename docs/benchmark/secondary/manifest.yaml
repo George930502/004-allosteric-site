@@ -37,7 +37,15 @@
 # sequence annotation, it is redacted out of the prediction path like every other evaluation
 # field, and it exists so clause (xii) is a test rather than a promise.
 
-version: 1
+# VERSION 2 -- 2026-09-03. The occupant annotation was corrected by ADR 0044 and this file
+# and its freeze both changed, while the version stayed where it was for a day. Two different
+# freezes cannot carry one identity, even before a method is scored: "version 1" would name
+# whichever bytes a reader happened to fetch. The target set, every label set and every scored
+# quantity are unchanged from version 1; what moved is `orthosteric_vocabulary` and, in the
+# secondary set, the derived `matches_apo` on three arms. `version` is not among the six keys
+# `freeze()` echoes, so this bump moves no frozen value and `allo benchmark verify` re-derives
+# clean without a re-freeze.
+version: 2
 frozen_on: 2026-08-24
 source: CHALLENGE.md section 6 — additional targets of the participant's choice
 

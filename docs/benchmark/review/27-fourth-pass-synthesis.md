@@ -414,7 +414,8 @@ components.
    never touch.
 3. **A re-freeze would move ten fields and no number.** `matches_apo` would flip on `mkp5`,
    `chk1` and `ptp1b`; `smyd3` keeps its verdict but moves two bucket lists; the primary set is
-   byte-identical, because neither component contacts a primary active site. One sentence in
+primary freeze moved exactly one leaf, `orthosteric_vocabulary.additives`, and no primary
+   target moved, because neither component contacts a primary active site. One sentence in
    `secondary/README.md` would go stale, the one saying the derived and declared fields
    disagree on four arms.
 

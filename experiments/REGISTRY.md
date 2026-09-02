@@ -10,7 +10,7 @@ Newest last. One line each: date · slug · target · method · headline metric 
 > and two of them were already stale against the code before the move, which the
 > 2026-09-02 rows near the end of this file measure.
 >
-> The three surviving directories are `2026-08-25-null-calibration`, `2026-08-25-null-repairs`
+> The four surviving directories are `2026-08-25-null-calibration`, `2026-08-25-null-repairs`
 > and `2026-09-02-null-recalibration`. All three are evaluation-layer runs.
 
 | Date | Experiment | Target | Method | Headline | Verdict |

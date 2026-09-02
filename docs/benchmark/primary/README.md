@@ -1,6 +1,6 @@
 # The frozen benchmark — input layer
 
-**Status: frozen 2026-08-24. Five scoreable arms across the three challenge disease areas.**
+**Status: frozen 2026-08-24. Six scoreable arms across the three challenge disease areas.**
 `uv run allo benchmark verify` re-derives every pinned value from the deposited files and
 exits 0 only if nothing moved.
 

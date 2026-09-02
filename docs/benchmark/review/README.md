@@ -18,10 +18,10 @@ residue count directly: "not even the residue count". `tests/test_no_leakage.py`
 tree in `PROTECTED_PATHS`, so no prediction-path module and no experiment runner may open it.
 Its own tools are exempt by a **rule**, not by a name list: a file is a review tool when it is
 tracked inside this tree **and** imports nothing from `allo`. Two tests pin that rule
-(ADR 0034). It is the **seventh** data route that bypasses the import graph; six more were found on 2026-09-02 and there are now thirteen (`AGENTS.md`).
+(ADR 0034). It is the **seventh** data route that bypasses the import graph; the count reached sixteen on 2026-09-03 and `AGENTS.md` is the list of record.
 
 **What has since been done.** Read
-[`11-synthesis.md`](11-synthesis.md) §"Disposition". Eight ADRs, 0029 to 0036, came out of this
+[`11-synthesis.md`](11-synthesis.md) §"Disposition". Nine ADRs, 0029 to 0037, came out of this
 audit, and the primary input layer was re-frozen at six arms on the same day. Protocol version
 3 was frozen that day, and **a fourth pass on 2026-09-03 opened version 4** — ADR 0038 and
 ADR 0039, recorded in [`27-fourth-pass-synthesis.md`](27-fourth-pass-synthesis.md).

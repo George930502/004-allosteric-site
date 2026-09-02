@@ -7,8 +7,8 @@
 > Findings whose subject is one of those files are **not re-runnable on `main`**. They stay
 > here unedited, because a record of what an audit found is worth keeping even when the
 > subject is gone. To re-run one, check out that branch. Two things moved rather than left:
-> `allo.network.graph` is now `allo.structure.graph`, and the nine required baselines are now
-> `allo.scoring.baselines`.
+> `allo.network.graph` is now `allo.structure.graph`, and the required baselines are now
+> `allo.scoring.baselines` -- eight of the nine, with `cavity_volume` in `allo.scoring.decoys`.
 
 **Closed 2026-09-02, after the first pass.** `11-synthesis.md` audited the three frozen layers
 against the organisers' answers and produced ADRs 0029 to 0036, a six-arm primary re-freeze and

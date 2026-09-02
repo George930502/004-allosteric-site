@@ -135,7 +135,7 @@ PROTECTED_PATHS = {
     # contact shell in three-letter codes -- the complete `label_residues` set for both
     # myosin arms,
     # the same set `docs/targets.md` was protected for one day earlier. An ADR argues from
-    # the evidence, so the evidence lands in it, and the tree holds 37 of them. Protected
+    # the evidence, so the evidence lands in it, and the tree holds 44 of them. Protected
     # whole rather than file by file, for the reason `evaluation/` and `review/` are: an ADR
     # written next week is protected by default rather than leaked by default.
     (ROOT / "docs" / "adr").resolve(),
@@ -1132,7 +1132,7 @@ def test_constant_path_guard_catches_composition_and_quote_variants(tmp_path):
 
 
 def test_the_segment_cover_backstop_catches_assembled_paths(tmp_path):
-    """Twenty-one spellings that build a protected path without ever writing one.
+    """Twenty-two spellings that build a protected path without ever writing one.
 
     The resolver above models path expressions, and an adversarial pass on 2026-09-03
     listed twenty-six spellings it does not model. Three of them ran together in one tracked
@@ -2457,3 +2457,68 @@ def test_an_enumeration_cannot_see_a_protected_path_by_any_spelling():
     }
     noisy = [name for name, source in clean.items() if protected_path_violations(source, probe)]
     assert not noisy, f"the rule fires on an enumeration that reaches nothing protected: {noisy}"
+
+
+def test_the_counts_the_documents_assert_are_the_counts_the_repository_has():
+    """Counts drift, and this repository's drift twice, so derive them rather than typing them.
+
+    Added 2026-09-03 by the round-5 audit, which found five documents asserting four different
+    ADR counts, three surviving experiment directories where there are four, and a route list
+    whose header, its own numbering and its closing sentence disagreed. Every one of those had
+    been repaired once before by `docs/benchmark/review/23-document-alignment.md` and had
+    re-broken when the next batch landed. A number a human retypes is a number that goes
+    stale; the fix is to derive it here so the next batch cannot land without noticing.
+
+    The route count is checked for INTERNAL consistency rather than against `PROTECTED_PATHS`,
+    because one route can protect two paths -- route 1 covers both input trees -- so the two
+    are not the same number and pinning them to each other would be wrong.
+    """
+    adrs = sorted(ROOT.glob("docs/adr/[0-9][0-9][0-9][0-9]-*.md"))
+    stated = {
+        "docs/adr/README.md": f"indexes all {len(adrs)}|{len(adrs)} decisions|Forty-four decisions",
+        "AGENTS.md": rf"indexes all {len(adrs)} by topic",
+        "README.md": rf"{len(adrs)} decision records",
+        "CONTRIBUTING.md": rf"groups all {len(adrs)} by topic",
+    }
+    wrong = [
+        name
+        for name, pattern in stated.items()
+        if not re.search(pattern, (ROOT / name).read_text())
+    ]
+    assert not wrong, f"these documents do not state the true ADR count of {len(adrs)}: {wrong}"
+
+    directories = sorted(p for p in (ROOT / "experiments").iterdir() if p.is_dir())
+    registry = (ROOT / "experiments" / "REGISTRY.md").read_text()
+    words = {3: "three", 4: "four", 5: "five", 6: "six"}
+    assert f"The {words[len(directories)]} surviving directories" in registry, (
+        f"REGISTRY.md miscounts the experiment directories; there are {len(directories)}"
+    )
+
+    contract = (ROOT / "AGENTS.md").read_text()
+    numbered = re.findall(r"^(\d+)\. \*\*", contract[contract.index("data routes bypass") :], re.M)
+    routes = len(numbered)
+    assert [int(n) for n in numbered] == list(range(1, routes + 1)), (
+        f"the route list in AGENTS.md is not numbered 1..{routes}: {numbered}"
+    )
+    spelled = {13: "Thirteen", 14: "Fourteen", 15: "Fifteen", 16: "Sixteen", 17: "Seventeen"}
+    lower = {n: word.lower() for n, word in spelled.items()}
+    assert f"**{spelled[routes]} data routes bypass" in contract, (
+        f"AGENTS.md lists {routes} routes and its header says otherwise"
+    )
+    assert f"All {lower[routes]} are enforced" in contract, (
+        f"AGENTS.md lists {routes} routes and its closing sentence says otherwise"
+    )
+
+    from allo.scoring.baselines import REQUIRED_BASELINES
+
+    banner = "the required baselines are now"
+    for page in sorted((ROOT / "docs" / "benchmark" / "review").glob("*.md")):
+        text = page.read_text()
+        if banner in text:
+            assert (
+                f"{len(REQUIRED_BASELINES)} of the nine" in text or "eight of the nine" in text
+            ), (
+                f"{page.name} states the baseline count in a form the code contradicts; "
+                f"`REQUIRED_BASELINES` holds {len(REQUIRED_BASELINES)} and `cavity_volume` "
+                "is in `allo.scoring.decoys`"
+            )

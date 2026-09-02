@@ -23,7 +23,7 @@ type-I rate covered it.** That was true on 2026-09-02.
 Instrument: the site-uninformative Gaussian field the frozen calibration itself uses,
 `nulls.smooth_field`, over the real Cα coordinates, with the real site and decoy linings read
 from the freeze. Seeds are printed per cell. Script and raw output:
-`../benchmark/review/data/endpoint-b-2026-09-03/s34_sim.py` and `s4b_label_endpoint.py`.
+`../benchmark/review/data/endpoint-b-2026-09-03/s34_sim.json` and `s4b.json`.
 
 **The shipped statistic has no power against the deliverable.** Power at correlation length 8,
 20 000 fields per cell, with δ added to a residue set before ranking:

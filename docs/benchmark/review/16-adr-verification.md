@@ -7,8 +7,8 @@
 > Findings whose subject is one of those files are **not re-runnable on `main`**. They stay
 > here unedited, because a record of what an audit found is worth keeping even when the
 > subject is gone. To re-run one, check out that branch. Two things moved rather than left:
-> `allo.network.graph` is now `allo.structure.graph`, and the nine required baselines are now
-> `allo.scoring.baselines`.
+> `allo.network.graph` is now `allo.structure.graph`, and the required baselines are now
+> `allo.scoring.baselines` -- eight of the nine, with `cavity_volume` in `allo.scoring.decoys`.
 
 **Audited 2026-09-02**, read-only. Scope: `docs/adr/0029` to `docs/adr/0036` — the decisions
 that came out of the audit in this directory, two of which moved a frozen layer. Each ADR was

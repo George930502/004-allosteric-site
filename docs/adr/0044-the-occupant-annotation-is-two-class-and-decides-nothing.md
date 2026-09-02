@@ -161,10 +161,17 @@ already carry `matched: false` — so nothing is admitted or rejected by this, a
 - **The input layer is re-frozen.** `matches_apo` flips from false to true on `mkp5`, `chk1`
   and `ptp1b`, because each apo's only recorded occupant moves out of `state_components` and
   the holo has none. `smyd3` keeps its verdict and moves two bucket lists. `ecoli_cps` keeps
-  its verdict, since both halves hold the same components. **No number moves**, and the primary
-  freeze is byte-identical, because no primary active site contacts any of the three — which
-  the existing freeze proves by existing, since the classifier raises on an unnamed contacting
-  component.
+  its verdict, since both halves hold the same components. **No number moves.**
+
+  **CORRECTED 2026-09-03 by the round-5 audit: this said the primary freeze is byte-identical
+  and it is not.** `primary/frozen.json` moved one leaf, `orthosteric_vocabulary.additives`,
+  from the empty list to the three components. The vocabulary is echoed into the freeze
+  verbatim, so declaring an additive class necessarily moves it. What is true, and is what the
+  sentence was reaching for, is that **no primary TARGET moved**: every per-arm value is
+  identical, because no primary active site contacts any of the three components — which the
+  existing freeze proves by existing, since the classifier raises on an unnamed contacting
+  component. A wrong claim about a freeze is worse than a moved leaf, and this one stood for a
+  day inside the ADR that made the change.
 - **One sentence in `secondary/README.md` goes stale by this ADR and is corrected with it**:
   the derived and declared state fields no longer disagree on four arms.
 - **The evaluation protocol does not move.** No endpoint, null, decoy or decision changes, and

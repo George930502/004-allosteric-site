@@ -7,8 +7,8 @@
 > Findings whose subject is one of those files are **not re-runnable on `main`**. They stay
 > here unedited, because a record of what an audit found is worth keeping even when the
 > subject is gone. To re-run one, check out that branch. Two things moved rather than left:
-> `allo.network.graph` is now `allo.structure.graph`, and the nine required baselines are now
-> `allo.scoring.baselines`.
+> `allo.network.graph` is now `allo.structure.graph`, and the required baselines are now
+> `allo.scoring.baselines` -- eight of the nine, with `cavity_volume` in `allo.scoring.decoys`.
 
 **Date: 2026-09-02. Scope: `docs/benchmark/evaluation/` protocol version 2, its manifest, its
 evidence base, and `src/allo/scoring/harness.py`. Adversarial, independent, search-first.**

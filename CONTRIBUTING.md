@@ -164,7 +164,7 @@ Write one in [`docs/adr/`](docs/adr/README.md) when a choice is expensive to rev
 - A constraint interpretation is settled.
 
 Do not write one for a routine implementation detail. The index in
-[`docs/adr/README.md`](docs/adr/README.md) groups all 37 by topic, and the format is at the
+[`docs/adr/README.md`](docs/adr/README.md) groups all 44 by topic, and the format is at the
 top of that file. An ADR is never deleted. A decision that stops binding becomes
 `withdrawn` and says why.
 

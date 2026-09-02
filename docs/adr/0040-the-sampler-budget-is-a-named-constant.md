@@ -16,7 +16,8 @@ sampler cannot fill. 999 × 4000 = 3,996,000, which is exactly the attempt count
 ## What the audit measured
 
 Script and raw output:
-`../benchmark/review/data/endpoint-b-2026-09-03/s5_redraw.py`, `s5_t005_n999_cap10000.json`,
+`../benchmark/review/data/endpoint-b-2026-09-03/s5_t005_n999_cap10000.json` and
+`s5_t010_n999_cap4000.json`, `s5_t005_n999_cap10000.json`,
 `s5_t010_n999_cap4000.json`.
 
 - Re-drawn fresh at cap 4000, the rung reproduces 822 of 999 at acceptance 0.000206.
@@ -25,6 +26,17 @@ Script and raw output:
   0.000884, which matches the probe already cited in the README.
 - The cap binds only when acceptance falls below 2.5 × 10⁻⁴. The worst margin over all fifteen
   gate arms is 3.5× on `cardiac_myosin_mandated`, and the next is 44.8×.
+
+
+**These are the recorded outputs, not a re-runnable script.** The simulations import
+`allo.inputs` and `allo.scoring`, and a tracked file inside the review tree may import no
+`allo` module (ADR 0034), so the scripts could not live beside their output and
+`experiments/` could not hold them either. Each JSON carries the seed, the sample size, the
+arm and the interval, which is enough to check the arithmetic and to rebuild the run, and it
+is less than the repository asks for elsewhere. `../benchmark/review/data/endpoint-b-2026-09-03/README.md`
+states the rule that produced the gap. The endpoint-b measurement was afterwards moved into
+`allo.scoring.simulate` and re-run as a tracked experiment; the FWER and budget simulations
+were not, and that is recorded here rather than claimed away.
 
 ## Decision
 
