@@ -86,6 +86,48 @@ written up, and the count is fourteen in all four places that state it.
 Raw measurements: `data/endpoint-b-2026-09-03/`, with seeds, sample sizes and
 Clopper-Pearson intervals. `allo evaluate verify` re-derives with zero problems.
 
+### 1.4 The second adversarial round, and one repair that was wrong
+
+The adversarial agent ran a second time against the repaired state and returned eight
+findings. All eight reproduced.
+
+| # | What was wrong | Where it is closed |
+| --- | --- | --- |
+| 1.4a | The **comment explaining a leak route was the route.** `AGENTS.md` and the leakage test both quoted the twelve myosin label residues while describing why `docs/targets.md` and ADR 0031 are protected. Neither file is protected and neither is scanned | Both redacted. `test_no_unprotected_tracked_file_reproduces_a_label_set` makes the 2026-09-02 hand sweep a test, with three-letter codes normalised and a 400-character window, and it fails on a planted file |
+| 1.4b | **Code points defeat both path defences.** `Path(*(bytes(x).decode() for x in [[100, 111, 99, 115], ...]))` reads the primary freeze and leaves no string and no bytes literal | Integer runs are decoded and harvested, with a probe. And the guard now states plainly what a static check over Python source cannot promise |
+| 1.4c | **The version 4 measurements were not reproducible.** The simulation was an untracked script | `allo.scoring.simulate` and `experiments/2026-09-03-endpoint-b/` |
+| 1.4d | **The version 4 endpoint and both sidedness declarations were unbound.** A probe removed the endpoint and flipped both, and the verifier stayed green. Turning `decision.sided` from `upper` to `two` halves every confirmatory tail without moving a pinned value | Three more conformance bindings, each probed |
+| 1.4e | `confirmatory_verdict` **omitted `cleared`** when the claim family was absent, so a caller could not tell "not cleared" from an older record | Always present, and False with a reason |
+| 1.4f | The former-path list was **derived from git at import time**, so it was empty in a shallow clone and in a `git archive` export | `tests/former_protected_paths.json` is the source; git cross-checks it. Verified by running the test inside a `--depth=1` clone |
+| 1.4g | Current-state documents still said **protocol version 3**, and the roadmap still read one-of-three as a failure | Section 0a of the evaluation README, and every current-state version statement |
+| 1.4h | **ADR 0039's size claim was wrong** | Below |
+
+**1.4h is the important one, because the fourth pass got it wrong first.** ADR 0039 said
+unequal set sizes make the label form "conservative, never anti-conservative". That was
+inferred from a single null family. The objection was that the two sides are not exchangeable,
+so the statistic's size is a property of the score field rather than a distribution-free
+guarantee, and one generator cannot support "never".
+
+Measured over four generators, 20 000 fields per cell, worst size across four correlation
+lengths:
+
+| generator | `site` | `label` |
+| --- | ---: | ---: |
+| `white_noise` | 0.0001 | 0.0086 |
+| `smooth_gaussian` | 0.0049 | 0.0154 |
+| `smooth_t` | 0.0047 | 0.0137 |
+| `distance_shell` | 0.0237 | **0.0548** |
+
+The label form **exceeds alpha**. On `bcr_abl1_corrected` under `distance_shell` it runs 0.0513
+to 0.0548 across all four correlation lengths, and the worst cell's 95 % interval, [0.0516,
+0.0580], is entirely above 0.05. That field is negated distance to a random residue, which is
+the shape every distance-correlated baseline in this repository has.
+
+So `label_p` ships as a **descriptive percentile and not a p-value**. It measures the
+deliverable, which nothing else here does, and it carries no rejection. `p` holds on all four
+generators, so review 25 §1.4's exchangeability argument is vindicated by measurement rather
+than by principle.
+
 ---
 
 ## 2. Corrections to the frozen layers

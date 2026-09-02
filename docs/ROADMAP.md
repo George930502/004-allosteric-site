@@ -30,8 +30,15 @@ sub-phase 1.6, the frozen **evaluation** layer, are both **closed**. 1.6 was clo
 > green. And negative class (b) did not measure the deliverable: a shift of four standard
 > deviations on every label residue gives power **0** on KRAS and on cardiac myosin, because
 > the statistic ranks the detector's pocket lining and twelve myosin labels sit inside a
-> 295-residue lining. ADR 0039 adds the label-set form beside it; measured size 0.0000, 0.0083
-> and 0.0094 against a nominal 0.05, and power 0.87 and 1.00 where the shipped form has none.
+> 295-residue lining. ADR 0039 adds the label-set form beside it, with power 0.875 and 1.000
+> where the shipped form has none.
+>
+> **ADR 0039 was amended the same day, against its own first measurement.** It claimed the
+> label form is "conservative, never anti-conservative" from one null family. Measured over
+> four generators in `experiments/2026-09-03-endpoint-b/`, its size reaches **0.0548** with a
+> 95 % interval of [0.0516, 0.0580], entirely above alpha, under a blocky distance-monotone
+> field -- the shape every distance-correlated baseline here has. So it ships as a
+> **descriptive percentile and not a p-value**, and the shipped `p` holds on all four.
 >
 > **"Clearing a family" had no definition**, and the frozen layer held both readings in
 > documents that cite each other. ADR 0038 freezes the disjunction, in code. Under it,
