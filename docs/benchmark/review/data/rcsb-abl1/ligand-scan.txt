@@ -1,0 +1,13 @@
+Entries carrying a myristate / known allosteric-pocket ligand (MYR, AY7=asciminib, STJ=GNF-2):
+  1OPJ: ['MYR']   all ligands=['CL', 'MYR', 'STI']
+  1OPK: ['MYR']   all ligands=['GOL', 'MYR', 'P16']
+  1OPL: ['MYR']   all ligands=['MYR', 'P16']
+  2FO0: ['MYR']   all ligands=['GOL', 'MYR', 'P16']
+  3K5V: ['STJ']   all ligands=['CL', 'STI', 'STJ']
+  5MO4: ['AY7']   all ligands=['AY7', 'NIL']
+  8SSN: ['AY7']   all ligands=['AY7', 'CL', 'DMS', 'SKI', 'SO4']
+
+Entries with NO nonpolymer ligand at all:
+   ['1AB2', '1ABQ', '1AWO', '1JU5', '1ZZP', '2ABL', '2ECD', '2KK1', '3ULR', '5DC0', '5NP2', '5NP3', '6AMV', '6AMW', '6XR6', '6XR7', '6XRG', '7PVQ', '7PVR', '7PW2', '9KS5']
+
+Total distinct entries scanned: 118

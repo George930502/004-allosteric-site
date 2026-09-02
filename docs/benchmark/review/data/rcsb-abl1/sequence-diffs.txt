@@ -1,0 +1,22 @@
+
+1OPL_1  RCSB pdbx_mutation = 'D382N, K29R, E29D'
+   vs P00519 region 6-12: differences (UniProt-1a pos, ref, entity) -> 6L->I, 8L->G, 9V->A, 11C->K, 12K->R   [1b numbering: L25I, L27G, V28A, C30K, K31R]
+   vs P00519 region 13-512: differences (UniProt-1a pos, ref, entity) -> 14K->R, 15K->H, 17L->G, 18S->P, 19S->H, 20S->C, 21S->N, 22S->V, 23C->F, 24Y->V, 25L->E, 26E->H, 363D->N   [1b numbering: K33R, K34H, L36G, S37P, S38H, S39C, S40N, S41V, C42F, Y43V, L44E, E45H, D382N]
+
+2FO0_1  RCSB pdbx_mutation = 'D382N'
+   vs P00519 region 38-512: differences (UniProt-1a pos, ref, entity) -> 363D->N   [1b numbering: D382N]
+
+4XEY_1  RCSB pdbx_mutation = None
+   vs P00519 region 119-515: identical to reference
+
+5MO4_1  RCSB pdbx_mutation = 'T334I D382N'
+   vs P00519 region 27-515: differences (UniProt-1a pos, ref, entity) -> 315T->I, 363D->N   [1b numbering: T334I, D382N]
+
+8SSN_1  RCSB pdbx_mutation = None
+   vs P00519 region 64-510: identical to reference
+
+2G2H_1  RCSB pdbx_mutation = 'H396P'
+   vs P00519 region 229-512: differences (UniProt-1a pos, ref, entity) -> 396H->P   [1b numbering: H415P]
+
+6XR7_1  RCSB pdbx_mutation = None
+   vs P00519 region 229-515: identical to reference

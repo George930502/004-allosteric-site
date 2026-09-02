@@ -1,0 +1,56 @@
+# Stability of a residue score under perturbation, and how much the source choice decides it.
+#
+# Answers three questions that Phase 2 left open:
+#   1. Which scorers keep their ranking when the input is disturbed? (CHALLENGE.md §4.2,
+#      noise resilience, and the large cross-arm variance the method sweep recorded)
+#   2. Is the exact active-site residue set a sensitive factor, or does the score survive
+#      losing one source residue? (CHALLENGE.md §4.1 says "in most cases" an active site)
+#   3. Does a shorter coherence window destroy the metric? (§4.2 asks exactly this)
+#
+# Development tier only. Nothing here is a result until the chosen setting is frozen and
+# scored once on the primary benchmark.
+
+arms: [mkp5, ptp1b, hiv_rt, ns5b]
+
+# The evaluation default graph, so a stability difference is a property of the scorer and
+# not of a graph chosen to suit it.
+graph: {contact: heavy_min, weighting: unit}
+
+# Every quantum observable, plus classical controls spanning the four families that behave
+# differently under perturbation: pure geometry, spectral centrality, diffusion from the
+# source, and an elastic-network response.
+classical_controls:
+  - distance_from_source_negated
+  - eigenvector_centrality
+  - degree
+  - heat_kernel_from_source
+  - current_flow_to_source
+  - anm_perturbation_response
+  - gnm_fluctuation
+  - betweenness_centrality
+
+perturbations:
+  # Crystallographic coordinate uncertainty, and the conformational slack between two apo
+  # depositions of the same protein. 0.25 A is refinement noise, 1.0 A is a different crystal.
+  coordinate_noise:
+    sigma: [0.25, 0.5, 1.0]
+    seeds: [0, 1, 2, 3, 4]
+  # Graph misspecification: the cutoff admitted or dropped a contact it should not have.
+  edge_dropout:
+    fraction: [0.02, 0.05, 0.10]
+    seeds: [0, 1, 2, 3, 4]
+  # Source misspecification. Leave one active-site residue out, every residue in turn.
+  source_dropout:
+    max_variants: 11
+  # Coherence time. The default window is 50 revolutions of the fastest phase; a device with
+  # a short T2 gets fewer. This is the §4.2 noise-resilience axis for a gate-based walk.
+  coherence_window:
+    window: [5.0, 10.0, 25.0, 100.0]
+
+# `quantum_perturbation_response` costs N re-diagonalisations and runs 12.7 s per graph on
+# `ns5b`. At full replication it alone would be over half the wall clock, so it is capped.
+# The cap is recorded in metrics.json rather than left silent.
+expensive_scorers: [quantum_perturbation_response]
+expensive_seeds: [0, 1]
+
+seed: 0

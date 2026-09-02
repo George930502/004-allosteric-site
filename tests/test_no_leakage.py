@@ -13,6 +13,7 @@ import os
 import re
 import shlex
 import subprocess
+import sys
 from pathlib import Path
 
 import pytest
@@ -24,8 +25,24 @@ PROTECTED_PATHS = {
     (ROOT / "structures" / "holo").resolve(),
     (ROOT / "data" / "raw").resolve(),
     (ROOT / "data" / "raw" / "eval").resolve(),
-    (ROOT / "docs" / "benchmark" / "primary" / "frozen.json").resolve(),
-    (ROOT / "docs" / "benchmark" / "secondary" / "frozen.json").resolve(),
+    # Routes one and two, widened to the whole tree on 2026-09-02. `frozen.json` was
+    # protected on the first day and its own siblings were not: `primary/README.md:243` and
+    # `secondary/README.md:178` tabulate a `Scoreable` column that IS the positive count,
+    # beside the holo accession, the holo chain and the effector component ID -- for all
+    # five sealed `generalisation` arms as well. That is the payload `selection.json` is
+    # protected for (route three) and the payload `data/patches` is protected for (route
+    # six), sitting unguarded next to the file protected first. Protected whole, on the
+    # argument `evaluation/` and `review/` already use: a file added here later is protected
+    # by default rather than leaked by default. The three entries below that now sit inside
+    # these trees -- `selection.json`, `extension-candidates.md` and `primary/audit/` -- are
+    # redundant against them and are kept, because each records the route it closed and the
+    # date it was found.
+    #
+    # `allo.inputs` is the one prediction-path module that must spell the two manifests, and
+    # `MANIFEST_READS` below is the exemption. It names the manifests and the directories
+    # leading to them, so every OTHER file in these trees stays guarded for that module too.
+    (ROOT / "docs" / "benchmark" / "primary").resolve(),
+    (ROOT / "docs" / "benchmark" / "secondary").resolve(),
     # The candidate ledger is the third data route. It is not prose: for every admitted arm
     # it carries `holo`, `holo_chain` and `effector` as structured fields, which is a label
     # set three lines of code away, and its `detail` strings name real label residues
@@ -44,8 +61,114 @@ PROTECTED_PATHS = {
     # protected whole rather than file by file, so a file added there later is protected by
     # default rather than leaked by default.
     (ROOT / "docs" / "benchmark" / "evaluation").resolve(),
+    # The sixth route, added 2026-08-27 by a design-stage constraint audit. The matched-patch
+    # cache is derived from the label set and it says so in its own array shapes: `members`
+    # has width equal to the arm's positive count for all fourteen arms -- 11 on `mkp5`, 18
+    # on `bcr_abl1_corrected`, and 12 to 19 on the five `generalisation` arms that are not
+    # open yet. C1 forbids holo-derived information reaching prediction code and names this
+    # exact case: "not even the residue count". Its `diagnostics` string carries more --
+    # `observed_median_distance_to_source`, `observed_radius_of_gyration` and
+    # `observed_mean_degree` are geometric properties of the true site. `allo.scoring` writes
+    # and reads it; nothing on the prediction path may.
+    (ROOT / "data" / "patches").resolve(),
+    # The seventh route, added 2026-09-02 by ADR 0034. The multi-axis review carries
+    # per-arm positive counts (`01`, `02`, `10`, `12`), five real KRAS label residues
+    # (`03-kras-mask.md`), and a candidate ledger with holo accessions and effector
+    # component IDs -- the same shape as `selection.json` above. C1 names the residue
+    # count directly, and `extension-candidates.md` is already a protected Markdown
+    # answer key on the identical argument. Protected whole, like `evaluation/`, so a
+    # file added later is protected by default rather than leaked by default.
+    (ROOT / "docs" / "benchmark" / "review").resolve(),
+    # Routes eight to ten, added 2026-09-02 after a sweep of every tracked `.md`, `.yaml`,
+    # `.json` and `.txt` outside the seven trees above for a run of label residues inside
+    # one 400-character window. Three files cleared the coincidence floor, and all three
+    # are answer keys in prose.
+    #
+    # Eight: the per-target input audits. `kras-g12c.md` tabulates the `MOV` contact shell
+    # and reproduces 21 of 21 label residues for both KRAS arms; `bcr-abl1.md` reproduces
+    # 18 of 18 and 17 of 17. These are the label sets, written out, one directory above
+    # the `frozen.json` that was protected on the first day. Protected whole.
+    (ROOT / "docs" / "benchmark" / "primary" / "audit").resolve(),
+    # Nine: the shared literature evidence. `allosteric-prediction-prior-art.md` prints
+    # "our frozen KRAS distal label set ... is `9, 59, 60, ...`" as running prose, to make
+    # a point about ASD coverage. Protected whole, on the `evaluation/` argument: a file
+    # added here later is protected by default rather than leaked by default.
+    (ROOT / "docs" / "benchmark" / "evidence").resolve(),
+    # Ten: the experiment record. Every `metrics.json` a calibration run writes carries the
+    # matched-patch sampler diagnostics, and `observed_radius_of_gyration` is the true
+    # site's own geometry -- 65 such fields in the 2026-09-02 recalibration alone, for the
+    # six primary arms and for all five sealed `generalisation` arms by name. `data/patches`
+    # was protected for exactly this content in August; the copy the runner persists beside
+    # it was not. A runner that derives its output directory from `__file__` does not name
+    # this path, so protecting the tree costs the runners nothing.
+    (ROOT / "experiments").resolve(),
+    # The eleventh route, found 2026-09-02 by re-running the label sweep with three-letter
+    # residue codes normalised. `docs/targets.md:170` prints the cardiac myosin site as
+    # "Tyr164, Thr167, Asp168, His666, Pro710, Asn711, Arg712, Ile713, Glu774 ... plus
+    # Arg721, Tyr722, Leu770" -- 12 of 12 `label_residues` for BOTH myosin arms, and line
+    # 172 adds the minimum label-to-source distance per arm, which is a scored quantity.
+    #
+    # The earlier sweep matched bare integers on a word boundary, so `Tyr164` did not match
+    # `164` and the whole set was invisible to it. That sweep cleared this file and the
+    # clearance was written down as a refutation. A detector's false negative is the one
+    # kind of finding that closes a question instead of opening it, which is why the sweep
+    # that replaced it normalises the codes.
+    (ROOT / "docs" / "targets.md").resolve(),
 }
 ALLOWED_PREDICTION_PATHS = {(ROOT / "data" / "raw" / "apo").resolve()}
+
+# `allo.inputs` needs the chain and the active-site rule, so it is the one prediction-path
+# module that spells a path inside the two protected input trees. It reads them through the
+# `_PREDICTION_SCHEMA` allow-list, so the answer key never survives the read. Only these
+# paths are exempt: `primary/README.md` and `secondary/README.md` publish the positive count
+# and stay guarded for this module like every other.
+MANIFEST_READS = {
+    (ROOT / "docs" / "benchmark" / "primary").resolve(),
+    (ROOT / "docs" / "benchmark" / "secondary").resolve(),
+    (ROOT / "docs" / "benchmark" / "primary" / "manifest.yaml").resolve(),
+    (ROOT / "docs" / "benchmark" / "secondary" / "manifest.yaml").resolve(),
+}
+
+# The review directory's own tools write into it, so protecting the tree makes every
+# such script name five protected paths -- all of them its own output. The guard
+# resolves `Path(__file__).resolve().parent`, so deriving the output directory from the
+# script's location does not escape it, and `data/` commits nothing while `experiments/`
+# is scanned, so there is nowhere to move them to (ADR 0034).
+#
+# The exemption is a rule, not a list of names. A prediction runner must import `allo` to
+# run a method, so a tracked review-side file that imports no `allo` module cannot be one.
+# `test_every_exempt_review_tool_imports_no_package_module` holds the second half.
+REVIEW_TOOLS = (ROOT / "docs" / "benchmark" / "review").resolve()
+
+# The tenth route is a tree the runners themselves write into, so it cannot be protected
+# the way the other nine are. What leaks is the record, not the directory: `metrics.json`
+# and `records.jsonl` carry the matched-patch sampler diagnostics, and
+# `observed_radius_of_gyration` is the true site's own geometry. A `config.yaml` carries
+# graph settings an experimenter wrote and no holo-derived value, which is why one runner
+# legitimately reads another run's config.
+#
+# The rule is therefore narrower than a tree: **no file may name a record it did not
+# write.** A run script may name the two records beside it; every other file, runner or
+# module, may name neither. Anything else under `experiments/` is not a violation.
+EXPERIMENTS = (ROOT / "experiments").resolve()
+RUN_RECORDS = {"metrics.json", "records.jsonl"}
+
+
+def allowed_experiment_path(hit: Path, source_file: Path) -> bool:
+    """A hit under `experiments/` that `source_file` is entitled to name.
+
+    Naming the tree, a run directory or a `config.yaml` is how `allo.experiment` scaffolds
+    a run and how the runners write their outputs. Naming a `metrics.json` or a
+    `records.jsonl` that some other run wrote is the leak, and no file is entitled to it.
+    """
+    if hit != EXPERIMENTS and EXPERIMENTS not in hit.parents:
+        return False
+    if hit.name not in RUN_RECORDS:
+        return True
+    owner = source_file.resolve().parent
+    return EXPERIMENTS in owner.parents and owner == hit.parent
+
+
 _KNOWN_INPUT_PATHS = {
     "ROOT": ROOT,
     "MANIFEST": ROOT / "docs" / "benchmark" / "primary" / "manifest.yaml",
@@ -109,6 +232,10 @@ def imports_from_source(source: str, package: str) -> set[str]:
                     for a in node.args
                     if isinstance(a, ast.Constant) and isinstance(a.value, str)
                 )
+    # `from src.allo.groundtruth import ...` runs whenever the repository root is on the
+    # path, which is how a scratch script and a notebook usually import it. Without this
+    # line the detector reads that as a third-party module and returns nothing.
+    found = {n.removeprefix("src.") for n in found}
     return {name for name in found if name.startswith("allo")}
 
 
@@ -135,6 +262,7 @@ def constant_paths_from_source(source: str, filename: Path) -> set[Path]:
     values: dict[str, object] = {"__file__": filename.resolve()}
     call_names = {"Path", "pathlib.Path", "PurePath", "pathlib.PurePath"}
     join_names = {"os.path.join"}
+    dirname_names = {"os.path.dirname"}
 
     for node in ast.walk(tree):
         if isinstance(node, ast.ImportFrom) and node.module == "allo.inputs":
@@ -153,6 +281,8 @@ def constant_paths_from_source(source: str, filename: Path) -> set[Path]:
             for alias in node.names:
                 if alias.name == "join":
                     join_names.add(alias.asname or alias.name)
+                if alias.name == "dirname":
+                    dirname_names.add(alias.asname or alias.name)
 
     def evaluate(node: ast.AST) -> object | None:
         if isinstance(node, ast.Constant) and isinstance(node.value, (str, int)):
@@ -203,6 +333,36 @@ def constant_paths_from_source(source: str, filename: Path) -> set[Path]:
                 base = evaluate(node.func.value)
                 if isinstance(base, Path):
                     return base.resolve()
+            # `d.joinpath("frozen.json")` is `d / "frozen.json"`, and the `/` operator was
+            # modelled while the method was not. A prediction module reaching `data/patches`
+            # this way produced zero violations and no frozen token, because `patches` is not
+            # a token: the whole matched-patch cache was readable with all 34 tests green.
+            # Third instance of one failure mode -- the guard reads the text correctly and
+            # the interpreter accepts a form the text does not model. Found 2026-09-02.
+            if isinstance(node.func, ast.Attribute) and node.func.attr == "joinpath":
+                base = evaluate(node.func.value)
+                args = [evaluate(arg) for arg in node.args]
+                if isinstance(base, Path) and args and all(isinstance(a, (str, int)) for a in args):
+                    return base.joinpath(*(str(a) for a in args))
+            # `os.path.dirname` walks up the way `.parent` does. Without it a prefix built
+            # from `dirname(__file__)` evaluates to None and every path concatenated onto
+            # that prefix disappears from the scan.
+            # `Path("experiments").glob("*/metrics.json")` names a record without spelling a
+            # resolvable path, so the record rule saw only `experiments/` and allowed it.
+            # Modelling the pattern as a path component gives the rule a name to reject.
+            # `iterdir()` stays open by construction -- its result is a loop variable and no
+            # static evaluator can follow it. That residual is stated in AGENTS.md.
+            if isinstance(node.func, ast.Attribute) and node.func.attr in {"glob", "rglob"}:
+                base = evaluate(node.func.value)
+                pattern = evaluate(node.args[0]) if node.args else None
+                if isinstance(base, Path) and isinstance(pattern, str):
+                    return base / pattern
+            if _dotted_name(node.func) in dirname_names and len(node.args) == 1:
+                base = evaluate(node.args[0])
+                if isinstance(base, (str, Path)):
+                    # A str, as the real function returns, so that `dirname(...) + "/x"`
+                    # composes through the string-addition branch below.
+                    return os.path.dirname(str(base))
         return None
 
     assignments = [node for node in ast.walk(tree) if isinstance(node, (ast.Assign, ast.AnnAssign))]
@@ -246,7 +406,28 @@ def protected_path_violations(source: str, filename: Path) -> set[Path]:
 
 @pytest.fixture(scope="module")
 def graph() -> dict[str, set[str]]:
-    return {module_name(p): direct_imports(p) for p in sorted(SRC.rglob("*.py"))}
+    """The import graph, with the edges Python adds that the source text does not show.
+
+    `import a.b.c` executes `a/__init__.py` and `a/b/__init__.py` before `c`, so a module
+    that names only the submodule still runs everything the parent packages import. The
+    graph built from import statements alone does not carry those edges, and the gap is not
+    theoretical: `from allo.scoring.properties import residue_properties` reaches
+    `allo.groundtruth` at runtime through `allo/scoring/__init__.py`, while
+    `allo.scoring.properties` itself imports nothing but `allo.inputs`. Every guard was
+    green on that route -- no protected path, no frozen token, no `groundtruth` in the text.
+    Found by the 2026-08-27 design-stage constraint audit.
+
+    Adding parent edges is exact rather than conservative. It encodes what the interpreter
+    does, so it introduces no false positive: if the parent package is clean, the edge leads
+    nowhere.
+    """
+    direct = {module_name(p): direct_imports(p) for p in sorted(SRC.rglob("*.py"))}
+    for module, deps in direct.items():
+        for dep in list(deps):
+            parts = dep.split(".")
+            deps.update(".".join(parts[:i]) for i in range(1, len(parts)))
+        deps.discard(module)
+    return direct
 
 
 def reaches(graph: dict[str, set[str]], start: str, target: str) -> list[str] | None:
@@ -273,6 +454,61 @@ def test_prediction_path_never_reaches_ground_truth(graph):
         if chain:
             offenders.append(" -> ".join(chain))
     assert not offenders, "holo data reaches the prediction path:\n" + "\n".join(offenders)
+
+
+def test_a_submodule_import_cannot_smuggle_the_parent_package_in(graph, tmp_path):
+    """A guard that cannot fail is not a guard, and this one could not until 2026-08-27.
+
+    `from allo.scoring.properties import residue_properties` names a module whose own imports
+    are `numpy`, `scipy` and `allo.inputs`. Reading the source, it is clean. Running it, the
+    interpreter executes `allo/scoring/__init__.py` first and `allo.groundtruth` is in the
+    process. The first assertion pins the runtime fact, the second pins the fix.
+    """
+    probe = subprocess.run(
+        [
+            sys.executable,
+            "-c",
+            "import sys; import allo.scoring.nulls; "
+            "print(any(m.startswith('allo.groundtruth') for m in sys.modules))",
+        ],
+        check=True,
+        capture_output=True,
+        text=True,
+        cwd=ROOT,
+    )
+    assert probe.stdout.strip() == "True", "the route this test exists for is gone; delete it"
+
+    synthetic = {
+        "allo.network.sneak": {"allo.scoring.nulls"},
+        "allo.scoring": {GROUND_TRUTH},
+        "allo.scoring.nulls": {"allo.inputs"},
+    }
+    for module, deps in synthetic.items():
+        for dep in list(deps):
+            parts = dep.split(".")
+            deps.update(".".join(parts[:i]) for i in range(1, len(parts)))
+        deps.discard(module)
+    assert reaches(synthetic, "allo.network.sneak", GROUND_TRUTH), (
+        "parent-package edges are missing from the import graph"
+    )
+
+
+def test_no_prediction_package_imports_the_evaluation_layer(graph):
+    """`AGENTS.md`: nothing in `network/`, `classical/` or `quantum/` imports `allo.scoring`.
+
+    Stated in the contract since Phase 2 and unchecked until now. It is a stronger rule than
+    the ground-truth reachability test above and it is the one a reader is promised: a scorer
+    that reaches into the harness can read the frozen graph, the null and the patch pool,
+    none of which a method is entitled to see before it is scored.
+    """
+    offenders = []
+    for module, deps in graph.items():
+        if not is_prediction_path(module):
+            continue
+        for dep in sorted(deps):
+            if dep == "allo.scoring" or dep.startswith("allo.scoring."):
+                offenders.append(f"{module} -> {dep}")
+    assert not offenders, "prediction code imports the evaluation layer:\n" + "\n".join(offenders)
 
 
 def test_only_scoring_and_reporting_import_ground_truth(graph):
@@ -329,6 +565,8 @@ def test_the_prediction_path_cannot_build_either_route_out_of_pieces():
                 # This intermediate node is required to spell `data/raw/apo`; the parser
                 # runtime guard still denies files directly under the legacy root.
                 hits.discard((ROOT / "data" / "raw").resolve())
+                hits -= MANIFEST_READS
+            hits = {hit for hit in hits if not allowed_experiment_path(hit, path)}
             if not hits:
                 continue
             protected_path_names.append(f"{module}: {sorted(map(str, hits))}")
@@ -346,6 +584,46 @@ def test_the_prediction_path_cannot_build_either_route_out_of_pieces():
             f"{path.relative_to(ROOT)} imports dynamically, which the runner AST guard "
             "cannot resolve"
         )
+
+    # A composed attribute name is the `getattr` analogue of the composed import and the
+    # composed path, both already closed. `_positives` is a FROZEN_TOKEN and returns the
+    # whole label set, so `getattr(harness, "_" + "positives")` reaches the answer key with
+    # no forbidden token in the text. A runner has to import `allo.scoring` -- it is the
+    # scoring path -- so the import cannot be banned and the ingredient is removed instead.
+    # Found 2026-09-02 by an adversarial pass; the route it demonstrated used `importlib`
+    # and was already caught by the assertion above, this variant was not.
+    composed = []
+    for path in [*sorted(SRC.rglob("*.py")), *outside_runner_files()]:
+        if path.suffix != ".py":
+            continue
+        for node in ast.walk(ast.parse(path.read_text(errors="ignore"))):
+            if (
+                isinstance(node, ast.Call)
+                and _dotted_name(node.func) in {"getattr", "setattr", "hasattr"}
+                and len(node.args) >= 2
+                and not (
+                    isinstance(node.args[1], ast.Constant) and isinstance(node.args[1].value, str)
+                )
+            ):
+                composed.append(f"{path.relative_to(ROOT)}:{node.lineno}")
+    assert not composed, (
+        "attribute name built at runtime defeats the token guard; found in " + "; ".join(composed)
+    )
+
+    def _composed(source: str) -> list[int]:
+        return [
+            node.lineno
+            for node in ast.walk(ast.parse(source))
+            if isinstance(node, ast.Call)
+            and _dotted_name(node.func) in {"getattr", "setattr", "hasattr"}
+            and len(node.args) >= 2
+            and not (isinstance(node.args[1], ast.Constant) and isinstance(node.args[1].value, str))
+        ]
+
+    # A guard that cannot fail is not a guard.
+    assert _composed('from allo.scoring import harness\ngetattr(harness, "_" + "positives")\n')
+    assert _composed("import x\nname = 'a'\ngetattr(x, name)\n")
+    assert not _composed('import x\ngetattr(x, "plain", None)\n')
 
 
 def test_constant_path_guard_catches_composition_and_quote_variants(tmp_path):
@@ -366,6 +644,23 @@ def test_constant_path_guard_catches_composition_and_quote_variants(tmp_path):
         "split_literal.py": (
             "from pathlib import Path\n"
             "p = Path('docs') / 'benchmark' / 'primary' / ('frozen' + '.json')\n"
+        ),
+        # The `/` operator was modelled and its method spelling was not. This probe is the
+        # one that mattered: `data/patches` is protected but is not a frozen token, so the
+        # matched-patch cache -- every arm's positive count, the sealed tier included -- was
+        # readable from `allo.network` with all 34 tests green. Found 2026-09-02.
+        "joinpath_cache.py": (
+            "from pathlib import Path\nd = Path('data')\np = d.joinpath('patches')\n"
+        ),
+        "joinpath_frozen.py": (
+            "from pathlib import Path\n"
+            "d = Path('docs') / 'benchmark'\n"
+            "p = d.joinpath('evaluation').joinpath('frozen.json')\n"
+        ),
+        # A prefix built with `os.path.dirname` evaluated to None, which deleted every path
+        # concatenated onto it from the scan.
+        "dirname_prefix.py": (
+            "import os\nb = os.path.dirname('data/patches/x.npz')\nopen(b + '/y.npz').read()\n"
         ),
     }
     for name, source in probes.items():
@@ -519,7 +814,20 @@ def test_the_manifest_reaches_prediction_code_with_the_answer_key_stripped():
 
 
 def test_evaluation_status_cannot_delete_prediction_inputs(tmp_path):
-    """A defective holo arm is not an apo-admission decision (ADR 0016)."""
+    """A defective holo arm is not an apo-admission decision (ADR 0016, ADR 0031).
+
+    `status` and `prediction_status` are evaluation-side judgements about the ground truth.
+    They must not change what a method receives, because a method that sees fewer inputs when
+    an arm is judged defective has been told something about the answer key.
+
+    The two fields are not interchangeable, and that is the point. `prediction_status` is an
+    input-side decision and it **may** block an arm: `allo.inputs.load` filters on it.
+    `status` is an evaluation-side judgement about the ground truth and it **may not**.
+
+    ADR 0031 removed `prediction_status: blocked` from `cardiac_myosin_mandated` when the
+    organisers sanctioned `9GZ2`, so no arm carries the field today and pinning one arm's value
+    would now pin nothing. This pins the rule instead, in both directions.
+    """
     import yaml
 
     from allo.groundtruth.manifest import read_manifest
@@ -527,15 +835,25 @@ def test_evaluation_status_cannot_delete_prediction_inputs(tmp_path):
 
     manifest = read_manifest()
     baseline = {target["id"] for target in load()["targets"]}
+    assert baseline, "the manifest admits no prediction input; this test would pass vacuously"
     for target in manifest["targets"]:
         target["status"] = "excluded" if target.get("status") != "excluded" else "corrected"
     probe = tmp_path / "manifest.yaml"
     probe.write_text(yaml.safe_dump(manifest))
-    assert {target["id"] for target in load(probe)["targets"]} == baseline
-    mandated = next(
-        target for target in manifest["targets"] if target["id"] == "cardiac_myosin_mandated"
+    assert {target["id"] for target in load(probe)["targets"]} == baseline, (
+        "an evaluation-side `status` changed the set of prediction inputs"
     )
-    assert mandated["prediction_status"] == "blocked"
+    assert not any(
+        {"status", "prediction_status"} & set(target) for target in load(probe)["targets"]
+    ), "a status judgement reached the prediction path as a field"
+
+    # The other direction: `prediction_status` is input-side and must still be able to block.
+    blocked = yaml.safe_load(probe.read_text())
+    blocked["targets"][0]["prediction_status"] = "blocked"
+    probe.write_text(yaml.safe_dump(blocked))
+    assert {target["id"] for target in load(probe)["targets"]} == baseline - {
+        blocked["targets"][0]["id"]
+    }, "`prediction_status: blocked` no longer removes an arm from the prediction path"
 
 
 def test_only_the_boundary_module_reads_the_manifest():
@@ -620,12 +938,12 @@ FROZEN_TOKENS = (
     # `frozen.json` and no `FROZEN` in its text. A leading underscore is a convention, not
     # an access control. Found by the 2026-08-25 evaluation-layer audit.
     "_positives",
+    "PATCH_CACHE",
     "groundtruth",
 )
 NON_RUNNER_TREES = {
     "src",  # package import-graph tests cover it
     "tests",  # the guards necessarily name forbidden routes
-    "docs",  # non-executable evidence and freeze artifacts
     "data",
     "structures",
     "graphify-out",
@@ -704,6 +1022,23 @@ def inline_python(text: str) -> list[str]:
     return sources
 
 
+def is_review_tool(path: Path) -> bool:
+    """A tracked file inside the review tree that imports no `allo` module (ADR 0034).
+
+    Exempts such a file from the protected-path check **for paths inside that tree only**.
+    Every other protected path stays live for it, as do the import and frozen-token
+    checks, so the carve-out is "a review tool may name its own output" and nothing wider.
+    """
+    if REVIEW_TOOLS not in path.resolve().parents:
+        return False
+    if path.suffix != ".py":
+        return False
+    return not any(
+        name == "allo" or name.startswith("allo.")
+        for name in imports_from_source(path.read_text(errors="ignore"), "")
+    )
+
+
 def runner_violations(path: Path) -> set[str]:
     """Evaluation-side routes in Python, shell, Make recipes, notebooks or entrypoints."""
     text = path.read_text(errors="ignore")
@@ -727,10 +1062,13 @@ def runner_violations(path: Path) -> set[str]:
         for bad in FORBIDDEN_OUTSIDE
         if name == bad or name.startswith(bad + ".")
     }
+    own_tree = REVIEW_TOOLS if is_review_tool(path) else None
     violations.update(
         f"evaluation path {hit}"
         for source in sources
         for hit in protected_path_violations(source, path)
+        if (own_tree is None or own_tree not in hit.parents)
+        and not allowed_experiment_path(hit, path)
     )
     if "_EVALUATION_ACCESS" in text:
         violations.add("evaluation parser capability")
@@ -775,6 +1113,46 @@ def test_run_scripts_never_name_the_frozen_files_either():
         if any(token in path.read_text(errors="ignore") for token in FROZEN_TOKENS)
     ]
     assert not offenders, f"run scripts naming a frozen file directly: {offenders}"
+
+
+def test_every_review_tool_imports_no_package_module():
+    """The condition ADR 0034's exemption rests on, as a test rather than an observation.
+
+    A review-side tool is exempt from the protected-path check for paths inside the review
+    tree. That is safe only while it cannot be a prediction runner, and what makes it
+    unable to be one is that it imports nothing from `allo`. A future tool that reaches for
+    the package fails here, with this message, rather than failing the main gate for naming
+    its own output.
+    """
+    offenders = [
+        str(path.relative_to(ROOT))
+        for path in outside_runner_files()
+        if REVIEW_TOOLS in path.resolve().parents and path.suffix == ".py"
+        if not is_review_tool(path)
+    ]
+    assert not offenders, "review tools must import no `allo` module (ADR 0034):\n" + "\n".join(
+        offenders
+    )
+
+
+def test_the_review_exemption_stops_at_the_review_tree(tmp_path):
+    """A review tool may name its own output. It may not name any other protected path."""
+    tool = ROOT / "docs" / "benchmark" / "review" / "data" / "fetch_structure_evidence.py"
+    if not tool.exists():
+        pytest.skip("review tooling not present")
+    assert is_review_tool(tool)
+    assert not runner_violations(tool), "a review tool naming only its own tree is clean"
+
+    smuggler = tmp_path / "probe.py"
+    smuggler.write_text(
+        "from pathlib import Path\n"
+        f"OUT = Path({str(ROOT / 'docs' / 'benchmark' / 'review' / 'data')!r})\n"
+        f"ANSWERS = Path({str(ROOT / 'docs' / 'benchmark' / 'evaluation')!r})\n"
+    )
+    source = smuggler.read_text()
+    hits = protected_path_violations(source, tool)
+    outside = {hit for hit in hits if REVIEW_TOOLS not in hit.parents}
+    assert outside, "the evaluation directory must still register as protected"
 
 
 def test_the_runner_gate_inspects_trees_nobody_listed(tmp_path):
@@ -951,6 +1329,10 @@ def test_the_detector_sees_every_import_form(tmp_path):
         "import importlib\nlabels = importlib.import_module('allo.groundtruth.labels')",
         "from allo import groundtruth",
         "from allo import groundtruth, structure",
+        # A scratch script run from the repository root imports through the source
+        # directory, and the detector read that as a third-party package until 2026-09-02.
+        "from src.allo.groundtruth.labels import pocket_residues",
+        "import src.allo.groundtruth",
     ):
         probe.write_text(source)
         found = direct_imports(probe, package="allo.network")
@@ -989,7 +1371,18 @@ def test_scoring_public_api_never_returns_a_label_set():
 
     # A whitelist, not a spot check. A new public name must be justified against this test
     # before it is exported, because the package reads the answer key.
-    assert set(scoring.__all__) == {"compare_methods", "holm", "protocol", "score_arm"}
+    #
+    # `confirmatory_verdict` was added 2026-09-02 and takes only p-values and the frozen
+    # manifest -- no residue, no score vector, no label set -- and returns Holm thresholds
+    # and booleans. It is exported because the alternative is every caller re-implementing
+    # the frozen decision rule, which had already happened once with the wrong family.
+    assert set(scoring.__all__) == {
+        "compare_methods",
+        "confirmatory_verdict",
+        "holm",
+        "protocol",
+        "score_arm",
+    }
     for name in scoring.__all__:
         assert not name.startswith("_")
     # The one function that reads the answer key is private and stays private.
@@ -1042,3 +1435,100 @@ def test_a_scored_record_names_no_label_residue():
     other = {r: float(rng.random()) for r in graph.order}
     paired = harness_module.compare_methods(target, scores, other, config=settings)
     assert not labels <= integers(paired)
+
+
+def test_no_file_may_name_a_record_it_did_not_write():
+    """The tenth data route, added 2026-09-02.
+
+    A scoring run persists the matched-patch sampler diagnostics beside itself, and
+    `observed_radius_of_gyration` is the true site's own geometry. `data/patches` was
+    protected for that content in August; the copy in `experiments/` was not. The tree
+    cannot be protected outright, because the runners write into it, so the rule is
+    narrower: a run script may name the two records beside it and no others.
+    """
+    mine = EXPERIMENTS / "2026-01-01-mine" / "run.py"
+    ours = EXPERIMENTS / "2026-01-01-mine" / "metrics.json"
+    theirs = EXPERIMENTS / "2026-01-01-theirs" / "metrics.json"
+    config = EXPERIMENTS / "2026-01-01-theirs" / "config.yaml"
+
+    assert allowed_experiment_path(ours, mine), "a runner must be able to write its own record"
+    assert allowed_experiment_path(config, mine), "a config carries no holo-derived value"
+    assert allowed_experiment_path(EXPERIMENTS, mine), "the scaffold names the tree"
+    assert not allowed_experiment_path(theirs, mine), "a foreign record is the leak"
+    assert not allowed_experiment_path(theirs, SRC / "network" / "contacts.py"), (
+        "a prediction module owns no run directory, so every record is foreign to it"
+    )
+
+
+def test_the_three_new_answer_keys_are_protected():
+    """Routes eight to ten name real label sets, and a sweep found them, not a hunch.
+
+    `kras-g12c.md` reproduces 21 of 21 label residues for both KRAS arms and `bcr-abl1.md`
+    18 of 18; `allosteric-prediction-prior-art.md` prints the KRAS distal label set as
+    running prose. The assertion is on the file, not on the tree, so moving one out of a
+    protected directory fails here rather than silently.
+    """
+    keys = [
+        ROOT / "docs" / "benchmark" / "primary" / "audit" / "kras-g12c.md",
+        ROOT / "docs" / "benchmark" / "primary" / "audit" / "bcr-abl1.md",
+        ROOT / "docs" / "benchmark" / "evidence" / "allosteric-prediction-prior-art.md",
+    ]
+    for key in keys:
+        assert key.exists(), f"{key.relative_to(ROOT)} moved; re-run the label sweep"
+        assert any(root == key or root in key.parents for root in PROTECTED_PATHS), (
+            f"{key.relative_to(ROOT)} names a full label set and is unprotected"
+        )
+
+
+def test_the_answer_keys_the_numeric_sweep_could_not_see_are_protected(tmp_path):
+    """Routes eleven to thirteen, and the reason the sweep that cleared them was wrong.
+
+    `docs/targets.md` prints the cardiac myosin site in three-letter codes -- `Tyr164`,
+    `Thr167`, ... -- so a sweep matching bare integers on a word boundary scored it zero and
+    a true finding was written down as refuted. Re-run with the codes normalised it is 12 of
+    12 for both myosin arms. The two benchmark READMEs tabulate a `Scoreable` column that is
+    the positive count, beside the holo entry and the effector, for the five sealed
+    `generalisation` arms among others.
+
+    The first loop pins the files. The second pins that the guard actually fires on a
+    prediction module naming one, because protecting a path the detector cannot resolve
+    protects nothing -- that was the `.joinpath` hole found the same day.
+    """
+    keys = [
+        ROOT / "docs" / "targets.md",
+        ROOT / "docs" / "benchmark" / "primary" / "README.md",
+        ROOT / "docs" / "benchmark" / "secondary" / "README.md",
+    ]
+    for key in keys:
+        assert key.exists(), f"{key.relative_to(ROOT)} moved; re-run the label sweep"
+        assert any(root == key or root in key.parents for root in PROTECTED_PATHS), (
+            f"{key.relative_to(ROOT)} reproduces a label set or a positive count, unprotected"
+        )
+
+    for key in keys:
+        rel = key.relative_to(ROOT).as_posix()
+        source = f"from pathlib import Path\np = Path({rel.split('/')[0]!r})\n"
+        for part in rel.split("/")[1:]:
+            source += f"p = p.joinpath({part!r})\n"
+        assert protected_path_violations(source, tmp_path / "probe.py"), (
+            f"the guard cannot resolve a joinpath route to {rel}"
+        )
+
+
+def test_the_boundary_module_is_exempt_for_the_manifests_and_nothing_else():
+    """Widening the input trees must not hand `allo.inputs` the whole tree.
+
+    It has to spell both manifests. It has no reason to spell `primary/README.md`, which
+    publishes the positive count, so the exemption is four paths rather than two directories.
+    """
+    inputs = SRC / "inputs.py"
+    assert not (
+        protected_path_violations(inputs.read_text(), inputs)
+        - MANIFEST_READS
+        - {(ROOT / "data" / "raw").resolve()}
+    ), "allo.inputs names a protected path outside its exemption"
+
+    readme = "from pathlib import Path\np = Path('docs') / 'benchmark' / 'primary' / 'README.md'\n"
+    assert protected_path_violations(readme, inputs) - MANIFEST_READS, (
+        "the exemption must not cover the README that publishes the positive count"
+    )

@@ -1,0 +1,435 @@
+{
+ "1OPL:A": {
+  "n_res": 451,
+  "pocket_modelled": 20,
+  "pocket_missing": [],
+  "pocket_nearest_het": [
+   [
+    "MYR",
+    "A",
+    538,
+    3.29
+   ],
+   [
+    "P16",
+    "A",
+    539,
+    16.37
+   ],
+   [
+    "P16",
+    "B",
+    538,
+    31.61
+   ]
+  ],
+  "sh3_modelled": 60,
+  "sh2_modelled": 91,
+  "kin_modelled": 252,
+  "sh2_kinase_iface": [
+   357,
+   358,
+   360,
+   361,
+   393,
+   394,
+   512
+  ],
+  "sh2_iface_in_pocket": [
+   360,
+   512
+  ],
+  "b_mean": 85.0
+ },
+ "1OPL:B": {
+  "n_res": 365,
+  "pocket_modelled": 17,
+  "pocket_missing": [
+   521,
+   525,
+   529
+  ],
+  "pocket_nearest_het": [
+   [
+    "P16",
+    "B",
+    538,
+    16.0
+   ],
+   [
+    "MYR",
+    "A",
+    538,
+    27.64
+   ],
+   [
+    "P16",
+    "A",
+    539,
+    33.64
+   ]
+  ],
+  "sh3_modelled": 1,
+  "sh2_modelled": 91,
+  "kin_modelled": 252,
+  "sh2_kinase_iface": [
+   261,
+   262,
+   263,
+   291,
+   294,
+   328,
+   329,
+   331
+  ],
+  "sh2_iface_in_pocket": [],
+  "b_mean": 170.7
+ },
+ "2FO0:A": {
+  "n_res": 465,
+  "pocket_modelled": 20,
+  "pocket_missing": [],
+  "pocket_nearest_het": [
+   [
+    "MYR",
+    "A",
+    701,
+    3.31
+   ],
+   [
+    "P16",
+    "A",
+    702,
+    16.35
+   ]
+  ],
+  "sh3_modelled": 61,
+  "sh2_modelled": 91,
+  "kin_modelled": 252,
+  "sh2_kinase_iface": [
+   357,
+   358,
+   360,
+   361,
+   393,
+   394,
+   512
+  ],
+  "sh2_iface_in_pocket": [
+   360,
+   512
+  ],
+  "b_mean": 38.6
+ },
+ "1OPK:A": {
+  "n_res": 449,
+  "pocket_modelled": 20,
+  "pocket_missing": [],
+  "pocket_nearest_het": [
+   [
+    "MYR",
+    "A",
+    1,
+    3.47
+   ],
+   [
+    "P16",
+    "A",
+    2,
+    16.41
+   ]
+  ],
+  "sh3_modelled": 58,
+  "sh2_modelled": 91,
+  "kin_modelled": 252,
+  "sh2_kinase_iface": [
+   357,
+   358,
+   360,
+   361,
+   393,
+   394,
+   512
+  ],
+  "sh2_iface_in_pocket": [
+   360,
+   512
+  ],
+  "b_mean": 30.2
+ },
+ "4XEY:A": {
+  "n_res": 269,
+  "pocket_modelled": 18,
+  "pocket_missing": [
+   525,
+   529
+  ],
+  "pocket_nearest_het": [
+   [
+    "1N1",
+    "A",
+    601,
+    15.49
+   ],
+   [
+    "1N1",
+    "B",
+    601,
+    27.12
+   ]
+  ],
+  "sh3_modelled": 0,
+  "sh2_modelled": 0,
+  "kin_modelled": 248,
+  "sh2_kinase_iface": [],
+  "sh2_iface_in_pocket": [],
+  "b_mean": 50.1
+ },
+ "4XEY:B": {
+  "n_res": 359,
+  "pocket_modelled": 18,
+  "pocket_missing": [
+   525,
+   529
+  ],
+  "pocket_nearest_het": [
+   [
+    "1N1",
+    "B",
+    601,
+    15.78
+   ],
+   [
+    "1N1",
+    "A",
+    601,
+    37.49
+   ]
+  ],
+  "sh3_modelled": 0,
+  "sh2_modelled": 88,
+  "kin_modelled": 243,
+  "sh2_kinase_iface": [
+   261,
+   262,
+   263,
+   276,
+   291,
+   292,
+   328,
+   329,
+   331
+  ],
+  "sh2_iface_in_pocket": [],
+  "b_mean": 51.9
+ },
+ "5MO4:A": {
+  "n_res": 429,
+  "pocket_modelled": 20,
+  "pocket_missing": [],
+  "pocket_nearest_het": [
+   [
+    "AY7",
+    "A",
+    602,
+    2.82
+   ],
+   [
+    "NIL",
+    "A",
+    601,
+    14.14
+   ]
+  ],
+  "sh3_modelled": 58,
+  "sh2_modelled": 91,
+  "kin_modelled": 232,
+  "sh2_kinase_iface": [
+   357,
+   358,
+   360,
+   361,
+   393,
+   394,
+   512
+  ],
+  "sh2_iface_in_pocket": [
+   360,
+   512
+  ],
+  "b_mean": 36.1
+ },
+ "8SSN:A": {
+  "n_res": 420,
+  "pocket_modelled": 19,
+  "pocket_missing": [
+   529
+  ],
+  "pocket_nearest_het": [
+   [
+    "AY7",
+    "A",
+    601,
+    2.98
+   ],
+   [
+    "SKI",
+    "A",
+    602,
+    16.17
+   ],
+   [
+    "AY7",
+    "B",
+    601,
+    16.19
+   ]
+  ],
+  "sh3_modelled": 59,
+  "sh2_modelled": 91,
+  "kin_modelled": 236,
+  "sh2_kinase_iface": [
+   357,
+   358,
+   360,
+   361,
+   364,
+   393,
+   394,
+   512
+  ],
+  "sh2_iface_in_pocket": [
+   360,
+   512
+  ],
+  "b_mean": 91.3
+ },
+ "8SSN:B": {
+  "n_res": 386,
+  "pocket_modelled": 19,
+  "pocket_missing": [
+   529
+  ],
+  "pocket_nearest_het": [
+   [
+    "AY7",
+    "B",
+    601,
+    3.14
+   ],
+   [
+    "SKI",
+    "B",
+    602,
+    15.13
+   ],
+   [
+    "AY7",
+    "A",
+    601,
+    15.99
+   ]
+  ],
+  "sh3_modelled": 59,
+  "sh2_modelled": 91,
+  "kin_modelled": 201,
+  "sh2_kinase_iface": [
+   357,
+   358,
+   360,
+   361,
+   364,
+   393,
+   394,
+   512
+  ],
+  "sh2_iface_in_pocket": [
+   360,
+   512
+  ],
+  "b_mean": 96.2
+ },
+ "2G2H:A": {
+  "n_res": 272,
+  "pocket_modelled": 18,
+  "pocket_missing": [
+   525,
+   529
+  ],
+  "pocket_nearest_het": [
+   [
+    "P16",
+    "A",
+    532,
+    16.27
+   ],
+   [
+    "P16",
+    "B",
+    532,
+    40.57
+   ]
+  ],
+  "sh3_modelled": 0,
+  "sh2_modelled": 0,
+  "kin_modelled": 252,
+  "sh2_kinase_iface": [],
+  "sh2_iface_in_pocket": [],
+  "b_mean": 18.2
+ },
+ "6XR7:A": {
+  "n_res": 287,
+  "pocket_modelled": 20,
+  "pocket_missing": [],
+  "pocket_nearest_het": [],
+  "sh3_modelled": 0,
+  "sh2_modelled": 0,
+  "kin_modelled": 252,
+  "sh2_kinase_iface": [],
+  "sh2_iface_in_pocket": [],
+  "b_mean": 37.9
+ }
+}
+
+=== superpositions (fit on kinase 273-512, then evaluate SH2 146-236) ===
+  1OPL:A vs 1OPL:B: kinase-fit RMSD 0.53 A over 240 CA | SH2 deviation after that fit: (70.06, 101.31) over 91 CA
+      global all-common-CA RMSD 23.12 A over 365
+  1OPL:A vs 5MO4:A: kinase-fit RMSD 0.92 A over 220 CA | SH2 deviation after that fit: (1.49, 2.46) over 91 CA
+      global all-common-CA RMSD 0.98 A over 429
+  1OPL:B vs 5MO4:A: kinase-fit RMSD 1.03 A over 220 CA | SH2 deviation after that fit: (69.38, 100.88) over 91 CA
+      global all-common-CA RMSD 22.89 A over 345
+  1OPL:A vs 4XEY:B: kinase-fit RMSD 1.34 A over 236 CA | SH2 deviation after that fit: (69.17, 100.78) over 88 CA
+      global all-common-CA RMSD 23.22 A over 359
+  1OPL:B vs 4XEY:B: kinase-fit RMSD 1.21 A over 236 CA | SH2 deviation after that fit: (2.28, 8.07) over 88 CA
+      global all-common-CA RMSD 1.44 A over 352
+  1OPL:A vs 2G2H:A: kinase-fit RMSD 0.78 A over 240 CA | SH2 deviation after that fit: None over 0 CA
+      global all-common-CA RMSD 1.56 A over 272
+
+=== added: apo candidates vs the holo 5MO4:A (fit on kinase 273-512) ===
+  5MO4:A vs 4XEY:B: kinase-fit 1.18 A / 216 CA | SH2 dev 68.46 A (max 100.41) over 88 CA | global 35.82 A / 339 CA
+  5MO4:A vs 2G2H:A: kinase-fit 1.18 A / 220 CA | SH2 dev no SH2 modelled | global 1.82 A / 252 CA
+  5MO4:A vs 1OPL:B: kinase-fit 1.03 A / 220 CA | SH2 dev 69.38 A (max 100.88) over 91 CA | global 36.61 A / 345 CA
+  5MO4:A vs 1OPL:A: kinase-fit 0.92 A / 220 CA | SH2 dev 1.49 A (max 2.46) over 91 CA | global 1.17 A / 429 CA
+  5MO4:A vs 6XR7:A model1: kinase-fit 2.14 A / 220 CA | SH2 dev no SH2 modelled | global 4.20 A / 264 CA
+
+=== added: TRUE global RMSD (superposition fitted on ALL common CA) ===
+  5MO4:A vs 4XEY:B: global all-common-CA RMSD 23.03 A over 339 CA
+  5MO4:A vs 2G2H:A: global all-common-CA RMSD 1.78 A over 252 CA
+  5MO4:A vs 1OPL:B: global all-common-CA RMSD 22.89 A over 345 CA
+  5MO4:A vs 1OPL:A: global all-common-CA RMSD 0.98 A over 429 CA
+  5MO4:A vs 6XR7:A: global all-common-CA RMSD 3.92 A over 264 CA
+  1OPL:B vs 4XEY:B: global all-common-CA RMSD 1.44 A over 352 CA
+
+=== added: 9KS5 measured with its own numbering ===
+  chain A: n=265 range 233-500 offset_vs_1a=0 (motif HRDLAARN) -> numbering 1a
+     pocket in file numbering: [332, 337, 340, 341, 344, 429, 432, 433, 434, 435, 437, 462, 463, 464, 465, 468, 493, 502, 506, 510]
+     modelled 17/20, missing [502, 506, 510]
+     nearest A1EG1271 (chain A): 17.03 A
+     nearest PTR393 (chain A): 21.36 A
+  chain B: n=266 range 233-500 offset_vs_1a=0 (motif HRDLAARN) -> numbering 1a
+     pocket in file numbering: [332, 337, 340, 341, 344, 429, 432, 433, 434, 435, 437, 462, 463, 464, 465, 468, 493, 502, 506, 510]
+     modelled 17/20, missing [502, 506, 510]
+     nearest A1EG1271 (chain A): 21.51 A
+     nearest PTR393 (chain A): 9.74 A
+     nearest A1EG1271 (chain B): 15.87 A
+     nearest PTR393 (chain B): 21.83 A

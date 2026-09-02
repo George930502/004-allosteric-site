@@ -189,10 +189,14 @@ def cavity_volume_score(pockets: dict[str, dict], candidates) -> dict[int, float
     """Score each candidate by the volume of the largest detected cavity that lines it.
 
     Label-blind, apo-only, zero-parameter, and it uses the detector the freeze already pins.
-    A required baseline, because it **clears the confirmatory family**: through the frozen
-    pool and Holm it rejects on all three confirmatory arms. So rejecting the matched-patch
-    null is not evidence that a method learned anything about allostery, and the report's
-    claim threshold is beating this score rather than clearing that null (ADR 0025).
+    A required baseline. Under protocol **version 2** it cleared the confirmatory family
+    outright, rejecting on all three arms, and that is why the claim threshold is beating
+    this score rather than clearing the matched-patch null (ADR 0025). **Under version 3 it
+    rejects on ONE arm of three** — `p_calibrated` 0.0046, 0.0715, 0.3236, Holm over three.
+    The cause is mechanical: ADR 0030 re-froze the detector, and this score is computed from
+    that detector's cavities, so re-freezing the decoys moved the baseline the claim is
+    measured against. The rule is unchanged and the numbers behind it are not; do not write
+    that this baseline sweeps the family (`../../../docs/benchmark/evaluation/manifest.yaml`).
 
     It is the field's own control too. "Rank by detector score alone" is the reference both
     PASSer2.0 (doi:10.1093/nar/gkad303) and DeepAllo (doi:10.1093/bioinformatics/btaf294)

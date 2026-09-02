@@ -1,0 +1,838 @@
+{
+ "n_arms": 14,
+ "primary_ids_seen": [
+  "bcr_abl1_corrected",
+  "bcr_abl1_mandated",
+  "cardiac_myosin_corrected",
+  "kras_g12c_corrected",
+  "kras_g12c_mandated"
+ ],
+ "profiles": [
+  {
+   "arm": "kras_g12c_mandated",
+   "pdb_id": "4OBE",
+   "chain": "A",
+   "n_residues": 169,
+   "n_edges": 795,
+   "cutoff_angstrom": 4.5,
+   "source": {
+    "n_residues": 23,
+    "mean_relative_solvent_accessibility": 0.2682,
+    "mean_degree": 8.783
+   },
+   "degree": {
+    "mean": 9.408,
+    "median": 9.0,
+    "min": 4,
+    "max": 16,
+    "std": 2.906
+   },
+   "topology": {
+    "n_components": 1,
+    "largest_component": 169,
+    "diameter_hops": 8,
+    "mean_hop_distance": 3.695,
+    "mean_clustering": 0.5111,
+    "edge_density": 0.056
+   },
+   "adjacency_spectrum": {
+    "lambda_1": 11.036,
+    "lambda_2": 9.5977,
+    "gap": 1.4383,
+    "gap_in_mean_spacings": 16.03,
+    "perron_inverse_participation_ratio": 0.014319,
+    "mean_ratio": 0.5693,
+    "near_degenerate_pairs": 0,
+    "median_spacing": 0.042198
+   },
+   "laplacian_spectrum": {
+    "algebraic_connectivity": 0.479974,
+    "lambda_max": 18.0045,
+    "spectral_ratio": 37.5
+   },
+   "distance_to_source": {
+    "min": 1.321,
+    "median": 9.684,
+    "max": 25.557,
+    "fraction_within_10A": 0.5274
+   },
+   "confounders": {
+    "mean_relative_solvent_accessibility": 0.2527,
+    "fraction_buried_rsa_below_0.2": 0.4675,
+    "b_factor_available": true,
+    "sequence_length": 169
+   },
+   "geometry_vs_spectrum": {
+    "spearman_eigenvector_vs_negated_distance": 0.2706,
+    "spearman_degree_vs_negated_distance": 0.192
+   }
+  },
+  {
+   "arm": "kras_g12c_corrected",
+   "pdb_id": "4LDJ",
+   "chain": "A",
+   "n_residues": 170,
+   "n_edges": 803,
+   "cutoff_angstrom": 4.5,
+   "source": {
+    "n_residues": 22,
+    "mean_relative_solvent_accessibility": 0.2642,
+    "mean_degree": 8.864
+   },
+   "degree": {
+    "mean": 9.447,
+    "median": 9.0,
+    "min": 2,
+    "max": 16,
+    "std": 2.984
+   },
+   "topology": {
+    "n_components": 1,
+    "largest_component": 170,
+    "diameter_hops": 8,
+    "mean_hop_distance": 3.67,
+    "mean_clustering": 0.5067,
+    "edge_density": 0.0559
+   },
+   "adjacency_spectrum": {
+    "lambda_1": 11.1042,
+    "lambda_2": 9.7014,
+    "gap": 1.4029,
+    "gap_in_mean_spacings": 15.67,
+    "perron_inverse_participation_ratio": 0.013855,
+    "mean_ratio": 0.5337,
+    "near_degenerate_pairs": 0,
+    "median_spacing": 0.04407
+   },
+   "laplacian_spectrum": {
+    "algebraic_connectivity": 0.496687,
+    "lambda_max": 18.0154,
+    "spectral_ratio": 36.3
+   },
+   "distance_to_source": {
+    "min": 1.31,
+    "median": 9.634,
+    "max": 25.022,
+    "fraction_within_10A": 0.5338
+   },
+   "confounders": {
+    "mean_relative_solvent_accessibility": 0.2575,
+    "fraction_buried_rsa_below_0.2": 0.4824,
+    "b_factor_available": true,
+    "sequence_length": 170
+   },
+   "geometry_vs_spectrum": {
+    "spearman_eigenvector_vs_negated_distance": 0.2381,
+    "spearman_degree_vs_negated_distance": 0.1538
+   }
+  },
+  {
+   "arm": "bcr_abl1_mandated",
+   "pdb_id": "1OPL",
+   "chain": "A",
+   "n_residues": 451,
+   "n_edges": 2093,
+   "cutoff_angstrom": 4.5,
+   "source": {
+    "n_residues": 11,
+    "mean_relative_solvent_accessibility": 0.129,
+    "mean_degree": 10.091
+   },
+   "degree": {
+    "mean": 9.282,
+    "median": 9.0,
+    "min": 3,
+    "max": 19,
+    "std": 2.948
+   },
+   "topology": {
+    "n_components": 1,
+    "largest_component": 451,
+    "diameter_hops": 13,
+    "mean_hop_distance": 5.7,
+    "mean_clustering": 0.4927,
+    "edge_density": 0.02063
+   },
+   "adjacency_spectrum": {
+    "lambda_1": 11.3449,
+    "lambda_2": 10.3137,
+    "gap": 1.0312,
+    "gap_in_mean_spacings": 29.9,
+    "perron_inverse_participation_ratio": 0.01387,
+    "mean_ratio": 0.5212,
+    "near_degenerate_pairs": 1,
+    "median_spacing": 0.017686
+   },
+   "laplacian_spectrum": {
+    "algebraic_connectivity": 0.117265,
+    "lambda_max": 20.7188,
+    "spectral_ratio": 176.7
+   },
+   "distance_to_source": {
+    "min": 1.321,
+    "median": 14.548,
+    "max": 47.247,
+    "fraction_within_10A": 0.3341
+   },
+   "confounders": {
+    "mean_relative_solvent_accessibility": 0.2486,
+    "fraction_buried_rsa_below_0.2": 0.5078,
+    "b_factor_available": true,
+    "sequence_length": 451
+   },
+   "geometry_vs_spectrum": {
+    "spearman_eigenvector_vs_negated_distance": 0.5366,
+    "spearman_degree_vs_negated_distance": 0.2433
+   }
+  },
+  {
+   "arm": "bcr_abl1_corrected",
+   "pdb_id": "2G2H",
+   "chain": "A",
+   "n_residues": 272,
+   "n_edges": 1273,
+   "cutoff_angstrom": 4.5,
+   "source": {
+    "n_residues": 11,
+    "mean_relative_solvent_accessibility": 0.1132,
+    "mean_degree": 10.455
+   },
+   "degree": {
+    "mean": 9.36,
+    "median": 9.0,
+    "min": 3,
+    "max": 19,
+    "std": 2.963
+   },
+   "topology": {
+    "n_components": 1,
+    "largest_component": 272,
+    "diameter_hops": 10,
+    "mean_hop_distance": 4.501,
+    "mean_clustering": 0.5017,
+    "edge_density": 0.03454
+   },
+   "adjacency_spectrum": {
+    "lambda_1": 11.254,
+    "lambda_2": 9.9586,
+    "gap": 1.2954,
+    "gap_in_mean_spacings": 22.77,
+    "perron_inverse_participation_ratio": 0.014031,
+    "mean_ratio": 0.535,
+    "near_degenerate_pairs": 0,
+    "median_spacing": 0.030054
+   },
+   "laplacian_spectrum": {
+    "algebraic_connectivity": 0.193555,
+    "lambda_max": 20.718,
+    "spectral_ratio": 107.0
+   },
+   "distance_to_source": {
+    "min": 1.326,
+    "median": 9.2,
+    "max": 28.061,
+    "fraction_within_10A": 0.5479
+   },
+   "confounders": {
+    "mean_relative_solvent_accessibility": 0.2503,
+    "fraction_buried_rsa_below_0.2": 0.5037,
+    "b_factor_available": true,
+    "sequence_length": 272
+   },
+   "geometry_vs_spectrum": {
+    "spearman_eigenvector_vs_negated_distance": -0.066,
+    "spearman_degree_vs_negated_distance": 0.3569
+   }
+  },
+  {
+   "arm": "cardiac_myosin_corrected",
+   "pdb_id": "9GZ3",
+   "chain": "A",
+   "n_residues": 764,
+   "n_edges": 3641,
+   "cutoff_angstrom": 4.5,
+   "source": {
+    "n_residues": 21,
+    "mean_relative_solvent_accessibility": 0.1724,
+    "mean_degree": 9.619
+   },
+   "degree": {
+    "mean": 9.531,
+    "median": 10.0,
+    "min": 2,
+    "max": 18,
+    "std": 2.875
+   },
+   "topology": {
+    "n_components": 1,
+    "largest_component": 764,
+    "diameter_hops": 22,
+    "mean_hop_distance": 7.19,
+    "mean_clustering": 0.4807,
+    "edge_density": 0.01249
+   },
+   "adjacency_spectrum": {
+    "lambda_1": 11.4456,
+    "lambda_2": 10.9779,
+    "gap": 0.4678,
+    "gap_in_mean_spacings": 22.61,
+    "perron_inverse_participation_ratio": 0.010926,
+    "mean_ratio": 0.5385,
+    "near_degenerate_pairs": 2,
+    "median_spacing": 0.010088
+   },
+   "laplacian_spectrum": {
+    "algebraic_connectivity": 0.052732,
+    "lambda_max": 19.8372,
+    "spectral_ratio": 376.2
+   },
+   "distance_to_source": {
+    "min": 1.328,
+    "median": 18.297,
+    "max": 48.738,
+    "fraction_within_10A": 0.21
+   },
+   "confounders": {
+    "mean_relative_solvent_accessibility": 0.2337,
+    "fraction_buried_rsa_below_0.2": 0.5144,
+    "b_factor_available": true,
+    "sequence_length": 764
+   },
+   "geometry_vs_spectrum": {
+    "spearman_eigenvector_vs_negated_distance": 0.591,
+    "spearman_degree_vs_negated_distance": 0.3619
+   }
+  },
+  {
+   "arm": "mkp5",
+   "pdb_id": "1ZZW",
+   "chain": "A",
+   "n_residues": 147,
+   "n_edges": 718,
+   "cutoff_angstrom": 4.5,
+   "source": {
+    "n_residues": 11,
+    "mean_relative_solvent_accessibility": 0.0992,
+    "mean_degree": 11.727
+   },
+   "degree": {
+    "mean": 9.769,
+    "median": 10.0,
+    "min": 2,
+    "max": 16,
+    "std": 3.013
+   },
+   "topology": {
+    "n_components": 1,
+    "largest_component": 147,
+    "diameter_hops": 7,
+    "mean_hop_distance": 3.398,
+    "mean_clustering": 0.5147,
+    "edge_density": 0.06691
+   },
+   "adjacency_spectrum": {
+    "lambda_1": 11.285,
+    "lambda_2": 9.6606,
+    "gap": 1.6244,
+    "gap_in_mean_spacings": 15.68,
+    "perron_inverse_participation_ratio": 0.014853,
+    "mean_ratio": 0.5314,
+    "near_degenerate_pairs": 0,
+    "median_spacing": 0.049221
+   },
+   "laplacian_spectrum": {
+    "algebraic_connectivity": 0.547461,
+    "lambda_max": 18.0943,
+    "spectral_ratio": 33.1
+   },
+   "distance_to_source": {
+    "min": 1.331,
+    "median": 7.574,
+    "max": 20.659,
+    "fraction_within_10A": 0.6912
+   },
+   "confounders": {
+    "mean_relative_solvent_accessibility": 0.2501,
+    "fraction_buried_rsa_below_0.2": 0.5238,
+    "b_factor_available": true,
+    "sequence_length": 147
+   },
+   "geometry_vs_spectrum": {
+    "spearman_eigenvector_vs_negated_distance": 0.5932,
+    "spearman_degree_vs_negated_distance": 0.5351
+   }
+  },
+  {
+   "arm": "ptp1b",
+   "pdb_id": "1SUG",
+   "chain": "A",
+   "n_residues": 298,
+   "n_edges": 1481,
+   "cutoff_angstrom": 4.5,
+   "source": {
+    "n_residues": 11,
+    "mean_relative_solvent_accessibility": 0.0166,
+    "mean_degree": 12.091
+   },
+   "degree": {
+    "mean": 9.94,
+    "median": 10.0,
+    "min": 3,
+    "max": 20,
+    "std": 3.165
+   },
+   "topology": {
+    "n_components": 1,
+    "largest_component": 298,
+    "diameter_hops": 10,
+    "mean_hop_distance": 4.362,
+    "mean_clustering": 0.4875,
+    "edge_density": 0.03347
+   },
+   "adjacency_spectrum": {
+    "lambda_1": 11.7985,
+    "lambda_2": 10.8166,
+    "gap": 0.9819,
+    "gap_in_mean_spacings": 18.09,
+    "perron_inverse_participation_ratio": 0.009025,
+    "mean_ratio": 0.5162,
+    "near_degenerate_pairs": 0,
+    "median_spacing": 0.027212
+   },
+   "laplacian_spectrum": {
+    "algebraic_connectivity": 0.318094,
+    "lambda_max": 21.6306,
+    "spectral_ratio": 68.0
+   },
+   "distance_to_source": {
+    "min": 1.33,
+    "median": 11.688,
+    "max": 23.952,
+    "fraction_within_10A": 0.4042
+   },
+   "confounders": {
+    "mean_relative_solvent_accessibility": 0.222,
+    "fraction_buried_rsa_below_0.2": 0.5503,
+    "b_factor_available": true,
+    "sequence_length": 298
+   },
+   "geometry_vs_spectrum": {
+    "spearman_eigenvector_vs_negated_distance": 0.8017,
+    "spearman_degree_vs_negated_distance": 0.5275
+   }
+  },
+  {
+   "arm": "hiv_rt",
+   "pdb_id": "1RTJ",
+   "chain": "A",
+   "n_residues": 543,
+   "n_edges": 2403,
+   "cutoff_angstrom": 4.5,
+   "source": {
+    "n_residues": 9,
+    "mean_relative_solvent_accessibility": 0.1983,
+    "mean_degree": 9.222
+   },
+   "degree": {
+    "mean": 8.851,
+    "median": 9.0,
+    "min": 3,
+    "max": 16,
+    "std": 2.827
+   },
+   "topology": {
+    "n_components": 1,
+    "largest_component": 543,
+    "diameter_hops": 22,
+    "mean_hop_distance": 8.449,
+    "mean_clustering": 0.4989,
+    "edge_density": 0.01633
+   },
+   "adjacency_spectrum": {
+    "lambda_1": 10.4028,
+    "lambda_2": 10.3168,
+    "gap": 0.086,
+    "gap_in_mean_spacings": 3.16,
+    "perron_inverse_participation_ratio": 0.013995,
+    "mean_ratio": 0.5191,
+    "near_degenerate_pairs": 2,
+    "median_spacing": 0.013484
+   },
+   "laplacian_spectrum": {
+    "algebraic_connectivity": 0.02473,
+    "lambda_max": 17.9684,
+    "spectral_ratio": 726.6
+   },
+   "distance_to_source": {
+    "min": 1.324,
+    "median": 23.889,
+    "max": 68.835,
+    "fraction_within_10A": 0.1498
+   },
+   "confounders": {
+    "mean_relative_solvent_accessibility": 0.2747,
+    "fraction_buried_rsa_below_0.2": 0.4604,
+    "b_factor_available": true,
+    "sequence_length": 543
+   },
+   "geometry_vs_spectrum": {
+    "spearman_eigenvector_vs_negated_distance": 0.1567,
+    "spearman_degree_vs_negated_distance": 0.1391
+   }
+  },
+  {
+   "arm": "ns5b",
+   "pdb_id": "1QUV",
+   "chain": "A",
+   "n_residues": 553,
+   "n_edges": 2720,
+   "cutoff_angstrom": 4.5,
+   "source": {
+    "n_residues": 3,
+    "mean_relative_solvent_accessibility": 0.2031,
+    "mean_degree": 9.333
+   },
+   "degree": {
+    "mean": 9.837,
+    "median": 10.0,
+    "min": 2,
+    "max": 18,
+    "std": 2.815
+   },
+   "topology": {
+    "n_components": 1,
+    "largest_component": 553,
+    "diameter_hops": 12,
+    "mean_hop_distance": 5.847,
+    "mean_clustering": 0.4766,
+    "edge_density": 0.01782
+   },
+   "adjacency_spectrum": {
+    "lambda_1": 11.2627,
+    "lambda_2": 11.1878,
+    "gap": 0.0748,
+    "gap_in_mean_spacings": 2.66,
+    "perron_inverse_participation_ratio": 0.005996,
+    "mean_ratio": 0.4951,
+    "near_degenerate_pairs": 0,
+    "median_spacing": 0.014434
+   },
+   "laplacian_spectrum": {
+    "algebraic_connectivity": 0.120014,
+    "lambda_max": 19.4175,
+    "spectral_ratio": 161.8
+   },
+   "distance_to_source": {
+    "min": 1.318,
+    "median": 19.034,
+    "max": 40.277,
+    "fraction_within_10A": 0.1218
+   },
+   "confounders": {
+    "mean_relative_solvent_accessibility": 0.2195,
+    "fraction_buried_rsa_below_0.2": 0.5479,
+    "b_factor_available": true,
+    "sequence_length": 553
+   },
+   "geometry_vs_spectrum": {
+    "spearman_eigenvector_vs_negated_distance": 0.17,
+    "spearman_degree_vs_negated_distance": 0.2824
+   }
+  },
+  {
+   "arm": "chk1",
+   "pdb_id": "1IA8",
+   "chain": "A",
+   "n_residues": 272,
+   "n_edges": 1255,
+   "cutoff_angstrom": 4.5,
+   "source": {
+    "n_residues": 11,
+    "mean_relative_solvent_accessibility": 0.1051,
+    "mean_degree": 10.818
+   },
+   "degree": {
+    "mean": 9.228,
+    "median": 9.0,
+    "min": 2,
+    "max": 20,
+    "std": 3.149
+   },
+   "topology": {
+    "n_components": 1,
+    "largest_component": 272,
+    "diameter_hops": 13,
+    "mean_hop_distance": 4.751,
+    "mean_clustering": 0.502,
+    "edge_density": 0.03405
+   },
+   "adjacency_spectrum": {
+    "lambda_1": 11.2915,
+    "lambda_2": 10.1973,
+    "gap": 1.0942,
+    "gap_in_mean_spacings": 19.12,
+    "perron_inverse_participation_ratio": 0.011858,
+    "mean_ratio": 0.5198,
+    "near_degenerate_pairs": 3,
+    "median_spacing": 0.027214
+   },
+   "laplacian_spectrum": {
+    "algebraic_connectivity": 0.139117,
+    "lambda_max": 21.5898,
+    "spectral_ratio": 155.2
+   },
+   "distance_to_source": {
+    "min": 1.327,
+    "median": 9.4,
+    "max": 25.31,
+    "fraction_within_10A": 0.5364
+   },
+   "confounders": {
+    "mean_relative_solvent_accessibility": 0.2585,
+    "fraction_buried_rsa_below_0.2": 0.4632,
+    "b_factor_available": true,
+    "sequence_length": 272
+   },
+   "geometry_vs_spectrum": {
+    "spearman_eigenvector_vs_negated_distance": 0.0063,
+    "spearman_degree_vs_negated_distance": 0.3447
+   }
+  },
+  {
+   "arm": "smyd3",
+   "pdb_id": "6P7Z",
+   "chain": "A",
+   "n_residues": 425,
+   "n_edges": 2089,
+   "cutoff_angstrom": 4.5,
+   "source": {
+    "n_residues": 17,
+    "mean_relative_solvent_accessibility": 0.196,
+    "mean_degree": 9.765
+   },
+   "degree": {
+    "mean": 9.831,
+    "median": 10.0,
+    "min": 2,
+    "max": 20,
+    "std": 2.85
+   },
+   "topology": {
+    "n_components": 1,
+    "largest_component": 425,
+    "diameter_hops": 12,
+    "mean_hop_distance": 5.33,
+    "mean_clustering": 0.4958,
+    "edge_density": 0.02319
+   },
+   "adjacency_spectrum": {
+    "lambda_1": 11.1788,
+    "lambda_2": 11.0461,
+    "gap": 0.1327,
+    "gap_in_mean_spacings": 3.66,
+    "perron_inverse_participation_ratio": 0.006469,
+    "mean_ratio": 0.5023,
+    "near_degenerate_pairs": 0,
+    "median_spacing": 0.017062
+   },
+   "laplacian_spectrum": {
+    "algebraic_connectivity": 0.150604,
+    "lambda_max": 21.557,
+    "spectral_ratio": 143.1
+   },
+   "distance_to_source": {
+    "min": 1.324,
+    "median": 15.976,
+    "max": 43.299,
+    "fraction_within_10A": 0.299
+   },
+   "confounders": {
+    "mean_relative_solvent_accessibility": 0.2367,
+    "fraction_buried_rsa_below_0.2": 0.5224,
+    "b_factor_available": true,
+    "sequence_length": 425
+   },
+   "geometry_vs_spectrum": {
+    "spearman_eigenvector_vs_negated_distance": -0.2271,
+    "spearman_degree_vs_negated_distance": 0.1075
+   }
+  },
+  {
+   "arm": "glucokinase",
+   "pdb_id": "3IDH",
+   "chain": "A",
+   "n_residues": 453,
+   "n_edges": 2270,
+   "cutoff_angstrom": 4.5,
+   "source": {
+    "n_residues": 15,
+    "mean_relative_solvent_accessibility": 0.0596,
+    "mean_degree": 11.267
+   },
+   "degree": {
+    "mean": 10.022,
+    "median": 10.0,
+    "min": 3,
+    "max": 17,
+    "std": 2.841
+   },
+   "topology": {
+    "n_components": 1,
+    "largest_component": 453,
+    "diameter_hops": 14,
+    "mean_hop_distance": 5.397,
+    "mean_clustering": 0.4798,
+    "edge_density": 0.02217
+   },
+   "adjacency_spectrum": {
+    "lambda_1": 11.6378,
+    "lambda_2": 10.9806,
+    "gap": 0.6572,
+    "gap_in_mean_spacings": 18.73,
+    "perron_inverse_participation_ratio": 0.008804,
+    "mean_ratio": 0.5267,
+    "near_degenerate_pairs": 1,
+    "median_spacing": 0.017463
+   },
+   "laplacian_spectrum": {
+    "algebraic_connectivity": 0.126725,
+    "lambda_max": 18.9185,
+    "spectral_ratio": 149.3
+   },
+   "distance_to_source": {
+    "min": 1.321,
+    "median": 12.315,
+    "max": 37.154,
+    "fraction_within_10A": 0.3516
+   },
+   "confounders": {
+    "mean_relative_solvent_accessibility": 0.2088,
+    "fraction_buried_rsa_below_0.2": 0.574,
+    "b_factor_available": true,
+    "sequence_length": 453
+   },
+   "geometry_vs_spectrum": {
+    "spearman_eigenvector_vs_negated_distance": 0.5289,
+    "spearman_degree_vs_negated_distance": 0.419
+   }
+  },
+  {
+   "arm": "p97_vcp",
+   "pdb_id": "5FTK",
+   "chain": "A",
+   "n_residues": 723,
+   "n_edges": 3241,
+   "cutoff_angstrom": 4.5,
+   "source": {
+    "n_residues": 35,
+    "mean_relative_solvent_accessibility": 0.2033,
+    "mean_degree": 9.571
+   },
+   "degree": {
+    "mean": 8.965,
+    "median": 9.0,
+    "min": 2,
+    "max": 17,
+    "std": 2.685
+   },
+   "topology": {
+    "n_components": 1,
+    "largest_component": 723,
+    "diameter_hops": 18,
+    "mean_hop_distance": 7.808,
+    "mean_clustering": 0.4818,
+    "edge_density": 0.01242
+   },
+   "adjacency_spectrum": {
+    "lambda_1": 10.6247,
+    "lambda_2": 10.5905,
+    "gap": 0.0342,
+    "gap_in_mean_spacings": 1.67,
+    "perron_inverse_participation_ratio": 0.010808,
+    "mean_ratio": 0.5005,
+    "near_degenerate_pairs": 0,
+    "median_spacing": 0.010704
+   },
+   "laplacian_spectrum": {
+    "algebraic_connectivity": 0.020276,
+    "lambda_max": 18.6464,
+    "spectral_ratio": 919.6
+   },
+   "distance_to_source": {
+    "min": 1.319,
+    "median": 12.76,
+    "max": 32.629,
+    "fraction_within_10A": 0.3459
+   },
+   "confounders": {
+    "mean_relative_solvent_accessibility": 0.2594,
+    "fraction_buried_rsa_below_0.2": 0.4592,
+    "b_factor_available": true,
+    "sequence_length": 723
+   },
+   "geometry_vs_spectrum": {
+    "spearman_eigenvector_vs_negated_distance": 0.4111,
+    "spearman_degree_vs_negated_distance": 0.3466
+   }
+  },
+  {
+   "arm": "ecoli_cps",
+   "pdb_id": "1A9X",
+   "chain": "A",
+   "n_residues": 1058,
+   "n_edges": 5433,
+   "cutoff_angstrom": 4.5,
+   "source": {
+    "n_residues": 61,
+    "mean_relative_solvent_accessibility": 0.1739,
+    "mean_degree": 9.885
+   },
+   "degree": {
+    "mean": 10.27,
+    "median": 10.0,
+    "min": 3,
+    "max": 18,
+    "std": 2.713
+   },
+   "topology": {
+    "n_components": 1,
+    "largest_component": 1058,
+    "diameter_hops": 15,
+    "mean_hop_distance": 6.805,
+    "mean_clustering": 0.4596,
+    "edge_density": 0.00972
+   },
+   "adjacency_spectrum": {
+    "lambda_1": 11.6177,
+    "lambda_2": 11.3211,
+    "gap": 0.2965,
+    "gap_in_mean_spacings": 19.49,
+    "perron_inverse_participation_ratio": 0.002984,
+    "mean_ratio": 0.5263,
+    "near_degenerate_pairs": 1,
+    "median_spacing": 0.007416
+   },
+   "laplacian_spectrum": {
+    "algebraic_connectivity": 0.09519,
+    "lambda_max": 19.9582,
+    "spectral_ratio": 209.7
+   },
+   "distance_to_source": {
+    "min": 1.298,
+    "median": 10.137,
+    "max": 28.926,
+    "fraction_within_10A": 0.4865
+   },
+   "confounders": {
+    "mean_relative_solvent_accessibility": 0.179,
+    "fraction_buried_rsa_below_0.2": 0.6474,
+    "b_factor_available": true,
+    "sequence_length": 1058
+   },
+   "geometry_vs_spectrum": {
+    "spearman_eigenvector_vs_negated_distance": 0.0897,
+    "spearman_degree_vs_negated_distance": 0.1501
+   }
+  }
+ ]
+}

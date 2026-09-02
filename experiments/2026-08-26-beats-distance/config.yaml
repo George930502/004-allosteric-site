@@ -1,0 +1,25 @@
+# Which scorers carry signal that the distance to the active site does not already carry?
+#
+# The method sweep left one finding standing above the rest: nearly every score correlates
+# 0.65-0.85 with plain Euclidean distance to the source, and detrending distance out collapses
+# performance. That makes "beat distance" the question, and the evaluation layer already froze
+# a test for it -- `allo.scoring.harness.compare_methods`, paired on the residue and matched on
+# geometry, frozen before any method existed (ADR 0025).
+#
+# So this experiment does not invent a statistic. It runs the frozen one over the whole scorer
+# battery and reports which scorers survive.
+#
+# Development tier only.
+
+arms: [mkp5, ptp1b, hiv_rt, ns5b]
+graph: {contact: heavy_min, weighting: unit}
+
+# The baseline every scorer is compared against. It is the distance confound itself, scored
+# through the same harness as everything else.
+baseline: distance_from_source_negated
+
+# A second baseline, because "beats distance" and "beats the best cheap classical score" are
+# different bars and the report needs both.
+second_baseline: eigenvector_centrality
+
+seed: 0

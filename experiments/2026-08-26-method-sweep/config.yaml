@@ -1,0 +1,97 @@
+# Every knob that affects the result belongs here, including the seed.
+# A rerun of this config must reproduce metrics.json exactly.
+#
+#   uv run python experiments/2026-08-26-method-sweep/run.py
+#
+# Question: across every graph, scorer and confound-removal stage we can build from the
+# frozen apo input alone, which combinations rank the ground truth above the frozen nulls,
+# and by how much? This is a SCREEN, not a confirmatory test. It runs on the secondary set's
+# `development` tier and nowhere else (ADR 0012, ADR 0021), and its output selects what gets
+# frozen and scored once on the primary benchmark later.
+name: method-sweep
+date: 2026-08-26
+seed: 0
+
+# The four `development` arms. `generalisation` stays closed until the method is frozen
+# (Phase 5), and the primary benchmark is not touched by a sweep at all.
+arms:
+  - mkp5
+  - ptp1b
+  - hiv_rt
+  - ns5b
+
+# --------------------------------------------------------------------------------------
+# Stage S1 -- the graph. Variant `evaluation_default` reproduces the frozen evaluation
+# graph exactly, so it is the zero point every other variant is measured against.
+# --------------------------------------------------------------------------------------
+graphs:
+  evaluation_default: { contact: heavy_min, cutoff: 4.5, weighting: unit }
+  heavy_contact_count:
+    { contact: heavy_min, cutoff: 4.5, weighting: contact_count }
+  heavy_inverse_square:
+    { contact: heavy_min, cutoff: 4.5, weighting: inverse_square }
+  heavy_exponential:
+    {
+      contact: heavy_min,
+      cutoff: 4.5,
+      weighting: exponential,
+      decay_length: 4.0,
+    }
+  heavy_edge_class: { contact: heavy_min, cutoff: 4.5, weighting: edge_class }
+  heavy_wide: { contact: heavy_min, cutoff: 6.0, weighting: unit }
+  cb_10: { contact: cb, cutoff: 10.0, weighting: unit }
+  ca_8: { contact: ca, cutoff: 8.0, weighting: unit }
+
+# Edge-class bonuses. Free parameters, so they are fitted or swept HERE and never quoted
+# from an MD-parameterised source (11-pipeline-decomposition.md, S1 risk).
+edge_class_weights: { hbond: 1.0, salt_bridge: 1.0, disulfide: 2.0 }
+
+# --------------------------------------------------------------------------------------
+# Stage S6 -- confound removal. `raw` is the control: no detrending at all.
+# --------------------------------------------------------------------------------------
+detrend: [raw, exponential, binned_rank]
+binned_rank_bins: 8
+
+# The two further forms are run on a graph subset rather than on all eight. The design
+# assumes that the graph and the detrend form are near-separable, and the subset is what
+# tests that assumption: it holds the zero point plus the best weighted and best
+# single-point graph from the first pass, so a strong graph-by-detrend interaction would
+# show up as a rank change inside it. Full crossing costs 2688 further scored variants for
+# an axis the first pass showed to be flat, and it is not worth that.
+detrend_extra: [binned_median, gaussian_kernel]
+detrend_extra_graphs: [evaluation_default, heavy_inverse_square, cb_10]
+
+# Bandwidth in angstroms for the `gaussian_kernel` detrend -- the Nadaraya-Watson local
+# z-score against distance to the source, which is the published ALPS `z_d` stage.
+gaussian_bandwidth: 6.0
+
+# --------------------------------------------------------------------------------------
+# Scorer parameters that are not the scorer's default.
+# --------------------------------------------------------------------------------------
+scorer_params:
+  katz_centrality: { attenuation: 0.5 }
+  slow_mode_participation: { modes: 10 }
+  personalised_pagerank: { restart: 0.15 }
+  heat_kernel_from_source: { time: 1.0 }
+  regularised_laplacian_kernel: { sigma: 1.0 }
+  anm_perturbation_response: { cutoff: 13.0 }
+  ctqw_average_transfer: { form: adjacency, steps: 512 }
+  ctqw_infinite_time_average: { form: adjacency }
+  ctqw_peak_transfer: { form: adjacency, steps: 512 }
+  ctqw_temporal_variance: { form: adjacency, steps: 512 }
+  ctqw_coherent_source_contrast: { form: adjacency, steps: 512 }
+  quantum_survival_time: { form: adjacency, trapping: 1.0 }
+  quantum_perturbation_response: { form: adjacency, strength: 1.0, steps: 128 }
+  dephased_transport: { form: adjacency, dephasing: 1.0, trapping: 1.0 }
+  szegedy_quantum_pagerank: { restart: 0.15, steps: 200 }
+  quantum_best_case_transfer: { form: adjacency }
+  quantum_opening_gain: { form: adjacency }
+  alps_spectral_response: { radius: 12.0, stiffening: 2.0, modes: 3 }
+  essa_perturbation: { modes: 10 }
+  ohm_path_probability: { scale: 3.0 }
+  multiscale_heat_kernel: { scales: 6 }
+  normalised_anm_response: { cutoff: 13.0 }
+  gnm_transfer_entropy: { lag: 1.0 }
+
+# The observable that needs an N^2 solve. Declared, not discovered at run time.
+dephasing_max_nodes: 620

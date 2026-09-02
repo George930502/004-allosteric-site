@@ -1,0 +1,54 @@
+{
+ "pdbx_entity_nonpoly": {
+  "comp_id": "MG",
+  "entity_id": "5",
+  "name": "MAGNESIUM ION"
+ },
+ "rcsb_id": "8QYR_5",
+ "rcsb_nonpolymer_entity": {
+  "formula_weight": 0.024,
+  "pdbx_description": "MAGNESIUM ION",
+  "pdbx_number_of_molecules": 1
+ },
+ "rcsb_nonpolymer_entity_annotation": [
+  {
+   "annotation_id": "entity_annotation_2",
+   "assignment_version": "V1.0",
+   "comp_id": "MG",
+   "description": "Ligand targeted in this investigation",
+   "name": "MG",
+   "provenance_source": "PDB",
+   "type": "SUBJECT_OF_INVESTIGATION"
+  }
+ ],
+ "rcsb_nonpolymer_entity_container_identifiers": {
+  "asym_ids": [
+   "G"
+  ],
+  "auth_asym_ids": [
+   "B"
+  ],
+  "chem_ref_def_id": "MG",
+  "entity_id": "5",
+  "entry_id": "8QYR",
+  "nonpolymer_comp_id": "MG",
+  "rcsb_id": "8QYR_5"
+ },
+ "rcsb_nonpolymer_entity_feature": [
+  {
+   "assignment_version": "V1.0",
+   "comp_id": "MG",
+   "description": "Ligand targeted in this investigation",
+   "feature_id": "entity_feature_2",
+   "name": "MG",
+   "provenance_source": "PDB",
+   "type": "SUBJECT_OF_INVESTIGATION"
+  }
+ ],
+ "rcsb_nonpolymer_entity_feature_summary": [
+  {
+   "count": 1,
+   "type": "SUBJECT_OF_INVESTIGATION"
+  }
+ ]
+}

@@ -1,0 +1,54 @@
+{
+ "pdbx_entity_nonpoly": {
+  "comp_id": "BEF",
+  "entity_id": "7",
+  "name": "BERYLLIUM TRIFLUORIDE ION"
+ },
+ "rcsb_id": "8QYR_7",
+ "rcsb_nonpolymer_entity": {
+  "formula_weight": 0.066,
+  "pdbx_description": "BERYLLIUM TRIFLUORIDE ION",
+  "pdbx_number_of_molecules": 1
+ },
+ "rcsb_nonpolymer_entity_annotation": [
+  {
+   "annotation_id": "entity_annotation_4",
+   "assignment_version": "V1.0",
+   "comp_id": "BEF",
+   "description": "Ligand targeted in this investigation",
+   "name": "BEF",
+   "provenance_source": "PDB",
+   "type": "SUBJECT_OF_INVESTIGATION"
+  }
+ ],
+ "rcsb_nonpolymer_entity_container_identifiers": {
+  "asym_ids": [
+   "I"
+  ],
+  "auth_asym_ids": [
+   "B"
+  ],
+  "chem_ref_def_id": "BEF",
+  "entity_id": "7",
+  "entry_id": "8QYR",
+  "nonpolymer_comp_id": "BEF",
+  "rcsb_id": "8QYR_7"
+ },
+ "rcsb_nonpolymer_entity_feature": [
+  {
+   "assignment_version": "V1.0",
+   "comp_id": "BEF",
+   "description": "Ligand targeted in this investigation",
+   "feature_id": "entity_feature_4",
+   "name": "BEF",
+   "provenance_source": "PDB",
+   "type": "SUBJECT_OF_INVESTIGATION"
+  }
+ ],
+ "rcsb_nonpolymer_entity_feature_summary": [
+  {
+   "count": 1,
+   "type": "SUBJECT_OF_INVESTIGATION"
+  }
+ ]
+}

@@ -1,0 +1,217 @@
+{
+ "chem_comp": {
+  "formula": "O4 V",
+  "formula_weight": 114.939,
+  "id": "VO4",
+  "name": "VANADATE ION",
+  "pdbx_ambiguous_flag": "N",
+  "pdbx_initial_date": "1999-07-08T00:00:00.000+00:00",
+  "pdbx_modified_date": "2026-07-31T00:00:00.000+00:00",
+  "pdbx_processing_site": "RCSB",
+  "pdbx_release_status": "REL",
+  "three_letter_code": "VO4",
+  "type": "non-polymer"
+ },
+ "pdbx_chem_comp_audit": [
+  {
+   "action_type": "Create component",
+   "comp_id": "VO4",
+   "date": "1999-07-08T00:00:00.000+00:00",
+   "ordinal": 1
+  },
+  {
+   "action_type": "Modify descriptor",
+   "comp_id": "VO4",
+   "date": "2011-06-04T00:00:00.000+00:00",
+   "ordinal": 2
+  },
+  {
+   "action_type": "Other modification",
+   "comp_id": "VO4",
+   "date": "2026-07-17T00:00:00.000+00:00",
+   "ordinal": 3
+  },
+  {
+   "action_type": "Other modification",
+   "comp_id": "VO4",
+   "date": "2026-07-31T00:00:00.000+00:00",
+   "ordinal": 4
+  }
+ ],
+ "pdbx_chem_comp_descriptor": [
+  {
+   "comp_id": "VO4",
+   "descriptor": "[O-][V]([O-])([O-])=O",
+   "program": "ACDLabs",
+   "program_version": "10.04",
+   "type": "SMILES"
+  },
+  {
+   "comp_id": "VO4",
+   "descriptor": "[O-][V]([O-])([O-])=O",
+   "program": "CACTVS",
+   "program_version": "3.341",
+   "type": "SMILES_CANONICAL"
+  },
+  {
+   "comp_id": "VO4",
+   "descriptor": "[O-][V]([O-])([O-])=O",
+   "program": "CACTVS",
+   "program_version": "3.341",
+   "type": "SMILES"
+  },
+  {
+   "comp_id": "VO4",
+   "descriptor": "[O-][V](=O)([O-])[O-]",
+   "program": "OpenEye OEToolkits",
+   "program_version": "1.5.0",
+   "type": "SMILES_CANONICAL"
+  },
+  {
+   "comp_id": "VO4",
+   "descriptor": "[O-][V](=O)([O-])[O-]",
+   "program": "OpenEye OEToolkits",
+   "program_version": "1.5.0",
+   "type": "SMILES"
+  },
+  {
+   "comp_id": "VO4",
+   "descriptor": "InChI=1S/4O.V/q;3*-1;",
+   "program": "InChI",
+   "program_version": "1.03",
+   "type": "InChI"
+  },
+  {
+   "comp_id": "VO4",
+   "descriptor": "LSGOVYNHVSXFFJ-UHFFFAOYSA-N",
+   "program": "InChI",
+   "program_version": "1.03",
+   "type": "InChIKey"
+  }
+ ],
+ "pdbx_chem_comp_identifier": [
+  {
+   "comp_id": "VO4",
+   "identifier": "trioxido(oxo)vanadium",
+   "program": "ACDLabs",
+   "program_version": "10.04",
+   "type": "SYSTEMATIC NAME"
+  },
+  {
+   "comp_id": "VO4",
+   "identifier": "trioxido-oxo-vanadium",
+   "program": "OpenEye OEToolkits",
+   "program_version": "1.5.0",
+   "type": "SYSTEMATIC NAME"
+  }
+ ],
+ "rcsb_chem_comp_annotation": [
+  {
+   "annotation_id": "MOD:00802",
+   "annotation_lineage": [
+    {
+     "depth": 1,
+     "id": "MOD:00802",
+     "name": "L-histidino vanadium tetraoxide"
+    },
+    {
+     "depth": 2,
+     "id": "MOD:01156",
+     "name": "protein modification categorized by chemical process"
+    },
+    {
+     "depth": 3,
+     "id": "MOD:00698",
+     "name": "metal or metal cluster containing modified residue"
+    },
+    {
+     "depth": 4,
+     "id": "MOD:00772",
+     "name": "vanadium containing modified residue"
+    },
+    {
+     "depth": 5,
+     "id": "MOD:00000",
+     "name": "protein modification"
+    },
+    {
+     "depth": 6,
+     "id": "MOD:00909",
+     "name": "modified L-histidine residue"
+    },
+    {
+     "depth": 7,
+     "id": "MOD:01157",
+     "name": "protein modification categorized by amino acid modified"
+    }
+   ],
+   "assignment_version": "76.00",
+   "name": "L-histidino vanadium tetraoxide",
+   "provenance_source": "RESID",
+   "type": "PSI-MOD"
+  }
+ ],
+ "rcsb_chem_comp_container_identifiers": {
+  "comp_id": "VO4",
+  "rcsb_id": "VO4"
+ },
+ "rcsb_chem_comp_descriptor": {
+  "InChI": "InChI=1S/4O.V/q;3*-1;",
+  "InChIKey": "LSGOVYNHVSXFFJ-UHFFFAOYSA-N",
+  "SMILES": "[O-][V](=O)([O-])[O-]",
+  "SMILES_stereo": "[O-][V](=O)([O-])[O-]",
+  "comp_id": "VO4"
+ },
+ "rcsb_chem_comp_info": {
+  "atom_count": 5,
+  "atom_count_chiral": 0,
+  "atom_count_heavy": 5,
+  "bond_count": 4,
+  "bond_count_aromatic": 0,
+  "comp_id": "VO4",
+  "initial_deposition_date": "1999-07-08T00:00:00.000+00:00",
+  "initial_release_date": "1989-10-15T00:00:00.000+00:00",
+  "release_status": "REL",
+  "revision_date": "2026-07-31T00:00:00.000+00:00"
+ },
+ "rcsb_chem_comp_related": [
+  {
+   "comp_id": "VO4",
+   "ordinal": 1,
+   "related_mapping_method": "matching by RESID resource",
+   "resource_accession_code": "AA0395",
+   "resource_name": "RESID"
+  },
+  {
+   "comp_id": "VO4",
+   "ordinal": 2,
+   "related_mapping_method": "matching InChIKey in PubChem",
+   "resource_accession_code": "161996121",
+   "resource_name": "PubChem"
+  }
+ ],
+ "rcsb_chem_comp_synonyms": [
+  {
+   "comp_id": "VO4",
+   "name": "VANADATE ION",
+   "ordinal": 1,
+   "provenance_source": "PDB Reference Data",
+   "type": "Preferred Name"
+  },
+  {
+   "comp_id": "VO4",
+   "name": "trioxido(oxo)vanadium",
+   "ordinal": 2,
+   "provenance_source": "ACDLabs",
+   "type": "Systematic Name"
+  },
+  {
+   "comp_id": "VO4",
+   "name": "trioxido-oxo-vanadium",
+   "ordinal": 3,
+   "provenance_source": "OpenEye OEToolkits",
+   "type": "Systematic Name"
+  }
+ ],
+ "rcsb_id": "VO4"
+}

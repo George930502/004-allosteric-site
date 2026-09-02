@@ -1,0 +1,435 @@
+[
+ {
+  "rcsb_id": "8SSP_2",
+  "rcsb_polymer_entity": {
+   "pdbx_description": "Mb1",
+   "pdbx_mutation": null
+  },
+  "entity_poly": {
+   "rcsb_sample_sequence_length": 96,
+   "type": "polypeptide(L)",
+   "pdbx_seq_one_letter_code_can": "GSVSSVPTKLEVVAATPTSLLISWDAQTYQMYDYVSYYRITYGETGGNSPVQEFTVPGYYSTATISGLKPGVDYTITVYAEGYYSSYSPISINYRT"
+  },
+  "rcsb_polymer_entity_container_identifiers": {
+   "entry_id": "8SSP",
+   "auth_asym_ids": [
+    "B"
+   ],
+   "asym_ids": [
+    "B"
+   ]
+  },
+  "rcsb_polymer_entity_align": null,
+  "rcsb_entity_source_organism": [
+   {
+    "scientific_name": "synthetic construct",
+    "ncbi_taxonomy_id": 32630
+   }
+  ],
+  "entry": {
+   "rcsb_id": "8SSP",
+   "struct": {
+    "title": "AurA bound to danusertib and activating monobody Mb1"
+   },
+   "exptl": [
+    {
+     "method": "X-RAY DIFFRACTION"
+    }
+   ],
+   "rcsb_entry_info": {
+    "resolution_combined": [
+     2.6
+    ],
+    "deposited_polymer_entity_instance_count": 2,
+    "experimental_method": "X-ray"
+   },
+   "rcsb_accession_info": {
+    "initial_release_date": "2023-09-06T00:00:00Z"
+   },
+   "citation": [
+    {
+     "id": "primary",
+     "title": "A biophysical framework for double-drugging kinases.",
+     "pdbx_database_id_DOI": "10.1073/pnas.2304611120",
+     "journal_abbrev": "Proc.Natl.Acad.Sci.USA",
+     "year": 2023
+    }
+   ],
+   "nonpolymer_entities": [
+    {
+     "rcsb_id": "8SSP_3",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "1,2-ETHANEDIOL",
+      "formula_weight": 0.062
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A"
+      ],
+      "nonpolymer_comp_id": "EDO"
+     }
+    },
+    {
+     "rcsb_id": "8SSP_4",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "SULFATE ION",
+      "formula_weight": 0.096
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A"
+      ],
+      "nonpolymer_comp_id": "SO4"
+     }
+    },
+    {
+     "rcsb_id": "8SSP_5",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "2-(N-MORPHOLINO)-ETHANESULFONIC ACID",
+      "formula_weight": 0.195
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A"
+      ],
+      "nonpolymer_comp_id": "MES"
+     }
+    },
+    {
+     "rcsb_id": "8SSP_6",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "PHOSPHATE ION",
+      "formula_weight": 0.095
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A"
+      ],
+      "nonpolymer_comp_id": "PO4"
+     }
+    },
+    {
+     "rcsb_id": "8SSP_7",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "1,3-PROPANDIOL",
+      "formula_weight": 0.076
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A"
+      ],
+      "nonpolymer_comp_id": "PDO"
+     }
+    },
+    {
+     "rcsb_id": "8SSP_8",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "N-[(3E)-5-[(2R)-2-METHOXY-2-PHENYLACETYL]PYRROLO[3,4-C]PYRAZOL-3(5H)-YLIDENE]-4-(4-METHYLPIPERAZIN-1-YL)BENZAMIDE",
+      "formula_weight": 0.475
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A"
+      ],
+      "nonpolymer_comp_id": "627"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "rcsb_id": "8SSP_1",
+  "rcsb_polymer_entity": {
+   "pdbx_description": "Aurora kinase A",
+   "pdbx_mutation": null
+  },
+  "entity_poly": {
+   "rcsb_sample_sequence_length": 284,
+   "type": "polypeptide(L)",
+   "pdbx_seq_one_letter_code_can": "VDESKKRQWALEDFEIGRPLGKGKFGNVYLAREKQSKFILALKVLFKAQLEKAGVEHQLRREVEIQSHLRHPNILRLYGYFHDATRVYLILEYAPLGTVYRELQKLSKFDEQRTATYITELANALSYCHSKRVIHRDIKPENLLLGSAGELKIADFGWSVHAPSSRRTTLCGTLDYLPPEMIEGRMHDEKVDLWSLGVLCYEFLVGKPPFEANTYQETYKRISRVEFTFPDFVTEGARDLISRLLKHNPSQRPMLREVLEHPWITANSSKPSNCQNKESASKQS"
+  },
+  "rcsb_polymer_entity_container_identifiers": {
+   "entry_id": "8SSP",
+   "auth_asym_ids": [
+    "A"
+   ],
+   "asym_ids": [
+    "A"
+   ]
+  },
+  "rcsb_polymer_entity_align": [
+   {
+    "reference_database_accession": "O14965",
+    "reference_database_name": "UniProt",
+    "provenance_source": "SIFTS",
+    "aligned_regions": [
+     {
+      "entity_beg_seq_id": 3,
+      "length": 282,
+      "ref_beg_seq_id": 122
+     }
+    ]
+   }
+  ],
+  "rcsb_entity_source_organism": [
+   {
+    "scientific_name": "Homo sapiens",
+    "ncbi_taxonomy_id": 9606
+   }
+  ],
+  "entry": {
+   "rcsb_id": "8SSP",
+   "struct": {
+    "title": "AurA bound to danusertib and activating monobody Mb1"
+   },
+   "exptl": [
+    {
+     "method": "X-RAY DIFFRACTION"
+    }
+   ],
+   "rcsb_entry_info": {
+    "resolution_combined": [
+     2.6
+    ],
+    "deposited_polymer_entity_instance_count": 2,
+    "experimental_method": "X-ray"
+   },
+   "rcsb_accession_info": {
+    "initial_release_date": "2023-09-06T00:00:00Z"
+   },
+   "citation": [
+    {
+     "id": "primary",
+     "title": "A biophysical framework for double-drugging kinases.",
+     "pdbx_database_id_DOI": "10.1073/pnas.2304611120",
+     "journal_abbrev": "Proc.Natl.Acad.Sci.USA",
+     "year": 2023
+    }
+   ],
+   "nonpolymer_entities": [
+    {
+     "rcsb_id": "8SSP_3",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "1,2-ETHANEDIOL",
+      "formula_weight": 0.062
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A"
+      ],
+      "nonpolymer_comp_id": "EDO"
+     }
+    },
+    {
+     "rcsb_id": "8SSP_4",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "SULFATE ION",
+      "formula_weight": 0.096
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A"
+      ],
+      "nonpolymer_comp_id": "SO4"
+     }
+    },
+    {
+     "rcsb_id": "8SSP_5",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "2-(N-MORPHOLINO)-ETHANESULFONIC ACID",
+      "formula_weight": 0.195
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A"
+      ],
+      "nonpolymer_comp_id": "MES"
+     }
+    },
+    {
+     "rcsb_id": "8SSP_6",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "PHOSPHATE ION",
+      "formula_weight": 0.095
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A"
+      ],
+      "nonpolymer_comp_id": "PO4"
+     }
+    },
+    {
+     "rcsb_id": "8SSP_7",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "1,3-PROPANDIOL",
+      "formula_weight": 0.076
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A"
+      ],
+      "nonpolymer_comp_id": "PDO"
+     }
+    },
+    {
+     "rcsb_id": "8SSP_8",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "N-[(3E)-5-[(2R)-2-METHOXY-2-PHENYLACETYL]PYRROLO[3,4-C]PYRAZOL-3(5H)-YLIDENE]-4-(4-METHYLPIPERAZIN-1-YL)BENZAMIDE",
+      "formula_weight": 0.475
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A"
+      ],
+      "nonpolymer_comp_id": "627"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "rcsb_id": "8SSN_1",
+  "rcsb_polymer_entity": {
+   "pdbx_description": "Tyrosine-protein kinase ABL1",
+   "pdbx_mutation": null
+  },
+  "entity_poly": {
+   "rcsb_sample_sequence_length": 448,
+   "type": "polypeptide(L)",
+   "pdbx_seq_one_letter_code_can": "GNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPAPKRNKPTVYGVSPNYDKWEMERTDITMKHKLGGGQYGEVYEGVWKKYSLTVAVKTLKEDTMEVEEFLKEAAVMKEIKHPNLVQLLGVCTREPPFYIITEFMTYGNLLDYLRECNRQEVNAVVLLYMATQISSAMEYLEKKNFIHRDLAARNCLVGENHLVKVADFGLSRLMTGDTYTAHAGAKFPIKWTAPESLAYNKFSIKSDVWAFGVLLWEIATYGMSPYPGIDLSQVYELLEKDYRMERPEGCPEKVYELMRACWQWNPSDRPSFAEIHQAFETMFQESSISDEVEKEL"
+  },
+  "rcsb_polymer_entity_container_identifiers": {
+   "entry_id": "8SSN",
+   "auth_asym_ids": [
+    "A",
+    "B"
+   ],
+   "asym_ids": [
+    "A",
+    "B"
+   ]
+  },
+  "rcsb_polymer_entity_align": [
+   {
+    "reference_database_accession": "P00519",
+    "reference_database_name": "UniProt",
+    "provenance_source": "SIFTS",
+    "aligned_regions": [
+     {
+      "entity_beg_seq_id": 2,
+      "length": 447,
+      "ref_beg_seq_id": 64
+     }
+    ]
+   }
+  ],
+  "rcsb_entity_source_organism": [
+   {
+    "scientific_name": "Homo sapiens",
+    "ncbi_taxonomy_id": 9606
+   }
+  ],
+  "entry": {
+   "rcsb_id": "8SSN",
+   "struct": {
+    "title": "Abl kinase in complex with SKI and asciminib"
+   },
+   "exptl": [
+    {
+     "method": "X-RAY DIFFRACTION"
+    }
+   ],
+   "rcsb_entry_info": {
+    "resolution_combined": [
+     2.86
+    ],
+    "deposited_polymer_entity_instance_count": 2,
+    "experimental_method": "X-ray"
+   },
+   "rcsb_accession_info": {
+    "initial_release_date": "2023-09-06T00:00:00Z"
+   },
+   "citation": [
+    {
+     "id": "primary",
+     "title": "A biophysical framework for double-drugging kinases.",
+     "pdbx_database_id_DOI": "10.1073/pnas.2304611120",
+     "journal_abbrev": "Proc.Natl.Acad.Sci.USA",
+     "year": 2023
+    }
+   ],
+   "nonpolymer_entities": [
+    {
+     "rcsb_id": "8SSN_2",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "asciminib",
+      "formula_weight": 0.45
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A",
+       "B"
+      ],
+      "nonpolymer_comp_id": "AY7"
+     }
+    },
+    {
+     "rcsb_id": "8SSN_3",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "6,7-dimethoxy-N-(4-phenoxyphenyl)quinazolin-4-amine",
+      "formula_weight": 0.373
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A",
+       "B"
+      ],
+      "nonpolymer_comp_id": "SKI"
+     }
+    },
+    {
+     "rcsb_id": "8SSN_4",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "CHLORIDE ION",
+      "formula_weight": 0.035
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A"
+      ],
+      "nonpolymer_comp_id": "CL"
+     }
+    },
+    {
+     "rcsb_id": "8SSN_5",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "SULFATE ION",
+      "formula_weight": 0.096
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A",
+       "B"
+      ],
+      "nonpolymer_comp_id": "SO4"
+     }
+    },
+    {
+     "rcsb_id": "8SSN_6",
+     "rcsb_nonpolymer_entity": {
+      "pdbx_description": "DIMETHYL SULFOXIDE",
+      "formula_weight": 0.078
+     },
+     "rcsb_nonpolymer_entity_container_identifiers": {
+      "auth_asym_ids": [
+       "A",
+       "B"
+      ],
+      "nonpolymer_comp_id": "DMS"
+     }
+    }
+   ]
+  }
+ }
+]

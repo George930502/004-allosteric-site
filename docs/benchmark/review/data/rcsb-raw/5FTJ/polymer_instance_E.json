@@ -1,0 +1,6412 @@
+{
+ "pdbx_vrpt_summary_entity_fit_to_map": [
+  {
+   "PDB_model_num": 1,
+   "Q_score": 0.5,
+   "average_residue_inclusion": 0.2893
+  }
+ ],
+ "pdbx_vrpt_summary_entity_geometry": [
+  {
+   "PDB_model_num": 1,
+   "angles_RMSZ": 0.77,
+   "bonds_RMSZ": 0.45,
+   "num_angles_RMSZ": 7767,
+   "num_bonds_RMSZ": 5751
+  }
+ ],
+ "rcsb_id": "5FTJ.E",
+ "rcsb_ligand_neighbors": [
+  {
+   "atom_id": "N",
+   "auth_seq_id": 252,
+   "comp_id": "THR",
+   "distance": 2.676,
+   "ligand_asym_id": "S",
+   "ligand_atom_id": "O3B",
+   "ligand_comp_id": "ADP",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 252
+  },
+  {
+   "atom_id": "NZ",
+   "auth_seq_id": 251,
+   "comp_id": "LYS",
+   "distance": 2.843,
+   "ligand_asym_id": "S",
+   "ligand_atom_id": "O1B",
+   "ligand_comp_id": "ADP",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 251
+  },
+  {
+   "atom_id": "N",
+   "auth_seq_id": 207,
+   "comp_id": "GLY",
+   "distance": 3.005,
+   "ligand_asym_id": "S",
+   "ligand_atom_id": "N1",
+   "ligand_comp_id": "ADP",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 207
+  },
+  {
+   "atom_id": "NE2",
+   "auth_seq_id": 384,
+   "comp_id": "HIS",
+   "distance": 3.079,
+   "ligand_asym_id": "S",
+   "ligand_atom_id": "N3",
+   "ligand_comp_id": "ADP",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 384
+  },
+  {
+   "atom_id": "N",
+   "auth_seq_id": 250,
+   "comp_id": "GLY",
+   "distance": 3.158,
+   "ligand_asym_id": "S",
+   "ligand_atom_id": "O1B",
+   "ligand_comp_id": "ADP",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 250
+  },
+  {
+   "atom_id": "CA",
+   "auth_seq_id": 408,
+   "comp_id": "GLY",
+   "distance": 3.178,
+   "ligand_asym_id": "S",
+   "ligand_atom_id": "N7",
+   "ligand_comp_id": "ADP",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 408
+  },
+  {
+   "atom_id": "N",
+   "auth_seq_id": 248,
+   "comp_id": "GLY",
+   "distance": 3.236,
+   "ligand_asym_id": "S",
+   "ligand_atom_id": "O2B",
+   "ligand_comp_id": "ADP",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 248
+  },
+  {
+   "atom_id": "CG1",
+   "auth_seq_id": 380,
+   "comp_id": "ILE",
+   "distance": 3.321,
+   "ligand_asym_id": "S",
+   "ligand_atom_id": "N1",
+   "ligand_comp_id": "ADP",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 380
+  },
+  {
+   "atom_id": "CD1",
+   "auth_seq_id": 253,
+   "comp_id": "LEU",
+   "distance": 3.431,
+   "ligand_asym_id": "S",
+   "ligand_atom_id": "C4",
+   "ligand_comp_id": "ADP",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 253
+  },
+  {
+   "atom_id": "CA",
+   "auth_seq_id": 409,
+   "comp_id": "ALA",
+   "distance": 3.538,
+   "ligand_asym_id": "S",
+   "ligand_atom_id": "O4'",
+   "ligand_comp_id": "ADP",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 409
+  },
+  {
+   "atom_id": "O",
+   "auth_seq_id": 205,
+   "comp_id": "ASP",
+   "distance": 3.789,
+   "ligand_asym_id": "S",
+   "ligand_atom_id": "C2",
+   "ligand_comp_id": "ADP",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 205
+  },
+  {
+   "atom_id": "OG1",
+   "auth_seq_id": 525,
+   "comp_id": "THR",
+   "distance": 2.631,
+   "ligand_asym_id": "T",
+   "ligand_atom_id": "O1B",
+   "ligand_comp_id": "ADP",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 525
+  },
+  {
+   "atom_id": "N",
+   "auth_seq_id": 480,
+   "comp_id": "GLY",
+   "distance": 2.673,
+   "ligand_asym_id": "T",
+   "ligand_atom_id": "N1",
+   "ligand_comp_id": "ADP",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 480
+  },
+  {
+   "atom_id": "O",
+   "auth_seq_id": 521,
+   "comp_id": "GLY",
+   "distance": 2.909,
+   "ligand_asym_id": "T",
+   "ligand_atom_id": "C8",
+   "ligand_comp_id": "ADP",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 521
+  },
+  {
+   "atom_id": "O",
+   "auth_seq_id": 478,
+   "comp_id": "ASP",
+   "distance": 2.912,
+   "ligand_asym_id": "T",
+   "ligand_atom_id": "C2",
+   "ligand_comp_id": "ADP",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 478
+  },
+  {
+   "atom_id": "N",
+   "auth_seq_id": 523,
+   "comp_id": "GLY",
+   "distance": 2.932,
+   "ligand_asym_id": "T",
+   "ligand_atom_id": "O3A",
+   "ligand_comp_id": "ADP",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 523
+  },
+  {
+   "atom_id": "CE",
+   "auth_seq_id": 524,
+   "comp_id": "LYS",
+   "distance": 3.052,
+   "ligand_asym_id": "T",
+   "ligand_atom_id": "O2B",
+   "ligand_comp_id": "ADP",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 524
+  },
+  {
+   "atom_id": "N",
+   "auth_seq_id": 526,
+   "comp_id": "LEU",
+   "distance": 3.178,
+   "ligand_asym_id": "T",
+   "ligand_atom_id": "O1A",
+   "ligand_comp_id": "ADP",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 526
+  },
+  {
+   "atom_id": "CA",
+   "auth_seq_id": 685,
+   "comp_id": "ALA",
+   "distance": 3.225,
+   "ligand_asym_id": "T",
+   "ligand_atom_id": "O4'",
+   "ligand_comp_id": "ADP",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 685
+  },
+  {
+   "atom_id": "CA",
+   "auth_seq_id": 479,
+   "comp_id": "ILE",
+   "distance": 3.286,
+   "ligand_asym_id": "T",
+   "ligand_atom_id": "N1",
+   "ligand_comp_id": "ADP",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 479
+  },
+  {
+   "atom_id": "OG1",
+   "auth_seq_id": 688,
+   "comp_id": "THR",
+   "distance": 3.311,
+   "ligand_asym_id": "T",
+   "ligand_atom_id": "C1'",
+   "ligand_comp_id": "ADP",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 688
+  },
+  {
+   "atom_id": "C",
+   "auth_seq_id": 522,
+   "comp_id": "CYS",
+   "distance": 3.366,
+   "ligand_asym_id": "T",
+   "ligand_atom_id": "N7",
+   "ligand_comp_id": "ADP",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 522
+  },
+  {
+   "atom_id": "CA",
+   "auth_seq_id": 684,
+   "comp_id": "GLY",
+   "distance": 3.378,
+   "ligand_asym_id": "T",
+   "ligand_atom_id": "C8",
+   "ligand_comp_id": "ADP",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 684
+  },
+  {
+   "atom_id": "CG1",
+   "auth_seq_id": 656,
+   "comp_id": "ILE",
+   "distance": 3.477,
+   "ligand_asym_id": "T",
+   "ligand_atom_id": "C6",
+   "ligand_comp_id": "ADP",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 656
+  },
+  {
+   "atom_id": "OD1",
+   "auth_seq_id": 660,
+   "comp_id": "ASN",
+   "distance": 3.711,
+   "ligand_asym_id": "T",
+   "ligand_atom_id": "O2'",
+   "ligand_comp_id": "ADP",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 660
+  },
+  {
+   "atom_id": "CB",
+   "auth_seq_id": 614,
+   "comp_id": "LYS",
+   "distance": 2.739,
+   "ligand_asym_id": "U",
+   "ligand_atom_id": "F28",
+   "ligand_comp_id": "OJA",
+   "ligand_entity_id": "3",
+   "ligand_model_id": 1,
+   "seq_id": 614
+  },
+  {
+   "atom_id": "O",
+   "auth_seq_id": 493,
+   "comp_id": "VAL",
+   "distance": 2.883,
+   "ligand_asym_id": "U",
+   "ligand_atom_id": "N32",
+   "ligand_comp_id": "OJA",
+   "ligand_entity_id": "3",
+   "ligand_model_id": 1,
+   "seq_id": 493
+  },
+  {
+   "atom_id": "O",
+   "auth_seq_id": 511,
+   "comp_id": "SER",
+   "distance": 3.327,
+   "ligand_asym_id": "U",
+   "ligand_atom_id": "C29",
+   "ligand_comp_id": "OJA",
+   "ligand_entity_id": "3",
+   "ligand_model_id": 1,
+   "seq_id": 511
+  },
+  {
+   "atom_id": "O",
+   "auth_seq_id": 616,
+   "comp_id": "ASN",
+   "distance": 3.334,
+   "ligand_asym_id": "U",
+   "ligand_atom_id": "C20",
+   "ligand_comp_id": "OJA",
+   "ligand_entity_id": "3",
+   "ligand_model_id": 1,
+   "seq_id": 616
+  },
+  {
+   "atom_id": "CB",
+   "auth_seq_id": 571,
+   "comp_id": "PRO",
+   "distance": 3.408,
+   "ligand_asym_id": "U",
+   "ligand_atom_id": "C19",
+   "ligand_comp_id": "OJA",
+   "ligand_entity_id": "3",
+   "ligand_model_id": 1,
+   "seq_id": 571
+  },
+  {
+   "atom_id": "SG",
+   "auth_seq_id": 535,
+   "comp_id": "CYS",
+   "distance": 3.415,
+   "ligand_asym_id": "U",
+   "ligand_atom_id": "N14",
+   "ligand_comp_id": "OJA",
+   "ligand_entity_id": "3",
+   "ligand_model_id": 1,
+   "seq_id": 535
+  },
+  {
+   "atom_id": "OE2",
+   "auth_seq_id": 498,
+   "comp_id": "GLU",
+   "distance": 3.43,
+   "ligand_asym_id": "U",
+   "ligand_atom_id": "C09",
+   "ligand_comp_id": "OJA",
+   "ligand_entity_id": "3",
+   "ligand_model_id": 1,
+   "seq_id": 498
+  },
+  {
+   "atom_id": "CG2",
+   "auth_seq_id": 497,
+   "comp_id": "VAL",
+   "distance": 3.511,
+   "ligand_asym_id": "U",
+   "ligand_atom_id": "N32",
+   "ligand_comp_id": "OJA",
+   "ligand_entity_id": "3",
+   "ligand_model_id": 1,
+   "seq_id": 497
+  },
+  {
+   "atom_id": "O",
+   "auth_seq_id": 492,
+   "comp_id": "LEU",
+   "distance": 3.516,
+   "ligand_asym_id": "U",
+   "ligand_atom_id": "C30",
+   "ligand_comp_id": "OJA",
+   "ligand_entity_id": "3",
+   "ligand_model_id": 1,
+   "seq_id": 492
+  },
+  {
+   "atom_id": "O",
+   "auth_seq_id": 617,
+   "comp_id": "VAL",
+   "distance": 3.518,
+   "ligand_asym_id": "U",
+   "ligand_atom_id": "C26",
+   "ligand_comp_id": "OJA",
+   "ligand_entity_id": "3",
+   "ligand_model_id": 1,
+   "seq_id": 617
+  },
+  {
+   "atom_id": "CB",
+   "auth_seq_id": 537,
+   "comp_id": "ALA",
+   "distance": 3.52,
+   "ligand_asym_id": "U",
+   "ligand_atom_id": "C18",
+   "ligand_comp_id": "OJA",
+   "ligand_entity_id": "3",
+   "ligand_model_id": 1,
+   "seq_id": 537
+  },
+  {
+   "atom_id": "O",
+   "auth_seq_id": 572,
+   "comp_id": "CYS",
+   "distance": 3.61,
+   "ligand_asym_id": "U",
+   "ligand_atom_id": "C20",
+   "ligand_comp_id": "OJA",
+   "ligand_entity_id": "3",
+   "ligand_model_id": 1,
+   "seq_id": 572
+  },
+  {
+   "atom_id": "CG",
+   "auth_seq_id": 494,
+   "comp_id": "GLN",
+   "distance": 3.739,
+   "ligand_asym_id": "U",
+   "ligand_atom_id": "C16",
+   "ligand_comp_id": "OJA",
+   "ligand_entity_id": "3",
+   "ligand_model_id": 1,
+   "seq_id": 494
+  },
+  {
+   "atom_id": "CD1",
+   "auth_seq_id": 618,
+   "comp_id": "PHE",
+   "distance": 3.786,
+   "ligand_asym_id": "U",
+   "ligand_atom_id": "C31",
+   "ligand_comp_id": "OJA",
+   "ligand_entity_id": "3",
+   "ligand_model_id": 1,
+   "seq_id": 618
+  },
+  {
+   "atom_id": "CB",
+   "auth_seq_id": 496,
+   "comp_id": "PRO",
+   "distance": 3.862,
+   "ligand_asym_id": "U",
+   "ligand_atom_id": "C30",
+   "ligand_comp_id": "OJA",
+   "ligand_entity_id": "3",
+   "ligand_model_id": 1,
+   "seq_id": 496
+  },
+  {
+   "atom_id": "CG",
+   "auth_seq_id": 510,
+   "comp_id": "PRO",
+   "distance": 3.883,
+   "ligand_asym_id": "U",
+   "ligand_atom_id": "C29",
+   "ligand_comp_id": "OJA",
+   "ligand_entity_id": "3",
+   "ligand_model_id": 1,
+   "seq_id": 510
+  },
+  {
+   "atom_id": "NH2",
+   "auth_seq_id": 359,
+   "comp_id": "ARG",
+   "distance": 3.612,
+   "ligand_asym_id": "V",
+   "ligand_atom_id": "O1A",
+   "ligand_comp_id": "ADP",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 359
+  },
+  {
+   "atom_id": "CE2",
+   "auth_seq_id": 360,
+   "comp_id": "PHE",
+   "distance": 3.808,
+   "ligand_asym_id": "V",
+   "ligand_atom_id": "C4'",
+   "ligand_comp_id": "ADP",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 360
+  }
+ ],
+ "rcsb_polymer_entity_instance_container_identifiers": {
+  "asym_id": "E",
+  "auth_asym_id": "E",
+  "auth_to_entity_poly_seq_mapping": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6",
+   "7",
+   "8",
+   "9",
+   "10",
+   "11",
+   "12",
+   "13",
+   "14",
+   "15",
+   "16",
+   "17",
+   "18",
+   "19",
+   "20",
+   "21",
+   "22",
+   "23",
+   "24",
+   "25",
+   "26",
+   "27",
+   "28",
+   "29",
+   "30",
+   "31",
+   "32",
+   "33",
+   "34",
+   "35",
+   "36",
+   "37",
+   "38",
+   "39",
+   "40",
+   "41",
+   "42",
+   "43",
+   "44",
+   "45",
+   "46",
+   "47",
+   "48",
+   "49",
+   "50",
+   "51",
+   "52",
+   "53",
+   "54",
+   "55",
+   "56",
+   "57",
+   "58",
+   "59",
+   "60",
+   "61",
+   "62",
+   "63",
+   "64",
+   "65",
+   "66",
+   "67",
+   "68",
+   "69",
+   "70",
+   "71",
+   "72",
+   "73",
+   "74",
+   "75",
+   "76",
+   "77",
+   "78",
+   "79",
+   "80",
+   "81",
+   "82",
+   "83",
+   "84",
+   "85",
+   "86",
+   "87",
+   "88",
+   "89",
+   "90",
+   "91",
+   "92",
+   "93",
+   "94",
+   "95",
+   "96",
+   "97",
+   "98",
+   "99",
+   "100",
+   "101",
+   "102",
+   "103",
+   "104",
+   "105",
+   "106",
+   "107",
+   "108",
+   "109",
+   "110",
+   "111",
+   "112",
+   "113",
+   "114",
+   "115",
+   "116",
+   "117",
+   "118",
+   "119",
+   "120",
+   "121",
+   "122",
+   "123",
+   "124",
+   "125",
+   "126",
+   "127",
+   "128",
+   "129",
+   "130",
+   "131",
+   "132",
+   "133",
+   "134",
+   "135",
+   "136",
+   "137",
+   "138",
+   "139",
+   "140",
+   "141",
+   "142",
+   "143",
+   "144",
+   "145",
+   "146",
+   "147",
+   "148",
+   "149",
+   "150",
+   "151",
+   "152",
+   "153",
+   "154",
+   "155",
+   "156",
+   "157",
+   "158",
+   "159",
+   "160",
+   "161",
+   "162",
+   "163",
+   "164",
+   "165",
+   "166",
+   "167",
+   "168",
+   "169",
+   "170",
+   "171",
+   "172",
+   "173",
+   "174",
+   "175",
+   "176",
+   "177",
+   "178",
+   "179",
+   "180",
+   "181",
+   "182",
+   "183",
+   "184",
+   "185",
+   "186",
+   "187",
+   "188",
+   "189",
+   "190",
+   "191",
+   "192",
+   "193",
+   "194",
+   "195",
+   "196",
+   "197",
+   "198",
+   "199",
+   "200",
+   "201",
+   "202",
+   "203",
+   "204",
+   "205",
+   "206",
+   "207",
+   "208",
+   "209",
+   "210",
+   "211",
+   "212",
+   "213",
+   "214",
+   "215",
+   "216",
+   "217",
+   "218",
+   "219",
+   "220",
+   "221",
+   "222",
+   "223",
+   "224",
+   "225",
+   "226",
+   "227",
+   "228",
+   "229",
+   "230",
+   "231",
+   "232",
+   "233",
+   "234",
+   "235",
+   "236",
+   "237",
+   "238",
+   "239",
+   "240",
+   "241",
+   "242",
+   "243",
+   "244",
+   "245",
+   "246",
+   "247",
+   "248",
+   "249",
+   "250",
+   "251",
+   "252",
+   "253",
+   "254",
+   "255",
+   "256",
+   "257",
+   "258",
+   "259",
+   "260",
+   "261",
+   "262",
+   "263",
+   "264",
+   "265",
+   "266",
+   "267",
+   "268",
+   "269",
+   "270",
+   "271",
+   "272",
+   "273",
+   "274",
+   "275",
+   "276",
+   "277",
+   "278",
+   "279",
+   "280",
+   "281",
+   "282",
+   "283",
+   "284",
+   "285",
+   "286",
+   "287",
+   "288",
+   "289",
+   "290",
+   "291",
+   "292",
+   "293",
+   "294",
+   "295",
+   "296",
+   "297",
+   "298",
+   "299",
+   "300",
+   "301",
+   "302",
+   "303",
+   "304",
+   "305",
+   "306",
+   "307",
+   "308",
+   "309",
+   "310",
+   "311",
+   "312",
+   "313",
+   "314",
+   "315",
+   "316",
+   "317",
+   "318",
+   "319",
+   "320",
+   "321",
+   "322",
+   "323",
+   "324",
+   "325",
+   "326",
+   "327",
+   "328",
+   "329",
+   "330",
+   "331",
+   "332",
+   "333",
+   "334",
+   "335",
+   "336",
+   "337",
+   "338",
+   "339",
+   "340",
+   "341",
+   "342",
+   "343",
+   "344",
+   "345",
+   "346",
+   "347",
+   "348",
+   "349",
+   "350",
+   "351",
+   "352",
+   "353",
+   "354",
+   "355",
+   "356",
+   "357",
+   "358",
+   "359",
+   "360",
+   "361",
+   "362",
+   "363",
+   "364",
+   "365",
+   "366",
+   "367",
+   "368",
+   "369",
+   "370",
+   "371",
+   "372",
+   "373",
+   "374",
+   "375",
+   "376",
+   "377",
+   "378",
+   "379",
+   "380",
+   "381",
+   "382",
+   "383",
+   "384",
+   "385",
+   "386",
+   "387",
+   "388",
+   "389",
+   "390",
+   "391",
+   "392",
+   "393",
+   "394",
+   "395",
+   "396",
+   "397",
+   "398",
+   "399",
+   "400",
+   "401",
+   "402",
+   "403",
+   "404",
+   "405",
+   "406",
+   "407",
+   "408",
+   "409",
+   "410",
+   "411",
+   "412",
+   "413",
+   "414",
+   "415",
+   "416",
+   "417",
+   "418",
+   "419",
+   "420",
+   "421",
+   "422",
+   "423",
+   "424",
+   "425",
+   "426",
+   "427",
+   "428",
+   "429",
+   "430",
+   "431",
+   "432",
+   "433",
+   "434",
+   "435",
+   "436",
+   "437",
+   "438",
+   "439",
+   "440",
+   "441",
+   "442",
+   "443",
+   "444",
+   "445",
+   "446",
+   "447",
+   "448",
+   "449",
+   "450",
+   "451",
+   "452",
+   "453",
+   "454",
+   "455",
+   "456",
+   "457",
+   "458",
+   "459",
+   "460",
+   "461",
+   "462",
+   "463",
+   "464",
+   "465",
+   "466",
+   "467",
+   "468",
+   "469",
+   "470",
+   "471",
+   "472",
+   "473",
+   "474",
+   "475",
+   "476",
+   "477",
+   "478",
+   "479",
+   "480",
+   "481",
+   "482",
+   "483",
+   "484",
+   "485",
+   "486",
+   "487",
+   "488",
+   "489",
+   "490",
+   "491",
+   "492",
+   "493",
+   "494",
+   "495",
+   "496",
+   "497",
+   "498",
+   "499",
+   "500",
+   "501",
+   "502",
+   "503",
+   "504",
+   "505",
+   "506",
+   "507",
+   "508",
+   "509",
+   "510",
+   "511",
+   "512",
+   "513",
+   "514",
+   "515",
+   "516",
+   "517",
+   "518",
+   "519",
+   "520",
+   "521",
+   "522",
+   "523",
+   "524",
+   "525",
+   "526",
+   "527",
+   "528",
+   "529",
+   "530",
+   "531",
+   "532",
+   "533",
+   "534",
+   "535",
+   "536",
+   "537",
+   "538",
+   "539",
+   "540",
+   "541",
+   "542",
+   "543",
+   "544",
+   "545",
+   "546",
+   "547",
+   "548",
+   "549",
+   "550",
+   "551",
+   "552",
+   "553",
+   "554",
+   "555",
+   "556",
+   "557",
+   "558",
+   "559",
+   "560",
+   "561",
+   "562",
+   "563",
+   "564",
+   "565",
+   "566",
+   "567",
+   "568",
+   "569",
+   "570",
+   "571",
+   "572",
+   "573",
+   "574",
+   "575",
+   "576",
+   "577",
+   "578",
+   "579",
+   "580",
+   "581",
+   "582",
+   "583",
+   "584",
+   "585",
+   "586",
+   "587",
+   "588",
+   "589",
+   "590",
+   "591",
+   "592",
+   "593",
+   "594",
+   "595",
+   "596",
+   "597",
+   "598",
+   "599",
+   "600",
+   "601",
+   "602",
+   "603",
+   "604",
+   "605",
+   "606",
+   "607",
+   "608",
+   "609",
+   "610",
+   "611",
+   "612",
+   "613",
+   "614",
+   "615",
+   "616",
+   "617",
+   "618",
+   "619",
+   "620",
+   "621",
+   "622",
+   "623",
+   "624",
+   "625",
+   "626",
+   "627",
+   "628",
+   "629",
+   "630",
+   "631",
+   "632",
+   "633",
+   "634",
+   "635",
+   "636",
+   "637",
+   "638",
+   "639",
+   "640",
+   "641",
+   "642",
+   "643",
+   "644",
+   "645",
+   "646",
+   "647",
+   "648",
+   "649",
+   "650",
+   "651",
+   "652",
+   "653",
+   "654",
+   "655",
+   "656",
+   "657",
+   "658",
+   "659",
+   "660",
+   "661",
+   "662",
+   "663",
+   "664",
+   "665",
+   "666",
+   "667",
+   "668",
+   "669",
+   "670",
+   "671",
+   "672",
+   "673",
+   "674",
+   "675",
+   "676",
+   "677",
+   "678",
+   "679",
+   "680",
+   "681",
+   "682",
+   "683",
+   "684",
+   "685",
+   "686",
+   "687",
+   "688",
+   "689",
+   "690",
+   "691",
+   "692",
+   "693",
+   "694",
+   "695",
+   "696",
+   "697",
+   "698",
+   "699",
+   "700",
+   "701",
+   "702",
+   "703",
+   "704",
+   "705",
+   "706",
+   "707",
+   "708",
+   "709",
+   "710",
+   "711",
+   "712",
+   "713",
+   "714",
+   "715",
+   "716",
+   "717",
+   "718",
+   "719",
+   "720",
+   "721",
+   "722",
+   "723",
+   "724",
+   "725",
+   "726",
+   "727",
+   "728",
+   "729",
+   "730",
+   "731",
+   "732",
+   "733",
+   "734",
+   "735",
+   "736",
+   "737",
+   "738",
+   "739",
+   "740",
+   "741",
+   "742",
+   "743",
+   "744",
+   "745",
+   "746",
+   "747",
+   "748",
+   "749",
+   "750",
+   "751",
+   "752",
+   "753",
+   "754",
+   "755",
+   "756",
+   "757",
+   "758",
+   "759",
+   "760",
+   "761",
+   "762",
+   "763",
+   "764",
+   "765",
+   "766",
+   "767",
+   "768",
+   "769",
+   "770",
+   "771",
+   "772",
+   "773",
+   "774",
+   "775",
+   "776",
+   "777",
+   "778",
+   "779",
+   "780",
+   "781",
+   "782",
+   "783",
+   "784",
+   "785",
+   "786",
+   "787",
+   "788",
+   "789",
+   "790",
+   "791",
+   "792",
+   "793",
+   "794",
+   "795",
+   "796",
+   "797",
+   "798",
+   "799",
+   "800",
+   "801",
+   "802",
+   "803",
+   "804",
+   "805",
+   "806"
+  ],
+  "entity_id": "1",
+  "entry_id": "5FTJ",
+  "rcsb_id": "5FTJ.E"
+ },
+ "rcsb_polymer_instance_annotation": [
+  {
+   "annotation_id": "2.40.40.20",
+   "annotation_lineage": [
+    {
+     "depth": 1,
+     "id": "2",
+     "name": "Mainly Beta"
+    },
+    {
+     "depth": 2,
+     "id": "2.40",
+     "name": "Beta Barrel"
+    },
+    {
+     "depth": 3,
+     "id": "2.40.40",
+     "name": "Barwin-like endoglucanases"
+    },
+    {
+     "depth": 4,
+     "id": "2.40.40.20"
+    }
+   ],
+   "assignment_version": "v4_3_0",
+   "ordinal": 17,
+   "provenance_source": "CATH",
+   "type": "CATH"
+  },
+  {
+   "annotation_id": "3.10.330.10",
+   "annotation_lineage": [
+    {
+     "depth": 1,
+     "id": "3",
+     "name": "Alpha Beta"
+    },
+    {
+     "depth": 2,
+     "id": "3.10",
+     "name": "Roll"
+    },
+    {
+     "depth": 3,
+     "id": "3.10.330",
+     "name": "Vcp-like ATPase"
+    },
+    {
+     "depth": 4,
+     "id": "3.10.330.10",
+     "name": "Chain A, domain 2"
+    }
+   ],
+   "assignment_version": "v4_3_0",
+   "ordinal": 18,
+   "provenance_source": "CATH",
+   "type": "CATH"
+  },
+  {
+   "annotation_id": "3.40.50.300",
+   "annotation_lineage": [
+    {
+     "depth": 1,
+     "id": "3",
+     "name": "Alpha Beta"
+    },
+    {
+     "depth": 2,
+     "id": "3.40",
+     "name": "3-Layer(aba) Sandwich"
+    },
+    {
+     "depth": 3,
+     "id": "3.40.50",
+     "name": "Rossmann fold"
+    },
+    {
+     "depth": 4,
+     "id": "3.40.50.300",
+     "name": "P-loop containing nucleotide triphosphate hydrolases"
+    }
+   ],
+   "assignment_version": "v4_3_0",
+   "name": "P-loop containing nucleotide triphosphate hydrolases",
+   "ordinal": 19,
+   "provenance_source": "CATH",
+   "type": "CATH"
+  },
+  {
+   "annotation_id": "1.10.8.60",
+   "annotation_lineage": [
+    {
+     "depth": 1,
+     "id": "1",
+     "name": "Mainly Alpha"
+    },
+    {
+     "depth": 2,
+     "id": "1.10",
+     "name": "Orthogonal Bundle"
+    },
+    {
+     "depth": 3,
+     "id": "1.10.8",
+     "name": "Helicase, Ruva Protein"
+    },
+    {
+     "depth": 4,
+     "id": "1.10.8.60",
+     "name": "domain 3"
+    }
+   ],
+   "assignment_version": "v4_3_0",
+   "ordinal": 20,
+   "provenance_source": "CATH",
+   "type": "CATH"
+  },
+  {
+   "annotation_id": "d5ftje1",
+   "annotation_lineage": [
+    {
+     "depth": 1,
+     "id": "48724",
+     "name": "All beta proteins"
+    },
+    {
+     "depth": 2,
+     "id": "50684",
+     "name": "Double psi beta-barrel"
+    },
+    {
+     "depth": 3,
+     "id": "50692",
+     "name": "ADC-like"
+    },
+    {
+     "depth": 4,
+     "id": "50708",
+     "name": "Cdc48 N-terminal domain-like"
+    },
+    {
+     "depth": 5,
+     "id": "63796",
+     "name": "Membrane fusion ATPase p97 N-terminal domain , P97-Nn"
+    }
+   ],
+   "assignment_version": "2.08-stable",
+   "name": "Membrane fusion ATPase p97 N-terminal domain , P97-Nn",
+   "ordinal": 37,
+   "provenance_source": "SCOPe",
+   "type": "SCOP"
+  },
+  {
+   "annotation_id": "d5ftje3",
+   "annotation_lineage": [
+    {
+     "depth": 1,
+     "id": "51349",
+     "name": "Alpha and beta proteins (a/b)"
+    },
+    {
+     "depth": 2,
+     "id": "52539",
+     "name": "P-loop containing nucleoside triphosphate hydrolases"
+    },
+    {
+     "depth": 3,
+     "id": "52540",
+     "name": "P-loop containing nucleoside triphosphate hydrolases"
+    },
+    {
+     "depth": 4,
+     "id": "81269",
+     "name": "Extended AAA-ATPase domain"
+    },
+    {
+     "depth": 5,
+     "id": "64038",
+     "name": "Membrane fusion ATPase VCP/p97"
+    }
+   ],
+   "assignment_version": "2.08-stable",
+   "name": "Membrane fusion ATPase VCP/p97",
+   "ordinal": 38,
+   "provenance_source": "SCOPe",
+   "type": "SCOP"
+  },
+  {
+   "annotation_id": "d5ftje2",
+   "annotation_lineage": [
+    {
+     "depth": 1,
+     "id": "53931",
+     "name": "Alpha and beta proteins (a+b)"
+    },
+    {
+     "depth": 2,
+     "id": "54584",
+     "name": "Cdc48 domain 2-like"
+    },
+    {
+     "depth": 3,
+     "id": "54585",
+     "name": "Cdc48 domain 2-like"
+    },
+    {
+     "depth": 4,
+     "id": "54586",
+     "name": "Cdc48 domain 2-like"
+    },
+    {
+     "depth": 5,
+     "id": "64254",
+     "name": "Membrane fusion atpase p97 domain 2, P97-Nc"
+    }
+   ],
+   "assignment_version": "2.08-stable",
+   "name": "Membrane fusion atpase p97 domain 2, P97-Nc",
+   "ordinal": 39,
+   "provenance_source": "SCOPe",
+   "type": "SCOP"
+  },
+  {
+   "annotation_id": "e5ftjE1",
+   "annotation_lineage": [
+    {
+     "depth": 1,
+     "id": "100020",
+     "name": "A: alpha arrays"
+    },
+    {
+     "depth": 2,
+     "id": "202052",
+     "name": "X: HTH"
+    },
+    {
+     "depth": 3,
+     "id": "303095",
+     "name": "H: HTH"
+    },
+    {
+     "depth": 4,
+     "id": "403268",
+     "name": "T: Three-helical HTH"
+    },
+    {
+     "depth": 5,
+     "id": "510591",
+     "name": "F: SRP_SPB"
+    }
+   ],
+   "assignment_version": "v295",
+   "name": "SRP_SPB",
+   "ordinal": 47,
+   "provenance_source": "ECOD",
+   "type": "ECOD"
+  }
+ ],
+ "rcsb_polymer_instance_feature": [
+  {
+   "additional_properties": [
+    {
+     "name": "CATH_NAME"
+    },
+    {
+     "name": "CATH_DOMAIN_ID",
+     "values": [
+      "5ftjE01"
+     ]
+    }
+   ],
+   "assignment_version": "v4_3_0",
+   "feature_id": "2.40.40.20",
+   "feature_positions": [
+    {
+     "beg_seq_id": 21,
+     "end_seq_id": 108
+    }
+   ],
+   "ordinal": 25,
+   "provenance_source": "CATH",
+   "type": "CATH"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "CATH_NAME"
+    },
+    {
+     "name": "CATH_DOMAIN_ID",
+     "values": [
+      "5ftjE02"
+     ]
+    }
+   ],
+   "assignment_version": "v4_3_0",
+   "feature_id": "3.10.330.10",
+   "feature_positions": [
+    {
+     "beg_seq_id": 109,
+     "end_seq_id": 191
+    }
+   ],
+   "ordinal": 26,
+   "provenance_source": "CATH",
+   "type": "CATH"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "CATH_NAME",
+     "values": [
+      "P-loop containing nucleotide triphosphate hydrolases"
+     ]
+    },
+    {
+     "name": "CATH_DOMAIN_ID",
+     "values": [
+      "5ftjE03"
+     ]
+    }
+   ],
+   "assignment_version": "v4_3_0",
+   "feature_id": "3.40.50.300",
+   "feature_positions": [
+    {
+     "beg_seq_id": 200,
+     "end_seq_id": 371
+    }
+   ],
+   "name": "P-loop containing nucleotide triphosphate hydrolases",
+   "ordinal": 27,
+   "provenance_source": "CATH",
+   "type": "CATH"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "CATH_NAME"
+    },
+    {
+     "name": "CATH_DOMAIN_ID",
+     "values": [
+      "5ftjE04"
+     ]
+    }
+   ],
+   "assignment_version": "v4_3_0",
+   "feature_id": "1.10.8.60",
+   "feature_positions": [
+    {
+     "beg_seq_id": 372,
+     "end_seq_id": 466
+    }
+   ],
+   "ordinal": 28,
+   "provenance_source": "CATH",
+   "type": "CATH"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "CATH_NAME",
+     "values": [
+      "P-loop containing nucleotide triphosphate hydrolases"
+     ]
+    },
+    {
+     "name": "CATH_DOMAIN_ID",
+     "values": [
+      "5ftjE05"
+     ]
+    }
+   ],
+   "assignment_version": "v4_3_0",
+   "feature_id": "3.40.50.300",
+   "feature_positions": [
+    {
+     "beg_seq_id": 467,
+     "end_seq_id": 648
+    }
+   ],
+   "name": "P-loop containing nucleotide triphosphate hydrolases",
+   "ordinal": 29,
+   "provenance_source": "CATH",
+   "type": "CATH"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "CATH_NAME"
+    },
+    {
+     "name": "CATH_DOMAIN_ID",
+     "values": [
+      "5ftjE06"
+     ]
+    }
+   ],
+   "assignment_version": "v4_3_0",
+   "feature_id": "1.10.8.60",
+   "feature_positions": [
+    {
+     "beg_seq_id": 649,
+     "end_seq_id": 747
+    }
+   ],
+   "ordinal": 30,
+   "provenance_source": "CATH",
+   "type": "CATH"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "SCOP_NAME",
+     "values": [
+      "Membrane fusion ATPase p97 N-terminal domain ",
+      " P97-Nn"
+     ]
+    },
+    {
+     "name": "SCOP_DOMAIN_ID",
+     "values": [
+      "d5ftje1"
+     ]
+    },
+    {
+     "name": "SCOP_SUN_ID",
+     "values": [
+      "63796"
+     ]
+    }
+   ],
+   "assignment_version": "2.08-stable",
+   "feature_id": "d5ftje1",
+   "feature_positions": [
+    {
+     "beg_seq_id": 21,
+     "end_seq_id": 106
+    }
+   ],
+   "name": "Membrane fusion ATPase p97 N-terminal domain , P97-Nn",
+   "ordinal": 53,
+   "provenance_source": "SCOPe",
+   "type": "SCOP"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "SCOP_NAME",
+     "values": [
+      "Membrane fusion ATPase VCP/p97"
+     ]
+    },
+    {
+     "name": "SCOP_DOMAIN_ID",
+     "values": [
+      "d5ftje3"
+     ]
+    },
+    {
+     "name": "SCOP_SUN_ID",
+     "values": [
+      "64038"
+     ]
+    }
+   ],
+   "assignment_version": "2.08-stable",
+   "feature_id": "d5ftje3",
+   "feature_positions": [
+    {
+     "beg_seq_id": 201,
+     "end_seq_id": 470
+    }
+   ],
+   "name": "Membrane fusion ATPase VCP/p97",
+   "ordinal": 54,
+   "provenance_source": "SCOPe",
+   "type": "SCOP"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "SCOP_NAME",
+     "values": [
+      "Membrane fusion ATPase VCP/p97"
+     ]
+    },
+    {
+     "name": "SCOP_DOMAIN_ID",
+     "values": [
+      "d5ftje4"
+     ]
+    },
+    {
+     "name": "SCOP_SUN_ID",
+     "values": [
+      "64038"
+     ]
+    }
+   ],
+   "assignment_version": "2.08-stable",
+   "feature_id": "d5ftje4",
+   "feature_positions": [
+    {
+     "beg_seq_id": 471,
+     "end_seq_id": 763
+    }
+   ],
+   "name": "Membrane fusion ATPase VCP/p97",
+   "ordinal": 55,
+   "provenance_source": "SCOPe",
+   "type": "SCOP"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "SCOP_NAME",
+     "values": [
+      "Membrane fusion atpase p97 domain 2",
+      " P97-Nc"
+     ]
+    },
+    {
+     "name": "SCOP_DOMAIN_ID",
+     "values": [
+      "d5ftje2"
+     ]
+    },
+    {
+     "name": "SCOP_SUN_ID",
+     "values": [
+      "64254"
+     ]
+    }
+   ],
+   "assignment_version": "2.08-stable",
+   "feature_id": "d5ftje2",
+   "feature_positions": [
+    {
+     "beg_seq_id": 107,
+     "end_seq_id": 200
+    }
+   ],
+   "name": "Membrane fusion atpase p97 domain 2, P97-Nc",
+   "ordinal": 56,
+   "provenance_source": "SCOPe",
+   "type": "SCOP"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "ECOD_FAMILY_NAME",
+     "values": [
+      "SRP_SPB"
+     ]
+    },
+    {
+     "name": "ECOD_DOMAIN_ID",
+     "values": [
+      "e5ftjE1"
+     ]
+    }
+   ],
+   "assignment_version": "v295",
+   "feature_id": "e5ftjE1",
+   "feature_positions": [
+    {
+     "beg_seq_id": 21,
+     "end_seq_id": 106
+    }
+   ],
+   "name": "SRP_SPB",
+   "ordinal": 85,
+   "provenance_source": "ECOD",
+   "type": "ECOD"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "ECOD_FAMILY_NAME",
+     "values": [
+      "SRP_SPB"
+     ]
+    },
+    {
+     "name": "ECOD_DOMAIN_ID",
+     "values": [
+      "e5ftjE2"
+     ]
+    }
+   ],
+   "assignment_version": "v295",
+   "feature_id": "e5ftjE2",
+   "feature_positions": [
+    {
+     "beg_seq_id": 201,
+     "end_seq_id": 371
+    }
+   ],
+   "name": "SRP_SPB",
+   "ordinal": 86,
+   "provenance_source": "ECOD",
+   "type": "ECOD"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "ECOD_FAMILY_NAME",
+     "values": [
+      "SRP_SPB"
+     ]
+    },
+    {
+     "name": "ECOD_DOMAIN_ID",
+     "values": [
+      "e5ftjE3"
+     ]
+    }
+   ],
+   "assignment_version": "v295",
+   "feature_id": "e5ftjE3",
+   "feature_positions": [
+    {
+     "beg_seq_id": 466,
+     "end_seq_id": 648
+    }
+   ],
+   "name": "SRP_SPB",
+   "ordinal": 87,
+   "provenance_source": "ECOD",
+   "type": "ECOD"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "ECOD_FAMILY_NAME",
+     "values": [
+      "SRP_SPB"
+     ]
+    },
+    {
+     "name": "ECOD_DOMAIN_ID",
+     "values": [
+      "e5ftjE4"
+     ]
+    }
+   ],
+   "assignment_version": "v295",
+   "feature_id": "e5ftjE4",
+   "feature_positions": [
+    {
+     "beg_seq_id": 728,
+     "end_seq_id": 763
+    }
+   ],
+   "name": "SRP_SPB",
+   "ordinal": 88,
+   "provenance_source": "ECOD",
+   "type": "ECOD"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "ECOD_FAMILY_NAME",
+     "values": [
+      "SRP_SPB"
+     ]
+    },
+    {
+     "name": "ECOD_DOMAIN_ID",
+     "values": [
+      "e5ftjE5"
+     ]
+    }
+   ],
+   "assignment_version": "v295",
+   "feature_id": "e5ftjE5",
+   "feature_positions": [
+    {
+     "beg_seq_id": 372,
+     "end_seq_id": 465
+    }
+   ],
+   "name": "SRP_SPB",
+   "ordinal": 89,
+   "provenance_source": "ECOD",
+   "type": "ECOD"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "ECOD_FAMILY_NAME",
+     "values": [
+      "SRP_SPB"
+     ]
+    },
+    {
+     "name": "ECOD_DOMAIN_ID",
+     "values": [
+      "e5ftjE6"
+     ]
+    }
+   ],
+   "assignment_version": "v295",
+   "feature_id": "e5ftjE6",
+   "feature_positions": [
+    {
+     "beg_seq_id": 107,
+     "end_seq_id": 200
+    }
+   ],
+   "name": "SRP_SPB",
+   "ordinal": 90,
+   "provenance_source": "ECOD",
+   "type": "ECOD"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "SHEET_SENSE",
+     "values": [
+      "parallel"
+     ]
+    }
+   ],
+   "assignment_version": "V1.0",
+   "description": "parallel sense sheet",
+   "feature_id": "EA",
+   "feature_positions": [
+    {
+     "beg_seq_id": 28,
+     "end_seq_id": 29
+    },
+    {
+     "beg_seq_id": 82,
+     "end_seq_id": 83
+    }
+   ],
+   "name": "sheet",
+   "ordinal": 121,
+   "provenance_source": "PROMOTIF",
+   "type": "SHEET"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "SHEET_SENSE",
+     "values": [
+      "mixed"
+     ]
+    }
+   ],
+   "assignment_version": "V1.0",
+   "description": "mixed sense sheet",
+   "feature_id": "EB",
+   "feature_positions": [
+    {
+     "beg_seq_id": 38,
+     "end_seq_id": 40
+    },
+    {
+     "beg_seq_id": 66,
+     "end_seq_id": 72
+    },
+    {
+     "beg_seq_id": 57,
+     "end_seq_id": 60
+    }
+   ],
+   "name": "sheet",
+   "ordinal": 122,
+   "provenance_source": "PROMOTIF",
+   "type": "SHEET"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "SHEET_SENSE",
+     "values": [
+      "anti-parallel"
+     ]
+    }
+   ],
+   "assignment_version": "V1.0",
+   "description": "anti-parallel sense sheet",
+   "feature_id": "EC",
+   "feature_positions": [
+    {
+     "beg_seq_id": 117,
+     "end_seq_id": 118
+    },
+    {
+     "beg_seq_id": 159,
+     "end_seq_id": 164
+    },
+    {
+     "beg_seq_id": 153,
+     "end_seq_id": 156
+    }
+   ],
+   "name": "sheet",
+   "ordinal": 123,
+   "provenance_source": "PROMOTIF",
+   "type": "SHEET"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "SHEET_SENSE",
+     "values": [
+      "anti-parallel"
+     ]
+    }
+   ],
+   "assignment_version": "V1.0",
+   "description": "anti-parallel sense sheet",
+   "feature_id": "ED",
+   "feature_positions": [
+    {
+     "beg_seq_id": 146,
+     "end_seq_id": 147
+    },
+    {
+     "beg_seq_id": 173,
+     "end_seq_id": 174
+    }
+   ],
+   "name": "sheet",
+   "ordinal": 124,
+   "provenance_source": "PROMOTIF",
+   "type": "SHEET"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "SHEET_SENSE",
+     "values": [
+      "parallel"
+     ]
+    }
+   ],
+   "assignment_version": "V1.0",
+   "description": "parallel sense sheet",
+   "feature_id": "EE",
+   "feature_positions": [
+    {
+     "beg_seq_id": 265,
+     "end_seq_id": 270
+    },
+    {
+     "beg_seq_id": 299,
+     "end_seq_id": 304
+    },
+    {
+     "beg_seq_id": 342,
+     "end_seq_id": 347
+    },
+    {
+     "beg_seq_id": 240,
+     "end_seq_id": 244
+    },
+    {
+     "beg_seq_id": 365,
+     "end_seq_id": 368
+    }
+   ],
+   "name": "sheet",
+   "ordinal": 125,
+   "provenance_source": "PROMOTIF",
+   "type": "SHEET"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "SHEET_SENSE",
+     "values": [
+      "parallel"
+     ]
+    }
+   ],
+   "assignment_version": "V1.0",
+   "description": "parallel sense sheet",
+   "feature_id": "EF",
+   "feature_positions": [
+    {
+     "beg_seq_id": 538,
+     "end_seq_id": 542
+    },
+    {
+     "beg_seq_id": 572,
+     "end_seq_id": 576
+    },
+    {
+     "beg_seq_id": 617,
+     "end_seq_id": 623
+    },
+    {
+     "beg_seq_id": 513,
+     "end_seq_id": 517
+    },
+    {
+     "beg_seq_id": 641,
+     "end_seq_id": 644
+    }
+   ],
+   "name": "sheet",
+   "ordinal": 126,
+   "provenance_source": "PROMOTIF",
+   "type": "SHEET"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P109",
+   "feature_positions": [
+    {
+     "beg_seq_id": 85,
+     "end_seq_id": 93
+    }
+   ],
+   "name": "helix",
+   "ordinal": 241,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P110",
+   "feature_positions": [
+    {
+     "beg_seq_id": 134,
+     "end_seq_id": 139
+    }
+   ],
+   "name": "helix",
+   "ordinal": 242,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P111",
+   "feature_positions": [
+    {
+     "beg_seq_id": 202,
+     "end_seq_id": 206
+    }
+   ],
+   "name": "helix",
+   "ordinal": 243,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P112",
+   "feature_positions": [
+    {
+     "beg_seq_id": 212,
+     "end_seq_id": 226
+    }
+   ],
+   "name": "helix",
+   "ordinal": 244,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P113",
+   "feature_positions": [
+    {
+     "beg_seq_id": 228,
+     "end_seq_id": 233
+    }
+   ],
+   "name": "helix",
+   "ordinal": 245,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P114",
+   "feature_positions": [
+    {
+     "beg_seq_id": 250,
+     "end_seq_id": 263
+    }
+   ],
+   "name": "helix",
+   "ordinal": 246,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P115",
+   "feature_positions": [
+    {
+     "beg_seq_id": 272,
+     "end_seq_id": 277
+    }
+   ],
+   "name": "helix",
+   "ordinal": 247,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P116",
+   "feature_positions": [
+    {
+     "beg_seq_id": 280,
+     "end_seq_id": 296
+    }
+   ],
+   "name": "helix",
+   "ordinal": 248,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P117",
+   "feature_positions": [
+    {
+     "beg_seq_id": 305,
+     "end_seq_id": 310
+    }
+   ],
+   "name": "helix",
+   "ordinal": 249,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P118",
+   "feature_positions": [
+    {
+     "beg_seq_id": 319,
+     "end_seq_id": 334
+    }
+   ],
+   "name": "helix",
+   "ordinal": 250,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P119",
+   "feature_positions": [
+    {
+     "beg_seq_id": 354,
+     "end_seq_id": 359
+    }
+   ],
+   "name": "helix",
+   "ordinal": 251,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P120",
+   "feature_positions": [
+    {
+     "beg_seq_id": 373,
+     "end_seq_id": 385
+    }
+   ],
+   "name": "helix",
+   "ordinal": 252,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P121",
+   "feature_positions": [
+    {
+     "beg_seq_id": 396,
+     "end_seq_id": 403
+    }
+   ],
+   "name": "helix",
+   "ordinal": 253,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P122",
+   "feature_positions": [
+    {
+     "beg_seq_id": 407,
+     "end_seq_id": 426
+    }
+   ],
+   "name": "helix",
+   "ordinal": 254,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P123",
+   "feature_positions": [
+    {
+     "beg_seq_id": 448,
+     "end_seq_id": 458
+    }
+   ],
+   "name": "helix",
+   "ordinal": 255,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P124",
+   "feature_positions": [
+    {
+     "beg_seq_id": 482,
+     "end_seq_id": 506
+    }
+   ],
+   "name": "helix",
+   "ordinal": 256,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P125",
+   "feature_positions": [
+    {
+     "beg_seq_id": 523,
+     "end_seq_id": 535
+    }
+   ],
+   "name": "helix",
+   "ordinal": 257,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P126",
+   "feature_positions": [
+    {
+     "beg_seq_id": 543,
+     "end_seq_id": 553
+    }
+   ],
+   "name": "helix",
+   "ordinal": 258,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P127",
+   "feature_positions": [
+    {
+     "beg_seq_id": 558,
+     "end_seq_id": 569
+    }
+   ],
+   "name": "helix",
+   "ordinal": 259,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P128",
+   "feature_positions": [
+    {
+     "beg_seq_id": 580,
+     "end_seq_id": 587
+    }
+   ],
+   "name": "helix",
+   "ordinal": 260,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P129",
+   "feature_positions": [
+    {
+     "beg_seq_id": 598,
+     "end_seq_id": 610
+    }
+   ],
+   "name": "helix",
+   "ordinal": 261,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P130",
+   "feature_positions": [
+    {
+     "beg_seq_id": 630,
+     "end_seq_id": 635
+    }
+   ],
+   "name": "helix",
+   "ordinal": 262,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P131",
+   "feature_positions": [
+    {
+     "beg_seq_id": 649,
+     "end_seq_id": 662
+    }
+   ],
+   "name": "helix",
+   "ordinal": 263,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P132",
+   "feature_positions": [
+    {
+     "beg_seq_id": 671,
+     "end_seq_id": 679
+    }
+   ],
+   "name": "helix",
+   "ordinal": 264,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P133",
+   "feature_positions": [
+    {
+     "beg_seq_id": 683,
+     "end_seq_id": 707
+    }
+   ],
+   "name": "helix",
+   "ordinal": 265,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P134",
+   "feature_positions": [
+    {
+     "beg_seq_id": 734,
+     "end_seq_id": 742
+    }
+   ],
+   "name": "helix",
+   "ordinal": 266,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P135",
+   "feature_positions": [
+    {
+     "beg_seq_id": 748,
+     "end_seq_id": 763
+    }
+   ],
+   "name": "helix",
+   "ordinal": 267,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "1",
+   "feature_positions": [
+    {
+     "beg_seq_id": 1,
+     "end_seq_id": 27
+    },
+    {
+     "beg_seq_id": 30,
+     "end_seq_id": 37
+    },
+    {
+     "beg_seq_id": 41,
+     "end_seq_id": 56
+    },
+    {
+     "beg_seq_id": 61,
+     "end_seq_id": 65
+    },
+    {
+     "beg_seq_id": 73,
+     "end_seq_id": 81
+    },
+    {
+     "beg_seq_id": 84,
+     "end_seq_id": 84
+    },
+    {
+     "beg_seq_id": 94,
+     "end_seq_id": 116
+    },
+    {
+     "beg_seq_id": 119,
+     "end_seq_id": 133
+    },
+    {
+     "beg_seq_id": 140,
+     "end_seq_id": 145
+    },
+    {
+     "beg_seq_id": 148,
+     "end_seq_id": 152
+    },
+    {
+     "beg_seq_id": 157,
+     "end_seq_id": 158
+    },
+    {
+     "beg_seq_id": 165,
+     "end_seq_id": 172
+    },
+    {
+     "beg_seq_id": 175,
+     "end_seq_id": 201
+    },
+    {
+     "beg_seq_id": 207,
+     "end_seq_id": 211
+    },
+    {
+     "beg_seq_id": 227,
+     "end_seq_id": 227
+    },
+    {
+     "beg_seq_id": 234,
+     "end_seq_id": 239
+    },
+    {
+     "beg_seq_id": 245,
+     "end_seq_id": 249
+    },
+    {
+     "beg_seq_id": 264,
+     "end_seq_id": 264
+    },
+    {
+     "beg_seq_id": 271,
+     "end_seq_id": 271
+    },
+    {
+     "beg_seq_id": 278,
+     "end_seq_id": 279
+    },
+    {
+     "beg_seq_id": 297,
+     "end_seq_id": 298
+    },
+    {
+     "beg_seq_id": 311,
+     "end_seq_id": 318
+    },
+    {
+     "beg_seq_id": 335,
+     "end_seq_id": 341
+    },
+    {
+     "beg_seq_id": 348,
+     "end_seq_id": 353
+    },
+    {
+     "beg_seq_id": 360,
+     "end_seq_id": 364
+    },
+    {
+     "beg_seq_id": 369,
+     "end_seq_id": 372
+    },
+    {
+     "beg_seq_id": 386,
+     "end_seq_id": 395
+    },
+    {
+     "beg_seq_id": 404,
+     "end_seq_id": 406
+    },
+    {
+     "beg_seq_id": 427,
+     "end_seq_id": 447
+    },
+    {
+     "beg_seq_id": 459,
+     "end_seq_id": 481
+    },
+    {
+     "beg_seq_id": 507,
+     "end_seq_id": 512
+    },
+    {
+     "beg_seq_id": 518,
+     "end_seq_id": 522
+    },
+    {
+     "beg_seq_id": 536,
+     "end_seq_id": 537
+    },
+    {
+     "beg_seq_id": 554,
+     "end_seq_id": 557
+    },
+    {
+     "beg_seq_id": 570,
+     "end_seq_id": 571
+    },
+    {
+     "beg_seq_id": 577,
+     "end_seq_id": 579
+    },
+    {
+     "beg_seq_id": 588,
+     "end_seq_id": 597
+    },
+    {
+     "beg_seq_id": 611,
+     "end_seq_id": 616
+    },
+    {
+     "beg_seq_id": 624,
+     "end_seq_id": 629
+    },
+    {
+     "beg_seq_id": 636,
+     "end_seq_id": 640
+    },
+    {
+     "beg_seq_id": 645,
+     "end_seq_id": 648
+    },
+    {
+     "beg_seq_id": 663,
+     "end_seq_id": 670
+    },
+    {
+     "beg_seq_id": 680,
+     "end_seq_id": 682
+    },
+    {
+     "beg_seq_id": 708,
+     "end_seq_id": 733
+    },
+    {
+     "beg_seq_id": 743,
+     "end_seq_id": 747
+    },
+    {
+     "beg_seq_id": 764,
+     "end_seq_id": 806
+    }
+   ],
+   "name": "unassigned secondary structure",
+   "ordinal": 299,
+   "provenance_source": "PROMOTIF",
+   "type": "UNASSIGNED_SEC_STRUCT"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "OMEGA_ANGLE",
+     "values": [
+      "3.86"
+     ]
+    }
+   ],
+   "assignment_version": "V1.0",
+   "description": "cis-peptide bond in model 1 with omega angle 3.86",
+   "feature_id": "17",
+   "feature_positions": [
+    {
+     "beg_seq_id": 171,
+     "end_seq_id": 172
+    }
+   ],
+   "name": "cis-peptide",
+   "ordinal": 317,
+   "provenance_source": "PDB",
+   "type": "CIS-PEPTIDE"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "OMEGA_ANGLE",
+     "values": [
+      "-4.2"
+     ]
+    }
+   ],
+   "assignment_version": "V1.0",
+   "description": "cis-peptide bond in model 1 with omega angle -4.20",
+   "feature_id": "18",
+   "feature_positions": [
+    {
+     "beg_seq_id": 297,
+     "end_seq_id": 298
+    }
+   ],
+   "name": "cis-peptide",
+   "ordinal": 318,
+   "provenance_source": "PDB",
+   "type": "CIS-PEPTIDE"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "OMEGA_ANGLE",
+     "values": [
+      "1.39"
+     ]
+    }
+   ],
+   "assignment_version": "V1.0",
+   "description": "cis-peptide bond in model 1 with omega angle 1.39",
+   "feature_id": "19",
+   "feature_positions": [
+    {
+     "beg_seq_id": 461,
+     "end_seq_id": 462
+    }
+   ],
+   "name": "cis-peptide",
+   "ordinal": 319,
+   "provenance_source": "PDB",
+   "type": "CIS-PEPTIDE"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "OMEGA_ANGLE",
+     "values": [
+      "-10.23"
+     ]
+    }
+   ],
+   "assignment_version": "V1.0",
+   "description": "cis-peptide bond in model 1 with omega angle -10.23",
+   "feature_id": "20",
+   "feature_positions": [
+    {
+     "beg_seq_id": 570,
+     "end_seq_id": 571
+    }
+   ],
+   "name": "cis-peptide",
+   "ordinal": 320,
+   "provenance_source": "PDB",
+   "type": "CIS-PEPTIDE"
+  },
+  {
+   "assignment_version": "V1.0",
+   "description": "Software generated binding site for ligand entity 2 component ADP instance S chain E",
+   "feature_id": "BC4",
+   "feature_positions": [
+    {
+     "beg_seq_id": 207
+    },
+    {
+     "beg_seq_id": 248
+    },
+    {
+     "beg_seq_id": 249
+    },
+    {
+     "beg_seq_id": 250
+    },
+    {
+     "beg_seq_id": 251
+    },
+    {
+     "beg_seq_id": 252
+    },
+    {
+     "beg_seq_id": 253
+    },
+    {
+     "beg_seq_id": 380
+    },
+    {
+     "beg_seq_id": 384
+    },
+    {
+     "beg_seq_id": 408
+    },
+    {
+     "beg_seq_id": 409
+    }
+   ],
+   "name": "ligand ADP",
+   "ordinal": 342,
+   "provenance_source": "PDB",
+   "type": "BINDING_SITE"
+  },
+  {
+   "assignment_version": "V1.0",
+   "description": "Software generated binding site for ligand entity 2 component ADP instance T chain E",
+   "feature_id": "BC5",
+   "feature_positions": [
+    {
+     "beg_seq_id": 478
+    },
+    {
+     "beg_seq_id": 479
+    },
+    {
+     "beg_seq_id": 480
+    },
+    {
+     "beg_seq_id": 521
+    },
+    {
+     "beg_seq_id": 522
+    },
+    {
+     "beg_seq_id": 523
+    },
+    {
+     "beg_seq_id": 524
+    },
+    {
+     "beg_seq_id": 525
+    },
+    {
+     "beg_seq_id": 526
+    },
+    {
+     "beg_seq_id": 656
+    },
+    {
+     "beg_seq_id": 684
+    },
+    {
+     "beg_seq_id": 685
+    },
+    {
+     "beg_seq_id": 688
+    }
+   ],
+   "name": "ligand ADP",
+   "ordinal": 343,
+   "provenance_source": "PDB",
+   "type": "BINDING_SITE"
+  },
+  {
+   "assignment_version": "V1.0",
+   "description": "Software generated binding site for ligand entity 3 component OJA instance U chain E",
+   "feature_id": "BC6",
+   "feature_positions": [
+    {
+     "beg_seq_id": 492
+    },
+    {
+     "beg_seq_id": 493
+    },
+    {
+     "beg_seq_id": 497
+    },
+    {
+     "beg_seq_id": 498
+    },
+    {
+     "beg_seq_id": 511
+    },
+    {
+     "beg_seq_id": 512
+    },
+    {
+     "beg_seq_id": 535
+    },
+    {
+     "beg_seq_id": 537
+    },
+    {
+     "beg_seq_id": 571
+    },
+    {
+     "beg_seq_id": 572
+    },
+    {
+     "beg_seq_id": 614
+    },
+    {
+     "beg_seq_id": 616
+    },
+    {
+     "beg_seq_id": 617
+    }
+   ],
+   "name": "ligand OJA",
+   "ordinal": 344,
+   "provenance_source": "PDB",
+   "type": "BINDING_SITE"
+  },
+  {
+   "assignment_version": "V1.0",
+   "description": "Software generated binding site for ligand entity 2 component ADP instance V chain F",
+   "feature_id": "BC7",
+   "feature_positions": [
+    {
+     "beg_seq_id": 359
+    }
+   ],
+   "name": "ligand ADP",
+   "ordinal": 345,
+   "provenance_source": "PDB",
+   "type": "BINDING_SITE"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PARTNER_ASYM_ID",
+     "values": [
+      "S"
+     ]
+    },
+    {
+     "name": "PARTNER_COMP_ID",
+     "values": [
+      "ADP"
+     ]
+    }
+   ],
+   "assignment_version": "V1.0",
+   "description": "Software generated binding site for ligand entity 2 component ADP instance S",
+   "feature_id": "LIGAND_INTERACTION_21",
+   "feature_positions": [
+    {
+     "beg_comp_id": "THR",
+     "beg_seq_id": 252
+    },
+    {
+     "beg_comp_id": "LYS",
+     "beg_seq_id": 251
+    },
+    {
+     "beg_comp_id": "GLY",
+     "beg_seq_id": 207
+    },
+    {
+     "beg_comp_id": "HIS",
+     "beg_seq_id": 384
+    },
+    {
+     "beg_comp_id": "GLY",
+     "beg_seq_id": 250
+    },
+    {
+     "beg_comp_id": "GLY",
+     "beg_seq_id": 408
+    },
+    {
+     "beg_comp_id": "GLY",
+     "beg_seq_id": 248
+    },
+    {
+     "beg_comp_id": "ILE",
+     "beg_seq_id": 380
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 253
+    },
+    {
+     "beg_comp_id": "ALA",
+     "beg_seq_id": 409
+    },
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 205
+    }
+   ],
+   "name": "ligand ADP",
+   "ordinal": 369,
+   "provenance_source": "PDB",
+   "type": "LIGAND_INTERACTION"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PARTNER_ASYM_ID",
+     "values": [
+      "T"
+     ]
+    },
+    {
+     "name": "PARTNER_COMP_ID",
+     "values": [
+      "ADP"
+     ]
+    }
+   ],
+   "assignment_version": "V1.0",
+   "description": "Software generated binding site for ligand entity 2 component ADP instance T",
+   "feature_id": "LIGAND_INTERACTION_22",
+   "feature_positions": [
+    {
+     "beg_comp_id": "THR",
+     "beg_seq_id": 525
+    },
+    {
+     "beg_comp_id": "GLY",
+     "beg_seq_id": 480
+    },
+    {
+     "beg_comp_id": "GLY",
+     "beg_seq_id": 521
+    },
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 478
+    },
+    {
+     "beg_comp_id": "GLY",
+     "beg_seq_id": 523
+    },
+    {
+     "beg_comp_id": "LYS",
+     "beg_seq_id": 524
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 526
+    },
+    {
+     "beg_comp_id": "ALA",
+     "beg_seq_id": 685
+    },
+    {
+     "beg_comp_id": "ILE",
+     "beg_seq_id": 479
+    },
+    {
+     "beg_comp_id": "THR",
+     "beg_seq_id": 688
+    },
+    {
+     "beg_comp_id": "CYS",
+     "beg_seq_id": 522
+    },
+    {
+     "beg_comp_id": "GLY",
+     "beg_seq_id": 684
+    },
+    {
+     "beg_comp_id": "ILE",
+     "beg_seq_id": 656
+    },
+    {
+     "beg_comp_id": "ASN",
+     "beg_seq_id": 660
+    }
+   ],
+   "name": "ligand ADP",
+   "ordinal": 370,
+   "provenance_source": "PDB",
+   "type": "LIGAND_INTERACTION"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PARTNER_ASYM_ID",
+     "values": [
+      "U"
+     ]
+    },
+    {
+     "name": "PARTNER_COMP_ID",
+     "values": [
+      "OJA"
+     ]
+    }
+   ],
+   "assignment_version": "V1.0",
+   "description": "Software generated binding site for ligand entity 3 component OJA instance U",
+   "feature_id": "LIGAND_INTERACTION_23",
+   "feature_positions": [
+    {
+     "beg_comp_id": "LYS",
+     "beg_seq_id": 614
+    },
+    {
+     "beg_comp_id": "VAL",
+     "beg_seq_id": 493
+    },
+    {
+     "beg_comp_id": "SER",
+     "beg_seq_id": 511
+    },
+    {
+     "beg_comp_id": "ASN",
+     "beg_seq_id": 616
+    },
+    {
+     "beg_comp_id": "PRO",
+     "beg_seq_id": 571
+    },
+    {
+     "beg_comp_id": "CYS",
+     "beg_seq_id": 535
+    },
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 498
+    },
+    {
+     "beg_comp_id": "VAL",
+     "beg_seq_id": 497
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 492
+    },
+    {
+     "beg_comp_id": "VAL",
+     "beg_seq_id": 617
+    },
+    {
+     "beg_comp_id": "ALA",
+     "beg_seq_id": 537
+    },
+    {
+     "beg_comp_id": "CYS",
+     "beg_seq_id": 572
+    },
+    {
+     "beg_comp_id": "GLN",
+     "beg_seq_id": 494
+    },
+    {
+     "beg_comp_id": "PHE",
+     "beg_seq_id": 618
+    },
+    {
+     "beg_comp_id": "PRO",
+     "beg_seq_id": 496
+    },
+    {
+     "beg_comp_id": "PRO",
+     "beg_seq_id": 510
+    }
+   ],
+   "name": "ligand OJA",
+   "ordinal": 371,
+   "provenance_source": "PDB",
+   "type": "LIGAND_INTERACTION"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PARTNER_ASYM_ID",
+     "values": [
+      "V"
+     ]
+    },
+    {
+     "name": "PARTNER_COMP_ID",
+     "values": [
+      "ADP"
+     ]
+    }
+   ],
+   "assignment_version": "V1.0",
+   "description": "Software generated binding site for ligand entity 2 component ADP instance V",
+   "feature_id": "LIGAND_INTERACTION_24",
+   "feature_positions": [
+    {
+     "beg_comp_id": "ARG",
+     "beg_seq_id": 359
+    },
+    {
+     "beg_comp_id": "PHE",
+     "beg_seq_id": 360
+    }
+   ],
+   "name": "ligand ADP",
+   "ordinal": 372,
+   "provenance_source": "PDB",
+   "type": "LIGAND_INTERACTION"
+  },
+  {
+   "assignment_version": "V1.0",
+   "description": "No coordinates for this residue are reported in model 1",
+   "feature_id": "1",
+   "feature_positions": [
+    {
+     "beg_seq_id": 1,
+     "end_seq_id": 20
+    },
+    {
+     "beg_seq_id": 708,
+     "end_seq_id": 727
+    },
+    {
+     "beg_seq_id": 764,
+     "end_seq_id": 806
+    }
+   ],
+   "name": "unmodeled residue",
+   "ordinal": 377,
+   "provenance_source": "PDB",
+   "type": "UNOBSERVED_RESIDUE_XYZ"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PDB_MODEL_NUM",
+     "values": [
+      "1"
+     ]
+    }
+   ],
+   "feature_id": "CLASHES",
+   "feature_positions": [
+    {
+     "beg_comp_id": "ASN",
+     "beg_seq_id": 21,
+     "values": [
+      3.0,
+      2.0,
+      5.0,
+      3.0,
+      9.0,
+      26.0,
+      5.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ALA",
+     "beg_seq_id": 31,
+     "values": [
+      2.0,
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 35,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "SER",
+     "beg_seq_id": 40,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "SER",
+     "beg_seq_id": 42,
+     "values": [
+      1.0,
+      1.0,
+      2.0,
+      4.0
+     ]
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 51,
+     "values": [
+      1.0,
+      2.0,
+      3.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "THR",
+     "beg_seq_id": 56,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "LYS",
+     "beg_seq_id": 60,
+     "values": [
+      3.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 66,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "VAL",
+     "beg_seq_id": 68,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "ILE",
+     "beg_seq_id": 70,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 72,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "LYS",
+     "beg_seq_id": 81,
+     "values": [
+      3.0,
+      7.0,
+      3.0,
+      1.0,
+      3.0,
+      2.0,
+      2.0,
+      1.0,
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASN",
+     "beg_seq_id": 91,
+     "values": [
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "VAL",
+     "beg_seq_id": 94,
+     "values": [
+      3.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 98,
+     "values": [
+      1.0,
+      2.0,
+      17.0,
+      1.0,
+      13.0
+     ]
+    },
+    {
+     "beg_comp_id": "PRO",
+     "beg_seq_id": 104,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "VAL",
+     "beg_seq_id": 108,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLY",
+     "beg_seq_id": 111,
+     "values": [
+      2.0,
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "HIS",
+     "beg_seq_id": 115,
+     "values": [
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "PRO",
+     "beg_seq_id": 118,
+     "values": [
+      2.0,
+      8.0,
+      4.0,
+      2.0,
+      2.0,
+      7.0,
+      6.0,
+      2.0,
+      21.0,
+      15.0
+     ]
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 130,
+     "values": [
+      19.0,
+      12.0
+     ]
+    },
+    {
+     "beg_comp_id": "VAL",
+     "beg_seq_id": 133,
+     "values": [
+      1.0,
+      7.0,
+      2.0,
+      2.0,
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 140,
+     "values": [
+      2.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "TYR",
+     "beg_seq_id": 143,
+     "values": [
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ILE",
+     "beg_seq_id": 146,
+     "values": [
+      1.0,
+      4.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 150,
+     "values": [
+      3.0
+     ]
+    },
+    {
+     "beg_comp_id": "VAL",
+     "beg_seq_id": 154,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "MET",
+     "beg_seq_id": 158,
+     "values": [
+      3.0,
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "VAL",
+     "beg_seq_id": 161,
+     "values": [
+      2.0,
+      2.0,
+      4.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 167,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "PRO",
+     "beg_seq_id": 170,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "TYR",
+     "beg_seq_id": 173,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ILE",
+     "beg_seq_id": 175,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "HIS",
+     "beg_seq_id": 183,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 185,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 187,
+     "values": [
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ARG",
+     "beg_seq_id": 191,
+     "values": [
+      8.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "TYR",
+     "beg_seq_id": 203,
+     "values": [
+      1.0,
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "ILE",
+     "beg_seq_id": 206,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "ARG",
+     "beg_seq_id": 210,
+     "values": [
+      5.0,
+      1.0,
+      4.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ILE",
+     "beg_seq_id": 216,
+     "values": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 224,
+     "values": [
+      8.0
+     ]
+    },
+    {
+     "beg_comp_id": "PRO",
+     "beg_seq_id": 227,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 229,
+     "values": [
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ILE",
+     "beg_seq_id": 233,
+     "values": [
+      3.0
+     ]
+    },
+    {
+     "beg_comp_id": "LYS",
+     "beg_seq_id": 236,
+     "values": [
+      2.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ARG",
+     "beg_seq_id": 239,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 242,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "PRO",
+     "beg_seq_id": 246,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "LYS",
+     "beg_seq_id": 251,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 253,
+     "values": [
+      1.0,
+      2.0,
+      4.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 261,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "PHE",
+     "beg_seq_id": 266,
+     "values": [
+      11.0,
+      8.0,
+      15.0,
+      8.0,
+      4.0
+     ]
+    },
+    {
+     "beg_comp_id": "PRO",
+     "beg_seq_id": 272,
+     "values": [
+      1.0,
+      3.0,
+      5.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 283,
+     "values": [
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 286,
+     "values": [
+      4.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ALA",
+     "beg_seq_id": 289,
+     "values": [
+      5.0,
+      4.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 292,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 294,
+     "values": [
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "PRO",
+     "beg_seq_id": 298,
+     "values": [
+      6.0
+     ]
+    },
+    {
+     "beg_comp_id": "PHE",
+     "beg_seq_id": 302,
+     "values": [
+      3.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 307,
+     "values": [
+      4.0
+     ]
+    },
+    {
+     "beg_comp_id": "ALA",
+     "beg_seq_id": 310,
+     "values": [
+      3.0,
+      6.0,
+      13.0,
+      2.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "THR",
+     "beg_seq_id": 316,
+     "values": [
+      8.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 319,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 321,
+     "values": [
+      4.0,
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "ILE",
+     "beg_seq_id": 324,
+     "values": [
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 331,
+     "values": [
+      3.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 333,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "LYS",
+     "beg_seq_id": 336,
+     "values": [
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "HIS",
+     "beg_seq_id": 340,
+     "values": [
+      3.0,
+      1.0,
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "MET",
+     "beg_seq_id": 344,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ALA",
+     "beg_seq_id": 346,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "SER",
+     "beg_seq_id": 352,
+     "values": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ARG",
+     "beg_seq_id": 359,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "ARG",
+     "beg_seq_id": 362,
+     "values": [
+      3.0
+     ]
+    },
+    {
+     "beg_comp_id": "ARG",
+     "beg_seq_id": 365,
+     "values": [
+      3.0
+     ]
+    },
+    {
+     "beg_comp_id": "ILE",
+     "beg_seq_id": 371,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 373,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ILE",
+     "beg_seq_id": 383,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "THR",
+     "beg_seq_id": 385,
+     "values": [
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "MET",
+     "beg_seq_id": 388,
+     "values": [
+      3.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 393,
+     "values": [
+      1.0,
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 402,
+     "values": [
+      6.0,
+      5.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLY",
+     "beg_seq_id": 405,
+     "values": [
+      3.0,
+      12.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLY",
+     "beg_seq_id": 408,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 410,
+     "values": [
+      1.0,
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 414,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLN",
+     "beg_seq_id": 421,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "ILE",
+     "beg_seq_id": 423,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "MET",
+     "beg_seq_id": 427,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 429,
+     "values": [
+      1.0,
+      2.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 434,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 438,
+     "values": [
+      11.0,
+      10.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "MET",
+     "beg_seq_id": 442,
+     "values": [
+      2.0,
+      1.0,
+      1.0,
+      3.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "THR",
+     "beg_seq_id": 448,
+     "values": [
+      2.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 451,
+     "values": [
+      3.0
+     ]
+    },
+    {
+     "beg_comp_id": "TRP",
+     "beg_seq_id": 454,
+     "values": [
+      1.0,
+      1.0,
+      6.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLN",
+     "beg_seq_id": 458,
+     "values": [
+      1.0,
+      7.0,
+      2.0,
+      9.0,
+      5.0,
+      2.0,
+      1.0,
+      5.0,
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "VAL",
+     "beg_seq_id": 469,
+     "values": [
+      3.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "PRO",
+     "beg_seq_id": 472,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "THR",
+     "beg_seq_id": 475,
+     "values": [
+      2.0,
+      5.0,
+      6.0
+     ]
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 482,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 484,
+     "values": [
+      1.0,
+      2.0,
+      2.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 491,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "TYR",
+     "beg_seq_id": 495,
+     "values": [
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "LYS",
+     "beg_seq_id": 502,
+     "values": [
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "LYS",
+     "beg_seq_id": 505,
+     "values": [
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "PRO",
+     "beg_seq_id": 510,
+     "values": [
+      5.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLY",
+     "beg_seq_id": 513,
+     "values": [
+      6.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "TYR",
+     "beg_seq_id": 517,
+     "values": [
+      3.0
+     ]
+    },
+    {
+     "beg_comp_id": "PRO",
+     "beg_seq_id": 519,
+     "values": [
+      2.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 526,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "LYS",
+     "beg_seq_id": 529,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASN",
+     "beg_seq_id": 533,
+     "values": [
+      2.0,
+      5.0
+     ]
+    },
+    {
+     "beg_comp_id": "ALA",
+     "beg_seq_id": 537,
+     "values": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ILE",
+     "beg_seq_id": 542,
+     "values": [
+      1.0,
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 546,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "THR",
+     "beg_seq_id": 549,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "VAL",
+     "beg_seq_id": 559,
+     "values": [
+      2.0,
+      9.0
+     ]
+    },
+    {
+     "beg_comp_id": "ILE",
+     "beg_seq_id": 562,
+     "values": [
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "LYS",
+     "beg_seq_id": 565,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "ARG",
+     "beg_seq_id": 567,
+     "values": [
+      4.0,
+      4.0,
+      1.0,
+      3.0,
+      5.0
+     ]
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 574,
+     "values": [
+      1.0,
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 577,
+     "values": [
+      4.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "SER",
+     "beg_seq_id": 581,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLY",
+     "beg_seq_id": 587,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASN",
+     "beg_seq_id": 589,
+     "values": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 598,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "ILE",
+     "beg_seq_id": 601,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "ILE",
+     "beg_seq_id": 604,
+     "values": [
+      1.0,
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 607,
+     "values": [
+      11.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "SER",
+     "beg_seq_id": 612,
+     "values": [
+      3.0,
+      1.0,
+      8.0,
+      3.0,
+      9.0
+     ]
+    },
+    {
+     "beg_comp_id": "ILE",
+     "beg_seq_id": 619,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASN",
+     "beg_seq_id": 624,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "PRO",
+     "beg_seq_id": 626,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 630,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ALA",
+     "beg_seq_id": 632,
+     "values": [
+      1.0,
+      3.0
+     ]
+    },
+    {
+     "beg_comp_id": "PRO",
+     "beg_seq_id": 636,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "ARG",
+     "beg_seq_id": 638,
+     "values": [
+      1.0,
+      6.0,
+      2.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "TYR",
+     "beg_seq_id": 644,
+     "values": [
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 647,
+     "values": [
+      4.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 649,
+     "values": [
+      1.0,
+      3.0
+     ]
+    },
+    {
+     "beg_comp_id": "ARG",
+     "beg_seq_id": 653,
+     "values": [
+      3.0
+     ]
+    },
+    {
+     "beg_comp_id": "ARG",
+     "beg_seq_id": 662,
+     "values": [
+      4.0
+     ]
+    },
+    {
+     "beg_comp_id": "SER",
+     "beg_seq_id": 664,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "VAL",
+     "beg_seq_id": 666,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "VAL",
+     "beg_seq_id": 670,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "PHE",
+     "beg_seq_id": 674,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "LYS",
+     "beg_seq_id": 677,
+     "values": [
+      2.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASN",
+     "beg_seq_id": 680,
+     "values": [
+      2.0,
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ALA",
+     "beg_seq_id": 685,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ILE",
+     "beg_seq_id": 690,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 697,
+     "values": [
+      3.0
+     ]
+    },
+    {
+     "beg_comp_id": "ILE",
+     "beg_seq_id": 699,
+     "values": [
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 730,
+     "values": [
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ARG",
+     "beg_seq_id": 733,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 738,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ARG",
+     "beg_seq_id": 741,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ARG",
+     "beg_seq_id": 744,
+     "values": [
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "VAL",
+     "beg_seq_id": 747,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 749,
+     "values": [
+      1.0,
+      1.0,
+      3.0,
+      5.0,
+      4.0,
+      4.0,
+      1.0,
+      1.0,
+      5.0,
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLN",
+     "beg_seq_id": 760,
+     "values": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   ],
+   "name": "CLASHES",
+   "ordinal": 391,
+   "provenance_source": "PDB",
+   "type": "CLASHES"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PDB_MODEL_NUM",
+     "values": [
+      "1"
+     ]
+    }
+   ],
+   "feature_id": "ANGLE_OUTLIERS",
+   "feature_positions": [
+    {
+     "beg_comp_id": "GLY",
+     "beg_seq_id": 54,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 117,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "VAL",
+     "beg_seq_id": 176,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLY",
+     "beg_seq_id": 271,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "SER",
+     "beg_seq_id": 459,
+     "values": [
+      1.0,
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "ILE",
+     "beg_seq_id": 562,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ARG",
+     "beg_seq_id": 599,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 640,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ILE",
+     "beg_seq_id": 752,
+     "values": [
+      1.0
+     ]
+    }
+   ],
+   "name": "ANGLE_OUTLIERS",
+   "ordinal": 392,
+   "provenance_source": "PDB",
+   "type": "ANGLE_OUTLIERS"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PDB_MODEL_NUM",
+     "values": [
+      "1"
+     ]
+    }
+   ],
+   "feature_id": "BOND_OUTLIERS",
+   "feature_positions": [
+    {
+     "beg_comp_id": "GLY",
+     "beg_seq_id": 271,
+     "values": [
+      1.0
+     ]
+    }
+   ],
+   "name": "BOND_OUTLIERS",
+   "ordinal": 393,
+   "provenance_source": "PDB",
+   "type": "BOND_OUTLIERS"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PDB_MODEL_NUM",
+     "values": [
+      "1"
+     ]
+    }
+   ],
+   "feature_id": "Q_SCORE",
+   "feature_positions": [
+    {
+     "beg_comp_id": "ASN",
+     "beg_seq_id": 21,
+     "values": [
+      0.492,
+      0.217,
+      0.417,
+      -0.028,
+      -0.108,
+      0.262,
+      0.304,
+      0.571,
+      0.502,
+      0.405,
+      0.213,
+      0.546,
+      0.502,
+      0.279,
+      0.483,
+      0.286,
+      0.524,
+      0.477,
+      0.513,
+      0.366,
+      0.171,
+      0.107,
+      0.361,
+      0.274,
+      0.378,
+      0.286,
+      0.376,
+      0.378,
+      0.382,
+      0.357,
+      0.333,
+      0.339,
+      0.618,
+      0.474,
+      0.461,
+      0.444,
+      0.453,
+      0.587,
+      0.447,
+      0.026,
+      0.205,
+      0.356,
+      0.436,
+      0.492,
+      0.298,
+      0.313,
+      0.226,
+      0.303,
+      0.459,
+      0.431,
+      0.315,
+      0.283,
+      0.15,
+      0.406,
+      0.365,
+      0.235,
+      0.38,
+      0.394,
+      0.287,
+      0.447,
+      0.302,
+      0.387,
+      0.311,
+      0.449,
+      0.622,
+      0.236,
+      0.582,
+      0.476,
+      0.456,
+      0.608,
+      0.48,
+      0.528,
+      0.361,
+      0.535,
+      0.56,
+      0.615,
+      0.463,
+      0.445,
+      0.244,
+      0.559,
+      0.218,
+      0.192,
+      0.479,
+      0.427,
+      0.263,
+      0.306,
+      0.358,
+      0.202,
+      0.488,
+      0.284,
+      0.49,
+      0.396,
+      0.141,
+      0.297,
+      0.359,
+      0.424,
+      0.418,
+      0.183,
+      0.261,
+      -0.022,
+      0.339,
+      0.475,
+      -0.067,
+      0.199,
+      0.599,
+      -0.067,
+      0.274,
+      0.15,
+      -0.086,
+      0.139,
+      0.411,
+      0.221,
+      0.418,
+      0.375,
+      0.452,
+      0.315,
+      0.394,
+      0.436,
+      0.146,
+      0.358,
+      0.225,
+      0.589,
+      0.232,
+      0.51,
+      0.536,
+      0.509,
+      0.268,
+      0.327,
+      0.664,
+      0.456,
+      0.569,
+      0.31,
+      0.599,
+      0.508,
+      0.482,
+      0.243,
+      0.57,
+      0.443,
+      0.279,
+      0.542,
+      0.353,
+      0.516,
+      0.37,
+      0.493,
+      0.393,
+      0.345,
+      0.594,
+      0.281,
+      0.387,
+      0.423,
+      0.464,
+      0.223,
+      0.365,
+      0.56,
+      0.277,
+      0.478,
+      0.338,
+      0.279,
+      0.508,
+      0.255,
+      0.359,
+      0.394,
+      0.27,
+      0.173,
+      0.283,
+      0.372,
+      0.312,
+      0.388,
+      0.413,
+      0.563,
+      0.449,
+      0.164,
+      0.297,
+      0.402,
+      0.335,
+      0.192,
+      0.339,
+      0.438,
+      0.279,
+      0.351,
+      0.63,
+      0.629,
+      0.385,
+      0.392,
+      0.549,
+      0.549,
+      0.446,
+      0.26,
+      0.179,
+      0.125,
+      0.019,
+      0.173,
+      0.604,
+      0.625,
+      0.593,
+      0.662,
+      0.56,
+      0.472,
+      0.586,
+      0.653,
+      0.346,
+      0.456,
+      0.651,
+      0.585,
+      0.427,
+      0.601,
+      0.424,
+      0.5,
+      0.413,
+      0.332,
+      0.457,
+      0.428,
+      0.569,
+      0.138,
+      0.549,
+      0.482,
+      0.476,
+      0.529,
+      0.506,
+      0.565,
+      0.687,
+      0.636,
+      0.716,
+      0.63,
+      0.686,
+      0.718,
+      0.66,
+      0.72,
+      0.743,
+      0.732,
+      0.696,
+      0.63,
+      0.605,
+      0.588,
+      0.726,
+      0.489,
+      0.689,
+      0.631,
+      0.653,
+      0.554,
+      0.539,
+      0.531,
+      0.525,
+      0.555,
+      0.459,
+      0.666,
+      0.597,
+      0.325,
+      0.685,
+      0.544,
+      0.631,
+      0.603,
+      0.542,
+      0.513,
+      0.592,
+      0.558,
+      0.552,
+      0.385,
+      0.509,
+      0.449,
+      0.296,
+      0.523,
+      0.331,
+      0.406,
+      0.539,
+      0.647,
+      0.464,
+      0.619,
+      0.638,
+      0.523,
+      0.602,
+      0.476,
+      0.543,
+      0.525,
+      0.458,
+      0.595,
+      0.475,
+      0.536,
+      0.716,
+      0.577,
+      0.645,
+      0.703,
+      0.694,
+      0.557,
+      0.577,
+      0.697,
+      0.619,
+      0.652,
+      0.471,
+      0.672,
+      0.256,
+      -0.064,
+      0.104,
+      0.062,
+      0.295,
+      0.198,
+      0.026,
+      0.398,
+      0.198,
+      0.108,
+      0.366,
+      0.293,
+      0.441,
+      0.541,
+      0.614,
+      0.622,
+      0.468,
+      0.728,
+      0.634,
+      0.634,
+      0.635,
+      0.662,
+      0.636,
+      0.631,
+      0.425,
+      0.199,
+      0.196,
+      0.309,
+      0.33,
+      0.365,
+      0.685,
+      0.678,
+      0.689,
+      0.668,
+      0.683,
+      0.71,
+      0.604,
+      0.645,
+      0.513,
+      0.598,
+      0.543,
+      0.573,
+      0.665,
+      0.548,
+      0.655,
+      0.662,
+      0.603,
+      0.294,
+      0.477,
+      0.527,
+      0.607,
+      0.619,
+      0.584,
+      0.417,
+      0.279,
+      0.475,
+      0.622,
+      0.603,
+      0.676,
+      0.661,
+      0.577,
+      0.652,
+      0.515,
+      0.641,
+      0.524,
+      0.572,
+      0.649,
+      0.46,
+      0.534,
+      0.589,
+      0.6,
+      0.512,
+      0.627,
+      0.664,
+      0.565,
+      0.401,
+      0.59,
+      0.449,
+      0.277,
+      0.66,
+      0.433,
+      0.27,
+      0.428,
+      0.314,
+      0.259,
+      0.507,
+      0.482,
+      0.384,
+      0.452,
+      0.624,
+      0.576,
+      0.555,
+      0.409,
+      0.264,
+      0.665,
+      0.658,
+      0.614,
+      0.714,
+      0.717,
+      0.567,
+      0.706,
+      0.696,
+      0.643,
+      0.651,
+      0.583,
+      0.571,
+      0.628,
+      0.668,
+      0.59,
+      0.644,
+      0.596,
+      0.448,
+      0.569,
+      0.63,
+      0.342,
+      0.481,
+      0.244,
+      0.358,
+      0.291,
+      0.263,
+      0.161,
+      0.394,
+      0.241,
+      0.285,
+      0.385,
+      0.267,
+      0.518,
+      0.086,
+      0.563,
+      0.407,
+      0.295,
+      0.247,
+      0.455,
+      0.458,
+      0.334,
+      0.513,
+      0.617,
+      0.629,
+      0.475,
+      0.308,
+      0.504,
+      0.633,
+      0.546,
+      0.584,
+      0.52,
+      0.657,
+      0.616,
+      0.595,
+      0.52,
+      0.611,
+      0.426,
+      0.268,
+      0.412,
+      0.535,
+      0.512,
+      0.29,
+      0.52,
+      0.606,
+      0.681,
+      0.55,
+      0.684,
+      0.677,
+      0.556,
+      0.596,
+      0.624,
+      0.576,
+      0.541,
+      0.599,
+      0.662,
+      0.648,
+      0.527,
+      0.586,
+      0.66,
+      0.519,
+      0.593,
+      0.607,
+      0.663,
+      0.63,
+      0.647,
+      0.668,
+      0.51,
+      0.707,
+      0.68,
+      0.686,
+      0.604,
+      0.641,
+      0.593,
+      0.58,
+      0.562,
+      0.637,
+      0.563,
+      0.562,
+      0.688,
+      0.6,
+      0.449,
+      0.436,
+      0.524,
+      0.605,
+      0.588,
+      0.673,
+      0.624,
+      0.574,
+      0.598,
+      0.711,
+      0.68,
+      0.693,
+      0.714,
+      0.696,
+      0.65,
+      0.63,
+      0.725,
+      0.681,
+      0.731,
+      0.716,
+      0.648,
+      0.606,
+      0.64,
+      0.665,
+      0.666,
+      0.665,
+      0.688,
+      0.697,
+      0.625,
+      0.591,
+      0.667,
+      0.627,
+      0.636,
+      0.667,
+      0.726,
+      0.662,
+      0.684,
+      0.726,
+      0.609,
+      0.711,
+      0.644,
+      0.534,
+      0.672,
+      0.665,
+      0.662,
+      0.679,
+      0.702,
+      0.686,
+      0.69,
+      0.505,
+      0.611,
+      0.624,
+      0.623,
+      0.665,
+      0.688,
+      0.534,
+      0.535,
+      0.687,
+      0.713,
+      0.363,
+      0.606,
+      0.692,
+      0.639,
+      0.65,
+      0.671,
+      0.671,
+      0.64,
+      0.708,
+      0.733,
+      0.731,
+      0.727,
+      0.72,
+      0.595,
+      0.552,
+      0.719,
+      0.694,
+      0.649,
+      0.7,
+      0.715,
+      0.625,
+      0.69,
+      0.578,
+      0.565,
+      0.476,
+      0.185,
+      0.501,
+      0.55,
+      0.497,
+      0.454,
+      0.667,
+      0.753,
+      0.737,
+      0.705,
+      0.602,
+      0.692,
+      0.728,
+      0.685,
+      0.734,
+      0.715,
+      0.735,
+      0.641,
+      0.648,
+      0.433,
+      0.668,
+      0.477,
+      0.519,
+      0.639,
+      0.374,
+      0.375,
+      0.295,
+      0.285,
+      0.548,
+      0.73,
+      0.714,
+      0.728,
+      0.739,
+      0.742,
+      0.699,
+      0.69,
+      0.623,
+      0.661,
+      0.68,
+      0.563,
+      0.648,
+      0.638,
+      0.625,
+      0.61,
+      0.621,
+      0.63,
+      0.674,
+      0.6,
+      0.535,
+      0.638,
+      0.68,
+      0.658,
+      0.581,
+      0.674,
+      0.624,
+      0.709,
+      0.624,
+      0.68,
+      0.641,
+      0.656,
+      0.652,
+      0.443,
+      0.514,
+      0.528,
+      0.58,
+      0.413,
+      0.537,
+      0.691,
+      0.595,
+      0.631,
+      0.542,
+      0.612,
+      0.559,
+      0.595,
+      0.524,
+      0.307,
+      0.53,
+      0.4,
+      0.449,
+      0.603,
+      0.495,
+      0.326,
+      0.401,
+      0.459,
+      0.49,
+      0.312,
+      0.547,
+      0.588,
+      0.529,
+      0.473,
+      0.462,
+      0.58,
+      0.474,
+      0.538,
+      0.601,
+      0.665,
+      0.748,
+      0.622,
+      0.538,
+      0.685,
+      0.563,
+      0.585,
+      0.549,
+      0.61,
+      0.672,
+      0.537,
+      0.707,
+      0.573,
+      0.527,
+      0.61,
+      0.675,
+      0.625,
+      0.503,
+      0.376,
+      0.705,
+      0.581,
+      0.369,
+      0.595,
+      0.534,
+      0.541
+     ]
+    },
+    {
+     "beg_comp_id": "VAL",
+     "beg_seq_id": 728,
+     "values": [
+      0.46,
+      0.378,
+      0.296,
+      0.455,
+      0.33,
+      0.567,
+      0.363,
+      0.555,
+      0.552,
+      0.609,
+      0.389,
+      0.7,
+      0.605,
+      0.462,
+      0.57,
+      0.576,
+      0.534,
+      0.67,
+      0.652,
+      0.593,
+      0.533,
+      0.61,
+      0.339,
+      0.507,
+      0.487,
+      0.465,
+      0.283,
+      0.651,
+      0.476,
+      0.601,
+      0.56,
+      0.467,
+      0.25,
+      0.566,
+      0.475,
+      0.457
+     ]
+    }
+   ],
+   "name": "Q_SCORE",
+   "ordinal": 401,
+   "provenance_source": "PDB",
+   "type": "Q_SCORE"
+  },
+  {
+   "description": "The Accessible Surface Area considering this polymer entity instance by itself (unbound).",
+   "feature_positions": [
+    {
+     "beg_seq_id": 21,
+     "end_seq_id": 707,
+     "values": [
+      161.84622795615644,
+      241.83471309324347,
+      89.90072769363212,
+      95.90813645785724,
+      69.25782250844405,
+      8.371459749325547,
+      52.942152070858796,
+      0.7881627649326073,
+      23.107972197109113,
+      65.21250171920374,
+      11.034565222306508,
+      131.27017731354334,
+      65.12739723085505,
+      147.4854022375339,
+      29.466854807595475,
+      64.41699516728411,
+      15.820826868984772,
+      31.693479963657285,
+      8.510858498550634,
+      2.7464933951037267,
+      29.561607755301864,
+      7.079576531590475,
+      74.86348943067632,
+      77.15983029763248,
+      89.51735788547751,
+      53.73035504817737,
+      111.18759402767891,
+      122.98664194613232,
+      35.71395452491886,
+      104.07496291482443,
+      16.6904498747879,
+      160.61488448549315,
+      106.19446730122118,
+      49.785223418571235,
+      38.10524186168887,
+      10.001423575521093,
+      6.951736330056478,
+      76.86018016378485,
+      6.414252552687352,
+      54.81247286779518,
+      10.837238017823351,
+      96.33344024475197,
+      140.34360709175758,
+      190.98891312756152,
+      69.10579958329978,
+      75.82685002144021,
+      4.74787641099964,
+      22.490702019435297,
+      2.920110371511713,
+      31.980284753462925,
+      5.374837773691248,
+      90.83475837538208,
+      53.74641738309663,
+      29.060292505834994,
+      130.9531127032983,
+      110.4449466571115,
+      11.893401255574274,
+      45.28973502153863,
+      48.71801685432442,
+      121.482497649076,
+      70.52369836555565,
+      6.952344542394212,
+      50.07050516425842,
+      1.0716902452820247,
+      22.17980247061368,
+      20.907794224642277,
+      19.06261119548285,
+      7.256030994483185,
+      12.963686580621612,
+      32.84901554695244,
+      17.254232552578756,
+      0.19704069123315182,
+      44.49876241613666,
+      4.012515022114447,
+      68.94824494181105,
+      30.65384652981249,
+      57.85736478623336,
+      23.664069282632223,
+      88.84353652676495,
+      6.486858528822998,
+      56.878665683497594,
+      29.34465690646732,
+      100.8595905860836,
+      26.818899351027184,
+      57.33947198065203,
+      85.71035831493853,
+      99.53834227349691,
+      61.260041382255324,
+      134.98461299813692,
+      162.51515848342592,
+      10.53437591964668,
+      123.11091581168597,
+      88.92182250241828,
+      39.68963248821438,
+      24.967920711740412,
+      8.8691131583954,
+      39.75602313744417,
+      4.031128330268436,
+      10.749675547382497,
+      48.56843180507933,
+      116.67840432249596,
+      32.488891011160256,
+      36.067655132052984,
+      112.22179124959594,
+      6.684233485514491,
+      27.481172215145136,
+      23.64928620424149,
+      59.53812188245215,
+      93.64376946429223,
+      14.735044695695805,
+      13.871589264590202,
+      108.16904624859667,
+      26.494867944913562,
+      10.624449150936284,
+      29.83034964398643,
+      112.86170854039096,
+      71.6801814531951,
+      64.17590934704762,
+      53.0583331937368,
+      79.90390340975588,
+      140.82337101562084,
+      42.745271166801956,
+      117.5965209524999,
+      32.25206770383616,
+      9.817318706198362,
+      18.686901846854738,
+      34.022817606572616,
+      109.83084571810664,
+      33.07056317415771,
+      12.413563547688563,
+      16.231789913734403,
+      28.689969103652192,
+      14.839327978876126,
+      1.809492023340526,
+      58.51319612877439,
+      16.662019717909974,
+      12.59361953239935,
+      43.880155176629465,
+      64.99554835709509,
+      20.618018744823402,
+      4.837353996322124,
+      10.032731431269708,
+      6.2741375203372485,
+      29.13854832219885,
+      0.2687418886845624,
+      84.25741192503922,
+      70.48232484694492,
+      13.04380473311052,
+      87.04904372338972,
+      24.70619085785866,
+      70.2821224568652,
+      102.14008364549383,
+      42.995470119007976,
+      2.920110371511713,
+      45.685857182592706,
+      15.676816261744216,
+      31.541075020846336,
+      90.7056565102384,
+      122.98795890177274,
+      35.07804590634983,
+      102.33715952256469,
+      107.11869621389197,
+      87.92458297647808,
+      73.11001074771225,
+      81.38591832816033,
+      17.792942807719843,
+      116.66307083707233,
+      69.1353732799036,
+      101.76429387209379,
+      128.48211939099554,
+      40.263669324426544,
+      65.2936578539054,
+      128.19089375200775,
+      102.10075593201913,
+      29.02148504010372,
+      78.44574700259986,
+      46.36795977954013,
+      13.002139674701553,
+      94.1260165029889,
+      73.41527553595039,
+      37.320177963749764,
+      5.1060958850066855,
+      23.923260729649876,
+      40.165128872617,
+      31.872774426308837,
+      20.602260516072995,
+      19.702543565922596,
+      7.990005056052553,
+      72.77877629796248,
+      83.4713376909027,
+      151.75379369809792,
+      47.794587162824726,
+      32.8106403643703,
+      54.07379647034192,
+      73.24799703688028,
+      0.2687418886845624,
+      45.842979540932284,
+      139.25235352070314,
+      27.04773798646291,
+      3.2249026642147487,
+      94.73556338928313,
+      78.97517070985694,
+      6.449805328429498,
+      2.776632578385205,
+      80.91522481060652,
+      80.30280273871574,
+      40.812927791061334,
+      81.38552123084892,
+      84.37413842840188,
+      36.55243303779136,
+      179.74116194105656,
+      89.0385012535726,
+      85.9269170930099,
+      76.3229250943609,
+      87.5761250591643,
+      102.58824314726198,
+      36.01141308373137,
+      37.050541349477456,
+      48.873983106567465,
+      0.0,
+      0.2687418886845624,
+      1.343709443422812,
+      0.0,
+      15.64700129082459,
+      1.8811932207919368,
+      26.067963202402552,
+      87.26864356314977,
+      32.11398591025146,
+      14.85120822565494,
+      18.49743113727968,
+      19.683226541014207,
+      63.483054963402566,
+      64.11366308684647,
+      8.86848232659056,
+      0.0,
+      78.26397696493727,
+      2.042681136282944,
+      2.149935109476499,
+      1.236168956979249,
+      36.41974975702259,
+      14.29700363554635,
+      26.102437783545987,
+      39.376001010421206,
+      8.078668340559224,
+      93.24838117928206,
+      17.333146846762805,
+      48.4718944327457,
+      86.96659827906302,
+      3.2071262763436765,
+      64.08174953203424,
+      0.0,
+      68.2246230563538,
+      75.44313338145663,
+      6.1810634397449356,
+      65.43320488630374,
+      84.64890212188484,
+      71.81654668055388,
+      141.3226806723377,
+      66.0696890446469,
+      42.17494894974339,
+      78.4217527745488,
+      2.418676998161062,
+      10.660793608027134,
+      37.692858817059815,
+      51.67242587779095,
+      0.8062256660536872,
+      103.70762779557373,
+      134.2930454108428,
+      5.573690535566991,
+      5.321508610078031,
+      89.00772621193804,
+      70.53195949759751,
+      0.0,
+      61.11259764256293,
+      126.76953921783297,
+      53.15052511511197,
+      54.574191861479825,
+      25.082209339203885,
+      0.0,
+      0.0,
+      0.0,
+      2.8498115810208646,
+      0.0,
+      34.700971849873,
+      82.81393555203488,
+      0.0,
+      38.21160110929468,
+      29.92019416733085,
+      0.0,
+      0.0,
+      44.07232765588662,
+      26.84682182653229,
+      119.48102164203753,
+      162.14986414276297,
+      157.5074195812178,
+      36.815024944697264,
+      172.28160349482908,
+      65.59968416420277,
+      111.79344388773839,
+      55.08127256178458,
+      28.51659340156,
+      139.8209164458757,
+      120.54041443703635,
+      0.2687418886845624,
+      9.674707992644247,
+      61.37523227512891,
+      48.195034668644254,
+      0.0,
+      28.486640200563617,
+      84.09521275297143,
+      26.89170136254441,
+      0.0,
+      69.45159343004335,
+      44.019398102858936,
+      18.255835122396256,
+      132.80624270523427,
+      166.28935731338726,
+      178.25399983724847,
+      38.29248078384282,
+      41.84329729648922,
+      7.392323336892401,
+      4.837353996322124,
+      0.0,
+      0.0,
+      0.0,
+      2.669642498974552,
+      3.2249026642147487,
+      64.06291756903155,
+      180.75480560719674,
+      39.4872812487596,
+      82.01598107111957,
+      17.306757468472654,
+      3.349691750963581,
+      14.00854762464198,
+      74.78034026959524,
+      34.66770364030855,
+      0.0,
+      108.61685389198762,
+      126.90294632154912,
+      177.89544107123487,
+      9.82023159090677,
+      24.314921829135844,
+      2.3644882947978214,
+      54.71235156656234,
+      120.49127490138596,
+      48.38945401496726,
+      3.7623864415838737,
+      30.32848560168787,
+      20.10173946122895,
+      9.99653777062623,
+      31.689524070187883,
+      21.122231799353955,
+      38.91681074852778,
+      16.05401598192719,
+      76.4431500753026,
+      1.5425622052985544,
+      7.949109059525181,
+      40.580025191368925,
+      47.315863734448335,
+      15.049545766335495,
+      0.0,
+      83.42757404860114,
+      24.723233369685854,
+      71.2707489923863,
+      10.855300918944428,
+      61.961445924466396,
+      22.34991594289438,
+      27.82900181392823,
+      124.87444759114156,
+      48.66253632806202,
+      27.034862483131437,
+      134.70282470348056,
+      96.28620325761258,
+      6.126324329348787,
+      106.37239956929815,
+      10.480933658697934,
+      96.45505003973537,
+      122.09879016311599,
+      10.749675547382497,
+      1.343709443422812,
+      78.13027078160049,
+      108.42159511210758,
+      0.0,
+      127.49485253677493,
+      8.403388383782511,
+      2.6404432802150266,
+      3.4936445528993114,
+      13.603098703317928,
+      51.547315091954395,
+      19.57991086837119,
+      0.0,
+      32.32050918475021,
+      56.18786967135917,
+      2.348787871352241,
+      3.923587843824873,
+      58.424060348732624,
+      59.35292625216008,
+      0.0,
+      6.449805328429497,
+      88.07563829108506,
+      21.444888444522356,
+      4.837353996322124,
+      65.57302083903323,
+      122.31820402059095,
+      107.25583301640646,
+      92.6523129821088,
+      24.05940730215996,
+      84.79230954333589,
+      161.12500122093832,
+      91.45760299506043,
+      118.25684854244676,
+      131.9509026362714,
+      116.4178054419695,
+      71.17942666385763,
+      167.27801652147195,
+      45.217586461293344,
+      68.8244963505491,
+      33.18380125303782,
+      1.5943884309862946,
+      41.3473730200159,
+      53.06694115760763,
+      30.063443252512172,
+      70.12190625808036,
+      76.80161082362544,
+      4.0311283302684355,
+      32.83959830881403,
+      1.3437094434228118,
+      53.1556044421143,
+      33.73698042730428,
+      89.91375148013684,
+      2.149957728943605,
+      0.7528965024404699,
+      154.9410073035661,
+      89.84070819430383,
+      0.5911220736994554,
+      41.54606493234778,
+      83.71167204217646,
+      101.60454262902167,
+      16.60788881985156,
+      127.8464922591283,
+      27.750487130329716,
+      53.71395090797737,
+      25.722337745025218,
+      98.2680355141067,
+      240.21255800974768,
+      47.71967148777016,
+      69.44213346624485,
+      95.71326220891801,
+      26.676816425038865,
+      39.77358841028891,
+      27.82807190250277,
+      10.480933658697934,
+      118.05911921410393,
+      33.5927360855703,
+      50.98815683854963,
+      49.46740733936348,
+      103.96298901282812,
+      43.014284489091786,
+      11.644564497942856,
+      8.43053425758365,
+      4.650004490106765,
+      30.30044500229899,
+      102.90842421741935,
+      83.93926912019549,
+      12.362126879489871,
+      28.939381401057744,
+      139.54848255750463,
+      60.23428122156878,
+      0.0,
+      46.76387585211612,
+      71.55524910982128,
+      31.513951766512303,
+      19.473654665004418,
+      34.98904081656245,
+      93.29602531682934,
+      8.348511043309605,
+      100.05928116731518,
+      111.53752472362874,
+      81.714777733864,
+      76.00036144033504,
+      106.6151315840851,
+      116.69716591382323,
+      52.034548466510834,
+      141.16379650883798,
+      147.3825640869742,
+      161.2026010727561,
+      63.15513300894675,
+      124.41914033776797,
+      98.89062880637275,
+      14.134678799772427,
+      28.433770966114878,
+      33.98847371568358,
+      0.0,
+      0.0,
+      1.343709443422812,
+      0.0,
+      7.487546266859769,
+      0.0,
+      0.2687418886845624,
+      60.41333189663042,
+      34.09612478618854,
+      10.159583916073418,
+      18.76617302596424,
+      16.255175929447727,
+      51.20775667830968,
+      66.3093573782781,
+      0.0,
+      0.0,
+      53.15319169895634,
+      0.5911220736994554,
+      0.0,
+      0.0,
+      19.628434651861475,
+      68.64681540988443,
+      52.622579213039145,
+      119.10803919583275,
+      5.912321551060373,
+      13.281535332392966,
+      11.542362205736273,
+      3.2249026642147487,
+      26.826858890174318,
+      3.4936445528993114,
+      108.21494366062856,
+      0.0,
+      90.26093014092213,
+      53.914781616587824,
+      0.5374837773691248,
+      37.62386441583874,
+      78.30605168702827,
+      7.518218264255298,
+      46.890728336919835,
+      138.28558241695453,
+      51.79852186708368,
+      112.39355845624948,
+      46.741374508894054,
+      29.865967764855768,
+      73.94393018132587,
+      83.77573539956845,
+      1.3437094434228118,
+      134.97905866232537,
+      63.993174212121865,
+      19.851955199253208,
+      15.67805279261267,
+      33.62567254295053,
+      45.05948643931997,
+      1.0749675547382496,
+      128.19128330949684,
+      57.488928852916835,
+      8.707899189783788,
+      34.054688435724756,
+      67.70489304738865,
+      2.9031759304718023,
+      2.687418886845624,
+      0.0,
+      0.0,
+      2.7606205089483895,
+      19.99726768248941,
+      70.92422880942124,
+      7.344980792239864,
+      2.5976547882731333,
+      3.511157046987482,
+      1.3437094434228118,
+      15.109881938203278,
+      82.17907748204921,
+      49.56952418024988,
+      46.358414364421456,
+      25.844957876206013,
+      18.820542685064325,
+      132.00767247215884,
+      147.8965286451015,
+      33.397278757034556,
+      73.90942795416709,
+      92.46815030748124,
+      51.74190282764363,
+      58.755327471045995,
+      42.018580573640676,
+      68.42510441986117,
+      22.900033949279184,
+      95.73337342844921,
+      0.0,
+      12.075608602934235,
+      74.96287434259118,
+      43.859518682806566,
+      4.031128330268436,
+      15.049545766335495,
+      76.15855947999921,
+      19.08012368957102,
+      1.3273228961416876,
+      85.59873124477117,
+      63.17138383942523,
+      33.25009137130269,
+      65.72356847226737,
+      96.89489814397918,
+      85.87390208866204,
+      120.1467552846227,
+      72.37697413739072,
+      12.54597790812619,
+      19.140291472072573,
+      0.8062256660536872,
+      0.0,
+      0.0,
+      5.088319497135614,
+      1.6124513321073743,
+      47.310422495972325,
+      82.9451284612488,
+      12.342963164302972,
+      93.23036603036931,
+      28.360750299748965,
+      10.318917955641124,
+      18.44647701771257,
+      80.04840661872451,
+      19.548268747164236,
+      2.418676998161062,
+      50.98736515720093,
+      126.07887640922303,
+      118.33322442976672,
+      43.122023524191064,
+      38.735030657768704,
+      4.031128330268436,
+      47.11711401681164,
+      61.56693979867333,
+      46.68141784141882,
+      8.330998549221434,
+      40.84263217791955,
+      0.0,
+      47.584826791255715,
+      34.407632547347895,
+      15.335800149108227,
+      95.67450249539506,
+      60.57267096274637,
+      154.01506433794356,
+      19.87309183462656,
+      11.23943978898065,
+      22.30557676081868,
+      33.610248579658474,
+      23.64928620424149,
+      0.8062256660536872,
+      114.60321398543367,
+      12.97170141179945,
+      53.9973476980724,
+      20.567016873047965,
+      140.8834382671575,
+      175.91704446046668,
+      40.56322395385752,
+      106.22364641378775,
+      47.173290720006065,
+      37.48046202093592,
+      184.78254855722167,
+      121.34754990832252,
+      19.95639933197739,
+      66.82455344072558,
+      37.567290615332894,
+      94.20067331080881,
+      87.54782307926662,
+      6.1810634397449356,
+      0.5374837773691248,
+      104.57759763320581,
+      103.53102504950778,
+      6.1810634397449356,
+      106.97425081022816,
+      8.653378734236329,
+      15.559861050436375,
+      1.0219600902127597,
+      10.536381512396733,
+      50.45216343273537,
+      9.79839626532726,
+      0.0,
+      57.27594646392232,
+      50.885650440174174,
+      0.0,
+      6.87041180598859,
+      113.23933300390067,
+      64.97416290758355,
+      0.0,
+      24.95486927922034,
+      93.14505294026841,
+      27.411672645825362,
+      12.488062019238733,
+      100.24072447934178,
+      112.59609065144113,
+      76.58345360321191,
+      24.577548921879462,
+      97.48160439504474,
+      105.98392781467409,
+      65.76633434474216,
+      142.44141689592573,
+      163.28890762126383
+     ]
+    },
+    {
+     "beg_seq_id": 728,
+     "end_seq_id": 763,
+     "values": [
+      143.25214886248176,
+      74.22598488303927,
+      84.5822752248875,
+      7.957422970323642,
+      118.24034638455598,
+      56.08743169758684,
+      72.09904120523882,
+      12.758955270572475,
+      4.443913498757151,
+      89.39673832049851,
+      64.87257636753708,
+      0.0,
+      57.07768934801369,
+      168.46366866858148,
+      108.10097924552696,
+      35.18280168506525,
+      186.45954830862672,
+      77.17456813708901,
+      77.01314807999931,
+      5.8424324242515535,
+      57.11700449511778,
+      83.73156209358487,
+      93.38673691974616,
+      39.30445060941716,
+      35.20518741767767,
+      161.00662852302514,
+      114.37850465938183,
+      15.607633364963924,
+      73.52367304886985,
+      95.7783359025074,
+      39.485094700272704,
+      19.903643194864188,
+      141.53239329169833,
+      103.60431714947896,
+      78.39738658192756,
+      196.52925502879216
+     ]
+    }
+   ],
+   "name": "Unbound ASA",
+   "ordinal": 402,
+   "provenance_source": "biojava-7.2.2",
+   "type": "ASA"
+  }
+ ],
+ "rcsb_polymer_instance_feature_summary": [
+  {
+   "count": 27,
+   "coverage": 0.39578,
+   "maximum_length": 25,
+   "minimum_length": 5,
+   "type": "HELIX_P"
+  },
+  {
+   "count": 6,
+   "coverage": 0.82382,
+   "type": "ECOD"
+  },
+  {
+   "count": 83,
+   "coverage": 0.10298,
+   "maximum_length": 83,
+   "minimum_length": 83,
+   "type": "UNOBSERVED_RESIDUE_XYZ"
+  },
+  {
+   "count": 4,
+   "coverage": 0.04715,
+   "type": "BINDING_SITE"
+  },
+  {
+   "count": 1,
+   "coverage": 0.49628,
+   "maximum_length": 400,
+   "minimum_length": 400,
+   "type": "UNASSIGNED_SEC_STRUCT"
+  },
+  {
+   "count": 4,
+   "coverage": 0.00993,
+   "type": "CIS-PEPTIDE"
+  },
+  {
+   "count": 4,
+   "coverage": 0.92184,
+   "maximum_length": 293,
+   "minimum_length": 86,
+   "type": "SCOP"
+  },
+  {
+   "count": 4,
+   "coverage": 0.89206,
+   "maximum_length": 182,
+   "minimum_length": 83,
+   "type": "CATH"
+  },
+  {
+   "count": 6,
+   "coverage": 0.10794,
+   "maximum_length": 27,
+   "minimum_length": 4,
+   "type": "SHEET"
+  },
+  {
+   "count": 4,
+   "coverage": 0.05335,
+   "type": "LIGAND_INTERACTION"
+  },
+  {
+   "count": 10,
+   "coverage": 0.01241,
+   "maximum_value": 0.0,
+   "minimum_value": 0.0,
+   "type": "ANGLE_OUTLIERS"
+  },
+  {
+   "count": 334,
+   "coverage": 0.41439,
+   "maximum_value": 0.0,
+   "minimum_value": 0.0,
+   "type": "CLASHES"
+  },
+  {
+   "count": 1,
+   "coverage": 0.00124,
+   "maximum_value": 0.0,
+   "minimum_value": 0.0,
+   "type": "BOND_OUTLIERS"
+  },
+  {
+   "count": 723,
+   "coverage": 0.89702,
+   "maximum_value": 0.753,
+   "minimum_value": -0.108,
+   "type": "Q_SCORE"
+  }
+ ],
+ "rcsb_polymer_instance_info": {
+  "modeled_residue_count": 723
+ }
+}

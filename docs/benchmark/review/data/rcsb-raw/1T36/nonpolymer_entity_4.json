@@ -1,0 +1,54 @@
+{
+ "pdbx_entity_nonpoly": {
+  "comp_id": "K",
+  "entity_id": "4",
+  "name": "POTASSIUM ION"
+ },
+ "rcsb_id": "1T36_4",
+ "rcsb_nonpolymer_entity": {
+  "formula_weight": 0.039,
+  "pdbx_description": "POTASSIUM ION",
+  "pdbx_number_of_molecules": 22
+ },
+ "rcsb_nonpolymer_entity_container_identifiers": {
+  "asym_ids": [
+   "AA",
+   "AB",
+   "AC",
+   "CC",
+   "DA",
+   "DB",
+   "EA",
+   "EB",
+   "GB",
+   "HA",
+   "JA",
+   "K",
+   "L",
+   "NC",
+   "O",
+   "Q",
+   "RB",
+   "VA",
+   "VB",
+   "WB",
+   "ZA",
+   "ZB"
+  ],
+  "auth_asym_ids": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F",
+   "G",
+   "H"
+  ],
+  "chem_ref_def_id": "K",
+  "entity_id": "4",
+  "entry_id": "1T36",
+  "nonpolymer_comp_id": "K",
+  "rcsb_id": "1T36_4"
+ }
+}

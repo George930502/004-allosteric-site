@@ -1,0 +1,70 @@
+{
+ "rcsb_id": "1A9X.VA",
+ "rcsb_nonpolymer_entity_instance_container_identifiers": {
+  "asym_id": "VA",
+  "auth_asym_id": "C",
+  "auth_seq_id": "3936",
+  "comp_id": "CL",
+  "entity_id": "6",
+  "entry_id": "1A9X",
+  "rcsb_id": "1A9X.VA"
+ },
+ "rcsb_nonpolymer_instance_annotation": [
+  {
+   "comp_id": "CL",
+   "ordinal": 95,
+   "provenance_source": "Primary Data",
+   "type": "HAS_NO_COVALENT_LINKAGE"
+  }
+ ],
+ "rcsb_nonpolymer_instance_validation_score": [
+  {
+   "completeness": 1.0,
+   "intermolecular_clashes": 0,
+   "is_best_instance": "N",
+   "is_subject_of_investigation": "N",
+   "mogul_angle_outliers": 0,
+   "mogul_bond_outliers": 0,
+   "stereo_outliers": 0,
+   "type": "RCSB_LIGAND_QUALITY_SCORE_2021"
+  }
+ ],
+ "rcsb_target_neighbors": [
+  {
+   "atom_id": "CL",
+   "comp_id": "CL",
+   "distance": 3.248,
+   "target_asym_id": "C",
+   "target_atom_id": "NZ",
+   "target_auth_seq_id": 2475,
+   "target_comp_id": "LYS",
+   "target_entity_id": "1",
+   "target_model_id": 1,
+   "target_seq_id": 475
+  },
+  {
+   "atom_id": "CL",
+   "comp_id": "CL",
+   "distance": 3.529,
+   "target_asym_id": "C",
+   "target_atom_id": "ND2",
+   "target_auth_seq_id": 2485,
+   "target_comp_id": "ASN",
+   "target_entity_id": "1",
+   "target_model_id": 1,
+   "target_seq_id": 485
+  },
+  {
+   "atom_id": "CL",
+   "comp_id": "CL",
+   "distance": 3.732,
+   "target_asym_id": "C",
+   "target_atom_id": "CB",
+   "target_auth_seq_id": 2488,
+   "target_comp_id": "PHE",
+   "target_entity_id": "1",
+   "target_model_id": 1,
+   "target_seq_id": 488
+  }
+ ]
+}

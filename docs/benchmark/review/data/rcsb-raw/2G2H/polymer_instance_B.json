@@ -1,0 +1,4055 @@
+{
+ "pdbx_vrpt_summary_entity_geometry": [
+  {
+   "PDB_model_num": 1,
+   "angles_RMSZ": 0.89,
+   "bonds_RMSZ": 0.36,
+   "num_angles_RMSZ": 3066,
+   "num_bonds_RMSZ": 2265
+  }
+ ],
+ "rcsb_id": "2G2H.B",
+ "rcsb_ligand_neighbors": [
+  {
+   "atom_id": "O",
+   "auth_seq_id": 337,
+   "comp_id": "MET",
+   "distance": 2.788,
+   "ligand_asym_id": "D",
+   "ligand_atom_id": "N9",
+   "ligand_comp_id": "P16",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 93
+  },
+  {
+   "atom_id": "OE2",
+   "auth_seq_id": 305,
+   "comp_id": "GLU",
+   "distance": 3.254,
+   "ligand_asym_id": "D",
+   "ligand_atom_id": "C25",
+   "ligand_comp_id": "P16",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 61
+  },
+  {
+   "atom_id": "O",
+   "auth_seq_id": 335,
+   "comp_id": "GLU",
+   "distance": 3.33,
+   "ligand_asym_id": "D",
+   "ligand_atom_id": "C12",
+   "ligand_comp_id": "P16",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 91
+  },
+  {
+   "atom_id": "OG1",
+   "auth_seq_id": 334,
+   "comp_id": "THR",
+   "distance": 3.334,
+   "ligand_asym_id": "D",
+   "ligand_atom_id": "C16",
+   "ligand_comp_id": "P16",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 90
+  },
+  {
+   "atom_id": "N",
+   "auth_seq_id": 400,
+   "comp_id": "ASP",
+   "distance": 3.34,
+   "ligand_asym_id": "D",
+   "ligand_atom_id": "CL28",
+   "ligand_comp_id": "P16",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 156
+  },
+  {
+   "atom_id": "N",
+   "auth_seq_id": 290,
+   "comp_id": "LYS",
+   "distance": 3.381,
+   "ligand_asym_id": "D",
+   "ligand_atom_id": "CL29",
+   "ligand_comp_id": "P16",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 46
+  },
+  {
+   "atom_id": "CA",
+   "auth_seq_id": 399,
+   "comp_id": "ALA",
+   "distance": 3.456,
+   "ligand_asym_id": "D",
+   "ligand_atom_id": "CL28",
+   "ligand_comp_id": "P16",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 155
+  },
+  {
+   "atom_id": "CB",
+   "auth_seq_id": 288,
+   "comp_id": "ALA",
+   "distance": 3.486,
+   "ligand_asym_id": "D",
+   "ligand_atom_id": "C12",
+   "ligand_comp_id": "P16",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 44
+  },
+  {
+   "atom_id": "SD",
+   "auth_seq_id": 309,
+   "comp_id": "MET",
+   "distance": 3.493,
+   "ligand_asym_id": "D",
+   "ligand_atom_id": "C25",
+   "ligand_comp_id": "P16",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 65
+  },
+  {
+   "atom_id": "CD1",
+   "auth_seq_id": 272,
+   "comp_id": "TYR",
+   "distance": 3.5,
+   "ligand_asym_id": "D",
+   "ligand_atom_id": "C20",
+   "ligand_comp_id": "P16",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 28
+  },
+  {
+   "atom_id": "CD1",
+   "auth_seq_id": 389,
+   "comp_id": "LEU",
+   "distance": 3.513,
+   "ligand_asym_id": "D",
+   "ligand_atom_id": "C13",
+   "ligand_comp_id": "P16",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 145
+  },
+  {
+   "atom_id": "CE1",
+   "auth_seq_id": 336,
+   "comp_id": "PHE",
+   "distance": 3.516,
+   "ligand_asym_id": "D",
+   "ligand_atom_id": "N9",
+   "ligand_comp_id": "P16",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 92
+  },
+  {
+   "atom_id": "CG2",
+   "auth_seq_id": 332,
+   "comp_id": "ILE",
+   "distance": 3.556,
+   "ligand_asym_id": "D",
+   "ligand_atom_id": "C24",
+   "ligand_comp_id": "P16",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 88
+  },
+  {
+   "atom_id": "CA",
+   "auth_seq_id": 340,
+   "comp_id": "GLY",
+   "distance": 3.569,
+   "ligand_asym_id": "D",
+   "ligand_atom_id": "C3",
+   "ligand_comp_id": "P16",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 96
+  },
+  {
+   "atom_id": "CG2",
+   "auth_seq_id": 275,
+   "comp_id": "VAL",
+   "distance": 3.713,
+   "ligand_asym_id": "D",
+   "ligand_atom_id": "O21",
+   "ligand_comp_id": "P16",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 31
+  },
+  {
+   "atom_id": "C",
+   "auth_seq_id": 289,
+   "comp_id": "VAL",
+   "distance": 3.759,
+   "ligand_asym_id": "D",
+   "ligand_atom_id": "CL29",
+   "ligand_comp_id": "P16",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 45
+  },
+  {
+   "atom_id": "CD2",
+   "auth_seq_id": 401,
+   "comp_id": "PHE",
+   "distance": 3.769,
+   "ligand_asym_id": "D",
+   "ligand_atom_id": "C27",
+   "ligand_comp_id": "P16",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 157
+  },
+  {
+   "atom_id": "O",
+   "auth_seq_id": 338,
+   "comp_id": "THR",
+   "distance": 3.997,
+   "ligand_asym_id": "D",
+   "ligand_atom_id": "C2",
+   "ligand_comp_id": "P16",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 94
+  },
+  {
+   "atom_id": "CD2",
+   "auth_seq_id": 267,
+   "comp_id": "LEU",
+   "distance": 4.035,
+   "ligand_asym_id": "D",
+   "ligand_atom_id": "O1",
+   "ligand_comp_id": "P16",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 23
+  },
+  {
+   "atom_id": "N",
+   "auth_seq_id": 268,
+   "comp_id": "GLY",
+   "distance": 4.109,
+   "ligand_asym_id": "D",
+   "ligand_atom_id": "C5",
+   "ligand_comp_id": "P16",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 24
+  },
+  {
+   "atom_id": "OE1",
+   "auth_seq_id": 277,
+   "comp_id": "GLU",
+   "distance": 4.634,
+   "ligand_asym_id": "D",
+   "ligand_atom_id": "O1",
+   "ligand_comp_id": "P16",
+   "ligand_entity_id": "2",
+   "ligand_model_id": 1,
+   "seq_id": 33
+  }
+ ],
+ "rcsb_polymer_entity_instance_container_identifiers": {
+  "asym_id": "B",
+  "auth_asym_id": "B",
+  "auth_to_entity_poly_seq_mapping": [
+   "245",
+   "246",
+   "247",
+   "248",
+   "249",
+   "250",
+   "251",
+   "252",
+   "253",
+   "254",
+   "255",
+   "256",
+   "257",
+   "258",
+   "259",
+   "260",
+   "261",
+   "262",
+   "263",
+   "264",
+   "265",
+   "266",
+   "267",
+   "268",
+   "269",
+   "270",
+   "271",
+   "272",
+   "273",
+   "274",
+   "275",
+   "276",
+   "277",
+   "278",
+   "279",
+   "280",
+   "281",
+   "282",
+   "283",
+   "284",
+   "285",
+   "286",
+   "287",
+   "288",
+   "289",
+   "290",
+   "291",
+   "292",
+   "293",
+   "294",
+   "295",
+   "296",
+   "297",
+   "298",
+   "299",
+   "300",
+   "301",
+   "302",
+   "303",
+   "304",
+   "305",
+   "306",
+   "307",
+   "308",
+   "309",
+   "310",
+   "311",
+   "312",
+   "313",
+   "314",
+   "315",
+   "316",
+   "317",
+   "318",
+   "319",
+   "320",
+   "321",
+   "322",
+   "323",
+   "324",
+   "325",
+   "326",
+   "327",
+   "328",
+   "329",
+   "330",
+   "331",
+   "332",
+   "333",
+   "334",
+   "335",
+   "336",
+   "337",
+   "338",
+   "339",
+   "340",
+   "341",
+   "342",
+   "343",
+   "344",
+   "345",
+   "346",
+   "347",
+   "348",
+   "349",
+   "350",
+   "351",
+   "352",
+   "353",
+   "354",
+   "355",
+   "356",
+   "357",
+   "358",
+   "359",
+   "360",
+   "361",
+   "362",
+   "363",
+   "364",
+   "365",
+   "366",
+   "367",
+   "368",
+   "369",
+   "370",
+   "371",
+   "372",
+   "373",
+   "374",
+   "375",
+   "376",
+   "377",
+   "378",
+   "379",
+   "380",
+   "381",
+   "382",
+   "383",
+   "384",
+   "385",
+   "386",
+   "387",
+   "388",
+   "389",
+   "390",
+   "391",
+   "392",
+   "393",
+   "394",
+   "395",
+   "396",
+   "397",
+   "398",
+   "399",
+   "400",
+   "401",
+   "402",
+   "403",
+   "404",
+   "405",
+   "406",
+   "407",
+   "408",
+   "409",
+   "410",
+   "411",
+   "412",
+   "413",
+   "414",
+   "415",
+   "416",
+   "417",
+   "418",
+   "419",
+   "420",
+   "421",
+   "422",
+   "423",
+   "424",
+   "425",
+   "426",
+   "427",
+   "428",
+   "429",
+   "430",
+   "431",
+   "432",
+   "433",
+   "434",
+   "435",
+   "436",
+   "437",
+   "438",
+   "439",
+   "440",
+   "441",
+   "442",
+   "443",
+   "444",
+   "445",
+   "446",
+   "447",
+   "448",
+   "449",
+   "450",
+   "451",
+   "452",
+   "453",
+   "454",
+   "455",
+   "456",
+   "457",
+   "458",
+   "459",
+   "460",
+   "461",
+   "462",
+   "463",
+   "464",
+   "465",
+   "466",
+   "467",
+   "468",
+   "469",
+   "470",
+   "471",
+   "472",
+   "473",
+   "474",
+   "475",
+   "476",
+   "477",
+   "478",
+   "479",
+   "480",
+   "481",
+   "482",
+   "483",
+   "484",
+   "485",
+   "486",
+   "487",
+   "488",
+   "489",
+   "490",
+   "491",
+   "492",
+   "493",
+   "494",
+   "495",
+   "496",
+   "497",
+   "498",
+   "499",
+   "500",
+   "501",
+   "502",
+   "503",
+   "504",
+   "505",
+   "506",
+   "507",
+   "508",
+   "509",
+   "510",
+   "511",
+   "512",
+   "513",
+   "514",
+   "515",
+   "516",
+   "517",
+   "518",
+   "519",
+   "520",
+   "521",
+   "522",
+   "523",
+   "524",
+   "525",
+   "526",
+   "527",
+   "528",
+   "529",
+   "530",
+   "531"
+  ],
+  "entity_id": "1",
+  "entry_id": "2G2H",
+  "rcsb_id": "2G2H.B"
+ },
+ "rcsb_polymer_instance_annotation": [
+  {
+   "annotation_id": "3.30.200.20",
+   "annotation_lineage": [
+    {
+     "depth": 1,
+     "id": "3",
+     "name": "Alpha Beta"
+    },
+    {
+     "depth": 2,
+     "id": "3.30",
+     "name": "2-Layer Sandwich"
+    },
+    {
+     "depth": 3,
+     "id": "3.30.200",
+     "name": "Phosphorylase Kinase"
+    },
+    {
+     "depth": 4,
+     "id": "3.30.200.20",
+     "name": "domain 1"
+    }
+   ],
+   "assignment_version": "v4_3_0",
+   "name": "Phosphorylase Kinase; domain 1",
+   "ordinal": 3,
+   "provenance_source": "CATH",
+   "type": "CATH"
+  },
+  {
+   "annotation_id": "1.10.510.10",
+   "annotation_lineage": [
+    {
+     "depth": 1,
+     "id": "1",
+     "name": "Mainly Alpha"
+    },
+    {
+     "depth": 2,
+     "id": "1.10",
+     "name": "Orthogonal Bundle"
+    },
+    {
+     "depth": 3,
+     "id": "1.10.510",
+     "name": "Transferase(Phosphotransferase)"
+    },
+    {
+     "depth": 4,
+     "id": "1.10.510.10",
+     "name": "domain 1"
+    }
+   ],
+   "assignment_version": "v4_3_0",
+   "name": "Transferase(Phosphotransferase) domain 1",
+   "ordinal": 4,
+   "provenance_source": "CATH",
+   "type": "CATH"
+  },
+  {
+   "annotation_id": "d2g2hb_",
+   "annotation_lineage": [
+    {
+     "depth": 1,
+     "id": "53931",
+     "name": "Alpha and beta proteins (a+b)"
+    },
+    {
+     "depth": 2,
+     "id": "56111",
+     "name": "Protein kinase-like (PK-like)"
+    },
+    {
+     "depth": 3,
+     "id": "56112",
+     "name": "Protein kinase-like (PK-like)"
+    },
+    {
+     "depth": 4,
+     "id": "88854",
+     "name": "Protein kinases, catalytic subunit"
+    },
+    {
+     "depth": 5,
+     "id": "190091",
+     "name": "automated matches"
+    }
+   ],
+   "assignment_version": "2.08-stable",
+   "name": "automated matches",
+   "ordinal": 6,
+   "provenance_source": "SCOPe",
+   "type": "SCOP"
+  },
+  {
+   "annotation_id": "8091373",
+   "annotation_lineage": [
+    {
+     "depth": 1,
+     "id": "1",
+     "name": "Globular proteins"
+    },
+    {
+     "depth": 2,
+     "id": "1000003",
+     "name": "Alpha and beta proteins (a+b)"
+    },
+    {
+     "depth": 3,
+     "id": "2000046",
+     "name": "Protein kinase-like (PK-like)"
+    },
+    {
+     "depth": 4,
+     "id": "3000066",
+     "name": "Protein kinase-like (PK-like)"
+    }
+   ],
+   "assignment_version": "2022-06-29",
+   "name": "Protein kinase-like (PK-like)",
+   "ordinal": 8,
+   "provenance_source": "SCOP2B",
+   "type": "SCOP2"
+  },
+  {
+   "annotation_id": "e2g2hB1",
+   "annotation_lineage": [
+    {
+     "depth": 1,
+     "id": "100020",
+     "name": "A: alpha arrays"
+    },
+    {
+     "depth": 2,
+     "id": "201626",
+     "name": "X: HTH"
+    },
+    {
+     "depth": 3,
+     "id": "302414",
+     "name": "H: Nudix"
+    },
+    {
+     "depth": 4,
+     "id": "402569",
+     "name": "T: winged helix domain"
+    },
+    {
+     "depth": 5,
+     "id": "507423",
+     "name": "F: PCNA_N"
+    }
+   ],
+   "assignment_version": "v295",
+   "name": "PCNA_N",
+   "ordinal": 10,
+   "provenance_source": "ECOD",
+   "type": "ECOD"
+  }
+ ],
+ "rcsb_polymer_instance_feature": [
+  {
+   "additional_properties": [
+    {
+     "name": "CATH_NAME",
+     "values": [
+      "Phosphorylase Kinase"
+     ]
+    },
+    {
+     "name": "CATH_DOMAIN_ID",
+     "values": [
+      "domain 1"
+     ]
+    }
+   ],
+   "assignment_version": "v4_3_0",
+   "feature_id": "3.30.200.20",
+   "feature_positions": [
+    {
+     "beg_seq_id": 8,
+     "end_seq_id": 92
+    }
+   ],
+   "name": "Phosphorylase Kinase; domain 1",
+   "ordinal": 3,
+   "provenance_source": "CATH",
+   "type": "CATH"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "CATH_NAME",
+     "values": [
+      "Transferase(Phosphotransferase) domain 1"
+     ]
+    },
+    {
+     "name": "CATH_DOMAIN_ID",
+     "values": [
+      "2g2hB02"
+     ]
+    }
+   ],
+   "assignment_version": "v4_3_0",
+   "feature_id": "1.10.510.10",
+   "feature_positions": [
+    {
+     "beg_seq_id": 93,
+     "end_seq_id": 274
+    }
+   ],
+   "name": "Transferase(Phosphotransferase) domain 1",
+   "ordinal": 4,
+   "provenance_source": "CATH",
+   "type": "CATH"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "SCOP_NAME",
+     "values": [
+      "automated matches"
+     ]
+    },
+    {
+     "name": "SCOP_DOMAIN_ID",
+     "values": [
+      "d2g2hb_"
+     ]
+    },
+    {
+     "name": "SCOP_SUN_ID",
+     "values": [
+      "190091"
+     ]
+    }
+   ],
+   "assignment_version": "2.08-stable",
+   "feature_id": "d2g2hb_",
+   "feature_positions": [
+    {
+     "beg_seq_id": 1,
+     "end_seq_id": 287
+    }
+   ],
+   "name": "automated matches",
+   "ordinal": 6,
+   "provenance_source": "SCOPe",
+   "type": "SCOP"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "SCOP2_SUPERFAMILY_NAME",
+     "values": [
+      "Protein kinase-like (PK-like)"
+     ]
+    },
+    {
+     "name": "SCOP2_DOMAIN_ID",
+     "values": [
+      "8091373"
+     ]
+    },
+    {
+     "name": "SCOP2_SUPERFAMILY_ID",
+     "values": [
+      "3000066"
+     ]
+    }
+   ],
+   "assignment_version": "2022-06-29",
+   "feature_id": "8091373",
+   "feature_positions": [
+    {
+     "beg_seq_id": 8,
+     "end_seq_id": 279
+    }
+   ],
+   "name": "Protein kinase-like (PK-like)",
+   "ordinal": 8,
+   "provenance_source": "SCOP2B",
+   "type": "SCOP2B_SUPERFAMILY"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "ECOD_FAMILY_NAME",
+     "values": [
+      "PCNA_N"
+     ]
+    },
+    {
+     "name": "ECOD_DOMAIN_ID",
+     "values": [
+      "e2g2hB1"
+     ]
+    }
+   ],
+   "assignment_version": "v295",
+   "feature_id": "e2g2hB1",
+   "feature_positions": [
+    {
+     "beg_seq_id": 8,
+     "end_seq_id": 279
+    }
+   ],
+   "name": "PCNA_N",
+   "ordinal": 10,
+   "provenance_source": "ECOD",
+   "type": "ECOD"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "SHEET_SENSE",
+     "values": [
+      "anti-parallel"
+     ]
+    }
+   ],
+   "assignment_version": "V1.0",
+   "description": "anti-parallel sense sheet",
+   "feature_id": "E",
+   "feature_positions": [
+    {
+     "beg_seq_id": 17,
+     "end_seq_id": 22
+    },
+    {
+     "beg_seq_id": 31,
+     "end_seq_id": 36
+    },
+    {
+     "beg_seq_id": 41,
+     "end_seq_id": 48
+    },
+    {
+     "beg_seq_id": 86,
+     "end_seq_id": 91
+    },
+    {
+     "beg_seq_id": 76,
+     "end_seq_id": 80
+    }
+   ],
+   "name": "sheet",
+   "ordinal": 15,
+   "provenance_source": "PROMOTIF",
+   "type": "SHEET"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "SHEET_SENSE",
+     "values": [
+      "anti-parallel"
+     ]
+    }
+   ],
+   "assignment_version": "V1.0",
+   "description": "anti-parallel sense sheet",
+   "feature_id": "F",
+   "feature_positions": [
+    {
+     "beg_seq_id": 134,
+     "end_seq_id": 136
+    },
+    {
+     "beg_seq_id": 159,
+     "end_seq_id": 161
+    }
+   ],
+   "name": "sheet",
+   "ordinal": 16,
+   "provenance_source": "PROMOTIF",
+   "type": "SHEET"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "SHEET_SENSE",
+     "values": [
+      "anti-parallel"
+     ]
+    }
+   ],
+   "assignment_version": "V1.0",
+   "description": "anti-parallel sense sheet",
+   "feature_id": "G",
+   "feature_positions": [
+    {
+     "beg_seq_id": 144,
+     "end_seq_id": 146
+    },
+    {
+     "beg_seq_id": 152,
+     "end_seq_id": 154
+    }
+   ],
+   "name": "sheet",
+   "ordinal": 17,
+   "provenance_source": "PROMOTIF",
+   "type": "SHEET"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "SHEET_SENSE",
+     "values": [
+      "anti-parallel"
+     ]
+    }
+   ],
+   "assignment_version": "V1.0",
+   "description": "anti-parallel sense sheet",
+   "feature_id": "H",
+   "feature_positions": [
+    {
+     "beg_seq_id": 168,
+     "end_seq_id": 169
+    },
+    {
+     "beg_seq_id": 190,
+     "end_seq_id": 191
+    }
+   ],
+   "name": "sheet",
+   "ordinal": 18,
+   "provenance_source": "PROMOTIF",
+   "type": "SHEET"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P17",
+   "feature_positions": [
+    {
+     "beg_seq_id": 13,
+     "end_seq_id": 15
+    }
+   ],
+   "name": "helix",
+   "ordinal": 35,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P18",
+   "feature_positions": [
+    {
+     "beg_seq_id": 24,
+     "end_seq_id": 27
+    }
+   ],
+   "name": "helix",
+   "ordinal": 36,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P19",
+   "feature_positions": [
+    {
+     "beg_seq_id": 54,
+     "end_seq_id": 68
+    }
+   ],
+   "name": "helix",
+   "ordinal": 37,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P20",
+   "feature_positions": [
+    {
+     "beg_seq_id": 97,
+     "end_seq_id": 105
+    }
+   ],
+   "name": "helix",
+   "ordinal": 38,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P21",
+   "feature_positions": [
+    {
+     "beg_seq_id": 111,
+     "end_seq_id": 132
+    }
+   ],
+   "name": "helix",
+   "ordinal": 39,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P22",
+   "feature_positions": [
+    {
+     "beg_seq_id": 140,
+     "end_seq_id": 142
+    }
+   ],
+   "name": "helix",
+   "ordinal": 40,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P23",
+   "feature_positions": [
+    {
+     "beg_seq_id": 148,
+     "end_seq_id": 150
+    }
+   ],
+   "name": "helix",
+   "ordinal": 41,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P24",
+   "feature_positions": [
+    {
+     "beg_seq_id": 177,
+     "end_seq_id": 181
+    }
+   ],
+   "name": "helix",
+   "ordinal": 42,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P25",
+   "feature_positions": [
+    {
+     "beg_seq_id": 182,
+     "end_seq_id": 189
+    }
+   ],
+   "name": "helix",
+   "ordinal": 43,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P26",
+   "feature_positions": [
+    {
+     "beg_seq_id": 192,
+     "end_seq_id": 209
+    }
+   ],
+   "name": "helix",
+   "ordinal": 44,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P27",
+   "feature_positions": [
+    {
+     "beg_seq_id": 219,
+     "end_seq_id": 221
+    }
+   ],
+   "name": "helix",
+   "ordinal": 45,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P28",
+   "feature_positions": [
+    {
+     "beg_seq_id": 222,
+     "end_seq_id": 229
+    }
+   ],
+   "name": "helix",
+   "ordinal": 46,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P29",
+   "feature_positions": [
+    {
+     "beg_seq_id": 240,
+     "end_seq_id": 251
+    }
+   ],
+   "name": "helix",
+   "ordinal": 47,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P30",
+   "feature_positions": [
+    {
+     "beg_seq_id": 254,
+     "end_seq_id": 258
+    }
+   ],
+   "name": "helix",
+   "ordinal": 48,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P31",
+   "feature_positions": [
+    {
+     "beg_seq_id": 260,
+     "end_seq_id": 275
+    }
+   ],
+   "name": "helix",
+   "ordinal": 49,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "1",
+   "feature_positions": [
+    {
+     "beg_seq_id": 1,
+     "end_seq_id": 12
+    },
+    {
+     "beg_seq_id": 16,
+     "end_seq_id": 16
+    },
+    {
+     "beg_seq_id": 23,
+     "end_seq_id": 23
+    },
+    {
+     "beg_seq_id": 28,
+     "end_seq_id": 30
+    },
+    {
+     "beg_seq_id": 37,
+     "end_seq_id": 40
+    },
+    {
+     "beg_seq_id": 49,
+     "end_seq_id": 53
+    },
+    {
+     "beg_seq_id": 69,
+     "end_seq_id": 75
+    },
+    {
+     "beg_seq_id": 81,
+     "end_seq_id": 85
+    },
+    {
+     "beg_seq_id": 92,
+     "end_seq_id": 96
+    },
+    {
+     "beg_seq_id": 106,
+     "end_seq_id": 110
+    },
+    {
+     "beg_seq_id": 133,
+     "end_seq_id": 133
+    },
+    {
+     "beg_seq_id": 137,
+     "end_seq_id": 139
+    },
+    {
+     "beg_seq_id": 143,
+     "end_seq_id": 143
+    },
+    {
+     "beg_seq_id": 147,
+     "end_seq_id": 147
+    },
+    {
+     "beg_seq_id": 151,
+     "end_seq_id": 151
+    },
+    {
+     "beg_seq_id": 155,
+     "end_seq_id": 158
+    },
+    {
+     "beg_seq_id": 162,
+     "end_seq_id": 167
+    },
+    {
+     "beg_seq_id": 170,
+     "end_seq_id": 176
+    },
+    {
+     "beg_seq_id": 210,
+     "end_seq_id": 218
+    },
+    {
+     "beg_seq_id": 230,
+     "end_seq_id": 239
+    },
+    {
+     "beg_seq_id": 252,
+     "end_seq_id": 253
+    },
+    {
+     "beg_seq_id": 259,
+     "end_seq_id": 259
+    },
+    {
+     "beg_seq_id": 276,
+     "end_seq_id": 287
+    }
+   ],
+   "name": "unassigned secondary structure",
+   "ordinal": 51,
+   "provenance_source": "PROMOTIF",
+   "type": "UNASSIGNED_SEC_STRUCT"
+  },
+  {
+   "assignment_version": "V1.0",
+   "description": "Software generated binding site for ligand entity 2 component P16 instance D chain B",
+   "feature_id": "AC2",
+   "feature_positions": [
+    {
+     "beg_seq_id": 28
+    },
+    {
+     "beg_seq_id": 44
+    },
+    {
+     "beg_seq_id": 46
+    },
+    {
+     "beg_seq_id": 61
+    },
+    {
+     "beg_seq_id": 65
+    },
+    {
+     "beg_seq_id": 88
+    },
+    {
+     "beg_seq_id": 90
+    },
+    {
+     "beg_seq_id": 91
+    },
+    {
+     "beg_seq_id": 92
+    },
+    {
+     "beg_seq_id": 93
+    },
+    {
+     "beg_seq_id": 96
+    },
+    {
+     "beg_seq_id": 145
+    },
+    {
+     "beg_seq_id": 155
+    },
+    {
+     "beg_seq_id": 156
+    },
+    {
+     "beg_seq_id": 157
+    }
+   ],
+   "name": "ligand P16",
+   "ordinal": 54,
+   "provenance_source": "PDB",
+   "type": "BINDING_SITE"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PARTNER_ASYM_ID",
+     "values": [
+      "D"
+     ]
+    },
+    {
+     "name": "PARTNER_COMP_ID",
+     "values": [
+      "P16"
+     ]
+    }
+   ],
+   "assignment_version": "V1.0",
+   "description": "Software generated binding site for ligand entity 2 component P16 instance D",
+   "feature_id": "LIGAND_INTERACTION_2",
+   "feature_positions": [
+    {
+     "beg_comp_id": "MET",
+     "beg_seq_id": 93
+    },
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 61
+    },
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 91
+    },
+    {
+     "beg_comp_id": "THR",
+     "beg_seq_id": 90
+    },
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 156
+    },
+    {
+     "beg_comp_id": "LYS",
+     "beg_seq_id": 46
+    },
+    {
+     "beg_comp_id": "ALA",
+     "beg_seq_id": 155
+    },
+    {
+     "beg_comp_id": "ALA",
+     "beg_seq_id": 44
+    },
+    {
+     "beg_comp_id": "MET",
+     "beg_seq_id": 65
+    },
+    {
+     "beg_comp_id": "TYR",
+     "beg_seq_id": 28
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 145
+    },
+    {
+     "beg_comp_id": "PHE",
+     "beg_seq_id": 92
+    },
+    {
+     "beg_comp_id": "ILE",
+     "beg_seq_id": 88
+    },
+    {
+     "beg_comp_id": "GLY",
+     "beg_seq_id": 96
+    },
+    {
+     "beg_comp_id": "VAL",
+     "beg_seq_id": 31
+    },
+    {
+     "beg_comp_id": "VAL",
+     "beg_seq_id": 45
+    },
+    {
+     "beg_comp_id": "PHE",
+     "beg_seq_id": 157
+    },
+    {
+     "beg_comp_id": "THR",
+     "beg_seq_id": 94
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 23
+    },
+    {
+     "beg_comp_id": "GLY",
+     "beg_seq_id": 24
+    },
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 33
+    }
+   ],
+   "name": "ligand P16",
+   "ordinal": 56,
+   "provenance_source": "PDB",
+   "type": "LIGAND_INTERACTION"
+  },
+  {
+   "assignment_version": "V1.0",
+   "description": "No coordinates for this residue are reported in model 1",
+   "feature_id": "1",
+   "feature_positions": [
+    {
+     "beg_seq_id": 1,
+     "end_seq_id": 7
+    },
+    {
+     "beg_seq_id": 280,
+     "end_seq_id": 287
+    }
+   ],
+   "name": "unmodeled residue",
+   "ordinal": 58,
+   "provenance_source": "PDB",
+   "type": "UNOBSERVED_RESIDUE_XYZ"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PDB_MODEL_NUM",
+     "values": [
+      "1"
+     ]
+    }
+   ],
+   "feature_id": "CLASHES",
+   "feature_positions": [
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 8,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "TRP",
+     "beg_seq_id": 10,
+     "values": [
+      1.0,
+      2.0,
+      5.0
+     ]
+    },
+    {
+     "beg_comp_id": "ARG",
+     "beg_seq_id": 14,
+     "values": [
+      3.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 16,
+     "values": [
+      2.0,
+      7.0,
+      5.0
+     ]
+    },
+    {
+     "beg_comp_id": "LYS",
+     "beg_seq_id": 22,
+     "values": [
+      3.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLY",
+     "beg_seq_id": 26,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLY",
+     "beg_seq_id": 29,
+     "values": [
+      1.0,
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "VAL",
+     "beg_seq_id": 35,
+     "values": [
+      1.0,
+      14.0,
+      2.0,
+      1.0,
+      4.0
+     ]
+    },
+    {
+     "beg_comp_id": "THR",
+     "beg_seq_id": 42,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "VAL",
+     "beg_seq_id": 45,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "THR",
+     "beg_seq_id": 47,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 50,
+     "values": [
+      2.0,
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "PHE",
+     "beg_seq_id": 58,
+     "values": [
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ALA",
+     "beg_seq_id": 62,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "MET",
+     "beg_seq_id": 65,
+     "values": [
+      2.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ILE",
+     "beg_seq_id": 68,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "VAL",
+     "beg_seq_id": 74,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "CYS",
+     "beg_seq_id": 80,
+     "values": [
+      2.0,
+      1.0,
+      2.0,
+      3.0,
+      8.0,
+      6.0,
+      1.0,
+      2.0,
+      1.0,
+      4.0
+     ]
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 102,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 109,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASN",
+     "beg_seq_id": 111,
+     "values": [
+      4.0
+     ]
+    },
+    {
+     "beg_comp_id": "VAL",
+     "beg_seq_id": 114,
+     "values": [
+      2.0,
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "MET",
+     "beg_seq_id": 118,
+     "values": [
+      4.0
+     ]
+    },
+    {
+     "beg_comp_id": "ILE",
+     "beg_seq_id": 135,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "ARG",
+     "beg_seq_id": 142,
+     "values": [
+      4.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 148,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "HIS",
+     "beg_seq_id": 150,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 156,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 166,
+     "values": [
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "PRO",
+     "beg_seq_id": 177,
+     "values": [
+      3.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 184,
+     "values": [
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASN",
+     "beg_seq_id": 189,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "ARG",
+     "beg_seq_id": 235,
+     "values": [
+      6.0
+     ]
+    },
+    {
+     "beg_comp_id": "PRO",
+     "beg_seq_id": 240,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "VAL",
+     "beg_seq_id": 243,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 246,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "PHE",
+     "beg_seq_id": 268,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "THR",
+     "beg_seq_id": 270,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 274,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ILE",
+     "beg_seq_id": 277,
+     "values": [
+      3.0
+     ]
+    }
+   ],
+   "name": "CLASHES",
+   "ordinal": 61,
+   "provenance_source": "PDB",
+   "type": "CLASHES"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PDB_MODEL_NUM",
+     "values": [
+      "1"
+     ]
+    }
+   ],
+   "feature_id": "ANGLE_OUTLIERS",
+   "feature_positions": [
+    {
+     "beg_comp_id": "ILE",
+     "beg_seq_id": 68,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "THR",
+     "beg_seq_id": 94,
+     "values": [
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ILE",
+     "beg_seq_id": 178,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "THR",
+     "beg_seq_id": 181,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "VAL",
+     "beg_seq_id": 223,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 230,
+     "values": [
+      1.0
+     ]
+    }
+   ],
+   "name": "ANGLE_OUTLIERS",
+   "ordinal": 62,
+   "provenance_source": "PDB",
+   "type": "ANGLE_OUTLIERS"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PDB_MODEL_NUM",
+     "values": [
+      "1"
+     ]
+    }
+   ],
+   "feature_id": "RSCC",
+   "feature_positions": [
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 8,
+     "values": [
+      0.595,
+      0.754,
+      0.892,
+      0.749,
+      0.659,
+      0.514,
+      0.636,
+      0.662,
+      0.636,
+      0.717,
+      0.735,
+      0.879,
+      0.659,
+      0.814,
+      0.824,
+      0.856,
+      0.88,
+      0.687,
+      0.853,
+      0.721,
+      0.912,
+      0.874,
+      0.856,
+      0.885,
+      0.848,
+      0.801,
+      0.853,
+      0.873,
+      0.646,
+      0.613,
+      0.543,
+      0.788,
+      0.66,
+      0.831,
+      0.793,
+      0.923,
+      0.922,
+      0.911,
+      0.831,
+      0.798,
+      0.785,
+      0.56,
+      0.58,
+      0.34,
+      0.848,
+      0.901,
+      0.679,
+      0.895,
+      0.73,
+      0.711,
+      0.936,
+      0.883,
+      0.893,
+      0.842,
+      0.951,
+      0.879,
+      0.932,
+      0.946,
+      0.847,
+      0.806,
+      0.881,
+      0.895,
+      0.971,
+      0.952,
+      0.969,
+      0.956,
+      0.941,
+      0.937,
+      0.942,
+      0.921,
+      0.909,
+      0.901,
+      0.888,
+      0.777,
+      0.518,
+      0.5,
+      0.487,
+      0.577,
+      0.83,
+      0.895,
+      0.854,
+      0.891,
+      0.914,
+      0.915,
+      0.889,
+      0.964,
+      0.871,
+      0.924,
+      0.943,
+      0.952,
+      0.974,
+      0.959,
+      0.949,
+      0.917,
+      0.928,
+      0.93,
+      0.828,
+      0.966,
+      0.932,
+      0.9,
+      0.874,
+      0.931,
+      0.968,
+      0.875,
+      0.953,
+      0.977,
+      0.964,
+      0.966,
+      0.975,
+      0.979,
+      0.955,
+      0.982,
+      0.979,
+      0.967,
+      0.974,
+      0.975,
+      0.964,
+      0.976,
+      0.982,
+      0.955,
+      0.968,
+      0.974,
+      0.883,
+      0.878,
+      0.936,
+      0.911,
+      0.937,
+      0.922,
+      0.967,
+      0.936,
+      0.862,
+      0.967,
+      0.962,
+      0.962,
+      0.872,
+      0.94,
+      0.978,
+      0.966,
+      0.972,
+      0.969,
+      0.868,
+      0.902,
+      0.943,
+      0.968,
+      0.973,
+      0.947,
+      0.976,
+      0.903,
+      0.773,
+      0.832,
+      0.942,
+      0.944,
+      0.975,
+      0.894,
+      0.941,
+      0.935,
+      0.9,
+      0.85,
+      0.907,
+      0.842,
+      0.935,
+      0.974,
+      0.937,
+      0.942,
+      0.927,
+      0.768,
+      0.886,
+      0.8,
+      0.914,
+      0.908,
+      0.96,
+      0.934,
+      0.962,
+      0.976,
+      0.969,
+      0.943,
+      0.952,
+      0.969,
+      0.914,
+      0.941,
+      0.906,
+      0.931,
+      0.902,
+      0.976,
+      0.968,
+      0.972,
+      0.952,
+      0.954,
+      0.98,
+      0.971,
+      0.972,
+      0.98,
+      0.979,
+      0.979,
+      0.979,
+      0.954,
+      0.964,
+      0.966,
+      0.938,
+      0.967,
+      0.968,
+      0.97,
+      0.954,
+      0.968,
+      0.834,
+      0.909,
+      0.963,
+      0.975,
+      0.951,
+      0.948,
+      0.966,
+      0.79,
+      0.948,
+      0.954,
+      0.969,
+      0.953,
+      0.965,
+      0.967,
+      0.984,
+      0.972,
+      0.968,
+      0.915,
+      0.965,
+      0.975,
+      0.971,
+      0.971,
+      0.915,
+      0.871,
+      0.966,
+      0.882,
+      0.899,
+      0.982,
+      0.913,
+      0.886,
+      0.905,
+      0.972,
+      0.962,
+      0.886,
+      0.949,
+      0.966,
+      0.948,
+      0.965,
+      0.989,
+      0.977,
+      0.948,
+      0.966,
+      0.937,
+      0.978,
+      0.822,
+      0.94,
+      0.959,
+      0.967,
+      0.972,
+      0.978,
+      0.963,
+      0.938,
+      0.97,
+      0.963,
+      0.907,
+      0.955,
+      0.963,
+      0.946,
+      0.945,
+      0.976,
+      0.982,
+      0.953,
+      0.898,
+      0.916,
+      0.885,
+      0.951,
+      0.806,
+      0.665
+     ]
+    }
+   ],
+   "name": "RSCC",
+   "ordinal": 67,
+   "provenance_source": "PDB",
+   "type": "RSCC"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PDB_MODEL_NUM",
+     "values": [
+      "1"
+     ]
+    }
+   ],
+   "feature_id": "RSR",
+   "feature_positions": [
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 8,
+     "values": [
+      0.201,
+      0.212,
+      0.142,
+      0.197,
+      0.257,
+      0.239,
+      0.284,
+      0.237,
+      0.199,
+      0.283,
+      0.223,
+      0.168,
+      0.259,
+      0.188,
+      0.181,
+      0.177,
+      0.131,
+      0.208,
+      0.125,
+      0.181,
+      0.094,
+      0.103,
+      0.131,
+      0.12,
+      0.141,
+      0.171,
+      0.156,
+      0.178,
+      0.34,
+      0.259,
+      0.337,
+      0.201,
+      0.218,
+      0.18,
+      0.186,
+      0.101,
+      0.089,
+      0.105,
+      0.194,
+      0.149,
+      0.185,
+      0.279,
+      0.258,
+      0.308,
+      0.168,
+      0.167,
+      0.23,
+      0.163,
+      0.218,
+      0.248,
+      0.098,
+      0.141,
+      0.135,
+      0.162,
+      0.086,
+      0.126,
+      0.096,
+      0.088,
+      0.133,
+      0.184,
+      0.135,
+      0.136,
+      0.055,
+      0.072,
+      0.056,
+      0.066,
+      0.078,
+      0.09,
+      0.085,
+      0.098,
+      0.105,
+      0.115,
+      0.147,
+      0.192,
+      0.249,
+      0.269,
+      0.286,
+      0.284,
+      0.184,
+      0.115,
+      0.141,
+      0.124,
+      0.1,
+      0.089,
+      0.116,
+      0.071,
+      0.119,
+      0.11,
+      0.077,
+      0.065,
+      0.053,
+      0.06,
+      0.073,
+      0.091,
+      0.091,
+      0.084,
+      0.157,
+      0.077,
+      0.077,
+      0.093,
+      0.144,
+      0.076,
+      0.057,
+      0.132,
+      0.069,
+      0.047,
+      0.057,
+      0.059,
+      0.053,
+      0.043,
+      0.078,
+      0.04,
+      0.049,
+      0.06,
+      0.056,
+      0.05,
+      0.053,
+      0.049,
+      0.051,
+      0.072,
+      0.054,
+      0.058,
+      0.112,
+      0.172,
+      0.105,
+      0.091,
+      0.093,
+      0.116,
+      0.06,
+      0.079,
+      0.157,
+      0.06,
+      0.058,
+      0.063,
+      0.16,
+      0.075,
+      0.053,
+      0.064,
+      0.059,
+      0.056,
+      0.189,
+      0.133,
+      0.072,
+      0.053,
+      0.052,
+      0.075,
+      0.053,
+      0.119,
+      0.194,
+      0.142,
+      0.099,
+      0.071,
+      0.05,
+      0.153,
+      0.082,
+      0.104,
+      0.096,
+      0.121,
+      0.117,
+      0.119,
+      0.076,
+      0.049,
+      0.081,
+      0.081,
+      0.089,
+      0.158,
+      0.112,
+      0.189,
+      0.093,
+      0.105,
+      0.071,
+      0.095,
+      0.066,
+      0.046,
+      0.056,
+      0.074,
+      0.072,
+      0.052,
+      0.089,
+      0.077,
+      0.121,
+      0.081,
+      0.12,
+      0.049,
+      0.057,
+      0.054,
+      0.085,
+      0.058,
+      0.046,
+      0.048,
+      0.05,
+      0.045,
+      0.044,
+      0.041,
+      0.044,
+      0.077,
+      0.057,
+      0.054,
+      0.079,
+      0.054,
+      0.057,
+      0.054,
+      0.065,
+      0.065,
+      0.16,
+      0.1,
+      0.06,
+      0.047,
+      0.076,
+      0.071,
+      0.068,
+      0.208,
+      0.088,
+      0.063,
+      0.054,
+      0.065,
+      0.059,
+      0.069,
+      0.041,
+      0.05,
+      0.061,
+      0.1,
+      0.061,
+      0.051,
+      0.05,
+      0.064,
+      0.107,
+      0.134,
+      0.067,
+      0.147,
+      0.102,
+      0.057,
+      0.088,
+      0.127,
+      0.134,
+      0.054,
+      0.066,
+      0.137,
+      0.099,
+      0.068,
+      0.082,
+      0.057,
+      0.036,
+      0.042,
+      0.094,
+      0.054,
+      0.098,
+      0.074,
+      0.127,
+      0.081,
+      0.061,
+      0.06,
+      0.05,
+      0.043,
+      0.061,
+      0.09,
+      0.052,
+      0.061,
+      0.126,
+      0.069,
+      0.06,
+      0.074,
+      0.084,
+      0.056,
+      0.043,
+      0.058,
+      0.119,
+      0.088,
+      0.096,
+      0.08,
+      0.127,
+      0.23
+     ]
+    }
+   ],
+   "name": "RSR",
+   "ordinal": 68,
+   "provenance_source": "PDB",
+   "type": "RSR"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PDB_MODEL_NUM",
+     "values": [
+      "1"
+     ]
+    }
+   ],
+   "feature_id": "RSRZ",
+   "feature_positions": [
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 8,
+     "values": [
+      3.091,
+      2.682,
+      2.385,
+      2.396,
+      4.497,
+      3.436,
+      4.613,
+      4.607,
+      3.038,
+      6.136,
+      4.202,
+      2.204,
+      3.857,
+      2.85,
+      1.907,
+      2.849,
+      1.607,
+      3.782,
+      1.438,
+      2.219,
+      0.635,
+      0.816,
+      0.762,
+      1.295,
+      2.127,
+      1.752,
+      2.314,
+      3.058,
+      8.963,
+      3.857,
+      5.808,
+      4.032,
+      3.833,
+      2.938,
+      3.133,
+      0.717,
+      0.448,
+      0.839,
+      2.232,
+      2.064,
+      3.086,
+      4.357,
+      3.906,
+      5.968,
+      2.613,
+      2.178,
+      3.213,
+      2.602,
+      2.916,
+      3.658,
+      0.728,
+      1.78,
+      0.758,
+      1.53,
+      0.359,
+      1.546,
+      0.565,
+      0.142,
+      0.708,
+      2.074,
+      1.665,
+      0.783,
+      -0.64,
+      -0.184,
+      -0.738,
+      -0.445,
+      0.018,
+      -0.073,
+      0.119,
+      0.504,
+      0.873,
+      1.143,
+      2.352,
+      3.306,
+      3.755,
+      4.178,
+      5.983,
+      5.925,
+      3.383,
+      1.302,
+      1.846,
+      1.332,
+      0.647,
+      -0.277,
+      1.284,
+      -0.296,
+      1.197,
+      1.143,
+      0.082,
+      -0.495,
+      -0.831,
+      -0.623,
+      -0.349,
+      0.54,
+      0.297,
+      -0.289,
+      1.406,
+      0.191,
+      -0.17,
+      -0.069,
+      1.287,
+      -0.599,
+      -0.62,
+      1.316,
+      -0.145,
+      -0.924,
+      -0.62,
+      -0.653,
+      -0.831,
+      -0.984,
+      -0.116,
+      -1.006,
+      -0.827,
+      -0.829,
+      -0.722,
+      -0.847,
+      -0.763,
+      -0.739,
+      -0.812,
+      -0.698,
+      -0.635,
+      -0.682,
+      0.292,
+      1.682,
+      0.007,
+      0.208,
+      0.574,
+      1.091,
+      -0.509,
+      -0.412,
+      1.909,
+      -0.623,
+      -0.472,
+      -0.323,
+      1.574,
+      -0.224,
+      -0.549,
+      -0.504,
+      -0.559,
+      -0.511,
+      2.198,
+      1.343,
+      -0.194,
+      -0.831,
+      -0.772,
+      -0.743,
+      -0.742,
+      1.338,
+      2.903,
+      2.086,
+      0.703,
+      -0.297,
+      -0.847,
+      1.402,
+      0.03,
+      0.554,
+      0.532,
+      1.325,
+      0.833,
+      1.197,
+      0.063,
+      -0.827,
+      0.211,
+      0.075,
+      0.448,
+      2.37,
+      1.131,
+      2.107,
+      0.574,
+      0.767,
+      -0.269,
+      -0.242,
+      -0.14,
+      -0.913,
+      -0.531,
+      -0.127,
+      -0.698,
+      -0.791,
+      0.237,
+      0.092,
+      1.492,
+      -0.062,
+      0.382,
+      -0.784,
+      -0.652,
+      -0.782,
+      -0.492,
+      -0.624,
+      -1.075,
+      -0.894,
+      -0.671,
+      -0.858,
+      -0.938,
+      -0.935,
+      -1.015,
+      -0.119,
+      -0.712,
+      -0.538,
+      -0.525,
+      -0.782,
+      -0.501,
+      -0.682,
+      -0.286,
+      -0.257,
+      1.997,
+      0.546,
+      -0.53,
+      -0.857,
+      -0.069,
+      -0.088,
+      -0.36,
+      3.28,
+      0.208,
+      -0.485,
+      -0.98,
+      -0.377,
+      -0.476,
+      -0.772,
+      -1.187,
+      -0.92,
+      -0.97,
+      -0.117,
+      -0.672,
+      -0.73,
+      -1.123,
+      -0.477,
+      0.168,
+      0.936,
+      -0.329,
+      1.158,
+      0.788,
+      -0.426,
+      0.277,
+      0.663,
+      0.733,
+      -0.711,
+      -0.254,
+      0.911,
+      0.534,
+      -0.374,
+      -0.338,
+      -0.501,
+      -1.074,
+      -0.937,
+      0.028,
+      -0.538,
+      0.397,
+      -0.127,
+      1.298,
+      -0.134,
+      -0.853,
+      -0.53,
+      -0.847,
+      -0.969,
+      -0.383,
+      -0.252,
+      -0.843,
+      -0.483,
+      0.834,
+      -0.145,
+      -0.444,
+      -0.649,
+      0.185,
+      -0.683,
+      -0.969,
+      -0.879,
+      0.465,
+      0.212,
+      0.435,
+      0.003,
+      1.298,
+      3.871
+     ]
+    }
+   ],
+   "name": "RSRZ",
+   "ordinal": 69,
+   "provenance_source": "PDB",
+   "type": "RSRZ"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PDB_MODEL_NUM",
+     "values": [
+      "1"
+     ]
+    }
+   ],
+   "feature_id": "NATOMS_EDS",
+   "feature_positions": [
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 8,
+     "values": [
+      8.0,
+      9.0,
+      14.0,
+      9.0,
+      8.0,
+      9.0,
+      11.0,
+      7.0,
+      8.0,
+      8.0,
+      7.0,
+      8.0,
+      9.0,
+      10.0,
+      9.0,
+      8.0,
+      4.0,
+      4.0,
+      4.0,
+      9.0,
+      12.0,
+      4.0,
+      9.0,
+      7.0,
+      12.0,
+      9.0,
+      4.0,
+      7.0,
+      14.0,
+      9.0,
+      9.0,
+      12.0,
+      6.0,
+      8.0,
+      7.0,
+      7.0,
+      5.0,
+      7.0,
+      9.0,
+      7.0,
+      8.0,
+      9.0,
+      9.0,
+      8.0,
+      7.0,
+      8.0,
+      9.0,
+      7.0,
+      9.0,
+      9.0,
+      11.0,
+      8.0,
+      9.0,
+      9.0,
+      5.0,
+      5.0,
+      7.0,
+      8.0,
+      9.0,
+      9.0,
+      8.0,
+      9.0,
+      10.0,
+      7.0,
+      8.0,
+      8.0,
+      7.0,
+      9.0,
+      8.0,
+      8.0,
+      4.0,
+      7.0,
+      6.0,
+      7.0,
+      11.0,
+      9.0,
+      7.0,
+      7.0,
+      11.0,
+      12.0,
+      8.0,
+      8.0,
+      7.0,
+      9.0,
+      11.0,
+      8.0,
+      7.0,
+      12.0,
+      4.0,
+      8.0,
+      8.0,
+      8.0,
+      8.0,
+      12.0,
+      8.0,
+      11.0,
+      9.0,
+      6.0,
+      8.0,
+      11.0,
+      9.0,
+      9.0,
+      7.0,
+      8.0,
+      5.0,
+      7.0,
+      7.0,
+      8.0,
+      8.0,
+      12.0,
+      8.0,
+      5.0,
+      7.0,
+      9.0,
+      8.0,
+      6.0,
+      6.0,
+      5.0,
+      8.0,
+      9.0,
+      12.0,
+      8.0,
+      9.0,
+      9.0,
+      9.0,
+      8.0,
+      11.0,
+      8.0,
+      10.0,
+      11.0,
+      8.0,
+      8.0,
+      5.0,
+      5.0,
+      11.0,
+      8.0,
+      6.0,
+      8.0,
+      7.0,
+      4.0,
+      9.0,
+      8.0,
+      10.0,
+      8.0,
+      7.0,
+      9.0,
+      7.0,
+      5.0,
+      8.0,
+      11.0,
+      4.0,
+      8.0,
+      6.0,
+      11.0,
+      8.0,
+      8.0,
+      7.0,
+      4.0,
+      8.0,
+      7.0,
+      12.0,
+      7.0,
+      5.0,
+      7.0,
+      5.0,
+      4.0,
+      5.0,
+      9.0,
+      11.0,
+      7.0,
+      8.0,
+      9.0,
+      14.0,
+      7.0,
+      5.0,
+      7.0,
+      9.0,
+      6.0,
+      8.0,
+      5.0,
+      12.0,
+      8.0,
+      9.0,
+      11.0,
+      6.0,
+      8.0,
+      9.0,
+      6.0,
+      8.0,
+      7.0,
+      14.0,
+      5.0,
+      11.0,
+      4.0,
+      7.0,
+      8.0,
+      8.0,
+      14.0,
+      9.0,
+      8.0,
+      5.0,
+      7.0,
+      12.0,
+      4.0,
+      8.0,
+      6.0,
+      7.0,
+      12.0,
+      7.0,
+      4.0,
+      8.0,
+      8.0,
+      8.0,
+      6.0,
+      9.0,
+      7.0,
+      12.0,
+      9.0,
+      8.0,
+      8.0,
+      9.0,
+      9.0,
+      8.0,
+      12.0,
+      11.0,
+      8.0,
+      9.0,
+      11.0,
+      7.0,
+      9.0,
+      4.0,
+      6.0,
+      7.0,
+      9.0,
+      9.0,
+      7.0,
+      12.0,
+      9.0,
+      8.0,
+      8.0,
+      11.0,
+      5.0,
+      6.0,
+      14.0,
+      9.0,
+      14.0,
+      8.0,
+      7.0,
+      6.0,
+      8.0,
+      11.0,
+      7.0,
+      6.0,
+      11.0,
+      5.0,
+      9.0,
+      8.0,
+      10.0,
+      9.0,
+      5.0,
+      11.0,
+      9.0,
+      7.0,
+      8.0,
+      11.0,
+      9.0,
+      9.0,
+      6.0,
+      6.0,
+      8.0,
+      6.0,
+      8.0
+     ]
+    }
+   ],
+   "name": "NATOMS_EDS",
+   "ordinal": 70,
+   "provenance_source": "PDB",
+   "type": "NATOMS_EDS"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PDB_MODEL_NUM",
+     "values": [
+      "1"
+     ]
+    }
+   ],
+   "feature_id": "OWAB",
+   "feature_positions": [
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 8,
+     "values": [
+      56.98,
+      54.83,
+      42.67,
+      54.71,
+      63.17,
+      69.07,
+      70.46,
+      68.54,
+      67.65,
+      64.74,
+      62.78,
+      60.09,
+      60.15,
+      56.73,
+      52.12,
+      42.98,
+      45.32,
+      46.11,
+      44.64,
+      43.83,
+      31.25,
+      36.79,
+      41.02,
+      33.33,
+      37.66,
+      42.39,
+      46.77,
+      52.43,
+      63.87,
+      63.49,
+      63.43,
+      60.61,
+      54.3,
+      44.77,
+      38.91,
+      30.9,
+      28.09,
+      29.67,
+      37.34,
+      39.84,
+      46.98,
+      58.71,
+      64.17,
+      64.46,
+      58.14,
+      54.41,
+      54.82,
+      47.27,
+      49.72,
+      45.96,
+      35.32,
+      32.87,
+      36.4,
+      36.17,
+      30.31,
+      27.45,
+      26.39,
+      28.12,
+      33.04,
+      40.55,
+      32.58,
+      31.06,
+      16.8,
+      18.01,
+      15.99,
+      18.57,
+      21.01,
+      24.63,
+      23.56,
+      26.99,
+      31.5,
+      36.44,
+      44.61,
+      53.84,
+      64.35,
+      66.96,
+      63.28,
+      57.56,
+      49.05,
+      39.85,
+      30.79,
+      27.81,
+      23.47,
+      26.84,
+      26.1,
+      24.03,
+      24.87,
+      28.05,
+      19.13,
+      18.45,
+      12.2,
+      14.78,
+      20.04,
+      19.37,
+      17.23,
+      20.34,
+      30.69,
+      20.71,
+      21.54,
+      22.39,
+      28.75,
+      19.85,
+      15.73,
+      21.13,
+      14.43,
+      12.1,
+      11.88,
+      12.75,
+      11.99,
+      12.27,
+      16.84,
+      12.86,
+      11.39,
+      11.28,
+      10.43,
+      10.54,
+      11.83,
+      12.19,
+      11.88,
+      18.13,
+      17.03,
+      15.37,
+      17.39,
+      25.68,
+      23.43,
+      21.26,
+      19.98,
+      16.98,
+      17.39,
+      21.59,
+      26.47,
+      18.47,
+      14.15,
+      15.11,
+      30.15,
+      18.16,
+      14.95,
+      16.58,
+      16.1,
+      18.22,
+      30.0,
+      23.81,
+      17.44,
+      15.57,
+      14.09,
+      19.05,
+      19.03,
+      25.58,
+      34.21,
+      32.34,
+      22.23,
+      18.71,
+      17.76,
+      32.42,
+      18.95,
+      22.54,
+      21.6,
+      22.91,
+      25.11,
+      20.52,
+      16.71,
+      15.09,
+      16.49,
+      22.27,
+      27.43,
+      28.59,
+      26.32,
+      33.01,
+      23.59,
+      20.57,
+      16.02,
+      18.25,
+      15.61,
+      13.0,
+      10.39,
+      13.68,
+      14.06,
+      13.35,
+      14.7,
+      17.54,
+      27.12,
+      21.07,
+      23.33,
+      15.06,
+      11.77,
+      10.56,
+      13.67,
+      10.3,
+      10.65,
+      7.33,
+      6.9,
+      7.96,
+      9.94,
+      8.33,
+      8.52,
+      14.31,
+      11.22,
+      12.96,
+      15.0,
+      12.25,
+      13.63,
+      12.56,
+      13.91,
+      15.52,
+      26.17,
+      20.27,
+      14.73,
+      12.52,
+      17.2,
+      15.85,
+      18.23,
+      29.03,
+      22.23,
+      16.71,
+      15.04,
+      11.61,
+      12.99,
+      13.9,
+      9.37,
+      10.09,
+      12.22,
+      14.1,
+      12.98,
+      10.0,
+      8.74,
+      14.09,
+      21.9,
+      26.79,
+      20.3,
+      32.04,
+      26.36,
+      23.61,
+      24.11,
+      26.7,
+      28.12,
+      16.68,
+      14.22,
+      24.3,
+      18.62,
+      15.08,
+      16.2,
+      10.42,
+      10.04,
+      8.22,
+      17.53,
+      12.34,
+      16.73,
+      13.51,
+      18.01,
+      17.27,
+      10.1,
+      11.51,
+      11.42,
+      10.83,
+      12.34,
+      17.14,
+      11.16,
+      15.02,
+      20.43,
+      11.87,
+      13.34,
+      17.86,
+      13.53,
+      15.16,
+      11.2,
+      12.12,
+      20.63,
+      14.79,
+      16.11,
+      19.1,
+      31.5,
+      41.72
+     ]
+    }
+   ],
+   "name": "OWAB",
+   "ordinal": 73,
+   "provenance_source": "PDB",
+   "type": "OWAB"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PDB_MODEL_NUM",
+     "values": [
+      "1"
+     ]
+    }
+   ],
+   "feature_id": "AVERAGE_OCCUPANCY",
+   "feature_positions": [
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 8,
+     "values": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   ],
+   "name": "AVERAGE_OCCUPANCY",
+   "ordinal": 74,
+   "provenance_source": "PDB",
+   "type": "AVERAGE_OCCUPANCY"
+  },
+  {
+   "description": "The Accessible Surface Area considering this polymer entity instance by itself (unbound).",
+   "feature_positions": [
+    {
+     "beg_seq_id": 8,
+     "end_seq_id": 279,
+     "values": [
+      101.737748670808,
+      175.10661660007958,
+      47.690278746903175,
+      31.242812214314522,
+      49.58935391307934,
+      108.27102737268046,
+      51.92362259982375,
+      93.46602820504864,
+      45.53909202691349,
+      14.1332914724566,
+      50.482946014192294,
+      69.99354078225468,
+      124.67624828053775,
+      93.39044902562563,
+      77.74871555736257,
+      39.77379952531523,
+      36.49011891918888,
+      81.86120108426252,
+      27.840673458954846,
+      105.0366773110378,
+      49.67817804712988,
+      30.03555596284479,
+      40.68508758952733,
+      24.9929956476643,
+      51.71980360828121,
+      30.452116069066058,
+      0.0,
+      28.75538208924818,
+      29.151604781267167,
+      125.02365313599408,
+      145.618160201398,
+      132.23032342670408,
+      89.62454400026974,
+      82.2350179374761,
+      49.738386042017396,
+      1.6124513321073743,
+      16.787932238191733,
+      0.0,
+      50.5858319169603,
+      18.505963702926827,
+      18.793891926265395,
+      121.85263758224781,
+      151.17881438408966,
+      116.62842284001441,
+      39.30258073346975,
+      182.4235743858494,
+      86.90631488595183,
+      45.11369273560207,
+      113.07126785003013,
+      99.23555808681803,
+      11.758946116548877,
+      55.52178919694506,
+      123.7838198253437,
+      46.4154279878988,
+      5.912321551060373,
+      47.58663886189831,
+      23.380544315556925,
+      6.56203558438634,
+      60.64574692114299,
+      112.07727798753079,
+      8.419948346978114,
+      158.06884732115552,
+      28.530808479998967,
+      97.51899186089658,
+      12.176750293460966,
+      2.9200349732880264,
+      11.860218497329996,
+      44.26397737412622,
+      3.065880270638279,
+      71.06934525727584,
+      0.0,
+      0.8062256660536872,
+      4.335732127412257,
+      39.64680881043477,
+      176.98099382145026,
+      88.37602732752481,
+      77.093977489065,
+      57.51076417849636,
+      31.890394991184294,
+      25.81438138322715,
+      3.081500269311928,
+      1.8811932207919368,
+      14.35004628590956,
+      40.361091369251426,
+      44.453822561545586,
+      14.838365394887063,
+      66.12542592486983,
+      120.31569757116213,
+      33.546976903615175,
+      11.222271613447315,
+      0.0,
+      25.530479425033434,
+      62.775407448270286,
+      30.682424969863664,
+      0.985203456165759,
+      125.21076388116775,
+      145.3975324325217,
+      29.16512870932234,
+      85.98499634471534,
+      136.80749574600412,
+      158.25816974755733,
+      88.12609478237582,
+      0.2687418886845624,
+      21.94531650822386,
+      67.59985326869734,
+      20.92692275399146,
+      15.049545766335495,
+      26.301461448062085,
+      18.77698764451496,
+      69.40421569955308,
+      0.0,
+      2.149935109476499,
+      13.705836322912683,
+      12.254586393046306,
+      0.5374837773691248,
+      0.0,
+      23.162138281005245,
+      0.0,
+      0.0,
+      27.769899659654776,
+      41.99071590344039,
+      0.0,
+      36.45821290419903,
+      136.61588372687638,
+      92.7275302500581,
+      78.18550752027296,
+      3.799748774694487,
+      0.0,
+      2.7585696772641257,
+      76.86611149071481,
+      52.02566404248647,
+      8.470915032915832,
+      1.809492023340526,
+      0.2687418886845624,
+      72.80478617186007,
+      14.587605982551649,
+      0.2654645792283375,
+      40.848767080053484,
+      0.2687418886845624,
+      4.729526996628553,
+      98.64825870305947,
+      133.15904607350652,
+      35.38768630483589,
+      59.92944117665742,
+      0.44800619204664177,
+      19.922844609162933,
+      1.0749675547382496,
+      3.224902664214749,
+      5.4568609879652925,
+      66.89788323980864,
+      4.944688394287611,
+      16.01992090517631,
+      11.483649608951865,
+      113.26475225837942,
+      23.951952267036575,
+      166.85794034475282,
+      114.62420233763376,
+      70.96883439855395,
+      93.30951154577266,
+      70.78404340539568,
+      47.45744651888621,
+      78.6828392302551,
+      5.033866899989471,
+      88.64987870250118,
+      109.44567137913181,
+      68.44732930292972,
+      31.638190446228222,
+      195.68324925992164,
+      43.74847469223572,
+      50.757272397977886,
+      60.98522239674166,
+      34.78020030332242,
+      40.47180863418631,
+      9.351226993563534,
+      1.4027839516809144,
+      3.960022778784146,
+      35.38960141971752,
+      2.3644882947978214,
+      53.79739412213085,
+      49.15703557810767,
+      155.58833623974945,
+      33.181403589524606,
+      94.45877902340538,
+      14.393915485724289,
+      17.4544148364655,
+      28.18295374847464,
+      43.27634860843188,
+      4.7837609389260045,
+      5.338757210383299,
+      0.0,
+      1.168986626400762,
+      8.330998549221434,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      4.926567687861704,
+      15.810826551249866,
+      2.16744760356467,
+      4.837353996322124,
+      15.675142421178382,
+      21.534134808625534,
+      31.433016799933462,
+      4.1751716100725895,
+      99.04312674032624,
+      54.09473958360782,
+      0.5374837773691248,
+      6.039757115460589,
+      76.92977021097305,
+      86.4144671401058,
+      39.75494494284545,
+      82.83900546141052,
+      90.65111343522385,
+      86.51824776846156,
+      79.0924250007854,
+      2.9561607755301864,
+      87.92497002069302,
+      81.18212949590728,
+      59.660699287972854,
+      2.4186769981610614,
+      79.29069970961287,
+      138.61727176932052,
+      106.46762249926552,
+      91.75194258068646,
+      23.86438979659572,
+      6.449805328429497,
+      140.26839485035654,
+      113.41388994483063,
+      11.824643102120746,
+      176.44531206162725,
+      74.34256058995456,
+      8.967188654492226,
+      67.72295594850972,
+      96.84743747544286,
+      139.46279498955946,
+      11.01841743606706,
+      22.13683804948319,
+      94.2137373096995,
+      28.755382089248176,
+      0.0,
+      94.21214138063146,
+      29.760460517177606,
+      0.2654645792283375,
+      2.024331721911856,
+      74.4042991687829,
+      94.30713560265366,
+      74.02661941324247,
+      38.43009008189242,
+      84.18639936469746,
+      91.59672277085787,
+      4.388820016709678,
+      21.768092983449556,
+      26.22950892319838,
+      0.0,
+      36.22629802123691,
+      106.07805747039802,
+      0.8062256660536872,
+      32.34832107619391,
+      100.67576971673677,
+      30.386527154281474,
+      1.2548275040674497,
+      51.55584765760154,
+      56.57699739052929,
+      31.626332818916516,
+      60.0678949348123,
+      130.82015296237603,
+      134.7538517079972,
+      45.75176779646502,
+      92.65537666326458,
+      125.35618192191714,
+      94.15338354491284,
+      188.59601478207878
+     ]
+    }
+   ],
+   "name": "Unbound ASA",
+   "ordinal": 75,
+   "provenance_source": "biojava-7.2.2",
+   "type": "ASA"
+  }
+ ],
+ "rcsb_polymer_instance_feature_summary": [
+  {
+   "count": 1,
+   "coverage": 0.94774,
+   "type": "ECOD"
+  },
+  {
+   "count": 4,
+   "coverage": 0.16376,
+   "maximum_length": 31,
+   "minimum_length": 4,
+   "type": "SHEET"
+  },
+  {
+   "count": 1,
+   "coverage": 0.05226,
+   "type": "BINDING_SITE"
+  },
+  {
+   "count": 15,
+   "coverage": 0.4669,
+   "maximum_length": 22,
+   "minimum_length": 3,
+   "type": "HELIX_P"
+  },
+  {
+   "count": 1,
+   "coverage": 0.07317,
+   "type": "LIGAND_INTERACTION"
+  },
+  {
+   "count": 1,
+   "coverage": 0.94774,
+   "type": "SCOP2B_SUPERFAMILY"
+  },
+  {
+   "count": 15,
+   "coverage": 0.05226,
+   "maximum_length": 15,
+   "minimum_length": 15,
+   "type": "UNOBSERVED_RESIDUE_XYZ"
+  },
+  {
+   "count": 1,
+   "coverage": 1.0,
+   "maximum_length": 287,
+   "minimum_length": 287,
+   "type": "SCOP"
+  },
+  {
+   "count": 2,
+   "coverage": 0.93031,
+   "maximum_length": 182,
+   "minimum_length": 85,
+   "type": "CATH"
+  },
+  {
+   "count": 1,
+   "coverage": 0.36934,
+   "maximum_length": 106,
+   "minimum_length": 106,
+   "type": "UNASSIGNED_SEC_STRUCT"
+  },
+  {
+   "count": 272,
+   "coverage": 0.94774,
+   "maximum_value": 0.989,
+   "minimum_value": 0.34,
+   "type": "RSCC"
+  },
+  {
+   "count": 64,
+   "coverage": 0.223,
+   "maximum_value": 0.0,
+   "minimum_value": 0.0,
+   "type": "CLASHES"
+  },
+  {
+   "count": 272,
+   "coverage": 0.94774,
+   "maximum_value": 0.34,
+   "minimum_value": 0.036,
+   "type": "RSR"
+  },
+  {
+   "count": 272,
+   "coverage": 0.94774,
+   "maximum_value": 0.0,
+   "minimum_value": 0.0,
+   "type": "NATOMS_EDS"
+  },
+  {
+   "count": 272,
+   "coverage": 0.94774,
+   "maximum_value": 8.963,
+   "minimum_value": -1.187,
+   "type": "RSRZ"
+  },
+  {
+   "count": 272,
+   "coverage": 0.94774,
+   "maximum_value": 70.46,
+   "minimum_value": 6.9,
+   "type": "OWAB"
+  },
+  {
+   "count": 272,
+   "coverage": 0.94774,
+   "maximum_value": 1.0,
+   "minimum_value": 1.0,
+   "type": "AVERAGE_OCCUPANCY"
+  },
+  {
+   "count": 7,
+   "coverage": 0.02439,
+   "maximum_value": 0.0,
+   "minimum_value": 0.0,
+   "type": "ANGLE_OUTLIERS"
+  }
+ ],
+ "rcsb_polymer_instance_info": {
+  "modeled_residue_count": 272
+ }
+}

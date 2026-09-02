@@ -1,6 +1,11 @@
 # 0020 — Freeze the c-Myc contract before method design
 
-**Status:** accepted · 2026-08-21
+**Status:** **superseded** by
+[ADR 0036](0036-cmyc-is-a-reported-deliverable-scored-against-nmr-segments.md) · 2026-09-02 ·
+originally accepted 2026-08-21
+
+> The requirement below — freeze the contract before designing a c-Myc method — was met on
+> 2026-09-02 rather than withdrawn. ADR 0036 is that contract. Read 0036 for what runs today.
 
 ## Context
 

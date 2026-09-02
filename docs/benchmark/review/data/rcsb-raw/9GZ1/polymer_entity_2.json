@@ -1,0 +1,1753 @@
+{
+ "entity_poly": {
+  "nstd_linkage": "no",
+  "nstd_monomer": "no",
+  "pdbx_seq_one_letter_code": "APKKDVKKPAAAPAPAPAPAPAPAKPKEEKIDLSAIKIEFSKEQQEDFKEAFLLFDRTGECKITLSQVGDVLRALGTNPTNAEVKKVLGNPSNEEMNAKKIEFEQFLPMMQAISNNKDQGGYEDFVEGLRVFDKEGNGTVMGAELRHVLATLGEKMKEEEVEALLAGQEDSNGCINYEAFVKHIMSV",
+  "pdbx_seq_one_letter_code_can": "APKKDVKKPAAAPAPAPAPAPAPAKPKEEKIDLSAIKIEFSKEQQEDFKEAFLLFDRTGECKITLSQVGDVLRALGTNPTNAEVKKVLGNPSNEEMNAKKIEFEQFLPMMQAISNNKDQGGYEDFVEGLRVFDKEGNGTVMGAELRHVLATLGEKMKEEEVEALLAGQEDSNGCINYEAFVKHIMSV",
+  "pdbx_strand_id": "C,E",
+  "rcsb_artifact_monomer_count": 0,
+  "rcsb_conflict_count": 0,
+  "rcsb_deletion_count": 0,
+  "rcsb_entity_polymer_type": "Protein",
+  "rcsb_insertion_count": 0,
+  "rcsb_mutation_count": 0,
+  "rcsb_non_std_monomer_count": 0,
+  "rcsb_sample_sequence_length": 187,
+  "type": "polypeptide(L)"
+ },
+ "entity_src_nat": [
+  {
+   "common_name": "house mouse",
+   "pdbx_alt_source_flag": "sample",
+   "pdbx_beg_seq_num": 1,
+   "pdbx_end_seq_num": 187,
+   "pdbx_ncbi_taxonomy_id": "10090",
+   "pdbx_organism_scientific": "Mus musculus",
+   "pdbx_src_id": 1
+  }
+ ],
+ "rcsb_cluster_membership": [
+  {
+   "cluster_id": 7382,
+   "identity": 100
+  },
+  {
+   "cluster_id": 5964,
+   "identity": 95
+  },
+  {
+   "cluster_id": 6641,
+   "identity": 90
+  },
+  {
+   "cluster_id": 1307,
+   "identity": 70
+  },
+  {
+   "cluster_id": 1412,
+   "identity": 50
+  },
+  {
+   "cluster_id": 1664,
+   "identity": 30
+  }
+ ],
+ "rcsb_entity_source_organism": [
+  {
+   "beg_seq_num": 1,
+   "end_seq_num": 187,
+   "ncbi_common_names": [
+    "house mouse",
+    "mouse"
+   ],
+   "ncbi_parent_scientific_name": "Eukaryota",
+   "ncbi_scientific_name": "Mus musculus",
+   "ncbi_taxonomy_id": 10090,
+   "pdbx_src_id": 1,
+   "provenance_source": "Primary Data",
+   "scientific_name": "Mus musculus",
+   "source_type": "natural",
+   "taxonomy_lineage": [
+    {
+     "depth": 1,
+     "id": "131567",
+     "name": "cellular organisms"
+    },
+    {
+     "depth": 1,
+     "id": "131567",
+     "name": "biota"
+    },
+    {
+     "depth": 2,
+     "id": "2759",
+     "name": "Eukaryota"
+    },
+    {
+     "depth": 2,
+     "id": "2759",
+     "name": "Eucarya"
+    },
+    {
+     "depth": 2,
+     "id": "2759",
+     "name": "Eucaryotae"
+    },
+    {
+     "depth": 2,
+     "id": "2759",
+     "name": "Eukarya"
+    },
+    {
+     "depth": 2,
+     "id": "2759",
+     "name": "Eukaryotae"
+    },
+    {
+     "depth": 2,
+     "id": "2759",
+     "name": "eukaryotes"
+    },
+    {
+     "depth": 3,
+     "id": "33154",
+     "name": "Opisthokonta"
+    },
+    {
+     "depth": 3,
+     "id": "33154",
+     "name": "Fungi/Metazoa group"
+    },
+    {
+     "depth": 3,
+     "id": "33154",
+     "name": "opisthokonts"
+    },
+    {
+     "depth": 4,
+     "id": "33208",
+     "name": "Metazoa"
+    },
+    {
+     "depth": 4,
+     "id": "33208",
+     "name": "Animalia"
+    },
+    {
+     "depth": 4,
+     "id": "33208",
+     "name": "animals"
+    },
+    {
+     "depth": 4,
+     "id": "33208",
+     "name": "metazoans"
+    },
+    {
+     "depth": 4,
+     "id": "33208",
+     "name": "multicellular animals"
+    },
+    {
+     "depth": 5,
+     "id": "6072",
+     "name": "Eumetazoa"
+    },
+    {
+     "depth": 6,
+     "id": "33213",
+     "name": "Bilateria"
+    },
+    {
+     "depth": 7,
+     "id": "33511",
+     "name": "Deuterostomia"
+    },
+    {
+     "depth": 7,
+     "id": "33511",
+     "name": "deuterostomes"
+    },
+    {
+     "depth": 8,
+     "id": "7711",
+     "name": "Chordata"
+    },
+    {
+     "depth": 8,
+     "id": "7711",
+     "name": "chordates"
+    },
+    {
+     "depth": 9,
+     "id": "89593",
+     "name": "Craniata"
+    },
+    {
+     "depth": 10,
+     "id": "7742",
+     "name": "Vertebrata"
+    },
+    {
+     "depth": 10,
+     "id": "7742",
+     "name": "vertebrates"
+    },
+    {
+     "depth": 11,
+     "id": "7776",
+     "name": "Gnathostomata"
+    },
+    {
+     "depth": 11,
+     "id": "7776",
+     "name": "jawed vertebrates"
+    },
+    {
+     "depth": 12,
+     "id": "117570",
+     "name": "Teleostomi"
+    },
+    {
+     "depth": 13,
+     "id": "117571",
+     "name": "Euteleostomi"
+    },
+    {
+     "depth": 13,
+     "id": "117571",
+     "name": "bony vertebrates"
+    },
+    {
+     "depth": 14,
+     "id": "8287",
+     "name": "Sarcopterygii"
+    },
+    {
+     "depth": 15,
+     "id": "1338369",
+     "name": "Dipnotetrapodomorpha"
+    },
+    {
+     "depth": 16,
+     "id": "32523",
+     "name": "Tetrapoda"
+    },
+    {
+     "depth": 16,
+     "id": "32523",
+     "name": "tetrapods"
+    },
+    {
+     "depth": 17,
+     "id": "32524",
+     "name": "Amniota"
+    },
+    {
+     "depth": 17,
+     "id": "32524",
+     "name": "amniotes"
+    },
+    {
+     "depth": 18,
+     "id": "40674",
+     "name": "Mammalia"
+    },
+    {
+     "depth": 18,
+     "id": "40674",
+     "name": "mammals"
+    },
+    {
+     "depth": 19,
+     "id": "32525",
+     "name": "Theria"
+    },
+    {
+     "depth": 20,
+     "id": "9347",
+     "name": "Eutheria"
+    },
+    {
+     "depth": 20,
+     "id": "9347",
+     "name": "Placentalia"
+    },
+    {
+     "depth": 20,
+     "id": "9347",
+     "name": "eutherian mammals"
+    },
+    {
+     "depth": 20,
+     "id": "9347",
+     "name": "placental mammals"
+    },
+    {
+     "depth": 20,
+     "id": "9347",
+     "name": "placentals"
+    },
+    {
+     "depth": 21,
+     "id": "1437010",
+     "name": "Boreoeutheria"
+    },
+    {
+     "depth": 21,
+     "id": "1437010",
+     "name": "Boreotheria"
+    },
+    {
+     "depth": 22,
+     "id": "314146",
+     "name": "Euarchontoglires"
+    },
+    {
+     "depth": 23,
+     "id": "314147",
+     "name": "Glires"
+    },
+    {
+     "depth": 23,
+     "id": "314147",
+     "name": "Rodents and rabbits"
+    },
+    {
+     "depth": 24,
+     "id": "9989",
+     "name": "Rodentia"
+    },
+    {
+     "depth": 24,
+     "id": "9989",
+     "name": "rodent"
+    },
+    {
+     "depth": 24,
+     "id": "9989",
+     "name": "rodents"
+    },
+    {
+     "depth": 25,
+     "id": "1963758",
+     "name": "Myomorpha"
+    },
+    {
+     "depth": 25,
+     "id": "1963758",
+     "name": "mice and others"
+    },
+    {
+     "depth": 26,
+     "id": "337687",
+     "name": "Muroidea"
+    },
+    {
+     "depth": 27,
+     "id": "10066",
+     "name": "Muridae"
+    },
+    {
+     "depth": 28,
+     "id": "39107",
+     "name": "Murinae"
+    },
+    {
+     "depth": 29,
+     "id": "10088",
+     "name": "Mus"
+    },
+    {
+     "depth": 29,
+     "id": "10088",
+     "name": "mice"
+    },
+    {
+     "depth": 29,
+     "id": "10088",
+     "name": "mouse"
+    },
+    {
+     "depth": 30,
+     "id": "862507",
+     "name": "Mus"
+    },
+    {
+     "depth": 31,
+     "id": "10090",
+     "name": "Mus musculus"
+    },
+    {
+     "depth": 31,
+     "id": "10090",
+     "name": "house mouse"
+    },
+    {
+     "depth": 31,
+     "id": "10090",
+     "name": "mouse"
+    }
+   ]
+  }
+ ],
+ "rcsb_id": "9GZ1_2",
+ "rcsb_polymer_entity": {
+  "formula_weight": 20.489,
+  "pdbx_description": "Myosin light chain 1/3, skeletal muscle isoform",
+  "pdbx_number_of_molecules": 2,
+  "rcsb_macromolecular_names_combined": [
+   {
+    "name": "Myosin light chain 1/3",
+    "provenance_code": "ECO:0000304",
+    "provenance_source": "PDB Preferred Name"
+   },
+   {
+    "name": "skeletal muscle isoform",
+    "provenance_code": "ECO:0000304",
+    "provenance_source": "PDB Preferred Name"
+   },
+   {
+    "name": "MLC1/MLC3",
+    "provenance_code": "ECO:0000303",
+    "provenance_source": "PDB Synonym"
+   },
+   {
+    "name": "MLC1F/MLC3F",
+    "provenance_code": "ECO:0000303",
+    "provenance_source": "PDB Synonym"
+   },
+   {
+    "name": "Myosin light chain alkali 1/2",
+    "provenance_code": "ECO:0000303",
+    "provenance_source": "PDB Synonym"
+   },
+   {
+    "name": "Myosin light chain A1/A2",
+    "provenance_code": "ECO:0000303",
+    "provenance_source": "PDB Synonym"
+   }
+  ],
+  "rcsb_multiple_source_flag": "N",
+  "rcsb_polymer_name_combined": {
+   "names": [
+    "Myosin light chain 1/3, skeletal muscle isoform"
+   ],
+   "provenance_source": "UniProt Name"
+  },
+  "rcsb_source_part_count": 1,
+  "rcsb_source_taxonomy_count": 1,
+  "src_method": "nat"
+ },
+ "rcsb_polymer_entity_align": [
+  {
+   "aligned_regions": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 187,
+     "ref_beg_seq_id": 2
+    }
+   ],
+   "provenance_source": "SIFTS",
+   "reference_database_accession": "P05977",
+   "reference_database_name": "UniProt"
+  }
+ ],
+ "rcsb_polymer_entity_annotation": [
+  {
+   "annotation_id": "GO:0043292",
+   "annotation_lineage": [
+    {
+     "id": "GO:0005575",
+     "name": "cellular_component"
+    },
+    {
+     "id": "GO:0005622",
+     "name": "intracellular anatomical structure"
+    },
+    {
+     "id": "GO:0043232",
+     "name": "intracellular membraneless organelle"
+    },
+    {
+     "id": "GO:0043229",
+     "name": "intracellular organelle"
+    },
+    {
+     "id": "GO:0110165",
+     "name": "cellular anatomical structure"
+    },
+    {
+     "id": "GO:0043226",
+     "name": "organelle"
+    },
+    {
+     "id": "GO:0043228",
+     "name": "membraneless organelle"
+    },
+    {
+     "id": "GO:0043292",
+     "name": "contractile muscle fiber"
+    },
+    {
+     "id": "GO:0005737",
+     "name": "cytoplasm"
+    },
+    {
+     "id": "GO:0099512",
+     "name": "supramolecular fiber"
+    },
+    {
+     "id": "GO:0099081",
+     "name": "supramolecular polymer"
+    },
+    {
+     "id": "GO:0099080",
+     "name": "supramolecular complex"
+    }
+   ],
+   "name": "contractile muscle fiber",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "IPR050230",
+   "annotation_lineage": [
+    {
+     "id": "IPR050230",
+     "name": "Calmodulin/Myosin light chain/Troponin C-like"
+    }
+   ],
+   "name": "Calmodulin/Myosin light chain/Troponin C-like",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "GO:0005509",
+   "annotation_lineage": [
+    {
+     "id": "GO:0043169",
+     "name": "cation binding"
+    },
+    {
+     "id": "GO:0043167",
+     "name": "ion binding"
+    },
+    {
+     "id": "GO:0005488",
+     "name": "binding"
+    },
+    {
+     "id": "GO:0005509",
+     "name": "calcium ion binding"
+    },
+    {
+     "id": "GO:0003674",
+     "name": "molecular_function"
+    },
+    {
+     "id": "GO:0046872",
+     "name": "metal ion binding"
+    },
+    {
+     "id": "GO:0036094",
+     "name": "small molecule binding"
+    }
+   ],
+   "name": "calcium ion binding",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "GO:0016460",
+   "annotation_lineage": [
+    {
+     "id": "GO:0032991",
+     "name": "protein-containing complex"
+    },
+    {
+     "id": "GO:0005575",
+     "name": "cellular_component"
+    },
+    {
+     "id": "GO:0005622",
+     "name": "intracellular anatomical structure"
+    },
+    {
+     "id": "GO:0043232",
+     "name": "intracellular membraneless organelle"
+    },
+    {
+     "id": "GO:0015629",
+     "name": "actin cytoskeleton"
+    },
+    {
+     "id": "GO:0016459",
+     "name": "myosin complex"
+    },
+    {
+     "id": "GO:0043229",
+     "name": "intracellular organelle"
+    },
+    {
+     "id": "GO:0110165",
+     "name": "cellular anatomical structure"
+    },
+    {
+     "id": "GO:0005856",
+     "name": "cytoskeleton"
+    },
+    {
+     "id": "GO:0043226",
+     "name": "organelle"
+    },
+    {
+     "id": "GO:0043228",
+     "name": "membraneless organelle"
+    },
+    {
+     "id": "GO:0016460",
+     "name": "myosin II complex"
+    }
+   ],
+   "name": "myosin II complex",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "GO:0030016",
+   "annotation_lineage": [
+    {
+     "id": "GO:0005575",
+     "name": "cellular_component"
+    },
+    {
+     "id": "GO:0005622",
+     "name": "intracellular anatomical structure"
+    },
+    {
+     "id": "GO:0043232",
+     "name": "intracellular membraneless organelle"
+    },
+    {
+     "id": "GO:0043229",
+     "name": "intracellular organelle"
+    },
+    {
+     "id": "GO:0110165",
+     "name": "cellular anatomical structure"
+    },
+    {
+     "id": "GO:0043226",
+     "name": "organelle"
+    },
+    {
+     "id": "GO:0043228",
+     "name": "membraneless organelle"
+    },
+    {
+     "id": "GO:0043292",
+     "name": "contractile muscle fiber"
+    },
+    {
+     "id": "GO:0005737",
+     "name": "cytoplasm"
+    },
+    {
+     "id": "GO:0099512",
+     "name": "supramolecular fiber"
+    },
+    {
+     "id": "GO:0030016",
+     "name": "myofibril"
+    },
+    {
+     "id": "GO:0099081",
+     "name": "supramolecular polymer"
+    },
+    {
+     "id": "GO:0099080",
+     "name": "supramolecular complex"
+    }
+   ],
+   "name": "myofibril",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "GO:0008307",
+   "annotation_lineage": [
+    {
+     "id": "GO:0005198",
+     "name": "structural molecule activity"
+    },
+    {
+     "id": "GO:0008307",
+     "name": "structural constituent of muscle"
+    },
+    {
+     "id": "GO:0003674",
+     "name": "molecular_function"
+    }
+   ],
+   "name": "structural constituent of muscle",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "GO:0060048",
+   "annotation_lineage": [
+    {
+     "id": "GO:0003015",
+     "name": "heart process"
+    },
+    {
+     "id": "GO:0032501",
+     "name": "multicellular organismal process"
+    },
+    {
+     "id": "GO:0003008",
+     "name": "system process"
+    },
+    {
+     "id": "GO:0003013",
+     "name": "circulatory system process"
+    },
+    {
+     "id": "GO:0008150",
+     "name": "biological_process"
+    },
+    {
+     "id": "GO:0060048",
+     "name": "cardiac muscle contraction"
+    },
+    {
+     "id": "GO:0060047",
+     "name": "heart contraction"
+    },
+    {
+     "id": "GO:0006936",
+     "name": "muscle contraction"
+    },
+    {
+     "id": "GO:0003012",
+     "name": "muscle system process"
+    },
+    {
+     "id": "GO:0008015",
+     "name": "blood circulation"
+    },
+    {
+     "id": "GO:0006941",
+     "name": "striated muscle contraction"
+    }
+   ],
+   "name": "cardiac muscle contraction",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "GO:0006936",
+   "annotation_lineage": [
+    {
+     "id": "GO:0032501",
+     "name": "multicellular organismal process"
+    },
+    {
+     "id": "GO:0003008",
+     "name": "system process"
+    },
+    {
+     "id": "GO:0008150",
+     "name": "biological_process"
+    },
+    {
+     "id": "GO:0006936",
+     "name": "muscle contraction"
+    },
+    {
+     "id": "GO:0003012",
+     "name": "muscle system process"
+    }
+   ],
+   "name": "muscle contraction",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "IPR002048",
+   "annotation_lineage": [
+    {
+     "depth": 1,
+     "id": "IPR002048",
+     "name": "EF-hand domain"
+    }
+   ],
+   "name": "EF-hand domain",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "GO:0030049",
+   "annotation_lineage": [
+    {
+     "id": "GO:0032501",
+     "name": "multicellular organismal process"
+    },
+    {
+     "id": "GO:0003008",
+     "name": "system process"
+    },
+    {
+     "id": "GO:0030049",
+     "name": "muscle filament sliding"
+    },
+    {
+     "id": "GO:0030029",
+     "name": "actin filament-based process"
+    },
+    {
+     "id": "GO:0008150",
+     "name": "biological_process"
+    },
+    {
+     "id": "GO:0009987",
+     "name": "cellular process"
+    },
+    {
+     "id": "GO:0070252",
+     "name": "actin-mediated cell contraction"
+    },
+    {
+     "id": "GO:0030048",
+     "name": "actin filament-based movement"
+    },
+    {
+     "id": "GO:0006936",
+     "name": "muscle contraction"
+    },
+    {
+     "id": "GO:0003012",
+     "name": "muscle system process"
+    },
+    {
+     "id": "GO:0033275",
+     "name": "actin-myosin filament sliding"
+    }
+   ],
+   "name": "muscle filament sliding",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "IPR011992",
+   "annotation_lineage": [
+    {
+     "id": "IPR011992",
+     "name": "EF-hand domain pair"
+    }
+   ],
+   "name": "EF-hand domain pair",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "GO:0000146",
+   "annotation_lineage": [
+    {
+     "id": "GO:0120544",
+     "name": "polypeptide conformation or assembly isomerase activity"
+    },
+    {
+     "id": "GO:0016853",
+     "name": "isomerase activity"
+    },
+    {
+     "id": "GO:0003774",
+     "name": "cytoskeletal motor activity"
+    },
+    {
+     "id": "GO:0000146",
+     "name": "microfilament motor activity"
+    },
+    {
+     "id": "GO:0120543",
+     "name": "macromolecular conformation isomerase activity"
+    },
+    {
+     "id": "GO:0003824",
+     "name": "catalytic activity"
+    },
+    {
+     "id": "GO:0003674",
+     "name": "molecular_function"
+    },
+    {
+     "id": "GO:0140657",
+     "name": "ATP-dependent activity"
+    }
+   ],
+   "name": "microfilament motor activity",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "GO:0016461",
+   "annotation_lineage": [
+    {
+     "id": "GO:0032991",
+     "name": "protein-containing complex"
+    },
+    {
+     "id": "GO:0005575",
+     "name": "cellular_component"
+    },
+    {
+     "id": "GO:0005622",
+     "name": "intracellular anatomical structure"
+    },
+    {
+     "id": "GO:0043232",
+     "name": "intracellular membraneless organelle"
+    },
+    {
+     "id": "GO:0015629",
+     "name": "actin cytoskeleton"
+    },
+    {
+     "id": "GO:0016459",
+     "name": "myosin complex"
+    },
+    {
+     "id": "GO:0043229",
+     "name": "intracellular organelle"
+    },
+    {
+     "id": "GO:0110165",
+     "name": "cellular anatomical structure"
+    },
+    {
+     "id": "GO:0005856",
+     "name": "cytoskeleton"
+    },
+    {
+     "id": "GO:0043226",
+     "name": "organelle"
+    },
+    {
+     "id": "GO:0043228",
+     "name": "membraneless organelle"
+    },
+    {
+     "id": "GO:0016461",
+     "name": "unconventional myosin complex"
+    }
+   ],
+   "name": "unconventional myosin complex",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  }
+ ],
+ "rcsb_polymer_entity_container_identifiers": {
+  "asym_ids": [
+   "C",
+   "D"
+  ],
+  "auth_asym_ids": [
+   "C",
+   "E"
+  ],
+  "chem_comp_monomers": [
+   "ALA",
+   "ARG",
+   "ASN",
+   "ASP",
+   "CYS",
+   "GLN",
+   "GLU",
+   "GLY",
+   "HIS",
+   "ILE",
+   "LEU",
+   "LYS",
+   "MET",
+   "PHE",
+   "PRO",
+   "SER",
+   "THR",
+   "TYR",
+   "VAL"
+  ],
+  "entity_id": "2",
+  "entry_id": "9GZ1",
+  "rcsb_id": "9GZ1_2",
+  "reference_sequence_identifiers": [
+   {
+    "database_accession": "P05977",
+    "database_name": "UniProt",
+    "entity_sequence_coverage": 1.0,
+    "provenance_source": "SIFTS",
+    "reference_sequence_coverage": 0.9946808510638298
+   }
+  ],
+  "uniprot_ids": [
+   "P05977"
+  ]
+ },
+ "rcsb_polymer_entity_feature": [
+  {
+   "feature_positions": [
+    {
+     "beg_seq_id": 5,
+     "values": [
+      -1.81,
+      -1.81,
+      -1.43,
+      -0.8,
+      -0.54,
+      0.04,
+      -0.6,
+      0.03,
+      0.29,
+      0.67,
+      0.29,
+      0.29,
+      -0.09,
+      0.29,
+      -0.09,
+      0.29,
+      -0.34,
+      -0.34,
+      -0.98,
+      -1.19,
+      -1.78,
+      -2.03,
+      -1.73,
+      -1.94,
+      -1.72,
+      -1.38,
+      -1.0,
+      -0.07,
+      -0.11,
+      0.78,
+      0.82,
+      0.63,
+      0.93,
+      0.08,
+      -0.22,
+      -0.81,
+      -1.7,
+      -1.66,
+      -2.54,
+      -1.84,
+      -2.59,
+      -2.89,
+      -2.26,
+      -1.56,
+      -0.74,
+      0.07,
+      0.77,
+      0.77,
+      -0.04,
+      0.31,
+      0.66,
+      0.07,
+      0.03,
+      -0.82,
+      -0.74,
+      -1.13,
+      -0.32,
+      0.09,
+      -0.22,
+      0.29,
+      0.63,
+      -0.03,
+      0.87,
+      0.79,
+      0.37,
+      0.14,
+      0.66,
+      1.0,
+      0.46,
+      0.11,
+      0.32,
+      -0.22,
+      -1.03,
+      -0.33,
+      -0.92,
+      -0.88,
+      -1.27,
+      -1.62,
+      -0.77,
+      -0.17,
+      -0.13,
+      -0.13,
+      -0.51,
+      -0.21,
+      -1.07,
+      -1.02,
+      -0.98,
+      -1.23,
+      -2.04,
+      -1.8,
+      -1.84,
+      -2.1,
+      -1.51,
+      -1.51,
+      -0.81,
+      -0.81,
+      -1.41,
+      -0.71,
+      -0.49,
+      -0.23,
+      0.41,
+      0.12,
+      0.12,
+      0.01,
+      0.9,
+      1.2,
+      0.5,
+      -0.31,
+      -0.57,
+      -1.17,
+      -1.77,
+      -1.42,
+      -1.67,
+      -2.31,
+      -2.61,
+      -2.61,
+      -1.91,
+      -1.01,
+      -1.01,
+      -0.67,
+      -0.2,
+      -0.66,
+      -0.04,
+      0.66,
+      0.66,
+      -0.09,
+      -0.94,
+      -0.6,
+      -0.94,
+      -1.41,
+      -0.99,
+      -0.99,
+      -1.09,
+      -0.74,
+      -0.11,
+      -0.11,
+      0.36,
+      0.24,
+      -0.07,
+      0.48,
+      0.43,
+      0.42,
+      0.39,
+      0.61,
+      0.96,
+      0.14,
+      0.21,
+      0.78,
+      -0.12,
+      -0.93,
+      -1.52,
+      -1.83,
+      -1.79,
+      -2.13,
+      -1.54,
+      -0.69,
+      -0.48,
+      0.16,
+      0.5,
+      0.5,
+      0.5,
+      -0.36,
+      -0.06,
+      -0.64,
+      -1.11,
+      -1.26,
+      -0.96,
+      -1.3,
+      -1.06,
+      -1.06,
+      -0.47,
+      -0.07,
+      0.79,
+      0.4,
+      -0.23,
+      -0.23,
+      0.37,
+      0.42,
+      1.28
+     ]
+    }
+   ],
+   "name": "Hydropathy values",
+   "provenance_source": "biojava-7.2.4",
+   "type": "hydropathy"
+  },
+  {
+   "feature_positions": [
+    {
+     "beg_seq_id": 1,
+     "values": [
+      0.97,
+      0.95,
+      0.94,
+      0.91,
+      0.89,
+      0.85,
+      0.83,
+      0.77,
+      0.75,
+      0.7,
+      0.68,
+      0.68,
+      0.69,
+      0.68,
+      0.67,
+      0.67,
+      0.7,
+      0.7,
+      0.71,
+      0.69,
+      0.65,
+      0.68,
+      0.64,
+      0.63,
+      0.63,
+      0.55,
+      0.57,
+      0.5,
+      0.53,
+      0.44,
+      0.46,
+      0.42,
+      0.46,
+      0.44,
+      0.47,
+      0.49,
+      0.47,
+      0.4,
+      0.38,
+      0.37,
+      0.35,
+      0.34,
+      0.24,
+      0.23,
+      0.16,
+      0.18,
+      0.23,
+      0.23,
+      0.29,
+      0.29,
+      0.29,
+      0.28,
+      0.21,
+      0.19,
+      0.13,
+      0.12,
+      0.12,
+      0.08,
+      0.12,
+      0.14,
+      0.1,
+      0.08,
+      0.12,
+      0.15,
+      0.16,
+      0.23,
+      0.22,
+      0.22,
+      0.26,
+      0.25,
+      0.24,
+      0.28,
+      0.3,
+      0.32,
+      0.32,
+      0.39,
+      0.33,
+      0.26,
+      0.32,
+      0.32,
+      0.34,
+      0.4,
+      0.47,
+      0.48,
+      0.51,
+      0.55,
+      0.55,
+      0.54,
+      0.53,
+      0.5,
+      0.43,
+      0.45,
+      0.41,
+      0.41,
+      0.49,
+      0.42,
+      0.37,
+      0.46,
+      0.49,
+      0.46,
+      0.47,
+      0.42,
+      0.35,
+      0.35,
+      0.35,
+      0.34,
+      0.35,
+      0.36,
+      0.4,
+      0.41,
+      0.41,
+      0.4,
+      0.4,
+      0.48,
+      0.38,
+      0.31,
+      0.39,
+      0.46,
+      0.35,
+      0.38,
+      0.35,
+      0.26,
+      0.3,
+      0.35,
+      0.36,
+      0.36,
+      0.36,
+      0.38,
+      0.36,
+      0.3,
+      0.27,
+      0.27,
+      0.32,
+      0.32,
+      0.24,
+      0.31,
+      0.37,
+      0.3,
+      0.24,
+      0.28,
+      0.29,
+      0.28,
+      0.35,
+      0.36,
+      0.35,
+      0.3,
+      0.28,
+      0.3,
+      0.31,
+      0.32,
+      0.31,
+      0.36,
+      0.32,
+      0.28,
+      0.2,
+      0.23,
+      0.24,
+      0.24,
+      0.31,
+      0.38,
+      0.41,
+      0.41,
+      0.47,
+      0.41,
+      0.31,
+      0.33,
+      0.28,
+      0.31,
+      0.26,
+      0.18,
+      0.12,
+      0.15,
+      0.13,
+      0.1,
+      0.12,
+      0.18,
+      0.15,
+      0.18,
+      0.22,
+      0.25,
+      0.28,
+      0.32,
+      0.36,
+      0.4,
+      0.51,
+      0.62,
+      0.66
+     ]
+    }
+   ],
+   "name": "Disordered regions",
+   "provenance_source": "IUPred2(short)",
+   "type": "disorder"
+  },
+  {
+   "feature_positions": [
+    {
+     "beg_seq_id": 1,
+     "values": [
+      0.52,
+      0.53,
+      0.54,
+      0.55,
+      0.56,
+      0.56,
+      0.55,
+      0.56,
+      0.57,
+      0.59,
+      0.6,
+      0.59,
+      0.58,
+      0.58,
+      0.56,
+      0.54,
+      0.52,
+      0.51,
+      0.49,
+      0.47,
+      0.45,
+      0.43,
+      0.42,
+      0.42,
+      0.41,
+      0.41,
+      0.41,
+      0.42,
+      0.43,
+      0.45,
+      0.46,
+      0.47,
+      0.48,
+      0.48,
+      0.49,
+      0.49,
+      0.48,
+      0.48,
+      0.48,
+      0.47,
+      0.47,
+      0.46,
+      0.46,
+      0.46,
+      0.46,
+      0.46,
+      0.46,
+      0.46,
+      0.45,
+      0.44,
+      0.42,
+      0.41,
+      0.41,
+      0.4,
+      0.4,
+      0.41,
+      0.41,
+      0.42,
+      0.42,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.42,
+      0.42,
+      0.42,
+      0.42,
+      0.42,
+      0.42,
+      0.43,
+      0.43,
+      0.43,
+      0.44,
+      0.44,
+      0.45,
+      0.46,
+      0.46,
+      0.46,
+      0.46,
+      0.46,
+      0.46,
+      0.46,
+      0.45,
+      0.45,
+      0.44,
+      0.44,
+      0.44,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.42,
+      0.42,
+      0.41,
+      0.4,
+      0.4,
+      0.39,
+      0.39,
+      0.39,
+      0.4,
+      0.4,
+      0.4,
+      0.41,
+      0.42,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.42,
+      0.42,
+      0.42,
+      0.41,
+      0.41,
+      0.41,
+      0.42,
+      0.42,
+      0.42,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.42,
+      0.42,
+      0.41,
+      0.4,
+      0.39,
+      0.39,
+      0.39,
+      0.39,
+      0.39,
+      0.39,
+      0.4,
+      0.4,
+      0.41,
+      0.42,
+      0.43,
+      0.43,
+      0.42,
+      0.42,
+      0.41,
+      0.41,
+      0.4,
+      0.4,
+      0.4
+     ]
+    }
+   ],
+   "name": "Disordered binding sites",
+   "provenance_source": "Anchor2",
+   "type": "disorder_binding"
+  }
+ ],
+ "rcsb_polymer_entity_group_membership": [
+  {
+   "aggregation_method": "sequence_identity",
+   "aligned_regions": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 8,
+     "ref_beg_seq_id": 2
+    },
+    {
+     "entity_beg_seq_id": 9,
+     "length": 2,
+     "ref_beg_seq_id": 12
+    },
+    {
+     "entity_beg_seq_id": 11,
+     "length": 2,
+     "ref_beg_seq_id": 20
+    },
+    {
+     "entity_beg_seq_id": 13,
+     "length": 175,
+     "ref_beg_seq_id": 34
+    }
+   ],
+   "group_id": "1307_70",
+   "similarity_cutoff": 70.0
+  },
+  {
+   "aggregation_method": "sequence_identity",
+   "aligned_regions": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 10,
+     "ref_beg_seq_id": 2
+    },
+    {
+     "entity_beg_seq_id": 11,
+     "length": 177,
+     "ref_beg_seq_id": 18
+    }
+   ],
+   "group_id": "5964_95",
+   "similarity_cutoff": 95.0
+  },
+  {
+   "aggregation_method": "sequence_identity",
+   "aligned_regions": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 187,
+     "ref_beg_seq_id": 2
+    }
+   ],
+   "group_id": "7382_100",
+   "similarity_cutoff": 100.0
+  },
+  {
+   "aggregation_method": "matching_uniprot_accession",
+   "aligned_regions": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 187,
+     "ref_beg_seq_id": 2
+    }
+   ],
+   "group_id": "P05977"
+  },
+  {
+   "aggregation_method": "sequence_identity",
+   "aligned_regions": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 10,
+     "ref_beg_seq_id": 2
+    },
+    {
+     "entity_beg_seq_id": 11,
+     "length": 5,
+     "ref_beg_seq_id": 24
+    },
+    {
+     "entity_beg_seq_id": 16,
+     "length": 43,
+     "ref_beg_seq_id": 38
+    },
+    {
+     "entity_beg_seq_id": 59,
+     "length": 58,
+     "ref_beg_seq_id": 83
+    },
+    {
+     "entity_beg_seq_id": 117,
+     "length": 46,
+     "ref_beg_seq_id": 144
+    },
+    {
+     "entity_beg_seq_id": 163,
+     "length": 5,
+     "ref_beg_seq_id": 191
+    },
+    {
+     "entity_beg_seq_id": 168,
+     "length": 20,
+     "ref_beg_seq_id": 199
+    }
+   ],
+   "group_id": "1664_30",
+   "similarity_cutoff": 30.0
+  },
+  {
+   "aggregation_method": "sequence_identity",
+   "aligned_regions": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 10,
+     "ref_beg_seq_id": 2
+    },
+    {
+     "entity_beg_seq_id": 11,
+     "length": 177,
+     "ref_beg_seq_id": 18
+    }
+   ],
+   "group_id": "6641_90",
+   "similarity_cutoff": 90.0
+  },
+  {
+   "aggregation_method": "sequence_identity",
+   "aligned_regions": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 10,
+     "ref_beg_seq_id": 2
+    },
+    {
+     "entity_beg_seq_id": 11,
+     "length": 5,
+     "ref_beg_seq_id": 24
+    },
+    {
+     "entity_beg_seq_id": 16,
+     "length": 43,
+     "ref_beg_seq_id": 38
+    },
+    {
+     "entity_beg_seq_id": 59,
+     "length": 104,
+     "ref_beg_seq_id": 83
+    },
+    {
+     "entity_beg_seq_id": 163,
+     "length": 25,
+     "ref_beg_seq_id": 188
+    }
+   ],
+   "group_id": "1412_50",
+   "similarity_cutoff": 50.0
+  }
+ ],
+ "rcsb_polymer_entity_name_com": [
+  {
+   "name": "MLC1/MLC3,MLC1F/MLC3F,Myosin light chain alkali 1/2,Myosin light chain A1/A2"
+  }
+ ]
+}

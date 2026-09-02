@@ -1,0 +1,53 @@
+# Does the propagation source have to be the catalytic site, and does it have to be right?
+#
+# CHALLENGE.md §4.1 requires a ranking of residues by dynamic connectivity "in most cases"
+# to an active site. The hedge is the organisers' own, and it matters: c-Myc, the stretch
+# target, is a transcription factor with no catalytic site at all. So two questions:
+#
+#   1. Does a label-blind alternative source do as well as the frozen catalytic site?
+#   2. Does a *random* size-matched source do as well? If it does, then conditioning on the
+#      active site contributes nothing and the propagation framing is decoration.
+#
+# Question 2 is the one that can embarrass us, which is why it is here.
+#
+# Every source below is derived from the apo entry alone. None reads a label.
+
+arms: [mkp5, ptp1b, hiv_rt, ns5b]
+graph: {contact: heavy_min, weighting: unit}
+
+# Each alternative takes the same number of residues as that arm's frozen active site, so a
+# difference is not a difference in source size.
+sources:
+  catalytic: {}                       # the frozen active site -- the control
+  eigenvector_centrality: {}          # the graph's own spectral core
+  degree: {}                          # the densest-packed residues
+  buried: {}                          # lowest protrusion index -- the most enclosed residues
+  fiedler: {}                         # largest |Fiedler| -- the slow mode's two lobes
+  random: {seeds: [0, 1, 2, 3, 4]}    # the null. Five draws, size-matched
+
+# Source-conditioned observables only, plus `degree` as an invariance check: it ignores the
+# source, so its score must be identical across every row, and a difference means a bug.
+scorers:
+  quantum:
+    - ctqw_average_transfer
+    - ctqw_infinite_time_average
+    - ctqw_peak_transfer
+    - ctqw_temporal_variance
+    - ctqw_coherent_source_contrast
+    - quantum_survival_time
+    - quantum_perturbation_response
+    - dephased_transport
+    - szegedy_quantum_pagerank
+    - quantum_best_case_transfer
+    - quantum_opening_gain
+  classical:
+    - distance_from_source_negated
+    - heat_kernel_from_source
+    - current_flow_to_source
+    - communicability_from_source
+    - hitting_time_to_source_negated
+    - effective_resistance_to_source
+    - source_conditioned_betweenness
+    - degree
+
+seed: 0

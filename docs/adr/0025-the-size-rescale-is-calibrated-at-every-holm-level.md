@@ -53,6 +53,15 @@ through `score_arm` under protocol version 2:
 Three rejections out of three, at AUC-ROC inside the 0.75–0.82 band the protocol cites for the
 published elastic-network literature. The tighter version-2 calibration does not save it.
 
+> **Re-measured under protocol version 3 on 2026-09-02, and it is now 1 of 3.** `p_calibrated`
+> reads 0.0046 / 0.0715 / 0.3236 on `cardiac_myosin_corrected`, `kras_g12c_corrected` and
+> `bcr_abl1_corrected`, and only the first clears its Holm threshold. Version 3 moved
+> `bcr_abl1_corrected` to a different apo chain and that arm's AUC-ROC fell from 0.795 to
+> 0.563. The decision this ADR records does not change: a zero-parameter detector score still
+> clears the confirmatory null on one arm with recall@5 = 0.00, so clearing the null is still a
+> low bar. The table above is version-2 history and stays as written. Current numbers:
+> `../benchmark/evaluation/README.md` §8.
+
 This is not a defect in the null. The null controls patch size, compactness and burial. It does
 not control cavity volume and it is not asked to. What the result shows is that **clearing the
 confirmatory null is a low bar**. The same finding arrived independently from the literature

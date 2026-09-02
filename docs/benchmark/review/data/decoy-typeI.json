@@ -1,0 +1,125 @@
+{
+  "band": [
+    0.037,
+    0.064
+  ],
+  "n_fields": 1000,
+  "alpha": 0.05,
+  "arms": {
+    "kras_g12c_mandated": {
+      "m": 16,
+      "n_decoys": 3,
+      "pool": 23,
+      "lam": {
+        "4.0": {
+          "A_pocket": 0.0,
+          "B_residue": 0.314
+        },
+        "8.0": {
+          "A_pocket": 0.0,
+          "B_residue": 0.354
+        },
+        "12.0": {
+          "A_pocket": 0.0,
+          "B_residue": 0.366
+        },
+        "20.0": {
+          "A_pocket": 0.0,
+          "B_residue": 0.383
+        }
+      }
+    },
+    "kras_g12c_corrected": {
+      "m": 16,
+      "n_decoys": 3,
+      "pool": 25,
+      "lam": {
+        "4.0": {
+          "A_pocket": 0.0,
+          "B_residue": 0.317
+        },
+        "8.0": {
+          "A_pocket": 0.0,
+          "B_residue": 0.353
+        },
+        "12.0": {
+          "A_pocket": 0.0,
+          "B_residue": 0.368
+        },
+        "20.0": {
+          "A_pocket": 0.0,
+          "B_residue": 0.384
+        }
+      }
+    },
+    "bcr_abl1_mandated": {
+      "m": 20,
+      "n_decoys": 24,
+      "pool": 197,
+      "lam": {
+        "4.0": {
+          "A_pocket": 0.014,
+          "B_residue": 0.172
+        },
+        "8.0": {
+          "A_pocket": 0.018,
+          "B_residue": 0.261
+        },
+        "12.0": {
+          "A_pocket": 0.018,
+          "B_residue": 0.292
+        },
+        "20.0": {
+          "A_pocket": 0.021,
+          "B_residue": 0.306
+        }
+      }
+    },
+    "bcr_abl1_corrected": {
+      "m": 18,
+      "n_decoys": 9,
+      "pool": 73,
+      "lam": {
+        "4.0": {
+          "A_pocket": 0.0,
+          "B_residue": 0.228
+        },
+        "8.0": {
+          "A_pocket": 0.0,
+          "B_residue": 0.301
+        },
+        "12.0": {
+          "A_pocket": 0.0,
+          "B_residue": 0.327
+        },
+        "20.0": {
+          "A_pocket": 0.0,
+          "B_residue": 0.348
+        }
+      }
+    },
+    "cardiac_myosin_corrected": {
+      "m": 12,
+      "n_decoys": 41,
+      "pool": 291,
+      "lam": {
+        "4.0": {
+          "A_pocket": 0.019,
+          "B_residue": 0.132
+        },
+        "8.0": {
+          "A_pocket": 0.028,
+          "B_residue": 0.219
+        },
+        "12.0": {
+          "A_pocket": 0.027,
+          "B_residue": 0.254
+        },
+        "20.0": {
+          "A_pocket": 0.032,
+          "B_residue": 0.295
+        }
+      }
+    }
+  }
+}

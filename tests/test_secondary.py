@@ -351,7 +351,7 @@ def test_no_accession_is_pinned_at_two_versions_across_the_two_sets():
             seen[pdb_id] = key
     # The two sets share no accession today, so the inner assertion never fires. Without this
     # the test would keep passing after someone emptied a provenance block.
-    assert checked == 26, f"expected 26 pinned structures across both sets, walked {checked}"
+    assert checked == 27, f"expected 27 pinned structures across both sets, walked {checked}"
 
 
 def test_the_frozen_set_reports_the_difficulty_it_actually_spans(frozen):

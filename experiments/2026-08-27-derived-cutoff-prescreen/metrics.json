@@ -1,0 +1,200 @@
+{
+  "n_arms": 9,
+  "constant_threshold_angstrom": 0.3,
+  "rules": {
+    "isostatic_backbone": {
+      "development": {
+        "n": 4,
+        "min": 3.449999999999995,
+        "max": 3.5999999999999943,
+        "spread": 0.15,
+        "mean": 3.5,
+        "sd": 0.0707,
+        "is_constant": true
+      },
+      "primary": {
+        "n": 5,
+        "min": 3.4999999999999947,
+        "max": 3.5999999999999943,
+        "spread": 0.1,
+        "mean": 3.55,
+        "sd": 0.0354,
+        "is_constant": true
+      },
+      "all": {
+        "n": 9,
+        "min": 3.449999999999995,
+        "max": 3.5999999999999943,
+        "spread": 0.15,
+        "mean": 3.5278,
+        "sd": 0.0565,
+        "is_constant": true
+      },
+      "unsolved": []
+    },
+    "isostatic_tertiary": {
+      "development": {
+        "n": 4,
+        "min": 3.8499999999999934,
+        "max": 4.149999999999992,
+        "spread": 0.3,
+        "mean": 3.9375,
+        "sd": 0.1436,
+        "is_constant": true
+      },
+      "primary": {
+        "n": 5,
+        "min": 3.949999999999993,
+        "max": 3.999999999999993,
+        "spread": 0.05,
+        "mean": 3.97,
+        "sd": 0.0274,
+        "is_constant": true
+      },
+      "all": {
+        "n": 9,
+        "min": 3.8499999999999934,
+        "max": 4.149999999999992,
+        "spread": 0.3,
+        "mean": 3.9556,
+        "sd": 0.0917,
+        "is_constant": true
+      },
+      "unsolved": []
+    },
+    "connectivity_backbone": {
+      "development": {
+        "n": 4,
+        "min": 2.0,
+        "max": 2.6499999999999977,
+        "spread": 0.65,
+        "mean": 2.1625,
+        "sd": 0.325,
+        "is_constant": false
+      },
+      "primary": {
+        "n": 5,
+        "min": 2.0,
+        "max": 2.549999999999998,
+        "spread": 0.55,
+        "mean": 2.11,
+        "sd": 0.246,
+        "is_constant": false
+      },
+      "all": {
+        "n": 9,
+        "min": 2.0,
+        "max": 2.6499999999999977,
+        "spread": 0.65,
+        "mean": 2.1333,
+        "sd": 0.2658,
+        "is_constant": false
+      },
+      "unsolved": []
+    },
+    "connectivity_tertiary": {
+      "development": {
+        "n": 4,
+        "min": 3.4999999999999947,
+        "max": 4.249999999999992,
+        "spread": 0.75,
+        "mean": 3.9625,
+        "sd": 0.3614,
+        "is_constant": false
+      },
+      "primary": {
+        "n": 5,
+        "min": 3.5999999999999943,
+        "max": 4.299999999999992,
+        "spread": 0.7,
+        "mean": 3.96,
+        "sd": 0.2966,
+        "is_constant": false
+      },
+      "all": {
+        "n": 9,
+        "min": 3.4999999999999947,
+        "max": 4.299999999999992,
+        "spread": 0.8,
+        "mean": 3.9611,
+        "sd": 0.3049,
+        "is_constant": false
+      },
+      "unsolved": []
+    },
+    "rdf_first_minimum_backbone": {
+      "development": {
+        "n": 4,
+        "min": 1.1750000000000003,
+        "max": 1.225,
+        "spread": 0.05,
+        "mean": 1.2,
+        "sd": 0.0289,
+        "is_constant": true
+      },
+      "primary": {
+        "n": 5,
+        "min": 1.1750000000000003,
+        "max": 1.225,
+        "spread": 0.05,
+        "mean": 1.205,
+        "sd": 0.0274,
+        "is_constant": true
+      },
+      "all": {
+        "n": 9,
+        "min": 1.1750000000000003,
+        "max": 1.225,
+        "spread": 0.05,
+        "mean": 1.2028,
+        "sd": 0.0264,
+        "is_constant": true
+      },
+      "unsolved": []
+    },
+    "rdf_first_minimum_tertiary": {
+      "development": {
+        "n": 4,
+        "min": 3.2750000000000004,
+        "max": 4.525,
+        "spread": 1.25,
+        "mean": 4.175,
+        "sd": 0.6014,
+        "is_constant": false
+      },
+      "primary": {
+        "n": 5,
+        "min": 3.1750000000000003,
+        "max": 4.825000000000001,
+        "spread": 1.65,
+        "mean": 3.905,
+        "sd": 0.7997,
+        "is_constant": false
+      },
+      "all": {
+        "n": 9,
+        "min": 3.1750000000000003,
+        "max": 4.825000000000001,
+        "spread": 1.65,
+        "mean": 4.025,
+        "sd": 0.6897,
+        "is_constant": false
+      },
+      "unsolved": []
+    }
+  },
+  "mean_contact_number_at_frozen": {
+    "min": 8.851,
+    "max": 9.94,
+    "ratio": 1.123
+  },
+  "closest_pair": {
+    "min": 1.281,
+    "max": 1.323
+  },
+  "n_residues": {
+    "min": 147,
+    "max": 764,
+    "ratio": 5.2
+  }
+}

@@ -1,0 +1,179 @@
+{
+ "chem_comp": {
+  "formula": "C19 H17 Br2 N O5 S",
+  "formula_weight": 531.215,
+  "id": "BB3",
+  "name": "3-(3,5-DIBROMO-4-HYDROXY-BENZOYL)-2-ETHYL-BENZOFURAN-6-SULFONIC ACID DIMETHYLAMIDE",
+  "pdbx_ambiguous_flag": "N",
+  "pdbx_formal_charge": 0,
+  "pdbx_initial_date": "2004-04-29T00:00:00.000+00:00",
+  "pdbx_modified_date": "2011-06-04T00:00:00.000+00:00",
+  "pdbx_processing_site": "RCSB",
+  "pdbx_release_status": "REL",
+  "three_letter_code": "BB3",
+  "type": "non-polymer"
+ },
+ "pdbx_chem_comp_audit": [
+  {
+   "action_type": "Create component",
+   "comp_id": "BB3",
+   "date": "2004-04-29T00:00:00.000+00:00",
+   "ordinal": 1
+  },
+  {
+   "action_type": "Modify descriptor",
+   "comp_id": "BB3",
+   "date": "2011-06-04T00:00:00.000+00:00",
+   "ordinal": 2
+  }
+ ],
+ "pdbx_chem_comp_descriptor": [
+  {
+   "comp_id": "BB3",
+   "descriptor": "Brc1cc(cc(Br)c1O)C(=O)c2c3ccc(cc3oc2CC)S(=O)(=O)N(C)C",
+   "program": "ACDLabs",
+   "program_version": "10.04",
+   "type": "SMILES"
+  },
+  {
+   "comp_id": "BB3",
+   "descriptor": "CCc1oc2cc(ccc2c1C(=O)c3cc(Br)c(O)c(Br)c3)[S](=O)(=O)N(C)C",
+   "program": "CACTVS",
+   "program_version": "3.341",
+   "type": "SMILES_CANONICAL"
+  },
+  {
+   "comp_id": "BB3",
+   "descriptor": "CCc1oc2cc(ccc2c1C(=O)c3cc(Br)c(O)c(Br)c3)[S](=O)(=O)N(C)C",
+   "program": "CACTVS",
+   "program_version": "3.341",
+   "type": "SMILES"
+  },
+  {
+   "comp_id": "BB3",
+   "descriptor": "CCc1c(c2ccc(cc2o1)S(=O)(=O)N(C)C)C(=O)c3cc(c(c(c3)Br)O)Br",
+   "program": "OpenEye OEToolkits",
+   "program_version": "1.5.0",
+   "type": "SMILES_CANONICAL"
+  },
+  {
+   "comp_id": "BB3",
+   "descriptor": "CCc1c(c2ccc(cc2o1)S(=O)(=O)N(C)C)C(=O)c3cc(c(c(c3)Br)O)Br",
+   "program": "OpenEye OEToolkits",
+   "program_version": "1.5.0",
+   "type": "SMILES"
+  },
+  {
+   "comp_id": "BB3",
+   "descriptor": "InChI=1S/C19H17Br2NO5S/c1-4-15-17(18(23)10-7-13(20)19(24)14(21)8-10)12-6-5-11(9-16(12)27-15)28(25,26)22(2)3/h5-9,24H,4H2,1-3H3",
+   "program": "InChI",
+   "program_version": "1.03",
+   "type": "InChI"
+  },
+  {
+   "comp_id": "BB3",
+   "descriptor": "FEYGJZKVMASWJB-UHFFFAOYSA-N",
+   "program": "InChI",
+   "program_version": "1.03",
+   "type": "InChIKey"
+  }
+ ],
+ "pdbx_chem_comp_identifier": [
+  {
+   "comp_id": "BB3",
+   "identifier": "3-[(3,5-dibromo-4-hydroxyphenyl)carbonyl]-2-ethyl-N,N-dimethyl-1-benzofuran-6-sulfonamide",
+   "program": "ACDLabs",
+   "program_version": "10.04",
+   "type": "SYSTEMATIC NAME"
+  },
+  {
+   "comp_id": "BB3",
+   "identifier": "3-(3,5-dibromo-4-hydroxy-phenyl)carbonyl-2-ethyl-N,N-dimethyl-1-benzofuran-6-sulfonamide",
+   "program": "OpenEye OEToolkits",
+   "program_version": "1.5.0",
+   "type": "SYSTEMATIC NAME"
+  }
+ ],
+ "rcsb_chem_comp_container_identifiers": {
+  "comp_id": "BB3",
+  "drugbank_id": "DB04142",
+  "rcsb_id": "BB3"
+ },
+ "rcsb_chem_comp_descriptor": {
+  "InChI": "InChI=1S/C19H17Br2NO5S/c1-4-15-17(18(23)10-7-13(20)19(24)14(21)8-10)12-6-5-11(9-16(12)27-15)28(25,26)22(2)3/h5-9,24H,4H2,1-3H3",
+  "InChIKey": "FEYGJZKVMASWJB-UHFFFAOYSA-N",
+  "SMILES": "CCc1c(c2ccc(cc2o1)S(=O)(=O)N(C)C)C(=O)c3cc(c(c(c3)Br)O)Br",
+  "SMILES_stereo": "CCc1c(c2ccc(cc2o1)S(=O)(=O)N(C)C)C(=O)c3cc(c(c(c3)Br)O)Br",
+  "comp_id": "BB3"
+ },
+ "rcsb_chem_comp_info": {
+  "atom_count": 45,
+  "atom_count_chiral": 0,
+  "atom_count_heavy": 28,
+  "bond_count": 47,
+  "bond_count_aromatic": 16,
+  "comp_id": "BB3",
+  "initial_deposition_date": "2004-04-29T00:00:00.000+00:00",
+  "initial_release_date": "2004-07-20T00:00:00.000+00:00",
+  "release_status": "REL",
+  "revision_date": "2011-06-04T00:00:00.000+00:00"
+ },
+ "rcsb_chem_comp_related": [
+  {
+   "comp_id": "BB3",
+   "ordinal": 1,
+   "related_mapping_method": "matching InChIKey in DrugBank",
+   "resource_accession_code": "DB04142",
+   "resource_name": "DrugBank"
+  },
+  {
+   "comp_id": "BB3",
+   "ordinal": 2,
+   "related_mapping_method": "matching InChIKey in PubChem",
+   "resource_accession_code": "448660",
+   "resource_name": "PubChem"
+  }
+ ],
+ "rcsb_chem_comp_synonyms": [
+  {
+   "comp_id": "BB3",
+   "name": "3-(3,5-DIBROMO-4-HYDROXY-BENZOYL)-2-ETHYL-BENZOFURAN-6-SULFONIC ACID DIMETHYLAMIDE",
+   "ordinal": 1,
+   "provenance_source": "PDB Reference Data",
+   "type": "Preferred Name"
+  },
+  {
+   "comp_id": "BB3",
+   "name": "3-[(3,5-dibromo-4-hydroxyphenyl)carbonyl]-2-ethyl-N,N-dimethyl-1-benzofuran-6-sulfonamide",
+   "ordinal": 2,
+   "provenance_source": "ACDLabs",
+   "type": "Systematic Name"
+  },
+  {
+   "comp_id": "BB3",
+   "name": "3-(3,5-dibromo-4-hydroxy-phenyl)carbonyl-2-ethyl-N,N-dimethyl-1-benzofuran-6-sulfonamide",
+   "ordinal": 3,
+   "provenance_source": "OpenEye OEToolkits",
+   "type": "Systematic Name"
+  },
+  {
+   "comp_id": "BB3",
+   "name": "3-(3,5-Dibromo-4-Hydroxy-Benzoyl)-2-Ethyl-Benzofuran-6-Sulfonic Acid Dimethylamide",
+   "ordinal": 4,
+   "provenance_source": "DrugBank",
+   "type": "Synonym"
+  }
+ ],
+ "rcsb_chem_comp_target": [
+  {
+   "comp_id": "BB3",
+   "interaction_type": "target",
+   "name": "Tyrosine-protein phosphatase non-receptor type 1",
+   "ordinal": 1,
+   "provenance_source": "DrugBank",
+   "reference_database_accession_code": "P18031",
+   "reference_database_name": "UniProt"
+  }
+ ],
+ "rcsb_id": "BB3"
+}

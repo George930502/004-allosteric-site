@@ -1,0 +1,32 @@
+{
+ "pdbx_entity_nonpoly": {
+  "comp_id": "U5P",
+  "entity_id": "10",
+  "name": "URIDINE-5'-MONOPHOSPHATE"
+ },
+ "rcsb_id": "1T36_10",
+ "rcsb_nonpolymer_entity": {
+  "formula_weight": 0.324,
+  "pdbx_description": "URIDINE-5'-MONOPHOSPHATE",
+  "pdbx_number_of_molecules": 4
+ },
+ "rcsb_nonpolymer_entity_container_identifiers": {
+  "asym_ids": [
+   "MC",
+   "QB",
+   "UA",
+   "Z"
+  ],
+  "auth_asym_ids": [
+   "A",
+   "C",
+   "E",
+   "G"
+  ],
+  "chem_ref_def_id": "U5P",
+  "entity_id": "10",
+  "entry_id": "1T36",
+  "nonpolymer_comp_id": "U5P",
+  "rcsb_id": "1T36_10"
+ }
+}

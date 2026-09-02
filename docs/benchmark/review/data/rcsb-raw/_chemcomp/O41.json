@@ -1,0 +1,153 @@
+{
+ "chem_comp": {
+  "formula": "C13 H19 N3 O4 S",
+  "formula_weight": 313.373,
+  "id": "O41",
+  "name": "5-cyclopropyl-N-[1-(methylsulfonyl)piperidin-4-yl]-1,2-oxazole-3-carboxamide",
+  "pdbx_ambiguous_flag": "N",
+  "pdbx_formal_charge": 0,
+  "pdbx_initial_date": "2019-06-07T00:00:00.000+00:00",
+  "pdbx_modified_date": "2020-01-10T00:00:00.000+00:00",
+  "pdbx_processing_site": "RCSB",
+  "pdbx_release_status": "REL",
+  "three_letter_code": "O41",
+  "type": "non-polymer"
+ },
+ "pdbx_chem_comp_audit": [
+  {
+   "action_type": "Create component",
+   "comp_id": "O41",
+   "date": "2019-06-07T00:00:00.000+00:00",
+   "ordinal": 1
+  },
+  {
+   "action_type": "Initial release",
+   "comp_id": "O41",
+   "date": "2020-01-15T00:00:00.000+00:00",
+   "ordinal": 2
+  }
+ ],
+ "pdbx_chem_comp_descriptor": [
+  {
+   "comp_id": "O41",
+   "descriptor": "C1N(CCC(C1)NC(=O)c3cc(C2CC2)on3)S(C)(=O)=O",
+   "program": "ACDLabs",
+   "program_version": "12.01",
+   "type": "SMILES"
+  },
+  {
+   "comp_id": "O41",
+   "descriptor": "InChI=1S/C13H19N3O4S/c1-21(18,19)16-6-4-10(5-7-16)14-13(17)11-8-12(20-15-11)9-2-3-9/h8-10H,2-7H2,1H3,(H,14,17)",
+   "program": "InChI",
+   "program_version": "1.03",
+   "type": "InChI"
+  },
+  {
+   "comp_id": "O41",
+   "descriptor": "KHFWLXQEZOVIGK-UHFFFAOYSA-N",
+   "program": "InChI",
+   "program_version": "1.03",
+   "type": "InChIKey"
+  },
+  {
+   "comp_id": "O41",
+   "descriptor": "C[S](=O)(=O)N1CCC(CC1)NC(=O)c2cc(on2)C3CC3",
+   "program": "CACTVS",
+   "program_version": "3.385",
+   "type": "SMILES_CANONICAL"
+  },
+  {
+   "comp_id": "O41",
+   "descriptor": "C[S](=O)(=O)N1CCC(CC1)NC(=O)c2cc(on2)C3CC3",
+   "program": "CACTVS",
+   "program_version": "3.385",
+   "type": "SMILES"
+  },
+  {
+   "comp_id": "O41",
+   "descriptor": "CS(=O)(=O)N1CCC(CC1)NC(=O)c2cc(on2)C3CC3",
+   "program": "OpenEye OEToolkits",
+   "program_version": "2.0.7",
+   "type": "SMILES_CANONICAL"
+  },
+  {
+   "comp_id": "O41",
+   "descriptor": "CS(=O)(=O)N1CCC(CC1)NC(=O)c2cc(on2)C3CC3",
+   "program": "OpenEye OEToolkits",
+   "program_version": "2.0.7",
+   "type": "SMILES"
+  }
+ ],
+ "pdbx_chem_comp_identifier": [
+  {
+   "comp_id": "O41",
+   "identifier": "5-cyclopropyl-N-[1-(methylsulfonyl)piperidin-4-yl]-1,2-oxazole-3-carboxamide",
+   "program": "ACDLabs",
+   "program_version": "12.01",
+   "type": "SYSTEMATIC NAME"
+  },
+  {
+   "comp_id": "O41",
+   "identifier": "5-cyclopropyl-~{N}-(1-methylsulfonylpiperidin-4-yl)-1,2-oxazole-3-carboxamide",
+   "program": "OpenEye OEToolkits",
+   "program_version": "2.0.7",
+   "type": "SYSTEMATIC NAME"
+  }
+ ],
+ "rcsb_chem_comp_container_identifiers": {
+  "comp_id": "O41",
+  "rcsb_id": "O41"
+ },
+ "rcsb_chem_comp_descriptor": {
+  "InChI": "InChI=1S/C13H19N3O4S/c1-21(18,19)16-6-4-10(5-7-16)14-13(17)11-8-12(20-15-11)9-2-3-9/h8-10H,2-7H2,1H3,(H,14,17)",
+  "InChIKey": "KHFWLXQEZOVIGK-UHFFFAOYSA-N",
+  "SMILES": "CS(=O)(=O)N1CCC(CC1)NC(=O)c2cc(on2)C3CC3",
+  "SMILES_stereo": "CS(=O)(=O)N1CCC(CC1)NC(=O)c2cc(on2)C3CC3",
+  "comp_id": "O41"
+ },
+ "rcsb_chem_comp_info": {
+  "atom_count": 40,
+  "atom_count_chiral": 0,
+  "atom_count_heavy": 21,
+  "bond_count": 42,
+  "bond_count_aromatic": 5,
+  "comp_id": "O41",
+  "initial_deposition_date": "2019-06-07T00:00:00.000+00:00",
+  "initial_release_date": "2020-01-15T00:00:00.000+00:00",
+  "release_status": "REL",
+  "revision_date": "2020-01-15T00:00:00.000+00:00"
+ },
+ "rcsb_chem_comp_related": [
+  {
+   "comp_id": "O41",
+   "ordinal": 1,
+   "related_mapping_method": "matching InChIKey in PubChem",
+   "resource_accession_code": "45808906",
+   "resource_name": "PubChem"
+  }
+ ],
+ "rcsb_chem_comp_synonyms": [
+  {
+   "comp_id": "O41",
+   "name": "5-cyclopropyl-N-[1-(methylsulfonyl)piperidin-4-yl]-1,2-oxazole-3-carboxamide",
+   "ordinal": 1,
+   "provenance_source": "PDB Reference Data",
+   "type": "Preferred Name"
+  },
+  {
+   "comp_id": "O41",
+   "name": "5-cyclopropyl-N-[1-(methylsulfonyl)piperidin-4-yl]-1,2-oxazole-3-carboxamide",
+   "ordinal": 2,
+   "provenance_source": "ACDLabs",
+   "type": "Systematic Name"
+  },
+  {
+   "comp_id": "O41",
+   "name": "5-cyclopropyl-~{N}-(1-methylsulfonylpiperidin-4-yl)-1,2-oxazole-3-carboxamide",
+   "ordinal": 3,
+   "provenance_source": "OpenEye OEToolkits",
+   "type": "Systematic Name"
+  }
+ ],
+ "rcsb_id": "O41"
+}

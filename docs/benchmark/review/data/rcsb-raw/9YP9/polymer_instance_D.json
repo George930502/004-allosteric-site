@@ -1,0 +1,1113 @@
+{
+ "pdbx_vrpt_summary_entity_fit_to_map": [
+  {
+   "PDB_model_num": 1,
+   "Q_score": 0.436,
+   "average_residue_inclusion": 0.9733
+  }
+ ],
+ "pdbx_vrpt_summary_entity_geometry": [
+  {
+   "PDB_model_num": 1,
+   "angles_RMSZ": 0.42,
+   "bonds_RMSZ": 0.3,
+   "num_angles_RMSZ": 1611,
+   "num_bonds_RMSZ": 1203
+  }
+ ],
+ "rcsb_id": "9YP9.D",
+ "rcsb_polymer_entity_instance_container_identifiers": {
+  "asym_id": "D",
+  "auth_asym_id": "D",
+  "auth_to_entity_poly_seq_mapping": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6",
+   "7",
+   "8",
+   "9",
+   "10",
+   "11",
+   "12",
+   "13",
+   "14",
+   "15",
+   "16",
+   "17",
+   "18",
+   "19",
+   "20",
+   "21",
+   "22",
+   "23",
+   "24",
+   "25",
+   "26",
+   "27",
+   "28",
+   "29",
+   "30",
+   "31",
+   "32",
+   "33",
+   "34",
+   "35",
+   "36",
+   "37",
+   "38",
+   "39",
+   "40",
+   "41",
+   "42",
+   "43",
+   "44",
+   "45",
+   "46",
+   "47",
+   "48",
+   "49",
+   "50",
+   "51",
+   "52",
+   "53",
+   "54",
+   "55",
+   "56",
+   "57",
+   "58",
+   "59",
+   "60",
+   "61",
+   "62",
+   "63",
+   "64",
+   "65",
+   "66",
+   "67",
+   "68",
+   "69",
+   "70",
+   "71",
+   "72",
+   "73",
+   "74",
+   "75",
+   "76",
+   "77",
+   "78",
+   "79",
+   "80",
+   "81",
+   "82",
+   "83",
+   "84",
+   "85",
+   "86",
+   "87",
+   "88",
+   "89",
+   "90",
+   "91",
+   "92",
+   "93",
+   "94",
+   "95",
+   "96",
+   "97",
+   "98",
+   "99",
+   "100",
+   "101",
+   "102",
+   "103",
+   "104",
+   "105",
+   "106",
+   "107",
+   "108",
+   "109",
+   "110",
+   "111",
+   "112",
+   "113",
+   "114",
+   "115",
+   "116",
+   "117",
+   "118",
+   "119",
+   "120",
+   "121",
+   "122",
+   "123",
+   "124",
+   "125",
+   "126",
+   "127",
+   "128",
+   "129",
+   "130",
+   "131",
+   "132",
+   "133",
+   "134",
+   "135",
+   "136",
+   "137",
+   "138",
+   "139",
+   "140",
+   "141",
+   "142",
+   "143",
+   "144",
+   "145",
+   "146",
+   "147",
+   "148",
+   "149",
+   "150",
+   "151",
+   "152",
+   "153",
+   "154",
+   "155",
+   "156",
+   "157",
+   "158",
+   "159",
+   "160",
+   "161",
+   "162",
+   "163",
+   "164",
+   "165",
+   "166",
+   "167",
+   "168",
+   "169",
+   "170",
+   "171",
+   "172",
+   "173",
+   "174",
+   "175",
+   "176",
+   "177",
+   "178",
+   "179",
+   "180",
+   "181",
+   "182",
+   "183",
+   "184",
+   "185",
+   "186",
+   "187",
+   "188"
+  ],
+  "entity_id": "2",
+  "entry_id": "9YP9",
+  "rcsb_id": "9YP9.D"
+ },
+ "rcsb_polymer_instance_annotation": [
+  {
+   "annotation_id": "8102867",
+   "annotation_lineage": [
+    {
+     "depth": 1,
+     "id": "1",
+     "name": "Globular proteins"
+    },
+    {
+     "depth": 2,
+     "id": "1000000",
+     "name": "All alpha proteins"
+    },
+    {
+     "depth": 3,
+     "id": "2000120",
+     "name": "Pair of EF Hands-like"
+    },
+    {
+     "depth": 4,
+     "id": "3001983",
+     "name": "EF-hand"
+    }
+   ],
+   "assignment_version": "2022-06-29",
+   "name": "EF-hand",
+   "ordinal": 4,
+   "provenance_source": "SCOP2B",
+   "type": "SCOP2"
+  }
+ ],
+ "rcsb_polymer_instance_feature": [
+  {
+   "additional_properties": [
+    {
+     "name": "SCOP2_SUPERFAMILY_NAME",
+     "values": [
+      "EF-hand"
+     ]
+    },
+    {
+     "name": "SCOP2_DOMAIN_ID",
+     "values": [
+      "8102867"
+     ]
+    },
+    {
+     "name": "SCOP2_SUPERFAMILY_ID",
+     "values": [
+      "3001983"
+     ]
+    }
+   ],
+   "assignment_version": "2022-06-29",
+   "feature_id": "8102867",
+   "feature_positions": [
+    {
+     "beg_seq_id": 40,
+     "end_seq_id": 187
+    }
+   ],
+   "name": "EF-hand",
+   "ordinal": 4,
+   "provenance_source": "SCOP2B",
+   "type": "SCOP2B_SUPERFAMILY"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "SHEET_SENSE",
+     "values": [
+      "anti-parallel"
+     ]
+    }
+   ],
+   "assignment_version": "V1.0",
+   "description": "anti-parallel sense sheet",
+   "feature_id": "AB7",
+   "feature_positions": [
+    {
+     "beg_seq_id": 141,
+     "end_seq_id": 142
+    },
+    {
+     "beg_seq_id": 175,
+     "end_seq_id": 176
+    }
+   ],
+   "name": "sheet",
+   "ordinal": 22,
+   "provenance_source": "PROMOTIF",
+   "type": "SHEET"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P88",
+   "feature_positions": [
+    {
+     "beg_seq_id": 42,
+     "end_seq_id": 57
+    }
+   ],
+   "name": "helix",
+   "ordinal": 111,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P89",
+   "feature_positions": [
+    {
+     "beg_seq_id": 65,
+     "end_seq_id": 67
+    }
+   ],
+   "name": "helix",
+   "ordinal": 112,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P90",
+   "feature_positions": [
+    {
+     "beg_seq_id": 68,
+     "end_seq_id": 77
+    }
+   ],
+   "name": "helix",
+   "ordinal": 113,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P91",
+   "feature_positions": [
+    {
+     "beg_seq_id": 81,
+     "end_seq_id": 89
+    }
+   ],
+   "name": "helix",
+   "ordinal": 114,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P92",
+   "feature_positions": [
+    {
+     "beg_seq_id": 94,
+     "end_seq_id": 98
+    }
+   ],
+   "name": "helix",
+   "ordinal": 115,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P93",
+   "feature_positions": [
+    {
+     "beg_seq_id": 103,
+     "end_seq_id": 118
+    }
+   ],
+   "name": "helix",
+   "ordinal": 116,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P94",
+   "feature_positions": [
+    {
+     "beg_seq_id": 122,
+     "end_seq_id": 132
+    }
+   ],
+   "name": "helix",
+   "ordinal": 117,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P95",
+   "feature_positions": [
+    {
+     "beg_seq_id": 143,
+     "end_seq_id": 152
+    }
+   ],
+   "name": "helix",
+   "ordinal": 118,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P96",
+   "feature_positions": [
+    {
+     "beg_seq_id": 158,
+     "end_seq_id": 166
+    }
+   ],
+   "name": "helix",
+   "ordinal": 119,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "HELX_P97",
+   "feature_positions": [
+    {
+     "beg_seq_id": 177,
+     "end_seq_id": 187
+    }
+   ],
+   "name": "helix",
+   "ordinal": 120,
+   "provenance_source": "PROMOTIF",
+   "type": "HELIX_P"
+  },
+  {
+   "assignment_version": "V1.0",
+   "feature_id": "1",
+   "feature_positions": [
+    {
+     "beg_seq_id": 1,
+     "end_seq_id": 41
+    },
+    {
+     "beg_seq_id": 58,
+     "end_seq_id": 64
+    },
+    {
+     "beg_seq_id": 78,
+     "end_seq_id": 80
+    },
+    {
+     "beg_seq_id": 90,
+     "end_seq_id": 93
+    },
+    {
+     "beg_seq_id": 99,
+     "end_seq_id": 102
+    },
+    {
+     "beg_seq_id": 119,
+     "end_seq_id": 121
+    },
+    {
+     "beg_seq_id": 133,
+     "end_seq_id": 140
+    },
+    {
+     "beg_seq_id": 153,
+     "end_seq_id": 157
+    },
+    {
+     "beg_seq_id": 167,
+     "end_seq_id": 174
+    },
+    {
+     "beg_seq_id": 188,
+     "end_seq_id": 188
+    }
+   ],
+   "name": "unassigned secondary structure",
+   "ordinal": 140,
+   "provenance_source": "PROMOTIF",
+   "type": "UNASSIGNED_SEC_STRUCT"
+  },
+  {
+   "assignment_version": "V1.0",
+   "description": "No coordinates for this residue are reported in model 1",
+   "feature_id": "1",
+   "feature_positions": [
+    {
+     "beg_seq_id": 1,
+     "end_seq_id": 35
+    },
+    {
+     "beg_seq_id": 188,
+     "end_seq_id": 188
+    }
+   ],
+   "name": "unmodeled residue",
+   "ordinal": 152,
+   "provenance_source": "PDB",
+   "type": "UNOBSERVED_RESIDUE_XYZ"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PDB_MODEL_NUM",
+     "values": [
+      "1"
+     ]
+    }
+   ],
+   "feature_id": "CLASHES",
+   "feature_positions": [
+    {
+     "beg_comp_id": "LYS",
+     "beg_seq_id": 38,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "LYS",
+     "beg_seq_id": 43,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 55,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 57,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "LYS",
+     "beg_seq_id": 63,
+     "values": [
+      1.0,
+      1.0,
+      2.0,
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "VAL",
+     "beg_seq_id": 69,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASP",
+     "beg_seq_id": 71,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "ARG",
+     "beg_seq_id": 74,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASN",
+     "beg_seq_id": 79,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASN",
+     "beg_seq_id": 82,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 84,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASN",
+     "beg_seq_id": 94,
+     "values": [
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "MET",
+     "beg_seq_id": 97,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "LYS",
+     "beg_seq_id": 101,
+     "values": [
+      3.0
+     ]
+    },
+    {
+     "beg_comp_id": "MET",
+     "beg_seq_id": 110,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLN",
+     "beg_seq_id": 112,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASN",
+     "beg_seq_id": 117,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "PHE",
+     "beg_seq_id": 126,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLY",
+     "beg_seq_id": 129,
+     "values": [
+      1.0,
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "VAL",
+     "beg_seq_id": 149,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "LEU",
+     "beg_seq_id": 153,
+     "values": [
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 170,
+     "values": [
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "ASN",
+     "beg_seq_id": 173,
+     "values": [
+      2.0
+     ]
+    },
+    {
+     "beg_comp_id": "GLU",
+     "beg_seq_id": 179,
+     "values": [
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "beg_comp_id": "LYS",
+     "beg_seq_id": 183,
+     "values": [
+      2.0
+     ]
+    }
+   ],
+   "name": "CLASHES",
+   "ordinal": 160,
+   "provenance_source": "PDB",
+   "type": "CLASHES"
+  },
+  {
+   "additional_properties": [
+    {
+     "name": "PDB_MODEL_NUM",
+     "values": [
+      "1"
+     ]
+    }
+   ],
+   "feature_id": "Q_SCORE",
+   "feature_positions": [
+    {
+     "beg_comp_id": "ALA",
+     "beg_seq_id": 36,
+     "values": [
+      0.453,
+      0.326,
+      0.356,
+      0.328,
+      0.271,
+      0.325,
+      0.161,
+      0.307,
+      0.283,
+      0.316,
+      0.416,
+      0.299,
+      0.34,
+      0.489,
+      0.466,
+      0.282,
+      0.486,
+      0.357,
+      0.314,
+      0.486,
+      0.524,
+      0.244,
+      0.506,
+      0.532,
+      0.143,
+      0.194,
+      0.361,
+      0.273,
+      0.251,
+      0.336,
+      0.443,
+      0.447,
+      0.416,
+      0.513,
+      0.195,
+      0.477,
+      0.483,
+      0.541,
+      0.607,
+      0.503,
+      0.509,
+      0.488,
+      0.442,
+      0.54,
+      0.5,
+      0.441,
+      0.494,
+      0.465,
+      0.54,
+      0.417,
+      0.498,
+      0.415,
+      0.475,
+      0.529,
+      0.428,
+      0.54,
+      0.501,
+      0.435,
+      0.361,
+      0.32,
+      0.334,
+      0.438,
+      0.388,
+      0.157,
+      0.399,
+      0.402,
+      0.471,
+      0.425,
+      0.448,
+      0.321,
+      0.298,
+      0.46,
+      0.313,
+      0.373,
+      0.407,
+      0.496,
+      0.363,
+      0.422,
+      0.524,
+      0.426,
+      0.398,
+      0.472,
+      0.417,
+      0.317,
+      0.33,
+      0.593,
+      0.588,
+      0.59,
+      0.507,
+      0.566,
+      0.541,
+      0.531,
+      0.486,
+      0.594,
+      0.565,
+      0.635,
+      0.53,
+      0.609,
+      0.321,
+      0.462,
+      0.463,
+      0.487,
+      0.498,
+      0.318,
+      0.385,
+      0.554,
+      0.416,
+      0.494,
+      0.397,
+      0.393,
+      0.496,
+      0.511,
+      0.416,
+      0.454,
+      0.571,
+      0.451,
+      0.462,
+      0.544,
+      0.462,
+      0.514,
+      0.358,
+      0.586,
+      0.489,
+      0.471,
+      0.374,
+      0.46,
+      0.457,
+      0.383,
+      0.455,
+      0.495,
+      0.475,
+      0.448,
+      0.516,
+      0.473,
+      0.382,
+      0.307,
+      0.489,
+      0.328,
+      0.085,
+      0.32,
+      0.439,
+      0.477,
+      0.54,
+      0.449,
+      0.388,
+      0.533,
+      0.45,
+      0.424,
+      0.504,
+      0.54,
+      0.58,
+      0.5
+     ]
+    }
+   ],
+   "name": "Q_SCORE",
+   "ordinal": 168,
+   "provenance_source": "PDB",
+   "type": "Q_SCORE"
+  },
+  {
+   "description": "The Accessible Surface Area considering this polymer entity instance by itself (unbound).",
+   "feature_positions": [
+    {
+     "beg_seq_id": 36,
+     "end_seq_id": 187,
+     "values": [
+      122.52445837475857,
+      85.17044420149259,
+      95.39143745748424,
+      80.33604832881309,
+      117.65240360262194,
+      45.81945780841633,
+      46.18454354732705,
+      132.9752050979667,
+      108.82355560894909,
+      53.238029780248006,
+      27.684528764249066,
+      103.19612373281272,
+      68.16663428251678,
+      21.29591914743738,
+      55.988665051106224,
+      71.91399637139413,
+      17.199480875811993,
+      1.2548275040674497,
+      54.822598849236236,
+      137.3620723006829,
+      56.8604142868173,
+      13.595807695087474,
+      171.89787177520077,
+      70.53701871840687,
+      64.92323643403182,
+      102.61056353474719,
+      67.69746883562968,
+      58.887965512880555,
+      0.8062256660536872,
+      34.00377955509187,
+      8.993271413339391,
+      66.9790971798151,
+      29.148820073539024,
+      0.2687418886845624,
+      4.756650250962586,
+      68.7379291366609,
+      0.0,
+      0.0,
+      95.98532915926712,
+      61.23445625168449,
+      34.287591035417165,
+      56.98989565635353,
+      25.261737536348868,
+      123.7969315764427,
+      10.390950905276753,
+      67.2560725545262,
+      74.31462806135296,
+      72.97704095369347,
+      42.266882003883914,
+      16.661997098442868,
+      77.0804510477357,
+      146.1127247965709,
+      28.413287782013477,
+      29.436207942941174,
+      65.95580505431721,
+      105.31412518128403,
+      10.641584653906023,
+      50.76242209665565,
+      122.92452386291143,
+      114.91076082657538,
+      62.22041117681299,
+      29.08967268033136,
+      80.34141416906542,
+      88.13119170229702,
+      111.19071048759129,
+      36.71981458110051,
+      27.411672645825366,
+      62.957114654079795,
+      12.496770514074484,
+      124.15312786478086,
+      77.65140660987323,
+      0.7528965024404699,
+      26.33670509108712,
+      22.34088826224503,
+      38.607067305802694,
+      6.1810634397449356,
+      2.2954587077390243,
+      35.68995024377132,
+      11.607888288667786,
+      28.98636957405896,
+      70.86991192907772,
+      80.82686814554285,
+      146.70742325934717,
+      122.94193331276055,
+      127.86340910724934,
+      30.53943726519112,
+      36.14287742655054,
+      89.87635898773677,
+      106.4961682667531,
+      93.69438429185277,
+      80.3569286102259,
+      3.493644552899311,
+      86.04900692335076,
+      36.856262746505344,
+      23.64928620424149,
+      104.49013569372987,
+      110.00244453539398,
+      45.100611143792534,
+      18.038529901910383,
+      162.6726477797874,
+      119.61999816120999,
+      66.6675291000768,
+      106.7780018003437,
+      14.064960575603962,
+      7.972492561964382,
+      2.132158721605427,
+      111.2802458782186,
+      0.0,
+      67.8643854232261,
+      61.47028932900416,
+      0.8062256660536872,
+      56.768222365442114,
+      102.31848086928352,
+      18.79386930679829,
+      40.59753768545709,
+      17.539660068165066,
+      50.54076891193722,
+      95.49236551971055,
+      69.72960176041893,
+      100.0058590125594,
+      146.7788530231933,
+      66.52762015620478,
+      121.7272226902424,
+      103.28948935320328,
+      115.57399627468239,
+      74.32747089212084,
+      0.0,
+      77.28881152561826,
+      72.2556483423832,
+      48.03435854069494,
+      0.39408138246630364,
+      71.03441074696794,
+      76.54242188988192,
+      30.602638569558973,
+      59.889266489803305,
+      68.95920030371266,
+      95.64261407332405,
+      129.12930004400567,
+      6.43777428520331,
+      58.91145457283292,
+      0.8062256660536872,
+      62.919020958199425,
+      4.712368874191707,
+      45.793819899088916,
+      39.52314315721886,
+      9.034758029285637,
+      0.5374837773691248,
+      106.0901312392843,
+      93.41350580242886,
+      66.91234964565987,
+      94.82976844323073,
+      122.07357197056712
+     ]
+    }
+   ],
+   "name": "Unbound ASA",
+   "ordinal": 169,
+   "provenance_source": "biojava-7.2.4",
+   "type": "ASA"
+  }
+ ],
+ "rcsb_polymer_instance_feature_summary": [
+  {
+   "count": 1,
+   "coverage": 0.02128,
+   "maximum_length": 4,
+   "minimum_length": 4,
+   "type": "SHEET"
+  },
+  {
+   "count": 10,
+   "coverage": 0.53191,
+   "maximum_length": 16,
+   "minimum_length": 3,
+   "type": "HELIX_P"
+  },
+  {
+   "count": 1,
+   "coverage": 0.78723,
+   "type": "SCOP2B_SUPERFAMILY"
+  },
+  {
+   "count": 36,
+   "coverage": 0.19149,
+   "maximum_length": 36,
+   "minimum_length": 36,
+   "type": "UNOBSERVED_RESIDUE_XYZ"
+  },
+  {
+   "count": 1,
+   "coverage": 0.44681,
+   "maximum_length": 84,
+   "minimum_length": 84,
+   "type": "UNASSIGNED_SEC_STRUCT"
+  },
+  {
+   "count": 32,
+   "coverage": 0.17021,
+   "maximum_value": 0.0,
+   "minimum_value": 0.0,
+   "type": "CLASHES"
+  },
+  {
+   "count": 152,
+   "coverage": 0.80851,
+   "maximum_value": 0.635,
+   "minimum_value": 0.085,
+   "type": "Q_SCORE"
+  }
+ ],
+ "rcsb_polymer_instance_info": {
+  "modeled_residue_count": 152
+ }
+}

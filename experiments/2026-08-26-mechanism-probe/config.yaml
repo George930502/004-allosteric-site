@@ -1,0 +1,55 @@
+# Every knob that affects the result belongs here, including the seed.
+# A rerun of this config must reproduce metrics.json exactly.
+#
+#   uv run python experiments/2026-08-26-mechanism-probe/run.py
+#
+# Question: the method sweep screens what the literature already built. This asks a
+# different question. Across the seven systems whose allosteric mechanism is described
+# residue by residue in the primary literature, three structural signatures recur, are
+# visible in an apo structure alone, and are not in the repo. Do they rank the label set?
+#
+# The three are stated and sourced in `docs/method/exploration/lit/26-system-mechanisms.md`
+# and implemented in `src/allo/classical/mechanism.py`:
+#
+#   module_boundary          -- 8 systems. Residues where two slow-mode domains meet.
+#   soft_corridor_to_source  -- 6 systems. The loosest route to the active site, limited by
+#                               its tightest residue. The only score here that is not
+#                               monotone in distance.
+#   strain_versus_diffusion  -- 5 systems. Mechanical connection with diffusive proximity
+#                               subtracted, so a neighbour of the active site nets to zero.
+#
+# A second pass added `stiff_corridor_to_source`, which is the soft corridor with the sign
+# reversed. The soft direction is the published prediction and it was measured first; it runs
+# the wrong way on all four arms, in all five confound-removal forms, on all three graphs. The
+# sign is a free parameter and this tier is where a free parameter is fixed (ADR 0021). Both
+# directions stay in the table, so the refuted prediction is visible beside its inverse.
+#
+# This runs on the secondary set's `development` tier and nowhere else (ADR 0012, ADR 0021).
+# It is a screen. Its output selects; it does not confirm.
+name: mechanism-probe
+date: "2026-08-26"
+seed: 0
+
+arms: [mkp5, ptp1b, hiv_rt, ns5b]
+
+# Three graphs, not eight. The mechanism claim is about the protein, not about the contact
+# rule, so the graph axis is here only to show the answer does not depend on it.
+graphs:
+  evaluation_default: { contact: heavy_min, cutoff: 4.5, weighting: unit }
+  heavy_inverse_square:
+    { contact: heavy_min, cutoff: 4.5, weighting: inverse_square }
+  cb_10: { contact: cb, cutoff: 10.0, weighting: unit }
+
+# All five confound-removal forms. `soft_corridor_to_source` is claimed to be non-monotone
+# in distance, so the `raw`-versus-detrended difference is part of the test rather than a
+# nuisance: a score that only survives detrending was measuring distance.
+detrend: [raw, exponential, binned_rank, binned_median, gaussian_kernel]
+binned_rank_bins: 8
+gaussian_bandwidth: 6.0
+
+# Free parameters. Swept here, never quoted from a source.
+scorer_params:
+  module_boundary: { modes: 3 }
+  soft_corridor_to_source: { steepness: 1.0 }
+  stiff_corridor_to_source: { steepness: 1.0 }
+  strain_versus_diffusion: { time: 1.0 }

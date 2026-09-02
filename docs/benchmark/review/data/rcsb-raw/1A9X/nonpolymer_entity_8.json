@@ -1,0 +1,32 @@
+{
+ "pdbx_entity_nonpoly": {
+  "comp_id": "ORN",
+  "entity_id": "8",
+  "name": "L-ornithine"
+ },
+ "rcsb_id": "1A9X_8",
+ "rcsb_nonpolymer_entity": {
+  "formula_weight": 0.132,
+  "pdbx_description": "L-ornithine",
+  "pdbx_number_of_molecules": 4
+ },
+ "rcsb_nonpolymer_entity_container_identifiers": {
+  "asym_ids": [
+   "DC",
+   "DD",
+   "EA",
+   "EB"
+  ],
+  "auth_asym_ids": [
+   "A",
+   "C",
+   "E",
+   "G"
+  ],
+  "chem_ref_def_id": "ORN",
+  "entity_id": "8",
+  "entry_id": "1A9X",
+  "nonpolymer_comp_id": "ORN",
+  "rcsb_id": "1A9X_8"
+ }
+}

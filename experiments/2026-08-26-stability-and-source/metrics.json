@@ -1,0 +1,2365 @@
+{
+  "config": {
+    "arms": [
+      "mkp5",
+      "ptp1b",
+      "hiv_rt",
+      "ns5b"
+    ],
+    "graph": {
+      "contact": "heavy_min",
+      "weighting": "unit"
+    },
+    "classical_controls": [
+      "distance_from_source_negated",
+      "eigenvector_centrality",
+      "degree",
+      "heat_kernel_from_source",
+      "current_flow_to_source",
+      "anm_perturbation_response",
+      "gnm_fluctuation",
+      "betweenness_centrality"
+    ],
+    "perturbations": {
+      "coordinate_noise": {
+        "sigma": [
+          0.25,
+          0.5,
+          1.0
+        ],
+        "seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "edge_dropout": {
+        "fraction": [
+          0.02,
+          0.05,
+          0.1
+        ],
+        "seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "source_dropout": {
+        "max_variants": 11
+      },
+      "coherence_window": {
+        "window": [
+          5.0,
+          10.0,
+          25.0,
+          100.0
+        ]
+      }
+    },
+    "expensive_scorers": [
+      "quantum_perturbation_response"
+    ],
+    "expensive_seeds": [
+      0,
+      1
+    ],
+    "seed": 0
+  },
+  "n_records": 5222,
+  "n_capped": 72,
+  "capped": [
+    "hiv_rt|coord|0.25|2|quantum_perturbation_response",
+    "hiv_rt|coord|0.25|3|quantum_perturbation_response",
+    "hiv_rt|coord|0.25|4|quantum_perturbation_response",
+    "hiv_rt|coord|0.5|2|quantum_perturbation_response",
+    "hiv_rt|coord|0.5|3|quantum_perturbation_response",
+    "hiv_rt|coord|0.5|4|quantum_perturbation_response",
+    "hiv_rt|coord|1.0|2|quantum_perturbation_response",
+    "hiv_rt|coord|1.0|3|quantum_perturbation_response",
+    "hiv_rt|coord|1.0|4|quantum_perturbation_response",
+    "hiv_rt|edge|0.02|2|quantum_perturbation_response",
+    "hiv_rt|edge|0.02|3|quantum_perturbation_response",
+    "hiv_rt|edge|0.02|4|quantum_perturbation_response",
+    "hiv_rt|edge|0.05|2|quantum_perturbation_response",
+    "hiv_rt|edge|0.05|3|quantum_perturbation_response",
+    "hiv_rt|edge|0.05|4|quantum_perturbation_response",
+    "hiv_rt|edge|0.1|2|quantum_perturbation_response",
+    "hiv_rt|edge|0.1|3|quantum_perturbation_response",
+    "hiv_rt|edge|0.1|4|quantum_perturbation_response",
+    "mkp5|coord|0.25|2|quantum_perturbation_response",
+    "mkp5|coord|0.25|3|quantum_perturbation_response",
+    "mkp5|coord|0.25|4|quantum_perturbation_response",
+    "mkp5|coord|0.5|2|quantum_perturbation_response",
+    "mkp5|coord|0.5|3|quantum_perturbation_response",
+    "mkp5|coord|0.5|4|quantum_perturbation_response",
+    "mkp5|coord|1.0|2|quantum_perturbation_response",
+    "mkp5|coord|1.0|3|quantum_perturbation_response",
+    "mkp5|coord|1.0|4|quantum_perturbation_response",
+    "mkp5|edge|0.02|2|quantum_perturbation_response",
+    "mkp5|edge|0.02|3|quantum_perturbation_response",
+    "mkp5|edge|0.02|4|quantum_perturbation_response",
+    "mkp5|edge|0.05|2|quantum_perturbation_response",
+    "mkp5|edge|0.05|3|quantum_perturbation_response",
+    "mkp5|edge|0.05|4|quantum_perturbation_response",
+    "mkp5|edge|0.1|2|quantum_perturbation_response",
+    "mkp5|edge|0.1|3|quantum_perturbation_response",
+    "mkp5|edge|0.1|4|quantum_perturbation_response",
+    "ns5b|coord|0.25|2|quantum_perturbation_response",
+    "ns5b|coord|0.25|3|quantum_perturbation_response",
+    "ns5b|coord|0.25|4|quantum_perturbation_response",
+    "ns5b|coord|0.5|2|quantum_perturbation_response",
+    "ns5b|coord|0.5|3|quantum_perturbation_response",
+    "ns5b|coord|0.5|4|quantum_perturbation_response",
+    "ns5b|coord|1.0|2|quantum_perturbation_response",
+    "ns5b|coord|1.0|3|quantum_perturbation_response",
+    "ns5b|coord|1.0|4|quantum_perturbation_response",
+    "ns5b|edge|0.02|2|quantum_perturbation_response",
+    "ns5b|edge|0.02|3|quantum_perturbation_response",
+    "ns5b|edge|0.02|4|quantum_perturbation_response",
+    "ns5b|edge|0.05|2|quantum_perturbation_response",
+    "ns5b|edge|0.05|3|quantum_perturbation_response"
+  ],
+  "context": {
+    "mkp5": {
+      "n": 147,
+      "n_edges": 718,
+      "n_source": 11,
+      "algebraic_connectivity": 0.547461,
+      "spectral_range": 18.0943,
+      "mean_degree": 9.769
+    },
+    "ptp1b": {
+      "n": 298,
+      "n_edges": 1481,
+      "n_source": 11,
+      "algebraic_connectivity": 0.318094,
+      "spectral_range": 21.6306,
+      "mean_degree": 9.94
+    },
+    "hiv_rt": {
+      "n": 543,
+      "n_edges": 2403,
+      "n_source": 9,
+      "algebraic_connectivity": 0.02473,
+      "spectral_range": 17.9684,
+      "mean_degree": 8.851
+    },
+    "ns5b": {
+      "n": 553,
+      "n_edges": 2720,
+      "n_source": 3,
+      "algebraic_connectivity": 0.120014,
+      "spectral_range": 19.4175,
+      "mean_degree": 9.837
+    }
+  },
+  "baseline": [
+    {
+      "arm": "hiv_rt",
+      "scorer": "anm_perturbation_response",
+      "family": "classical",
+      "auc_roc": 0.1806,
+      "rho_to_distance": -0.1758,
+      "p_calibrated": 0.8751
+    },
+    {
+      "arm": "hiv_rt",
+      "scorer": "betweenness_centrality",
+      "family": "classical",
+      "auc_roc": 0.7189,
+      "rho_to_distance": 0.2672,
+      "p_calibrated": 0.073136
+    },
+    {
+      "arm": "hiv_rt",
+      "scorer": "coherent_source_ratio",
+      "family": "quantum",
+      "auc_roc": 0.2823,
+      "rho_to_distance": -0.2189,
+      "p_calibrated": 0.8869
+    },
+    {
+      "arm": "hiv_rt",
+      "scorer": "connectivity_eigencentrality",
+      "family": "quantum",
+      "auc_roc": 0.6562,
+      "rho_to_distance": -0.2118,
+      "p_calibrated": 0.400267
+    },
+    {
+      "arm": "hiv_rt",
+      "scorer": "connectivity_entropy",
+      "family": "quantum",
+      "auc_roc": 0.9061,
+      "rho_to_distance": 0.5374,
+      "p_calibrated": 0.103214
+    },
+    {
+      "arm": "hiv_rt",
+      "scorer": "connectivity_participation",
+      "family": "quantum",
+      "auc_roc": 0.8652,
+      "rho_to_distance": 0.4808,
+      "p_calibrated": 0.123322
+    },
+    {
+      "arm": "hiv_rt",
+      "scorer": "connectivity_strength",
+      "family": "quantum",
+      "auc_roc": 0.7683,
+      "rho_to_distance": 0.2724,
+      "p_calibrated": 0.043184
+    },
+    {
+      "arm": "hiv_rt",
+      "scorer": "ctqw_average_transfer",
+      "family": "quantum",
+      "auc_roc": 0.8848,
+      "rho_to_distance": 0.9311,
+      "p_calibrated": 0.147594
+    },
+    {
+      "arm": "hiv_rt",
+      "scorer": "ctqw_coherent_source_contrast",
+      "family": "quantum",
+      "auc_roc": 0.2594,
+      "rho_to_distance": -0.1589,
+      "p_calibrated": 0.9251
+    },
+    {
+      "arm": "hiv_rt",
+      "scorer": "ctqw_infinite_time_average",
+      "family": "quantum",
+      "auc_roc": 0.869,
+      "rho_to_distance": 0.8976,
+      "p_calibrated": 0.153801
+    },
+    {
+      "arm": "hiv_rt",
+      "scorer": "ctqw_peak_transfer",
+      "family": "quantum",
+      "auc_roc": 0.8877,
+      "rho_to_distance": 0.9162,
+      "p_calibrated": 0.144782
+    },
+    {
+      "arm": "hiv_rt",
+      "scorer": "ctqw_temporal_variance",
+      "family": "quantum",
+      "auc_roc": 0.825,
+      "rho_to_distance": 0.7685,
+      "p_calibrated": 0.150187
+    },
+    {
+      "arm": "hiv_rt",
+      "scorer": "current_flow_to_source",
+      "family": "classical",
+      "auc_roc": 0.8943,
+      "rho_to_distance": 0.5132,
+      "p_calibrated": 0.035509
+    },
+    {
+      "arm": "hiv_rt",
+      "scorer": "degenerate_mixing_weight",
+      "family": "quantum",
+      "auc_roc": 0.4256,
+      "rho_to_distance": -0.2193,
+      "p_calibrated": 0.6759
+    },
+    {
+      "arm": "hiv_rt",
+      "scorer": "degree",
+      "family": "classical",
+      "auc_roc": 0.5836,
+      "rho_to_distance": 0.1359,
+      "p_calibrated": 0.499307
+    },
+    {
+      "arm": "hiv_rt",
+      "scorer": "dephased_transport",
+      "family": "quantum",
+      "auc_roc": 0.7219,
+      "rho_to_distance": 0.8791,
+      "p_calibrated": 0.301161
+    },
+    {
+      "arm": "hiv_rt",
+      "scorer": "distance_from_source_negated",
+      "family": "classical",
+      "auc_roc": 0.9321,
+      "rho_to_distance": 0.994,
+      "p_calibrated": 0.011402
+    },
+    {
+      "arm": "hiv_rt",
+      "scorer": "eigenvector_centrality",
+      "family": "classical",
+      "auc_roc": 0.7558,
+      "rho_to_distance": 0.1567,
+      "p_calibrated": 0.238215
+    },
+    {
+      "arm": "hiv_rt",
+      "scorer": "energy_contrast",
+      "family": "quantum",
+      "auc_roc": 0.1022,
+      "rho_to_distance": -0.149,
+      "p_calibrated": 0.9929
+    },
+    {
+      "arm": "hiv_rt",
+      "scorer": "gnm_fluctuation",
+      "family": "classical",
+      "auc_roc": 0.8441,
+      "rho_to_distance": 0.506,
+      "p_calibrated": 0.107708
+    },
+    {
+      "arm": "hiv_rt",
+      "scorer": "heat_kernel_from_source",
+      "family": "classical",
+      "auc_roc": 0.8854,
+      "rho_to_distance": 0.9718,
+      "p_calibrated": 0.11788
+    },
+    {
+      "arm": "hiv_rt",
+      "scorer": "high_energy_transfer",
+      "family": "quantum",
+      "auc_roc": 0.7704,
+      "rho_to_distance": 0.8443,
+      "p_calibrated": 0.277447
+    },
+    {
+      "arm": "hiv_rt",
+      "scorer": "interference_excess",
+      "family": "quantum",
+      "auc_roc": 0.8761,
+      "rho_to_distance": 0.8821,
+      "p_calibrated": 0.150497
+    },
+    {
+      "arm": "hiv_rt",
+      "scorer": "interference_ratio",
+      "family": "quantum",
+      "auc_roc": 0.8693,
+      "rho_to_distance": 0.9262,
+      "p_calibrated": 0.15277
+    },
+    {
+      "arm": "hiv_rt",
+      "scorer": "low_energy_transfer",
+      "family": "quantum",
+      "auc_roc": 0.9106,
+      "rho_to_distance": 0.9165,
+      "p_calibrated": 0.120717
+    },
+    {
+      "arm": "hiv_rt",
+      "scorer": "oscillation_ratio",
+      "family": "quantum",
+      "auc_roc": 0.8354,
+      "rho_to_distance": 0.8451,
+      "p_calibrated": 0.151428
+    },
+    {
+      "arm": "hiv_rt",
+      "scorer": "quantum_best_case_transfer",
+      "family": "quantum",
+      "auc_roc": 0.8464,
+      "rho_to_distance": 0.9144,
+      "p_calibrated": 0.172813
+    },
+    {
+      "arm": "hiv_rt",
+      "scorer": "quantum_opening_gain",
+      "family": "quantum",
+      "auc_roc": 0.846,
+      "rho_to_distance": 0.9141,
+      "p_calibrated": 0.172913
+    },
+    {
+      "arm": "hiv_rt",
+      "scorer": "quantum_perturbation_response",
+      "family": "quantum",
+      "auc_roc": 0.902,
+      "rho_to_distance": 0.8366,
+      "p_calibrated": 0.081505
+    },
+    {
+      "arm": "hiv_rt",
+      "scorer": "quantum_survival_time",
+      "family": "quantum",
+      "auc_roc": 0.8526,
+      "rho_to_distance": 0.9132,
+      "p_calibrated": 0.168785
+    },
+    {
+      "arm": "hiv_rt",
+      "scorer": "spectral_participation_ratio",
+      "family": "quantum",
+      "auc_roc": 0.1902,
+      "rho_to_distance": -0.4721,
+      "p_calibrated": 0.9387
+    },
+    {
+      "arm": "hiv_rt",
+      "scorer": "symmetry_dark_overlap",
+      "family": "quantum",
+      "auc_roc": 0.5,
+      "rho_to_distance": NaN,
+      "p_calibrated": 1.0
+    },
+    {
+      "arm": "hiv_rt",
+      "scorer": "szegedy_quantum_pagerank",
+      "family": "quantum",
+      "auc_roc": 0.8512,
+      "rho_to_distance": 0.8713,
+      "p_calibrated": 0.158727
+    },
+    {
+      "arm": "mkp5",
+      "scorer": "anm_perturbation_response",
+      "family": "classical",
+      "auc_roc": 0.472,
+      "rho_to_distance": 0.1513,
+      "p_calibrated": 0.212119
+    },
+    {
+      "arm": "mkp5",
+      "scorer": "betweenness_centrality",
+      "family": "classical",
+      "auc_roc": 0.7178,
+      "rho_to_distance": 0.5824,
+      "p_calibrated": 0.205537
+    },
+    {
+      "arm": "mkp5",
+      "scorer": "coherent_source_ratio",
+      "family": "quantum",
+      "auc_roc": 0.6895,
+      "rho_to_distance": 0.3752,
+      "p_calibrated": 0.486839
+    },
+    {
+      "arm": "mkp5",
+      "scorer": "connectivity_eigencentrality",
+      "family": "quantum",
+      "auc_roc": 0.472,
+      "rho_to_distance": 0.4044,
+      "p_calibrated": 0.7795
+    },
+    {
+      "arm": "mkp5",
+      "scorer": "connectivity_entropy",
+      "family": "quantum",
+      "auc_roc": 0.5113,
+      "rho_to_distance": 0.4576,
+      "p_calibrated": 0.6616
+    },
+    {
+      "arm": "mkp5",
+      "scorer": "connectivity_participation",
+      "family": "quantum",
+      "auc_roc": 0.5222,
+      "rho_to_distance": 0.4601,
+      "p_calibrated": 0.6132
+    },
+    {
+      "arm": "mkp5",
+      "scorer": "connectivity_strength",
+      "family": "quantum",
+      "auc_roc": 0.4575,
+      "rho_to_distance": 0.3732,
+      "p_calibrated": 0.7961
+    },
+    {
+      "arm": "mkp5",
+      "scorer": "ctqw_average_transfer",
+      "family": "quantum",
+      "auc_roc": 0.7207,
+      "rho_to_distance": 0.7428,
+      "p_calibrated": 0.174517
+    },
+    {
+      "arm": "mkp5",
+      "scorer": "ctqw_coherent_source_contrast",
+      "family": "quantum",
+      "auc_roc": 0.6865,
+      "rho_to_distance": 0.3497,
+      "p_calibrated": 0.485786
+    },
+    {
+      "arm": "mkp5",
+      "scorer": "ctqw_infinite_time_average",
+      "family": "quantum",
+      "auc_roc": 0.7309,
+      "rho_to_distance": 0.71,
+      "p_calibrated": 0.166176
+    },
+    {
+      "arm": "mkp5",
+      "scorer": "ctqw_peak_transfer",
+      "family": "quantum",
+      "auc_roc": 0.6298,
+      "rho_to_distance": 0.6652,
+      "p_calibrated": 0.346174
+    },
+    {
+      "arm": "mkp5",
+      "scorer": "ctqw_temporal_variance",
+      "family": "quantum",
+      "auc_roc": 0.4596,
+      "rho_to_distance": 0.0781,
+      "p_calibrated": 0.6856
+    },
+    {
+      "arm": "mkp5",
+      "scorer": "current_flow_to_source",
+      "family": "classical",
+      "auc_roc": 0.8429,
+      "rho_to_distance": 0.877,
+      "p_calibrated": 0.012289
+    },
+    {
+      "arm": "mkp5",
+      "scorer": "degenerate_mixing_weight",
+      "family": "quantum",
+      "auc_roc": 0.5,
+      "rho_to_distance": NaN,
+      "p_calibrated": 1.0
+    },
+    {
+      "arm": "mkp5",
+      "scorer": "degree",
+      "family": "classical",
+      "auc_roc": 0.7505,
+      "rho_to_distance": 0.5516,
+      "p_calibrated": 0.162635
+    },
+    {
+      "arm": "mkp5",
+      "scorer": "dephased_transport",
+      "family": "quantum",
+      "auc_roc": 0.7862,
+      "rho_to_distance": 0.8982,
+      "p_calibrated": 0.098374
+    },
+    {
+      "arm": "mkp5",
+      "scorer": "distance_from_source_negated",
+      "family": "classical",
+      "auc_roc": 0.7985,
+      "rho_to_distance": 0.9645,
+      "p_calibrated": 0.058881
+    },
+    {
+      "arm": "mkp5",
+      "scorer": "eigenvector_centrality",
+      "family": "classical",
+      "auc_roc": 0.8196,
+      "rho_to_distance": 0.5941,
+      "p_calibrated": 0.184468
+    },
+    {
+      "arm": "mkp5",
+      "scorer": "energy_contrast",
+      "family": "quantum",
+      "auc_roc": 0.4153,
+      "rho_to_distance": -0.278,
+      "p_calibrated": 0.8855
+    },
+    {
+      "arm": "mkp5",
+      "scorer": "gnm_fluctuation",
+      "family": "classical",
+      "auc_roc": 0.7549,
+      "rho_to_distance": 0.6496,
+      "p_calibrated": 0.19157
+    },
+    {
+      "arm": "mkp5",
+      "scorer": "heat_kernel_from_source",
+      "family": "classical",
+      "auc_roc": 0.7215,
+      "rho_to_distance": 0.6786,
+      "p_calibrated": 0.060017
+    },
+    {
+      "arm": "mkp5",
+      "scorer": "high_energy_transfer",
+      "family": "quantum",
+      "auc_roc": 0.7171,
+      "rho_to_distance": 0.5769,
+      "p_calibrated": 0.33186
+    },
+    {
+      "arm": "mkp5",
+      "scorer": "interference_excess",
+      "family": "quantum",
+      "auc_roc": 0.6284,
+      "rho_to_distance": 0.5305,
+      "p_calibrated": 0.180599
+    },
+    {
+      "arm": "mkp5",
+      "scorer": "interference_ratio",
+      "family": "quantum",
+      "auc_roc": 0.6262,
+      "rho_to_distance": 0.5442,
+      "p_calibrated": 0.192062
+    },
+    {
+      "arm": "mkp5",
+      "scorer": "low_energy_transfer",
+      "family": "quantum",
+      "auc_roc": 0.6785,
+      "rho_to_distance": 0.6645,
+      "p_calibrated": 0.162533
+    },
+    {
+      "arm": "mkp5",
+      "scorer": "oscillation_ratio",
+      "family": "quantum",
+      "auc_roc": 0.4538,
+      "rho_to_distance": -0.0016,
+      "p_calibrated": 0.454876
+    },
+    {
+      "arm": "mkp5",
+      "scorer": "quantum_best_case_transfer",
+      "family": "quantum",
+      "auc_roc": 0.6756,
+      "rho_to_distance": 0.6882,
+      "p_calibrated": 0.186643
+    },
+    {
+      "arm": "mkp5",
+      "scorer": "quantum_opening_gain",
+      "family": "quantum",
+      "auc_roc": 0.6727,
+      "rho_to_distance": 0.6773,
+      "p_calibrated": 0.183973
+    },
+    {
+      "arm": "mkp5",
+      "scorer": "quantum_perturbation_response",
+      "family": "quantum",
+      "auc_roc": 0.656,
+      "rho_to_distance": 0.1441,
+      "p_calibrated": 0.180798
+    },
+    {
+      "arm": "mkp5",
+      "scorer": "quantum_survival_time",
+      "family": "quantum",
+      "auc_roc": 0.7273,
+      "rho_to_distance": 0.7263,
+      "p_calibrated": 0.170306
+    },
+    {
+      "arm": "mkp5",
+      "scorer": "spectral_participation_ratio",
+      "family": "quantum",
+      "auc_roc": 0.44,
+      "rho_to_distance": -0.4017,
+      "p_calibrated": 0.6338
+    },
+    {
+      "arm": "mkp5",
+      "scorer": "symmetry_dark_overlap",
+      "family": "quantum",
+      "auc_roc": 0.5,
+      "rho_to_distance": NaN,
+      "p_calibrated": 1.0
+    },
+    {
+      "arm": "mkp5",
+      "scorer": "szegedy_quantum_pagerank",
+      "family": "quantum",
+      "auc_roc": 0.7324,
+      "rho_to_distance": 0.6669,
+      "p_calibrated": 0.142715
+    },
+    {
+      "arm": "ns5b",
+      "scorer": "anm_perturbation_response",
+      "family": "classical",
+      "auc_roc": 0.3848,
+      "rho_to_distance": 0.3258,
+      "p_calibrated": 0.5716
+    },
+    {
+      "arm": "ns5b",
+      "scorer": "betweenness_centrality",
+      "family": "classical",
+      "auc_roc": 0.6509,
+      "rho_to_distance": 0.5436,
+      "p_calibrated": 0.396473
+    },
+    {
+      "arm": "ns5b",
+      "scorer": "coherent_source_ratio",
+      "family": "quantum",
+      "auc_roc": 0.5311,
+      "rho_to_distance": -0.315,
+      "p_calibrated": 0.394578
+    },
+    {
+      "arm": "ns5b",
+      "scorer": "connectivity_eigencentrality",
+      "family": "quantum",
+      "auc_roc": 0.5974,
+      "rho_to_distance": 0.5764,
+      "p_calibrated": 0.5979
+    },
+    {
+      "arm": "ns5b",
+      "scorer": "connectivity_entropy",
+      "family": "quantum",
+      "auc_roc": 0.3447,
+      "rho_to_distance": 0.7755,
+      "p_calibrated": 0.7211
+    },
+    {
+      "arm": "ns5b",
+      "scorer": "connectivity_participation",
+      "family": "quantum",
+      "auc_roc": 0.4349,
+      "rho_to_distance": 0.7457,
+      "p_calibrated": 0.6857
+    },
+    {
+      "arm": "ns5b",
+      "scorer": "connectivity_strength",
+      "family": "quantum",
+      "auc_roc": 0.6989,
+      "rho_to_distance": 0.4922,
+      "p_calibrated": 0.293305
+    },
+    {
+      "arm": "ns5b",
+      "scorer": "ctqw_average_transfer",
+      "family": "quantum",
+      "auc_roc": 0.1993,
+      "rho_to_distance": 0.7122,
+      "p_calibrated": 0.7668
+    },
+    {
+      "arm": "ns5b",
+      "scorer": "ctqw_coherent_source_contrast",
+      "family": "quantum",
+      "auc_roc": 0.5375,
+      "rho_to_distance": -0.2806,
+      "p_calibrated": 0.394777
+    },
+    {
+      "arm": "ns5b",
+      "scorer": "ctqw_infinite_time_average",
+      "family": "quantum",
+      "auc_roc": 0.2734,
+      "rho_to_distance": 0.583,
+      "p_calibrated": 0.7596
+    },
+    {
+      "arm": "ns5b",
+      "scorer": "ctqw_peak_transfer",
+      "family": "quantum",
+      "auc_roc": 0.2837,
+      "rho_to_distance": 0.6194,
+      "p_calibrated": 0.7208
+    },
+    {
+      "arm": "ns5b",
+      "scorer": "ctqw_temporal_variance",
+      "family": "quantum",
+      "auc_roc": 0.3487,
+      "rho_to_distance": 0.4273,
+      "p_calibrated": 0.6858
+    },
+    {
+      "arm": "ns5b",
+      "scorer": "current_flow_to_source",
+      "family": "classical",
+      "auc_roc": 0.3533,
+      "rho_to_distance": 0.7805,
+      "p_calibrated": 0.8777
+    },
+    {
+      "arm": "ns5b",
+      "scorer": "degenerate_mixing_weight",
+      "family": "quantum",
+      "auc_roc": 0.5,
+      "rho_to_distance": NaN,
+      "p_calibrated": 1.0
+    },
+    {
+      "arm": "ns5b",
+      "scorer": "degree",
+      "family": "classical",
+      "auc_roc": 0.7698,
+      "rho_to_distance": 0.2825,
+      "p_calibrated": 0.043625
+    },
+    {
+      "arm": "ns5b",
+      "scorer": "dephased_transport",
+      "family": "quantum",
+      "auc_roc": 0.1518,
+      "rho_to_distance": 0.7504,
+      "p_calibrated": 0.8149
+    },
+    {
+      "arm": "ns5b",
+      "scorer": "distance_from_source_negated",
+      "family": "classical",
+      "auc_roc": 0.2608,
+      "rho_to_distance": 0.9791,
+      "p_calibrated": 0.7782
+    },
+    {
+      "arm": "ns5b",
+      "scorer": "eigenvector_centrality",
+      "family": "classical",
+      "auc_roc": 0.8981,
+      "rho_to_distance": 0.17,
+      "p_calibrated": 0.111023
+    },
+    {
+      "arm": "ns5b",
+      "scorer": "energy_contrast",
+      "family": "quantum",
+      "auc_roc": 0.4611,
+      "rho_to_distance": -0.1815,
+      "p_calibrated": 0.6134
+    },
+    {
+      "arm": "ns5b",
+      "scorer": "gnm_fluctuation",
+      "family": "classical",
+      "auc_roc": 0.7639,
+      "rho_to_distance": 0.5064,
+      "p_calibrated": 0.274739
+    },
+    {
+      "arm": "ns5b",
+      "scorer": "heat_kernel_from_source",
+      "family": "classical",
+      "auc_roc": 0.2864,
+      "rho_to_distance": 0.873,
+      "p_calibrated": 0.7954
+    },
+    {
+      "arm": "ns5b",
+      "scorer": "high_energy_transfer",
+      "family": "quantum",
+      "auc_roc": 0.2073,
+      "rho_to_distance": 0.6157,
+      "p_calibrated": 0.8043
+    },
+    {
+      "arm": "ns5b",
+      "scorer": "interference_excess",
+      "family": "quantum",
+      "auc_roc": 0.1966,
+      "rho_to_distance": 0.6981,
+      "p_calibrated": 0.7833
+    },
+    {
+      "arm": "ns5b",
+      "scorer": "interference_ratio",
+      "family": "quantum",
+      "auc_roc": 0.1931,
+      "rho_to_distance": 0.7004,
+      "p_calibrated": 0.7825
+    },
+    {
+      "arm": "ns5b",
+      "scorer": "low_energy_transfer",
+      "family": "quantum",
+      "auc_roc": 0.3139,
+      "rho_to_distance": 0.636,
+      "p_calibrated": 0.7383
+    },
+    {
+      "arm": "ns5b",
+      "scorer": "oscillation_ratio",
+      "family": "quantum",
+      "auc_roc": 0.2722,
+      "rho_to_distance": 0.5521,
+      "p_calibrated": 0.7349
+    },
+    {
+      "arm": "ns5b",
+      "scorer": "quantum_best_case_transfer",
+      "family": "quantum",
+      "auc_roc": 0.208,
+      "rho_to_distance": 0.7044,
+      "p_calibrated": 0.7582
+    },
+    {
+      "arm": "ns5b",
+      "scorer": "quantum_opening_gain",
+      "family": "quantum",
+      "auc_roc": 0.2083,
+      "rho_to_distance": 0.7044,
+      "p_calibrated": 0.7577
+    },
+    {
+      "arm": "ns5b",
+      "scorer": "quantum_perturbation_response",
+      "family": "quantum",
+      "auc_roc": 0.1687,
+      "rho_to_distance": 0.6864,
+      "p_calibrated": 0.8323
+    },
+    {
+      "arm": "ns5b",
+      "scorer": "quantum_survival_time",
+      "family": "quantum",
+      "auc_roc": 0.2144,
+      "rho_to_distance": 0.6973,
+      "p_calibrated": 0.7588
+    },
+    {
+      "arm": "ns5b",
+      "scorer": "spectral_participation_ratio",
+      "family": "quantum",
+      "auc_roc": 0.6364,
+      "rho_to_distance": -0.1921,
+      "p_calibrated": 0.179648
+    },
+    {
+      "arm": "ns5b",
+      "scorer": "symmetry_dark_overlap",
+      "family": "quantum",
+      "auc_roc": 0.5,
+      "rho_to_distance": NaN,
+      "p_calibrated": 1.0
+    },
+    {
+      "arm": "ns5b",
+      "scorer": "szegedy_quantum_pagerank",
+      "family": "quantum",
+      "auc_roc": 0.2059,
+      "rho_to_distance": 0.649,
+      "p_calibrated": 0.9906
+    },
+    {
+      "arm": "ptp1b",
+      "scorer": "anm_perturbation_response",
+      "family": "classical",
+      "auc_roc": 0.1202,
+      "rho_to_distance": 0.1879,
+      "p_calibrated": 0.9947
+    },
+    {
+      "arm": "ptp1b",
+      "scorer": "betweenness_centrality",
+      "family": "classical",
+      "auc_roc": 0.6877,
+      "rho_to_distance": 0.6262,
+      "p_calibrated": 0.227054
+    },
+    {
+      "arm": "ptp1b",
+      "scorer": "coherent_source_ratio",
+      "family": "quantum",
+      "auc_roc": 0.6291,
+      "rho_to_distance": 0.2268,
+      "p_calibrated": 0.449644
+    },
+    {
+      "arm": "ptp1b",
+      "scorer": "connectivity_eigencentrality",
+      "family": "quantum",
+      "auc_roc": 0.5853,
+      "rho_to_distance": 0.6142,
+      "p_calibrated": 0.5214
+    },
+    {
+      "arm": "ptp1b",
+      "scorer": "connectivity_entropy",
+      "family": "quantum",
+      "auc_roc": 0.6222,
+      "rho_to_distance": 0.7193,
+      "p_calibrated": 0.411846
+    },
+    {
+      "arm": "ptp1b",
+      "scorer": "connectivity_participation",
+      "family": "quantum",
+      "auc_roc": 0.6113,
+      "rho_to_distance": 0.72,
+      "p_calibrated": 0.444529
+    },
+    {
+      "arm": "ptp1b",
+      "scorer": "connectivity_strength",
+      "family": "quantum",
+      "auc_roc": 0.5754,
+      "rho_to_distance": 0.5717,
+      "p_calibrated": 0.5347
+    },
+    {
+      "arm": "ptp1b",
+      "scorer": "ctqw_average_transfer",
+      "family": "quantum",
+      "auc_roc": 0.2895,
+      "rho_to_distance": 0.7761,
+      "p_calibrated": 0.9473
+    },
+    {
+      "arm": "ptp1b",
+      "scorer": "ctqw_coherent_source_contrast",
+      "family": "quantum",
+      "auc_roc": 0.6212,
+      "rho_to_distance": 0.1764,
+      "p_calibrated": 0.474459
+    },
+    {
+      "arm": "ptp1b",
+      "scorer": "ctqw_infinite_time_average",
+      "family": "quantum",
+      "auc_roc": 0.2708,
+      "rho_to_distance": 0.7474,
+      "p_calibrated": 0.9868
+    },
+    {
+      "arm": "ptp1b",
+      "scorer": "ctqw_peak_transfer",
+      "family": "quantum",
+      "auc_roc": 0.364,
+      "rho_to_distance": 0.6708,
+      "p_calibrated": 0.8872
+    },
+    {
+      "arm": "ptp1b",
+      "scorer": "ctqw_temporal_variance",
+      "family": "quantum",
+      "auc_roc": 0.4463,
+      "rho_to_distance": 0.1044,
+      "p_calibrated": 0.5404
+    },
+    {
+      "arm": "ptp1b",
+      "scorer": "current_flow_to_source",
+      "family": "classical",
+      "auc_roc": 0.5356,
+      "rho_to_distance": 0.8434,
+      "p_calibrated": 0.7058
+    },
+    {
+      "arm": "ptp1b",
+      "scorer": "degenerate_mixing_weight",
+      "family": "quantum",
+      "auc_roc": 0.5,
+      "rho_to_distance": NaN,
+      "p_calibrated": 1.0
+    },
+    {
+      "arm": "ptp1b",
+      "scorer": "degree",
+      "family": "classical",
+      "auc_roc": 0.6635,
+      "rho_to_distance": 0.535,
+      "p_calibrated": 0.306026
+    },
+    {
+      "arm": "ptp1b",
+      "scorer": "dephased_transport",
+      "family": "quantum",
+      "auc_roc": 0.2569,
+      "rho_to_distance": 0.8815,
+      "p_calibrated": 0.9086
+    },
+    {
+      "arm": "ptp1b",
+      "scorer": "distance_from_source_negated",
+      "family": "classical",
+      "auc_roc": 0.3333,
+      "rho_to_distance": 0.9739,
+      "p_calibrated": 0.85
+    },
+    {
+      "arm": "ptp1b",
+      "scorer": "eigenvector_centrality",
+      "family": "classical",
+      "auc_roc": 0.5639,
+      "rho_to_distance": 0.8018,
+      "p_calibrated": 0.7113
+    },
+    {
+      "arm": "ptp1b",
+      "scorer": "energy_contrast",
+      "family": "quantum",
+      "auc_roc": 0.4605,
+      "rho_to_distance": -0.2429,
+      "p_calibrated": 0.7331
+    },
+    {
+      "arm": "ptp1b",
+      "scorer": "gnm_fluctuation",
+      "family": "classical",
+      "auc_roc": 0.639,
+      "rho_to_distance": 0.6931,
+      "p_calibrated": 0.479289
+    },
+    {
+      "arm": "ptp1b",
+      "scorer": "heat_kernel_from_source",
+      "family": "classical",
+      "auc_roc": 0.1848,
+      "rho_to_distance": 0.8666,
+      "p_calibrated": 0.9577
+    },
+    {
+      "arm": "ptp1b",
+      "scorer": "high_energy_transfer",
+      "family": "quantum",
+      "auc_roc": 0.5191,
+      "rho_to_distance": 0.5846,
+      "p_calibrated": 0.7559
+    },
+    {
+      "arm": "ptp1b",
+      "scorer": "interference_excess",
+      "family": "quantum",
+      "auc_roc": 0.3663,
+      "rho_to_distance": 0.5738,
+      "p_calibrated": 0.7941
+    },
+    {
+      "arm": "ptp1b",
+      "scorer": "interference_ratio",
+      "family": "quantum",
+      "auc_roc": 0.357,
+      "rho_to_distance": 0.5947,
+      "p_calibrated": 0.8147
+    },
+    {
+      "arm": "ptp1b",
+      "scorer": "low_energy_transfer",
+      "family": "quantum",
+      "auc_roc": 0.5748,
+      "rho_to_distance": 0.6791,
+      "p_calibrated": 0.42694
+    },
+    {
+      "arm": "ptp1b",
+      "scorer": "oscillation_ratio",
+      "family": "quantum",
+      "auc_roc": 0.4687,
+      "rho_to_distance": 0.1096,
+      "p_calibrated": 0.443134
+    },
+    {
+      "arm": "ptp1b",
+      "scorer": "quantum_best_case_transfer",
+      "family": "quantum",
+      "auc_roc": 0.3814,
+      "rho_to_distance": 0.8255,
+      "p_calibrated": 0.7904
+    },
+    {
+      "arm": "ptp1b",
+      "scorer": "quantum_opening_gain",
+      "family": "quantum",
+      "auc_roc": 0.3854,
+      "rho_to_distance": 0.8237,
+      "p_calibrated": 0.7841
+    },
+    {
+      "arm": "ptp1b",
+      "scorer": "quantum_perturbation_response",
+      "family": "quantum",
+      "auc_roc": 0.3188,
+      "rho_to_distance": 0.4738,
+      "p_calibrated": 0.8713
+    },
+    {
+      "arm": "ptp1b",
+      "scorer": "quantum_survival_time",
+      "family": "quantum",
+      "auc_roc": 0.3383,
+      "rho_to_distance": 0.804,
+      "p_calibrated": 0.8752
+    },
+    {
+      "arm": "ptp1b",
+      "scorer": "spectral_participation_ratio",
+      "family": "quantum",
+      "auc_roc": 0.6877,
+      "rho_to_distance": -0.313,
+      "p_calibrated": 0.048308
+    },
+    {
+      "arm": "ptp1b",
+      "scorer": "symmetry_dark_overlap",
+      "family": "quantum",
+      "auc_roc": 0.5,
+      "rho_to_distance": NaN,
+      "p_calibrated": 1.0
+    },
+    {
+      "arm": "ptp1b",
+      "scorer": "szegedy_quantum_pagerank",
+      "family": "quantum",
+      "auc_roc": 0.5046,
+      "rho_to_distance": 0.5852,
+      "p_calibrated": 0.5616
+    }
+  ],
+  "stability": [
+    {
+      "scorer": "distance_from_source_negated",
+      "family": "classical",
+      "perturbation": "coord",
+      "n": 60,
+      "mean_rho_to_baseline": 0.9899,
+      "min_rho_to_baseline": 0.9434,
+      "mean_abs_delta_auc": 0.014,
+      "max_abs_delta_auc": 0.064,
+      "mean_top5_jaccard": 0.5073
+    },
+    {
+      "scorer": "heat_kernel_from_source",
+      "family": "classical",
+      "perturbation": "coord",
+      "n": 60,
+      "mean_rho_to_baseline": 0.9772,
+      "min_rho_to_baseline": 0.8805,
+      "mean_abs_delta_auc": 0.0184,
+      "max_abs_delta_auc": 0.0652,
+      "mean_top5_jaccard": 0.3809
+    },
+    {
+      "scorer": "dephased_transport",
+      "family": "quantum",
+      "perturbation": "coord",
+      "n": 60,
+      "mean_rho_to_baseline": 0.9764,
+      "min_rho_to_baseline": 0.8966,
+      "mean_abs_delta_auc": 0.0212,
+      "max_abs_delta_auc": 0.0886,
+      "mean_top5_jaccard": 0.8119
+    },
+    {
+      "scorer": "current_flow_to_source",
+      "family": "classical",
+      "perturbation": "coord",
+      "n": 60,
+      "mean_rho_to_baseline": 0.9679,
+      "min_rho_to_baseline": 0.9358,
+      "mean_abs_delta_auc": 0.0224,
+      "max_abs_delta_auc": 0.1025,
+      "mean_top5_jaccard": 0.5746
+    },
+    {
+      "scorer": "anm_perturbation_response",
+      "family": "classical",
+      "perturbation": "coord",
+      "n": 60,
+      "mean_rho_to_baseline": 0.9609,
+      "min_rho_to_baseline": 0.8533,
+      "mean_abs_delta_auc": 0.0214,
+      "max_abs_delta_auc": 0.1462,
+      "mean_top5_jaccard": 0.7897
+    },
+    {
+      "scorer": "gnm_fluctuation",
+      "family": "classical",
+      "perturbation": "coord",
+      "n": 60,
+      "mean_rho_to_baseline": 0.9534,
+      "min_rho_to_baseline": 0.8866,
+      "mean_abs_delta_auc": 0.0206,
+      "max_abs_delta_auc": 0.0758,
+      "mean_top5_jaccard": 0.4266
+    },
+    {
+      "scorer": "degree",
+      "family": "classical",
+      "perturbation": "coord",
+      "n": 60,
+      "mean_rho_to_baseline": 0.9271,
+      "min_rho_to_baseline": 0.8395,
+      "mean_abs_delta_auc": 0.0236,
+      "max_abs_delta_auc": 0.1075,
+      "mean_top5_jaccard": 0.3139
+    },
+    {
+      "scorer": "betweenness_centrality",
+      "family": "classical",
+      "perturbation": "coord",
+      "n": 60,
+      "mean_rho_to_baseline": 0.8956,
+      "min_rho_to_baseline": 0.7522,
+      "mean_abs_delta_auc": 0.0219,
+      "max_abs_delta_auc": 0.1175,
+      "mean_top5_jaccard": 0.4663
+    },
+    {
+      "scorer": "szegedy_quantum_pagerank",
+      "family": "quantum",
+      "perturbation": "coord",
+      "n": 60,
+      "mean_rho_to_baseline": 0.8807,
+      "min_rho_to_baseline": 0.74,
+      "mean_abs_delta_auc": 0.0467,
+      "max_abs_delta_auc": 0.2118,
+      "mean_top5_jaccard": 0.728
+    },
+    {
+      "scorer": "eigenvector_centrality",
+      "family": "classical",
+      "perturbation": "coord",
+      "n": 60,
+      "mean_rho_to_baseline": 0.8367,
+      "min_rho_to_baseline": 0.1125,
+      "mean_abs_delta_auc": 0.0915,
+      "max_abs_delta_auc": 0.4125,
+      "mean_top5_jaccard": 0.3586
+    },
+    {
+      "scorer": "quantum_best_case_transfer",
+      "family": "quantum",
+      "perturbation": "coord",
+      "n": 60,
+      "mean_rho_to_baseline": 0.8169,
+      "min_rho_to_baseline": 0.5285,
+      "mean_abs_delta_auc": 0.0393,
+      "max_abs_delta_auc": 0.1344,
+      "mean_top5_jaccard": 0.769
+    },
+    {
+      "scorer": "quantum_opening_gain",
+      "family": "quantum",
+      "perturbation": "coord",
+      "n": 60,
+      "mean_rho_to_baseline": 0.814,
+      "min_rho_to_baseline": 0.5154,
+      "mean_abs_delta_auc": 0.0397,
+      "max_abs_delta_auc": 0.134,
+      "mean_top5_jaccard": 0.769
+    },
+    {
+      "scorer": "ctqw_average_transfer",
+      "family": "quantum",
+      "perturbation": "coord",
+      "n": 60,
+      "mean_rho_to_baseline": 0.7986,
+      "min_rho_to_baseline": 0.5493,
+      "mean_abs_delta_auc": 0.0445,
+      "max_abs_delta_auc": 0.2243,
+      "mean_top5_jaccard": 0.415
+    },
+    {
+      "scorer": "quantum_survival_time",
+      "family": "quantum",
+      "perturbation": "coord",
+      "n": 60,
+      "mean_rho_to_baseline": 0.798,
+      "min_rho_to_baseline": 0.5574,
+      "mean_abs_delta_auc": 0.0442,
+      "max_abs_delta_auc": 0.1558,
+      "mean_top5_jaccard": 0.5743
+    },
+    {
+      "scorer": "high_energy_transfer",
+      "family": "quantum",
+      "perturbation": "coord",
+      "n": 60,
+      "mean_rho_to_baseline": 0.7914,
+      "min_rho_to_baseline": 0.5989,
+      "mean_abs_delta_auc": 0.0713,
+      "max_abs_delta_auc": 0.2822,
+      "mean_top5_jaccard": 0.5042
+    },
+    {
+      "scorer": "connectivity_entropy",
+      "family": "quantum",
+      "perturbation": "coord",
+      "n": 60,
+      "mean_rho_to_baseline": 0.7717,
+      "min_rho_to_baseline": 0.4251,
+      "mean_abs_delta_auc": 0.0639,
+      "max_abs_delta_auc": 0.2276,
+      "mean_top5_jaccard": 0.1969
+    },
+    {
+      "scorer": "connectivity_participation",
+      "family": "quantum",
+      "perturbation": "coord",
+      "n": 60,
+      "mean_rho_to_baseline": 0.7558,
+      "min_rho_to_baseline": 0.4301,
+      "mean_abs_delta_auc": 0.0603,
+      "max_abs_delta_auc": 0.232,
+      "mean_top5_jaccard": 0.1469
+    },
+    {
+      "scorer": "ctqw_infinite_time_average",
+      "family": "quantum",
+      "perturbation": "coord",
+      "n": 60,
+      "mean_rho_to_baseline": 0.7158,
+      "min_rho_to_baseline": 0.4717,
+      "mean_abs_delta_auc": 0.0929,
+      "max_abs_delta_auc": 0.3346,
+      "mean_top5_jaccard": 0.4222
+    },
+    {
+      "scorer": "quantum_perturbation_response",
+      "family": "quantum",
+      "perturbation": "coord",
+      "n": 24,
+      "mean_rho_to_baseline": 0.6976,
+      "min_rho_to_baseline": 0.2311,
+      "mean_abs_delta_auc": 0.0496,
+      "max_abs_delta_auc": 0.1876,
+      "mean_top5_jaccard": 0.0914
+    },
+    {
+      "scorer": "ctqw_peak_transfer",
+      "family": "quantum",
+      "perturbation": "coord",
+      "n": 60,
+      "mean_rho_to_baseline": 0.6849,
+      "min_rho_to_baseline": 0.4852,
+      "mean_abs_delta_auc": 0.053,
+      "max_abs_delta_auc": 0.1834,
+      "mean_top5_jaccard": 0.4419
+    },
+    {
+      "scorer": "interference_ratio",
+      "family": "quantum",
+      "perturbation": "coord",
+      "n": 60,
+      "mean_rho_to_baseline": 0.6698,
+      "min_rho_to_baseline": 0.2342,
+      "mean_abs_delta_auc": 0.0502,
+      "max_abs_delta_auc": 0.2213,
+      "mean_top5_jaccard": 0.4384
+    },
+    {
+      "scorer": "low_energy_transfer",
+      "family": "quantum",
+      "perturbation": "coord",
+      "n": 60,
+      "mean_rho_to_baseline": 0.6676,
+      "min_rho_to_baseline": 0.4044,
+      "mean_abs_delta_auc": 0.0831,
+      "max_abs_delta_auc": 0.2523,
+      "mean_top5_jaccard": 0.35
+    },
+    {
+      "scorer": "connectivity_eigencentrality",
+      "family": "quantum",
+      "perturbation": "coord",
+      "n": 60,
+      "mean_rho_to_baseline": 0.6487,
+      "min_rho_to_baseline": 0.2195,
+      "mean_abs_delta_auc": 0.0753,
+      "max_abs_delta_auc": 0.3709,
+      "mean_top5_jaccard": 0.0694
+    },
+    {
+      "scorer": "interference_excess",
+      "family": "quantum",
+      "perturbation": "coord",
+      "n": 60,
+      "mean_rho_to_baseline": 0.6451,
+      "min_rho_to_baseline": 0.2366,
+      "mean_abs_delta_auc": 0.0523,
+      "max_abs_delta_auc": 0.2395,
+      "mean_top5_jaccard": 0.4661
+    },
+    {
+      "scorer": "connectivity_strength",
+      "family": "quantum",
+      "perturbation": "coord",
+      "n": 60,
+      "mean_rho_to_baseline": 0.5888,
+      "min_rho_to_baseline": 0.3008,
+      "mean_abs_delta_auc": 0.0657,
+      "max_abs_delta_auc": 0.3767,
+      "mean_top5_jaccard": 0.0509
+    },
+    {
+      "scorer": "oscillation_ratio",
+      "family": "quantum",
+      "perturbation": "coord",
+      "n": 60,
+      "mean_rho_to_baseline": 0.5556,
+      "min_rho_to_baseline": 0.2586,
+      "mean_abs_delta_auc": 0.06,
+      "max_abs_delta_auc": 0.2595,
+      "mean_top5_jaccard": 0.619
+    },
+    {
+      "scorer": "coherent_source_ratio",
+      "family": "quantum",
+      "perturbation": "coord",
+      "n": 60,
+      "mean_rho_to_baseline": 0.5392,
+      "min_rho_to_baseline": 0.1266,
+      "mean_abs_delta_auc": 0.1134,
+      "max_abs_delta_auc": 0.3288,
+      "mean_top5_jaccard": 0.105
+    },
+    {
+      "scorer": "ctqw_coherent_source_contrast",
+      "family": "quantum",
+      "perturbation": "coord",
+      "n": 60,
+      "mean_rho_to_baseline": 0.5163,
+      "min_rho_to_baseline": 0.1022,
+      "mean_abs_delta_auc": 0.1058,
+      "max_abs_delta_auc": 0.357,
+      "mean_top5_jaccard": 0.2175
+    },
+    {
+      "scorer": "ctqw_temporal_variance",
+      "family": "quantum",
+      "perturbation": "coord",
+      "n": 60,
+      "mean_rho_to_baseline": 0.4926,
+      "min_rho_to_baseline": 0.2644,
+      "mean_abs_delta_auc": 0.0607,
+      "max_abs_delta_auc": 0.1986,
+      "mean_top5_jaccard": 0.6462
+    },
+    {
+      "scorer": "spectral_participation_ratio",
+      "family": "quantum",
+      "perturbation": "coord",
+      "n": 60,
+      "mean_rho_to_baseline": 0.3383,
+      "min_rho_to_baseline": 0.1074,
+      "mean_abs_delta_auc": 0.0821,
+      "max_abs_delta_auc": 0.2467,
+      "mean_top5_jaccard": 0.0243
+    },
+    {
+      "scorer": "energy_contrast",
+      "family": "quantum",
+      "perturbation": "coord",
+      "n": 60,
+      "mean_rho_to_baseline": 0.2422,
+      "min_rho_to_baseline": 0.0369,
+      "mean_abs_delta_auc": 0.1283,
+      "max_abs_delta_auc": 0.3892,
+      "mean_top5_jaccard": 0.1401
+    },
+    {
+      "scorer": "degenerate_mixing_weight",
+      "family": "quantum",
+      "perturbation": "coord",
+      "n": 60,
+      "mean_rho_to_baseline": 0.0563,
+      "min_rho_to_baseline": -0.1036,
+      "mean_abs_delta_auc": 0.0261,
+      "max_abs_delta_auc": 0.1878,
+      "mean_top5_jaccard": 0.6769
+    },
+    {
+      "scorer": "symmetry_dark_overlap",
+      "family": "quantum",
+      "perturbation": "coord",
+      "n": 60,
+      "mean_rho_to_baseline": null,
+      "min_rho_to_baseline": null,
+      "mean_abs_delta_auc": 0.0,
+      "max_abs_delta_auc": 0.0,
+      "mean_top5_jaccard": 1.0
+    },
+    {
+      "scorer": "anm_perturbation_response",
+      "family": "classical",
+      "perturbation": "edge",
+      "n": 60,
+      "mean_rho_to_baseline": 1.0,
+      "min_rho_to_baseline": 1.0,
+      "mean_abs_delta_auc": 0.0,
+      "max_abs_delta_auc": 0.0,
+      "mean_top5_jaccard": 1.0
+    },
+    {
+      "scorer": "distance_from_source_negated",
+      "family": "classical",
+      "perturbation": "edge",
+      "n": 60,
+      "mean_rho_to_baseline": 1.0,
+      "min_rho_to_baseline": 1.0,
+      "mean_abs_delta_auc": 0.0,
+      "max_abs_delta_auc": 0.0,
+      "mean_top5_jaccard": 1.0
+    },
+    {
+      "scorer": "heat_kernel_from_source",
+      "family": "classical",
+      "perturbation": "edge",
+      "n": 60,
+      "mean_rho_to_baseline": 0.9934,
+      "min_rho_to_baseline": 0.969,
+      "mean_abs_delta_auc": 0.01,
+      "max_abs_delta_auc": 0.0583,
+      "mean_top5_jaccard": 0.721
+    },
+    {
+      "scorer": "dephased_transport",
+      "family": "quantum",
+      "perturbation": "edge",
+      "n": 60,
+      "mean_rho_to_baseline": 0.9901,
+      "min_rho_to_baseline": 0.9597,
+      "mean_abs_delta_auc": 0.0117,
+      "max_abs_delta_auc": 0.0531,
+      "mean_top5_jaccard": 0.8944
+    },
+    {
+      "scorer": "current_flow_to_source",
+      "family": "classical",
+      "perturbation": "edge",
+      "n": 60,
+      "mean_rho_to_baseline": 0.9897,
+      "min_rho_to_baseline": 0.972,
+      "mean_abs_delta_auc": 0.008,
+      "max_abs_delta_auc": 0.0227,
+      "mean_top5_jaccard": 0.7486
+    },
+    {
+      "scorer": "gnm_fluctuation",
+      "family": "classical",
+      "perturbation": "edge",
+      "n": 60,
+      "mean_rho_to_baseline": 0.9829,
+      "min_rho_to_baseline": 0.9547,
+      "mean_abs_delta_auc": 0.0158,
+      "max_abs_delta_auc": 0.0633,
+      "mean_top5_jaccard": 0.5627
+    },
+    {
+      "scorer": "betweenness_centrality",
+      "family": "classical",
+      "perturbation": "edge",
+      "n": 60,
+      "mean_rho_to_baseline": 0.9771,
+      "min_rho_to_baseline": 0.9243,
+      "mean_abs_delta_auc": 0.0114,
+      "max_abs_delta_auc": 0.0468,
+      "mean_top5_jaccard": 0.7314
+    },
+    {
+      "scorer": "degree",
+      "family": "classical",
+      "perturbation": "edge",
+      "n": 60,
+      "mean_rho_to_baseline": 0.9697,
+      "min_rho_to_baseline": 0.9289,
+      "mean_abs_delta_auc": 0.0212,
+      "max_abs_delta_auc": 0.0785,
+      "mean_top5_jaccard": 0.4017
+    },
+    {
+      "scorer": "szegedy_quantum_pagerank",
+      "family": "quantum",
+      "perturbation": "edge",
+      "n": 60,
+      "mean_rho_to_baseline": 0.9336,
+      "min_rho_to_baseline": 0.8346,
+      "mean_abs_delta_auc": 0.0362,
+      "max_abs_delta_auc": 0.2164,
+      "mean_top5_jaccard": 0.7881
+    },
+    {
+      "scorer": "eigenvector_centrality",
+      "family": "classical",
+      "perturbation": "edge",
+      "n": 60,
+      "mean_rho_to_baseline": 0.8735,
+      "min_rho_to_baseline": 0.1884,
+      "mean_abs_delta_auc": 0.0689,
+      "max_abs_delta_auc": 0.5558,
+      "mean_top5_jaccard": 0.4797
+    },
+    {
+      "scorer": "quantum_best_case_transfer",
+      "family": "quantum",
+      "perturbation": "edge",
+      "n": 60,
+      "mean_rho_to_baseline": 0.8576,
+      "min_rho_to_baseline": 0.6406,
+      "mean_abs_delta_auc": 0.0464,
+      "max_abs_delta_auc": 0.1826,
+      "mean_top5_jaccard": 0.8627
+    },
+    {
+      "scorer": "quantum_opening_gain",
+      "family": "quantum",
+      "perturbation": "edge",
+      "n": 60,
+      "mean_rho_to_baseline": 0.8551,
+      "min_rho_to_baseline": 0.6322,
+      "mean_abs_delta_auc": 0.0471,
+      "max_abs_delta_auc": 0.1862,
+      "mean_top5_jaccard": 0.8683
+    },
+    {
+      "scorer": "high_energy_transfer",
+      "family": "quantum",
+      "perturbation": "edge",
+      "n": 60,
+      "mean_rho_to_baseline": 0.844,
+      "min_rho_to_baseline": 0.5969,
+      "mean_abs_delta_auc": 0.0315,
+      "max_abs_delta_auc": 0.1142,
+      "mean_top5_jaccard": 0.5943
+    },
+    {
+      "scorer": "quantum_survival_time",
+      "family": "quantum",
+      "perturbation": "edge",
+      "n": 60,
+      "mean_rho_to_baseline": 0.8431,
+      "min_rho_to_baseline": 0.7021,
+      "mean_abs_delta_auc": 0.0466,
+      "max_abs_delta_auc": 0.1418,
+      "mean_top5_jaccard": 0.6867
+    },
+    {
+      "scorer": "ctqw_average_transfer",
+      "family": "quantum",
+      "perturbation": "edge",
+      "n": 60,
+      "mean_rho_to_baseline": 0.8347,
+      "min_rho_to_baseline": 0.655,
+      "mean_abs_delta_auc": 0.0412,
+      "max_abs_delta_auc": 0.1535,
+      "mean_top5_jaccard": 0.5133
+    },
+    {
+      "scorer": "connectivity_entropy",
+      "family": "quantum",
+      "perturbation": "edge",
+      "n": 60,
+      "mean_rho_to_baseline": 0.8303,
+      "min_rho_to_baseline": 0.4595,
+      "mean_abs_delta_auc": 0.0573,
+      "max_abs_delta_auc": 0.2014,
+      "mean_top5_jaccard": 0.2953
+    },
+    {
+      "scorer": "connectivity_participation",
+      "family": "quantum",
+      "perturbation": "edge",
+      "n": 60,
+      "mean_rho_to_baseline": 0.8204,
+      "min_rho_to_baseline": 0.4463,
+      "mean_abs_delta_auc": 0.0565,
+      "max_abs_delta_auc": 0.1956,
+      "mean_top5_jaccard": 0.2551
+    },
+    {
+      "scorer": "ctqw_infinite_time_average",
+      "family": "quantum",
+      "perturbation": "edge",
+      "n": 60,
+      "mean_rho_to_baseline": 0.746,
+      "min_rho_to_baseline": 0.5145,
+      "mean_abs_delta_auc": 0.0909,
+      "max_abs_delta_auc": 0.2773,
+      "mean_top5_jaccard": 0.4249
+    },
+    {
+      "scorer": "quantum_perturbation_response",
+      "family": "quantum",
+      "perturbation": "edge",
+      "n": 24,
+      "mean_rho_to_baseline": 0.7372,
+      "min_rho_to_baseline": 0.3208,
+      "mean_abs_delta_auc": 0.0388,
+      "max_abs_delta_auc": 0.12,
+      "mean_top5_jaccard": 0.1589
+    },
+    {
+      "scorer": "low_energy_transfer",
+      "family": "quantum",
+      "perturbation": "edge",
+      "n": 60,
+      "mean_rho_to_baseline": 0.7271,
+      "min_rho_to_baseline": 0.4329,
+      "mean_abs_delta_auc": 0.0641,
+      "max_abs_delta_auc": 0.2685,
+      "mean_top5_jaccard": 0.4256
+    },
+    {
+      "scorer": "ctqw_peak_transfer",
+      "family": "quantum",
+      "perturbation": "edge",
+      "n": 60,
+      "mean_rho_to_baseline": 0.7228,
+      "min_rho_to_baseline": 0.4747,
+      "mean_abs_delta_auc": 0.0505,
+      "max_abs_delta_auc": 0.1637,
+      "mean_top5_jaccard": 0.4191
+    },
+    {
+      "scorer": "connectivity_eigencentrality",
+      "family": "quantum",
+      "perturbation": "edge",
+      "n": 60,
+      "mean_rho_to_baseline": 0.7201,
+      "min_rho_to_baseline": 0.4097,
+      "mean_abs_delta_auc": 0.0816,
+      "max_abs_delta_auc": 0.3207,
+      "mean_top5_jaccard": 0.1122
+    },
+    {
+      "scorer": "interference_ratio",
+      "family": "quantum",
+      "perturbation": "edge",
+      "n": 60,
+      "mean_rho_to_baseline": 0.6963,
+      "min_rho_to_baseline": 0.1209,
+      "mean_abs_delta_auc": 0.0556,
+      "max_abs_delta_auc": 0.2007,
+      "mean_top5_jaccard": 0.4845
+    },
+    {
+      "scorer": "connectivity_strength",
+      "family": "quantum",
+      "perturbation": "edge",
+      "n": 60,
+      "mean_rho_to_baseline": 0.6733,
+      "min_rho_to_baseline": 0.3521,
+      "mean_abs_delta_auc": 0.0761,
+      "max_abs_delta_auc": 0.2923,
+      "mean_top5_jaccard": 0.086
+    },
+    {
+      "scorer": "interference_excess",
+      "family": "quantum",
+      "perturbation": "edge",
+      "n": 60,
+      "mean_rho_to_baseline": 0.6719,
+      "min_rho_to_baseline": 0.1268,
+      "mean_abs_delta_auc": 0.0612,
+      "max_abs_delta_auc": 0.2092,
+      "mean_top5_jaccard": 0.5507
+    },
+    {
+      "scorer": "coherent_source_ratio",
+      "family": "quantum",
+      "perturbation": "edge",
+      "n": 60,
+      "mean_rho_to_baseline": 0.6559,
+      "min_rho_to_baseline": 0.2242,
+      "mean_abs_delta_auc": 0.0533,
+      "max_abs_delta_auc": 0.1838,
+      "mean_top5_jaccard": 0.1452
+    },
+    {
+      "scorer": "ctqw_coherent_source_contrast",
+      "family": "quantum",
+      "perturbation": "edge",
+      "n": 60,
+      "mean_rho_to_baseline": 0.6466,
+      "min_rho_to_baseline": 0.2126,
+      "mean_abs_delta_auc": 0.0499,
+      "max_abs_delta_auc": 0.2114,
+      "mean_top5_jaccard": 0.2495
+    },
+    {
+      "scorer": "oscillation_ratio",
+      "family": "quantum",
+      "perturbation": "edge",
+      "n": 60,
+      "mean_rho_to_baseline": 0.5999,
+      "min_rho_to_baseline": 0.2731,
+      "mean_abs_delta_auc": 0.0602,
+      "max_abs_delta_auc": 0.2131,
+      "mean_top5_jaccard": 0.6274
+    },
+    {
+      "scorer": "ctqw_temporal_variance",
+      "family": "quantum",
+      "perturbation": "edge",
+      "n": 60,
+      "mean_rho_to_baseline": 0.5575,
+      "min_rho_to_baseline": 0.2576,
+      "mean_abs_delta_auc": 0.0611,
+      "max_abs_delta_auc": 0.2248,
+      "mean_top5_jaccard": 0.6383
+    },
+    {
+      "scorer": "energy_contrast",
+      "family": "quantum",
+      "perturbation": "edge",
+      "n": 60,
+      "mean_rho_to_baseline": 0.4081,
+      "min_rho_to_baseline": -0.0227,
+      "mean_abs_delta_auc": 0.0893,
+      "max_abs_delta_auc": 0.3924,
+      "mean_top5_jaccard": 0.1975
+    },
+    {
+      "scorer": "spectral_participation_ratio",
+      "family": "quantum",
+      "perturbation": "edge",
+      "n": 60,
+      "mean_rho_to_baseline": 0.4035,
+      "min_rho_to_baseline": 0.1735,
+      "mean_abs_delta_auc": 0.0874,
+      "max_abs_delta_auc": 0.2347,
+      "mean_top5_jaccard": 0.0241
+    },
+    {
+      "scorer": "degenerate_mixing_weight",
+      "family": "quantum",
+      "perturbation": "edge",
+      "n": 60,
+      "mean_rho_to_baseline": 0.1863,
+      "min_rho_to_baseline": 0.0235,
+      "mean_abs_delta_auc": 0.0307,
+      "max_abs_delta_auc": 0.2582,
+      "mean_top5_jaccard": 0.8009
+    },
+    {
+      "scorer": "symmetry_dark_overlap",
+      "family": "quantum",
+      "perturbation": "edge",
+      "n": 60,
+      "mean_rho_to_baseline": null,
+      "min_rho_to_baseline": null,
+      "mean_abs_delta_auc": 0.0064,
+      "max_abs_delta_auc": 0.2125,
+      "mean_top5_jaccard": 0.9167
+    },
+    {
+      "scorer": "betweenness_centrality",
+      "family": "classical",
+      "perturbation": "source",
+      "n": 34,
+      "mean_rho_to_baseline": 1.0,
+      "min_rho_to_baseline": 1.0,
+      "mean_abs_delta_auc": 0.0,
+      "max_abs_delta_auc": 0.0,
+      "mean_top5_jaccard": 1.0
+    },
+    {
+      "scorer": "connectivity_eigencentrality",
+      "family": "quantum",
+      "perturbation": "source",
+      "n": 34,
+      "mean_rho_to_baseline": 1.0,
+      "min_rho_to_baseline": 1.0,
+      "mean_abs_delta_auc": 0.0,
+      "max_abs_delta_auc": 0.0,
+      "mean_top5_jaccard": 1.0
+    },
+    {
+      "scorer": "connectivity_entropy",
+      "family": "quantum",
+      "perturbation": "source",
+      "n": 34,
+      "mean_rho_to_baseline": 1.0,
+      "min_rho_to_baseline": 1.0,
+      "mean_abs_delta_auc": 0.0,
+      "max_abs_delta_auc": 0.0,
+      "mean_top5_jaccard": 1.0
+    },
+    {
+      "scorer": "connectivity_participation",
+      "family": "quantum",
+      "perturbation": "source",
+      "n": 34,
+      "mean_rho_to_baseline": 1.0,
+      "min_rho_to_baseline": 1.0,
+      "mean_abs_delta_auc": 0.0,
+      "max_abs_delta_auc": 0.0,
+      "mean_top5_jaccard": 1.0
+    },
+    {
+      "scorer": "connectivity_strength",
+      "family": "quantum",
+      "perturbation": "source",
+      "n": 34,
+      "mean_rho_to_baseline": 1.0,
+      "min_rho_to_baseline": 1.0,
+      "mean_abs_delta_auc": 0.0,
+      "max_abs_delta_auc": 0.0,
+      "mean_top5_jaccard": 1.0
+    },
+    {
+      "scorer": "degree",
+      "family": "classical",
+      "perturbation": "source",
+      "n": 34,
+      "mean_rho_to_baseline": 1.0,
+      "min_rho_to_baseline": 1.0,
+      "mean_abs_delta_auc": 0.0,
+      "max_abs_delta_auc": 0.0,
+      "mean_top5_jaccard": 1.0
+    },
+    {
+      "scorer": "eigenvector_centrality",
+      "family": "classical",
+      "perturbation": "source",
+      "n": 34,
+      "mean_rho_to_baseline": 1.0,
+      "min_rho_to_baseline": 1.0,
+      "mean_abs_delta_auc": 0.0,
+      "max_abs_delta_auc": 0.0,
+      "mean_top5_jaccard": 1.0
+    },
+    {
+      "scorer": "gnm_fluctuation",
+      "family": "classical",
+      "perturbation": "source",
+      "n": 34,
+      "mean_rho_to_baseline": 1.0,
+      "min_rho_to_baseline": 1.0,
+      "mean_abs_delta_auc": 0.0,
+      "max_abs_delta_auc": 0.0,
+      "mean_top5_jaccard": 1.0
+    },
+    {
+      "scorer": "degenerate_mixing_weight",
+      "family": "quantum",
+      "perturbation": "source",
+      "n": 34,
+      "mean_rho_to_baseline": 0.9984,
+      "min_rho_to_baseline": 0.9917,
+      "mean_abs_delta_auc": 0.001,
+      "max_abs_delta_auc": 0.0125,
+      "mean_top5_jaccard": 1.0
+    },
+    {
+      "scorer": "current_flow_to_source",
+      "family": "classical",
+      "perturbation": "source",
+      "n": 34,
+      "mean_rho_to_baseline": 0.9978,
+      "min_rho_to_baseline": 0.9851,
+      "mean_abs_delta_auc": 0.0075,
+      "max_abs_delta_auc": 0.0489,
+      "mean_top5_jaccard": 0.7073
+    },
+    {
+      "scorer": "distance_from_source_negated",
+      "family": "classical",
+      "perturbation": "source",
+      "n": 34,
+      "mean_rho_to_baseline": 0.9963,
+      "min_rho_to_baseline": 0.9661,
+      "mean_abs_delta_auc": 0.0088,
+      "max_abs_delta_auc": 0.0538,
+      "mean_top5_jaccard": 0.5497
+    },
+    {
+      "scorer": "dephased_transport",
+      "family": "quantum",
+      "perturbation": "source",
+      "n": 34,
+      "mean_rho_to_baseline": 0.9955,
+      "min_rho_to_baseline": 0.9771,
+      "mean_abs_delta_auc": 0.0122,
+      "max_abs_delta_auc": 0.0575,
+      "mean_top5_jaccard": 0.8025
+    },
+    {
+      "scorer": "heat_kernel_from_source",
+      "family": "classical",
+      "perturbation": "source",
+      "n": 34,
+      "mean_rho_to_baseline": 0.9923,
+      "min_rho_to_baseline": 0.9543,
+      "mean_abs_delta_auc": 0.014,
+      "max_abs_delta_auc": 0.1208,
+      "mean_top5_jaccard": 0.8737
+    },
+    {
+      "scorer": "anm_perturbation_response",
+      "family": "classical",
+      "perturbation": "source",
+      "n": 34,
+      "mean_rho_to_baseline": 0.9916,
+      "min_rho_to_baseline": 0.9665,
+      "mean_abs_delta_auc": 0.0071,
+      "max_abs_delta_auc": 0.0349,
+      "mean_top5_jaccard": 0.8725
+    },
+    {
+      "scorer": "ctqw_average_transfer",
+      "family": "quantum",
+      "perturbation": "source",
+      "n": 34,
+      "mean_rho_to_baseline": 0.9882,
+      "min_rho_to_baseline": 0.942,
+      "mean_abs_delta_auc": 0.0133,
+      "max_abs_delta_auc": 0.0812,
+      "mean_top5_jaccard": 0.7409
+    },
+    {
+      "scorer": "quantum_survival_time",
+      "family": "quantum",
+      "perturbation": "source",
+      "n": 34,
+      "mean_rho_to_baseline": 0.9847,
+      "min_rho_to_baseline": 0.9224,
+      "mean_abs_delta_auc": 0.0123,
+      "max_abs_delta_auc": 0.064,
+      "mean_top5_jaccard": 0.7721
+    },
+    {
+      "scorer": "interference_ratio",
+      "family": "quantum",
+      "perturbation": "source",
+      "n": 34,
+      "mean_rho_to_baseline": 0.9841,
+      "min_rho_to_baseline": 0.936,
+      "mean_abs_delta_auc": 0.0148,
+      "max_abs_delta_auc": 0.0865,
+      "mean_top5_jaccard": 0.7269
+    },
+    {
+      "scorer": "szegedy_quantum_pagerank",
+      "family": "quantum",
+      "perturbation": "source",
+      "n": 34,
+      "mean_rho_to_baseline": 0.9835,
+      "min_rho_to_baseline": 0.9103,
+      "mean_abs_delta_auc": 0.0178,
+      "max_abs_delta_auc": 0.0474,
+      "mean_top5_jaccard": 0.7269
+    },
+    {
+      "scorer": "interference_excess",
+      "family": "quantum",
+      "perturbation": "source",
+      "n": 34,
+      "mean_rho_to_baseline": 0.983,
+      "min_rho_to_baseline": 0.936,
+      "mean_abs_delta_auc": 0.0155,
+      "max_abs_delta_auc": 0.0829,
+      "mean_top5_jaccard": 0.7703
+    },
+    {
+      "scorer": "ctqw_infinite_time_average",
+      "family": "quantum",
+      "perturbation": "source",
+      "n": 34,
+      "mean_rho_to_baseline": 0.982,
+      "min_rho_to_baseline": 0.8752,
+      "mean_abs_delta_auc": 0.0156,
+      "max_abs_delta_auc": 0.0921,
+      "mean_top5_jaccard": 0.7857
+    },
+    {
+      "scorer": "quantum_best_case_transfer",
+      "family": "quantum",
+      "perturbation": "source",
+      "n": 34,
+      "mean_rho_to_baseline": 0.9797,
+      "min_rho_to_baseline": 0.9246,
+      "mean_abs_delta_auc": 0.0122,
+      "max_abs_delta_auc": 0.0523,
+      "mean_top5_jaccard": 0.7675
+    },
+    {
+      "scorer": "quantum_opening_gain",
+      "family": "quantum",
+      "perturbation": "source",
+      "n": 34,
+      "mean_rho_to_baseline": 0.9792,
+      "min_rho_to_baseline": 0.9244,
+      "mean_abs_delta_auc": 0.0126,
+      "max_abs_delta_auc": 0.0518,
+      "mean_top5_jaccard": 0.7773
+    },
+    {
+      "scorer": "spectral_participation_ratio",
+      "family": "quantum",
+      "perturbation": "source",
+      "n": 34,
+      "mean_rho_to_baseline": 0.9717,
+      "min_rho_to_baseline": 0.824,
+      "mean_abs_delta_auc": 0.0172,
+      "max_abs_delta_auc": 0.0937,
+      "mean_top5_jaccard": 0.6478
+    },
+    {
+      "scorer": "high_energy_transfer",
+      "family": "quantum",
+      "perturbation": "source",
+      "n": 34,
+      "mean_rho_to_baseline": 0.969,
+      "min_rho_to_baseline": 0.8524,
+      "mean_abs_delta_auc": 0.0246,
+      "max_abs_delta_auc": 0.1062,
+      "mean_top5_jaccard": 0.744
+    },
+    {
+      "scorer": "ctqw_peak_transfer",
+      "family": "quantum",
+      "perturbation": "source",
+      "n": 34,
+      "mean_rho_to_baseline": 0.9593,
+      "min_rho_to_baseline": 0.8706,
+      "mean_abs_delta_auc": 0.0217,
+      "max_abs_delta_auc": 0.0863,
+      "mean_top5_jaccard": 0.8333
+    },
+    {
+      "scorer": "oscillation_ratio",
+      "family": "quantum",
+      "perturbation": "source",
+      "n": 34,
+      "mean_rho_to_baseline": 0.9586,
+      "min_rho_to_baseline": 0.8733,
+      "mean_abs_delta_auc": 0.0222,
+      "max_abs_delta_auc": 0.1105,
+      "mean_top5_jaccard": 0.8165
+    },
+    {
+      "scorer": "quantum_perturbation_response",
+      "family": "quantum",
+      "perturbation": "source",
+      "n": 34,
+      "mean_rho_to_baseline": 0.9556,
+      "min_rho_to_baseline": 0.9107,
+      "mean_abs_delta_auc": 0.0238,
+      "max_abs_delta_auc": 0.093,
+      "mean_top5_jaccard": 0.4723
+    },
+    {
+      "scorer": "ctqw_temporal_variance",
+      "family": "quantum",
+      "perturbation": "source",
+      "n": 34,
+      "mean_rho_to_baseline": 0.9469,
+      "min_rho_to_baseline": 0.819,
+      "mean_abs_delta_auc": 0.0238,
+      "max_abs_delta_auc": 0.0851,
+      "mean_top5_jaccard": 0.7773
+    },
+    {
+      "scorer": "coherent_source_ratio",
+      "family": "quantum",
+      "perturbation": "source",
+      "n": 34,
+      "mean_rho_to_baseline": 0.9148,
+      "min_rho_to_baseline": 0.4385,
+      "mean_abs_delta_auc": 0.0436,
+      "max_abs_delta_auc": 0.274,
+      "mean_top5_jaccard": 0.541
+    },
+    {
+      "scorer": "ctqw_coherent_source_contrast",
+      "family": "quantum",
+      "perturbation": "source",
+      "n": 34,
+      "mean_rho_to_baseline": 0.9071,
+      "min_rho_to_baseline": 0.4255,
+      "mean_abs_delta_auc": 0.0481,
+      "max_abs_delta_auc": 0.2113,
+      "mean_top5_jaccard": 0.4838
+    },
+    {
+      "scorer": "low_energy_transfer",
+      "family": "quantum",
+      "perturbation": "source",
+      "n": 34,
+      "mean_rho_to_baseline": 0.8995,
+      "min_rho_to_baseline": 0.6119,
+      "mean_abs_delta_auc": 0.036,
+      "max_abs_delta_auc": 0.18,
+      "mean_top5_jaccard": 0.6141
+    },
+    {
+      "scorer": "energy_contrast",
+      "family": "quantum",
+      "perturbation": "source",
+      "n": 34,
+      "mean_rho_to_baseline": 0.7957,
+      "min_rho_to_baseline": 0.1635,
+      "mean_abs_delta_auc": 0.0482,
+      "max_abs_delta_auc": 0.2877,
+      "mean_top5_jaccard": 0.4322
+    },
+    {
+      "scorer": "symmetry_dark_overlap",
+      "family": "quantum",
+      "perturbation": "source",
+      "n": 34,
+      "mean_rho_to_baseline": null,
+      "min_rho_to_baseline": null,
+      "mean_abs_delta_auc": 0.0,
+      "max_abs_delta_auc": 0.0,
+      "mean_top5_jaccard": 1.0
+    },
+    {
+      "scorer": "ctqw_average_transfer",
+      "family": "quantum",
+      "perturbation": "window",
+      "n": 16,
+      "mean_rho_to_baseline": 0.9109,
+      "min_rho_to_baseline": 0.7705,
+      "mean_abs_delta_auc": 0.0319,
+      "max_abs_delta_auc": 0.0626,
+      "mean_top5_jaccard": 0.7202
+    },
+    {
+      "scorer": "quantum_perturbation_response",
+      "family": "quantum",
+      "perturbation": "window",
+      "n": 16,
+      "mean_rho_to_baseline": 0.84,
+      "min_rho_to_baseline": 0.5342,
+      "mean_abs_delta_auc": 0.0601,
+      "max_abs_delta_auc": 0.1549,
+      "mean_top5_jaccard": 0.2914
+    },
+    {
+      "scorer": "ctqw_peak_transfer",
+      "family": "quantum",
+      "perturbation": "window",
+      "n": 16,
+      "mean_rho_to_baseline": 0.8351,
+      "min_rho_to_baseline": 0.7009,
+      "mean_abs_delta_auc": 0.0344,
+      "max_abs_delta_auc": 0.1093,
+      "mean_top5_jaccard": 0.9792
+    },
+    {
+      "scorer": "ctqw_coherent_source_contrast",
+      "family": "quantum",
+      "perturbation": "window",
+      "n": 16,
+      "mean_rho_to_baseline": 0.6813,
+      "min_rho_to_baseline": 0.2682,
+      "mean_abs_delta_auc": 0.1253,
+      "max_abs_delta_auc": 0.3825,
+      "mean_top5_jaccard": 0.405
+    },
+    {
+      "scorer": "ctqw_temporal_variance",
+      "family": "quantum",
+      "perturbation": "window",
+      "n": 16,
+      "mean_rho_to_baseline": 0.6777,
+      "min_rho_to_baseline": 0.2632,
+      "mean_abs_delta_auc": 0.0718,
+      "max_abs_delta_auc": 0.1644,
+      "mean_top5_jaccard": 0.6213
+    }
+  ]
+}

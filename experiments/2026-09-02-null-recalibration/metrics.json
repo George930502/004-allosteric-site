@@ -1,0 +1,3023 @@
+{
+  "config": {
+    "name": "null-recalibration",
+    "date": "2026-09-02",
+    "seed": 0,
+    "targets": [
+      "kras_g12c_mandated",
+      "kras_g12c_corrected",
+      "bcr_abl1_mandated",
+      "bcr_abl1_corrected",
+      "cardiac_myosin_mandated",
+      "cardiac_myosin_corrected"
+    ],
+    "length_scales": [
+      4.0,
+      8.0,
+      12.0,
+      20.0
+    ],
+    "alpha": 0.05,
+    "n_fields": 1000,
+    "holm_family_size": 3,
+    "search": {
+      "tolerances": [
+        0.05,
+        0.1,
+        0.2
+      ],
+      "replicates": 999
+    },
+    "gate": {
+      "tolerance": 0.1,
+      "replicates": 9999,
+      "targets": [
+        "kras_g12c_mandated",
+        "kras_g12c_corrected",
+        "bcr_abl1_mandated",
+        "bcr_abl1_corrected",
+        "cardiac_myosin_mandated",
+        "cardiac_myosin_corrected",
+        "chk1",
+        "ecoli_cps",
+        "glucokinase",
+        "hiv_rt",
+        "mkp5",
+        "ns5b",
+        "p97_vcp",
+        "ptp1b",
+        "smyd3"
+      ]
+    },
+    "power": {
+      "target_power": 0.8,
+      "n_fields": 300
+    }
+  },
+  "search": {
+    "0.05": {
+      "kras_g12c_mandated": {
+        "target": "kras_g12c_mandated",
+        "alpha_star": 0.05,
+        "size_ratio": 1.082,
+        "family_size": 3,
+        "tolerance": 0.05,
+        "match_distance": false,
+        "n_fields": 1000,
+        "replicates": 999,
+        "alpha": 0.05,
+        "type_one_rate": {
+          "4.0": {
+            "matched_patch": 0.049,
+            "alpha_star": 0.051,
+            "step_ratio": {
+              "0.01667": 1.0,
+              "0.025": 1.0,
+              "0.05": 1.0
+            }
+          },
+          "8.0": {
+            "matched_patch": 0.05,
+            "alpha_star": 0.0517,
+            "step_ratio": {
+              "0.01667": 1.0325,
+              "0.025": 1.0383,
+              "0.05": 1.0
+            }
+          },
+          "12.0": {
+            "matched_patch": 0.048,
+            "alpha_star": 0.05495,
+            "step_ratio": {
+              "0.01667": 1.0763,
+              "0.025": 1.0383,
+              "0.05": 1.0
+            }
+          },
+          "20.0": {
+            "matched_patch": 0.043,
+            "alpha_star": 0.05795,
+            "step_ratio": {
+              "0.01667": 1.082,
+              "0.025": 1.0707,
+              "0.05": 1.0
+            }
+          }
+        },
+        "positive_control": {
+          "score": "minus distance to nearest scoreable label",
+          "matched_patch_p": 0.001,
+          "background_residues_p": 0.001
+        },
+        "sampler": {
+          "attempts": 60998,
+          "acceptance_rate": 0.016378,
+          "rejected": {
+            "frontier": 427,
+            "adjacent": 0,
+            "degree": 54038,
+            "compactness": 5534,
+            "distance": 0
+          },
+          "observed_components": [
+            16
+          ],
+          "observed_mean_degree": 8.75,
+          "observed_radius_of_gyration": 7.97,
+          "observed_median_distance_to_source": 10.6486,
+          "sampled_mean_degree": 8.8448,
+          "sampled_radius_of_gyration": 8.0714
+        }
+      },
+      "kras_g12c_corrected": {
+        "target": "kras_g12c_corrected",
+        "alpha_star": 0.04285,
+        "size_ratio": 1.082,
+        "family_size": 3,
+        "tolerance": 0.05,
+        "match_distance": false,
+        "n_fields": 1000,
+        "replicates": 999,
+        "alpha": 0.05,
+        "type_one_rate": {
+          "4.0": {
+            "matched_patch": 0.054,
+            "alpha_star": 0.046,
+            "step_ratio": {
+              "0.01667": 1.0763,
+              "0.025": 1.0096,
+              "0.05": 1.0244
+            }
+          },
+          "8.0": {
+            "matched_patch": 0.056,
+            "alpha_star": 0.04285,
+            "step_ratio": {
+              "0.01667": 1.082,
+              "0.025": 1.082,
+              "0.05": 1.0448
+            }
+          },
+          "12.0": {
+            "matched_patch": 0.054,
+            "alpha_star": 0.04395,
+            "step_ratio": {
+              "0.01667": 1.0325,
+              "0.025": 1.0817,
+              "0.05": 1.0375
+            }
+          },
+          "20.0": {
+            "matched_patch": 0.047,
+            "alpha_star": 0.0549,
+            "step_ratio": {
+              "0.01667": 1.0763,
+              "0.025": 1.0378,
+              "0.05": 1.0
+            }
+          }
+        },
+        "positive_control": {
+          "score": "minus distance to nearest scoreable label",
+          "matched_patch_p": 0.001,
+          "background_residues_p": 0.001
+        },
+        "sampler": {
+          "attempts": 83615,
+          "acceptance_rate": 0.011948,
+          "rejected": {
+            "frontier": 0,
+            "adjacent": 0,
+            "degree": 74532,
+            "compactness": 8084,
+            "distance": 0
+          },
+          "observed_components": [
+            16
+          ],
+          "observed_mean_degree": 8.8125,
+          "observed_radius_of_gyration": 7.8595,
+          "observed_median_distance_to_source": 10.665,
+          "sampled_mean_degree": 8.89,
+          "sampled_radius_of_gyration": 7.9466
+        }
+      },
+      "bcr_abl1_mandated": {
+        "target": "bcr_abl1_mandated",
+        "alpha_star": 0.0329,
+        "size_ratio": 1.1805,
+        "family_size": 3,
+        "tolerance": 0.05,
+        "match_distance": false,
+        "n_fields": 1000,
+        "replicates": 999,
+        "alpha": 0.05,
+        "type_one_rate": {
+          "4.0": {
+            "matched_patch": 0.052,
+            "alpha_star": 0.04695,
+            "step_ratio": {
+              "0.01667": 1.0,
+              "0.025": 1.0,
+              "0.05": 1.0184
+            }
+          },
+          "8.0": {
+            "matched_patch": 0.069,
+            "alpha_star": 0.038,
+            "step_ratio": {
+              "0.01667": 1.0932,
+              "0.025": 1.1075,
+              "0.05": 1.0787
+            }
+          },
+          "12.0": {
+            "matched_patch": 0.07,
+            "alpha_star": 0.034,
+            "step_ratio": {
+              "0.01667": 1.1547,
+              "0.025": 1.1516,
+              "0.05": 1.1095
+            }
+          },
+          "20.0": {
+            "matched_patch": 0.081,
+            "alpha_star": 0.0329,
+            "step_ratio": {
+              "0.01667": 1.1805,
+              "0.025": 1.1214,
+              "0.05": 1.1185
+            }
+          }
+        },
+        "positive_control": {
+          "score": "minus distance to nearest scoreable label",
+          "matched_patch_p": 0.001,
+          "background_residues_p": 0.001
+        },
+        "sampler": {
+          "attempts": 45255,
+          "acceptance_rate": 0.022075,
+          "rejected": {
+            "frontier": 0,
+            "adjacent": 0,
+            "degree": 29111,
+            "compactness": 15145,
+            "distance": 0
+          },
+          "observed_components": [
+            17
+          ],
+          "observed_mean_degree": 9.5882,
+          "observed_radius_of_gyration": 7.8322,
+          "observed_median_distance_to_source": 17.2561,
+          "sampled_mean_degree": 9.6258,
+          "sampled_radius_of_gyration": 7.9438
+        }
+      },
+      "bcr_abl1_corrected": {
+        "target": "bcr_abl1_corrected",
+        "alpha_star": 0.03195,
+        "size_ratio": 1.1265,
+        "family_size": 3,
+        "tolerance": 0.05,
+        "match_distance": false,
+        "n_fields": 1000,
+        "replicates": 999,
+        "alpha": 0.05,
+        "type_one_rate": {
+          "4.0": {
+            "matched_patch": 0.063,
+            "alpha_star": 0.04095,
+            "step_ratio": {
+              "0.01667": 1.0461,
+              "0.025": 1.0481,
+              "0.05": 1.0577
+            }
+          },
+          "8.0": {
+            "matched_patch": 0.068,
+            "alpha_star": 0.03195,
+            "step_ratio": {
+              "0.01667": 1.066,
+              "0.025": 1.0481,
+              "0.05": 1.1265
+            }
+          },
+          "12.0": {
+            "matched_patch": 0.068,
+            "alpha_star": 0.03795,
+            "step_ratio": {
+              "0.01667": 1.0198,
+              "0.025": 1.0283,
+              "0.05": 1.0791
+            }
+          },
+          "20.0": {
+            "matched_patch": 0.06,
+            "alpha_star": 0.042,
+            "step_ratio": {
+              "0.01667": 1.0715,
+              "0.025": 1.0,
+              "0.05": 1.0505
+            }
+          }
+        },
+        "positive_control": {
+          "score": "minus distance to nearest scoreable label",
+          "matched_patch_p": 0.001,
+          "background_residues_p": 0.001
+        },
+        "sampler": {
+          "attempts": 132680,
+          "acceptance_rate": 0.007529,
+          "rejected": {
+            "frontier": 0,
+            "adjacent": 0,
+            "degree": 91005,
+            "compactness": 40676,
+            "distance": 0
+          },
+          "observed_components": [
+            17,
+            1
+          ],
+          "observed_mean_degree": 9.6667,
+          "observed_radius_of_gyration": 8.6887,
+          "observed_median_distance_to_source": 17.5364,
+          "sampled_mean_degree": 9.6807,
+          "sampled_radius_of_gyration": 8.837
+        }
+      },
+      "cardiac_myosin_mandated": {
+        "available": false,
+        "tolerance": 0.05,
+        "reason": "matched pool undrawable at the frozen tolerance",
+        "drawn": 822,
+        "wanted": 999,
+        "attempts": 3996000,
+        "acceptance_rate": 0.00020571,
+        "rejected": {
+          "frontier": 704,
+          "adjacent": 0,
+          "degree": 2670539,
+          "compactness": 1323935,
+          "distance": 0
+        },
+        "observed_components": [
+          7,
+          4,
+          1
+        ],
+        "observed_mean_degree": 8.75,
+        "observed_radius_of_gyration": 9.3445,
+        "observed_median_distance_to_source": 27.8551
+      },
+      "cardiac_myosin_corrected": {
+        "target": "cardiac_myosin_corrected",
+        "alpha_star": 0.05,
+        "size_ratio": 1.0,
+        "family_size": 3,
+        "tolerance": 0.05,
+        "match_distance": false,
+        "n_fields": 1000,
+        "replicates": 999,
+        "alpha": 0.05,
+        "type_one_rate": {
+          "4.0": {
+            "matched_patch": 0.041,
+            "alpha_star": 0.07195,
+            "step_ratio": {
+              "0.01667": 1.0,
+              "0.025": 1.0,
+              "0.05": 1.0
+            }
+          },
+          "8.0": {
+            "matched_patch": 0.034,
+            "alpha_star": 0.07695,
+            "step_ratio": {
+              "0.01667": 1.0,
+              "0.025": 1.0,
+              "0.05": 1.0
+            }
+          },
+          "12.0": {
+            "matched_patch": 0.037,
+            "alpha_star": 0.06895,
+            "step_ratio": {
+              "0.01667": 1.0,
+              "0.025": 1.0,
+              "0.05": 1.0
+            }
+          },
+          "20.0": {
+            "matched_patch": 0.037,
+            "alpha_star": 0.066,
+            "step_ratio": {
+              "0.01667": 1.0,
+              "0.025": 1.0,
+              "0.05": 1.0
+            }
+          }
+        },
+        "positive_control": {
+          "score": "minus distance to nearest scoreable label",
+          "matched_patch_p": 0.001,
+          "background_residues_p": 0.001
+        },
+        "sampler": {
+          "attempts": 375941,
+          "acceptance_rate": 0.002657,
+          "rejected": {
+            "frontier": 133,
+            "adjacent": 0,
+            "degree": 286268,
+            "compactness": 88541,
+            "distance": 0
+          },
+          "observed_components": [
+            8,
+            4
+          ],
+          "observed_mean_degree": 9.4167,
+          "observed_radius_of_gyration": 8.9011,
+          "observed_median_distance_to_source": 27.6423,
+          "sampled_mean_degree": 9.4469,
+          "sampled_radius_of_gyration": 8.962
+        }
+      }
+    },
+    "0.1": {
+      "kras_g12c_mandated": {
+        "target": "kras_g12c_mandated",
+        "alpha_star": 0.05,
+        "size_ratio": 1.0372,
+        "family_size": 3,
+        "tolerance": 0.1,
+        "match_distance": false,
+        "n_fields": 1000,
+        "replicates": 999,
+        "alpha": 0.05,
+        "type_one_rate": {
+          "4.0": {
+            "matched_patch": 0.038,
+            "alpha_star": 0.065,
+            "step_ratio": {
+              "0.01667": 1.0,
+              "0.025": 1.0,
+              "0.05": 1.0
+            }
+          },
+          "8.0": {
+            "matched_patch": 0.048,
+            "alpha_star": 0.05395,
+            "step_ratio": {
+              "0.01667": 1.0,
+              "0.025": 1.0,
+              "0.05": 1.0
+            }
+          },
+          "12.0": {
+            "matched_patch": 0.047,
+            "alpha_star": 0.0569,
+            "step_ratio": {
+              "0.01667": 1.0372,
+              "0.025": 1.0185,
+              "0.05": 1.0
+            }
+          },
+          "20.0": {
+            "matched_patch": 0.038,
+            "alpha_star": 0.06395,
+            "step_ratio": {
+              "0.01667": 1.0286,
+              "0.025": 1.0,
+              "0.05": 1.0
+            }
+          }
+        },
+        "positive_control": {
+          "score": "minus distance to nearest scoreable label",
+          "matched_patch_p": 0.001,
+          "background_residues_p": 0.001
+        },
+        "sampler": {
+          "attempts": 12996,
+          "acceptance_rate": 0.07687,
+          "rejected": {
+            "frontier": 92,
+            "adjacent": 0,
+            "degree": 9841,
+            "compactness": 2064,
+            "distance": 0
+          },
+          "observed_components": [
+            16
+          ],
+          "observed_mean_degree": 8.75,
+          "observed_radius_of_gyration": 7.97,
+          "observed_median_distance_to_source": 10.6486,
+          "sampled_mean_degree": 9.1003,
+          "sampled_radius_of_gyration": 8.2603
+        }
+      },
+      "kras_g12c_corrected": {
+        "target": "kras_g12c_corrected",
+        "alpha_star": 0.04695,
+        "size_ratio": 1.088,
+        "family_size": 3,
+        "tolerance": 0.1,
+        "match_distance": false,
+        "n_fields": 1000,
+        "replicates": 999,
+        "alpha": 0.05,
+        "type_one_rate": {
+          "4.0": {
+            "matched_patch": 0.053,
+            "alpha_star": 0.049,
+            "step_ratio": {
+              "0.01667": 1.042,
+              "0.025": 1.0375,
+              "0.05": 1.0059
+            }
+          },
+          "8.0": {
+            "matched_patch": 0.053,
+            "alpha_star": 0.04695,
+            "step_ratio": {
+              "0.01667": 1.088,
+              "0.025": 1.0183,
+              "0.05": 1.0184
+            }
+          },
+          "12.0": {
+            "matched_patch": 0.046,
+            "alpha_star": 0.0539,
+            "step_ratio": {
+              "0.01667": 1.066,
+              "0.025": 1.0479,
+              "0.05": 1.0
+            }
+          },
+          "20.0": {
+            "matched_patch": 0.049,
+            "alpha_star": 0.0569,
+            "step_ratio": {
+              "0.01667": 1.042,
+              "0.025": 1.0481,
+              "0.05": 1.0
+            }
+          }
+        },
+        "positive_control": {
+          "score": "minus distance to nearest scoreable label",
+          "matched_patch_p": 0.001,
+          "background_residues_p": 0.001
+        },
+        "sampler": {
+          "attempts": 16471,
+          "acceptance_rate": 0.060652,
+          "rejected": {
+            "frontier": 0,
+            "adjacent": 0,
+            "degree": 12574,
+            "compactness": 2898,
+            "distance": 0
+          },
+          "observed_components": [
+            16
+          ],
+          "observed_mean_degree": 8.8125,
+          "observed_radius_of_gyration": 7.8595,
+          "observed_median_distance_to_source": 10.665,
+          "sampled_mean_degree": 9.1356,
+          "sampled_radius_of_gyration": 8.2028
+        }
+      },
+      "bcr_abl1_mandated": {
+        "target": "bcr_abl1_mandated",
+        "alpha_star": 0.02995,
+        "size_ratio": 1.1904,
+        "family_size": 3,
+        "tolerance": 0.1,
+        "match_distance": false,
+        "n_fields": 1000,
+        "replicates": 999,
+        "alpha": 0.05,
+        "type_one_rate": {
+          "4.0": {
+            "matched_patch": 0.051,
+            "alpha_star": 0.04995,
+            "step_ratio": {
+              "0.01667": 1.0,
+              "0.025": 1.0,
+              "0.05": 1.0003
+            }
+          },
+          "8.0": {
+            "matched_patch": 0.07,
+            "alpha_star": 0.03695,
+            "step_ratio": {
+              "0.01667": 1.1116,
+              "0.025": 1.1072,
+              "0.05": 1.0866
+            }
+          },
+          "12.0": {
+            "matched_patch": 0.068,
+            "alpha_star": 0.036,
+            "step_ratio": {
+              "0.01667": 1.1904,
+              "0.025": 1.169,
+              "0.05": 1.0938
+            }
+          },
+          "20.0": {
+            "matched_patch": 0.076,
+            "alpha_star": 0.02995,
+            "step_ratio": {
+              "0.01667": 1.1904,
+              "0.025": 1.1686,
+              "0.05": 1.1439
+            }
+          }
+        },
+        "positive_control": {
+          "score": "minus distance to nearest scoreable label",
+          "matched_patch_p": 0.001,
+          "background_residues_p": 0.001
+        },
+        "sampler": {
+          "attempts": 9823,
+          "acceptance_rate": 0.1017,
+          "rejected": {
+            "frontier": 0,
+            "adjacent": 0,
+            "degree": 3630,
+            "compactness": 5194,
+            "distance": 0
+          },
+          "observed_components": [
+            17
+          ],
+          "observed_mean_degree": 9.5882,
+          "observed_radius_of_gyration": 7.8322,
+          "observed_median_distance_to_source": 17.2561,
+          "sampled_mean_degree": 9.6932,
+          "sampled_radius_of_gyration": 8.1999
+        }
+      },
+      "bcr_abl1_corrected": {
+        "target": "bcr_abl1_corrected",
+        "alpha_star": 0.03595,
+        "size_ratio": 1.0942,
+        "family_size": 3,
+        "tolerance": 0.1,
+        "match_distance": false,
+        "n_fields": 1000,
+        "replicates": 999,
+        "alpha": 0.05,
+        "type_one_rate": {
+          "4.0": {
+            "matched_patch": 0.062,
+            "alpha_star": 0.039,
+            "step_ratio": {
+              "0.01667": 1.0511,
+              "0.025": 1.0699,
+              "0.05": 1.0715
+            }
+          },
+          "8.0": {
+            "matched_patch": 0.069,
+            "alpha_star": 0.03595,
+            "step_ratio": {
+              "0.01667": 1.066,
+              "0.025": 1.0941,
+              "0.05": 1.0942
+            }
+          },
+          "12.0": {
+            "matched_patch": 0.068,
+            "alpha_star": 0.04095,
+            "step_ratio": {
+              "0.01667": 1.066,
+              "0.025": 1.0481,
+              "0.05": 1.0577
+            }
+          },
+          "20.0": {
+            "matched_patch": 0.066,
+            "alpha_star": 0.04095,
+            "step_ratio": {
+              "0.01667": 1.0511,
+              "0.025": 1.0279,
+              "0.05": 1.0577
+            }
+          }
+        },
+        "positive_control": {
+          "score": "minus distance to nearest scoreable label",
+          "matched_patch_p": 0.001,
+          "background_residues_p": 0.001
+        },
+        "sampler": {
+          "attempts": 25255,
+          "acceptance_rate": 0.039557,
+          "rejected": {
+            "frontier": 0,
+            "adjacent": 0,
+            "degree": 9857,
+            "compactness": 14399,
+            "distance": 0
+          },
+          "observed_components": [
+            17,
+            1
+          ],
+          "observed_mean_degree": 9.6667,
+          "observed_radius_of_gyration": 8.6887,
+          "observed_median_distance_to_source": 17.5364,
+          "sampled_mean_degree": 9.7321,
+          "sampled_radius_of_gyration": 9.1402
+        }
+      },
+      "cardiac_myosin_mandated": {
+        "target": "cardiac_myosin_mandated",
+        "alpha_star": 0.04895,
+        "size_ratio": 1.0204,
+        "family_size": 3,
+        "tolerance": 0.1,
+        "match_distance": false,
+        "n_fields": 1000,
+        "replicates": 999,
+        "alpha": 0.05,
+        "type_one_rate": {
+          "4.0": {
+            "matched_patch": 0.051,
+            "alpha_star": 0.04895,
+            "step_ratio": {
+              "0.01667": 1.0204,
+              "0.025": 1.0004,
+              "0.05": 1.0062
+            }
+          },
+          "8.0": {
+            "matched_patch": 0.042,
+            "alpha_star": 0.05595,
+            "step_ratio": {
+              "0.01667": 1.0,
+              "0.025": 1.0,
+              "0.05": 1.0
+            }
+          },
+          "12.0": {
+            "matched_patch": 0.046,
+            "alpha_star": 0.05495,
+            "step_ratio": {
+              "0.01667": 1.0,
+              "0.025": 1.0,
+              "0.05": 1.0
+            }
+          },
+          "20.0": {
+            "matched_patch": 0.047,
+            "alpha_star": 0.0549,
+            "step_ratio": {
+              "0.01667": 1.0,
+              "0.025": 1.0,
+              "0.05": 1.0
+            }
+          }
+        },
+        "positive_control": {
+          "score": "minus distance to nearest scoreable label",
+          "matched_patch_p": 0.001,
+          "background_residues_p": 0.001
+        },
+        "sampler": {
+          "attempts": 1130304,
+          "acceptance_rate": 0.000884,
+          "rejected": {
+            "frontier": 195,
+            "adjacent": 0,
+            "degree": 463925,
+            "compactness": 665185,
+            "distance": 0
+          },
+          "observed_components": [
+            7,
+            4,
+            1
+          ],
+          "observed_mean_degree": 8.75,
+          "observed_radius_of_gyration": 9.3445,
+          "observed_median_distance_to_source": 27.8551,
+          "sampled_mean_degree": 8.8723,
+          "sampled_radius_of_gyration": 9.7194
+        }
+      },
+      "cardiac_myosin_corrected": {
+        "target": "cardiac_myosin_corrected",
+        "alpha_star": 0.05,
+        "size_ratio": 1.0,
+        "family_size": 3,
+        "tolerance": 0.1,
+        "match_distance": false,
+        "n_fields": 1000,
+        "replicates": 999,
+        "alpha": 0.05,
+        "type_one_rate": {
+          "4.0": {
+            "matched_patch": 0.037,
+            "alpha_star": 0.0719,
+            "step_ratio": {
+              "0.01667": 1.0,
+              "0.025": 1.0,
+              "0.05": 1.0
+            }
+          },
+          "8.0": {
+            "matched_patch": 0.034,
+            "alpha_star": 0.07195,
+            "step_ratio": {
+              "0.01667": 1.0,
+              "0.025": 1.0,
+              "0.05": 1.0
+            }
+          },
+          "12.0": {
+            "matched_patch": 0.038,
+            "alpha_star": 0.065,
+            "step_ratio": {
+              "0.01667": 1.0,
+              "0.025": 1.0,
+              "0.05": 1.0
+            }
+          },
+          "20.0": {
+            "matched_patch": 0.039,
+            "alpha_star": 0.071,
+            "step_ratio": {
+              "0.01667": 1.0,
+              "0.025": 1.0,
+              "0.05": 1.0
+            }
+          }
+        },
+        "positive_control": {
+          "score": "minus distance to nearest scoreable label",
+          "matched_patch_p": 0.001,
+          "background_residues_p": 0.001
+        },
+        "sampler": {
+          "attempts": 87173,
+          "acceptance_rate": 0.01146,
+          "rejected": {
+            "frontier": 29,
+            "adjacent": 0,
+            "degree": 44617,
+            "compactness": 41528,
+            "distance": 0
+          },
+          "observed_components": [
+            8,
+            4
+          ],
+          "observed_mean_degree": 9.4167,
+          "observed_radius_of_gyration": 8.9011,
+          "observed_median_distance_to_source": 27.6423,
+          "sampled_mean_degree": 9.6036,
+          "sampled_radius_of_gyration": 9.1544
+        }
+      }
+    },
+    "0.2": {
+      "kras_g12c_mandated": {
+        "target": "kras_g12c_mandated",
+        "alpha_star": 0.03985,
+        "size_ratio": 1.0654,
+        "family_size": 3,
+        "tolerance": 0.2,
+        "match_distance": false,
+        "n_fields": 1000,
+        "replicates": 999,
+        "alpha": 0.05,
+        "type_one_rate": {
+          "4.0": {
+            "matched_patch": 0.051,
+            "alpha_star": 0.0499,
+            "step_ratio": {
+              "0.01667": 1.0,
+              "0.025": 1.0,
+              "0.05": 1.0006
+            }
+          },
+          "8.0": {
+            "matched_patch": 0.057,
+            "alpha_star": 0.04495,
+            "step_ratio": {
+              "0.01667": 1.0461,
+              "0.025": 1.0281,
+              "0.05": 1.031
+            }
+          },
+          "12.0": {
+            "matched_patch": 0.059,
+            "alpha_star": 0.04095,
+            "step_ratio": {
+              "0.01667": 1.0286,
+              "0.025": 1.0378,
+              "0.05": 1.0577
+            }
+          },
+          "20.0": {
+            "matched_patch": 0.064,
+            "alpha_star": 0.03985,
+            "step_ratio": {
+              "0.01667": 1.0562,
+              "0.025": 1.0481,
+              "0.05": 1.0654
+            }
+          }
+        },
+        "positive_control": {
+          "score": "minus distance to nearest scoreable label",
+          "matched_patch_p": 0.001,
+          "background_residues_p": 0.001
+        },
+        "sampler": {
+          "attempts": 2645,
+          "acceptance_rate": 0.377694,
+          "rejected": {
+            "frontier": 17,
+            "adjacent": 0,
+            "degree": 1093,
+            "compactness": 536,
+            "distance": 0
+          },
+          "observed_components": [
+            16
+          ],
+          "observed_mean_degree": 8.75,
+          "observed_radius_of_gyration": 7.97,
+          "observed_median_distance_to_source": 10.6486,
+          "sampled_mean_degree": 9.6675,
+          "sampled_radius_of_gyration": 8.702
+        }
+      },
+      "kras_g12c_corrected": {
+        "target": "kras_g12c_corrected",
+        "alpha_star": 0.03,
+        "size_ratio": 1.1869,
+        "family_size": 3,
+        "tolerance": 0.2,
+        "match_distance": false,
+        "n_fields": 1000,
+        "replicates": 999,
+        "alpha": 0.05,
+        "type_one_rate": {
+          "4.0": {
+            "matched_patch": 0.069,
+            "alpha_star": 0.0339,
+            "step_ratio": {
+              "0.01667": 1.1116,
+              "0.025": 1.0941,
+              "0.05": 1.1103
+            }
+          },
+          "8.0": {
+            "matched_patch": 0.066,
+            "alpha_star": 0.03895,
+            "step_ratio": {
+              "0.01667": 1.1257,
+              "0.025": 1.1079,
+              "0.05": 1.0718
+            }
+          },
+          "12.0": {
+            "matched_patch": 0.066,
+            "alpha_star": 0.0349,
+            "step_ratio": {
+              "0.01667": 1.1547,
+              "0.025": 1.1218,
+              "0.05": 1.1024
+            }
+          },
+          "20.0": {
+            "matched_patch": 0.067,
+            "alpha_star": 0.03,
+            "step_ratio": {
+              "0.01667": 1.1547,
+              "0.025": 1.1869,
+              "0.05": 1.1434
+            }
+          }
+        },
+        "positive_control": {
+          "score": "minus distance to nearest scoreable label",
+          "matched_patch_p": 0.001,
+          "background_residues_p": 0.001
+        },
+        "sampler": {
+          "attempts": 3072,
+          "acceptance_rate": 0.325195,
+          "rejected": {
+            "frontier": 0,
+            "adjacent": 0,
+            "degree": 1360,
+            "compactness": 713,
+            "distance": 0
+          },
+          "observed_components": [
+            16
+          ],
+          "observed_mean_degree": 8.8125,
+          "observed_radius_of_gyration": 7.8595,
+          "observed_median_distance_to_source": 10.665,
+          "sampled_mean_degree": 9.6896,
+          "sampled_radius_of_gyration": 8.6429
+        }
+      },
+      "bcr_abl1_mandated": {
+        "target": "bcr_abl1_mandated",
+        "alpha_star": 0.0289,
+        "size_ratio": 1.207,
+        "family_size": 3,
+        "tolerance": 0.2,
+        "match_distance": false,
+        "n_fields": 1000,
+        "replicates": 999,
+        "alpha": 0.05,
+        "type_one_rate": {
+          "4.0": {
+            "matched_patch": 0.051,
+            "alpha_star": 0.04995,
+            "step_ratio": {
+              "0.01667": 1.0,
+              "0.025": 1.0,
+              "0.05": 1.0003
+            }
+          },
+          "8.0": {
+            "matched_patch": 0.071,
+            "alpha_star": 0.03895,
+            "step_ratio": {
+              "0.01667": 1.0995,
+              "0.025": 1.0951,
+              "0.05": 1.0718
+            }
+          },
+          "12.0": {
+            "matched_patch": 0.065,
+            "alpha_star": 0.03495,
+            "step_ratio": {
+              "0.01667": 1.132,
+              "0.025": 1.207,
+              "0.05": 1.102
+            }
+          },
+          "20.0": {
+            "matched_patch": 0.068,
+            "alpha_star": 0.0289,
+            "step_ratio": {
+              "0.01667": 1.1724,
+              "0.025": 1.169,
+              "0.05": 1.1534
+            }
+          }
+        },
+        "positive_control": {
+          "score": "minus distance to nearest scoreable label",
+          "matched_patch_p": 0.001,
+          "background_residues_p": 0.001
+        },
+        "sampler": {
+          "attempts": 2613,
+          "acceptance_rate": 0.382319,
+          "rejected": {
+            "frontier": 0,
+            "adjacent": 0,
+            "degree": 217,
+            "compactness": 1397,
+            "distance": 0
+          },
+          "observed_components": [
+            17
+          ],
+          "observed_mean_degree": 9.5882,
+          "observed_radius_of_gyration": 7.8322,
+          "observed_median_distance_to_source": 17.2561,
+          "sampled_mean_degree": 9.9147,
+          "sampled_radius_of_gyration": 8.7104
+        }
+      },
+      "bcr_abl1_corrected": {
+        "target": "bcr_abl1_corrected",
+        "alpha_star": 0.025,
+        "size_ratio": 1.1916,
+        "family_size": 3,
+        "tolerance": 0.2,
+        "match_distance": false,
+        "n_fields": 1000,
+        "replicates": 999,
+        "alpha": 0.05,
+        "type_one_rate": {
+          "4.0": {
+            "matched_patch": 0.067,
+            "alpha_star": 0.03995,
+            "step_ratio": {
+              "0.01667": 1.066,
+              "0.025": 1.0705,
+              "0.05": 1.0647
+            }
+          },
+          "8.0": {
+            "matched_patch": 0.075,
+            "alpha_star": 0.03095,
+            "step_ratio": {
+              "0.01667": 1.132,
+              "0.025": 1.152,
+              "0.05": 1.1351
+            }
+          },
+          "12.0": {
+            "matched_patch": 0.085,
+            "alpha_star": 0.033,
+            "step_ratio": {
+              "0.01667": 1.1396,
+              "0.025": 1.1358,
+              "0.05": 1.1177
+            }
+          },
+          "20.0": {
+            "matched_patch": 0.086,
+            "alpha_star": 0.025,
+            "step_ratio": {
+              "0.01667": 1.1185,
+              "0.025": 1.1366,
+              "0.05": 1.1916
+            }
+          }
+        },
+        "positive_control": {
+          "score": "minus distance to nearest scoreable label",
+          "matched_patch_p": 0.001,
+          "background_residues_p": 0.001
+        },
+        "sampler": {
+          "attempts": 4598,
+          "acceptance_rate": 0.217268,
+          "rejected": {
+            "frontier": 0,
+            "adjacent": 0,
+            "degree": 318,
+            "compactness": 3281,
+            "distance": 0
+          },
+          "observed_components": [
+            17,
+            1
+          ],
+          "observed_mean_degree": 9.6667,
+          "observed_radius_of_gyration": 8.6887,
+          "observed_median_distance_to_source": 17.5364,
+          "sampled_mean_degree": 10.0081,
+          "sampled_radius_of_gyration": 9.7604
+        }
+      },
+      "cardiac_myosin_mandated": {
+        "target": "cardiac_myosin_mandated",
+        "alpha_star": 0.03995,
+        "size_ratio": 1.088,
+        "family_size": 3,
+        "tolerance": 0.2,
+        "match_distance": false,
+        "n_fields": 1000,
+        "replicates": 999,
+        "alpha": 0.05,
+        "type_one_rate": {
+          "4.0": {
+            "matched_patch": 0.055,
+            "alpha_star": 0.0419,
+            "step_ratio": {
+              "0.01667": 1.088,
+              "0.025": 1.0589,
+              "0.05": 1.0512
+            }
+          },
+          "8.0": {
+            "matched_patch": 0.057,
+            "alpha_star": 0.044,
+            "step_ratio": {
+              "0.01667": 1.0167,
+              "0.025": 1.0183,
+              "0.05": 1.0372
+            }
+          },
+          "12.0": {
+            "matched_patch": 0.059,
+            "alpha_star": 0.04085,
+            "step_ratio": {
+              "0.01667": 1.0077,
+              "0.025": 1.0183,
+              "0.05": 1.0584
+            }
+          },
+          "20.0": {
+            "matched_patch": 0.066,
+            "alpha_star": 0.03995,
+            "step_ratio": {
+              "0.01667": 1.0607,
+              "0.025": 1.0481,
+              "0.05": 1.0647
+            }
+          }
+        },
+        "positive_control": {
+          "score": "minus distance to nearest scoreable label",
+          "matched_patch_p": 0.001,
+          "background_residues_p": 0.001
+        },
+        "sampler": {
+          "attempts": 234511,
+          "acceptance_rate": 0.00426,
+          "rejected": {
+            "frontier": 34,
+            "adjacent": 0,
+            "degree": 21472,
+            "compactness": 212006,
+            "distance": 0
+          },
+          "observed_components": [
+            7,
+            4,
+            1
+          ],
+          "observed_mean_degree": 8.75,
+          "observed_radius_of_gyration": 9.3445,
+          "observed_median_distance_to_source": 27.8551,
+          "sampled_mean_degree": 9.131,
+          "sampled_radius_of_gyration": 10.4372
+        }
+      },
+      "cardiac_myosin_corrected": {
+        "target": "cardiac_myosin_corrected",
+        "alpha_star": 0.04895,
+        "size_ratio": 1.0198,
+        "family_size": 3,
+        "tolerance": 0.2,
+        "match_distance": false,
+        "n_fields": 1000,
+        "replicates": 999,
+        "alpha": 0.05,
+        "type_one_rate": {
+          "4.0": {
+            "matched_patch": 0.039,
+            "alpha_star": 0.06995,
+            "step_ratio": {
+              "0.01667": 1.0,
+              "0.025": 1.0,
+              "0.05": 1.0
+            }
+          },
+          "8.0": {
+            "matched_patch": 0.043,
+            "alpha_star": 0.06495,
+            "step_ratio": {
+              "0.01667": 1.0002,
+              "0.025": 1.0,
+              "0.05": 1.0
+            }
+          },
+          "12.0": {
+            "matched_patch": 0.047,
+            "alpha_star": 0.051,
+            "step_ratio": {
+              "0.01667": 1.0,
+              "0.025": 1.0089,
+              "0.05": 1.0
+            }
+          },
+          "20.0": {
+            "matched_patch": 0.053,
+            "alpha_star": 0.04895,
+            "step_ratio": {
+              "0.01667": 1.0198,
+              "0.025": 1.0,
+              "0.05": 1.0062
+            }
+          }
+        },
+        "positive_control": {
+          "score": "minus distance to nearest scoreable label",
+          "matched_patch_p": 0.001,
+          "background_residues_p": 0.001
+        },
+        "sampler": {
+          "attempts": 22468,
+          "acceptance_rate": 0.044463,
+          "rejected": {
+            "frontier": 6,
+            "adjacent": 0,
+            "degree": 3813,
+            "compactness": 17650,
+            "distance": 0
+          },
+          "observed_components": [
+            8,
+            4
+          ],
+          "observed_mean_degree": 9.4167,
+          "observed_radius_of_gyration": 8.9011,
+          "observed_median_distance_to_source": 27.6423,
+          "sampled_mean_degree": 10.026,
+          "sampled_radius_of_gyration": 9.7237
+        }
+      }
+    }
+  },
+  "gate": {
+    "kras_g12c_mandated": {
+      "target": "kras_g12c_mandated",
+      "alpha_star": 0.05,
+      "size_ratio": 1.0411,
+      "family_size": 3,
+      "tolerance": 0.1,
+      "match_distance": false,
+      "n_fields": 1000,
+      "replicates": 9999,
+      "alpha": 0.05,
+      "type_one_rate": {
+        "4.0": {
+          "matched_patch": 0.04,
+          "alpha_star": 0.06309,
+          "step_ratio": {
+            "0.01667": 1.0,
+            "0.025": 1.0,
+            "0.05": 1.0
+          },
+          "background_residues": 0.127
+        },
+        "8.0": {
+          "matched_patch": 0.048,
+          "alpha_star": 0.05568,
+          "step_ratio": {
+            "0.01667": 1.0339,
+            "0.025": 1.0126,
+            "0.05": 1.0
+          },
+          "background_residues": 0.214
+        },
+        "12.0": {
+          "matched_patch": 0.048,
+          "alpha_star": 0.05619,
+          "step_ratio": {
+            "0.01667": 1.0363,
+            "0.025": 1.0362,
+            "0.05": 1.0
+          },
+          "background_residues": 0.234
+        },
+        "20.0": {
+          "matched_patch": 0.044,
+          "alpha_star": 0.06179,
+          "step_ratio": {
+            "0.01667": 1.0411,
+            "0.025": 1.0045,
+            "0.05": 1.0
+          },
+          "background_residues": 0.259
+        }
+      },
+      "positive_control": {
+        "score": "minus distance to nearest scoreable label",
+        "matched_patch_p": 0.0001,
+        "background_residues_p": 0.001
+      },
+      "sampler": {
+        "attempts": 127491,
+        "acceptance_rate": 0.078429,
+        "rejected": {
+          "frontier": 890,
+          "adjacent": 0,
+          "degree": 96790,
+          "compactness": 19812,
+          "distance": 0
+        },
+        "observed_components": [
+          16
+        ],
+        "observed_mean_degree": 8.75,
+        "observed_radius_of_gyration": 7.97,
+        "observed_median_distance_to_source": 10.6486,
+        "sampled_mean_degree": 9.0934,
+        "sampled_radius_of_gyration": 8.2677
+      }
+    },
+    "kras_g12c_corrected": {
+      "target": "kras_g12c_corrected",
+      "alpha_star": 0.04326,
+      "size_ratio": 1.0827,
+      "family_size": 3,
+      "tolerance": 0.1,
+      "match_distance": false,
+      "n_fields": 1000,
+      "replicates": 9999,
+      "alpha": 0.05,
+      "type_one_rate": {
+        "4.0": {
+          "matched_patch": 0.053,
+          "alpha_star": 0.04754,
+          "step_ratio": {
+            "0.01667": 1.064,
+            "0.025": 1.0175,
+            "0.05": 1.0148
+          },
+          "background_residues": 0.152
+        },
+        "8.0": {
+          "matched_patch": 0.055,
+          "alpha_star": 0.04326,
+          "step_ratio": {
+            "0.01667": 1.0785,
+            "0.025": 1.037,
+            "0.05": 1.0421
+          },
+          "background_residues": 0.22
+        },
+        "12.0": {
+          "matched_patch": 0.053,
+          "alpha_star": 0.04659,
+          "step_ratio": {
+            "0.01667": 1.0827,
+            "0.025": 1.0642,
+            "0.05": 1.0207
+          },
+          "background_residues": 0.242
+        },
+        "20.0": {
+          "matched_patch": 0.05,
+          "alpha_star": 0.05264,
+          "step_ratio": {
+            "0.01667": 1.0592,
+            "0.025": 1.048,
+            "0.05": 1.0
+          },
+          "background_residues": 0.267
+        }
+      },
+      "positive_control": {
+        "score": "minus distance to nearest scoreable label",
+        "matched_patch_p": 0.0001,
+        "background_residues_p": 0.001
+      },
+      "sampler": {
+        "attempts": 166344,
+        "acceptance_rate": 0.06011,
+        "rejected": {
+          "frontier": 0,
+          "adjacent": 0,
+          "degree": 127104,
+          "compactness": 29241,
+          "distance": 0
+        },
+        "observed_components": [
+          16
+        ],
+        "observed_mean_degree": 8.8125,
+        "observed_radius_of_gyration": 7.8595,
+        "observed_median_distance_to_source": 10.665,
+        "sampled_mean_degree": 9.1248,
+        "sampled_radius_of_gyration": 8.1856
+      }
+    },
+    "bcr_abl1_mandated": {
+      "target": "bcr_abl1_mandated",
+      "alpha_star": 0.02774,
+      "size_ratio": 1.2073,
+      "family_size": 3,
+      "tolerance": 0.1,
+      "match_distance": false,
+      "n_fields": 1000,
+      "replicates": 9999,
+      "alpha": 0.05,
+      "type_one_rate": {
+        "4.0": {
+          "matched_patch": 0.054,
+          "alpha_star": 0.04578,
+          "step_ratio": {
+            "0.01667": 1.0,
+            "0.025": 1.0107,
+            "0.05": 1.0258
+          },
+          "background_residues": 0.125
+        },
+        "8.0": {
+          "matched_patch": 0.071,
+          "alpha_star": 0.03546,
+          "step_ratio": {
+            "0.01667": 1.1143,
+            "0.025": 1.1286,
+            "0.05": 1.098
+          },
+          "background_residues": 0.226
+        },
+        "12.0": {
+          "matched_patch": 0.069,
+          "alpha_star": 0.03273,
+          "step_ratio": {
+            "0.01667": 1.1979,
+            "0.025": 1.2073,
+            "0.05": 1.1199
+          },
+          "background_residues": 0.261
+        },
+        "20.0": {
+          "matched_patch": 0.079,
+          "alpha_star": 0.02774,
+          "step_ratio": {
+            "0.01667": 1.2029,
+            "0.025": 1.1929,
+            "0.05": 1.1643
+          },
+          "background_residues": 0.301
+        }
+      },
+      "positive_control": {
+        "score": "minus distance to nearest scoreable label",
+        "matched_patch_p": 0.0001,
+        "background_residues_p": 0.001
+      },
+      "sampler": {
+        "attempts": 103777,
+        "acceptance_rate": 0.096351,
+        "rejected": {
+          "frontier": 0,
+          "adjacent": 0,
+          "degree": 38738,
+          "compactness": 55040,
+          "distance": 0
+        },
+        "observed_components": [
+          17
+        ],
+        "observed_mean_degree": 9.5882,
+        "observed_radius_of_gyration": 7.8322,
+        "observed_median_distance_to_source": 17.2561,
+        "sampled_mean_degree": 9.7023,
+        "sampled_radius_of_gyration": 8.2065
+      }
+    },
+    "bcr_abl1_corrected": {
+      "target": "bcr_abl1_corrected",
+      "alpha_star": 0.03558,
+      "size_ratio": 1.097,
+      "family_size": 3,
+      "tolerance": 0.1,
+      "match_distance": false,
+      "n_fields": 1000,
+      "replicates": 9999,
+      "alpha": 0.05,
+      "type_one_rate": {
+        "4.0": {
+          "matched_patch": 0.06,
+          "alpha_star": 0.04283,
+          "step_ratio": {
+            "0.01667": 1.0505,
+            "0.025": 1.0712,
+            "0.05": 1.0449
+          },
+          "background_residues": 0.134
+        },
+        "8.0": {
+          "matched_patch": 0.067,
+          "alpha_star": 0.03558,
+          "step_ratio": {
+            "0.01667": 1.0951,
+            "0.025": 1.0735,
+            "0.05": 1.097
+          },
+          "background_residues": 0.218
+        },
+        "12.0": {
+          "matched_patch": 0.065,
+          "alpha_star": 0.03976,
+          "step_ratio": {
+            "0.01667": 1.0871,
+            "0.025": 1.0598,
+            "0.05": 1.066
+          },
+          "background_residues": 0.263
+        },
+        "20.0": {
+          "matched_patch": 0.068,
+          "alpha_star": 0.04189,
+          "step_ratio": {
+            "0.01667": 1.0638,
+            "0.025": 1.049,
+            "0.05": 1.0513
+          },
+          "background_residues": 0.301
+        }
+      },
+      "positive_control": {
+        "score": "minus distance to nearest scoreable label",
+        "matched_patch_p": 0.0001,
+        "background_residues_p": 0.001
+      },
+      "sampler": {
+        "attempts": 250229,
+        "acceptance_rate": 0.039959,
+        "rejected": {
+          "frontier": 0,
+          "adjacent": 0,
+          "degree": 97954,
+          "compactness": 142276,
+          "distance": 0
+        },
+        "observed_components": [
+          17,
+          1
+        ],
+        "observed_mean_degree": 9.6667,
+        "observed_radius_of_gyration": 8.6887,
+        "observed_median_distance_to_source": 17.5364,
+        "sampled_mean_degree": 9.7656,
+        "sampled_radius_of_gyration": 9.1387
+      }
+    },
+    "cardiac_myosin_mandated": {
+      "target": "cardiac_myosin_mandated",
+      "alpha_star": 0.04848,
+      "size_ratio": 1.0509,
+      "family_size": 3,
+      "tolerance": 0.1,
+      "match_distance": false,
+      "n_fields": 1000,
+      "replicates": 9999,
+      "alpha": 0.05,
+      "type_one_rate": {
+        "4.0": {
+          "matched_patch": 0.051,
+          "alpha_star": 0.04848,
+          "step_ratio": {
+            "0.01667": 1.0509,
+            "0.025": 1.0241,
+            "0.05": 1.0091
+          },
+          "background_residues": 0.109
+        },
+        "8.0": {
+          "matched_patch": 0.048,
+          "alpha_star": 0.05149,
+          "step_ratio": {
+            "0.01667": 1.0,
+            "0.025": 1.0,
+            "0.05": 1.0
+          },
+          "background_residues": 0.183
+        },
+        "12.0": {
+          "matched_patch": 0.046,
+          "alpha_star": 0.0546,
+          "step_ratio": {
+            "0.01667": 1.0,
+            "0.025": 1.0,
+            "0.05": 1.0
+          },
+          "background_residues": 0.219
+        },
+        "20.0": {
+          "matched_patch": 0.054,
+          "alpha_star": 0.04929,
+          "step_ratio": {
+            "0.01667": 1.0105,
+            "0.025": 1.0174,
+            "0.05": 1.0042
+          },
+          "background_residues": 0.247
+        }
+      },
+      "positive_control": {
+        "score": "minus distance to nearest scoreable label",
+        "matched_patch_p": 0.0001,
+        "background_residues_p": 0.001
+      },
+      "sampler": {
+        "attempts": 11390541,
+        "acceptance_rate": 0.000878,
+        "rejected": {
+          "frontier": 1950,
+          "adjacent": 0,
+          "degree": 4667130,
+          "compactness": 6711462,
+          "distance": 0
+        },
+        "observed_components": [
+          7,
+          4,
+          1
+        ],
+        "observed_mean_degree": 8.75,
+        "observed_radius_of_gyration": 9.3445,
+        "observed_median_distance_to_source": 27.8551,
+        "sampled_mean_degree": 8.879,
+        "sampled_radius_of_gyration": 9.7345
+      }
+    },
+    "cardiac_myosin_corrected": {
+      "target": "cardiac_myosin_corrected",
+      "alpha_star": 0.05,
+      "size_ratio": 1.0,
+      "family_size": 3,
+      "tolerance": 0.1,
+      "match_distance": false,
+      "n_fields": 1000,
+      "replicates": 9999,
+      "alpha": 0.05,
+      "type_one_rate": {
+        "4.0": {
+          "matched_patch": 0.037,
+          "alpha_star": 0.07469,
+          "step_ratio": {
+            "0.01667": 1.0,
+            "0.025": 1.0,
+            "0.05": 1.0
+          },
+          "background_residues": 0.096
+        },
+        "8.0": {
+          "matched_patch": 0.034,
+          "alpha_star": 0.06967,
+          "step_ratio": {
+            "0.01667": 1.0,
+            "0.025": 1.0,
+            "0.05": 1.0
+          },
+          "background_residues": 0.181
+        },
+        "12.0": {
+          "matched_patch": 0.037,
+          "alpha_star": 0.065,
+          "step_ratio": {
+            "0.01667": 1.0,
+            "0.025": 1.0,
+            "0.05": 1.0
+          },
+          "background_residues": 0.233
+        },
+        "20.0": {
+          "matched_patch": 0.035,
+          "alpha_star": 0.06567,
+          "step_ratio": {
+            "0.01667": 1.0,
+            "0.025": 1.0,
+            "0.05": 1.0
+          },
+          "background_residues": 0.27
+        }
+      },
+      "positive_control": {
+        "score": "minus distance to nearest scoreable label",
+        "matched_patch_p": 0.0001,
+        "background_residues_p": 0.001
+      },
+      "sampler": {
+        "attempts": 878934,
+        "acceptance_rate": 0.011376,
+        "rejected": {
+          "frontier": 306,
+          "adjacent": 0,
+          "degree": 452764,
+          "compactness": 415865,
+          "distance": 0
+        },
+        "observed_components": [
+          8,
+          4
+        ],
+        "observed_mean_degree": 9.4167,
+        "observed_radius_of_gyration": 8.9011,
+        "observed_median_distance_to_source": 27.6423,
+        "sampled_mean_degree": 9.5955,
+        "sampled_radius_of_gyration": 9.1645
+      }
+    },
+    "chk1": {
+      "target": "chk1",
+      "alpha_star": 0.03106,
+      "size_ratio": 1.1832,
+      "family_size": 3,
+      "tolerance": 0.1,
+      "match_distance": false,
+      "n_fields": 1000,
+      "replicates": 9999,
+      "alpha": 0.05,
+      "type_one_rate": {
+        "4.0": {
+          "matched_patch": 0.073,
+          "alpha_star": 0.03413,
+          "step_ratio": {
+            "0.01667": 1.1401,
+            "0.025": 1.1045,
+            "0.05": 1.1085
+          },
+          "background_residues": 0.162
+        },
+        "8.0": {
+          "matched_patch": 0.069,
+          "alpha_star": 0.03106,
+          "step_ratio": {
+            "0.01667": 1.169,
+            "0.025": 1.1832,
+            "0.05": 1.1341
+          },
+          "background_residues": 0.238
+        },
+        "12.0": {
+          "matched_patch": 0.069,
+          "alpha_star": 0.03138,
+          "step_ratio": {
+            "0.01667": 1.1701,
+            "0.025": 1.1405,
+            "0.05": 1.1314
+          },
+          "background_residues": 0.256
+        },
+        "20.0": {
+          "matched_patch": 0.066,
+          "alpha_star": 0.03427,
+          "step_ratio": {
+            "0.01667": 1.1349,
+            "0.025": 1.1243,
+            "0.05": 1.1074
+          },
+          "background_residues": 0.274
+        }
+      },
+      "positive_control": {
+        "score": "minus distance to nearest scoreable label",
+        "matched_patch_p": 0.0001,
+        "background_residues_p": 0.001
+      },
+      "sampler": {
+        "attempts": 188793,
+        "acceptance_rate": 0.052963,
+        "rejected": {
+          "frontier": 0,
+          "adjacent": 0,
+          "degree": 125330,
+          "compactness": 53464,
+          "distance": 0
+        },
+        "observed_components": [
+          12
+        ],
+        "observed_mean_degree": 9.0833,
+        "observed_radius_of_gyration": 6.756,
+        "observed_median_distance_to_source": 15.3328,
+        "sampled_mean_degree": 9.0948,
+        "sampled_radius_of_gyration": 7.0192
+      }
+    },
+    "ecoli_cps": {
+      "target": "ecoli_cps",
+      "alpha_star": 0.04559,
+      "size_ratio": 1.0727,
+      "family_size": 3,
+      "tolerance": 0.1,
+      "match_distance": false,
+      "n_fields": 1000,
+      "replicates": 9999,
+      "alpha": 0.05,
+      "type_one_rate": {
+        "4.0": {
+          "matched_patch": 0.055,
+          "alpha_star": 0.04627,
+          "step_ratio": {
+            "0.01667": 1.0727,
+            "0.025": 1.0288,
+            "0.05": 1.0227
+          },
+          "background_residues": 0.144
+        },
+        "8.0": {
+          "matched_patch": 0.055,
+          "alpha_star": 0.047,
+          "step_ratio": {
+            "0.01667": 1.0694,
+            "0.025": 1.0136,
+            "0.05": 1.0182
+          },
+          "background_residues": 0.223
+        },
+        "12.0": {
+          "matched_patch": 0.053,
+          "alpha_star": 0.04559,
+          "step_ratio": {
+            "0.01667": 1.0114,
+            "0.025": 1.0,
+            "0.05": 1.027
+          },
+          "background_residues": 0.273
+        },
+        "20.0": {
+          "matched_patch": 0.046,
+          "alpha_star": 0.0538,
+          "step_ratio": {
+            "0.01667": 1.0,
+            "0.025": 1.0,
+            "0.05": 1.0
+          },
+          "background_residues": 0.305
+        }
+      },
+      "positive_control": {
+        "score": "minus distance to nearest scoreable label",
+        "matched_patch_p": 0.0001,
+        "background_residues_p": 0.001
+      },
+      "sampler": {
+        "attempts": 125841,
+        "acceptance_rate": 0.079457,
+        "rejected": {
+          "frontier": 0,
+          "adjacent": 0,
+          "degree": 76075,
+          "compactness": 39767,
+          "distance": 0
+        },
+        "observed_components": [
+          19
+        ],
+        "observed_mean_degree": 9.6842,
+        "observed_radius_of_gyration": 8.0515,
+        "observed_median_distance_to_source": 18.942,
+        "sampled_mean_degree": 9.8945,
+        "sampled_radius_of_gyration": 8.3508
+      }
+    },
+    "glucokinase": {
+      "target": "glucokinase",
+      "alpha_star": 0.03799,
+      "size_ratio": 1.0788,
+      "family_size": 3,
+      "tolerance": 0.1,
+      "match_distance": false,
+      "n_fields": 1000,
+      "replicates": 9999,
+      "alpha": 0.05,
+      "type_one_rate": {
+        "4.0": {
+          "matched_patch": 0.051,
+          "alpha_star": 0.04891,
+          "step_ratio": {
+            "0.01667": 1.0165,
+            "0.025": 1.023,
+            "0.05": 1.0065
+          },
+          "background_residues": 0.147
+        },
+        "8.0": {
+          "matched_patch": 0.062,
+          "alpha_star": 0.0427,
+          "step_ratio": {
+            "0.01667": 1.0574,
+            "0.025": 1.047,
+            "0.05": 1.0458
+          },
+          "background_residues": 0.259
+        },
+        "12.0": {
+          "matched_patch": 0.066,
+          "alpha_star": 0.03836,
+          "step_ratio": {
+            "0.01667": 1.0552,
+            "0.025": 1.0368,
+            "0.05": 1.0761
+          },
+          "background_residues": 0.294
+        },
+        "20.0": {
+          "matched_patch": 0.065,
+          "alpha_star": 0.03799,
+          "step_ratio": {
+            "0.01667": 1.0521,
+            "0.025": 1.0491,
+            "0.05": 1.0788
+          },
+          "background_residues": 0.323
+        }
+      },
+      "positive_control": {
+        "score": "minus distance to nearest scoreable label",
+        "matched_patch_p": 0.0001,
+        "background_residues_p": 0.001
+      },
+      "sampler": {
+        "attempts": 78700,
+        "acceptance_rate": 0.127052,
+        "rejected": {
+          "frontier": 0,
+          "adjacent": 0,
+          "degree": 26199,
+          "compactness": 42502,
+          "distance": 0
+        },
+        "observed_components": [
+          19
+        ],
+        "observed_mean_degree": 10.2105,
+        "observed_radius_of_gyration": 8.2662,
+        "observed_median_distance_to_source": 12.7926,
+        "sampled_mean_degree": 10.3065,
+        "sampled_radius_of_gyration": 8.6503
+      }
+    },
+    "hiv_rt": {
+      "target": "hiv_rt",
+      "alpha_star": 0.04689,
+      "size_ratio": 1.1541,
+      "family_size": 3,
+      "tolerance": 0.1,
+      "match_distance": false,
+      "n_fields": 1000,
+      "replicates": 9999,
+      "alpha": 0.05,
+      "type_one_rate": {
+        "4.0": {
+          "matched_patch": 0.044,
+          "alpha_star": 0.05359,
+          "step_ratio": {
+            "0.01667": 1.0005,
+            "0.025": 1.0,
+            "0.05": 1.0
+          },
+          "background_residues": 0.135
+        },
+        "8.0": {
+          "matched_patch": 0.054,
+          "alpha_star": 0.04715,
+          "step_ratio": {
+            "0.01667": 1.1049,
+            "0.025": 1.0624,
+            "0.05": 1.0172
+          },
+          "background_residues": 0.232
+        },
+        "12.0": {
+          "matched_patch": 0.058,
+          "alpha_star": 0.04689,
+          "step_ratio": {
+            "0.01667": 1.1187,
+            "0.025": 1.0891,
+            "0.05": 1.0188
+          },
+          "background_residues": 0.269
+        },
+        "20.0": {
+          "matched_patch": 0.053,
+          "alpha_star": 0.04873,
+          "step_ratio": {
+            "0.01667": 1.1541,
+            "0.025": 1.0665,
+            "0.05": 1.0076
+          },
+          "background_residues": 0.297
+        }
+      },
+      "positive_control": {
+        "score": "minus distance to nearest scoreable label",
+        "matched_patch_p": 0.0001,
+        "background_residues_p": 0.001
+      },
+      "sampler": {
+        "attempts": 43561,
+        "acceptance_rate": 0.22954,
+        "rejected": {
+          "frontier": 0,
+          "adjacent": 0,
+          "degree": 11044,
+          "compactness": 22518,
+          "distance": 0
+        },
+        "observed_components": [
+          16
+        ],
+        "observed_mean_degree": 9.6875,
+        "observed_radius_of_gyration": 7.9695,
+        "observed_median_distance_to_source": 10.3554,
+        "sampled_mean_degree": 9.6448,
+        "sampled_radius_of_gyration": 8.2422
+      }
+    },
+    "mkp5": {
+      "target": "mkp5",
+      "alpha_star": 0.03042,
+      "size_ratio": 1.1398,
+      "family_size": 3,
+      "tolerance": 0.1,
+      "match_distance": false,
+      "n_fields": 1000,
+      "replicates": 9999,
+      "alpha": 0.05,
+      "type_one_rate": {
+        "4.0": {
+          "matched_patch": 0.068,
+          "alpha_star": 0.03768,
+          "step_ratio": {
+            "0.01667": 1.0379,
+            "0.025": 1.0523,
+            "0.05": 1.0811
+          },
+          "background_residues": 0.127
+        },
+        "8.0": {
+          "matched_patch": 0.071,
+          "alpha_star": 0.03529,
+          "step_ratio": {
+            "0.01667": 1.0682,
+            "0.025": 1.0846,
+            "0.05": 1.0993
+          },
+          "background_residues": 0.195
+        },
+        "12.0": {
+          "matched_patch": 0.077,
+          "alpha_star": 0.03348,
+          "step_ratio": {
+            "0.01667": 1.0676,
+            "0.025": 1.0781,
+            "0.05": 1.1138
+          },
+          "background_residues": 0.221
+        },
+        "20.0": {
+          "matched_patch": 0.069,
+          "alpha_star": 0.03042,
+          "step_ratio": {
+            "0.01667": 1.1079,
+            "0.025": 1.0724,
+            "0.05": 1.1398
+          },
+          "background_residues": 0.232
+        }
+      },
+      "positive_control": {
+        "score": "minus distance to nearest scoreable label",
+        "matched_patch_p": 0.0001,
+        "background_residues_p": 0.001
+      },
+      "sampler": {
+        "attempts": 456024,
+        "acceptance_rate": 0.021926,
+        "rejected": {
+          "frontier": 0,
+          "adjacent": 0,
+          "degree": 308594,
+          "compactness": 137431,
+          "distance": 0
+        },
+        "observed_components": [
+          11
+        ],
+        "observed_mean_degree": 12.0909,
+        "observed_radius_of_gyration": 6.2939,
+        "observed_median_distance_to_source": 6.1718,
+        "sampled_mean_degree": 11.4733,
+        "sampled_radius_of_gyration": 6.6001
+      }
+    },
+    "ns5b": {
+      "target": "ns5b",
+      "alpha_star": 0.04954,
+      "size_ratio": 1.0027,
+      "family_size": 3,
+      "tolerance": 0.1,
+      "match_distance": false,
+      "n_fields": 1000,
+      "replicates": 9999,
+      "alpha": 0.05,
+      "type_one_rate": {
+        "4.0": {
+          "matched_patch": 0.041,
+          "alpha_star": 0.05559,
+          "step_ratio": {
+            "0.01667": 1.0,
+            "0.025": 1.0,
+            "0.05": 1.0
+          },
+          "background_residues": 0.143
+        },
+        "8.0": {
+          "matched_patch": 0.043,
+          "alpha_star": 0.0572,
+          "step_ratio": {
+            "0.01667": 1.0,
+            "0.025": 1.0,
+            "0.05": 1.0
+          },
+          "background_residues": 0.225
+        },
+        "12.0": {
+          "matched_patch": 0.045,
+          "alpha_star": 0.0559,
+          "step_ratio": {
+            "0.01667": 1.0,
+            "0.025": 1.0,
+            "0.05": 1.0
+          },
+          "background_residues": 0.256
+        },
+        "20.0": {
+          "matched_patch": 0.051,
+          "alpha_star": 0.04954,
+          "step_ratio": {
+            "0.01667": 1.0,
+            "0.025": 1.0,
+            "0.05": 1.0027
+          },
+          "background_residues": 0.294
+        }
+      },
+      "positive_control": {
+        "score": "minus distance to nearest scoreable label",
+        "matched_patch_p": 0.0001,
+        "background_residues_p": 0.001
+      },
+      "sampler": {
+        "attempts": 158817,
+        "acceptance_rate": 0.062959,
+        "rejected": {
+          "frontier": 0,
+          "adjacent": 0,
+          "degree": 117825,
+          "compactness": 30993,
+          "distance": 0
+        },
+        "observed_components": [
+          16
+        ],
+        "observed_mean_degree": 12.375,
+        "observed_radius_of_gyration": 8.2065,
+        "observed_median_distance_to_source": 28.4621,
+        "sampled_mean_degree": 11.637,
+        "sampled_radius_of_gyration": 8.5296
+      }
+    },
+    "p97_vcp": {
+      "target": "p97_vcp",
+      "alpha_star": 0.02525,
+      "size_ratio": 1.2487,
+      "family_size": 3,
+      "tolerance": 0.1,
+      "match_distance": false,
+      "n_fields": 1000,
+      "replicates": 9999,
+      "alpha": 0.05,
+      "type_one_rate": {
+        "4.0": {
+          "matched_patch": 0.068,
+          "alpha_star": 0.03117,
+          "step_ratio": {
+            "0.01667": 1.1631,
+            "0.025": 1.1872,
+            "0.05": 1.1332
+          },
+          "background_residues": 0.169
+        },
+        "8.0": {
+          "matched_patch": 0.071,
+          "alpha_star": 0.02525,
+          "step_ratio": {
+            "0.01667": 1.195,
+            "0.025": 1.2073,
+            "0.05": 1.189
+          },
+          "background_residues": 0.255
+        },
+        "12.0": {
+          "matched_patch": 0.072,
+          "alpha_star": 0.03109,
+          "step_ratio": {
+            "0.01667": 1.191,
+            "0.025": 1.2096,
+            "0.05": 1.1339
+          },
+          "background_residues": 0.274
+        },
+        "20.0": {
+          "matched_patch": 0.061,
+          "alpha_star": 0.04097,
+          "step_ratio": {
+            "0.01667": 1.2103,
+            "0.025": 1.2487,
+            "0.05": 1.0576
+          },
+          "background_residues": 0.287
+        }
+      },
+      "positive_control": {
+        "score": "minus distance to nearest scoreable label",
+        "matched_patch_p": 0.0001,
+        "background_residues_p": 0.001
+      },
+      "sampler": {
+        "attempts": 728697,
+        "acceptance_rate": 0.013722,
+        "rejected": {
+          "frontier": 0,
+          "adjacent": 0,
+          "degree": 273740,
+          "compactness": 444958,
+          "distance": 0
+        },
+        "observed_components": [
+          17
+        ],
+        "observed_mean_degree": 9.1765,
+        "observed_radius_of_gyration": 7.1024,
+        "observed_median_distance_to_source": 16.4758,
+        "sampled_mean_degree": 9.2763,
+        "sampled_radius_of_gyration": 7.5482
+      }
+    },
+    "ptp1b": {
+      "target": "ptp1b",
+      "alpha_star": 0.03827,
+      "size_ratio": 1.0768,
+      "family_size": 3,
+      "tolerance": 0.1,
+      "match_distance": false,
+      "n_fields": 1000,
+      "replicates": 9999,
+      "alpha": 0.05,
+      "type_one_rate": {
+        "4.0": {
+          "matched_patch": 0.059,
+          "alpha_star": 0.04718,
+          "step_ratio": {
+            "0.01667": 1.0291,
+            "0.025": 1.0317,
+            "0.05": 1.017
+          },
+          "background_residues": 0.144
+        },
+        "8.0": {
+          "matched_patch": 0.063,
+          "alpha_star": 0.03827,
+          "step_ratio": {
+            "0.01667": 1.0118,
+            "0.025": 1.0328,
+            "0.05": 1.0768
+          },
+          "background_residues": 0.215
+        },
+        "12.0": {
+          "matched_patch": 0.06,
+          "alpha_star": 0.04294,
+          "step_ratio": {
+            "0.01667": 1.0339,
+            "0.025": 1.0491,
+            "0.05": 1.0442
+          },
+          "background_residues": 0.255
+        },
+        "20.0": {
+          "matched_patch": 0.057,
+          "alpha_star": 0.04507,
+          "step_ratio": {
+            "0.01667": 1.0267,
+            "0.025": 1.0296,
+            "0.05": 1.0303
+          },
+          "background_residues": 0.273
+        }
+      },
+      "positive_control": {
+        "score": "minus distance to nearest scoreable label",
+        "matched_patch_p": 0.0001,
+        "background_residues_p": 0.001
+      },
+      "sampler": {
+        "attempts": 84091,
+        "acceptance_rate": 0.118907,
+        "rejected": {
+          "frontier": 0,
+          "adjacent": 0,
+          "degree": 37184,
+          "compactness": 36908,
+          "distance": 0
+        },
+        "observed_components": [
+          11
+        ],
+        "observed_mean_degree": 11.4545,
+        "observed_radius_of_gyration": 7.0174,
+        "observed_median_distance_to_source": 16.7118,
+        "sampled_mean_degree": 11.2329,
+        "sampled_radius_of_gyration": 7.2556
+      }
+    },
+    "smyd3": {
+      "target": "smyd3",
+      "alpha_star": 0.05,
+      "size_ratio": 1.0301,
+      "family_size": 3,
+      "tolerance": 0.1,
+      "match_distance": false,
+      "n_fields": 1000,
+      "replicates": 9999,
+      "alpha": 0.05,
+      "type_one_rate": {
+        "4.0": {
+          "matched_patch": 0.042,
+          "alpha_star": 0.05984,
+          "step_ratio": {
+            "0.01667": 1.0301,
+            "0.025": 1.0,
+            "0.05": 1.0
+          },
+          "background_residues": 0.122
+        },
+        "8.0": {
+          "matched_patch": 0.047,
+          "alpha_star": 0.05464,
+          "step_ratio": {
+            "0.01667": 1.0,
+            "0.025": 1.0,
+            "0.05": 1.0
+          },
+          "background_residues": 0.181
+        },
+        "12.0": {
+          "matched_patch": 0.04,
+          "alpha_star": 0.06019,
+          "step_ratio": {
+            "0.01667": 1.0,
+            "0.025": 1.0,
+            "0.05": 1.0
+          },
+          "background_residues": 0.21
+        },
+        "20.0": {
+          "matched_patch": 0.039,
+          "alpha_star": 0.06578,
+          "step_ratio": {
+            "0.01667": 1.0,
+            "0.025": 1.0,
+            "0.05": 1.0
+          },
+          "background_residues": 0.243
+        }
+      },
+      "positive_control": {
+        "score": "minus distance to nearest scoreable label",
+        "matched_patch_p": 0.0001,
+        "background_residues_p": 0.001
+      },
+      "sampler": {
+        "attempts": 29280,
+        "acceptance_rate": 0.341496,
+        "rejected": {
+          "frontier": 0,
+          "adjacent": 0,
+          "degree": 10136,
+          "compactness": 9145,
+          "distance": 0
+        },
+        "observed_components": [
+          12
+        ],
+        "observed_mean_degree": 10.1667,
+        "observed_radius_of_gyration": 8.0829,
+        "observed_median_distance_to_source": 25.4313,
+        "sampled_mean_degree": 10.2947,
+        "sampled_radius_of_gyration": 8.1156
+      }
+    }
+  },
+  "power": {
+    "kras_g12c_mandated": {
+      "alpha": {
+        "target": "kras_g12c_mandated",
+        "alpha": 0.04340623100016581,
+        "power": 0.8,
+        "n_fields": 300,
+        "by_length_scale": {
+          "4.0": {
+            "shift": 1.0078,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.7764
+          },
+          "8.0": {
+            "shift": 1.207,
+            "power_at_shift": 0.8067,
+            "auc_roc": 0.8409
+          },
+          "12.0": {
+            "shift": 1.207,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.8601
+          },
+          "20.0": {
+            "shift": 1.1719,
+            "power_at_shift": 0.8133,
+            "auc_roc": 0.8877
+          }
+        }
+      },
+      "alpha/2": {
+        "target": "kras_g12c_mandated",
+        "alpha": 0.020649354958911532,
+        "power": 0.8,
+        "n_fields": 300,
+        "by_length_scale": {
+          "4.0": {
+            "shift": 1.1367,
+            "power_at_shift": 0.81,
+            "auc_roc": 0.8055
+          },
+          "8.0": {
+            "shift": 1.3008,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.8613
+          },
+          "12.0": {
+            "shift": 1.3125,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.8805
+          },
+          "20.0": {
+            "shift": 1.2539,
+            "power_at_shift": 0.8033,
+            "auc_roc": 0.9041
+          }
+        }
+      },
+      "alpha/3": {
+        "target": "kras_g12c_mandated",
+        "alpha": 0.013362611582913542,
+        "power": 0.8,
+        "n_fields": 300,
+        "by_length_scale": {
+          "4.0": {
+            "shift": 1.1836,
+            "power_at_shift": 0.8067,
+            "auc_roc": 0.813
+          },
+          "8.0": {
+            "shift": 1.3594,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.8712
+          },
+          "12.0": {
+            "shift": 1.3711,
+            "power_at_shift": 0.8067,
+            "auc_roc": 0.8913
+          },
+          "20.0": {
+            "shift": 1.2773,
+            "power_at_shift": 0.8033,
+            "auc_roc": 0.9082
+          }
+        }
+      }
+    },
+    "kras_g12c_corrected": {
+      "alpha": {
+        "target": "kras_g12c_corrected",
+        "alpha": 0.03746578139490708,
+        "power": 0.8,
+        "n_fields": 300,
+        "by_length_scale": {
+          "4.0": {
+            "shift": 1.0547,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.7857
+          },
+          "8.0": {
+            "shift": 1.2422,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.8423
+          },
+          "12.0": {
+            "shift": 1.2773,
+            "power_at_shift": 0.8067,
+            "auc_roc": 0.8684
+          },
+          "20.0": {
+            "shift": 1.2305,
+            "power_at_shift": 0.81,
+            "auc_roc": 0.8946
+          }
+        }
+      },
+      "alpha/2": {
+        "target": "kras_g12c_corrected",
+        "alpha": 0.016916643548575066,
+        "power": 0.8,
+        "n_fields": 300,
+        "by_length_scale": {
+          "4.0": {
+            "shift": 1.1953,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.8142
+          },
+          "8.0": {
+            "shift": 1.3828,
+            "power_at_shift": 0.8067,
+            "auc_roc": 0.8684
+          },
+          "12.0": {
+            "shift": 1.3594,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.8835
+          },
+          "20.0": {
+            "shift": 1.3008,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.9072
+          }
+        }
+      },
+      "alpha/3": {
+        "target": "kras_g12c_corrected",
+        "alpha": 0.010610351400399612,
+        "power": 0.8,
+        "n_fields": 300,
+        "by_length_scale": {
+          "4.0": {
+            "shift": 1.2656,
+            "power_at_shift": 0.8033,
+            "auc_roc": 0.8274
+          },
+          "8.0": {
+            "shift": 1.4531,
+            "power_at_shift": 0.8033,
+            "auc_roc": 0.8809
+          },
+          "12.0": {
+            "shift": 1.4062,
+            "power_at_shift": 0.8033,
+            "auc_roc": 0.8913
+          },
+          "20.0": {
+            "shift": 1.3477,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.9143
+          }
+        }
+      }
+    },
+    "bcr_abl1_mandated": {
+      "alpha": {
+        "target": "bcr_abl1_mandated",
+        "alpha": 0.02352600264908237,
+        "power": 0.8,
+        "n_fields": 300,
+        "by_length_scale": {
+          "4.0": {
+            "shift": 1.125,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.8112
+          },
+          "8.0": {
+            "shift": 1.4414,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.8808
+          },
+          "12.0": {
+            "shift": 1.5586,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.9104
+          },
+          "20.0": {
+            "shift": 1.6055,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.9465
+          }
+        }
+      },
+      "alpha/2": {
+        "target": "bcr_abl1_mandated",
+        "alpha": 0.008984300513616527,
+        "power": 0.8,
+        "n_fields": 300,
+        "by_length_scale": {
+          "4.0": {
+            "shift": 1.2539,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.8366
+          },
+          "8.0": {
+            "shift": 1.582,
+            "power_at_shift": 0.81,
+            "auc_roc": 0.8997
+          },
+          "12.0": {
+            "shift": 1.6875,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.9265
+          },
+          "20.0": {
+            "shift": 1.6758,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.9536
+          }
+        }
+      },
+      "alpha/3": {
+        "target": "bcr_abl1_mandated",
+        "alpha": 0.005096842056771803,
+        "power": 0.8,
+        "n_fields": 300,
+        "by_length_scale": {
+          "4.0": {
+            "shift": 1.3242,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.8494
+          },
+          "8.0": {
+            "shift": 1.6406,
+            "power_at_shift": 0.8033,
+            "auc_roc": 0.9078
+          },
+          "12.0": {
+            "shift": 1.7344,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.9325
+          },
+          "20.0": {
+            "shift": 1.7578,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.9603
+          }
+        }
+      }
+    },
+    "bcr_abl1_corrected": {
+      "alpha": {
+        "target": "bcr_abl1_corrected",
+        "alpha": 0.03558396464501444,
+        "power": 0.8,
+        "n_fields": 300,
+        "by_length_scale": {
+          "4.0": {
+            "shift": 0.9961,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.7617
+          },
+          "8.0": {
+            "shift": 1.3125,
+            "power_at_shift": 0.8033,
+            "auc_roc": 0.8499
+          },
+          "12.0": {
+            "shift": 1.3828,
+            "power_at_shift": 0.8033,
+            "auc_roc": 0.8796
+          },
+          "20.0": {
+            "shift": 1.3594,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.9081
+          }
+        }
+      },
+      "alpha/2": {
+        "target": "bcr_abl1_corrected",
+        "alpha": 0.01577442424253598,
+        "power": 0.8,
+        "n_fields": 300,
+        "by_length_scale": {
+          "4.0": {
+            "shift": 1.1133,
+            "power_at_shift": 0.8033,
+            "auc_roc": 0.7865
+          },
+          "8.0": {
+            "shift": 1.4414,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.8728
+          },
+          "12.0": {
+            "shift": 1.5117,
+            "power_at_shift": 0.8067,
+            "auc_roc": 0.9024
+          },
+          "20.0": {
+            "shift": 1.4648,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.9247
+          }
+        }
+      },
+      "alpha/3": {
+        "target": "bcr_abl1_corrected",
+        "alpha": 0.009785677076790428,
+        "power": 0.8,
+        "n_fields": 300,
+        "by_length_scale": {
+          "4.0": {
+            "shift": 1.1719,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.7993
+          },
+          "8.0": {
+            "shift": 1.5,
+            "power_at_shift": 0.8067,
+            "auc_roc": 0.8828
+          },
+          "12.0": {
+            "shift": 1.5703,
+            "power_at_shift": 0.8067,
+            "auc_roc": 0.911
+          },
+          "20.0": {
+            "shift": 1.5234,
+            "power_at_shift": 0.81,
+            "auc_roc": 0.9335
+          }
+        }
+      }
+    },
+    "cardiac_myosin_mandated": {
+      "alpha": {
+        "target": "cardiac_myosin_mandated",
+        "alpha": 0.04194244345873121,
+        "power": 0.8,
+        "n_fields": 300,
+        "by_length_scale": {
+          "4.0": {
+            "shift": 1.0547,
+            "power_at_shift": 0.8033,
+            "auc_roc": 0.7725
+          },
+          "8.0": {
+            "shift": 1.418,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.8605
+          },
+          "12.0": {
+            "shift": 1.5703,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.8985
+          },
+          "20.0": {
+            "shift": 1.6641,
+            "power_at_shift": 0.8033,
+            "auc_roc": 0.9292
+          }
+        }
+      },
+      "alpha/2": {
+        "target": "cardiac_myosin_mandated",
+        "alpha": 0.01971236395098592,
+        "power": 0.8,
+        "n_fields": 300,
+        "by_length_scale": {
+          "4.0": {
+            "shift": 1.1953,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.803
+          },
+          "8.0": {
+            "shift": 1.582,
+            "power_at_shift": 0.8033,
+            "auc_roc": 0.8858
+          },
+          "12.0": {
+            "shift": 1.7227,
+            "power_at_shift": 0.8033,
+            "auc_roc": 0.9206
+          },
+          "20.0": {
+            "shift": 1.8164,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.9467
+          }
+        }
+      },
+      "alpha/3": {
+        "target": "cardiac_myosin_mandated",
+        "alpha": 0.012664009990718128,
+        "power": 0.8,
+        "n_fields": 300,
+        "by_length_scale": {
+          "4.0": {
+            "shift": 1.2773,
+            "power_at_shift": 0.8033,
+            "auc_roc": 0.8198
+          },
+          "8.0": {
+            "shift": 1.6641,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.8981
+          },
+          "12.0": {
+            "shift": 1.7812,
+            "power_at_shift": 0.8033,
+            "auc_roc": 0.9281
+          },
+          "20.0": {
+            "shift": 1.8867,
+            "power_at_shift": 0.81,
+            "auc_roc": 0.9538
+          }
+        }
+      }
+    },
+    "cardiac_myosin_corrected": {
+      "alpha": {
+        "target": "cardiac_myosin_corrected",
+        "alpha": 0.049999999999999975,
+        "power": 0.8,
+        "n_fields": 300,
+        "by_length_scale": {
+          "4.0": {
+            "shift": 1.0195,
+            "power_at_shift": 0.81,
+            "auc_roc": 0.7686
+          },
+          "8.0": {
+            "shift": 1.3711,
+            "power_at_shift": 0.8033,
+            "auc_roc": 0.8498
+          },
+          "12.0": {
+            "shift": 1.5234,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.897
+          },
+          "20.0": {
+            "shift": 1.6289,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.9365
+          }
+        }
+      },
+      "alpha/2": {
+        "target": "cardiac_myosin_corrected",
+        "alpha": 0.02499999999999998,
+        "power": 0.8,
+        "n_fields": 300,
+        "by_length_scale": {
+          "4.0": {
+            "shift": 1.1484,
+            "power_at_shift": 0.8033,
+            "auc_roc": 0.7959
+          },
+          "8.0": {
+            "shift": 1.5352,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.878
+          },
+          "12.0": {
+            "shift": 1.7109,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.9213
+          },
+          "20.0": {
+            "shift": 1.793,
+            "power_at_shift": 0.8,
+            "auc_roc": 0.9526
+          }
+        }
+      },
+      "alpha/3": {
+        "target": "cardiac_myosin_corrected",
+        "alpha": 0.016666666666666666,
+        "power": 0.8,
+        "n_fields": 300,
+        "by_length_scale": {
+          "4.0": {
+            "shift": 1.2188,
+            "power_at_shift": 0.8067,
+            "auc_roc": 0.81
+          },
+          "8.0": {
+            "shift": 1.6172,
+            "power_at_shift": 0.8033,
+            "auc_roc": 0.8916
+          },
+          "12.0": {
+            "shift": 1.793,
+            "power_at_shift": 0.8033,
+            "auc_roc": 0.9315
+          },
+          "20.0": {
+            "shift": 1.8867,
+            "power_at_shift": 0.8033,
+            "auc_roc": 0.9608
+          }
+        }
+      }
+    }
+  },
+  "binomial_band": [
+    0.037,
+    0.064
+  ]
+}

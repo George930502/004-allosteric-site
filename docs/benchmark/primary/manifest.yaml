@@ -74,6 +74,12 @@ structure_provenance:
       url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/mo/pdb_00005mo4/pdb_00005mo4_xyz_v1-2.cif.gz,
       sha256: 5205ad733aec8c4b9e73130c31424f7291e907662493c65ce56ecf298a5843d0,
     }
+  5TBY:
+    {
+      version: "1-9",
+      url: https://files-versioned.wwpdb.org/pdb_versioned/data/entries/tb/pdb_00005tby/pdb_00005tby_xyz_v1-9.cif.gz,
+      sha256: 3d9a579847a11335ecf3b1dc858088ca2c046d7ddfa6fea0943ff17b6b319911,
+    }
   6OIM:
     {
       version: "1-4",
@@ -317,24 +323,45 @@ targets:
     apo:
       {
         pdb: 1OPL,
-        chain: A,
+        chain: B,
         sha256: af3a6348cbf0748243503f3aeec85f8cf0fa37a4989696cbfb4afa7424a97f6a,
       }
     holo: { pdb: 5MO4, chain: A, ligand: AY7 }
     allosteric_evidence: *abl1_evidence
-    state: { apo: Src-like inactive, holo: Src-like inactive, matched: true }
+    state: { apo: extended, holo: Src-like inactive, matched: false }
     blind: *abl1_blind
     active_site: { from_motifs: [VAIK, HRD, DFG] }
     defect: >
-      The apo is HOLO AT THE SITE IT IS ASKED TO PREDICT. 1OPL:A carries myristate (MYR) in
-      the myristoyl pocket: measured from the deposited file, MYR contacts 16 of the 20 label
-      residues, nearest approach 3.29 A, and those 16 are a strict SUBSET of the asciminib
-      footprint (Jaccard 0.80). This fails clause (iii) of the pair definition and is the most
-      serious defect in the mandated set. The ATP-site inhibitor P16 is a separate, permitted
-      second-site occupant - it contacts NONE of the 20 labels and its nearest approach is
-      16.37 A - but note that P16 sits in the ATP site of BOTH chains, so 1OPL is not apo
-      anywhere in the entry.
+      CHAIN B IS THE ORGANISERS' DESIGNATED INPUT, AND ITS COORDINATES ARE A DOMAIN
+      PLACEMENT. On 2026-09-02 the organisers answered that "all non-protein residues and
+      ligands must be uniformly stripped" and that they "would suggest teams use Chain B as
+      the input, as its native lack of myristate best fulfills the requirement to use the
+      unbound apo structure". This arm follows that instruction (ADR 0029). Chain B is the
+      only 1OPL chain that passes clause (iii): its nearest ligand heavy atom is 16.0 A from
+      the label set.
+      Four measured defects print beside every number this arm produces. (1) No SH3 domain is
+      modelled. (2) The SH2 domain packs against the N-lobe, not the C-lobe, so the
+      autoinhibitory clamp is absent and the mechanism the myristoyl pocket controls is not in
+      the model. (3) Ca RMSD to the holo 5MO4:A is 22.89 A over all common residues, against 0.98 A for chain
+      A. Read that with its decomposition, independently re-derived: the 22.89 A is ENTIRELY the
+      regulatory module, and over the same 239 Ca of the kinase domain alone chain B fits the
+      holo at 1.08 A against chain A's 1.00 A. (4)
+      The coordinates were not independently refined, and the depositors say so in
+      `_refine.details`: "only overall domain B-factors were applied to molecule B, whereas
+      individual B-factors were refined for molecule A" - 3 group values against 3041 distinct
+      values in chain A. Under C6, which makes contact topology the object the method rests
+      on, chain B's residue contacts are properties of 1OPK's geometry plus a domain
+      placement. 3 of the 20 labels are unmodelled and are reported as unmapped.
       The chain is also not wild-type sequence: 1OPL carries engineered K29R, E30D, D382N.
+      WHY NO BETTER OPTION EXISTS. Chain A was frozen here until 2026-09-02 and is holo at the
+      site it is asked to predict: MYR contacts 16 of the 20 labels at 3.29 A, and those 16
+      are a strict subset of the asciminib footprint (Jaccard 0.80). An exhaustive RCSB survey
+      of every entry modelling more than the ABL kinase domain returns six. All five with the
+      clamp docked on the C-lobe have the pocket filled; both with the pocket empty have SH2
+      on the N-lobe. The clamp docks only when the pocket is filled, so no myristate-free
+      assembled ABL1 exists. 4XEY:B is better coordinates for the same wrong state and was not
+      substituted (ADR 0029). This arm is reported and NEVER confirmatory; bcr_abl1_corrected
+      (2G2H:A) is where methods are compared.
 
   - id: bcr_abl1_corrected
     tier: corrected
@@ -366,8 +393,6 @@ targets:
   # ------------------------------------------------------- Cardiology: cardiac myosin
   - id: cardiac_myosin_mandated
     tier: mandated
-    status: excluded
-    prediction_status: blocked
     protein: MYH7
     site: mavacamten site
     pfam: [PF00063, PF01576, PF02736]
@@ -377,24 +402,56 @@ targets:
         chain: A,
         sha256: 3d9a579847a11335ecf3b1dc858088ca2c046d7ddfa6fea0943ff17b6b319911,
       }
-    holo: { pdb: 6C1H, chain: P, ligand: null }
+    # SUBSTITUTED HOLO. CHALLENGE.md Table 1 names 6C1H. The organisers answered on
+    # 2026-09-02: "To better represent the human MYH7-mavacamten complex for this challenge,
+    # you may substitute 9GZ2 for 6C1H." ADR 0031. The apo is unchanged and is the accession
+    # the challenge names.
+    holo: { pdb: 9GZ2, chain: A, ligand: XB2 }
     allosteric_evidence: *myh7_evidence
     state:
       {
         apo: unknown (homology model),
-        holo: rigor-like actin-bound,
+        holo: primed/pre-powerstroke ADP-Mg-Pi,
         matched: false,
       }
     blind: *myh7_blind
-    active_site: { from_ligands: [] }
+    assembly_exception: >
+      CLAUSE (v) FAILS, DECLARED RATHER THAN REPAIRED. 5TBY deposits the interacting-heads
+      motif: assembly 1 is hexameric, with two Myosin-7 heavy chains (A, B), two essential
+      light chains (C, D) and two regulatory light chains (E, F), all Homo sapiens. 9GZ2 is
+      monomeric, one Myosin-7 chain. The oligomeric states therefore differ, 6 against 1.
+      No repair exists inside this arm. The challenge mandates 5TBY as the input and the
+      organisers sanctioned 9GZ2 as the holo, so both members are fixed and neither has a
+      matching partner. Every human MYH7-mavacamten complex in the PDB is a single head.
+      What the method actually receives is one chain: the node set is chain A alone
+      (ADR 0010), so five of the six modelled chains are outside the system either way, and
+      the two heavy chains are copies of the same entity. The mismatch is therefore about the
+      state 5TBY models, not about the residues a method sees.
+      It is not cosmetic. The IHM is the super-relaxed state the challenge's own wording names,
+      and the blocked head's actin-binding interface is occluded by the free head. A contact
+      graph over chain A alone cannot carry that, so this arm models the SRX assembly's single
+      head without its partner. cardiac_myosin_corrected (9GZ3 -> 9GZ2) is monomer to monomer
+      and has no such gap. Whether the network should be one head or the whole IHM is a
+      coarse-graining decision and belongs to Phase 4, not to the input layer.
+      Selected chain entity copies: apo 2, holo 1.
+    # The holo accession CHALLENGE.md Table 1 names. Kept as a field because the organisers
+    # asked that every substitution be documented; `holo:` above is what the arm uses.
+    substituted_from:
+      holo: 6C1H
+      reason: >
+        6C1H is bovine cardiac myosin S1 with no mavacamten bound, so it supplies no label
+        set for the human MYH7 mavacamten site. The organisers answered on 2026-09-02: "To
+        better represent the human MYH7-mavacamten complex for this challenge, you may
+        substitute 9GZ2 for 6C1H." ADR 0031.
+    # 5TBY has zero heteroatoms, so no ligand-derived source exists. The family motif triple
+    # is validated against the ligand-derived source on the two entries where that truth
+    # exists: Jaccard 0.483 on 9GZ3:A and 0.516 on 9GZ2:A, centroid offset 5.96 and 5.92 A.
+    # ADR 0031. Each of the three matches exactly once in MYH7 and zero times in KRAS or ABL1.
+    active_site: { from_motifs: [MYO_PLOOP, MYO_SWITCH1, MYO_SWITCH2] }
     defect: >
-      UNUSABLE IN BOTH DIRECTIONS. Both halves verified from the deposited files.
-      Ground truth: 6C1H is titled "High-Resolution Cryo-EM Structures of Actin-bound Myosin
-      States Reveal the Mechanism of Myosin Force Sensing", 3.9 A cryo-EM, and its polymer
-      entities are alpha skeletal muscle actin (x5), UNCONVENTIONAL MYOSIN-IB (x1) and
-      calmodulin (x1). Its only heteroatoms are ADP and MG. It contains no mavacamten and no
-      cardiac myosin, so no label set can be derived (Mentes 2018,
-      doi 10.1073/pnas.1718316115).
+      THE APO IS A 20 A HOMOLOGY MODEL, AND ITS CONTACT GRAPH IS LARGELY INVENTED. The holo
+      half of the challenge's assignment was wrong and the organisers have replaced it; the
+      input half is unchanged and is what this defect is about.
       Input: 5TBY is titled "... OBTAINED BY HOMOLOGY MODELING (USING SWISS-MODEL) OF HUMAN
       SEQUENCE FROM APHONOPELMA HOMOLOGY MODEL (PDB-3JBH), RIGIDLY FITTED TO ... 3D
       RECONSTRUCTION (EMD-2240)", deposited as electron microscopy at 20.00 A with 954
@@ -405,12 +462,21 @@ targets:
       packages in all, so do not say it is the only entry), it carries no refine block, and
       _struct_conn holds 41 covale records at physically impossible distances (for example
       A/GLN454.CG - B/TYR410.CE2 at 1.083 A), which are auto-annotated interpenetrations
-      rather than chemistry. At 20 A the residue contacts are a property of the modelling and
-      fitting protocol, not measured topology, so using it as the elastic network would make
-      C6 rest on invented contacts. It also has no ligand from which the active-site rule can
-      derive a propagation source (ADR 0016).
-      This is a factual error in the challenge statement and is question (a) for the
-      organisers.
+      rather than chemistry.
+      MEASURED, against the 3.4 A cryo-EM 9GZ3 over 761 shared residues at the frozen 4.5 A
+      cutoff: the long-range contact graph (|i-j| >= 5) agrees at Jaccard 0.471 and recovers
+      56.9 % of measured edges, so 43 % of the measured long-range contacts are missing and
+      27 % of those present were never measured. Pairwise Ca distances agree at Spearman
+      0.9724. The fold is right and the graph is not, and under C6 the graph is the object the
+      method rests on. Print both agreement numbers beside every result from this arm.
+      TWO SUBSTITUTIONS, BOTH DOCUMENTED. 6C1H -> 9GZ2 here, sanctioned by the organisers;
+      5TBY -> 9GZ3 in cardiac_myosin_corrected, which is the arm with measured topology and a
+      ligand-derived source. 6C1H is titled "High-Resolution Cryo-EM Structures of Actin-bound
+      Myosin States ...", 3.9 A, and its polymer entities are alpha skeletal muscle actin
+      (x5), UNCONVENTIONAL MYOSIN-IB (x1) and calmodulin (x1); its only heteroatoms are ADP
+      and MG. It contains no mavacamten and no cardiac myosin (Mentes 2018,
+      doi 10.1073/pnas.1718316115).
+      This arm is reported and NEVER confirmatory. ADR 0031 supersedes ADR 0016.
 
   - id: cardiac_myosin_corrected
     tier: corrected

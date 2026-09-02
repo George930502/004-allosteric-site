@@ -1,0 +1,1548 @@
+{
+  "config": {
+    "arms": [
+      "mkp5",
+      "ptp1b",
+      "hiv_rt",
+      "ns5b"
+    ],
+    "graph": {
+      "contact": "heavy_min",
+      "weighting": "unit"
+    },
+    "baseline": "distance_from_source_negated",
+    "second_baseline": "eigenvector_centrality",
+    "seed": 0
+  },
+  "n_records": 276,
+  "beats_distance_holm_per_arm": {
+    "mkp5": {
+      "n_tested": 12,
+      "n_reject_holm": 0,
+      "survivors": []
+    },
+    "ptp1b": {
+      "n_tested": 55,
+      "n_reject_holm": 0,
+      "survivors": []
+    },
+    "hiv_rt": {
+      "n_tested": 2,
+      "n_reject_holm": 0,
+      "survivors": []
+    },
+    "ns5b": {
+      "n_tested": 56,
+      "n_reject_holm": 0,
+      "survivors": []
+    }
+  },
+  "ranking": [
+    {
+      "scorer": "eigenvector_centrality",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.7593,
+      "min_auc_roc": 0.5639,
+      "mean_abs_rho_to_distance": 0.4306,
+      "total_hits_at_5": 3,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": 0.1782,
+        "min_p_calibrated": 0.202134
+      }
+    },
+    {
+      "scorer": "gnm_fluctuation",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.7505,
+      "min_auc_roc": 0.639,
+      "mean_abs_rho_to_distance": 0.5888,
+      "total_hits_at_5": 2,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 1,
+        "mean_auc_difference": 0.1693,
+        "min_p_calibrated": 0.048851
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0088,
+        "min_p_calibrated": 0.160882
+      }
+    },
+    {
+      "scorer": "effective_resistance_to_source",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.7152,
+      "min_auc_roc": 0.5791,
+      "mean_abs_rho_to_distance": 0.7904,
+      "total_hits_at_5": 3,
+      "n_reject_confirmatory": 1,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": 0.1341,
+        "min_p_calibrated": 0.075919
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 3,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0441,
+        "min_p_calibrated": 0.22621
+      }
+    },
+    {
+      "scorer": "source_conditioned_betweenness",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.7088,
+      "min_auc_roc": 0.6076,
+      "mean_abs_rho_to_distance": 0.5737,
+      "total_hits_at_5": 1,
+      "n_reject_confirmatory": 2,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 1,
+        "mean_auc_difference": 0.1276,
+        "min_p_calibrated": 0.009393
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 3,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0505,
+        "min_p_calibrated": 0.193209
+      }
+    },
+    {
+      "scorer": "katz_centrality",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.7084,
+      "min_auc_roc": 0.5917,
+      "mean_abs_rho_to_distance": 0.4249,
+      "total_hits_at_5": 3,
+      "n_reject_confirmatory": 1,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": 0.1272,
+        "min_p_calibrated": 0.07741
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0509,
+        "min_p_calibrated": 0.144318
+      }
+    },
+    {
+      "scorer": "gnm_entropy_response",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.7038,
+      "min_auc_roc": 0.5415,
+      "mean_abs_rho_to_distance": 0.2569,
+      "total_hits_at_5": 3,
+      "n_reject_confirmatory": 1,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 3,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": 0.1226,
+        "min_p_calibrated": 0.167352
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 3,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0556,
+        "min_p_calibrated": 0.151506
+      }
+    },
+    {
+      "scorer": "alps_spectral_response",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.6967,
+      "min_auc_roc": 0.5919,
+      "mean_abs_rho_to_distance": 0.6145,
+      "total_hits_at_5": 1,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": 0.1156,
+        "min_p_calibrated": 0.120234
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0626,
+        "min_p_calibrated": 0.581
+      }
+    },
+    {
+      "scorer": "betweenness_centrality",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.6938,
+      "min_auc_roc": 0.6509,
+      "mean_abs_rho_to_distance": 0.5049,
+      "total_hits_at_5": 1,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 1,
+        "mean_auc_difference": 0.1127,
+        "min_p_calibrated": 0.019868
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0655,
+        "min_p_calibrated": 0.082233
+      }
+    },
+    {
+      "scorer": "subgraph_centrality",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.6936,
+      "min_auc_roc": 0.5632,
+      "mean_abs_rho_to_distance": 0.3609,
+      "total_hits_at_5": 5,
+      "n_reject_confirmatory": 1,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": 0.1125,
+        "min_p_calibrated": 0.021744
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0657,
+        "min_p_calibrated": 0.18382
+      }
+    },
+    {
+      "scorer": "contact_number",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.6918,
+      "min_auc_roc": 0.5836,
+      "mean_abs_rho_to_distance": 0.3762,
+      "total_hits_at_5": 1,
+      "n_reject_confirmatory": 1,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": 0.1107,
+        "min_p_calibrated": 0.048738
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0675,
+        "min_p_calibrated": 0.217226
+      }
+    },
+    {
+      "scorer": "degree",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.6918,
+      "min_auc_roc": 0.5836,
+      "mean_abs_rho_to_distance": 0.3762,
+      "total_hits_at_5": 1,
+      "n_reject_confirmatory": 1,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": 0.1107,
+        "min_p_calibrated": 0.048738
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0675,
+        "min_p_calibrated": 0.217226
+      }
+    },
+    {
+      "scorer": "sequence_distance_from_source_negated",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.6899,
+      "min_auc_roc": 0.5182,
+      "mean_abs_rho_to_distance": 0.4219,
+      "total_hits_at_5": 1,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": 0.1087,
+        "min_p_calibrated": 0.153633
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0695,
+        "min_p_calibrated": 0.363653
+      }
+    },
+    {
+      "scorer": "stiff_corridor_to_source",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.6836,
+      "min_auc_roc": 0.6505,
+      "mean_abs_rho_to_distance": 0.0568,
+      "total_hits_at_5": 1,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": 0.1024,
+        "min_p_calibrated": 0.265954
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0758,
+        "min_p_calibrated": 0.5254
+      }
+    },
+    {
+      "scorer": "gnm_cross_correlation",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.6801,
+      "min_auc_roc": 0.4713,
+      "mean_abs_rho_to_distance": 0.3962,
+      "total_hits_at_5": 3,
+      "n_reject_confirmatory": 1,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 3,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": 0.0989,
+        "min_p_calibrated": 0.170051
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 3,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0793,
+        "min_p_calibrated": 0.144274
+      }
+    },
+    {
+      "scorer": "closeness_centrality",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.6783,
+      "min_auc_roc": 0.5552,
+      "mean_abs_rho_to_distance": 0.7318,
+      "total_hits_at_5": 1,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": 0.0971,
+        "min_p_calibrated": 0.054928
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.081,
+        "min_p_calibrated": 0.249479
+      }
+    },
+    {
+      "scorer": "local_contact_order",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.6696,
+      "min_auc_roc": 0.5458,
+      "mean_abs_rho_to_distance": 0.4062,
+      "total_hits_at_5": 0,
+      "n_reject_confirmatory": 2,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 1,
+        "mean_auc_difference": 0.0884,
+        "min_p_calibrated": 0.009257
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 3,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0897,
+        "min_p_calibrated": 0.6482
+      }
+    },
+    {
+      "scorer": "current_flow_to_source",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.6565,
+      "min_auc_roc": 0.3533,
+      "mean_abs_rho_to_distance": 0.7535,
+      "total_hits_at_5": 4,
+      "n_reject_confirmatory": 2,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 3,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": 0.0754,
+        "min_p_calibrated": 0.086661
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 3,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.1028,
+        "min_p_calibrated": 0.090387
+      }
+    },
+    {
+      "scorer": "connectivity_strength",
+      "family": "quantum",
+      "n_arms": 4,
+      "mean_auc_roc": 0.625,
+      "min_auc_roc": 0.4575,
+      "mean_abs_rho_to_distance": 0.4274,
+      "total_hits_at_5": 3,
+      "n_reject_confirmatory": 1,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 1,
+        "mean_auc_difference": 0.0438,
+        "min_p_calibrated": 0.017343
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.1343,
+        "min_p_calibrated": 0.420883
+      }
+    },
+    {
+      "scorer": "low_energy_transfer",
+      "family": "quantum",
+      "n_arms": 4,
+      "mean_auc_roc": 0.6194,
+      "min_auc_roc": 0.3139,
+      "mean_abs_rho_to_distance": 0.724,
+      "total_hits_at_5": 2,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": 0.0383,
+        "min_p_calibrated": 0.063425
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 3,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.1399,
+        "min_p_calibrated": 0.205931
+      }
+    },
+    {
+      "scorer": "distance_to_centroid_negated",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.6104,
+      "min_auc_roc": 0.5201,
+      "mean_abs_rho_to_distance": 0.7137,
+      "total_hits_at_5": 1,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": 0.0292,
+        "min_p_calibrated": 0.028912
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.149,
+        "min_p_calibrated": 0.339409
+      }
+    },
+    {
+      "scorer": "connectivity_participation",
+      "family": "quantum",
+      "n_arms": 4,
+      "mean_auc_roc": 0.6084,
+      "min_auc_roc": 0.4349,
+      "mean_abs_rho_to_distance": 0.6017,
+      "total_hits_at_5": 1,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 3,
+        "n_arms_beating_at_05": 1,
+        "mean_auc_difference": 0.0273,
+        "min_p_calibrated": 0.021293
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.151,
+        "min_p_calibrated": 0.230904
+      }
+    },
+    {
+      "scorer": "personalised_pagerank",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.5962,
+      "min_auc_roc": 0.3,
+      "mean_abs_rho_to_distance": 0.9393,
+      "total_hits_at_5": 1,
+      "n_reject_confirmatory": 1,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 3,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": 0.015,
+        "min_p_calibrated": 0.222471
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.1632,
+        "min_p_calibrated": 0.161952
+      }
+    },
+    {
+      "scorer": "connectivity_entropy",
+      "family": "quantum",
+      "n_arms": 4,
+      "mean_auc_roc": 0.5961,
+      "min_auc_roc": 0.3447,
+      "mean_abs_rho_to_distance": 0.6225,
+      "total_hits_at_5": 1,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 1,
+        "mean_auc_difference": 0.0149,
+        "min_p_calibrated": 0.014286
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.1633,
+        "min_p_calibrated": 0.221216
+      }
+    },
+    {
+      "scorer": "communicability_from_source",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.595,
+      "min_auc_roc": 0.2862,
+      "mean_abs_rho_to_distance": 0.9533,
+      "total_hits_at_5": 5,
+      "n_reject_confirmatory": 2,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": 0.0137,
+        "min_p_calibrated": 0.267751
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.1644,
+        "min_p_calibrated": 0.020905
+      }
+    },
+    {
+      "scorer": "gnm_transfer_entropy",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.5836,
+      "min_auc_roc": 0.4356,
+      "mean_abs_rho_to_distance": 0.2071,
+      "total_hits_at_5": 0,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 3,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": 0.0024,
+        "min_p_calibrated": 0.167452
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 3,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.1758,
+        "min_p_calibrated": 0.248075
+      }
+    },
+    {
+      "scorer": "distance_from_source_negated",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.5812,
+      "min_auc_roc": 0.2608,
+      "mean_abs_rho_to_distance": 0.9779,
+      "total_hits_at_5": 4,
+      "n_reject_confirmatory": 1,
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.1782,
+        "min_p_calibrated": 0.202134
+      }
+    },
+    {
+      "scorer": "hop_distance_from_source_negated",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.5796,
+      "min_auc_roc": 0.2579,
+      "mean_abs_rho_to_distance": 0.9346,
+      "total_hits_at_5": 0,
+      "n_reject_confirmatory": 2,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0015,
+        "min_p_calibrated": 0.304882
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.1797,
+        "min_p_calibrated": 0.022192
+      }
+    },
+    {
+      "scorer": "ohm_path_probability",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.5796,
+      "min_auc_roc": 0.2579,
+      "mean_abs_rho_to_distance": 0.9346,
+      "total_hits_at_5": 0,
+      "n_reject_confirmatory": 2,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0015,
+        "min_p_calibrated": 0.304882
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.1797,
+        "min_p_calibrated": 0.022192
+      }
+    },
+    {
+      "scorer": "connectivity_eigencentrality",
+      "family": "quantum",
+      "n_arms": 4,
+      "mean_auc_roc": 0.5777,
+      "min_auc_roc": 0.472,
+      "mean_abs_rho_to_distance": 0.4517,
+      "total_hits_at_5": 1,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0034,
+        "min_p_calibrated": 0.027855
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.1816,
+        "min_p_calibrated": 0.288115
+      }
+    },
+    {
+      "scorer": "core_number",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.5748,
+      "min_auc_roc": 0.556,
+      "mean_abs_rho_to_distance": 0.2793,
+      "total_hits_at_5": 0,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0064,
+        "min_p_calibrated": 0.094425
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.1845,
+        "min_p_calibrated": 0.211271
+      }
+    },
+    {
+      "scorer": "szegedy_quantum_pagerank",
+      "family": "quantum",
+      "n_arms": 4,
+      "mean_auc_roc": 0.5735,
+      "min_auc_roc": 0.2059,
+      "mean_abs_rho_to_distance": 0.6931,
+      "total_hits_at_5": 1,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0076,
+        "min_p_calibrated": 0.279924
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.1859,
+        "min_p_calibrated": 0.001744
+      }
+    },
+    {
+      "scorer": "multiscale_heat_kernel",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.5724,
+      "min_auc_roc": 0.2516,
+      "mean_abs_rho_to_distance": 0.952,
+      "total_hits_at_5": 2,
+      "n_reject_confirmatory": 2,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0087,
+        "min_p_calibrated": 0.199796
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.1869,
+        "min_p_calibrated": 0.044936
+      }
+    },
+    {
+      "scorer": "node_deletion_response",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.5636,
+      "min_auc_roc": 0.2062,
+      "mean_abs_rho_to_distance": 0.5624,
+      "total_hits_at_5": 2,
+      "n_reject_confirmatory": 2,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 3,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0176,
+        "min_p_calibrated": 0.226763
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.1958,
+        "min_p_calibrated": 0.026247
+      }
+    },
+    {
+      "scorer": "normalised_anm_response",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.5543,
+      "min_auc_roc": 0.1169,
+      "mean_abs_rho_to_distance": 0.7006,
+      "total_hits_at_5": 1,
+      "n_reject_confirmatory": 1,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0269,
+        "min_p_calibrated": 0.165252
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.2051,
+        "min_p_calibrated": 0.05371
+      }
+    },
+    {
+      "scorer": "high_energy_transfer",
+      "family": "quantum",
+      "n_arms": 4,
+      "mean_auc_roc": 0.5535,
+      "min_auc_roc": 0.2073,
+      "mean_abs_rho_to_distance": 0.6554,
+      "total_hits_at_5": 1,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0277,
+        "min_p_calibrated": 0.138172
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 0,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.2059,
+        "min_p_calibrated": 0.171551
+      }
+    },
+    {
+      "scorer": "ctqw_peak_transfer",
+      "family": "quantum",
+      "n_arms": 4,
+      "mean_auc_roc": 0.5413,
+      "min_auc_roc": 0.2837,
+      "mean_abs_rho_to_distance": 0.7179,
+      "total_hits_at_5": 2,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0399,
+        "min_p_calibrated": 0.076168
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.218,
+        "min_p_calibrated": 0.223213
+      }
+    },
+    {
+      "scorer": "regularised_laplacian_kernel",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.5362,
+      "min_auc_roc": 0.1864,
+      "mean_abs_rho_to_distance": 0.9262,
+      "total_hits_at_5": 2,
+      "n_reject_confirmatory": 1,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0449,
+        "min_p_calibrated": 0.104122
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.2231,
+        "min_p_calibrated": 0.030466
+      }
+    },
+    {
+      "scorer": "ctqw_infinite_time_average",
+      "family": "quantum",
+      "n_arms": 4,
+      "mean_auc_roc": 0.536,
+      "min_auc_roc": 0.2708,
+      "mean_abs_rho_to_distance": 0.7345,
+      "total_hits_at_5": 3,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0452,
+        "min_p_calibrated": 0.217321
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.2233,
+        "min_p_calibrated": 0.033882
+      }
+    },
+    {
+      "scorer": "quantum_survival_time",
+      "family": "quantum",
+      "n_arms": 4,
+      "mean_auc_roc": 0.5332,
+      "min_auc_roc": 0.2144,
+      "mean_abs_rho_to_distance": 0.7852,
+      "total_hits_at_5": 2,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0481,
+        "min_p_calibrated": 0.208255
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.2262,
+        "min_p_calibrated": 0.183946
+      }
+    },
+    {
+      "scorer": "coherent_source_ratio",
+      "family": "quantum",
+      "n_arms": 4,
+      "mean_auc_roc": 0.533,
+      "min_auc_roc": 0.2823,
+      "mean_abs_rho_to_distance": 0.284,
+      "total_hits_at_5": 1,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0482,
+        "min_p_calibrated": 0.024756
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.2263,
+        "min_p_calibrated": 0.142167
+      }
+    },
+    {
+      "scorer": "quantum_opening_gain",
+      "family": "quantum",
+      "n_arms": 4,
+      "mean_auc_roc": 0.5281,
+      "min_auc_roc": 0.2083,
+      "mean_abs_rho_to_distance": 0.7799,
+      "total_hits_at_5": 2,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.053,
+        "min_p_calibrated": 0.186164
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.2312,
+        "min_p_calibrated": 0.181947
+      }
+    },
+    {
+      "scorer": "quantum_best_case_transfer",
+      "family": "quantum",
+      "n_arms": 4,
+      "mean_auc_roc": 0.5279,
+      "min_auc_roc": 0.208,
+      "mean_abs_rho_to_distance": 0.7831,
+      "total_hits_at_5": 2,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0533,
+        "min_p_calibrated": 0.187153
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.2315,
+        "min_p_calibrated": 0.181847
+      }
+    },
+    {
+      "scorer": "gnm_transfer_entropy_net",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.5277,
+      "min_auc_roc": 0.1166,
+      "mean_abs_rho_to_distance": 0.3822,
+      "total_hits_at_5": 2,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0535,
+        "min_p_calibrated": 0.166055
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 3,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.2317,
+        "min_p_calibrated": 0.17582
+      }
+    },
+    {
+      "scorer": "ctqw_coherent_source_contrast",
+      "family": "quantum",
+      "n_arms": 4,
+      "mean_auc_roc": 0.5262,
+      "min_auc_roc": 0.2594,
+      "mean_abs_rho_to_distance": 0.2414,
+      "total_hits_at_5": 0,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.055,
+        "min_p_calibrated": 0.024756
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.2332,
+        "min_p_calibrated": 0.137644
+      }
+    },
+    {
+      "scorer": "ctqw_average_transfer",
+      "family": "quantum",
+      "n_arms": 4,
+      "mean_auc_roc": 0.5236,
+      "min_auc_roc": 0.1993,
+      "mean_abs_rho_to_distance": 0.7906,
+      "total_hits_at_5": 3,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 0,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0576,
+        "min_p_calibrated": 0.16304
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.2357,
+        "min_p_calibrated": 0.186645
+      }
+    },
+    {
+      "scorer": "ctqw_temporal_variance",
+      "family": "quantum",
+      "n_arms": 4,
+      "mean_auc_roc": 0.5199,
+      "min_auc_roc": 0.3487,
+      "mean_abs_rho_to_distance": 0.3446,
+      "total_hits_at_5": 1,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0612,
+        "min_p_calibrated": 0.170909
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.2394,
+        "min_p_calibrated": 0.26166
+      }
+    },
+    {
+      "scorer": "heat_kernel_from_source",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.5195,
+      "min_auc_roc": 0.1848,
+      "mean_abs_rho_to_distance": 0.8475,
+      "total_hits_at_5": 2,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0617,
+        "min_p_calibrated": 0.07375
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.2399,
+        "min_p_calibrated": 0.169851
+      }
+    },
+    {
+      "scorer": "interference_excess",
+      "family": "quantum",
+      "n_arms": 4,
+      "mean_auc_roc": 0.5169,
+      "min_auc_roc": 0.1966,
+      "mean_abs_rho_to_distance": 0.6711,
+      "total_hits_at_5": 2,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0643,
+        "min_p_calibrated": 0.278484
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.2425,
+        "min_p_calibrated": 0.179648
+      }
+    },
+    {
+      "scorer": "interference_ratio",
+      "family": "quantum",
+      "n_arms": 4,
+      "mean_auc_roc": 0.5114,
+      "min_auc_roc": 0.1931,
+      "mean_abs_rho_to_distance": 0.6914,
+      "total_hits_at_5": 2,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0698,
+        "min_p_calibrated": 0.194629
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.248,
+        "min_p_calibrated": 0.180548
+      }
+    },
+    {
+      "scorer": "quantum_perturbation_response",
+      "family": "quantum",
+      "n_arms": 4,
+      "mean_auc_roc": 0.5114,
+      "min_auc_roc": 0.1687,
+      "mean_abs_rho_to_distance": 0.5352,
+      "total_hits_at_5": 1,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0698,
+        "min_p_calibrated": 0.250365
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.248,
+        "min_p_calibrated": 0.149451
+      }
+    },
+    {
+      "scorer": "oscillation_ratio",
+      "family": "quantum",
+      "n_arms": 4,
+      "mean_auc_roc": 0.5075,
+      "min_auc_roc": 0.2722,
+      "mean_abs_rho_to_distance": 0.3771,
+      "total_hits_at_5": 1,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0736,
+        "min_p_calibrated": 0.218299
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.2518,
+        "min_p_calibrated": 0.221315
+      }
+    },
+    {
+      "scorer": "module_boundary",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.506,
+      "min_auc_roc": 0.3501,
+      "mean_abs_rho_to_distance": 0.2625,
+      "total_hits_at_5": 0,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0752,
+        "min_p_calibrated": 0.090015
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 0,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.2534,
+        "min_p_calibrated": 0.162502
+      }
+    },
+    {
+      "scorer": "bottleneck_to_source",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.5,
+      "min_auc_roc": 0.5,
+      "mean_abs_rho_to_distance": NaN,
+      "total_hits_at_5": 0,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0812,
+        "min_p_calibrated": 0.011402
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.2593,
+        "min_p_calibrated": 0.272443
+      }
+    },
+    {
+      "scorer": "symmetry_dark_overlap",
+      "family": "quantum",
+      "n_arms": 4,
+      "mean_auc_roc": 0.5,
+      "min_auc_roc": 0.5,
+      "mean_abs_rho_to_distance": NaN,
+      "total_hits_at_5": 0,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0812,
+        "min_p_calibrated": 0.011402
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.2593,
+        "min_p_calibrated": 0.272443
+      }
+    },
+    {
+      "scorer": "spectral_participation_ratio",
+      "family": "quantum",
+      "n_arms": 4,
+      "mean_auc_roc": 0.4886,
+      "min_auc_roc": 0.1902,
+      "mean_abs_rho_to_distance": 0.3447,
+      "total_hits_at_5": 1,
+      "n_reject_confirmatory": 1,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0926,
+        "min_p_calibrated": 0.045844
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.2708,
+        "min_p_calibrated": 0.004802
+      }
+    },
+    {
+      "scorer": "fiedler_amplitude",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.4837,
+      "min_auc_roc": 0.195,
+      "mean_abs_rho_to_distance": 0.6011,
+      "total_hits_at_5": 0,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0975,
+        "min_p_calibrated": 0.272574
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.2756,
+        "min_p_calibrated": 0.229704
+      }
+    },
+    {
+      "scorer": "degenerate_mixing_weight",
+      "family": "quantum",
+      "n_arms": 4,
+      "mean_auc_roc": 0.4814,
+      "min_auc_roc": 0.4256,
+      "mean_abs_rho_to_distance": NaN,
+      "total_hits_at_5": 0,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.0998,
+        "min_p_calibrated": 0.095232
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.278,
+        "min_p_calibrated": 0.272443
+      }
+    },
+    {
+      "scorer": "strain_versus_diffusion",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.4805,
+      "min_auc_roc": 0.1146,
+      "mean_abs_rho_to_distance": 0.8475,
+      "total_hits_at_5": 0,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.1007,
+        "min_p_calibrated": 0.040622
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.2789,
+        "min_p_calibrated": 0.006894
+      }
+    },
+    {
+      "scorer": "dephased_transport",
+      "family": "quantum",
+      "n_arms": 4,
+      "mean_auc_roc": 0.4792,
+      "min_auc_roc": 0.1518,
+      "mean_abs_rho_to_distance": 0.8523,
+      "total_hits_at_5": 2,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 0,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.102,
+        "min_p_calibrated": 0.053196
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.2802,
+        "min_p_calibrated": 0.153252
+      }
+    },
+    {
+      "scorer": "hitting_time_to_source_negated",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.4386,
+      "min_auc_roc": 0.1293,
+      "mean_abs_rho_to_distance": 0.8518,
+      "total_hits_at_5": 1,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.1425,
+        "min_p_calibrated": 0.052124
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.3207,
+        "min_p_calibrated": 0.120212
+      }
+    },
+    {
+      "scorer": "mean_bfactor",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.4346,
+      "min_auc_roc": 0.2422,
+      "mean_abs_rho_to_distance": 0.5297,
+      "total_hits_at_5": 0,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.1466,
+        "min_p_calibrated": 0.093154
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.3248,
+        "min_p_calibrated": 0.282164
+      }
+    },
+    {
+      "scorer": "energy_contrast",
+      "family": "quantum",
+      "n_arms": 4,
+      "mean_auc_roc": 0.3598,
+      "min_auc_roc": 0.1022,
+      "mean_abs_rho_to_distance": 0.2129,
+      "total_hits_at_5": 0,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.2214,
+        "min_p_calibrated": 0.005321
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.3996,
+        "min_p_calibrated": 0.069297
+      }
+    },
+    {
+      "scorer": "protrusion_index",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.3472,
+      "min_auc_roc": 0.2655,
+      "mean_abs_rho_to_distance": 0.6272,
+      "total_hits_at_5": 0,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.234,
+        "min_p_calibrated": 0.029406
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.4121,
+        "min_p_calibrated": 0.294127
+      }
+    },
+    {
+      "scorer": "clustering_coefficient",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.3335,
+      "min_auc_roc": 0.2785,
+      "mean_abs_rho_to_distance": 0.3961,
+      "total_hits_at_5": 0,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.2477,
+        "min_p_calibrated": 0.00108
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.4258,
+        "min_p_calibrated": 0.083947
+      }
+    },
+    {
+      "scorer": "soft_corridor_to_source",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.3164,
+      "min_auc_roc": 0.2443,
+      "mean_abs_rho_to_distance": 0.0568,
+      "total_hits_at_5": 1,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.2647,
+        "min_p_calibrated": 0.052393
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 0,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.4429,
+        "min_p_calibrated": 0.272343
+      }
+    },
+    {
+      "scorer": "min_vertex_cut_to_source",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.3082,
+      "min_auc_roc": 0.2302,
+      "mean_abs_rho_to_distance": 0.2319,
+      "total_hits_at_5": 0,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.2731,
+        "min_p_calibrated": 0.092367
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.4512,
+        "min_p_calibrated": 0.147751
+      }
+    },
+    {
+      "scorer": "slow_mode_participation",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.2963,
+      "min_auc_roc": 0.0864,
+      "mean_abs_rho_to_distance": 0.734,
+      "total_hits_at_5": 0,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.2849,
+        "min_p_calibrated": 0.001473
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.463,
+        "min_p_calibrated": 0.19198
+      }
+    },
+    {
+      "scorer": "essa_perturbation",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.294,
+      "min_auc_roc": 0.2479,
+      "mean_abs_rho_to_distance": 0.4038,
+      "total_hits_at_5": 0,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 2,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.2872,
+        "min_p_calibrated": 0.01099
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 0,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.4653,
+        "min_p_calibrated": 0.218455
+      }
+    },
+    {
+      "scorer": "anm_perturbation_response",
+      "family": "classical",
+      "n_arms": 4,
+      "mean_auc_roc": 0.2894,
+      "min_auc_roc": 0.1202,
+      "mean_abs_rho_to_distance": 0.2102,
+      "total_hits_at_5": 0,
+      "n_reject_confirmatory": 0,
+      "vs_distance_from_source_negated": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.2917,
+        "min_p_calibrated": 0.010782
+      },
+      "vs_eigenvector_centrality": {
+        "n_arms_leading": 1,
+        "n_arms_beating_at_05": 0,
+        "mean_auc_difference": -0.4699,
+        "min_p_calibrated": 0.197444
+      }
+    }
+  ]
+}

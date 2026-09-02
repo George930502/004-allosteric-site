@@ -1,0 +1,159 @@
+{
+ "chem_comp": {
+  "formula": "C16 H13 Cl2 N3 O2",
+  "formula_weight": 350.199,
+  "id": "AGX",
+  "name": "(1S)-1-(1H-benzimidazol-2-yl)ethyl (3,4-dichlorophenyl)carbamate",
+  "pdbx_ambiguous_flag": "N",
+  "pdbx_formal_charge": 0,
+  "pdbx_initial_date": "2009-09-18T00:00:00.000+00:00",
+  "pdbx_modified_date": "2011-06-04T00:00:00.000+00:00",
+  "pdbx_processing_site": "RCSB",
+  "pdbx_release_status": "REL",
+  "three_letter_code": "AGX",
+  "type": "non-polymer"
+ },
+ "pdbx_chem_comp_audit": [
+  {
+   "action_type": "Create component",
+   "comp_id": "AGX",
+   "date": "2009-09-18T00:00:00.000+00:00",
+   "ordinal": 1
+  },
+  {
+   "action_type": "Modify aromatic_flag",
+   "comp_id": "AGX",
+   "date": "2011-06-04T00:00:00.000+00:00",
+   "ordinal": 2
+  },
+  {
+   "action_type": "Modify descriptor",
+   "comp_id": "AGX",
+   "date": "2011-06-04T00:00:00.000+00:00",
+   "ordinal": 3
+  }
+ ],
+ "pdbx_chem_comp_descriptor": [
+  {
+   "comp_id": "AGX",
+   "descriptor": "Clc1ccc(cc1Cl)NC(=O)OC(c3nc2ccccc2n3)C",
+   "program": "ACDLabs",
+   "program_version": "11.02",
+   "type": "SMILES"
+  },
+  {
+   "comp_id": "AGX",
+   "descriptor": "C[C@H](OC(=O)Nc1ccc(Cl)c(Cl)c1)c2[nH]c3ccccc3n2",
+   "program": "CACTVS",
+   "program_version": "3.352",
+   "type": "SMILES_CANONICAL"
+  },
+  {
+   "comp_id": "AGX",
+   "descriptor": "C[CH](OC(=O)Nc1ccc(Cl)c(Cl)c1)c2[nH]c3ccccc3n2",
+   "program": "CACTVS",
+   "program_version": "3.352",
+   "type": "SMILES"
+  },
+  {
+   "comp_id": "AGX",
+   "descriptor": "C[C@@H](c1[nH]c2ccccc2n1)OC(=O)Nc3ccc(c(c3)Cl)Cl",
+   "program": "OpenEye OEToolkits",
+   "program_version": "1.7.0",
+   "type": "SMILES_CANONICAL"
+  },
+  {
+   "comp_id": "AGX",
+   "descriptor": "CC(c1[nH]c2ccccc2n1)OC(=O)Nc3ccc(c(c3)Cl)Cl",
+   "program": "OpenEye OEToolkits",
+   "program_version": "1.7.0",
+   "type": "SMILES"
+  },
+  {
+   "comp_id": "AGX",
+   "descriptor": "InChI=1S/C16H13Cl2N3O2/c1-9(15-20-13-4-2-3-5-14(13)21-15)23-16(22)19-10-6-7-11(17)12(18)8-10/h2-9H,1H3,(H,19,22)(H,20,21)/t9-/m0/s1",
+   "program": "InChI",
+   "program_version": "1.03",
+   "type": "InChI"
+  },
+  {
+   "comp_id": "AGX",
+   "descriptor": "MVMZWHAHBIJEDT-VIFPVBQESA-N",
+   "program": "InChI",
+   "program_version": "1.03",
+   "type": "InChIKey"
+  }
+ ],
+ "pdbx_chem_comp_identifier": [
+  {
+   "comp_id": "AGX",
+   "identifier": "(1S)-1-(1H-benzimidazol-2-yl)ethyl (3,4-dichlorophenyl)carbamate",
+   "program": "ACDLabs",
+   "program_version": "11.02",
+   "type": "SYSTEMATIC NAME"
+  },
+  {
+   "comp_id": "AGX",
+   "identifier": "[(1S)-1-(1H-benzimidazol-2-yl)ethyl] N-(3,4-dichlorophenyl)carbamate",
+   "program": "OpenEye OEToolkits",
+   "program_version": "1.6.1",
+   "type": "SYSTEMATIC NAME"
+  }
+ ],
+ "rcsb_chem_comp_container_identifiers": {
+  "comp_id": "AGX",
+  "rcsb_id": "AGX"
+ },
+ "rcsb_chem_comp_descriptor": {
+  "InChI": "InChI=1S/C16H13Cl2N3O2/c1-9(15-20-13-4-2-3-5-14(13)21-15)23-16(22)19-10-6-7-11(17)12(18)8-10/h2-9H,1H3,(H,19,22)(H,20,21)/t9-/m0/s1",
+  "InChIKey": "MVMZWHAHBIJEDT-VIFPVBQESA-N",
+  "SMILES": "CC(c1[nH]c2ccccc2n1)OC(=O)Nc3ccc(c(c3)Cl)Cl",
+  "SMILES_stereo": "C[C@@H](c1[nH]c2ccccc2n1)OC(=O)Nc3ccc(c(c3)Cl)Cl",
+  "comp_id": "AGX"
+ },
+ "rcsb_chem_comp_info": {
+  "atom_count": 36,
+  "atom_count_chiral": 1,
+  "atom_count_heavy": 23,
+  "bond_count": 38,
+  "bond_count_aromatic": 16,
+  "comp_id": "AGX",
+  "initial_deposition_date": "2009-09-18T00:00:00.000+00:00",
+  "initial_release_date": "2009-10-06T00:00:00.000+00:00",
+  "release_status": "REL",
+  "revision_date": "2011-06-04T00:00:00.000+00:00"
+ },
+ "rcsb_chem_comp_related": [
+  {
+   "comp_id": "AGX",
+   "ordinal": 1,
+   "related_mapping_method": "matching InChIKey in PubChem",
+   "resource_accession_code": "44183922",
+   "resource_name": "PubChem"
+  }
+ ],
+ "rcsb_chem_comp_synonyms": [
+  {
+   "comp_id": "AGX",
+   "name": "(1S)-1-(1H-benzimidazol-2-yl)ethyl (3,4-dichlorophenyl)carbamate",
+   "ordinal": 1,
+   "provenance_source": "PDB Reference Data",
+   "type": "Preferred Name"
+  },
+  {
+   "comp_id": "AGX",
+   "name": "(1S)-1-(1H-benzimidazol-2-yl)ethyl (3,4-dichlorophenyl)carbamate",
+   "ordinal": 2,
+   "provenance_source": "ACDLabs",
+   "type": "Systematic Name"
+  },
+  {
+   "comp_id": "AGX",
+   "name": "[(1S)-1-(1H-benzimidazol-2-yl)ethyl] N-(3,4-dichlorophenyl)carbamate",
+   "ordinal": 3,
+   "provenance_source": "OpenEye OEToolkits",
+   "type": "Systematic Name"
+  }
+ ],
+ "rcsb_id": "AGX"
+}

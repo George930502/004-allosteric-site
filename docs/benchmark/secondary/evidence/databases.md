@@ -62,9 +62,9 @@ how reproducible a fetch is.
 
 | Source                    | URL as checked                                          | Exact failure on 2026-08-24                                                                     |
 | ------------------------- | ------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| ASD over HTTPS            | `https://mdl.shsmu.edu.cn/ASD/`                         | `certificate has expired`. The wildcard for `*.shsmu.edu.cn` expired on 2025-12-28               |
+| ASD over HTTPS            | `https://mdl.shsmu.edu.cn/ASD/`                         | `certificate has expired`. The **deployed** wildcard for `*.shsmu.edu.cn` expired on 2025-12-28. Two current certificates exist in CT logs and are not deployed (checked 2026-09-02) |
 | ASD download page, HTTPS  | `https://mdl.shsmu.edu.cn/ASD/module/download/download.jsp` | the same expired certificate                                                                     |
-| ASD release archive       | three guessed direct paths                              | **HTTP 404** on all three                                                                        |
+| ASD release archive       | three guessed direct paths                              | **HTTP 404** on all three. **Superseded 2026-09-02:** the real prefix is `/ASD2023Common/static_file/archive_2023/` and all twelve archives download over plain HTTP |
 | ASD, any bad path         | four distinct paths over plain HTTP                     | genuine **404** with a `JBoss Web/3.0.0-beta-2` server banner                                     |
 | ASBench data              | `http://mdl.shsmu.edu.cn/asbench/`                      | registration wall. The formats behind the form were never seen. The survey also records broken TLS |
 | ASBench supplement        | OUP supplementary information                           | **paywalled**. The selection rules are not in the retrievable record                             |
@@ -84,6 +84,29 @@ them navigation, and none of them a data file. The site builds the file list und
 release filename is known only out of band as `ASD_Release_202306_XF.tar.gz`, named in the
 AlloBench README as a manual prerequisite. A script cannot fetch ASD today. A human must
 first capture that URL from a rendered page.
+
+> **CORRECTED 2026-09-02. The last three sentences are wrong, and the paragraph above them is
+> right for the wrong reason.** A script *can* fetch ASD, and one did: all twelve release
+> archives, 143 687 774 bytes, over plain HTTP from
+> `http://mdl.shsmu.edu.cn/ASD2023Common/static_file/archive_2023/`, on 2026-09-01. The
+> enumeration of `href` elements was the method failure. `download.js` builds the anonymous
+> file list from a JavaScript array named `dataRecord2023`, and reading that array is all the
+> retrieval needs. `<a href>` elements do exist in that file, but only inside a logged-in
+> branch that an anonymous client never reaches, which is why enumerating rendered links found
+> navigation and nothing else.
+>
+> Two further corrections to the row above. The deployed `*.shsmu.edu.cn` certificate is
+> expired, and that stands. **"Has not been renewed" does not:** certificate-transparency logs
+> hold two current certificates for that wildcard, valid to 2026-11-10 and 2026-12-29. The
+> certificate was renewed at the certificate authority and not deployed on this host.
+>
+> **What does not change is why the frame is RCSB.** Reachability was never the load-bearing
+> argument. ASD's evidence bar sits on the protein rather than the site, its 2023 release mixes
+> 3102 curated sites with 66,589 machine-predicted ones, and it satisfies clause (ii) for
+> nothing. A 2026-09-02 sweep took **34 leads** and **zero** admissible arms from it. ASD also
+> states a licence, verbatim: "ASD contains data for research use only. Users will not be
+> allowed to distribute the data to a third party." No ASD file is ever committed.
+> Recipe and funnel: `../../review/09-extension-sweep.md` §1.3 and §3.
 
 ---
 

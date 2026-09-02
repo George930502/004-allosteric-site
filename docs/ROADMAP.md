@@ -9,11 +9,164 @@ sub-phase 1.6, the frozen **evaluation** layer, are both **closed**. 1.6 was clo
 2026-08-25, reopened the same day by its own audit
 (`docs/benchmark/evaluation/AUDIT.md`), and closed again as **protocol version 2**.
 
-**Phase 2 is open, with two per-target blockers.** ADR 0016 holds the mandated 5TBY
-deliverables until the organisers answer question (a). ADR 0020 holds the c-Myc (`1NKP`)
-deliverables until its input and evaluation contract is frozen. Phase 2 can proceed on the
-other three targets. It cannot produce artifacts for those two until an ADR supersedes each
-blocker. See the Phase 2 entry gate below.
+> **A second audit pass ran on 2026-09-02, audited the first one, and its findings were
+> repaired the same day. Read
+> [`docs/benchmark/review/25-second-pass-synthesis.md`](benchmark/review/25-second-pass-synthesis.md)
+> for the evidence behind each item.** `make check` and `uv run allo evaluate verify --detect`
+> both exit 0 after the repairs.
+>
+> **Closed — three new C1 leaks.** A sweep of every tracked `.md`, `.yaml`, `.json` and `.txt`
+> outside the seven protected trees, looking for a run of label residues inside one
+> 400-character window, found three files that cleared the coincidence floor.
+> `docs/benchmark/primary/audit/` reproduces 21 of 21 KRAS label residues and 18 of 18 for
+> BCR-ABL1; `docs/benchmark/evidence/` prints the KRAS distal label set as prose;
+> `experiments/` persists the true site's radius of gyration for the six primary arms and all
+> five sealed `generalisation` arms. All three are now guarded, taking the count of data
+> routes from seven to ten. A `src.`-prefixed import that walked past every C1 import guard is
+> closed in the same commit.
+>
+> **Withdrawn on the same day by the third pass — `docs/targets.md` IS a leak, and the
+> refutation was a detector failure.** This box said it holds none of the twelve cardiac
+> myosin label residues. It holds all twelve, written as `Tyr164, Thr167, Asp168, …`. The
+> sweep matched bare integers on a word boundary, so a three-letter code never matched its
+> own number. Re-run with the codes normalised, `docs/targets.md` is 12 of 12 for both
+> myosin arms and is the only new complete-set file in the tree. Two more routes came with
+> it — both benchmark READMEs publish the positive count, the holo entry and the effector
+> for every arm including the five sealed ones — and the count is now **thirteen**. See
+> [`docs/benchmark/review/26-third-pass-synthesis.md`](benchmark/review/26-third-pass-synthesis.md).
+>
+> **Closed — the decoy-pocket p-value.** It compared the whole label set's mean midrank against
+> the decoy pocket linings'. ADR 0030 writes the test on the **site pocket's** lining, and the
+> type-I simulation behind it drew the site's number from the same unit-variance law as the
+> decoys'. The code now matches both, and a test pins the identity
+> `p = site_pocket_rank / (1 + n_decoys)`.
+>
+> **Closed — three stale or false statements in the frozen documents.** `cavity_volume` no
+> longer clears the confirmatory family under protocol version 3: re-measured at
+> `p_calibrated` 0.0046 / 0.0715 / 0.3236, Holm rejects **one arm of three**, not three of
+> three. The claim that the detector re-freeze selected on a label-free criterion was false —
+> `n_decoys` depends on the labels — and the criterion of record is now `n_detected`, which
+> picks the identical setting on all five arms with no tie, so no frozen value moved. Three
+> counts were wrong: 36 ADRs not 33, fifteen arms not sixteen, ten data routes not seven.
+>
+> **Closed — two correctness defects outside the protocol.** The infinite-time connectivity
+> matrix summed over eigenvectors rather than spectral projectors, so on a degenerate spectrum
+> its value depended on an arbitrary LAPACK basis choice. The reported top-5 hit list broke
+> ties using the answer key, which made the deliverable itself a function of the labels.
+>
+> **Corrected, not closed — the Faccin diagnosis under Phase 2 below.** It applies the theorem
+> to the adjacency matrix, a site-basis state and the top eigengap. The paper is about
+> `D^(-1/2) L D^(-1/2)`, its degree-weighted ground state, and the smallest non-zero
+> eigenvalue. Measured on KRAS: `(H_Q)_ii = 1.0` at every node, `Δ = 0.056` against the code's
+> 1.438, and a site-basis source sits at quantumness 0.994 rather than at the classical point.
+> The module now says so and the two levers are demoted to measured heuristics. **The
+> empirical sweep result stands; its explanation does not, and nothing below this box has been
+> rewritten for it.**
+>
+> **A third pass audited those repairs on the same day, because nobody had.**
+> [`26-third-pass-synthesis.md`](benchmark/review/26-third-pass-synthesis.md) is its ranked
+> list. Four things it closed, beyond the withdrawal above:
+>
+> - **The path guard could be walked past with `.joinpath`.** A module in `allo.network`
+>   recovered every arm's positive count from the protected matched-patch cache and all 34
+>   leakage tests passed. `os.path.dirname` had the same hole. Both are closed and probed.
+>   Third instance of one failure mode: the guard reads the text correctly and the
+>   interpreter accepts a form the text does not model.
+> - **The frozen decision rule had no implementation.** `decision.alpha`,
+>   `decision.confirmatory_family` and `decision.correction` had no reader in `src/` or
+>   `experiments/`, and `holm` had no caller outside the tests. The only Holm actually run
+>   corrects over a different family. `allo.scoring.confirmatory_verdict` now reads the
+>   frozen block and refuses a family that is not the declared one.
+> - **The matched-patch cache key was blind to the contact cutoff**, under a comment saying
+>   it was not. Identical digest at 4.5, 6.0 and 8.0 Å while the mean degree ran 9.531,
+>   13.398, 24.262. Fixed; every pool was re-drawn and the freeze re-verifies unchanged.
+> - **Five documents stated a refuted or stale fact**, including ADR 0030's decision 5 and
+>   `scoring/decoys.py`, which still said `cavity_volume` clears the confirmatory family.
+> - **It measured what protocol version 3 moved in the committed sweeps**, rather than
+>   asserting it. Every record in the three 2026-08-26 experiments carries
+>   `protocol_frozen_on: 2026-08-25`. Re-scoring 216 of them through the current harness moves
+>   every decoy column and `auc_roc_vs_decoy_linings`, moves `dcc_angstrom` on 6 of 216, and
+>   moves `auc_roc`, `mean_rank`, `auc_pr`, `precision_at_5`, `hits_at_5`, `recall_at_5` and
+>   the matched-patch p-value on **none**. The screening statistic is unmoved, so the variant
+>   selection stands and no re-run was needed. The three `notes.md` say so. The same
+>   measurement found **15 of the 69 registered scorers have never been screened**.
+>
+> **Twenty-one items are open** and §5 of that document ranks them, each naming the ADR it
+> needs. The largest are the undisclosed myosin B-factor defects, a claim-family arm scored
+> against a truncated label set, and C3 — 14 of 25 quantum scorers have no resource account.
+>
+> **Open — one item, and it is the user's call.** The whole frozen state is uncommitted. A
+> clean clone cannot reproduce what these documents call frozen.
+
+**The organisers answered four questions on 2026-09-02, and a multi-axis audit of all three
+frozen sets closed the same day. `docs/benchmark/review/` is the record; `11-synthesis.md` is
+the ranked list.** Five items blocked scoring on the primary arms. **All five are now decided,
+by ADRs 0029 to 0036, and the primary input layer is re-frozen at six arms.** What each one
+was, and what settled it:
+
+1. **The BCR-ABL1 chain — settled by ADR 0029: report chain B, non-confirmatory.** The organisers direct teams to `1OPL` chain **B**; the frozen arm
+   uses chain A. Measured: chain B empties the myristoyl pocket and deletes the mechanism —
+   no SH3 modelled, SH2 docked on the N-lobe instead of the C-lobe, 22.89 A from the holo,
+   and coordinates the depositors state were rigid-body placed with three group B-factors.
+   An exhaustive PDB survey finds **no myristate-free assembled ABL1 exists**: the clamp
+   docks only when the pocket is filled, five entries for five.
+2. **Negative class (b) has no valid per-arm test — settled by ADR 0030: keep the pocket-rank
+   test descriptive, add a Fisher combination across the confirmatory family, re-freeze the
+   detector on `n_detected` alone. This opens protocol version 3.** Three constructions measured against the
+   ADR 0018 gate: the frozen pocket permutation needs an effect of 2.49 SD at any decoy
+   count; a residue-level test has a measured size of 0.13-0.38; a size-matched patch cannot
+   be drawn, because on both KRAS arms no decoy pocket is as large as the label set. A Fisher
+   or Stouffer combination across arms reaches a floor of 0.021 and is the available answer.
+3. **ADR 0016 is superseded by the organisers' answer — done, by ADR 0031. The arm is exposed,
+   non-confirmatory, with both defects printed.** `9GZ2` is sanctioned, and all twelve
+   labels transfer onto `5TBY`. Both input blockers stand and are now measured: no unique
+   fold-general source rule, and a `5TBY` long-range contact graph agreeing with the measured
+   structure at Jaccard **0.471**.
+4. **The claim threshold and the confirmatory family disagree** (ADR 0025 against
+   `evaluation/README.md` §8) — **settled by ADR 0032: the claim threshold becomes its own
+   confirmatory family, a paired `compare_methods` against `cavity_volume` on the same three
+   arms, Holm over three, two-sided.**
+5. **Seven of fourteen arms locate the active site from a ligand the input strips.** The
+   organisers' "uniformly stripped" instruction does not say whether that is permitted.
+   **Settled by ADR 0033: the narrow reading — stripping scopes the node set, and the source
+   rule is reported rather than re-frozen.** A measurement changed the design: the P-loop motif
+   span was believed to sit inside the frozen ligand source, and it does not. Residue 10 is a
+   **scoreable label**, so a motif source would move it out of the positive class, 16 to 15.
+   No new frozen arm; a descriptive matched comparison on the 15-residue intersection instead.
+
+**Three more ADRs came out of the same audit.** 0034 protects `docs/benchmark/review/` as an
+answer key and exempts its own tools by an import-based rule. 0035 fixes conservation as the
+fourth confounder column and rejects coevolution as a category error. 0036 makes c-Myc a
+reported deliverable scored against NMR segments, superseding ADR 0020.
+
+**The one open C1 hole is closed.** `docs/benchmark/review/` carries per-arm positive counts
+and five real KRAS label residues, and it was not in `PROTECTED_PATHS`. C1 names the residue
+count directly. The naive fix fails, because `data/fetch_structure_evidence.py` writes into the
+protected tree and the runner gate then flags the script's own output. **ADR 0034 exempts the
+tree's own tools by a rule instead of a name list**: a file is a review tool when it is tracked
+inside the tree **and** imports nothing from `allo`. The leakage suite passes with the tree
+protected, and two new tests pin the rule. It is the **seventh** guarded data route.
+
+**One number the report has to carry: geometry alone is a strong baseline.** Both distance
+directions are declared baselines. Taking the better one per arm gives a median AUC of
+**0.666** over fourteen arms, 0.932 on `hiv_rt` and 0.804 on `ecoli_cps`. No other apo-only
+descriptor separates the labels benchmark-wide — burial, B-factor, hydrophobicity, degree
+and composition all sit at chance when pooled, which is a design strength worth stating.
+Measured in `docs/benchmark/review/12-dataset-eda.md`.
+
+**One correction that changes a recorded justification: ASD is reachable.** Twelve release
+archives downloaded over plain HTTP on 2026-09-02. The 2026-08-24 conclusion was a method
+failure, not a fact about the server. It supplies 34 new leads, 13 of them with physiological
+effectors — the gap the secondary set names — and **zero** new admissible arms, because none
+has been through clause (ii). The re-freeze decision stays in Phase 5.
+
+**Phase 2 is open, both per-target blockers are cleared, and both layers are frozen again.**
+ADR 0031 supersedes 0016 and ADR 0036 supersedes 0020, so **all four minimum targets now have a
+contract**. The conformance gap the audit called largest is closed. The input layer is
+re-frozen at **six** primary arms and the evaluation layer at **protocol version 3**, over
+fifteen arms; `uv run allo benchmark verify --set all` and `uv run allo evaluate verify
+--detect` both exit 0. The recalibration reproduced thirteen of fifteen arms' thresholds to six
+decimals and moved only the two arms the re-freeze changed.
 
 ---
 
@@ -103,11 +256,15 @@ three of five arms, so these are controls to beat rather than walkovers
 result makes mandatory (ADR 0002). A method that does not beat those three controls has
 demonstrated nothing.
 
-### 1.6 — Frozen evaluation layer — CLOSED 2026-08-25 at protocol version 2
+### 1.6 — Frozen evaluation layer — CLOSED 2026-08-25 at protocol version 2, re-frozen 2026-09-02 at version 3
 
 Frozen in `docs/benchmark/evaluation/`: `manifest.yaml` holds every pinned choice with its
-reason, `frozen.json` holds the consequences for all 14 arms, and `README.md` is the argument.
+reason, `frozen.json` holds the consequences for all 15 arms, and `README.md` is the argument.
 `uv run allo evaluate verify` re-derives the freeze and exits 0 only if nothing moved.
+
+**Version 3, 2026-09-02.** It opened because the **input** layer moved under it, not because a
+defect was found here. Six changes, each with the ADR that decided it, in that `README.md` §0.
+The recalibration reproduced thirteen of fifteen arms' thresholds to six decimals.
 
 **Delivered.**
 
@@ -157,9 +314,9 @@ random five-residue list** (DCC 26.5 Å against a chance line of 17.7 Å). Three
 confounder columns are now computed too; conservation needs an external alignment and reads
 `null` (ADR 0025 amendment).
 
-**Exit met.** `make check` and `make verify` both exit 0 at protocol version 2 —
+**Exit met.** `make check` and `make verify` both exit 0, now at protocol version 3 —
 the latter re-derives both freezes, re-runs the pocket detector and runs the network tests. The
-calibration experiment is reproducible from its committed config on all 14 arms, and the
+calibration experiment is reproducible from its committed config on all 15 arms, and the
 `null-repairs` experiment likewise. Both required controls run end to end on all five primary
 arms: `distance_from_source_negated` rejects nothing, and `cavity_volume` rejects on all three
 confirmatory arms with its recall@5 and DCC recorded rather than hidden.
@@ -210,25 +367,99 @@ clause (ix) before size is the question. **The decision to re-freeze is open and
 Phase 5, not to Phase 1.**
 
 **Phase 2 entry gate: met on 2026-08-25**, withdrawn the same day when the audit reopened
-sub-phase 1.6, and met again once 1.6 closed at protocol version 2.
+sub-phase 1.6, met again once 1.6 closed at protocol version 2, and **withdrawn again on
+2026-09-02** when the organisers' answers moved the input layer under it.
 
-**Two per-target blockers remain, and neither is cleared by 1.6.**
+**Both per-target blockers are cleared, and one new gate condition replaces them.**
 
-- **ADR 0016** holds the mandated 5TBY deliverables until the organisers answer question (a).
-- **ADR 0020** holds the c-Myc (`1NKP`) deliverables. Its contract is still unmet: no chain or
-  copy is chosen, no propagation source or explicitly source-free metric contract is frozen,
-  and no answer-independent consensus or docking evaluation exists. `1NKP` is one of the four
-  minimum deliverables in `CHALLENGE.md`, and it has **no arm in the evaluation freeze**. The
-  version-2 audit found this recorded nowhere on this page (`AUDIT.md` M15) and it is recorded
-  here now. Phase 2 may proceed on the other three targets; it may not produce c-Myc artifacts
-  until an ADR supersedes 0020.
+- **ADR 0016 is superseded by ADR 0031.** The mandated 5TBY arm is frozen, exposed and
+  non-confirmatory, with both input defects measured and printed.
+- **ADR 0020 is superseded by ADR 0036.** The c-Myc contract is frozen: `1NKP` chain A in
+  author numbering, 82 native residues at auth 900–981, scored against NMR chemical-shift
+  segments with a hypergeometric null, source-free metric, **declared non-blind**, in no Holm
+  family. All four minimum targets now have a contract.
+- **The new gate condition was met on 2026-09-02: protocol version 3 is frozen.** The primary
+  input layer was re-frozen at six arms, so two arms' calibrated thresholds were stale and one
+  had none at all. `experiments/2026-09-02-null-recalibration/` re-ran all fifteen gate arms.
+  Thirteen reproduced their 2026-08-25 `size_ratio` and `alpha_star` to six decimals;
+  `bcr_abl1_mandated` moved to 1.2073 / 0.0277 on chain B and `cardiac_myosin_mandated` came in
+  at 1.0509 / 0.0485. `uv run allo evaluate verify --detect` exits 0 over fifteen arms and 777
+  decoy pockets. **A threshold measured after a method is scored is a hyperparameter**, which
+  is why the order was this way round and not the convenient one.
 
 ---
 
 ## Phase 2 — Quantum propagation metric (statevector)
 
-**Open.** Every hyperparameter is chosen on the secondary set's `development` tier, and every
-number is produced by `allo.scoring.score_arm` and no other path.
+**Open. The substrate is built and the first four experiments have run.** Every hyperparameter
+is chosen on the secondary set's `development` tier, and every number is produced by
+`allo.scoring.score_arm` and no other path.
+
+**Built on 2026-08-26.** `allo.network` (stage S1), `allo.classical` (S3–S7, three registries:
+`baselines`, `coupling`, `mechanism`) and `allo.quantum` (S5). Sixty-nine scorers in total, none
+of which existed when `docs/method/review/` was compiled.
+
+**Extended later the same day**, after four further literature sweeps returned
+(`docs/method/review/13` to `16`). `allo.quantum` gained three families: `interference` (the exact
+separation of the interference term from the phase-cancelled overlap term), `connectivity` (the
+**N × N matrix `CHALLENGE.md` §5 requires**, plus four source-free scorers) and `quantumness` (the
+source-state energy lever and the symmetry route). `allo.classical.coupling` gained
+`gnm_transfer_entropy_net`, and `allo.network.build` gained `min_seq_sep` and the `ohm`
+weighting.
+
+**Measured on 2026-08-26**, all on the `development` tier and nowhere else:
+
+| Experiment                           | What it settled                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `2026-08-26-selection-power`         | **The screen's ceiling is an interval, and the screen sits on its upper edge.** 1620 variants hold only **8.86–10.58** independent directions, so the label-blind p95 runs from 0.707 (effective V) to 0.810 (raw V). The minimum detectable effect starts at 0.794. The **confound-removal axis** buys 3.8 independent directions; the **graph axis** buys 0.6                                                                                                                                                                                                                                                                                                                                     |
+| `2026-08-26-method-sweep`            | 6480 records, 1620 complete variants. Best mean AUC **0.810** (`eigenvector_centrality`), **0 reject the null on all four arms**, the graph axis spans only 0.031 AUC, and quantum loses **30 of 30** paired cells to classical by +0.196 AUC. `docs/method/exploration/results/40-method-sweep.md`                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `2026-08-26-mechanism-probe`         | Three cross-system mechanism signatures. The published soft-corridor prediction is refuted; its inverse reaches mean AUC 0.714 with rank correlation −0.12 against distance, and still rejects no null                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `2026-08-26-fusion-probe`            | Label-blind consensus, spatial smoothing and the top-5 assembly rule. Best mean AUC 0.765, below the label-blind median of 0.771. Sign alignment is the one knob worth its cost                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `2026-08-26-source-choice`           | **The propagation source does not have to be the active site, and often should not be.** Six label-blind size-matched sources. `degree` reaches mean AUC 0.705 with a worst arm of 0.608; `catalytic` reaches 0.564 with a worst arm of 0.323 and the largest between-arm spread of any source (0.486). Source conditioning still carries information: catalytic beats random on rejections, 0.118 against 0.076                                                                                                                                                                                                                                                                                    |
+| `2026-08-26-beats-distance`          | **The central negative.** 69 scorers through the frozen paired test. **7 of 272** beat distance at uncorrected p ≤ 0.05 where chance gives 6.8, and **0 of 272** beat `eigenvector_centrality`. Also records that Holm **cannot reject on `ptp1b` or `ns5b` at any data**, because the permutation floor (0.001080) exceeds Holm's first step                                                                                                                                                                                                                                                                                                                                                       |
+| `2026-08-26-stability-and-source`    | **The §4.2 noise-resilience evidence.** Coordinate noise, edge loss, source loss and a shortened coherence window, over 30 scorers and all four arms. At 1.0 Å the mean rank stability is **0.908 classical against 0.629 quantum**, and the **twenty** least stable scorers are all quantum. **The top-5 list is far less stable than the endpoint for every method** — geometry holds ρ 0.978 with Jaccard **0.46**, and `connectivity_strength` reaches AUC 0.625 with Jaccard **0.05**. Stability tracks the distance component inside the quantum family at Spearman **+0.874** (p < 0.0001, n = 22), so escaping the confound costs stability — though `degree` shows the trade is not forced |
+| `2026-08-26-ensemble-stabilisation`  | **The remedy for the quantum instability, and it is not dephasing.** A rank mean over 16 jittered structures lifts held-out stability from 0.33–0.80 to 0.82–0.98, which is the classical range, at a cost in AUC of between −0.055 and +0.035                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `2026-08-26-timescale-normalisation` | **Tuning the clock does not work, and the measurement rules out the class.** Two spectral clocks × 8 windows × 4 finite-window observables. The `gap` clock halves window sensitivity (0.079 → 0.045) and leaves the between-arm AUC spread at **0.5627 → 0.5516**, a 2 % reduction. Between-arm variance is **1.3× to 14.5×** the within-arm window variance, and **0 of 32 settings** put all four arms above 0.5                                                                                                                                                                                                                                                                                 |
+
+**ADR 0026 changed the entry conditions.** The eleven quantum insertion points that
+`docs/method/review/00-conventions.md` §5 recorded as closed rested on a benchmark containing
+all three primary targets in its own evaluation sets. Eight are re-opened and were measured
+here. Three stay closed on mathematics.
+
+**What Phase 2 still owes.** One frozen method — one graph, one scorer, one confound-removal
+form, one assembly rule, written into an ADR — plus a pre-registered prediction, before the
+`generalisation` tier is opened. The design is
+`docs/method/exploration/results/42-threats-and-confirmation.md` §4.
+
+**Four conformance gaps found on 2026-08-26 that no score fixes.** `docs/report/conformance.md`
+re-reads the challenge PDF requirement by requirement. The N × N connectivity matrix did not
+exist and now does; **no circuit has been compiled**, nothing has run on **Braket or Classiq**,
+and **c-Myc has no arm** although §8.2 counts it among the minimum four targets. Items two and
+three belong to Phase 3 and item four blocks method design under ADR 0020.
+
+**One diagnosis that changes what Phase 2 means.** Faccin et al. (Phys Rev X 3, 041007) prove a
+time-averaged quantum walk equals the classical degree ranking **exactly at zero initial-state
+energy**. Our source state had energy exactly zero, because a site-basis state has
+`⟨i|A|i⟩ = 0`. The bound on the deviation is `E/Δ`, and `Δ` varies **21.7×** across the four
+`development` arms while the spectral range varies 1.09×. That is the reason the walk
+observables behaved classically. It is **not** a lever: `2026-08-26-timescale-normalisation`
+normalised the time grid by `Δ` on every arm and the cross-protein spread did not move.
+
+**Per-protein adaptation was investigated on 2026-08-27 and is closed by ADR 0028.** The
+direction was to adapt the pipeline to the input protein. **The effect it aims at is real.**
+Blocked on scorer and permuted 200 000 times, the arm level effect gives classical
+p = **0.00007** over 42 scorers, with a median per-scorer arm spread of **0.338**. What closes
+the route is the sample, not the phenomenon. At four arms the minimum attainable two-sided
+Spearman p is **0.083**, so a rank test over proteins has power **exactly zero at any effect
+size**, and a screen of 30 apo-only descriptors returned **1** perfect ordering against
+**2.50** expected by chance. The held-out `generalisation` tier is **5** arms, not ten — the
+primary set is the confirmatory family and cannot also be a tuning surface — and at n = 5 the
+power against a true rank correlation of 0.90 is **0.25**. So: **there is definitely something
+to adapt to, and the benchmark definitively cannot tell us what it is.** No fitted adaptation
+rule may enter the pipeline. The headroom is in **source geometry**: the graph side has no
+between-protein spread to normalise, measured twice
+(`docs/method/exploration/results/52-derived-cutoff-prescreen.md`), and neither does the clock.
+`docs/method/exploration/results/48-adaptation-feasibility.md`.
 
 Hamiltonian constructions from the network; continuous-time quantum walk from the active
 site; candidate metrics (time-averaged transfer probability, peak transfer, integrated
@@ -254,13 +485,22 @@ eigenvector centrality has reproduced Mohtashim 2026 and has not cleared the bar
 
 ## Phase 3 — Circuits, depth budget, noise resilience
 
-Trotterised `exp(-iHt)` in the single-excitation sector. Gate counts, depth, qubit count and
+Trotterised `exp(-iHt)` in the single-excitation sector — **or the exact Givens network, which
+`docs/method/exploration/results/43-quantum-resources.md` prices as 3 to 8 times shallower on
+every arm and cheaper on four of five. Phase 3 must state which it uses and why.** Gate counts, depth, qubit count and
 connectivity reported per target (C3). Aer noise models sweeping gate error and decoherence;
 stability of the **ranking**, not just the raw metric, since the ranking is the deliverable.
 Execute a coarse-grained instance on AWS Braket or via Classiq synthesis.
 
 **Exit:** resource table per target, ranking-stability curves against noise strength, and at
 least one real-hardware or hardware-emulated run.
+
+**Two things Phase 2 found that Phase 3 must carry.** The depolarizing order-preservation
+guarantee does **not** reach `ctqw_temporal_variance` or `quantum_opening_gain`, because both
+are ratios and the noise offset does not divide out of the denominator — those two need
+per-correlation-length calibration. And the dominant hardware cost is the circuit **count**,
+not the gate count: every continuous-time observable needs `512 x |S|` circuits, which is
+5632 on `mkp5` and 10752 on cardiac myosin.
 
 ---
 
@@ -275,6 +515,12 @@ compression ratio.
 The myosin arm is where this bites first at 764 nodes. The interacting-heads question also
 lands here: `9YRG`/`9YR7` is the super-relaxed pair, and whether the network should be one
 head or the whole IHM is a coarse-graining decision rather than an input-layer one.
+
+**The compression Phase 4 must achieve is now a number per arm.** A 20-node coarse-grained
+graph is the ceiling that current hardware fidelity supports, so the factors are mkp5 7.3x,
+ptp1b 14.9x, hiv_rt 27.1x, ns5b 27.6x, `cardiac_myosin_corrected` 38.2x. **The open question
+is not the compression.** No file yet says how a ranking over 20 super-nodes becomes a
+residue-level top-5, and the top-5 list is the mandated deliverable.
 
 **Exit:** compression-ratio sweep showing where the signal breaks, plus a rule for picking the
 ratio for an unseen protein.

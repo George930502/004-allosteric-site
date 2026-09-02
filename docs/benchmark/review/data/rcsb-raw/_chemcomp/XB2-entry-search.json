@@ -1,0 +1,24 @@
+{
+  "query_id" : "f94e2f54-74d2-45b7-8006-6bdf296cb446",
+  "result_type" : "entry",
+  "total_count" : 6,
+  "result_set" : [ {
+    "identifier" : "8QYQ",
+    "score" : 1.0
+  }, {
+    "identifier" : "8QYR",
+    "score" : 1.0
+  }, {
+    "identifier" : "9GZ1",
+    "score" : 1.0
+  }, {
+    "identifier" : "9GZ2",
+    "score" : 1.0
+  }, {
+    "identifier" : "9YP9",
+    "score" : 1.0
+  }, {
+    "identifier" : "9YR7",
+    "score" : 1.0
+  } ]
+}

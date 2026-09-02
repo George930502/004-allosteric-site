@@ -1,0 +1,106 @@
+{
+ "rcsb_id": "8QYQ.I",
+ "rcsb_nonpolymer_entity_instance_container_identifiers": {
+  "asym_id": "I",
+  "auth_asym_id": "A",
+  "auth_seq_id": "1005",
+  "comp_id": "FMT",
+  "entity_id": "8",
+  "entry_id": "8QYQ",
+  "rcsb_id": "8QYQ.I"
+ },
+ "rcsb_nonpolymer_instance_annotation": [
+  {
+   "comp_id": "FMT",
+   "ordinal": 11,
+   "provenance_source": "Primary Data",
+   "type": "HAS_NO_COVALENT_LINKAGE"
+  }
+ ],
+ "rcsb_nonpolymer_instance_validation_score": [
+  {
+   "RSCC": 0.926,
+   "RSR": 0.138,
+   "average_occupancy": 1.0,
+   "completeness": 1.0,
+   "intermolecular_clashes": 1,
+   "is_best_instance": "N",
+   "is_subject_of_investigation": "N",
+   "mogul_angle_outliers": 0,
+   "mogul_angles_RMSZ": 1.06,
+   "mogul_bond_outliers": 0,
+   "mogul_bonds_RMSZ": 1.3,
+   "natoms_eds": 3,
+   "num_mogul_angles_RMSZ": 1,
+   "num_mogul_bonds_RMSZ": 2,
+   "ranking_model_fit": 0.474,
+   "ranking_model_geometry": 0.3825,
+   "score_model_fit": -0.0644,
+   "score_model_geometry": 0.1326,
+   "stereo_outliers": 0,
+   "type": "RCSB_LIGAND_QUALITY_SCORE_2021"
+  }
+ ],
+ "rcsb_target_neighbors": [
+  {
+   "atom_id": "O1",
+   "comp_id": "FMT",
+   "distance": 3.18,
+   "target_asym_id": "A",
+   "target_atom_id": "CZ",
+   "target_auth_seq_id": 510,
+   "target_comp_id": "PHE",
+   "target_entity_id": "1",
+   "target_model_id": 1,
+   "target_seq_id": 510
+  },
+  {
+   "atom_id": "C",
+   "comp_id": "FMT",
+   "distance": 3.257,
+   "target_asym_id": "A",
+   "target_atom_id": "N",
+   "target_auth_seq_id": 513,
+   "target_comp_id": "PHE",
+   "target_entity_id": "1",
+   "target_model_id": 1,
+   "target_seq_id": 513
+  },
+  {
+   "atom_id": "O2",
+   "comp_id": "FMT",
+   "distance": 3.458,
+   "target_asym_id": "A",
+   "target_atom_id": "O",
+   "target_auth_seq_id": 515,
+   "target_comp_id": "MET",
+   "target_entity_id": "1",
+   "target_model_id": 1,
+   "target_seq_id": 515
+  },
+  {
+   "atom_id": "C",
+   "comp_id": "FMT",
+   "distance": 3.503,
+   "target_asym_id": "A",
+   "target_atom_id": "O",
+   "target_auth_seq_id": 511,
+   "target_comp_id": "ILE",
+   "target_entity_id": "1",
+   "target_model_id": 1,
+   "target_seq_id": 511
+  },
+  {
+   "atom_id": "C",
+   "comp_id": "FMT",
+   "distance": 3.76,
+   "target_asym_id": "A",
+   "target_atom_id": "CA",
+   "target_auth_seq_id": 512,
+   "target_comp_id": "ASP",
+   "target_entity_id": "1",
+   "target_model_id": 1,
+   "target_seq_id": 512
+  }
+ ]
+}

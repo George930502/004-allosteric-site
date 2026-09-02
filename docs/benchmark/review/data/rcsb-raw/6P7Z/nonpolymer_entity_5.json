@@ -1,0 +1,54 @@
+{
+ "pdbx_entity_nonpoly": {
+  "comp_id": "O41",
+  "entity_id": "5",
+  "name": "5-cyclopropyl-N-[1-(methylsulfonyl)piperidin-4-yl]-1,2-oxazole-3-carboxamide"
+ },
+ "rcsb_id": "6P7Z_5",
+ "rcsb_nonpolymer_entity": {
+  "formula_weight": 0.313,
+  "pdbx_description": "5-cyclopropyl-N-[1-(methylsulfonyl)piperidin-4-yl]-1,2-oxazole-3-carboxamide",
+  "pdbx_number_of_molecules": 1
+ },
+ "rcsb_nonpolymer_entity_annotation": [
+  {
+   "annotation_id": "entity_annotation_1",
+   "assignment_version": "V1.0",
+   "comp_id": "O41",
+   "description": "Ligand targeted in this investigation",
+   "name": "O41",
+   "provenance_source": "PDB",
+   "type": "SUBJECT_OF_INVESTIGATION"
+  }
+ ],
+ "rcsb_nonpolymer_entity_container_identifiers": {
+  "asym_ids": [
+   "H"
+  ],
+  "auth_asym_ids": [
+   "A"
+  ],
+  "chem_ref_def_id": "O41",
+  "entity_id": "5",
+  "entry_id": "6P7Z",
+  "nonpolymer_comp_id": "O41",
+  "rcsb_id": "6P7Z_5"
+ },
+ "rcsb_nonpolymer_entity_feature": [
+  {
+   "assignment_version": "V1.0",
+   "comp_id": "O41",
+   "description": "Ligand targeted in this investigation",
+   "feature_id": "entity_feature_1",
+   "name": "O41",
+   "provenance_source": "PDB",
+   "type": "SUBJECT_OF_INVESTIGATION"
+  }
+ ],
+ "rcsb_nonpolymer_entity_feature_summary": [
+  {
+   "count": 1,
+   "type": "SUBJECT_OF_INVESTIGATION"
+  }
+ ]
+}

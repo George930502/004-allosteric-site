@@ -1,0 +1,55 @@
+# Can averaging over structural uncertainty stabilise a coherent observable without
+# destroying what makes it coherent?
+#
+# `2026-08-26-stability-and-source` found one mechanism behind the quantum instability:
+# interference between eigenmodes is what makes a walk observable both distance-orthogonal
+# and fragile, and dephasing removes both together. So dephasing is not the remedy -- it buys
+# stability by giving up the only thing the quantum observable had.
+#
+# The alternative is to keep the coherence and average the *input* uncertainty instead. A
+# deposited structure is one sample from a conformational ensemble, so the expectation of an
+# observable over that uncertainty is a more honest estimator than its value at one point.
+# This experiment asks whether that estimator is both more stable and no less accurate.
+#
+# The test perturbation is held out from the ensemble: the ensemble is built from one set of
+# seeds and stability is measured against a disjoint set. Averaging over the same noise it is
+# tested on would measure nothing.
+
+arms: [mkp5, ptp1b, hiv_rt, ns5b]
+graph: {contact: heavy_min, weighting: unit}
+
+ensemble:
+  sizes: [1, 4, 8, 16]
+  sigma: [0.25, 0.5]
+  build_seeds: [100, 101, 102, 103, 104, 105, 106, 107,
+                108, 109, 110, 111, 112, 113, 114, 115]
+
+# Disjoint from `build_seeds` by construction.
+test:
+  sigma: 0.5
+  seeds: [0, 1, 2]
+
+# The unstable and distance-orthogonal observables, which are the ones with something to gain,
+# plus three controls. `dephased_transport` is the stable-but-distance-like quantum score and
+# `distance_from_source_negated` is the ceiling of stability, so together they bracket the
+# range any result has to be read inside.
+scorers:
+  - ctqw_temporal_variance
+  - ctqw_coherent_source_contrast
+  - ctqw_peak_transfer
+  - ctqw_average_transfer
+  - interference_excess
+  - interference_ratio
+  - oscillation_ratio
+  - coherent_source_ratio
+  - spectral_participation_ratio
+  - anm_perturbation_response
+  - distance_from_source_negated
+
+# `dephased_transport` and `connectivity_entropy` are excluded, and the exclusion is a cost
+# decision recorded rather than left silent. Both cost about ten seconds per structure on the
+# two large arms, which at 64 structures per arm and sigma would be over half the wall clock.
+# `dephased_transport` also has nothing to gain: it already holds a stability of 0.95-0.97.
+excluded_for_cost: [dephased_transport, connectivity_entropy]
+
+seed: 0

@@ -17,18 +17,20 @@ from collections.abc import Mapping
 from pathlib import Path
 
 import numpy as np
-from scipy.stats import norm, spearmanr
+from scipy.stats import chi2, norm, spearmanr
 
 from allo.benchmark import deep_diff
 from allo.groundtruth.manifest import read_manifest
 from allo.inputs import ROOT, apo_input
-from allo.scoring import metrics, properties
+from allo.scoring import metrics
 from allo.scoring.nulls import (
     EvaluationGraph,
+    MatchedPoolUnavailable,
     evaluation_graph,
     matched_patches,
     permutation_p,
 )
+from allo.structure import properties
 
 EVALUATION = ROOT / "docs" / "benchmark" / "evaluation"
 EVALUATION_MANIFEST = EVALUATION / "manifest.yaml"
@@ -38,11 +40,13 @@ SECONDARY_INPUT_FROZEN = ROOT / "docs" / "benchmark" / "secondary" / "frozen.jso
 
 __all__ = [
     "calibrated_p",
+    "combine_arms",
     "compare_methods",
     "freeze_evaluation",
     "holm",
     "protocol",
     "score_arm",
+    "top_k_components",
     "verify_evaluation",
 ]
 
@@ -158,14 +162,21 @@ def _patch_null(graph, labels, settings, *, match_distance: bool):
         if match_distance
         else settings["nulls"]["replicates"]
     )
-    patches, diagnostics = matched_patches(
-        graph,
-        labels,
-        n_patches=replicates,
-        tolerance=float(matched["tolerance"]),
-        seed=int(settings["seed"]),
-        match_distance=match_distance,
-    )
+    try:
+        patches, diagnostics = matched_patches(
+            graph,
+            labels,
+            n_patches=replicates,
+            tolerance=float(matched["tolerance"]),
+            seed=int(settings["seed"]),
+            match_distance=match_distance,
+        )
+    except MatchedPoolUnavailable as unavailable:
+        # The pool is a property of the graph, not of the method. An arm whose graph
+        # cannot supply one at the frozen tolerance is reported without this null, with the
+        # failure printed. Widening the tolerance for the one arm that failed is the
+        # per-arm hyperparameter the frozen protocol exists to prevent.
+        return None, unavailable.diagnostics()
     over_candidates = patches[:, graph.index(graph.candidates)].astype(np.float32)
     return over_candidates, diagnostics
 
@@ -246,19 +257,47 @@ def score_arm(
     # scores every pocket equally reports last place rather than first.
     site_lining = frozen["decoys"]["site_pocket"]["lining"]
     site_pocket_rank = None
+    site_score = None
     if site_lining:
         site_score = float(ranks[[at[r] for r in site_lining]].mean())
         site_pocket_rank = 1 + int((decoy_ranks >= site_score).sum())
 
-    gate = _gate(target, settings)
-    # Every matched patch holds exactly `len(labels)` residues, so every row of the matmul
-    # divides by the same constant. That is what makes the float32 accumulation safe: the
-    # comparison in `permutation_p` is order-preserving under it. Assert the invariant
-    # rather than rely on it silently.
-    patch_sizes = geometry.sum(1)
-    if not np.all(patch_sizes == len(labels)):
-        raise ValueError(f"{target}: matched patches are not all size {len(labels)}")
-    matched_p = permutation_p(observed, (geometry @ ranks) / patch_sizes)
+    if geometry is None:
+        # No pool, so no calibrated threshold either: `alpha_star` and `size_ratio` are
+        # measured *from* the pool. The arm reports the failure and cannot be confirmatory.
+        matched_record = {
+            "available": False,
+            "p": None,
+            "p_calibrated": None,
+            "size_ratio": None,
+            "alpha_star": None,
+            "replicates": 0,
+            "confirmatory": False,
+            "diagnostics": diagnostics,
+        }
+    else:
+        gate = _gate(target, settings)
+        # Every matched patch holds exactly `len(labels)` residues, so every row of the
+        # matmul divides by the same constant. That is what makes the float32 accumulation
+        # safe: the comparison in `permutation_p` is order-preserving under it. Assert the
+        # invariant rather than rely on it silently.
+        patch_sizes = geometry.sum(1)
+        if not np.all(patch_sizes == len(labels)):
+            raise ValueError(f"{target}: matched patches are not all size {len(labels)}")
+        matched_p = permutation_p(observed, (geometry @ ranks) / patch_sizes)
+        matched_record = {
+            "available": True,
+            "p": matched_p,
+            # The number the decision uses, and the number Holm runs on. Calibrated at
+            # every Holm level rather than only at alpha, which is what the linear
+            # rescale of the draft was and why the composed procedure leaked FWER.
+            "p_calibrated": round(calibrated_p(matched_p, gate["size_ratio"]), 6),
+            "size_ratio": gate["size_ratio"],
+            "alpha_star": gate["alpha_star"],
+            "replicates": replicates,
+            "confirmatory": True,
+            "diagnostics": diagnostics,
+        }
 
     record = {
         "target": target,
@@ -285,11 +324,16 @@ def score_arm(
             "dcc_angstrom": round(
                 metrics.dcc(
                     graph.ca_coord[graph.index(graph.candidates)],
-                    metrics.top_k_indices(values, positive, k),
+                    metrics.top_k_indices(values, k),
                     positive,
                 ),
                 3,
             ),
+            # How many places the top-k list lands in. 1 is one site a chemist can design
+            # against; k is scatter. CHALLENGE.md section 4.2 asks for actionable output and
+            # nothing else here measures it. Reported, never tested (ADR 0030 disposition,
+            # precedent doi:10.64898/2026.01.28.702257).
+            f"top_{k}_components": top_k_components(graph, values, k),
             "auc_roc_vs_decoy_linings": (
                 round(
                     metrics.auc_roc(values[positive | decoy_mask], positive[positive | decoy_mask]),
@@ -306,51 +350,153 @@ def score_arm(
                 "replicates": replicates,
                 "caveat": "anti-conservative: replicates are not contiguous patches",
             },
-            "matched_patch": {
-                "p": matched_p,
-                # The number the decision uses, and the number Holm runs on. Calibrated at
-                # every Holm level rather than only at alpha, which is what the linear
-                # rescale of the draft was and why the composed procedure leaked FWER.
-                "p_calibrated": round(calibrated_p(matched_p, gate["size_ratio"]), 6),
-                "size_ratio": gate["size_ratio"],
-                "alpha_star": gate["alpha_star"],
-                "replicates": replicates,
-                "confirmatory": True,
-                "diagnostics": diagnostics,
-            },
+            "matched_patch": matched_record,
             "matched_patch_distance": {
-                "p": permutation_p(observed, (distance @ ranks) / distance.sum(1)),
-                "replicates": distance.shape[0],
+                "p": (
+                    permutation_p(observed, (distance @ ranks) / distance.sum(1))
+                    if distance is not None
+                    else None
+                ),
+                "available": distance is not None,
+                "replicates": 0 if distance is None else distance.shape[0],
                 "confirmatory": False,
                 "diagnostics": distance_diagnostics,
             },
             "decoy_pockets": {
-                "p": permutation_p(observed, decoy_ranks) if len(decoy_ranks) else None,
+                # ADR 0030 writes this test as `(1 + #{decoy_rank >= site_rank}) / (1 + n)`,
+                # and the type-I simulation behind it drew the site's number from the same
+                # unit-variance law as the decoys'. Both halves have to be a pocket lining
+                # for that exchangeability to hold. Until 2026-09-02 the code passed the
+                # label set's own mean midrank here instead, whose sampling variance goes as
+                # 1/|labels| while a decoy's goes as 1/|lining| -- a statistic no type-I
+                # rate in `decoy-typeI.json` was ever measured for.
+                "p": (
+                    permutation_p(site_score, decoy_ranks)
+                    if len(decoy_ranks) and site_score is not None
+                    else None
+                ),
                 "n_decoys": len(decoy_ranks),
                 "minimum_attainable_p": frozen["decoys"]["minimum_attainable_p"],
-                # Pocket-level, reported never tested. It shares its p-value with the row
-                # above, and the detector -- not the method -- fixes how many pockets there
-                # are, so it cannot carry a decision. It exists for comparability.
+                # Pocket-level, reported never tested. It is the same quantity the p-value
+                # above is built from -- `p` is exactly `site_pocket_rank / (1 + n_decoys)`
+                # -- and the detector, not the method, fixes how many pockets there are, so
+                # it cannot carry a decision. It exists for comparability.
                 "site_pocket_rank": site_pocket_rank,
                 "n_pockets_ranked": len(decoy_ranks) + (1 if site_lining else 0),
                 "site_pocket_label_coverage": frozen["decoys"]["site_pocket"]["label_coverage"],
+                # Per-arm, this is descriptive and cannot be otherwise. The statistic gives
+                # one draw per pocket, so its power tends to 1 - Phi(z_(1-alpha) - delta) and
+                # needs delta >= 2.49 for 80 % power at ANY decoy count. The tested form of
+                # negative class (b) is `combine_arms` over the confirmatory family, which is
+                # not floored. ADR 0030.
+                "confirmatory": False,
+                "tested_form": "combine_arms over the confirmatory family",
             },
         },
     }
-    # The four confounders every propagation score is read against. Three are computable
-    # from the apo structure alone; conservation needs an external alignment and is absent,
-    # recorded as unknown rather than approximated (ADR 0025).
+    # The confounders every propagation score is read against. Three are computable from the
+    # apo structure alone; conservation needs an external alignment and is absent, recorded
+    # as unknown rather than approximated (ADR 0025, ADR 0035).
     record["confounders"] = {
         name: _spearman(values, _aligned(graph, column))
         for name, column in properties.residue_properties(apo).items()
     }
     record["confounders"]["conservation"] = None
+    # Two more, added at protocol v3, and free: the evaluation graph already holds both. They
+    # are here because they separate label from background about as strongly as the three
+    # above -- degree reaches AUC 0.770 on `ns5b`, distance 0.932 on `hiv_rt` in its better
+    # direction -- so "your hits are just the well-connected residues near the source" is an
+    # objection the record has to be able to answer. Apo-only and label-free, so C1 and C2
+    # are untouched. Reported, never tested.
+    source_coord = graph.ca_coord[[graph.position[r] for r in graph.source]]
+    gaps = graph.ca_coord[:, None, :] - source_coord[None, :, :]
+    to_source = np.linalg.norm(gaps, axis=2).min(axis=1)
+    on_candidates = graph.index(graph.candidates)
+    record["confounders"]["degree"] = _spearman(values, graph.degree[on_candidates])
+    record["confounders"]["distance_to_source"] = _spearman(values, to_source[on_candidates])
 
     if against:
         record["rank_correlation"] = {
             name: _spearman(values, _aligned(graph, baseline)) for name, baseline in against.items()
         }
     return record
+
+
+def combine_arms(pvalues: Mapping[str, float], *, method: str = "fisher") -> dict:
+    """Combine per-arm p-values across a declared family (ADR 0030).
+
+    Negative class (b) -- non-functional surface pockets -- has no valid per-arm test. The
+    pocket-rank statistic gives one draw per pocket, so its power tends to
+    `1 - Phi(z_(1-alpha) - delta)` and needs a pocket-level effect of 2.49 standard
+    deviations for 80 % power **at any decoy count**.
+
+    CORRECTED 2026-09-02. 2.487 is the `n -> infinity` normal-quantile limit, not the power
+    of the discrete rank test this code runs. Integrating the exact binomial mixture at
+    alpha = 0.05 gives power 0.7173 at 19 decoys, 0.6530 at 31, 0.7718 at 84, 0.7888 at 139
+    and only 0.7959 at 400 -- and rejection is impossible at 18 or fewer, where the floor
+    exceeds alpha. The direction is that the test is WEAKER than 2.487 implies at every
+    frozen decoy count, so the disclosed requirement understates the effect it needs.
+
+    A residue-level replacement was
+    measured at a type-I rate of 0.132-0.384, and a size-matched patch cannot be drawn
+    inside the decoy union on either KRAS arm, where no decoy pocket is as large as the
+    label set.
+
+    A combination across arms is not floored, because Fisher and Stouffer are unbounded
+    below even when every input is bounded. On the three confirmatory arms the minimum
+    attainable p is 0.00137 by Fisher and 0.000453 by Stouffer at the v3 detector settings,
+    against 0.0214 and 0.0115 at the v2 settings.
+
+    **This tests the INTERSECTION null -- no arm has signal.** A rejection licenses "at
+    least one arm distinguishes the site from non-functional surface pockets". It is not a
+    generalisation claim, and it must be labelled that way wherever it is quoted.
+    """
+    names = sorted(pvalues)
+    values = np.array([float(pvalues[n]) for n in names], dtype=float)
+    if not values.size:
+        raise ValueError("combine_arms needs at least one arm")
+    if np.any((values <= 0) | (values > 1)):
+        raise ValueError(f"p-values outside (0, 1]: {dict(zip(names, values, strict=True))}")
+    if method == "fisher":
+        statistic = float(-2 * np.log(values).sum())
+        p = float(chi2.sf(statistic, 2 * values.size))
+    elif method == "stouffer":
+        statistic = float(norm.isf(values).sum() / np.sqrt(values.size))
+        p = float(norm.sf(statistic))
+    else:
+        raise ValueError(f"unknown combination method {method!r}")
+    return {
+        "method": method,
+        "arms": names,
+        "p_per_arm": {n: float(pvalues[n]) for n in names},
+        "statistic": round(statistic, 6),
+        "p": round(p, 8),
+        "tests": "intersection null: no arm has signal",
+        "licenses": "at least one arm separates the site from non-functional surface pockets",
+    }
+
+
+def top_k_components(graph, values: np.ndarray, k: int) -> int:
+    """How many connected pieces the top-k list breaks into, in the evaluation graph.
+
+    `CHALLENGE.md` section 4.2 asks for actionable output. Five residues in one place are a
+    pocket a chemist can design against; five residues in five places are not, and no
+    endpoint in the protocol separated the two. Published precedent for the quantity is
+    Seq2Pocket's Pocket Fragmentation Index (doi:10.64898/2026.01.28.702257), which
+    "measures the average number of predicted clusters assigned to each ground-truth
+    pocket", ideal 1.0. Ours is the component count directly: 1 is one site, k is scatter.
+
+    Reported, never tested. It is a property of the hit list, not evidence about it.
+    """
+    chosen = [graph.candidates[i] for i in metrics.top_k_indices(values, k)]
+    unseen, components = set(chosen), 0
+    while unseen:
+        stack, components = [unseen.pop()], components + 1
+        while stack:
+            for neighbour in graph.neighbours(stack.pop()) & unseen:
+                unseen.discard(neighbour)
+                stack.append(neighbour)
+    return components
 
 
 def holm(pvalues: Mapping[str, float], alpha: float = 0.05) -> dict[str, dict]:
@@ -369,6 +515,68 @@ def holm(pvalues: Mapping[str, float], alpha: float = 0.05) -> dict[str, dict]:
     return verdict
 
 
+def confirmatory_verdict(
+    family_1: Mapping[str, float],
+    family_2: Mapping[str, float] | None = None,
+    *,
+    settings: dict | None = None,
+) -> dict:
+    """Apply the frozen decision rule to one method's per-arm p-values.
+
+    Until 2026-09-02 the manifest froze a decision rule that no code read. `decision.alpha`,
+    `decision.confirmatory_family` and `decision.correction` had no reader anywhere in `src/`
+    or `experiments/`, and `holm` had no caller outside the tests. The one Holm actually run
+    in the repository is in `experiments/2026-08-26-beats-distance/run.py`, which predates
+    ADR 0032 and corrects over the whole scorer battery *within* an arm -- a different family
+    from the one the protocol declares. A frozen rule that every caller re-implements is not
+    frozen, which is the same argument that makes `score_arm` the only scoring path.
+
+    `family_1` is the matched-patch `p_calibrated` per arm, one-sided upper. `family_2` is
+    the paired `compare_methods` `p_calibrated` against `cavity_volume`, two-sided (ADR 0032).
+    Both are corrected by Holm over three at the frozen alpha, and the arms supplied must be
+    exactly the declared family -- passing four arms, or the wrong three, raises rather than
+    silently correcting over the wrong m.
+
+    **It returns per-arm verdicts and no aggregate.** ADR 0032's own table says a rejection
+    licenses that *the arm* has signal, and neither the ADR nor README section 8 defines what
+    clearing a family means -- all three arms, or one. Choosing between them after seeing a
+    result is exactly the hyperparameter this layer exists to prevent, so this reports
+    `n_reject` and leaves the rule to the ADR that states it.
+    """
+    settings = settings or protocol()
+    decision = settings["decision"]
+    alpha = float(decision["alpha"])
+    if decision["correction"] != "holm":
+        raise ValueError(f"unsupported correction {decision['correction']!r}")
+
+    def _check(supplied: Mapping[str, float], declared: list[str], label: str) -> dict:
+        if set(supplied) != set(declared):
+            raise ValueError(f"{label} must be exactly {sorted(declared)}; got {sorted(supplied)}")
+        return holm(supplied, alpha=alpha)
+
+    verdict = {
+        "alpha": alpha,
+        "correction": "holm",
+        "family_1": {
+            "test": "matched_patch",
+            "sided": decision["sided"],
+            "arms": _check(family_1, list(decision["confirmatory_family"]), "family_1"),
+        },
+    }
+    verdict["family_1"]["n_reject"] = sum(a["reject"] for a in verdict["family_1"]["arms"].values())
+    if family_2 is None:
+        return verdict
+    claim = decision["claim_family"]
+    verdict["family_2"] = {
+        "test": claim["test"],
+        "reference": claim["reference"],
+        "sided": claim["sided"],
+        "arms": _check(family_2, list(claim["arms"]), "family_2"),
+    }
+    verdict["family_2"]["n_reject"] = sum(a["reject"] for a in verdict["family_2"]["arms"].values())
+    return verdict
+
+
 def _derive_arm(target: str, settings: dict, *, detect: bool) -> dict:
     """Everything the evaluation layer pins for one arm, re-derived from the frozen files."""
     from allo.scoring import decoys as decoy_module
@@ -377,13 +585,17 @@ def _derive_arm(target: str, settings: dict, *, detect: bool) -> dict:
     labels, n_candidates = _positives(target)
     k = int(settings["endpoints"]["top_k"])
     matched = settings["nulls"]["matched_patch"]
-    _, diagnostics = matched_patches(
-        graph,
-        labels,
-        n_patches=int(matched["freeze_probe_patches"]),
-        tolerance=float(matched["tolerance"]),
-        seed=int(settings["seed"]),
-    )
+    try:
+        _, diagnostics = matched_patches(
+            graph,
+            labels,
+            n_patches=int(matched["freeze_probe_patches"]),
+            tolerance=float(matched["tolerance"]),
+            seed=int(settings["seed"]),
+        )
+        gate = _gate(target, settings)
+    except MatchedPoolUnavailable as unavailable:
+        diagnostics, gate = unavailable.diagnostics(), None
     record = {
         "n_candidates": n_candidates,
         "n_positive": len(labels),
@@ -410,8 +622,9 @@ def _derive_arm(target: str, settings: dict, *, detect: bool) -> dict:
             ),
         },
         "matched_patch": {
-            "size_ratio": _gate(target, settings)["size_ratio"],
-            "alpha_star": _gate(target, settings)["alpha_star"],
+            "available": gate is not None,
+            "size_ratio": None if gate is None else gate["size_ratio"],
+            "alpha_star": None if gate is None else gate["alpha_star"],
             "components": diagnostics["observed_components"],
             "mean_degree": diagnostics["observed_mean_degree"],
             "radius_of_gyration": diagnostics["observed_radius_of_gyration"],
@@ -476,6 +689,16 @@ def compare_methods(
     The arm's `size_ratio` is applied unchanged. It was calibrated for a single score's field
     and the difference of two fields has its own autocorrelation, so this is an approximation
     -- but it only ever tightens, so the direction is the safe one.
+
+    **`calibrated_p` is a one-sided rescale and the raw p here is two-sided.** On paper that
+    is a type mismatch: rescaling the upper tail of a two-sided p understates the inflation a
+    wider null deserves. It is left alone because the question it raises was answered by
+    measurement rather than by algebra. Review 21 of the 2026-09-02 audit, finding S8, draws
+    the null field out of sample and reads this family's size at **0.041 to 0.047
+    against alpha = 0.05**, and 3.7x conservative at alpha on `kras_g12c_corrected`. The
+    composite already holds its size, so switching to the two-sided rescale would buy no
+    validity and would cost power a family this conservative cannot spare. Revisit if the
+    measured size ever reaches alpha.
     """
     settings = config or protocol()
     apo = apo_input(target)
@@ -488,6 +711,27 @@ def compare_methods(
     observed = float(delta[positive].mean())
 
     geometry, diagnostics = _patch_null(graph, labels, settings, match_distance=False)
+    if geometry is None:
+        # Same rule as `score_arm`: the pool is a property of the graph, so an arm that cannot
+        # supply one is reported without the test rather than given a different one. The
+        # difference in AUC still prints, because it needs no null.
+        return {
+            "target": target,
+            "comparison": f"{names[0]} against {names[1]}",
+            "available": False,
+            "mean_rank_difference": round(observed, 4),
+            "auc_roc_difference": round(
+                metrics.auc_roc(left, positive) - metrics.auc_roc(right, positive), 4
+            ),
+            "leader": None,
+            "p": None,
+            "p_calibrated": None,
+            "size_ratio": None,
+            "sided": "two",
+            "replicates": 0,
+            "null_centre": None,
+            "diagnostics": diagnostics,
+        }
     null = (geometry @ delta) / geometry.sum(1)
     centre = float(np.median(null))
     extreme = int((np.abs(null - centre) >= abs(observed - centre)).sum())
@@ -497,6 +741,7 @@ def compare_methods(
     return {
         "target": target,
         "comparison": f"{names[0]} against {names[1]}",
+        "available": True,
         "mean_rank_difference": round(observed, 4),
         "auc_roc_difference": round(
             metrics.auc_roc(left, positive) - metrics.auc_roc(right, positive), 4

@@ -10,10 +10,27 @@ allosteric signal propagation.*
 > channels classically takes months of MD and relies on approximations that are
 > often too linear to capture the real, non-linear signal propagation.
 
-**Status, 2026-08-25.** Phase 1 is closed. The **input layer** and the **evaluation layer**
-are both frozen and both verify from code. No method exists yet, and that order is deliberate:
-every scoring choice was fixed before any method could be tuned against it. Phase 2 designs
-the quantum propagation metric. See [Roadmap](#roadmap).
+**Status, 2026-09-02.** Phase 1 is closed, and both frozen layers moved once more on
+2026-09-02 — **before any method was scored**, which is the only condition under which they
+may move at all.
+
+The organisers answered four questions about the benchmark, and a multi-axis audit of all
+three frozen sets ran against those answers
+([`docs/benchmark/review/`](docs/benchmark/review/)). Eight decisions came out of it, ADRs
+0029 to 0036. The **primary input layer is re-frozen at six arms**: `bcr_abl1_mandated` moved
+to the chain the organisers designated, and `cardiac_myosin_mandated` is frozen for the first
+time. Both are **non-confirmatory** and print their measured defects. All four minimum targets
+now have a contract. The **evaluation layer** is re-frozen at **protocol version 3** over fifteen arms. The
+recalibration reproduced thirteen of the fifteen arms' thresholds to six decimal places and
+moved only the two the input re-freeze changed, which is the check that says they moved for a
+reason.
+
+Every departure from `CHALLENGE.md` Table 1 is on one page:
+[`docs/report/substitutions.md`](docs/report/substitutions.md).
+
+No method exists yet, and that order is deliberate: every scoring choice is fixed before any
+method can be tuned against it. Phase 2 designs the quantum propagation metric. See
+[Roadmap](#roadmap).
 
 **What this repo builds:** an *allosteric scanner*. Input an apo PDB structure,
 output a ranked map of residues by their **dynamic connectivity to the active
@@ -122,10 +139,14 @@ that split, an ablation on the primary benchmark is test-set fitting.
 
 ### The evaluation layer — how a score is computed
 
-Frozen 2026-08-25 in [`docs/benchmark/evaluation/`](docs/benchmark/evaluation/README.md), at
-**protocol version 2**. It pins the endpoint, the estimator, the null, the decoy pockets, the
-multiplicity correction and the required baselines for all 14 arms. Every method calls
+Frozen 2026-09-02 in [`docs/benchmark/evaluation/`](docs/benchmark/evaluation/README.md), at
+**protocol version 3**. It pins the endpoint, the estimator, the null, the decoy pockets, the
+multiplicity correction and the required baselines for all 15 arms. Every method calls
 `allo.scoring.score_arm` and no other path.
+
+Version 3 opened because the **input** layer moved, not because a defect was found in version
+2. See [`README.md`](docs/benchmark/evaluation/README.md) §0 for the six changes and why each
+is not a hyperparameter.
 
 Version 1 was frozen and reopened the same day by its own audit. Two blockers were found:
 the procedure did not control the family-wise error rate, and a trivial geometric baseline
@@ -135,13 +156,15 @@ everything the audit found.
 
 **One consequence a reader must see before any result.** Rank each residue by the volume of
 the largest cavity that lines it — label-blind, apo-only, zero parameters — and that score
-rejects the null on all three confirmatory arms. So rejecting the null is a low bar. The
-report's claim threshold is **beating that baseline**, not clearing the null.
+rejected the null on all three confirmatory arms under protocol version 2. **Under version 3
+it rejects on one of three** (`p_calibrated` 0.0046 / 0.0715 / 0.3236), because ADR 0030
+re-froze the detector this baseline is computed from. Rejecting the null is still a low bar,
+and the report's claim threshold is **beating that baseline**, not clearing the null.
 
 ### The separation is enforced, not promised
 
 Holo structures build the labels and never enter the prediction path (constraint C1). The
-import graph enforces it, `src/allo/groundtruth/` is a sink, and five file-read routes that no
+import graph enforces it, `src/allo/groundtruth/` is a sink, and thirteen file-read routes that no
 import trace can see are named and guarded in
 [`tests/test_no_leakage.py`](tests/test_no_leakage.py).
 
@@ -179,7 +202,7 @@ read any number this repo produces.
 | Phase | Focus | Status |
 |---|---|---|
 | 0 | Repo, harness, agent infrastructure | ✅ done |
-| 1 | Classical foundation: structures, ground truth, frozen benchmark, scoring harness | ✅ **closed** — input layer frozen 2026-08-24, evaluation layer frozen 2026-08-25 at protocol version 2 |
+| 1 | Classical foundation: structures, ground truth, frozen benchmark, scoring harness | ✅ **closed** — input layer frozen 2026-08-24, re-frozen 2026-09-02 at six primary arms; evaluation layer frozen 2026-08-25 at protocol version 2, re-frozen 2026-09-02 at version 3 over fifteen arms |
 | 2 | Quantum propagation metric (statevector) | **open — current phase** |
 | 3 | Circuit implementation, depth budget, noise resilience | |
 | 4 | Coarse-graining and scalability | |
@@ -187,8 +210,9 @@ read any number this repo produces.
 
 Phase detail and exit criteria: [`docs/ROADMAP.md`](docs/ROADMAP.md).
 
-Two per-target blockers hold Phase 2 deliverables. ADR 0016 holds the mandated 5TBY arm.
-ADR 0020 holds c-Myc. Phase 2 proceeds on the other three targets.
+**Both per-target blockers are cleared.** ADR 0031 supersedes ADR 0016 and exposes the
+mandated 5TBY arm; ADR 0036 supersedes ADR 0020 and freezes the c-Myc contract. One gate
+condition replaces them: protocol version 3 must be frozen before any method is scored.
 
 ## Repository layout
 
@@ -219,7 +243,7 @@ docs/
   PRINCIPLES.md         R1-R4 in full
   FIELD.md              the field, expert practice, and the traps in this challenge
   targets.md            per-protein chains and ground-truth derivation
-  adr/                  25 decision records, indexed by topic in adr/README.md
+  adr/                  36 decision records, indexed by topic in adr/README.md
   benchmark/            three frozen sets as siblings, indexed by benchmark/README.md
     primary/            the 3 assigned disease areas: manifest, frozen.json, audit
     secondary/          9 further targets in two disjoint tiers

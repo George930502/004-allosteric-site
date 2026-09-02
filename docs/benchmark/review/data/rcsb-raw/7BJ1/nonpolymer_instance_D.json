@@ -1,0 +1,179 @@
+{
+ "rcsb_id": "7BJ1.D",
+ "rcsb_nonpolymer_entity_instance_container_identifiers": {
+  "asym_id": "D",
+  "auth_asym_id": "A",
+  "auth_seq_id": "503",
+  "comp_id": "ZN",
+  "entity_id": "4",
+  "entry_id": "7BJ1",
+  "rcsb_id": "7BJ1.D"
+ },
+ "rcsb_nonpolymer_instance_annotation": [
+  {
+   "annotation_id": "METAL_COORDINATION_LINKAGE_1",
+   "assignment_version": "V1.0",
+   "comp_id": "ZN",
+   "description": "ZN has metal coordination with polymer instance A in model 1",
+   "ordinal": 3,
+   "provenance_source": "Primary Data",
+   "type": "HAS_METAL_COORDINATION_LINKAGE"
+  },
+  {
+   "comp_id": "ZN",
+   "ordinal": 4,
+   "provenance_source": "Primary Data",
+   "type": "HAS_NO_COVALENT_LINKAGE"
+  }
+ ],
+ "rcsb_nonpolymer_instance_validation_score": [
+  {
+   "RSCC": 0.993,
+   "RSR": 0.023,
+   "average_occupancy": 1.0,
+   "completeness": 1.0,
+   "intermolecular_clashes": 0,
+   "is_best_instance": "N",
+   "is_subject_of_investigation": "N",
+   "mogul_angle_outliers": 0,
+   "mogul_bond_outliers": 0,
+   "natoms_eds": 1,
+   "ranking_model_fit": 0.9947,
+   "score_model_fit": -2.0558,
+   "stereo_outliers": 0,
+   "type": "RCSB_LIGAND_QUALITY_SCORE_2021"
+  }
+ ],
+ "rcsb_nonpolymer_struct_conn": [
+  {
+   "connect_partner": {
+    "label_asym_id": "A",
+    "label_atom_id": "SG",
+    "label_comp_id": "CYS",
+    "label_seq_id": 211,
+    "symmetry": "1_555"
+   },
+   "connect_target": {
+    "auth_seq_id": "503",
+    "label_asym_id": "D",
+    "label_atom_id": "ZN",
+    "label_comp_id": "ZN",
+    "symmetry": "1_555"
+   },
+   "connect_type": "metal coordination",
+   "dist_value": 2.367,
+   "id": "metalc9",
+   "ordinal_id": 18
+  },
+  {
+   "connect_partner": {
+    "label_asym_id": "A",
+    "label_atom_id": "SG",
+    "label_comp_id": "CYS",
+    "label_seq_id": 264,
+    "symmetry": "1_555"
+   },
+   "connect_target": {
+    "auth_seq_id": "503",
+    "label_asym_id": "D",
+    "label_atom_id": "ZN",
+    "label_comp_id": "ZN",
+    "symmetry": "1_555"
+   },
+   "connect_type": "metal coordination",
+   "dist_value": 2.338,
+   "id": "metalc10",
+   "ordinal_id": 20
+  },
+  {
+   "connect_partner": {
+    "label_asym_id": "A",
+    "label_atom_id": "SG",
+    "label_comp_id": "CYS",
+    "label_seq_id": 266,
+    "symmetry": "1_555"
+   },
+   "connect_target": {
+    "auth_seq_id": "503",
+    "label_asym_id": "D",
+    "label_atom_id": "ZN",
+    "label_comp_id": "ZN",
+    "symmetry": "1_555"
+   },
+   "connect_type": "metal coordination",
+   "dist_value": 2.295,
+   "id": "metalc11",
+   "ordinal_id": 22
+  },
+  {
+   "connect_partner": {
+    "label_asym_id": "A",
+    "label_atom_id": "SG",
+    "label_comp_id": "CYS",
+    "label_seq_id": 269,
+    "symmetry": "1_555"
+   },
+   "connect_target": {
+    "auth_seq_id": "503",
+    "label_asym_id": "D",
+    "label_atom_id": "ZN",
+    "label_comp_id": "ZN",
+    "symmetry": "1_555"
+   },
+   "connect_type": "metal coordination",
+   "dist_value": 2.332,
+   "id": "metalc12",
+   "ordinal_id": 24
+  }
+ ],
+ "rcsb_target_neighbors": [
+  {
+   "atom_id": "ZN",
+   "comp_id": "ZN",
+   "distance": 2.295,
+   "target_asym_id": "A",
+   "target_atom_id": "SG",
+   "target_auth_seq_id": 263,
+   "target_comp_id": "CYS",
+   "target_entity_id": "1",
+   "target_model_id": 1,
+   "target_seq_id": 266
+  },
+  {
+   "atom_id": "ZN",
+   "comp_id": "ZN",
+   "distance": 2.332,
+   "target_asym_id": "A",
+   "target_atom_id": "SG",
+   "target_auth_seq_id": 266,
+   "target_comp_id": "CYS",
+   "target_entity_id": "1",
+   "target_model_id": 1,
+   "target_seq_id": 269
+  },
+  {
+   "atom_id": "ZN",
+   "comp_id": "ZN",
+   "distance": 2.338,
+   "target_asym_id": "A",
+   "target_atom_id": "SG",
+   "target_auth_seq_id": 261,
+   "target_comp_id": "CYS",
+   "target_entity_id": "1",
+   "target_model_id": 1,
+   "target_seq_id": 264
+  },
+  {
+   "atom_id": "ZN",
+   "comp_id": "ZN",
+   "distance": 2.367,
+   "target_asym_id": "A",
+   "target_atom_id": "SG",
+   "target_auth_seq_id": 208,
+   "target_comp_id": "CYS",
+   "target_entity_id": "1",
+   "target_model_id": 1,
+   "target_seq_id": 211
+  }
+ ]
+}

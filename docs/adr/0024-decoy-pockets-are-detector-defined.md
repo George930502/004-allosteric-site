@@ -1,6 +1,9 @@
 # 0024 — Decoy pockets: pyKVFinder at its defaults, zero halo, power floor disclosed
 
-**Status:** accepted · 2026-08-25
+**Status:** accepted · 2026-08-25 · **superseded on the detector settings by
+[`0030`](0030-negative-class-b-is-tested-by-combination-across-arms.md)**, which re-froze
+pyKVFinder away from its defaults and demoted the pocket test to descriptive. The two
+decisions this ADR still owns are the zero halo and the disclosure of the power floor.
 
 ## Context
 

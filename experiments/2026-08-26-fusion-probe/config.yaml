@@ -1,0 +1,72 @@
+# Every knob that affects the result belongs here, including the seed.
+# A rerun of this config must reproduce metrics.json exactly.
+#
+#   uv run python experiments/2026-08-26-fusion-probe/run.py
+#
+# Question: the method sweep asks which single score is best. This asks whether combining
+# several beats any of them, and whether the site-assembly stage changes the deliverable.
+# Three passes:
+#
+#   1. `consensus` -- an unsupervised rank average over a diverse subset of the scorers.
+#      Membership is chosen WITHOUT looking at a label: the scorers are clustered by the
+#      absolute Spearman correlation of their own score vectors, and one medoid per cluster
+#      is kept. Picking members by their AUC would be selection on the outcome; picking them
+#      by their mutual correlation is not, because the correlation matrix never sees a label.
+#   1b. `orient` -- the same consensus with every member sign-aligned to the leading
+#      eigenvector of the members' own rank-correlation matrix. A rank average assumes every
+#      member points the same way and nothing guarantees it: two members of this pool run
+#      backwards. The alignment reads no label, so it removes an arbitrary convention without
+#      adding selection. `none` is the control.
+#   2. `smoothing` -- stage S7 spatial smoothing of the best consensus, radius swept. A site
+#      is a patch, not a residue, so averaging a score over a neighbourhood can raise the
+#      patch signal or can wash it out. Which one happens is unmeasured.
+#   3. `assembly` -- the top-5 rule itself, plain cut against a spatially diversified cut.
+#      This changes only `hits_at_5`, `recall_at_5` and `dcc_angstrom`, which is the point:
+#      the confirmatory endpoint and the deliverable are different claims.
+#
+# `development` tier only (ADR 0012, ADR 0021). A screen. It selects; it does not confirm.
+name: fusion-probe
+date: "2026-08-26"
+seed: 0
+
+arms: [mkp5, ptp1b, hiv_rt, ns5b]
+
+graphs:
+  evaluation_default: { contact: heavy_min, cutoff: 4.5, weighting: unit }
+  heavy_inverse_square:
+    { contact: heavy_min, cutoff: 4.5, weighting: inverse_square }
+  cb_10: { contact: cb, cutoff: 10.0, weighting: unit }
+
+detrend: [raw, exponential, binned_median]
+binned_rank_bins: 8
+gaussian_bandwidth: 6.0
+
+# Correlation-clustering cut for consensus membership. Two scorers whose absolute Spearman
+# correlation is at or above this on the arm's own graph are the same measurement, and only
+# one of them joins. Swept, because the right value is unknown.
+consensus_cut: [0.5, 0.7, 0.9]
+
+# Scorers excluded from every consensus. They are controls: a consensus that contains the
+# distance control is partly a distance score, and the whole point is to see what is left.
+consensus_exclude:
+  - distance_from_source_negated
+  - hop_distance_from_source_negated
+  - sequence_distance_from_source_negated
+  - closeness_centrality
+  - distance_to_centroid_negated
+
+# Stage S7. Radius in angstroms; 0 disables.
+smoothing_radius: [0.0, 4.5, 6.5, 9.0]
+
+# Stage S7 assembly. Exclusion radius in angstroms for the diversified top-5; 0 is a plain cut.
+exclusion_radius: [0.0, 6.0, 8.0, 12.0]
+
+# Scorers that cost more than a second per graph and add nothing a cheaper column does not
+# already carry. Excluded so the pass stays inside one run, and named rather than silently
+# dropped.
+skip_scorers:
+  - alps_spectral_response
+  - essa_perturbation
+  - quantum_perturbation_response
+  - dephased_transport
+  - szegedy_quantum_pagerank

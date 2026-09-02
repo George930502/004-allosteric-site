@@ -1,0 +1,5200 @@
+{
+ "entity_poly": {
+  "nstd_linkage": "no",
+  "nstd_monomer": "no",
+  "pdbx_seq_one_letter_code": "SMSYTWTGALITPCAAEESKLPINALSNSLLRHHNMVYATTSRSAGLRQKKVTFDRLQVLDDHYRDVLKEMKAKASTVKAKLLSVEEACKLTPPHSAKSKFGYGAKDVRNLSSKAVNHIHSVWKDLLEDTVTPIDTTIMAKNEVFCVQPEKGGRKPARLIVFPDLGVRVCEKMALYDVVSTLPQVVMGSSYGFQYSPGQRVEFLVNTWKSKKNPMGFSYDTRCFDSTVTENDIRVEESIYQCCDLAPEARQAIKSLTERLYIGGPLTNSKGQNCGYRRCRASGVLTTSCGNTLTCYLKASAACRAAKLQDCTMLVNGDDLVVICESAGTQEDAASLRVFTEAMTRYSAPPGDPPQPEYDLELITSCSSNVSVAHDASGKRVYYLTRDPTTPLARAAWETARHTPVNSWLGNIIMYAPTLWARMILMTHFFSILLAQEQLEKALDCQIYGACYSIEPLDLPQIIERLHGLSAFSLHSYSPGEINRVASCLRKLGVPPLRVWRHRARSVRARLLSQGGRAATCGKYLFNWAVKTKLKL",
+  "pdbx_seq_one_letter_code_can": "SMSYTWTGALITPCAAEESKLPINALSNSLLRHHNMVYATTSRSAGLRQKKVTFDRLQVLDDHYRDVLKEMKAKASTVKAKLLSVEEACKLTPPHSAKSKFGYGAKDVRNLSSKAVNHIHSVWKDLLEDTVTPIDTTIMAKNEVFCVQPEKGGRKPARLIVFPDLGVRVCEKMALYDVVSTLPQVVMGSSYGFQYSPGQRVEFLVNTWKSKKNPMGFSYDTRCFDSTVTENDIRVEESIYQCCDLAPEARQAIKSLTERLYIGGPLTNSKGQNCGYRRCRASGVLTTSCGNTLTCYLKASAACRAAKLQDCTMLVNGDDLVVICESAGTQEDAASLRVFTEAMTRYSAPPGDPPQPEYDLELITSCSSNVSVAHDASGKRVYYLTRDPTTPLARAAWETARHTPVNSWLGNIIMYAPTLWARMILMTHFFSILLAQEQLEKALDCQIYGACYSIEPLDLPQIIERLHGLSAFSLHSYSPGEINRVASCLRKLGVPPLRVWRHRARSVRARLLSQGGRAATCGKYLFNWAVKTKLKL",
+  "pdbx_strand_id": "A",
+  "rcsb_artifact_monomer_count": 0,
+  "rcsb_conflict_count": 0,
+  "rcsb_deletion_count": 0,
+  "rcsb_entity_polymer_type": "Protein",
+  "rcsb_insertion_count": 0,
+  "rcsb_mutation_count": 0,
+  "rcsb_non_std_monomer_count": 0,
+  "rcsb_sample_sequence_length": 536,
+  "type": "polypeptide(L)"
+ },
+ "entity_src_gen": [
+  {
+   "gene_src_strain": "GENOTYPE 1B, STRAIN BK",
+   "pdbx_alt_source_flag": "sample",
+   "pdbx_description": "GENBANK ACCESSION NUMBER AB016785",
+   "pdbx_gene_src_ncbi_taxonomy_id": "11103",
+   "pdbx_gene_src_scientific_name": "HEPATITIS C VIRUS",
+   "pdbx_host_org_ncbi_taxonomy_id": "469008",
+   "pdbx_host_org_scientific_name": "ESCHERICHIA COLI",
+   "pdbx_host_org_strain": "BL21(DE3)",
+   "pdbx_host_org_vector": "T7",
+   "pdbx_src_id": 1,
+   "plasmid_name": "PT7.7"
+  }
+ ],
+ "rcsb_cluster_membership": [
+  {
+   "cluster_id": 955,
+   "identity": 100
+  },
+  {
+   "cluster_id": 463,
+   "identity": 95
+  },
+  {
+   "cluster_id": 451,
+   "identity": 90
+  },
+  {
+   "cluster_id": 477,
+   "identity": 70
+  },
+  {
+   "cluster_id": 675,
+   "identity": 50
+  },
+  {
+   "cluster_id": 900,
+   "identity": 30
+  }
+ ],
+ "rcsb_entity_host_organism": [
+  {
+   "ncbi_common_names": [
+    "Escherichia coli str. BL21(DE3)",
+    "Escherichia coli strain BL21(DE3)"
+   ],
+   "ncbi_parent_scientific_name": "Bacteria",
+   "ncbi_scientific_name": "Escherichia coli BL21(DE3)",
+   "ncbi_taxonomy_id": 469008,
+   "pdbx_src_id": 1,
+   "provenance_source": "Primary Data",
+   "scientific_name": "ESCHERICHIA COLI",
+   "taxonomy_lineage": [
+    {
+     "depth": 1,
+     "id": "131567",
+     "name": "cellular organisms"
+    },
+    {
+     "depth": 1,
+     "id": "131567",
+     "name": "biota"
+    },
+    {
+     "depth": 2,
+     "id": "2",
+     "name": "Bacteria"
+    },
+    {
+     "depth": 2,
+     "id": "2",
+     "name": "Bacteria (ex Cavalier-Smith 1987)"
+    },
+    {
+     "depth": 2,
+     "id": "2",
+     "name": "Bacteria Woese et al. 2024"
+    },
+    {
+     "depth": 2,
+     "id": "2",
+     "name": "Bacteriobiota"
+    },
+    {
+     "depth": 2,
+     "id": "2",
+     "name": "bacteria"
+    },
+    {
+     "depth": 2,
+     "id": "2",
+     "name": "eubacteria"
+    },
+    {
+     "depth": 3,
+     "id": "3379134",
+     "name": "Pseudomonadati"
+    },
+    {
+     "depth": 4,
+     "id": "1224",
+     "name": "Pseudomonadota"
+    },
+    {
+     "depth": 4,
+     "id": "1224",
+     "name": "\"Alphaproteobacteriota\" Whitman et al. 2018"
+    },
+    {
+     "depth": 4,
+     "id": "1224",
+     "name": "Alphaproteobacteriota"
+    },
+    {
+     "depth": 4,
+     "id": "1224",
+     "name": "Proteobacteria"
+    },
+    {
+     "depth": 4,
+     "id": "1224",
+     "name": "Proteobacteriota"
+    },
+    {
+     "depth": 4,
+     "id": "1224",
+     "name": "proteobacteria"
+    },
+    {
+     "depth": 4,
+     "id": "1224",
+     "name": "purple photosynthetic bacteria and relatives"
+    },
+    {
+     "depth": 5,
+     "id": "1236",
+     "name": "Gammaproteobacteria"
+    },
+    {
+     "depth": 5,
+     "id": "1236",
+     "name": "Proteobacteria gamma subdivision"
+    },
+    {
+     "depth": 5,
+     "id": "1236",
+     "name": "Pseudomonadia"
+    },
+    {
+     "depth": 5,
+     "id": "1236",
+     "name": "Purple bacteria, gamma subdivision"
+    },
+    {
+     "depth": 5,
+     "id": "1236",
+     "name": "g-proteobacteria"
+    },
+    {
+     "depth": 5,
+     "id": "1236",
+     "name": "gamma proteobacteria"
+    },
+    {
+     "depth": 5,
+     "id": "1236",
+     "name": "gamma subdivision"
+    },
+    {
+     "depth": 5,
+     "id": "1236",
+     "name": "gamma subgroup"
+    },
+    {
+     "depth": 6,
+     "id": "91347",
+     "name": "Enterobacterales"
+    },
+    {
+     "depth": 6,
+     "id": "91347",
+     "name": "Enterobacteriaceae and related endosymbionts"
+    },
+    {
+     "depth": 6,
+     "id": "91347",
+     "name": "Enterobacteriaceae group"
+    },
+    {
+     "depth": 6,
+     "id": "91347",
+     "name": "Enterobacteriales"
+    },
+    {
+     "depth": 7,
+     "id": "543",
+     "name": "Enterobacteriaceae"
+    },
+    {
+     "depth": 7,
+     "id": "543",
+     "name": "Enterobacteraceae"
+    },
+    {
+     "depth": 7,
+     "id": "543",
+     "name": "enterobacteria"
+    },
+    {
+     "depth": 8,
+     "id": "561",
+     "name": "Escherichia"
+    },
+    {
+     "depth": 9,
+     "id": "562",
+     "name": "Escherichia coli"
+    },
+    {
+     "depth": 9,
+     "id": "562",
+     "name": "Bacillus coli"
+    },
+    {
+     "depth": 9,
+     "id": "562",
+     "name": "Bacterium coli"
+    },
+    {
+     "depth": 9,
+     "id": "562",
+     "name": "Bacterium coli commune"
+    },
+    {
+     "depth": 9,
+     "id": "562",
+     "name": "E. coli"
+    },
+    {
+     "depth": 9,
+     "id": "562",
+     "name": "Enterococcus coli"
+    },
+    {
+     "depth": 9,
+     "id": "562",
+     "name": "Escherichia/Shigella coli"
+    },
+    {
+     "depth": 10,
+     "id": "469008",
+     "name": "Escherichia coli BL21(DE3)"
+    },
+    {
+     "depth": 10,
+     "id": "469008",
+     "name": "Escherichia coli str. BL21(DE3)"
+    },
+    {
+     "depth": 10,
+     "id": "469008",
+     "name": "Escherichia coli strain BL21(DE3)"
+    }
+   ]
+  }
+ ],
+ "rcsb_entity_source_organism": [
+  {
+   "ncbi_common_names": [
+    "HCV",
+    "Hepacivirus C",
+    "Hepacivirus hominis",
+    "Hepatitis C virus",
+    "hepatitis C virus HCV",
+    "human hepatitis C virus",
+    "human hepatitis C virus HCV",
+    "human hepatitis virus C HCV",
+    "post-transfusion hepatitis non A non B virus"
+   ],
+   "ncbi_parent_scientific_name": "Riboviria",
+   "ncbi_scientific_name": "Orthohepacivirus hominis",
+   "ncbi_taxonomy_id": 3052230,
+   "pdbx_src_id": 1,
+   "provenance_source": "Primary Data",
+   "scientific_name": "HEPATITIS C VIRUS",
+   "source_type": "genetically engineered",
+   "taxonomy_lineage": [
+    {
+     "depth": 1,
+     "id": "10239",
+     "name": "Viruses"
+    },
+    {
+     "depth": 1,
+     "id": "10239",
+     "name": "Vira"
+    },
+    {
+     "depth": 1,
+     "id": "10239",
+     "name": "Viridae"
+    },
+    {
+     "depth": 2,
+     "id": "2559587",
+     "name": "Riboviria"
+    },
+    {
+     "depth": 2,
+     "id": "2559587",
+     "name": "RNA viruses"
+    },
+    {
+     "depth": 2,
+     "id": "2559587",
+     "name": "RNA viruses and retroviruses"
+    },
+    {
+     "depth": 2,
+     "id": "2559587",
+     "name": "RNA viruses and viroids"
+    },
+    {
+     "depth": 3,
+     "id": "2732396",
+     "name": "Orthornavirae"
+    },
+    {
+     "depth": 4,
+     "id": "2732406",
+     "name": "Kitrinoviricota"
+    },
+    {
+     "depth": 4,
+     "id": "2732406",
+     "name": "Tombus-Noda-like virus sp."
+    },
+    {
+     "depth": 5,
+     "id": "2732462",
+     "name": "Flasuviricetes"
+    },
+    {
+     "depth": 6,
+     "id": "2732545",
+     "name": "Amarillovirales"
+    },
+    {
+     "depth": 7,
+     "id": "3700683",
+     "name": "Hepaciviridae"
+    },
+    {
+     "depth": 8,
+     "id": "11102",
+     "name": "Orthohepacivirus"
+    },
+    {
+     "depth": 8,
+     "id": "11102",
+     "name": "Hepacivirus"
+    },
+    {
+     "depth": 8,
+     "id": "11102",
+     "name": "Hepatitis C virus group"
+    },
+    {
+     "depth": 8,
+     "id": "11102",
+     "name": "Hepatitis C viruses"
+    },
+    {
+     "depth": 8,
+     "id": "11102",
+     "name": "Hepatitis C-like viruses"
+    },
+    {
+     "depth": 9,
+     "id": "3052230",
+     "name": "Orthohepacivirus hominis"
+    },
+    {
+     "depth": 9,
+     "id": "3052230",
+     "name": "HCV"
+    },
+    {
+     "depth": 9,
+     "id": "3052230",
+     "name": "Hepacivirus C"
+    },
+    {
+     "depth": 9,
+     "id": "3052230",
+     "name": "Hepacivirus hominis"
+    },
+    {
+     "depth": 9,
+     "id": "3052230",
+     "name": "Hepatitis C virus"
+    },
+    {
+     "depth": 9,
+     "id": "3052230",
+     "name": "hepatitis C virus HCV"
+    },
+    {
+     "depth": 9,
+     "id": "3052230",
+     "name": "human hepatitis C virus"
+    },
+    {
+     "depth": 9,
+     "id": "3052230",
+     "name": "human hepatitis C virus HCV"
+    },
+    {
+     "depth": 9,
+     "id": "3052230",
+     "name": "human hepatitis virus C HCV"
+    },
+    {
+     "depth": 9,
+     "id": "3052230",
+     "name": "post-transfusion hepatitis non A non B virus"
+    }
+   ]
+  }
+ ],
+ "rcsb_id": "2BRK_1",
+ "rcsb_polymer_entity": {
+  "formula_weight": 59.642,
+  "pdbx_description": "RNA-DIRECTED RNA POLYMERASE",
+  "pdbx_ec": "2.7.7.48",
+  "pdbx_fragment": "NS5B CATALYTIC DOMAIN, RESIDUES 2420-2955",
+  "pdbx_number_of_molecules": 1,
+  "rcsb_ec_lineage": [
+   {
+    "depth": 1,
+    "id": "2",
+    "name": "Transferases"
+   },
+   {
+    "depth": 2,
+    "id": "2.7",
+    "name": "Transferring phosphorus-containing groups"
+   },
+   {
+    "depth": 3,
+    "id": "2.7.7",
+    "name": "Nucleotidyltransferases"
+   },
+   {
+    "depth": 4,
+    "id": "2.7.7.48",
+    "name": "RNA-directed RNA polymerase"
+   }
+  ],
+  "rcsb_enzyme_class_combined": [
+   {
+    "depth": 4,
+    "ec": "2.7.7.48",
+    "provenance_source": "PDB Primary Data"
+   }
+  ],
+  "rcsb_macromolecular_names_combined": [
+   {
+    "name": "RNA-DIRECTED RNA POLYMERASE",
+    "provenance_code": "ECO:0000304",
+    "provenance_source": "PDB Preferred Name"
+   },
+   {
+    "name": "HEPATITIS C VIRUS POLYMERASE",
+    "provenance_code": "ECO:0000303",
+    "provenance_source": "PDB Synonym"
+   },
+   {
+    "name": "P68",
+    "provenance_code": "ECO:0000303",
+    "provenance_source": "PDB Synonym"
+   },
+   {
+    "name": "NS5B",
+    "provenance_code": "ECO:0000303",
+    "provenance_source": "PDB Synonym"
+   }
+  ],
+  "rcsb_multiple_source_flag": "N",
+  "rcsb_polymer_name_combined": {
+   "names": [
+    "Genome polyprotein"
+   ],
+   "provenance_source": "UniProt Name"
+  },
+  "rcsb_source_part_count": 1,
+  "rcsb_source_taxonomy_count": 1,
+  "src_method": "man"
+ },
+ "rcsb_polymer_entity_align": [
+  {
+   "aligned_regions": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 536,
+     "ref_beg_seq_id": 2420
+    }
+   ],
+   "provenance_source": "SIFTS",
+   "reference_database_accession": "P26663",
+   "reference_database_name": "UniProt"
+  }
+ ],
+ "rcsb_polymer_entity_annotation": [
+  {
+   "annotation_id": "IPR002522",
+   "annotation_lineage": [
+    {
+     "id": "IPR002522",
+     "name": "Hepatitis C virus, Core protein, N-terminal"
+    }
+   ],
+   "name": "Hepatitis C virus, Core protein, N-terminal",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "GO:0039694",
+   "annotation_lineage": [
+    {
+     "id": "GO:0016070",
+     "name": "RNA metabolic process"
+    },
+    {
+     "id": "GO:0019058",
+     "name": "viral life cycle"
+    },
+    {
+     "id": "GO:0044238",
+     "name": "primary metabolic process"
+    },
+    {
+     "id": "GO:0034654",
+     "name": "nucleobase-containing compound biosynthetic process"
+    },
+    {
+     "id": "GO:0009059",
+     "name": "macromolecule biosynthetic process"
+    },
+    {
+     "id": "GO:0090304",
+     "name": "nucleic acid metabolic process"
+    },
+    {
+     "id": "GO:0032774",
+     "name": "RNA biosynthetic process"
+    },
+    {
+     "id": "GO:0006139",
+     "name": "nucleobase-containing compound metabolic process"
+    },
+    {
+     "id": "GO:0141187",
+     "name": "nucleic acid biosynthetic process"
+    },
+    {
+     "id": "GO:0019079",
+     "name": "viral genome replication"
+    },
+    {
+     "id": "GO:0009058",
+     "name": "biosynthetic process"
+    },
+    {
+     "id": "GO:0039694",
+     "name": "viral RNA genome replication"
+    },
+    {
+     "id": "GO:0016032",
+     "name": "viral process"
+    },
+    {
+     "id": "GO:0008150",
+     "name": "biological_process"
+    },
+    {
+     "id": "GO:0008152",
+     "name": "metabolic process"
+    },
+    {
+     "id": "GO:0009987",
+     "name": "cellular process"
+    },
+    {
+     "id": "GO:0043170",
+     "name": "macromolecule metabolic process"
+    }
+   ],
+   "name": "viral RNA genome replication",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "GO:0044186",
+   "annotation_lineage": [
+    {
+     "id": "GO:0018995",
+     "name": "host cellular component"
+    },
+    {
+     "id": "GO:0033646",
+     "name": "host intracellular part"
+    },
+    {
+     "id": "GO:0110165",
+     "name": "cellular anatomical structure"
+    },
+    {
+     "id": "GO:0005575",
+     "name": "cellular_component"
+    },
+    {
+     "id": "GO:0030430",
+     "name": "host cell cytoplasm"
+    },
+    {
+     "id": "GO:0033643",
+     "name": "host cell part"
+    },
+    {
+     "id": "GO:0044186",
+     "name": "host cell lipid droplet"
+    },
+    {
+     "id": "GO:0043656",
+     "name": "host intracellular region"
+    },
+    {
+     "id": "GO:0044217",
+     "name": "other organism part"
+    },
+    {
+     "id": "GO:0033655",
+     "name": "host cell cytoplasm part"
+    }
+   ],
+   "name": "host cell lipid droplet",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "IPR043128",
+   "annotation_lineage": [
+    {
+     "id": "IPR043128",
+     "name": "Reverse transcriptase/Diguanylate cyclase domain"
+    }
+   ],
+   "name": "Reverse transcriptase/Diguanylate cyclase domain",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "GO:0044191",
+   "annotation_lineage": [
+    {
+     "id": "GO:0018995",
+     "name": "host cellular component"
+    },
+    {
+     "id": "GO:0033648",
+     "name": "host intracellular membrane-bounded organelle"
+    },
+    {
+     "id": "GO:0033646",
+     "name": "host intracellular part"
+    },
+    {
+     "id": "GO:0005575",
+     "name": "cellular_component"
+    },
+    {
+     "id": "GO:0033644",
+     "name": "host cell membrane"
+    },
+    {
+     "id": "GO:0044217",
+     "name": "other organism part"
+    },
+    {
+     "id": "GO:0033650",
+     "name": "host cell mitochondrion"
+    },
+    {
+     "id": "GO:0033655",
+     "name": "host cell cytoplasm part"
+    },
+    {
+     "id": "GO:0033647",
+     "name": "host intracellular organelle"
+    },
+    {
+     "id": "GO:0110165",
+     "name": "cellular anatomical structure"
+    },
+    {
+     "id": "GO:0030430",
+     "name": "host cell cytoplasm"
+    },
+    {
+     "id": "GO:0033643",
+     "name": "host cell part"
+    },
+    {
+     "id": "GO:0044190",
+     "name": "host cell mitochondrial envelope"
+    },
+    {
+     "id": "GO:0043656",
+     "name": "host intracellular region"
+    },
+    {
+     "id": "GO:0044191",
+     "name": "host cell mitochondrial membrane"
+    }
+   ],
+   "name": "host cell mitochondrial membrane",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "GO:0039563",
+   "annotation_lineage": [
+    {
+     "id": "GO:0044068",
+     "name": "symbiont-mediated perturbation of host cellular process"
+    },
+    {
+     "id": "GO:0044419",
+     "name": "biological process involved in interspecies interaction between organisms"
+    },
+    {
+     "id": "GO:0039514",
+     "name": "symbiont-mediated suppression of host JAK-STAT cascade"
+    },
+    {
+     "id": "GO:0051701",
+     "name": "biological process involved in interaction with host"
+    },
+    {
+     "id": "GO:0044403",
+     "name": "biological process involved in symbiotic interaction"
+    },
+    {
+     "id": "GO:0052029",
+     "name": "symbiont-mediated suppression of host signal transduction pathway"
+    },
+    {
+     "id": "GO:0039562",
+     "name": "symbiont-mediated suppression of host JAK-STAT cascade via inhibition of STAT activity"
+    },
+    {
+     "id": "GO:0044003",
+     "name": "symbiont-mediated perturbation of host process"
+    },
+    {
+     "id": "GO:0039563",
+     "name": "symbiont-mediated suppression of host JAK-STAT cascade via inhibition of STAT1 activity"
+    },
+    {
+     "id": "GO:0008150",
+     "name": "biological_process"
+    },
+    {
+     "id": "GO:0052027",
+     "name": "symbiont-mediated perturbation of host signal transduction pathway"
+    },
+    {
+     "id": "GO:0035821",
+     "name": "modulation of process of another organism"
+    }
+   ],
+   "name": "symbiont-mediated suppression of host JAK-STAT cascade via inhibition of STAT1 activity",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "GO:0039527",
+   "annotation_lineage": [
+    {
+     "id": "GO:0039527",
+     "name": "symbiont-mediated suppression of host TRAF-mediated signal transduction"
+    }
+   ],
+   "name": "symbiont-mediated suppression of host TRAF-mediated signal transduction",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "IPR054175",
+   "annotation_lineage": [
+    {
+     "id": "IPR054175",
+     "name": "NS3 RNA helicase, C-terminal helical domain"
+    }
+   ],
+   "name": "NS3 RNA helicase, C-terminal helical domain",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "GO:0003968",
+   "annotation_lineage": [
+    {
+     "id": "GO:0003968",
+     "name": "RNA-directed RNA polymerase activity"
+    },
+    {
+     "id": "GO:0034062",
+     "name": "5'-3' RNA polymerase activity"
+    },
+    {
+     "id": "GO:0140098",
+     "name": "catalytic activity, acting on RNA"
+    },
+    {
+     "id": "GO:0140640",
+     "name": "catalytic activity, acting on a nucleic acid"
+    },
+    {
+     "id": "GO:0097747",
+     "name": "RNA polymerase activity"
+    },
+    {
+     "id": "GO:0016740",
+     "name": "transferase activity"
+    },
+    {
+     "id": "GO:0016779",
+     "name": "nucleotidyltransferase activity"
+    },
+    {
+     "id": "GO:0003824",
+     "name": "catalytic activity"
+    },
+    {
+     "id": "GO:0003674",
+     "name": "molecular_function"
+    },
+    {
+     "id": "GO:0016772",
+     "name": "transferase activity, transferring phosphorus-containing groups"
+    }
+   ],
+   "name": "RNA-directed RNA polymerase activity",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "GO:0004252",
+   "annotation_lineage": [
+    {
+     "id": "GO:0008233",
+     "name": "peptidase activity"
+    },
+    {
+     "id": "GO:0140096",
+     "name": "catalytic activity, acting on a protein"
+    },
+    {
+     "id": "GO:0017171",
+     "name": "serine hydrolase activity"
+    },
+    {
+     "id": "GO:0008236",
+     "name": "serine-type peptidase activity"
+    },
+    {
+     "id": "GO:0016787",
+     "name": "hydrolase activity"
+    },
+    {
+     "id": "GO:0004252",
+     "name": "serine-type endopeptidase activity"
+    },
+    {
+     "id": "GO:0003824",
+     "name": "catalytic activity"
+    },
+    {
+     "id": "GO:0003674",
+     "name": "molecular_function"
+    },
+    {
+     "id": "GO:0004175",
+     "name": "endopeptidase activity"
+    }
+   ],
+   "name": "serine-type endopeptidase activity",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "GO:0006351",
+   "annotation_lineage": [
+    {
+     "id": "GO:0016070",
+     "name": "RNA metabolic process"
+    },
+    {
+     "id": "GO:0044238",
+     "name": "primary metabolic process"
+    },
+    {
+     "id": "GO:0034654",
+     "name": "nucleobase-containing compound biosynthetic process"
+    },
+    {
+     "id": "GO:0010467",
+     "name": "gene expression"
+    },
+    {
+     "id": "GO:0009059",
+     "name": "macromolecule biosynthetic process"
+    },
+    {
+     "id": "GO:0090304",
+     "name": "nucleic acid metabolic process"
+    },
+    {
+     "id": "GO:0032774",
+     "name": "RNA biosynthetic process"
+    },
+    {
+     "id": "GO:0006139",
+     "name": "nucleobase-containing compound metabolic process"
+    },
+    {
+     "id": "GO:0006351",
+     "name": "DNA-templated transcription"
+    },
+    {
+     "id": "GO:0141187",
+     "name": "nucleic acid biosynthetic process"
+    },
+    {
+     "id": "GO:0009058",
+     "name": "biosynthetic process"
+    },
+    {
+     "id": "GO:0008150",
+     "name": "biological_process"
+    },
+    {
+     "id": "GO:0008152",
+     "name": "metabolic process"
+    },
+    {
+     "id": "GO:0009987",
+     "name": "cellular process"
+    },
+    {
+     "id": "GO:0043170",
+     "name": "macromolecule metabolic process"
+    }
+   ],
+   "name": "DNA-templated transcription",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "IPR011492",
+   "annotation_lineage": [
+    {
+     "depth": 2,
+     "id": "IPR011492",
+     "name": "Non-structural protein NS3-like, DEAD-box helicase, flavivirus"
+    },
+    {
+     "depth": 1,
+     "id": "IPR014001",
+     "name": "Helicase superfamily 1/2, ATP-binding domain"
+    }
+   ],
+   "name": "Non-structural protein NS3-like, DEAD-box helicase, flavivirus",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "IPR038568",
+   "annotation_lineage": [
+    {
+     "id": "IPR038568",
+     "name": "Hepatitis C virus NS5A, 1B domain superfamily"
+    }
+   ],
+   "name": "Hepatitis C virus NS5A, 1B domain superfamily",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "IPR027417",
+   "annotation_lineage": [
+    {
+     "id": "IPR027417",
+     "name": "P-loop containing nucleoside triphosphate hydrolase"
+    }
+   ],
+   "name": "P-loop containing nucleoside triphosphate hydrolase",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "GO:0017124",
+   "annotation_lineage": [
+    {
+     "id": "GO:0017124",
+     "name": "SH3 domain binding"
+    },
+    {
+     "id": "GO:0005515",
+     "name": "protein binding"
+    },
+    {
+     "id": "GO:0005488",
+     "name": "binding"
+    },
+    {
+     "id": "GO:0003674",
+     "name": "molecular_function"
+    },
+    {
+     "id": "GO:0019904",
+     "name": "protein domain specific binding"
+    }
+   ],
+   "name": "SH3 domain binding",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "GO:0005524",
+   "annotation_lineage": [
+    {
+     "id": "GO:0005488",
+     "name": "binding"
+    },
+    {
+     "id": "GO:0032559",
+     "name": "adenyl ribonucleotide binding"
+    },
+    {
+     "id": "GO:0000166",
+     "name": "nucleotide binding"
+    },
+    {
+     "id": "GO:0032555",
+     "name": "purine ribonucleotide binding"
+    },
+    {
+     "id": "GO:0035639",
+     "name": "purine ribonucleoside triphosphate binding"
+    },
+    {
+     "id": "GO:1901265",
+     "name": "nucleoside phosphate binding"
+    },
+    {
+     "id": "GO:0043167",
+     "name": "ion binding"
+    },
+    {
+     "id": "GO:0017076",
+     "name": "purine nucleotide binding"
+    },
+    {
+     "id": "GO:0043168",
+     "name": "anion binding"
+    },
+    {
+     "id": "GO:0030554",
+     "name": "adenyl nucleotide binding"
+    },
+    {
+     "id": "GO:0005524",
+     "name": "ATP binding"
+    },
+    {
+     "id": "GO:1901363",
+     "name": "heterocyclic compound binding"
+    },
+    {
+     "id": "GO:0003674",
+     "name": "molecular_function"
+    },
+    {
+     "id": "GO:0097367",
+     "name": "carbohydrate derivative binding"
+    },
+    {
+     "id": "GO:0032553",
+     "name": "ribonucleotide binding"
+    },
+    {
+     "id": "GO:0036094",
+     "name": "small molecule binding"
+    }
+   ],
+   "name": "ATP binding",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "IPR009003",
+   "annotation_lineage": [
+    {
+     "id": "IPR009003",
+     "name": "Peptidase S1, PA clan"
+    }
+   ],
+   "name": "Peptidase S1, PA clan",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "IPR001650",
+   "annotation_lineage": [
+    {
+     "depth": 1,
+     "id": "IPR001650",
+     "name": "Helicase, C-terminal domain-like"
+    }
+   ],
+   "name": "Helicase, C-terminal domain-like",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "IPR014001",
+   "annotation_lineage": [
+    {
+     "depth": 1,
+     "id": "IPR014001",
+     "name": "Helicase superfamily 1/2, ATP-binding domain"
+    }
+   ],
+   "name": "Helicase superfamily 1/2, ATP-binding domain",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "IPR002868",
+   "annotation_lineage": [
+    {
+     "id": "IPR002868",
+     "name": "Hepatitis C virus, Non-structural 5a protein"
+    }
+   ],
+   "name": "Hepatitis C virus, Non-structural 5a protein",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "GO:0039520",
+   "annotation_lineage": [
+    {
+     "id": "GO:0044068",
+     "name": "symbiont-mediated perturbation of host cellular process"
+    },
+    {
+     "id": "GO:0044419",
+     "name": "biological process involved in interspecies interaction between organisms"
+    },
+    {
+     "id": "GO:0044003",
+     "name": "symbiont-mediated perturbation of host process"
+    },
+    {
+     "id": "GO:0008150",
+     "name": "biological_process"
+    },
+    {
+     "id": "GO:0075071",
+     "name": "symbiont-mediated perturbation of host autophagy"
+    },
+    {
+     "id": "GO:0035821",
+     "name": "modulation of process of another organism"
+    },
+    {
+     "id": "GO:0039520",
+     "name": "symbiont-mediated activation of host autophagy"
+    },
+    {
+     "id": "GO:0051701",
+     "name": "biological process involved in interaction with host"
+    },
+    {
+     "id": "GO:0044403",
+     "name": "biological process involved in symbiotic interaction"
+    }
+   ],
+   "name": "symbiont-mediated activation of host autophagy",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "GO:0044167",
+   "annotation_lineage": [
+    {
+     "id": "GO:0033648",
+     "name": "host intracellular membrane-bounded organelle"
+    },
+    {
+     "id": "GO:0018995",
+     "name": "host cellular component"
+    },
+    {
+     "id": "GO:0033646",
+     "name": "host intracellular part"
+    },
+    {
+     "id": "GO:0005575",
+     "name": "cellular_component"
+    },
+    {
+     "id": "GO:0044165",
+     "name": "host cell endoplasmic reticulum"
+    },
+    {
+     "id": "GO:0033644",
+     "name": "host cell membrane"
+    },
+    {
+     "id": "GO:0044217",
+     "name": "other organism part"
+    },
+    {
+     "id": "GO:0033655",
+     "name": "host cell cytoplasm part"
+    },
+    {
+     "id": "GO:0033647",
+     "name": "host intracellular organelle"
+    },
+    {
+     "id": "GO:0110165",
+     "name": "cellular anatomical structure"
+    },
+    {
+     "id": "GO:0030430",
+     "name": "host cell cytoplasm"
+    },
+    {
+     "id": "GO:0033643",
+     "name": "host cell part"
+    },
+    {
+     "id": "GO:0033645",
+     "name": "host cell endomembrane system"
+    },
+    {
+     "id": "GO:0043656",
+     "name": "host intracellular region"
+    },
+    {
+     "id": "GO:0044167",
+     "name": "host cell endoplasmic reticulum membrane"
+    }
+   ],
+   "name": "host cell endoplasmic reticulum membrane",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "GO:0003724",
+   "annotation_lineage": [
+    {
+     "id": "GO:0120545",
+     "name": "nucleic acid conformation isomerase activity"
+    },
+    {
+     "id": "GO:0016853",
+     "name": "isomerase activity"
+    },
+    {
+     "id": "GO:0140098",
+     "name": "catalytic activity, acting on RNA"
+    },
+    {
+     "id": "GO:0140640",
+     "name": "catalytic activity, acting on a nucleic acid"
+    },
+    {
+     "id": "GO:0004386",
+     "name": "helicase activity"
+    },
+    {
+     "id": "GO:0003724",
+     "name": "RNA helicase activity"
+    },
+    {
+     "id": "GO:0008186",
+     "name": "ATP-dependent activity, acting on RNA"
+    },
+    {
+     "id": "GO:0003674",
+     "name": "molecular_function"
+    },
+    {
+     "id": "GO:0120543",
+     "name": "macromolecular conformation isomerase activity"
+    },
+    {
+     "id": "GO:0003824",
+     "name": "catalytic activity"
+    },
+    {
+     "id": "GO:0140657",
+     "name": "ATP-dependent activity"
+    }
+   ],
+   "name": "RNA helicase activity",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "GO:0019013",
+   "annotation_lineage": [
+    {
+     "id": "GO:0019013",
+     "name": "viral nucleocapsid"
+    },
+    {
+     "id": "GO:0019028",
+     "name": "viral capsid"
+    },
+    {
+     "id": "GO:0005575",
+     "name": "cellular_component"
+    },
+    {
+     "id": "GO:0044423",
+     "name": "virion component"
+    }
+   ],
+   "name": "viral nucleocapsid",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "IPR038170",
+   "annotation_lineage": [
+    {
+     "id": "IPR038170",
+     "name": "NS5A domain 1a superfamily"
+    }
+   ],
+   "name": "NS5A domain 1a superfamily",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "GO:0039502",
+   "annotation_lineage": [
+    {
+     "id": "GO:0052029",
+     "name": "symbiont-mediated suppression of host signal transduction pathway"
+    },
+    {
+     "id": "GO:0044068",
+     "name": "symbiont-mediated perturbation of host cellular process"
+    },
+    {
+     "id": "GO:0044419",
+     "name": "biological process involved in interspecies interaction between organisms"
+    },
+    {
+     "id": "GO:0140886",
+     "name": "symbiont-mediated suppression of host interferon-mediated signaling pathway"
+    },
+    {
+     "id": "GO:0044003",
+     "name": "symbiont-mediated perturbation of host process"
+    },
+    {
+     "id": "GO:0039502",
+     "name": "symbiont-mediated suppression of host type I interferon-mediated signaling pathway"
+    },
+    {
+     "id": "GO:0008150",
+     "name": "biological_process"
+    },
+    {
+     "id": "GO:0052027",
+     "name": "symbiont-mediated perturbation of host signal transduction pathway"
+    },
+    {
+     "id": "GO:0035821",
+     "name": "modulation of process of another organism"
+    },
+    {
+     "id": "GO:0051701",
+     "name": "biological process involved in interaction with host"
+    },
+    {
+     "id": "GO:0044403",
+     "name": "biological process involved in symbiotic interaction"
+    }
+   ],
+   "name": "symbiont-mediated suppression of host type I interferon-mediated signaling pathway",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "GO:0019087",
+   "annotation_lineage": [
+    {
+     "id": "GO:0044068",
+     "name": "symbiont-mediated perturbation of host cellular process"
+    },
+    {
+     "id": "GO:0044419",
+     "name": "biological process involved in interspecies interaction between organisms"
+    },
+    {
+     "id": "GO:0044003",
+     "name": "symbiont-mediated perturbation of host process"
+    },
+    {
+     "id": "GO:0008150",
+     "name": "biological_process"
+    },
+    {
+     "id": "GO:0019087",
+     "name": "symbiont-mediated transformation of host cell"
+    },
+    {
+     "id": "GO:0035821",
+     "name": "modulation of process of another organism"
+    },
+    {
+     "id": "GO:0051701",
+     "name": "biological process involved in interaction with host"
+    },
+    {
+     "id": "GO:0044403",
+     "name": "biological process involved in symbiotic interaction"
+    }
+   ],
+   "name": "symbiont-mediated transformation of host cell",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "IPR002518",
+   "annotation_lineage": [
+    {
+     "id": "IPR002518",
+     "name": "Hepatitis C virus, Non-structural protein NS2"
+    }
+   ],
+   "name": "Hepatitis C virus, Non-structural protein NS2",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "GO:0039654",
+   "annotation_lineage": [
+    {
+     "id": "GO:0016032",
+     "name": "viral process"
+    },
+    {
+     "id": "GO:0008150",
+     "name": "biological_process"
+    },
+    {
+     "id": "GO:0039654",
+     "name": "fusion of virus membrane with host endosome membrane"
+    },
+    {
+     "id": "GO:0039663",
+     "name": "membrane fusion involved in viral entry into host cell"
+    }
+   ],
+   "name": "fusion of virus membrane with host endosome membrane",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "IPR013192",
+   "annotation_lineage": [
+    {
+     "id": "IPR013192",
+     "name": "Hepatitis C virus, Non-structural 5a protein, domain 1a"
+    }
+   ],
+   "name": "Hepatitis C virus, Non-structural 5a protein, domain 1a",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "IPR002521",
+   "annotation_lineage": [
+    {
+     "id": "IPR002521",
+     "name": "Hepatitis C virus, Core protein, C-terminal"
+    }
+   ],
+   "name": "Hepatitis C virus, Core protein, C-terminal",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "GO:0075512",
+   "annotation_lineage": [
+    {
+     "id": "GO:0098657",
+     "name": "import into cell"
+    },
+    {
+     "id": "GO:0019065",
+     "name": "receptor-mediated endocytosis of virus by host cell"
+    },
+    {
+     "id": "GO:0044419",
+     "name": "biological process involved in interspecies interaction between organisms"
+    },
+    {
+     "id": "GO:0006810",
+     "name": "transport"
+    },
+    {
+     "id": "GO:0019058",
+     "name": "viral life cycle"
+    },
+    {
+     "id": "GO:0051234",
+     "name": "establishment of localization"
+    },
+    {
+     "id": "GO:0016192",
+     "name": "vesicle-mediated transport"
+    },
+    {
+     "id": "GO:0051701",
+     "name": "biological process involved in interaction with host"
+    },
+    {
+     "id": "GO:0044403",
+     "name": "biological process involved in symbiotic interaction"
+    },
+    {
+     "id": "GO:0051179",
+     "name": "localization"
+    },
+    {
+     "id": "GO:0046718",
+     "name": "symbiont entry into host cell"
+    },
+    {
+     "id": "GO:0072583",
+     "name": "clathrin-dependent endocytosis"
+    },
+    {
+     "id": "GO:0016032",
+     "name": "viral process"
+    },
+    {
+     "id": "GO:0008150",
+     "name": "biological_process"
+    },
+    {
+     "id": "GO:0044409",
+     "name": "symbiont entry into host"
+    },
+    {
+     "id": "GO:0009987",
+     "name": "cellular process"
+    },
+    {
+     "id": "GO:0075512",
+     "name": "clathrin-dependent endocytosis of virus by host cell"
+    },
+    {
+     "id": "GO:0006898",
+     "name": "receptor-mediated endocytosis"
+    },
+    {
+     "id": "GO:0006897",
+     "name": "endocytosis"
+    },
+    {
+     "id": "GO:0075509",
+     "name": "endocytosis involved in viral entry into host cell"
+    }
+   ],
+   "name": "clathrin-dependent endocytosis of virus by host cell",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "GO:0004197",
+   "annotation_lineage": [
+    {
+     "id": "GO:0008234",
+     "name": "cysteine-type peptidase activity"
+    },
+    {
+     "id": "GO:0008233",
+     "name": "peptidase activity"
+    },
+    {
+     "id": "GO:0140096",
+     "name": "catalytic activity, acting on a protein"
+    },
+    {
+     "id": "GO:0004197",
+     "name": "cysteine-type endopeptidase activity"
+    },
+    {
+     "id": "GO:0016787",
+     "name": "hydrolase activity"
+    },
+    {
+     "id": "GO:0003824",
+     "name": "catalytic activity"
+    },
+    {
+     "id": "GO:0003674",
+     "name": "molecular_function"
+    },
+    {
+     "id": "GO:0004175",
+     "name": "endopeptidase activity"
+    }
+   ],
+   "name": "cysteine-type endopeptidase activity",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "GO:0034220",
+   "annotation_lineage": [
+    {
+     "id": "GO:0055085",
+     "name": "transmembrane transport"
+    },
+    {
+     "id": "GO:0051179",
+     "name": "localization"
+    },
+    {
+     "id": "GO:0006810",
+     "name": "transport"
+    },
+    {
+     "id": "GO:0034220",
+     "name": "monoatomic ion transmembrane transport"
+    },
+    {
+     "id": "GO:0006811",
+     "name": "monoatomic ion transport"
+    },
+    {
+     "id": "GO:0008150",
+     "name": "biological_process"
+    },
+    {
+     "id": "GO:0009987",
+     "name": "cellular process"
+    },
+    {
+     "id": "GO:0051234",
+     "name": "establishment of localization"
+    }
+   ],
+   "name": "monoatomic ion transmembrane transport",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "IPR042209",
+   "annotation_lineage": [
+    {
+     "id": "IPR042209",
+     "name": "Hepatitis C virus non-structural protein NS2, N-terminal domain"
+    }
+   ],
+   "name": "Hepatitis C virus non-structural protein NS2, N-terminal domain",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "GO:0020002",
+   "annotation_lineage": [
+    {
+     "id": "GO:0020002",
+     "name": "host cell plasma membrane"
+    },
+    {
+     "id": "GO:0018995",
+     "name": "host cellular component"
+    },
+    {
+     "id": "GO:0110165",
+     "name": "cellular anatomical structure"
+    },
+    {
+     "id": "GO:0005575",
+     "name": "cellular_component"
+    },
+    {
+     "id": "GO:0033643",
+     "name": "host cell part"
+    },
+    {
+     "id": "GO:0033644",
+     "name": "host cell membrane"
+    },
+    {
+     "id": "GO:0044217",
+     "name": "other organism part"
+    }
+   ],
+   "name": "host cell plasma membrane",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "GO:0003723",
+   "annotation_lineage": [
+    {
+     "id": "GO:0003723",
+     "name": "RNA binding"
+    },
+    {
+     "id": "GO:0005488",
+     "name": "binding"
+    },
+    {
+     "id": "GO:0003676",
+     "name": "nucleic acid binding"
+    },
+    {
+     "id": "GO:0003674",
+     "name": "molecular_function"
+    }
+   ],
+   "name": "RNA binding",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "GO:0044220",
+   "annotation_lineage": [
+    {
+     "id": "GO:0018995",
+     "name": "host cellular component"
+    },
+    {
+     "id": "GO:0033646",
+     "name": "host intracellular part"
+    },
+    {
+     "id": "GO:0044220",
+     "name": "host cell perinuclear region of cytoplasm"
+    },
+    {
+     "id": "GO:0110165",
+     "name": "cellular anatomical structure"
+    },
+    {
+     "id": "GO:0005575",
+     "name": "cellular_component"
+    },
+    {
+     "id": "GO:0030430",
+     "name": "host cell cytoplasm"
+    },
+    {
+     "id": "GO:0033643",
+     "name": "host cell part"
+    },
+    {
+     "id": "GO:0043656",
+     "name": "host intracellular region"
+    },
+    {
+     "id": "GO:0044217",
+     "name": "other organism part"
+    },
+    {
+     "id": "GO:0033655",
+     "name": "host cell cytoplasm part"
+    }
+   ],
+   "name": "host cell perinuclear region of cytoplasm",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "IPR043504",
+   "annotation_lineage": [
+    {
+     "id": "IPR043504",
+     "name": "Peptidase_S1_PA_chymotrypsin"
+    }
+   ],
+   "name": "Peptidase_S1_PA_chymotrypsin",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "IPR000745",
+   "annotation_lineage": [
+    {
+     "id": "IPR000745",
+     "name": "Hepatitis C virus, Non-structural protein NS4a"
+    }
+   ],
+   "name": "Hepatitis C virus, Non-structural protein NS4a",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "GO:0039545",
+   "annotation_lineage": [
+    {
+     "id": "GO:0052031",
+     "name": "symbiont-mediated perturbation of host defense response"
+    },
+    {
+     "id": "GO:0044068",
+     "name": "symbiont-mediated perturbation of host cellular process"
+    },
+    {
+     "id": "GO:0039545",
+     "name": "symbiont-mediated suppression of host cytoplasmic pattern recognition receptor signaling pathway via inhibition of MAVS activity"
+    },
+    {
+     "id": "GO:0044419",
+     "name": "biological process involved in interspecies interaction between organisms"
+    },
+    {
+     "id": "GO:0052078",
+     "name": "symbiont-mediated suppression of host pathogen-associated molecular pattern receptor signaling pathway"
+    },
+    {
+     "id": "GO:0052553",
+     "name": "symbiont-mediated perturbation of host immune response"
+    },
+    {
+     "id": "GO:0051701",
+     "name": "biological process involved in interaction with host"
+    },
+    {
+     "id": "GO:0044403",
+     "name": "biological process involved in symbiotic interaction"
+    },
+    {
+     "id": "GO:0052029",
+     "name": "symbiont-mediated suppression of host signal transduction pathway"
+    },
+    {
+     "id": "GO:0052562",
+     "name": "symbiont-mediated suppression of host immune response"
+    },
+    {
+     "id": "GO:0039537",
+     "name": "symbiont-mediated suppression of host cytoplasmic pattern recognition receptor signaling pathway"
+    },
+    {
+     "id": "GO:0052170",
+     "name": "symbiont-mediated suppression of host innate immune response"
+    },
+    {
+     "id": "GO:0044003",
+     "name": "symbiont-mediated perturbation of host process"
+    },
+    {
+     "id": "GO:0008150",
+     "name": "biological_process"
+    },
+    {
+     "id": "GO:0052167",
+     "name": "symbiont-mediated perturbation of host innate immune response"
+    },
+    {
+     "id": "GO:0052027",
+     "name": "symbiont-mediated perturbation of host signal transduction pathway"
+    },
+    {
+     "id": "GO:0035821",
+     "name": "modulation of process of another organism"
+    }
+   ],
+   "name": "symbiont-mediated suppression of host cytoplasmic pattern recognition receptor signaling pathway via inhibition of MAVS activity",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "IPR042205",
+   "annotation_lineage": [
+    {
+     "id": "IPR042205",
+     "name": "Hepatitis C virus non-structural protein NS2, C-terminal domain"
+    }
+   ],
+   "name": "Hepatitis C virus non-structural protein NS2, C-terminal domain",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "GO:0019062",
+   "annotation_lineage": [
+    {
+     "id": "GO:0019062",
+     "name": "virion attachment to host cell"
+    },
+    {
+     "id": "GO:0044419",
+     "name": "biological process involved in interspecies interaction between organisms"
+    },
+    {
+     "id": "GO:0044650",
+     "name": "adhesion of symbiont to host cell"
+    },
+    {
+     "id": "GO:0016032",
+     "name": "viral process"
+    },
+    {
+     "id": "GO:0008150",
+     "name": "biological_process"
+    },
+    {
+     "id": "GO:0019058",
+     "name": "viral life cycle"
+    },
+    {
+     "id": "GO:0044406",
+     "name": "adhesion of symbiont to host"
+    },
+    {
+     "id": "GO:0051701",
+     "name": "biological process involved in interaction with host"
+    },
+    {
+     "id": "GO:0044403",
+     "name": "biological process involved in symbiotic interaction"
+    }
+   ],
+   "name": "virion attachment to host cell",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "IPR002166",
+   "annotation_lineage": [
+    {
+     "id": "IPR002166",
+     "name": "RNA dependent RNA polymerase, hepatitis C virus"
+    }
+   ],
+   "name": "RNA dependent RNA polymerase, hepatitis C virus",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "GO:0055036",
+   "annotation_lineage": [
+    {
+     "id": "GO:0005575",
+     "name": "cellular_component"
+    },
+    {
+     "id": "GO:0044423",
+     "name": "virion component"
+    },
+    {
+     "id": "GO:0055036",
+     "name": "virion membrane"
+    }
+   ],
+   "name": "virion membrane",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "IPR002519",
+   "annotation_lineage": [
+    {
+     "id": "IPR002519",
+     "name": "Hepatitis C virus, Envelope glycoprotein E1"
+    }
+   ],
+   "name": "Hepatitis C virus, Envelope glycoprotein E1",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "IPR043502",
+   "annotation_lineage": [
+    {
+     "id": "IPR043502",
+     "name": "DNA/RNA polymerase superfamily"
+    }
+   ],
+   "name": "DNA/RNA polymerase superfamily",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "IPR044896",
+   "annotation_lineage": [
+    {
+     "id": "IPR044896",
+     "name": "Hepatitis C virus core protein, chain A superfamily"
+    }
+   ],
+   "name": "Hepatitis C virus core protein, chain A superfamily",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "IPR024350",
+   "annotation_lineage": [
+    {
+     "id": "IPR024350",
+     "name": "Hepatitus C virus, Non-structural 5a protein, C-terminal"
+    }
+   ],
+   "name": "Hepatitus C virus, Non-structural 5a protein, C-terminal",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "IPR013193",
+   "annotation_lineage": [
+    {
+     "id": "IPR013193",
+     "name": "Hepatitis C virus non-structural 5a, 1B domain"
+    }
+   ],
+   "name": "Hepatitis C virus non-structural 5a, 1B domain",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "GO:0016887",
+   "annotation_lineage": [
+    {
+     "id": "GO:0016462",
+     "name": "pyrophosphatase activity"
+    },
+    {
+     "id": "GO:0016887",
+     "name": "ATP hydrolysis activity"
+    },
+    {
+     "id": "GO:0017111",
+     "name": "ribonucleoside triphosphate phosphatase activity"
+    },
+    {
+     "id": "GO:0016818",
+     "name": "hydrolase activity, acting on acid anhydrides, in phosphorus-containing anhydrides"
+    },
+    {
+     "id": "GO:0016787",
+     "name": "hydrolase activity"
+    },
+    {
+     "id": "GO:0003674",
+     "name": "molecular_function"
+    },
+    {
+     "id": "GO:0016817",
+     "name": "hydrolase activity, acting on acid anhydrides"
+    },
+    {
+     "id": "GO:0003824",
+     "name": "catalytic activity"
+    },
+    {
+     "id": "GO:0140657",
+     "name": "ATP-dependent activity"
+    }
+   ],
+   "name": "ATP hydrolysis activity",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "GO:0015267",
+   "annotation_lineage": [
+    {
+     "id": "GO:0022803",
+     "name": "passive transmembrane transporter activity"
+    },
+    {
+     "id": "GO:0015267",
+     "name": "channel activity"
+    },
+    {
+     "id": "GO:0005215",
+     "name": "transporter activity"
+    },
+    {
+     "id": "GO:0022857",
+     "name": "transmembrane transporter activity"
+    },
+    {
+     "id": "GO:0003674",
+     "name": "molecular_function"
+    }
+   ],
+   "name": "channel activity",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "GO:0042025",
+   "annotation_lineage": [
+    {
+     "id": "GO:0033648",
+     "name": "host intracellular membrane-bounded organelle"
+    },
+    {
+     "id": "GO:0018995",
+     "name": "host cellular component"
+    },
+    {
+     "id": "GO:0033646",
+     "name": "host intracellular part"
+    },
+    {
+     "id": "GO:0110165",
+     "name": "cellular anatomical structure"
+    },
+    {
+     "id": "GO:0005575",
+     "name": "cellular_component"
+    },
+    {
+     "id": "GO:0033643",
+     "name": "host cell part"
+    },
+    {
+     "id": "GO:0043656",
+     "name": "host intracellular region"
+    },
+    {
+     "id": "GO:0042025",
+     "name": "host cell nucleus"
+    },
+    {
+     "id": "GO:0044217",
+     "name": "other organism part"
+    },
+    {
+     "id": "GO:0033647",
+     "name": "host intracellular organelle"
+    }
+   ],
+   "name": "host cell nucleus",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "GO:0019031",
+   "annotation_lineage": [
+    {
+     "id": "GO:0005575",
+     "name": "cellular_component"
+    },
+    {
+     "id": "GO:0044423",
+     "name": "virion component"
+    },
+    {
+     "id": "GO:0036338",
+     "name": "viral membrane"
+    },
+    {
+     "id": "GO:0019031",
+     "name": "viral envelope"
+    }
+   ],
+   "name": "viral envelope",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "IPR004109",
+   "annotation_lineage": [
+    {
+     "id": "IPR004109",
+     "name": "Hepatitis C virus, NS3 protease"
+    }
+   ],
+   "name": "Hepatitis C virus, NS3 protease",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "GO:0005198",
+   "annotation_lineage": [
+    {
+     "id": "GO:0005198",
+     "name": "structural molecule activity"
+    },
+    {
+     "id": "GO:0003674",
+     "name": "molecular_function"
+    }
+   ],
+   "name": "structural molecule activity",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "GO:1990904",
+   "annotation_lineage": [
+    {
+     "id": "GO:0032991",
+     "name": "protein-containing complex"
+    },
+    {
+     "id": "GO:0005575",
+     "name": "cellular_component"
+    },
+    {
+     "id": "GO:1990904",
+     "name": "ribonucleoprotein complex"
+    }
+   ],
+   "name": "ribonucleoprotein complex",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "IPR049913",
+   "annotation_lineage": [
+    {
+     "id": "IPR049913",
+     "name": "Hepatitis C virus, p7 channel"
+    }
+   ],
+   "name": "Hepatitis C virus, p7 channel",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "GO:0008270",
+   "annotation_lineage": [
+    {
+     "id": "GO:0043169",
+     "name": "cation binding"
+    },
+    {
+     "id": "GO:0046914",
+     "name": "transition metal ion binding"
+    },
+    {
+     "id": "GO:0008270",
+     "name": "zinc ion binding"
+    },
+    {
+     "id": "GO:0043167",
+     "name": "ion binding"
+    },
+    {
+     "id": "GO:0005488",
+     "name": "binding"
+    },
+    {
+     "id": "GO:0003674",
+     "name": "molecular_function"
+    },
+    {
+     "id": "GO:0046872",
+     "name": "metal ion binding"
+    },
+    {
+     "id": "GO:0036094",
+     "name": "small molecule binding"
+    }
+   ],
+   "name": "zinc ion binding",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "GO:0006508",
+   "annotation_lineage": [
+    {
+     "id": "GO:0006508",
+     "name": "proteolysis"
+    },
+    {
+     "id": "GO:0008150",
+     "name": "biological_process"
+    },
+    {
+     "id": "GO:0008152",
+     "name": "metabolic process"
+    },
+    {
+     "id": "GO:0009987",
+     "name": "cellular process"
+    },
+    {
+     "id": "GO:0044238",
+     "name": "primary metabolic process"
+    },
+    {
+     "id": "GO:0019538",
+     "name": "protein metabolic process"
+    },
+    {
+     "id": "GO:0043170",
+     "name": "macromolecule metabolic process"
+    }
+   ],
+   "name": "proteolysis",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "GO:0039645",
+   "annotation_lineage": [
+    {
+     "id": "GO:0044068",
+     "name": "symbiont-mediated perturbation of host cellular process"
+    },
+    {
+     "id": "GO:0044419",
+     "name": "biological process involved in interspecies interaction between organisms"
+    },
+    {
+     "id": "GO:0044003",
+     "name": "symbiont-mediated perturbation of host process"
+    },
+    {
+     "id": "GO:0044071",
+     "name": "symbiont-mediated perturbation of host cell cycle progression"
+    },
+    {
+     "id": "GO:0008150",
+     "name": "biological_process"
+    },
+    {
+     "id": "GO:0039645",
+     "name": "symbiont-mediated perturbation of host cell cycle G1/S transition checkpoint"
+    },
+    {
+     "id": "GO:0035821",
+     "name": "modulation of process of another organism"
+    },
+    {
+     "id": "GO:0051701",
+     "name": "biological process involved in interaction with host"
+    },
+    {
+     "id": "GO:0044403",
+     "name": "biological process involved in symbiotic interaction"
+    }
+   ],
+   "name": "symbiont-mediated perturbation of host cell cycle G1/S transition checkpoint",
+   "provenance_source": "UNIPROT",
+   "type": "GO"
+  },
+  {
+   "annotation_id": "IPR002531",
+   "annotation_lineage": [
+    {
+     "id": "IPR002531",
+     "name": "Hepatitis C virus, Non-structural protein E2/NS1"
+    }
+   ],
+   "name": "Hepatitis C virus, Non-structural protein E2/NS1",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "IPR007094",
+   "annotation_lineage": [
+    {
+     "id": "IPR007094",
+     "name": "RNA-directed RNA polymerase, catalytic domain"
+    }
+   ],
+   "name": "RNA-directed RNA polymerase, catalytic domain",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  },
+  {
+   "annotation_id": "IPR001490",
+   "annotation_lineage": [
+    {
+     "id": "IPR001490",
+     "name": "Hepatitis C virus, Non-structural protein NS4b"
+    }
+   ],
+   "name": "Hepatitis C virus, Non-structural protein NS4b",
+   "provenance_source": "UNIPROT",
+   "type": "InterPro"
+  }
+ ],
+ "rcsb_polymer_entity_container_identifiers": {
+  "asym_ids": [
+   "A"
+  ],
+  "auth_asym_ids": [
+   "A"
+  ],
+  "chem_comp_monomers": [
+   "ALA",
+   "ARG",
+   "ASN",
+   "ASP",
+   "CYS",
+   "GLN",
+   "GLU",
+   "GLY",
+   "HIS",
+   "ILE",
+   "LEU",
+   "LYS",
+   "MET",
+   "PHE",
+   "PRO",
+   "SER",
+   "THR",
+   "TRP",
+   "TYR",
+   "VAL"
+  ],
+  "entity_id": "1",
+  "entry_id": "2BRK",
+  "rcsb_id": "2BRK_1",
+  "reference_sequence_identifiers": [
+   {
+    "database_accession": "P26663",
+    "database_name": "UniProt",
+    "entity_sequence_coverage": 1.0,
+    "provenance_source": "SIFTS",
+    "reference_sequence_coverage": 0.17807308970099667
+   }
+  ],
+  "uniprot_ids": [
+   "P26663"
+  ]
+ },
+ "rcsb_polymer_entity_feature": [
+  {
+   "feature_positions": [
+    {
+     "beg_seq_id": 5,
+     "values": [
+      -0.21,
+      0.3,
+      0.59,
+      0.6,
+      0.57,
+      0.92,
+      1.22,
+      1.5,
+      1.16,
+      0.57,
+      0.06,
+      -0.88,
+      -0.38,
+      -0.38,
+      -0.16,
+      -0.74,
+      -0.74,
+      0.07,
+      0.37,
+      0.07,
+      0.41,
+      0.41,
+      1.01,
+      0.01,
+      0.04,
+      -0.51,
+      -1.32,
+      -1.02,
+      -0.17,
+      -0.22,
+      -0.44,
+      -0.94,
+      -0.52,
+      -0.26,
+      -0.4,
+      -0.1,
+      -0.11,
+      -0.62,
+      -0.06,
+      -0.76,
+      -1.07,
+      -1.42,
+      -1.77,
+      -0.8,
+      -0.79,
+      -0.68,
+      -1.02,
+      -1.94,
+      -1.02,
+      -1.02,
+      -0.12,
+      0.73,
+      -0.12,
+      -0.43,
+      -1.1,
+      -0.86,
+      -0.86,
+      -1.67,
+      -0.81,
+      -0.86,
+      -1.71,
+      -1.71,
+      -1.11,
+      -1.19,
+      -0.84,
+      -0.78,
+      -0.19,
+      -0.74,
+      -1.24,
+      -0.34,
+      -0.39,
+      -0.4,
+      -0.4,
+      -0.18,
+      0.68,
+      0.39,
+      0.94,
+      0.63,
+      -0.22,
+      0.41,
+      0.49,
+      0.49,
+      0.49,
+      -0.01,
+      -0.1,
+      -0.74,
+      -0.71,
+      -0.41,
+      -0.41,
+      -1.12,
+      -0.78,
+      -1.63,
+      -1.24,
+      -1.11,
+      -1.08,
+      -0.77,
+      -0.48,
+      -1.11,
+      -1.07,
+      -0.51,
+      -0.58,
+      -1.28,
+      -0.81,
+      -0.76,
+      -0.8,
+      -1.43,
+      -0.8,
+      0.06,
+      -0.8,
+      -0.66,
+      0.23,
+      -0.54,
+      -0.54,
+      0.01,
+      0.34,
+      -0.29,
+      -1.14,
+      -0.33,
+      0.44,
+      -0.44,
+      -0.48,
+      -0.47,
+      -0.47,
+      -0.44,
+      -0.19,
+      0.7,
+      -0.11,
+      -0.61,
+      -0.3,
+      0.59,
+      0.88,
+      0.61,
+      0.26,
+      0.04,
+      -0.84,
+      0.01,
+      0.4,
+      0.76,
+      0.72,
+      0.12,
+      -0.26,
+      -0.21,
+      -0.26,
+      0.09,
+      -0.42,
+      -1.23,
+      -1.94,
+      -2.59,
+      -2.0,
+      -2.32,
+      -1.51,
+      -0.58,
+      -0.07,
+      0.29,
+      0.61,
+      0.66,
+      1.26,
+      1.01,
+      1.98,
+      1.06,
+      1.02,
+      0.83,
+      0.13,
+      -0.12,
+      0.48,
+      0.26,
+      0.72,
+      0.11,
+      0.22,
+      0.22,
+      0.41,
+      0.71,
+      1.07,
+      1.28,
+      0.9,
+      0.09,
+      0.7,
+      1.56,
+      1.3,
+      0.79,
+      0.79,
+      0.78,
+      0.21,
+      0.34,
+      1.04,
+      0.19,
+      -0.42,
+      -0.72,
+      -0.86,
+      -0.81,
+      -1.11,
+      -1.47,
+      -0.96,
+      -1.66,
+      -0.96,
+      -0.39,
+      0.17,
+      -0.04,
+      -0.08,
+      0.21,
+      0.28,
+      -0.28,
+      -0.32,
+      -1.07,
+      -1.88,
+      -2.52,
+      -1.92,
+      -1.89,
+      -1.48,
+      -1.13,
+      -1.19,
+      -1.14,
+      -0.79,
+      -0.9,
+      -0.44,
+      -0.34,
+      -0.69,
+      -1.09,
+      -1.08,
+      -0.47,
+      -0.16,
+      -0.47,
+      -0.36,
+      -1.02,
+      -0.83,
+      -0.94,
+      -0.39,
+      -0.7,
+      -1.56,
+      -1.57,
+      -0.68,
+      -0.43,
+      -0.43,
+      -0.66,
+      0.12,
+      -0.73,
+      0.08,
+      0.67,
+      0.58,
+      -0.31,
+      0.03,
+      -0.08,
+      -0.74,
+      -0.82,
+      0.07,
+      -0.79,
+      -1.08,
+      -0.48,
+      -0.17,
+      -0.76,
+      -0.76,
+      0.06,
+      -0.29,
+      -0.29,
+      0.1,
+      0.14,
+      -0.46,
+      0.04,
+      0.36,
+      0.47,
+      -0.04,
+      -0.33,
+      -0.88,
+      -1.22,
+      -1.57,
+      -1.11,
+      -1.58,
+      -1.64,
+      -1.76,
+      -2.17,
+      -1.46,
+      -1.91,
+      -1.32,
+      -1.02,
+      -1.34,
+      -0.83,
+      -0.27,
+      0.16,
+      0.58,
+      0.21,
+      0.99,
+      0.74,
+      0.44,
+      0.41,
+      0.37,
+      -0.13,
+      0.22,
+      0.16,
+      0.67,
+      -0.04,
+      0.2,
+      0.5,
+      0.78,
+      0.56,
+      0.91,
+      0.13,
+      0.48,
+      0.26,
+      0.26,
+      0.48,
+      0.18,
+      -0.41,
+      -0.33,
+      -0.69,
+      0.02,
+      0.24,
+      0.51,
+      0.56,
+      0.09,
+      0.09,
+      0.09,
+      0.23,
+      0.78,
+      1.03,
+      1.11,
+      0.92,
+      0.92,
+      0.88,
+      1.47,
+      1.81,
+      1.31,
+      0.46,
+      -0.4,
+      -1.29,
+      -1.37,
+      -0.78,
+      -0.78,
+      -0.56,
+      -1.01,
+      -0.47,
+      0.23,
+      0.54,
+      0.54,
+      0.54,
+      0.56,
+      0.57,
+      -0.36,
+      0.0,
+      -0.56,
+      -0.67,
+      -0.77,
+      -0.56,
+      -0.8,
+      -1.4,
+      -1.5,
+      -1.18,
+      -1.42,
+      -1.51,
+      -2.1,
+      -2.07,
+      -2.28,
+      -1.81,
+      -1.81,
+      -1.21,
+      -0.53,
+      -0.22,
+      -0.13,
+      0.53,
+      0.59,
+      0.89,
+      0.08,
+      0.93,
+      0.42,
+      0.39,
+      0.67,
+      0.4,
+      -0.27,
+      0.02,
+      0.02,
+      0.37,
+      -0.53,
+      -0.94,
+      -0.94,
+      -1.29,
+      -1.08,
+      -0.27,
+      -0.54,
+      -0.96,
+      -1.3,
+      -1.04,
+      -0.62,
+      -1.17,
+      -1.2,
+      -0.63,
+      -0.86,
+      -1.28,
+      -0.58,
+      0.01,
+      0.09,
+      -0.22,
+      -0.22,
+      0.16,
+      -0.77,
+      -1.32,
+      -0.9,
+      -1.28,
+      -1.01,
+      -1.3,
+      -1.0,
+      -1.02,
+      -0.8,
+      -0.34,
+      -0.38,
+      0.2,
+      0.88,
+      0.62,
+      0.87,
+      1.16,
+      1.08,
+      0.58,
+      1.04,
+      1.33,
+      1.03,
+      0.03,
+      0.03,
+      0.68,
+      0.9,
+      1.29,
+      1.29,
+      0.51,
+      0.92,
+      1.03,
+      1.44,
+      1.73,
+      1.66,
+      1.66,
+      1.64,
+      1.33,
+      1.3,
+      0.6,
+      0.71,
+      0.41,
+      -0.52,
+      -0.74,
+      -0.74,
+      -1.33,
+      -0.67,
+      -0.67,
+      0.22,
+      -0.34,
+      0.0,
+      0.63,
+      0.71,
+      0.14,
+      0.44,
+      0.67,
+      0.67,
+      -0.01,
+      0.56,
+      0.21,
+      0.43,
+      -0.02,
+      -0.27,
+      0.32,
+      0.32,
+      0.32,
+      0.0,
+      0.0,
+      0.03,
+      -0.43,
+      0.17,
+      0.47,
+      0.17,
+      -0.02,
+      0.28,
+      1.2,
+      0.42,
+      0.69,
+      0.59,
+      0.08,
+      -0.01,
+      -0.26,
+      -0.96,
+      -0.37,
+      -1.18,
+      -1.32,
+      -0.77,
+      -0.42,
+      -0.42,
+      0.03,
+      0.5,
+      0.39,
+      -0.54,
+      0.27,
+      0.72,
+      0.72,
+      0.34,
+      0.26,
+      0.4,
+      -0.52,
+      0.44,
+      0.78,
+      -0.14,
+      -0.46,
+      -1.42,
+      -1.04,
+      -1.37,
+      -1.88,
+      -0.91,
+      -1.88,
+      -1.58,
+      -1.58,
+      -0.8,
+      0.12,
+      -0.17,
+      -0.06,
+      -0.01,
+      -0.52,
+      -0.52,
+      -0.52,
+      0.18,
+      -0.32,
+      -0.47,
+      -0.42,
+      -0.47,
+      -0.57,
+      -0.1,
+      0.71,
+      0.12,
+      -0.18,
+      0.1,
+      0.29,
+      -0.1,
+      0.26,
+      -0.03,
+      -0.03,
+      -0.78,
+      0.03
+     ]
+    }
+   ],
+   "name": "Hydropathy values",
+   "provenance_source": "biojava-7.2.4",
+   "type": "hydropathy"
+  },
+  {
+   "feature_positions": [
+    {
+     "beg_seq_id": 1,
+     "values": [
+      0.71,
+      0.68,
+      0.66,
+      0.56,
+      0.49,
+      0.41,
+      0.38,
+      0.35,
+      0.31,
+      0.27,
+      0.16,
+      0.18,
+      0.15,
+      0.16,
+      0.21,
+      0.16,
+      0.23,
+      0.23,
+      0.23,
+      0.19,
+      0.19,
+      0.26,
+      0.27,
+      0.25,
+      0.32,
+      0.32,
+      0.31,
+      0.23,
+      0.19,
+      0.19,
+      0.19,
+      0.26,
+      0.24,
+      0.32,
+      0.29,
+      0.32,
+      0.31,
+      0.32,
+      0.33,
+      0.34,
+      0.41,
+      0.43,
+      0.41,
+      0.31,
+      0.3,
+      0.31,
+      0.27,
+      0.33,
+      0.35,
+      0.3,
+      0.3,
+      0.3,
+      0.31,
+      0.24,
+      0.24,
+      0.27,
+      0.21,
+      0.22,
+      0.21,
+      0.2,
+      0.17,
+      0.17,
+      0.19,
+      0.2,
+      0.27,
+      0.27,
+      0.25,
+      0.26,
+      0.25,
+      0.27,
+      0.35,
+      0.29,
+      0.23,
+      0.22,
+      0.23,
+      0.23,
+      0.23,
+      0.26,
+      0.27,
+      0.27,
+      0.21,
+      0.22,
+      0.25,
+      0.3,
+      0.31,
+      0.34,
+      0.31,
+      0.32,
+      0.37,
+      0.38,
+      0.31,
+      0.31,
+      0.3,
+      0.35,
+      0.33,
+      0.38,
+      0.38,
+      0.34,
+      0.36,
+      0.42,
+      0.36,
+      0.42,
+      0.43,
+      0.4,
+      0.35,
+      0.28,
+      0.29,
+      0.33,
+      0.25,
+      0.26,
+      0.25,
+      0.29,
+      0.21,
+      0.29,
+      0.29,
+      0.24,
+      0.18,
+      0.19,
+      0.24,
+      0.23,
+      0.18,
+      0.23,
+      0.26,
+      0.19,
+      0.19,
+      0.21,
+      0.26,
+      0.19,
+      0.16,
+      0.2,
+      0.19,
+      0.19,
+      0.25,
+      0.27,
+      0.19,
+      0.13,
+      0.13,
+      0.18,
+      0.2,
+      0.21,
+      0.21,
+      0.27,
+      0.27,
+      0.24,
+      0.3,
+      0.32,
+      0.29,
+      0.29,
+      0.29,
+      0.24,
+      0.21,
+      0.13,
+      0.15,
+      0.15,
+      0.14,
+      0.2,
+      0.21,
+      0.27,
+      0.19,
+      0.11,
+      0.11,
+      0.11,
+      0.09,
+      0.07,
+      0.05,
+      0.03,
+      0.03,
+      0.02,
+      0.01,
+      0.02,
+      0.04,
+      0.03,
+      0.06,
+      0.05,
+      0.03,
+      0.03,
+      0.03,
+      0.04,
+      0.04,
+      0.06,
+      0.07,
+      0.06,
+      0.04,
+      0.05,
+      0.03,
+      0.05,
+      0.1,
+      0.09,
+      0.13,
+      0.2,
+      0.15,
+      0.15,
+      0.16,
+      0.1,
+      0.07,
+      0.12,
+      0.16,
+      0.13,
+      0.13,
+      0.12,
+      0.12,
+      0.17,
+      0.17,
+      0.29,
+      0.25,
+      0.34,
+      0.26,
+      0.24,
+      0.18,
+      0.18,
+      0.17,
+      0.22,
+      0.13,
+      0.14,
+      0.19,
+      0.24,
+      0.23,
+      0.18,
+      0.25,
+      0.26,
+      0.26,
+      0.27,
+      0.23,
+      0.23,
+      0.16,
+      0.19,
+      0.2,
+      0.27,
+      0.21,
+      0.21,
+      0.21,
+      0.15,
+      0.1,
+      0.18,
+      0.2,
+      0.17,
+      0.2,
+      0.21,
+      0.24,
+      0.24,
+      0.24,
+      0.21,
+      0.15,
+      0.19,
+      0.2,
+      0.19,
+      0.18,
+      0.17,
+      0.18,
+      0.17,
+      0.18,
+      0.13,
+      0.18,
+      0.24,
+      0.26,
+      0.27,
+      0.29,
+      0.25,
+      0.24,
+      0.27,
+      0.27,
+      0.27,
+      0.29,
+      0.22,
+      0.22,
+      0.15,
+      0.22,
+      0.24,
+      0.1,
+      0.11,
+      0.13,
+      0.17,
+      0.21,
+      0.17,
+      0.13,
+      0.11,
+      0.14,
+      0.15,
+      0.05,
+      0.04,
+      0.04,
+      0.04,
+      0.03,
+      0.03,
+      0.02,
+      0.01,
+      0.01,
+      0.01,
+      0.01,
+      0.02,
+      0.01,
+      0.01,
+      0.0,
+      0.0,
+      0.01,
+      0.01,
+      0.01,
+      0.0,
+      0.0,
+      0.01,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.01,
+      0.01,
+      0.03,
+      0.03,
+      0.02,
+      0.01,
+      0.01,
+      0.01,
+      0.02,
+      0.02,
+      0.03,
+      0.03,
+      0.03,
+      0.05,
+      0.05,
+      0.06,
+      0.17,
+      0.16,
+      0.16,
+      0.23,
+      0.23,
+      0.23,
+      0.19,
+      0.13,
+      0.13,
+      0.2,
+      0.23,
+      0.27,
+      0.33,
+      0.44,
+      0.36,
+      0.35,
+      0.36,
+      0.39,
+      0.42,
+      0.41,
+      0.41,
+      0.42,
+      0.48,
+      0.52,
+      0.53,
+      0.61,
+      0.54,
+      0.61,
+      0.63,
+      0.63,
+      0.56,
+      0.54,
+      0.56,
+      0.56,
+      0.52,
+      0.58,
+      0.58,
+      0.61,
+      0.54,
+      0.51,
+      0.47,
+      0.42,
+      0.39,
+      0.38,
+      0.34,
+      0.32,
+      0.31,
+      0.37,
+      0.35,
+      0.36,
+      0.29,
+      0.27,
+      0.25,
+      0.25,
+      0.25,
+      0.31,
+      0.33,
+      0.32,
+      0.32,
+      0.38,
+      0.32,
+      0.34,
+      0.36,
+      0.34,
+      0.3,
+      0.23,
+      0.23,
+      0.23,
+      0.21,
+      0.21,
+      0.24,
+      0.31,
+      0.4,
+      0.39,
+      0.39,
+      0.38,
+      0.29,
+      0.18,
+      0.18,
+      0.19,
+      0.11,
+      0.1,
+      0.09,
+      0.04,
+      0.04,
+      0.06,
+      0.11,
+      0.06,
+      0.03,
+      0.03,
+      0.03,
+      0.02,
+      0.01,
+      0.01,
+      0.01,
+      0.01,
+      0.01,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.01,
+      0.01,
+      0.0,
+      0.0,
+      0.01,
+      0.01,
+      0.01,
+      0.0,
+      0.0,
+      0.01,
+      0.01,
+      0.0,
+      0.01,
+      0.01,
+      0.02,
+      0.04,
+      0.02,
+      0.02,
+      0.01,
+      0.03,
+      0.03,
+      0.02,
+      0.01,
+      0.03,
+      0.03,
+      0.03,
+      0.02,
+      0.04,
+      0.04,
+      0.05,
+      0.05,
+      0.05,
+      0.08,
+      0.05,
+      0.08,
+      0.07,
+      0.03,
+      0.07,
+      0.07,
+      0.12,
+      0.1,
+      0.06,
+      0.1,
+      0.15,
+      0.1,
+      0.08,
+      0.14,
+      0.11,
+      0.07,
+      0.12,
+      0.13,
+      0.1,
+      0.17,
+      0.12,
+      0.21,
+      0.25,
+      0.18,
+      0.27,
+      0.2,
+      0.11,
+      0.11,
+      0.11,
+      0.17,
+      0.14,
+      0.14,
+      0.19,
+      0.16,
+      0.16,
+      0.18,
+      0.27,
+      0.19,
+      0.12,
+      0.17,
+      0.18,
+      0.23,
+      0.21,
+      0.19,
+      0.23,
+      0.2,
+      0.26,
+      0.29,
+      0.28,
+      0.31,
+      0.22,
+      0.18,
+      0.11,
+      0.12,
+      0.1,
+      0.08,
+      0.06,
+      0.07,
+      0.11,
+      0.17,
+      0.11,
+      0.11,
+      0.06,
+      0.08,
+      0.1,
+      0.15,
+      0.21,
+      0.25,
+      0.36,
+      0.4,
+      0.42,
+      0.55,
+      0.67
+     ]
+    }
+   ],
+   "name": "Disordered regions",
+   "provenance_source": "IUPred2(short)",
+   "type": "disorder"
+  },
+  {
+   "feature_positions": [
+    {
+     "beg_seq_id": 1,
+     "values": [
+      0.29,
+      0.3,
+      0.31,
+      0.32,
+      0.33,
+      0.34,
+      0.36,
+      0.37,
+      0.39,
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.39,
+      0.39,
+      0.39,
+      0.39,
+      0.39,
+      0.39,
+      0.4,
+      0.41,
+      0.42,
+      0.43,
+      0.42,
+      0.41,
+      0.4,
+      0.39,
+      0.37,
+      0.37,
+      0.37,
+      0.37,
+      0.38,
+      0.39,
+      0.39,
+      0.4,
+      0.42,
+      0.43,
+      0.42,
+      0.41,
+      0.4,
+      0.4,
+      0.39,
+      0.39,
+      0.39,
+      0.4,
+      0.4,
+      0.41,
+      0.42,
+      0.43,
+      0.42,
+      0.41,
+      0.4,
+      0.39,
+      0.38,
+      0.37,
+      0.37,
+      0.36,
+      0.36,
+      0.36,
+      0.36,
+      0.35,
+      0.36,
+      0.36,
+      0.36,
+      0.37,
+      0.37,
+      0.38,
+      0.39,
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.4,
+      0.4,
+      0.41,
+      0.42,
+      0.42,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.42,
+      0.42,
+      0.42,
+      0.42,
+      0.42,
+      0.42,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.41,
+      0.4,
+      0.4,
+      0.4,
+      0.41,
+      0.42,
+      0.42,
+      0.43,
+      0.43,
+      0.42,
+      0.41,
+      0.4,
+      0.39,
+      0.37,
+      0.36,
+      0.35,
+      0.35,
+      0.34,
+      0.34,
+      0.34,
+      0.34,
+      0.35,
+      0.36,
+      0.38,
+      0.4,
+      0.42,
+      0.43,
+      0.41,
+      0.4,
+      0.38,
+      0.36,
+      0.35,
+      0.34,
+      0.34,
+      0.34,
+      0.34,
+      0.35,
+      0.34,
+      0.34,
+      0.33,
+      0.33,
+      0.33,
+      0.33,
+      0.31,
+      0.3,
+      0.28,
+      0.27,
+      0.26,
+      0.26,
+      0.27,
+      0.27,
+      0.27,
+      0.28,
+      0.29,
+      0.3,
+      0.32,
+      0.34,
+      0.35,
+      0.36,
+      0.36,
+      0.36,
+      0.36,
+      0.35,
+      0.35,
+      0.34,
+      0.34,
+      0.33,
+      0.32,
+      0.32,
+      0.32,
+      0.33,
+      0.33,
+      0.33,
+      0.32,
+      0.33,
+      0.32,
+      0.32,
+      0.32,
+      0.31,
+      0.31,
+      0.31,
+      0.3,
+      0.31,
+      0.31,
+      0.32,
+      0.31,
+      0.3,
+      0.29,
+      0.29,
+      0.28,
+      0.27,
+      0.27,
+      0.27,
+      0.27,
+      0.26,
+      0.27,
+      0.27,
+      0.29,
+      0.29,
+      0.3,
+      0.3,
+      0.3,
+      0.29,
+      0.27,
+      0.27,
+      0.27,
+      0.26,
+      0.26,
+      0.25,
+      0.25,
+      0.25,
+      0.26,
+      0.28,
+      0.3,
+      0.31,
+      0.32,
+      0.32,
+      0.33,
+      0.32,
+      0.32,
+      0.32,
+      0.33,
+      0.32,
+      0.32,
+      0.31,
+      0.31,
+      0.32,
+      0.33,
+      0.35,
+      0.36,
+      0.36,
+      0.34,
+      0.33,
+      0.31,
+      0.3,
+      0.29,
+      0.29,
+      0.27,
+      0.23,
+      0.21,
+      0.2,
+      0.22,
+      0.23,
+      0.24,
+      0.25,
+      0.26,
+      0.26,
+      0.28,
+      0.31,
+      0.35,
+      0.4,
+      0.41,
+      0.42,
+      0.43,
+      0.42,
+      0.41,
+      0.39,
+      0.39,
+      0.4,
+      0.43,
+      0.36,
+      0.27,
+      0.21,
+      0.16,
+      0.11,
+      0.08,
+      0.05,
+      0.03,
+      0.02,
+      0.01,
+      0.01,
+      0.01,
+      0.01,
+      0.01,
+      0.01,
+      0.01,
+      0.01,
+      0.02,
+      0.02,
+      0.02,
+      0.03,
+      0.04,
+      0.04,
+      0.03,
+      0.02,
+      0.02,
+      0.02,
+      0.02,
+      0.02,
+      0.02,
+      0.02,
+      0.02,
+      0.02,
+      0.02,
+      0.02,
+      0.03,
+      0.03,
+      0.03,
+      0.03,
+      0.03,
+      0.02,
+      0.03,
+      0.04,
+      0.04,
+      0.05,
+      0.06,
+      0.06,
+      0.07,
+      0.09,
+      0.14,
+      0.22,
+      0.29,
+      0.32,
+      0.33,
+      0.36,
+      0.38,
+      0.4,
+      0.42,
+      0.41,
+      0.4,
+      0.36,
+      0.32,
+      0.31,
+      0.3,
+      0.31,
+      0.31,
+      0.33,
+      0.34,
+      0.36,
+      0.38,
+      0.41,
+      0.43,
+      0.41,
+      0.39,
+      0.38,
+      0.37,
+      0.36,
+      0.36,
+      0.37,
+      0.37,
+      0.38,
+      0.39,
+      0.4,
+      0.4,
+      0.42,
+      0.42,
+      0.43,
+      0.43,
+      0.42,
+      0.41,
+      0.4,
+      0.39,
+      0.38,
+      0.37,
+      0.35,
+      0.34,
+      0.33,
+      0.32,
+      0.32,
+      0.32,
+      0.33,
+      0.34,
+      0.35,
+      0.36,
+      0.37,
+      0.38,
+      0.39,
+      0.39,
+      0.4,
+      0.4,
+      0.41,
+      0.42,
+      0.42,
+      0.42,
+      0.42,
+      0.43,
+      0.43,
+      0.43,
+      0.43,
+      0.42,
+      0.41,
+      0.4,
+      0.38,
+      0.37,
+      0.35,
+      0.34,
+      0.32,
+      0.31,
+      0.29,
+      0.28,
+      0.27,
+      0.25,
+      0.25,
+      0.24,
+      0.24,
+      0.23,
+      0.23,
+      0.23,
+      0.22,
+      0.21,
+      0.21,
+      0.2,
+      0.19,
+      0.18,
+      0.18,
+      0.17,
+      0.15,
+      0.14,
+      0.13,
+      0.12,
+      0.11,
+      0.11,
+      0.1,
+      0.09,
+      0.09,
+      0.09,
+      0.09,
+      0.09,
+      0.09,
+      0.09,
+      0.09,
+      0.09,
+      0.09,
+      0.08,
+      0.08,
+      0.08,
+      0.07,
+      0.07,
+      0.07,
+      0.06,
+      0.06,
+      0.06,
+      0.06,
+      0.06,
+      0.07,
+      0.06,
+      0.06,
+      0.06,
+      0.05,
+      0.05,
+      0.04,
+      0.04,
+      0.03,
+      0.03,
+      0.02,
+      0.02,
+      0.02,
+      0.02,
+      0.02,
+      0.02,
+      0.02,
+      0.02,
+      0.02,
+      0.03,
+      0.03,
+      0.03,
+      0.04,
+      0.04,
+      0.04,
+      0.05,
+      0.05,
+      0.06,
+      0.07,
+      0.08,
+      0.09,
+      0.1,
+      0.12,
+      0.14,
+      0.15,
+      0.17,
+      0.18,
+      0.19,
+      0.19,
+      0.19,
+      0.18,
+      0.17,
+      0.15,
+      0.13,
+      0.12,
+      0.12,
+      0.11,
+      0.11,
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.11,
+      0.13,
+      0.14,
+      0.16,
+      0.18,
+      0.19,
+      0.21,
+      0.23,
+      0.24,
+      0.26,
+      0.28,
+      0.28,
+      0.29,
+      0.3,
+      0.29,
+      0.28,
+      0.27,
+      0.26,
+      0.26,
+      0.25,
+      0.24,
+      0.23,
+      0.22,
+      0.2,
+      0.19,
+      0.18,
+      0.18,
+      0.19,
+      0.2,
+      0.2,
+      0.21,
+      0.22,
+      0.24,
+      0.26,
+      0.3,
+      0.33,
+      0.37,
+      0.4,
+      0.42,
+      0.42,
+      0.39,
+      0.37,
+      0.33,
+      0.32,
+      0.31,
+      0.31,
+      0.29,
+      0.29
+     ]
+    }
+   ],
+   "name": "Disordered binding sites",
+   "provenance_source": "Anchor2",
+   "type": "disorder_binding"
+  }
+ ],
+ "rcsb_polymer_entity_group_membership": [
+  {
+   "aggregation_method": "sequence_identity",
+   "aligned_regions": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 536,
+     "ref_beg_seq_id": 9
+    }
+   ],
+   "group_id": "477_70",
+   "similarity_cutoff": 70.0
+  },
+  {
+   "aggregation_method": "sequence_identity",
+   "aligned_regions": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 536,
+     "ref_beg_seq_id": 9
+    }
+   ],
+   "group_id": "955_100",
+   "similarity_cutoff": 100.0
+  },
+  {
+   "aggregation_method": "sequence_identity",
+   "aligned_regions": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 536,
+     "ref_beg_seq_id": 9
+    }
+   ],
+   "group_id": "675_50",
+   "similarity_cutoff": 50.0
+  },
+  {
+   "aggregation_method": "sequence_identity",
+   "aligned_regions": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 536,
+     "ref_beg_seq_id": 9
+    }
+   ],
+   "group_id": "451_90",
+   "similarity_cutoff": 90.0
+  },
+  {
+   "aggregation_method": "sequence_identity",
+   "aligned_regions": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 536,
+     "ref_beg_seq_id": 9
+    }
+   ],
+   "group_id": "463_95",
+   "similarity_cutoff": 95.0
+  },
+  {
+   "aggregation_method": "sequence_identity",
+   "aligned_regions": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 536,
+     "ref_beg_seq_id": 9
+    }
+   ],
+   "group_id": "900_30",
+   "similarity_cutoff": 30.0
+  },
+  {
+   "aggregation_method": "matching_uniprot_accession",
+   "aligned_regions": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 536,
+     "ref_beg_seq_id": 2420
+    }
+   ],
+   "group_id": "P26663"
+  }
+ ],
+ "rcsb_polymer_entity_name_com": [
+  {
+   "name": "HEPATITIS C VIRUS POLYMERASE, P68, NS5B"
+  }
+ ],
+ "rcsb_related_target_references": [
+  {
+   "aligned_target": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 535,
+     "target_beg_seq_id": 2420
+    }
+   ],
+   "related_resource_name": "ChEMBL",
+   "related_resource_version": "37",
+   "related_target_id": "CHEMBL3638332",
+   "target_taxonomy_id": 420174
+  },
+  {
+   "aligned_target": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 535,
+     "target_beg_seq_id": 2420
+    }
+   ],
+   "related_resource_name": "ChEMBL",
+   "related_resource_version": "37",
+   "related_target_id": "CHEMBL6040",
+   "target_taxonomy_id": 11105
+  },
+  {
+   "aligned_target": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 535,
+     "target_beg_seq_id": 2420
+    }
+   ],
+   "related_resource_name": "ChEMBL",
+   "related_resource_version": "37",
+   "related_target_id": "CHEMBL5536",
+   "target_taxonomy_id": 333284
+  },
+  {
+   "aligned_target": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 535,
+     "target_beg_seq_id": 1
+    }
+   ],
+   "related_resource_name": "ChEMBL",
+   "related_resource_version": "37",
+   "related_target_id": "CHEMBL4296320",
+   "target_taxonomy_id": 3052230
+  },
+  {
+   "aligned_target": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 535,
+     "target_beg_seq_id": 2420
+    }
+   ],
+   "related_resource_name": "ChEMBL",
+   "related_resource_version": "37",
+   "related_target_id": "CHEMBL3988603",
+   "target_taxonomy_id": 11116
+  },
+  {
+   "aligned_target": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 535,
+     "target_beg_seq_id": 2420
+    }
+   ],
+   "related_resource_name": "DrugBank",
+   "related_resource_version": "5.1",
+   "related_target_id": "P26662",
+   "target_taxonomy_id": 11116
+  },
+  {
+   "aligned_target": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 535,
+     "target_beg_seq_id": 2420
+    }
+   ],
+   "related_resource_name": "DrugBank",
+   "related_resource_version": "5.1",
+   "related_target_id": "Q99AU2",
+   "target_taxonomy_id": 31647
+  },
+  {
+   "aligned_target": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 535,
+     "target_beg_seq_id": 2420
+    }
+   ],
+   "related_resource_name": "DrugBank",
+   "related_resource_version": "5.1",
+   "related_target_id": "Q9WMX2",
+   "target_taxonomy_id": 333284
+  },
+  {
+   "aligned_target": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 535,
+     "target_beg_seq_id": 1
+    }
+   ],
+   "related_resource_name": "DrugBank",
+   "related_resource_version": "5.1",
+   "related_target_id": "O39930",
+   "target_taxonomy_id": 3052230
+  },
+  {
+   "aligned_target": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 535,
+     "target_beg_seq_id": 2420
+    }
+   ],
+   "related_resource_name": "DrugBank",
+   "related_resource_version": "5.1",
+   "related_target_id": "P26663",
+   "target_taxonomy_id": 11105
+  },
+  {
+   "aligned_target": [
+    {
+     "entity_beg_seq_id": 1,
+     "length": 535,
+     "target_beg_seq_id": 2420
+    }
+   ],
+   "related_resource_name": "DrugBank",
+   "related_resource_version": "5.1",
+   "related_target_id": "O92972",
+   "target_taxonomy_id": 420174
+  }
+ ],
+ "rcsb_target_cofactors": [
+  {
+   "binding_assay_value": 1.0,
+   "binding_assay_value_type": "pIC50",
+   "cofactor_InChIKey": "NXUJCNOIYBLKQP-UHFFFAOYSA-N",
+   "cofactor_SMILES": "C=CP(=O)(Nc1cc(-c2ccc(Cl)cc2)sc1C(=O)O)OCC",
+   "cofactor_resource_id": "CHEMBL4557948",
+   "neighbor_flag": "N",
+   "resource_name": "ChEMBL",
+   "resource_version": "37",
+   "target_resource_id": "CHEMBL3638332"
+  },
+  {
+   "binding_assay_value": 2.7,
+   "binding_assay_value_type": "pIC50",
+   "cofactor_InChIKey": "HTALWHKTAODDDE-BCGIERGGSA-N",
+   "cofactor_SMILES": "CC1(C#N)[C@@H](O)[C@H](COP(=O)(O)OP(=O)(O)OP(=O)(O)O)O[C@]1(C#N)c1cnc2c(=O)[nH]cnn12",
+   "cofactor_resource_id": "CHEMBL3922860",
+   "neighbor_flag": "N",
+   "resource_name": "ChEMBL",
+   "resource_version": "37",
+   "target_resource_id": "CHEMBL6040"
+  },
+  {
+   "binding_assay_value": 0.2,
+   "binding_assay_value_type": "pIC50",
+   "cofactor_InChIKey": "WATVMIFATPCHKO-UHFFFAOYSA-N",
+   "cofactor_SMILES": "CC(=O)N(C)c1ccc(-c2ccc(Cl)cc2)c(COc2ccc(-c3nc4cc(C(=O)O)ccc4n3C3CCCCC3)c(F)c2)c1",
+   "cofactor_resource_id": "CHEMBL374567",
+   "neighbor_flag": "N",
+   "resource_name": "ChEMBL",
+   "resource_version": "37",
+   "target_resource_id": "CHEMBL4296320"
+  },
+  {
+   "binding_assay_value": 0.18,
+   "binding_assay_value_type": "pIC50",
+   "cofactor_InChIKey": "ZOIDECNZYFXWHF-UHFFFAOYSA-N",
+   "cofactor_SMILES": "CN(C)C(=O)c1ccc(-c2ccc(Cl)cc2)c(COc2ccc(-c3nc4cc(C(=O)O)ccc4n3C3CCCCC3)cc2)c1",
+   "cofactor_resource_id": "CHEMBL376688",
+   "neighbor_flag": "N",
+   "resource_name": "ChEMBL",
+   "resource_version": "37",
+   "target_resource_id": "CHEMBL4296320"
+  },
+  {
+   "binding_assay_value": 0.15,
+   "binding_assay_value_type": "pIC50",
+   "cofactor_InChIKey": "GVEQGAVYRVXEKL-UHFFFAOYSA-N",
+   "cofactor_SMILES": "O=C(O)c1ccc2c(c1)nc(-c1ccc(OCc3cc(C(=O)N4CCC(O)CC4)ccc3-c3ccc(Cl)cc3)cc1F)n2C1CCCCC1",
+   "cofactor_resource_id": "CHEMBL368589",
+   "neighbor_flag": "N",
+   "resource_name": "ChEMBL",
+   "resource_version": "37",
+   "target_resource_id": "CHEMBL4296320"
+  },
+  {
+   "binding_assay_value": 0.15,
+   "binding_assay_value_type": "pIC50",
+   "cofactor_InChIKey": "QRWIOGIAJQSZGG-UHFFFAOYSA-N",
+   "cofactor_SMILES": "CC(=O)NC(=O)c1ccc(-c2ccc(Cl)cc2)c(COc2ccc(-c3nc4cc(C(=O)O)ccc4n3C3CCCCC3)c(F)c2)c1",
+   "cofactor_resource_id": "CHEMBL2296935",
+   "neighbor_flag": "N",
+   "resource_name": "ChEMBL",
+   "resource_version": "37",
+   "target_resource_id": "CHEMBL4296320"
+  },
+  {
+   "binding_assay_value": 0.15,
+   "binding_assay_value_type": "pIC50",
+   "cofactor_InChIKey": "MSIXHHQWTQNSCX-UHFFFAOYSA-N",
+   "cofactor_SMILES": "O=C(O)c1ccc2c(c1)nc(-c1ccc(OCc3cc(C(=O)N4CCOCC4)ccc3-c3ccc(Cl)cc3)cc1F)n2C1CCCCC1",
+   "cofactor_resource_id": "CHEMBL379435",
+   "neighbor_flag": "N",
+   "resource_name": "ChEMBL",
+   "resource_version": "37",
+   "target_resource_id": "CHEMBL4296320"
+  },
+  {
+   "binding_assay_value": 0.11,
+   "binding_assay_value_type": "pIC50",
+   "cofactor_InChIKey": "KKPFTLHGRWHJGM-UHFFFAOYSA-N",
+   "cofactor_SMILES": "NC(=O)c1ccc(-c2ccc(Cl)cc2)c(COc2ccc(-c3nc4cc(C(=O)O)ccc4n3C3CCCCC3)c(F)c2)c1",
+   "cofactor_resource_id": "CHEMBL2296936",
+   "neighbor_flag": "N",
+   "resource_name": "ChEMBL",
+   "resource_version": "37",
+   "target_resource_id": "CHEMBL4296320"
+  },
+  {
+   "binding_assay_value": 0.11,
+   "binding_assay_value_type": "pIC50",
+   "cofactor_InChIKey": "XTMQYZFYOUNZTG-UHFFFAOYSA-N",
+   "cofactor_SMILES": "CC(C)NC(=O)c1ccc(-c2ccc(Cl)cc2)c(COc2ccc(-c3nc4cc(C(=O)O)ccc4n3C3CCCCC3)c(F)c2)c1",
+   "cofactor_resource_id": "CHEMBL375133",
+   "neighbor_flag": "N",
+   "resource_name": "ChEMBL",
+   "resource_version": "37",
+   "target_resource_id": "CHEMBL4296320"
+  },
+  {
+   "binding_assay_value": 0.08,
+   "binding_assay_value_type": "pIC50",
+   "cofactor_InChIKey": "NIBYCXOKANETJM-UHFFFAOYSA-N",
+   "cofactor_SMILES": "O=C(O)c1ccc2c(c1)nc(-c1ccc(OCc3cc(N4CCCC4=O)ccc3-c3ccc(Cl)cc3)cc1F)n2C1CCCCC1",
+   "cofactor_resource_id": "CHEMBL210297",
+   "neighbor_flag": "N",
+   "resource_name": "ChEMBL",
+   "resource_version": "37",
+   "target_resource_id": "CHEMBL4296320"
+  },
+  {
+   "binding_assay_value": 0.08,
+   "binding_assay_value_type": "pIC50",
+   "cofactor_InChIKey": "LAPUEQHNBGENHI-UHFFFAOYSA-N",
+   "cofactor_SMILES": "CN(C)C(=O)c1ccc(-c2ccc(Cl)cc2)c(COc2ccc(-c3nc4cc(C(=O)O)ccc4n3C3CCCCC3)c(F)c2)c1",
+   "cofactor_resource_id": "CHEMBL378026",
+   "neighbor_flag": "N",
+   "resource_name": "ChEMBL",
+   "resource_version": "37",
+   "target_resource_id": "CHEMBL4296320"
+  },
+  {
+   "binding_assay_value": 0.08,
+   "binding_assay_value_type": "pIC50",
+   "cofactor_InChIKey": "JLJLVMCBFYHKKP-UHFFFAOYSA-N",
+   "cofactor_SMILES": "CNC(=O)c1ccc(-c2ccc(Cl)cc2)c(COc2ccc(-c3nc4cc(C(=O)O)ccc4n3C3CCCCC3)c(F)c2)c1",
+   "cofactor_resource_id": "CHEMBL378053",
+   "neighbor_flag": "N",
+   "resource_name": "ChEMBL",
+   "resource_version": "37",
+   "target_resource_id": "CHEMBL4296320"
+  },
+  {
+   "binding_assay_value": 5.87,
+   "binding_assay_value_type": "pIC50",
+   "cofactor_InChIKey": "QTIGUBZMHDBTBG-UHFFFAOYSA-N",
+   "cofactor_SMILES": "CNC(=O)c1c(C(=O)N2CCOCC2)oc2cc(N(C)S(C)(=O)=O)c(-c3ccc4c(n3)-c3cc5c(F)cccc5n3CO4)cc12",
+   "cofactor_resource_id": "CHEMBL3896463",
+   "neighbor_flag": "N",
+   "resource_name": "ChEMBL",
+   "resource_version": "37",
+   "target_resource_id": "CHEMBL3988603"
+  },
+  {
+   "binding_assay_value": 5.79,
+   "binding_assay_value_type": "pIC50",
+   "cofactor_InChIKey": "JVLHQWLHODKTFD-UHFFFAOYSA-N",
+   "cofactor_SMILES": "CNC(=O)c1c(-c2cnc(N3CCCC3)s2)oc2cc(N(C)S(C)(=O)=O)c(-c3ccc4c(n3)-c3cc5c(F)cccc5n3CC4)cc12",
+   "cofactor_resource_id": "CHEMBL3951179",
+   "neighbor_flag": "N",
+   "resource_name": "ChEMBL",
+   "resource_version": "37",
+   "target_resource_id": "CHEMBL3988603"
+  },
+  {
+   "binding_assay_value": 5.71,
+   "binding_assay_value_type": "pIC50",
+   "cofactor_InChIKey": "UUXFPKHBLXTYRB-UHFFFAOYSA-N",
+   "cofactor_SMILES": "CNC(=O)c1c(-c2ccc(F)cc2)oc2cc(N(C)S(C)(=O)=O)c(-c3ccc4c(n3)-c3c(C)c5ccccc5n3CC4)cc12",
+   "cofactor_resource_id": "CHEMBL3898990",
+   "neighbor_flag": "N",
+   "resource_name": "ChEMBL",
+   "resource_version": "37",
+   "target_resource_id": "CHEMBL3988603"
+  },
+  {
+   "binding_assay_value": 5.7,
+   "binding_assay_value_type": "pIC50",
+   "cofactor_InChIKey": "IUILAZMKFHNDKZ-UHFFFAOYSA-N",
+   "cofactor_SMILES": "CNC(=O)c1c(-c2ccnn2C(C)C)oc2cc(N(C)S(C)(=O)=O)c(-c3ccc4c(n3)-c3cc5c(F)cccc5n3CC4)cc12",
+   "cofactor_resource_id": "CHEMBL3964630",
+   "neighbor_flag": "N",
+   "resource_name": "ChEMBL",
+   "resource_version": "37",
+   "target_resource_id": "CHEMBL3988603"
+  },
+  {
+   "binding_assay_value": 5.53,
+   "binding_assay_value_type": "pIC50",
+   "cofactor_InChIKey": "LDLYXUSVZRCWSC-UHFFFAOYSA-N",
+   "cofactor_SMILES": "CNC(=O)c1c(-c2cnn(-c3ccccc3)c2)oc2cc(N(C)S(C)(=O)=O)c(-c3ccc4c(n3)-c3cc5c(F)cccc5n3CC4)cc12",
+   "cofactor_resource_id": "CHEMBL3917905",
+   "neighbor_flag": "N",
+   "resource_name": "ChEMBL",
+   "resource_version": "37",
+   "target_resource_id": "CHEMBL3988603"
+  },
+  {
+   "binding_assay_value": 5.41,
+   "binding_assay_value_type": "pIC50",
+   "cofactor_InChIKey": "CQLGOIWJTWWHOO-UHFFFAOYSA-N",
+   "cofactor_SMILES": "CNC(=O)c1c(-c2cccnc2O)oc2cc(N(C)S(C)(=O)=O)c(-c3ccc4c(n3)-c3cc5c(F)cccc5n3CO4)cc12",
+   "cofactor_resource_id": "CHEMBL3901732",
+   "neighbor_flag": "N",
+   "resource_name": "ChEMBL",
+   "resource_version": "37",
+   "target_resource_id": "CHEMBL3988603"
+  },
+  {
+   "binding_assay_value": 5.18,
+   "binding_assay_value_type": "pIC50",
+   "cofactor_InChIKey": "MOJZVGKTZURGRM-UHFFFAOYSA-N",
+   "cofactor_SMILES": "CNC(=O)c1c(-c2ccc(C(C)C)nc2)oc2cc(N(C)S(C)(=O)=O)c(-c3ccc4c(n3)-c3cc5c(F)cccc5n3CC4)cc12",
+   "cofactor_resource_id": "CHEMBL3980752",
+   "neighbor_flag": "N",
+   "resource_name": "ChEMBL",
+   "resource_version": "37",
+   "target_resource_id": "CHEMBL3988603"
+  },
+  {
+   "cofactor_InChIKey": "WLPJLQNKCJWAFL-RGEXLXHISA-N",
+   "cofactor_SMILES": "[H]N(\\C(=C/C1=CC=C(OC2=CC=CC=C2Br)C=C1)C(O)=O)C(=O)C1=CC=CC=C1",
+   "cofactor_chem_comp_id": "PH7",
+   "cofactor_name": "(2Z)-2-(Benzoylamino)-3-[4-(2-bromophenoxy)phenyl]acrylic acid",
+   "cofactor_resource_id": "DB01720",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    17139284,
+    17016423
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "P26662"
+  },
+  {
+   "cofactor_InChIKey": "PGAVKCOVUIYSFO-XVFCMESISA-N",
+   "cofactor_SMILES": "O[C@H]1[C@@H](O)[C@@H](O[C@@H]1COP(O)(=O)OP(O)(=O)OP(O)(O)=O)N1C=CC(=O)NC1=O",
+   "cofactor_chem_comp_id": "UTP",
+   "cofactor_name": "Uridine 5'-triphosphate",
+   "cofactor_resource_id": "DB04005",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    17139284,
+    17016423
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "P26662"
+  },
+  {
+   "cofactor_InChIKey": "XKMLYUALXHKNFT-UUOKFMHZSA-N",
+   "cofactor_SMILES": "NC1=NC2=C(N=CN2[C@@H]2O[C@H](COP(O)(=O)OP(O)(=O)OP(O)(O)=O)[C@@H](O)[C@H]2O)C(=O)N1",
+   "cofactor_chem_comp_id": "GTP",
+   "cofactor_name": "Guanosine-5'-Triphosphate",
+   "cofactor_resource_id": "DB04137",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    37713619
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "P26662"
+  },
+  {
+   "cofactor_name": "AZD-2836",
+   "cofactor_resource_id": "DB06031",
+   "mechanism_of_action": "A-831 has shown potent activity in the replicon assay and has an excellent therapeutic index and good pharmacokinetic properties, as well as displaying a novel mechanism of action targeting the NS5a protein.",
+   "neighbor_flag": "N",
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "P26662"
+  },
+  {
+   "cofactor_InChIKey": "OISLSHLAXHALQZ-LZEIJKKFSA-N",
+   "cofactor_SMILES": "CNC1=C2N=CN([C@@H]3O[C@H](CO[P@@](=O)(N[C@@H](C)C(=O)OC(C)C)OC4=CC=CC=C4)[C@@H](O)[C@@]3(C)F)C2=NC(N)=N1",
+   "cofactor_name": "Bemnifosbuvir",
+   "cofactor_resource_id": "DB19050",
+   "neighbor_flag": "N",
+   "pubmed_ids": [
+    37713619
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "P26662"
+  },
+  {
+   "cofactor_InChIKey": "ZTUMRSFHUOBXAC-LHIURRSHSA-N",
+   "cofactor_SMILES": "[H]S[C@@H](N([H])C1=CC(=CC(=C1)C(F)(F)F)C(F)(F)F)C(C#N)C(=O)N([H])[H]",
+   "cofactor_chem_comp_id": "221",
+   "cofactor_name": "(3R)-3-[3,5-Bis(trifluoromethyl)anilino]-2-cyano-3-sulfanylpropanamide",
+   "cofactor_resource_id": "DB06913",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    10592235
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "Q99AU2"
+  },
+  {
+   "cofactor_InChIKey": "LBMZLHCAPBBOFS-UHFFFAOYSA-N",
+   "cofactor_SMILES": "CC(=O)C1=CC(F)=C(Cl)C=C1NCC(=O)NC1=CC=CC=C1C(O)=O",
+   "cofactor_chem_comp_id": "452",
+   "cofactor_name": "2-{[N-(2-ACETYL-5-CHLORO-4-FLUOROPHENYL)GLYCYL]AMINO}BENZOIC ACID",
+   "cofactor_resource_id": "DB07085",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    10592235
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "Q99AU2"
+  },
+  {
+   "cofactor_InChIKey": "LXSDGQYDSDIUPN-UHFFFAOYSA-N",
+   "cofactor_SMILES": "OC(=O)C1=C(NC(=O)COC2=CC=C(Cl)C=C2)C=CC=C1",
+   "cofactor_chem_comp_id": "617",
+   "cofactor_name": "2-{[(4-CHLOROPHENOXY)ACETYL]AMINO}BENZOIC ACID",
+   "cofactor_resource_id": "DB07185",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    10592235
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "Q99AU2"
+  },
+  {
+   "cofactor_InChIKey": "OWYKAFABUYXQLE-JTQLQIEISA-N",
+   "cofactor_SMILES": "[H][C@]1(CCCN1S(=O)(=O)C1=C(N)C=C(Cl)C(C)=C1)C(O)=O",
+   "cofactor_chem_comp_id": "885",
+   "cofactor_name": "1-[(2-AMINO-4-CHLORO-5-METHYLPHENYL)SULFONYL]-L-PROLINE",
+   "cofactor_resource_id": "DB07273",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    10592235
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "Q99AU2"
+  },
+  {
+   "cofactor_InChIKey": "MQFPIRFODWNQIO-UHFFFAOYSA-N",
+   "cofactor_SMILES": "CC(C)CCN1C(=O)C(C2=NS(=O)(=O)C3=CC=CC=C3N2)=C(O)C2=CC=CC=C12",
+   "cofactor_chem_comp_id": "888",
+   "cofactor_name": "3-(1,1-dioxido-4H-1,2,4-benzothiadiazin-3-yl)-4-hydroxy-1-(3-methylbutyl)quinolin-2(1H)-one",
+   "cofactor_resource_id": "DB07275",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    10592235
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "Q99AU2"
+  },
+  {
+   "cofactor_InChIKey": "RYXAHMSZLLIPRO-UHFFFAOYSA-N",
+   "cofactor_SMILES": "CC1=CC=CC=C1S(=O)(=O)NC1=C(SC(=C1)C1=CC=C(C=C1)C#N)C(O)=O",
+   "cofactor_chem_comp_id": "CCT",
+   "cofactor_name": "5-(4-CYANOPHENYL)-3-{[(2-METHYLPHENYL)SULFONYL]AMINO}THIOPHENE-2-CARBOXYLIC ACID",
+   "cofactor_resource_id": "DB07547",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    10592235
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "Q99AU2"
+  },
+  {
+   "cofactor_InChIKey": "DJPFUQBNQLKCAB-UHFFFAOYSA-N",
+   "cofactor_SMILES": "CC1=CC=C(C=C1)S(=O)(=O)NC1=C(SC(=C1)C1=CC=C(F)C=C1)C(O)=O",
+   "cofactor_chem_comp_id": "FIH",
+   "cofactor_name": "5-(4-FLUOROPHENYL)-3-{[(4-METHYLPHENYL)SULFONYL]AMINO}THIOPHENE-2-CARBOXYLIC ACID",
+   "cofactor_resource_id": "DB07770",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    10592235
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "Q99AU2"
+  },
+  {
+   "cofactor_InChIKey": "CMHHNHDPPWDNAH-UHFFFAOYSA-N",
+   "cofactor_SMILES": "CC(=O)C1=CC=C(S1)C1=CC(NS(=O)(=O)C2=CC=C(C)C=C2C)=C(S1)C(O)=O",
+   "cofactor_chem_comp_id": "SNH",
+   "cofactor_name": "5'-ACETYL-4-{[(2,4-DIMETHYLPHENYL)SULFONYL]AMINO}-2,2'-BITHIOPHENE-5-CARBOXYLIC ACID",
+   "cofactor_resource_id": "DB08556",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    10592235
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "Q99AU2"
+  },
+  {
+   "cofactor_InChIKey": "WTDWVLJJJOTABN-UHFFFAOYSA-N",
+   "cofactor_SMILES": "CNC(=O)C1=C(OC2=CC(N(CCO)S(C)(=O)=O)=C(C=C12)C1CC1)C1=CC=C(F)C=C1",
+   "cofactor_chem_comp_id": "79Z",
+   "cofactor_name": "Nesbuvir",
+   "cofactor_resource_id": "DB07238",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    10592235
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "Q9WMX2"
+  },
+  {
+   "cofactor_name": "R1626",
+   "cofactor_resource_id": "DB05060",
+   "neighbor_flag": "N",
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "O39930"
+  },
+  {
+   "cofactor_InChIKey": "SWYJAQWTBADJTB-RHGYRFJNSA-N",
+   "cofactor_SMILES": "[H][C@@]1(C[C@](CC(C)C)(N(C(=O)C2=CC=C(C=C2)C(C)(C)C)[C@@]1([H])C1=NC=CS1)C(O)=O)C(O)=O",
+   "cofactor_chem_comp_id": "698",
+   "cofactor_name": "(2S,4S,5R)-1-(4-TERT-BUTYLBENZOYL)-2-ISOBUTYL-5-(1,3-THIAZOL-2-YL)PYRROLIDINE-2,4-DICARBOXYLIC ACID",
+   "cofactor_resource_id": "DB07199",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    10592235
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "O39930"
+  },
+  {
+   "cofactor_InChIKey": "ZNCZVHCYBGHCHA-XPIZARPCSA-N",
+   "cofactor_SMILES": "[H][C@@]1(C[C@](CC(C)C)(N(C(=O)C2=CC=C(C=C2)C(F)(F)F)[C@@]1([H])C1=CC=CS1)C(O)=O)C(O)=O",
+   "cofactor_chem_comp_id": "699",
+   "cofactor_name": "(2S,4S,5R)-2-ISOBUTYL-5-(2-THIENYL)-1-[4-(TRIFLUOROMETHYL)BENZOYL]PYRROLIDINE-2,4-DICARBOXYLIC ACID",
+   "cofactor_resource_id": "DB07200",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    10592235
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "O39930"
+  },
+  {
+   "cofactor_InChIKey": "TTZHDVOVKQGIBA-IQWMDFIBSA-N",
+   "cofactor_SMILES": "CC(C)OC(=O)[C@H](C)N[P@](=O)(OC[C@H]1O[C@@H](N2C=CC(=O)NC2=O)[C@](C)(F)[C@@H]1O)OC1=CC=CC=C1",
+   "cofactor_chem_comp_id": "WG6",
+   "cofactor_name": "Sofosbuvir",
+   "cofactor_resource_id": "DB08934",
+   "mechanism_of_action": "Sofosbuvir is nucleotide analog inhibitor, which specifically inhibits HCV NS5B (non-structural protein 5B) RNA-dependent RNA polymerase. Following intracellular metabolism to form the pharmacologically active uridine analog triphosphate (GS-461203), sofosbuvir incorporates into HCV RNA by the NS5B polymerase and acts as a chain terminator [synthesis, A7533]. More specifically, Sofosbuvir prevents HCV viral replication by binding to the two Mg2+ ions present in HCV NS5B polymerase's GDD active site motif and preventing further replication of HCV genetic material [A19638, FDA Label].\r\n\r\n",
+   "neighbor_flag": "N",
+   "pubmed_ids": [
+    20801890
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "O39930"
+  },
+  {
+   "cofactor_InChIKey": "YBULOUKTPCHXAL-DEOSSOPVSA-N",
+   "cofactor_SMILES": "[H][C@@](CC1=CC=CC=C1)(N(CC1=CC=C(S1)C1=CC2=CC=CC=C2O1)C(=O)C1=C(Cl)C=C(Cl)C=C1)C(O)=O",
+   "cofactor_chem_comp_id": "154",
+   "cofactor_name": "(2s)-2-[(5-Benzofuran-2-Yl-Thiophen-2-Ylmethyl)-(2,4-Dichloro-Benzoyl)-Amino]-3-Phenyl-Propionic Acid",
+   "cofactor_resource_id": "DB02331",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    17139284,
+    17016423
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "P26663"
+  },
+  {
+   "cofactor_InChIKey": "LAJJKGIZTCCOHY-NRFANRHFSA-N",
+   "cofactor_SMILES": "[H][C@@](CC1=CC=CC=C1)(N(CC1=CC(=CC=C1)C(F)(F)F)C(=O)C1=C(Cl)C=C(Cl)C=C1)C(O)=O",
+   "cofactor_chem_comp_id": "153",
+   "cofactor_name": "(2s)-2-[(2,4-Dichloro-Benzoyl)-(3-Trifluoromethyl-Benzyl)-Amino]-3-Phenyl-Propionic Acid",
+   "cofactor_resource_id": "DB03605",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    17139284,
+    17016423
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "P26663"
+  },
+  {
+   "cofactor_InChIKey": "PGAVKCOVUIYSFO-XVFCMESISA-N",
+   "cofactor_SMILES": "O[C@H]1[C@@H](O)[C@@H](O[C@@H]1COP(O)(=O)OP(O)(=O)OP(O)(O)=O)N1C=CC(=O)NC1=O",
+   "cofactor_chem_comp_id": "UTP",
+   "cofactor_name": "Uridine 5'-triphosphate",
+   "cofactor_resource_id": "DB04005",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    17139284,
+    17016423
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "P26663"
+  },
+  {
+   "cofactor_InChIKey": "XKMLYUALXHKNFT-UUOKFMHZSA-N",
+   "cofactor_SMILES": "NC1=NC2=C(N=CN2[C@@H]2O[C@H](COP(O)(=O)OP(O)(=O)OP(O)(O)=O)[C@@H](O)[C@H]2O)C(=O)N1",
+   "cofactor_chem_comp_id": "GTP",
+   "cofactor_name": "Guanosine-5'-Triphosphate",
+   "cofactor_resource_id": "DB04137",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    17139284,
+    17016423
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "P26663"
+  },
+  {
+   "cofactor_InChIKey": "ZEBFKFGJWHOOST-LJAQVGFWSA-N",
+   "cofactor_SMILES": "CC1=CC(SC2=C(O)C[C@](CCC3=CC=C(O)C=C3)(OC2=O)C2CCCC2)=C(C=C1N)C(C)(C)C",
+   "cofactor_chem_comp_id": "NH1",
+   "cofactor_name": "3-(4-Amino-2-Tert-Butyl-5-Methyl-Phenylsulfanyl)-6-Cyclopentyl-4-Hydroxy-6-[2-(4-Hydroxy-Phenyl)-Ethyl]-5,6-Dihydro-Pyran-2-One",
+   "cofactor_resource_id": "DB04298",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    17139284,
+    17016423
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "P26663"
+  },
+  {
+   "cofactor_InChIKey": "HTTWNUWLEOXVKB-UHFFFAOYSA-N",
+   "cofactor_SMILES": "COC1=CC=C2N=C(NS(=O)(=O)C2=C1)C1=C(O)C(=NN(CCC(C)C)C1=O)C1=CC=CC=C1",
+   "cofactor_chem_comp_id": "2PD",
+   "cofactor_name": "5-hydroxy-4-(7-methoxy-1,1-dioxido-2H-1,2,4-benzothiadiazin-3-yl)-2-(3-methylbutyl)-6-phenylpyridazin-3(2H)-one",
+   "cofactor_resource_id": "DB06974",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    10592235
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "P26663"
+  },
+  {
+   "cofactor_InChIKey": "FTVCONULIKITPZ-UHFFFAOYSA-N",
+   "cofactor_SMILES": "CC(C)CCN1N2C=CC=C2C(O)=C(C1=O)C1=NC2=C(C=C(NS(C)(=O)=O)C=C2)S(=O)(=O)N1",
+   "cofactor_chem_comp_id": "3MS",
+   "cofactor_name": "N-{3-[4-Hydroxy-1-(3-methylbutyl)-2-oxo-1,2-dihydropyrrolo[1,2-b]pyridazin-3-yl]-1,1-dioxido-2H-1,2,4-benzothiadiazin-7-yl}methanesulfonamide",
+   "cofactor_resource_id": "DB07062",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    10592235
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "P26663"
+  },
+  {
+   "cofactor_InChIKey": "GAOOBYJHWAKZKU-LLVKDONJSA-N",
+   "cofactor_SMILES": "[H][C@]1(CC2=CC=C(Cl)C(Cl)=C2)SC(=S)N(NS(=O)(=O)C2=CC=CS2)C1=O",
+   "cofactor_chem_comp_id": "5EE",
+   "cofactor_name": "5R-(3,4-DICHLOROPHENYLMETHYL)-3-(2-THIOPHENESULFONYLAMINO)-4-OXO-2-THIONOTHIAZOLIDINE",
+   "cofactor_resource_id": "DB07169",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    10592235
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "P26663"
+  },
+  {
+   "cofactor_InChIKey": "SWYJAQWTBADJTB-RHGYRFJNSA-N",
+   "cofactor_SMILES": "[H][C@@]1(C[C@](CC(C)C)(N(C(=O)C2=CC=C(C=C2)C(C)(C)C)[C@@]1([H])C1=NC=CS1)C(O)=O)C(O)=O",
+   "cofactor_chem_comp_id": "698",
+   "cofactor_name": "(2S,4S,5R)-1-(4-TERT-BUTYLBENZOYL)-2-ISOBUTYL-5-(1,3-THIAZOL-2-YL)PYRROLIDINE-2,4-DICARBOXYLIC ACID",
+   "cofactor_resource_id": "DB07199",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    10592235
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "P26663"
+  },
+  {
+   "cofactor_InChIKey": "ZNCZVHCYBGHCHA-XPIZARPCSA-N",
+   "cofactor_SMILES": "[H][C@@]1(C[C@](CC(C)C)(N(C(=O)C2=CC=C(C=C2)C(F)(F)F)[C@@]1([H])C1=CC=CS1)C(O)=O)C(O)=O",
+   "cofactor_chem_comp_id": "699",
+   "cofactor_name": "(2S,4S,5R)-2-ISOBUTYL-5-(2-THIENYL)-1-[4-(TRIFLUOROMETHYL)BENZOYL]PYRROLIDINE-2,4-DICARBOXYLIC ACID",
+   "cofactor_resource_id": "DB07200",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    10592235
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "P26663"
+  },
+  {
+   "cofactor_InChIKey": "WTDWVLJJJOTABN-UHFFFAOYSA-N",
+   "cofactor_SMILES": "CNC(=O)C1=C(OC2=CC(N(CCO)S(C)(=O)=O)=C(C=C12)C1CC1)C1=CC=C(F)C=C1",
+   "cofactor_chem_comp_id": "79Z",
+   "cofactor_name": "Nesbuvir",
+   "cofactor_resource_id": "DB07238",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    10592235
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "P26663"
+  },
+  {
+   "cofactor_InChIKey": "XKOAFAIRGVAHRA-IBGZPJMESA-N",
+   "cofactor_SMILES": "[H][C@@]1(C(C)C)N(CC2=CC=CC=C2)C(=O)C(=C1O)C1=NS(=O)(=O)C2=C1C=CC=C2",
+   "cofactor_chem_comp_id": "B34",
+   "cofactor_name": "(5S)-1-benzyl-3-(1,1-dioxido-1,2-benzisothiazol-3-yl)-4-hydroxy-5-(1-methylethyl)-1,5-dihydro-2H-pyrrol-2-one",
+   "cofactor_resource_id": "DB07414",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    10592235
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "P26663"
+  },
+  {
+   "cofactor_InChIKey": "ZKEZEXYKYHYIMQ-UHFFFAOYSA-N",
+   "cofactor_SMILES": "OC(=O)C1=CC=C2C(=C1)N(CC(=O)N1CCOCC1)C(=C2C1CCCCC1)C1=CC=CC=C1",
+   "cofactor_chem_comp_id": "CMF",
+   "cofactor_name": "3-CYCLOHEXYL-1-(2-MORPHOLIN-4-YL-2-OXOETHYL)-2-PHENYL-1H-INDOLE-6-CARBOXYLIC ACID",
+   "cofactor_resource_id": "DB07570",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    10592235
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "P26663"
+  },
+  {
+   "cofactor_InChIKey": "LNQWELVSNCYKDU-UHFFFAOYSA-N",
+   "cofactor_SMILES": "CC(C)(NC(=O)C1=CC=C2C(=C1)N1CCOC3=C(C=CC=C3)C1=C2C1CCCCC1)C(O)=O",
+   "cofactor_chem_comp_id": "JTP",
+   "cofactor_name": "N-[(13-CYCLOHEXYL-6,7-DIHYDROINDOLO[1,2-D][1,4]BENZOXAZEPIN-10-YL)CARBONYL]-2-METHYL-L-ALANINE",
+   "cofactor_resource_id": "DB08031",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    10592235
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "P26663"
+  },
+  {
+   "cofactor_InChIKey": "QEMCDXCXSVPAAB-UHFFFAOYSA-N",
+   "cofactor_SMILES": "OC1=C(C(=O)N(CCC2CC2)C2=C1C=C(F)C=C2)C1=NS(=O)(=O)C2=C(N1)C=CC=C2",
+   "cofactor_chem_comp_id": "NN2",
+   "cofactor_name": "1-(2-cyclopropylethyl)-3-(1,1-dioxo-2H-1,2,4-benzothiadiazin-3-yl)-6-fluoro-4-hydroxy-2(1H)-quinolinone",
+   "cofactor_resource_id": "DB08278",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    10592235
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "P26663"
+  },
+  {
+   "cofactor_InChIKey": "RZXQBIKGWSLVEK-JCNLHEQBSA-N",
+   "cofactor_SMILES": "[H][C@]1(C)CC[C@@]([H])(CC1)C(=O)N(C(C)C)C1=C(SC(=C1)C1=CC=CC=C1)C(O)=O",
+   "cofactor_chem_comp_id": "NN3",
+   "cofactor_name": "3-{ISOPROPYL[(TRANS-4-METHYLCYCLOHEXYL)CARBONYL]AMINO}-5-PHENYLTHIOPHENE-2-CARBOXYLIC ACID",
+   "cofactor_resource_id": "DB08279",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    10592235
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "P26663"
+  },
+  {
+   "cofactor_InChIKey": "AKNIHFDXRAOPAI-NRFANRHFSA-N",
+   "cofactor_SMILES": "CC(C)OC1=CC=C(CC[C@]2(CC(O)=CC(=O)O2)C2CCCC2)C=C1F",
+   "cofactor_chem_comp_id": "PFI",
+   "cofactor_name": "(6S)-6-CYCLOPENTYL-6-[2-(3-FLUORO-4-ISOPROPOXYPHENYL)ETHYL]-4-HYDROXY-5,6-DIHYDRO-2H-PYRAN-2-ONE",
+   "cofactor_resource_id": "DB08390",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    10592235
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "P26663"
+  },
+  {
+   "cofactor_InChIKey": "MXAPQGDBWFYKKX-ZROIWOOFSA-N",
+   "cofactor_SMILES": "[H]N(C1=NC(=O)\\C(S1)=C\\C1=CC=C(C)O1)S(=O)(=O)C1=CC=C(C)C=C1",
+   "cofactor_chem_comp_id": "RNA",
+   "cofactor_name": "4-Methyl-N-[5-(5-methyl-furan-2-ylmethylene)-4-oxo-thiazolidin-2-ylidene]-benzenesulfonamide",
+   "cofactor_resource_id": "DB08481",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    10592235
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "P26663"
+  },
+  {
+   "cofactor_InChIKey": "XFYYQDHEDOXWGA-UHFFFAOYSA-N",
+   "cofactor_SMILES": "OC(=O)CCC(=O)NC1=CC=C(Br)C=N1",
+   "cofactor_chem_comp_id": "SX2",
+   "cofactor_name": "4-[(5-bromopyridin-2-yl)amino]-4-oxobutanoic acid",
+   "cofactor_resource_id": "DB08578",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    10592235
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "P26663"
+  },
+  {
+   "cofactor_InChIKey": "IUPOWBZLJSPZFT-AOOOYVTPSA-N",
+   "cofactor_SMILES": "[H][C@]1(C)CN(C[C@@]([H])(C)C1)C(=O)C1=CC(Br)=CC=C1N",
+   "cofactor_chem_comp_id": "SX3",
+   "cofactor_name": "4-bromo-2-{[(3R,5S)-3,5-dimethylpiperidin-1-yl]carbonyl}aniline",
+   "cofactor_resource_id": "DB08579",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    10592235
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "P26663"
+  },
+  {
+   "cofactor_InChIKey": "JEGGWFHNKPRKTO-CQSZACIVSA-N",
+   "cofactor_SMILES": "[H][C@]1(CC2=C(Cl)C=CC=C2)CCCN1C(=O)C1=CC(Br)=CC=C1N",
+   "cofactor_chem_comp_id": "SX4",
+   "cofactor_name": "4-bromo-2-{[(2R)-2-(2-chlorobenzyl)pyrrolidin-1-yl]carbonyl}aniline",
+   "cofactor_resource_id": "DB08580",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    10592235
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "P26663"
+  },
+  {
+   "cofactor_InChIKey": "JSVSGWHGYIDZFX-TXEJJXNPSA-N",
+   "cofactor_SMILES": "[H][C@]1(C)CN(C[C@@]([H])(C)C1)C(=O)C1=CC(Br)=CC=C1NC(=O)CCC(O)=O",
+   "cofactor_chem_comp_id": "SX5",
+   "cofactor_name": "4-[(4-bromo-2-{[(3R,5S)-3,5-dimethylpiperidin-1-yl]carbonyl}phenyl)amino]-4-oxobutanoic acid",
+   "cofactor_resource_id": "DB08581",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    10592235
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "P26663"
+  },
+  {
+   "cofactor_InChIKey": "DELARNBPJXTDBD-IYBDPMFKSA-N",
+   "cofactor_SMILES": "[H][C@]1(C)CN(C[C@@]([H])(C)C1)C(=O)C1=C(NC(=O)CCC(=O)N2CCOCC2)C=CC(Br)=C1",
+   "cofactor_chem_comp_id": "SX6",
+   "cofactor_name": "N-(4-bromo-2-{[(3R,5S)-3,5-dimethylpiperidin-1-yl]carbonyl}phenyl)-4-morpholin-4-yl-4-oxobutanamide",
+   "cofactor_resource_id": "DB08582",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    10592235
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "P26663"
+  },
+  {
+   "cofactor_InChIKey": "JZCUVYNOSDWORZ-UHFFFAOYSA-N",
+   "cofactor_SMILES": "OCCNC1=CC=C2C(=O)N(C(=O)C3=CC=CC1=C23)C1=CC(Br)=CC=C1",
+   "cofactor_chem_comp_id": "VGI",
+   "cofactor_name": "2-(3-BROMOPHENYL)-6-[(2-HYDROXYETHYL)AMINO]-1H-BENZO[DE]ISOQUINOLINE-1,3(2H)-DIONE",
+   "cofactor_resource_id": "DB08701",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    10592235
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "P26663"
+  },
+  {
+   "cofactor_InChIKey": "RNEACARJKXYVND-MZLJFPOFSA-N",
+   "cofactor_SMILES": "CCC1=CC=C(O1)\\C=C1/SC(N[C@H](C(O)=O)C2=CC=C(F)C=C2)=NC1=O",
+   "cofactor_chem_comp_id": "VRX",
+   "cofactor_name": "(2S)-({(5Z)-5-[(5-Ethyl-2-furyl)methylene]-4-oxo-4,5-dihydro-1,3-thiazol-2-yl}amino)(4-fluorophenyl)acetic acid",
+   "cofactor_resource_id": "DB08706",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    10592235
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "P26663"
+  },
+  {
+   "cofactor_InChIKey": "BKZOQCGDCHOGOQ-MZLJFPOFSA-N",
+   "cofactor_SMILES": "CCC1=CC=C(O1)\\C=C1/SC(N[C@H](C2=NN=NN2)C2=CC=C(F)C=C2)=NC1=O",
+   "cofactor_chem_comp_id": "VXR",
+   "cofactor_name": "(5Z)-5-[(5-ethylfuran-2-yl)methylidene]-2-[[(S)-(4-fluorophenyl)-(2H-tetrazol-5-yl)methyl]amino]-1,3-thiazol-4-one",
+   "cofactor_resource_id": "DB08710",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    10592235
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "P26663"
+  },
+  {
+   "cofactor_InChIKey": "XRWSZZJLZRKHHD-WVWIJVSJSA-N",
+   "cofactor_SMILES": "COC1=CN=C(O[C@@H]2C[C@H](N(C2)C(=O)[C@@H](NC(=O)OC(C)(C)C)C(C)(C)C)C(=O)N[C@@]2(C[C@H]2C=C)C(=O)NS(=O)(=O)C2CC2)C2=C1C=CC(Cl)=C2",
+   "cofactor_chem_comp_id": "2R9",
+   "cofactor_name": "Asunaprevir",
+   "cofactor_resource_id": "DB11586",
+   "mechanism_of_action": "Asunaprevir is a highly active HCV NS3 protease inhibitor.[A32527] The genome of HCV has a positive polarity which allows it to be translated into a protein in the host cell without further transformation steps. However, the resultant protein needs to be divided by the enzyme NS3 protease into single proteins in order to be able to exert its enzymatic activity or structural role. Therefore, due to NS3 vital importance for viral replication, the inhibiting action of asunaprevir causes a robust antiviral activity.[A18434]",
+   "neighbor_flag": "N",
+   "pubmed_ids": [
+    25061308
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "P26663"
+  },
+  {
+   "cofactor_InChIKey": "JJTPPGUNMJMPLY-QFIPXVFZSA-N",
+   "cofactor_SMILES": "[H][C@]1(N(C(C)=O)C2=CC=CC(O)=C2NC2=C1C(=O)CC(C)(C)C2)C1=C(Cl)C=C(Cl)C=C1",
+   "cofactor_chem_comp_id": "XND",
+   "cofactor_name": "(11R)-10-acetyl-11-(2,4-dichlorophenyl)-6-hydroxy-3,3-dimethyl-2,3,4,5,10,11-hexahydro-1H-dibenzo[b,e][1,4]diazepin-1-one",
+   "cofactor_resource_id": "DB08747",
+   "neighbor_flag": "Y",
+   "pubmed_ids": [
+    10592235
+   ],
+   "resource_name": "DrugBank",
+   "resource_version": "5.1",
+   "target_resource_id": "O92972"
+  }
+ ]
+}

@@ -1,0 +1,188 @@
+{
+ "rcsb_id": "1T36.XB",
+ "rcsb_nonpolymer_entity_instance_container_identifiers": {
+  "asym_id": "XB",
+  "auth_asym_id": "G",
+  "auth_seq_id": "1078",
+  "comp_id": "PO4",
+  "entity_id": "5",
+  "entry_id": "1T36",
+  "rcsb_id": "1T36.XB"
+ },
+ "rcsb_nonpolymer_instance_annotation": [
+  {
+   "annotation_id": "METAL_COORDINATION_LINKAGE_87",
+   "assignment_version": "V1.0",
+   "comp_id": "PO4",
+   "description": "PO4 has metal coordination with non-polymer instance UB in model 1",
+   "ordinal": 154,
+   "provenance_source": "Primary Data",
+   "type": "HAS_METAL_COORDINATION_LINKAGE"
+  },
+  {
+   "annotation_id": "METAL_COORDINATION_LINKAGE_88",
+   "assignment_version": "V1.0",
+   "comp_id": "PO4",
+   "description": "PO4 has metal coordination with non-polymer instance TB in model 1",
+   "ordinal": 155,
+   "provenance_source": "Primary Data",
+   "type": "HAS_METAL_COORDINATION_LINKAGE"
+  },
+  {
+   "comp_id": "PO4",
+   "ordinal": 156,
+   "provenance_source": "Primary Data",
+   "type": "HAS_NO_COVALENT_LINKAGE"
+  }
+ ],
+ "rcsb_nonpolymer_instance_validation_score": [
+  {
+   "RSCC": 0.991,
+   "RSR": 0.038,
+   "average_occupancy": 1.0,
+   "completeness": 1.0,
+   "intermolecular_clashes": 0,
+   "is_best_instance": "Y",
+   "is_subject_of_investigation": "N",
+   "mogul_angle_outliers": 1,
+   "mogul_angles_RMSZ": 1.24,
+   "mogul_bond_outliers": 3,
+   "mogul_bonds_RMSZ": 2.39,
+   "natoms_eds": 5,
+   "num_mogul_angles_RMSZ": 6,
+   "num_mogul_bonds_RMSZ": 4,
+   "ranking_model_fit": 0.9727,
+   "ranking_model_geometry": 0.1626,
+   "score_model_fit": -1.8473,
+   "score_model_geometry": 1.1043,
+   "stereo_outliers": 0,
+   "type": "RCSB_LIGAND_QUALITY_SCORE_2021"
+  }
+ ],
+ "rcsb_nonpolymer_struct_conn": [
+  {
+   "connect_partner": {
+    "label_asym_id": "TB",
+    "label_atom_id": "MN",
+    "label_comp_id": "MN",
+    "symmetry": "1_555"
+   },
+   "connect_target": {
+    "auth_seq_id": "1078",
+    "label_asym_id": "XB",
+    "label_atom_id": "O1",
+    "label_comp_id": "PO4",
+    "symmetry": "1_555"
+   },
+   "connect_type": "metal coordination",
+   "dist_value": 1.942,
+   "id": "metalc156",
+   "ordinal_id": 312
+  },
+  {
+   "connect_partner": {
+    "label_asym_id": "UB",
+    "label_atom_id": "MN",
+    "label_comp_id": "MN",
+    "symmetry": "1_555"
+   },
+   "connect_target": {
+    "auth_seq_id": "1078",
+    "label_asym_id": "XB",
+    "label_atom_id": "O3",
+    "label_comp_id": "PO4",
+    "symmetry": "1_555"
+   },
+   "connect_type": "metal coordination",
+   "dist_value": 2.143,
+   "id": "metalc159",
+   "ordinal_id": 318
+  }
+ ],
+ "rcsb_target_neighbors": [
+  {
+   "atom_id": "O4",
+   "comp_id": "PO4",
+   "distance": 2.636,
+   "target_asym_id": "G",
+   "target_atom_id": "N",
+   "target_auth_seq_id": 175,
+   "target_comp_id": "GLY",
+   "target_entity_id": "1",
+   "target_model_id": 1,
+   "target_seq_id": 175
+  },
+  {
+   "atom_id": "O1",
+   "comp_id": "PO4",
+   "distance": 2.727,
+   "target_asym_id": "G",
+   "target_atom_id": "OD1",
+   "target_auth_seq_id": 301,
+   "target_comp_id": "ASN",
+   "target_entity_id": "1",
+   "target_model_id": 1,
+   "target_seq_id": 301
+  },
+  {
+   "atom_id": "O3",
+   "comp_id": "PO4",
+   "distance": 2.826,
+   "target_asym_id": "G",
+   "target_atom_id": "OE1",
+   "target_auth_seq_id": 285,
+   "target_comp_id": "GLN",
+   "target_entity_id": "1",
+   "target_model_id": 1,
+   "target_seq_id": 285
+  },
+  {
+   "atom_id": "O4",
+   "comp_id": "PO4",
+   "distance": 2.966,
+   "target_asym_id": "G",
+   "target_atom_id": "NH1",
+   "target_auth_seq_id": 306,
+   "target_comp_id": "ARG",
+   "target_entity_id": "1",
+   "target_model_id": 1,
+   "target_seq_id": 306
+  },
+  {
+   "atom_id": "O3",
+   "comp_id": "PO4",
+   "distance": 2.98,
+   "target_asym_id": "G",
+   "target_atom_id": "OE2",
+   "target_auth_seq_id": 299,
+   "target_comp_id": "GLU",
+   "target_entity_id": "1",
+   "target_model_id": 1,
+   "target_seq_id": 299
+  },
+  {
+   "atom_id": "O1",
+   "comp_id": "PO4",
+   "distance": 3.132,
+   "target_asym_id": "G",
+   "target_atom_id": "CB",
+   "target_auth_seq_id": 174,
+   "target_comp_id": "MET",
+   "target_entity_id": "1",
+   "target_model_id": 1,
+   "target_seq_id": 174
+  },
+  {
+   "atom_id": "O2",
+   "comp_id": "PO4",
+   "distance": 3.44,
+   "target_asym_id": "G",
+   "target_atom_id": "NH2",
+   "target_auth_seq_id": 303,
+   "target_comp_id": "ARG",
+   "target_entity_id": "1",
+   "target_model_id": 1,
+   "target_seq_id": 303
+  }
+ ]
+}

@@ -1,0 +1,26 @@
+{
+ "pdbx_entity_nonpoly": {
+  "comp_id": "BB3",
+  "entity_id": "2",
+  "name": "3-(3,5-DIBROMO-4-HYDROXY-BENZOYL)-2-ETHYL-BENZOFURAN-6-SULFONIC ACID DIMETHYLAMIDE"
+ },
+ "rcsb_id": "1T48_2",
+ "rcsb_nonpolymer_entity": {
+  "formula_weight": 0.531,
+  "pdbx_description": "3-(3,5-DIBROMO-4-HYDROXY-BENZOYL)-2-ETHYL-BENZOFURAN-6-SULFONIC ACID DIMETHYLAMIDE",
+  "pdbx_number_of_molecules": 1
+ },
+ "rcsb_nonpolymer_entity_container_identifiers": {
+  "asym_ids": [
+   "B"
+  ],
+  "auth_asym_ids": [
+   "A"
+  ],
+  "chem_ref_def_id": "BB3",
+  "entity_id": "2",
+  "entry_id": "1T48",
+  "nonpolymer_comp_id": "BB3",
+  "rcsb_id": "1T48_2"
+ }
+}

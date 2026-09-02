@@ -117,7 +117,10 @@ targets with functionally validated allosteric sites, framed from RCSB and froze
 **`generalisation`** carries the generalisability and scalability claims and is not opened
 until the method is frozen (Phase 5). One set cannot do both jobs — that contradiction is
 what ADR 0021 settles. The term "selection set" is retired in favour of `development`.
-**Stretch target**: c-Myc, which has no characterised allosteric site and therefore no
-ground truth.
+**Stretch target**: c-Myc, which has no characterised allosteric site and no holo
+structure. **It is not ungrounded**: ADR 0036 supersedes ADR 0020 and scores it against
+NMR chemical-shift-perturbation segments, as a reported, explicitly NON-BLIND deliverable
+that enters no Holm family. The arm is DECIDED, NOT BUILT — `1NKP` is not in
+`primary/manifest.yaml` — so do not write in the present tense that it has an arm.
 _Avoid_: "the ASD set" — the frame is RCSB, not the Allosteric Database, for reasons
 recorded in `docs/benchmark/secondary/evidence/databases.md`.

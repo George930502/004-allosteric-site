@@ -13,6 +13,7 @@ docs/benchmark/
   secondary/     9 further targets, in two disjoint tiers
   evaluation/    how a score is computed. Protocol version 2
   evidence/      the literature the three sets rest on
+  review/        the 2026-09-02 audit of all three, and what the organisers' answers force
 ```
 
 ---
@@ -25,6 +26,7 @@ docs/benchmark/
 | Where do I tune a hyperparameter, and what proves generalisation?                  | [`secondary/README.md`](secondary/README.md)   |
 | What endpoint, null, decoys and multiplicity correction does a score go through?   | [`evaluation/README.md`](evaluation/README.md) |
 | Why is that pair defensible, and who says so?                                      | [`evidence/README.md`](evidence/README.md)     |
+| Is any of it wrong, and what did the organisers rule?                              | [`review/README.md`](review/README.md)         |
 
 ---
 
@@ -61,8 +63,8 @@ construction.
 
 ## `evaluation/` — how a score is computed
 
-Frozen **2026-08-25** at **protocol version 2**. Endpoint, estimator, null, decoy pockets,
-multiplicity correction and required baselines, for all 14 arms. Every method calls
+Frozen **2026-09-02** at **protocol version 3**. Endpoint, estimator, null, decoy pockets,
+multiplicity correction and required baselines, for all 15 arms. Every method calls
 `allo.scoring.score_arm` and no other path.
 
 Version 1 was frozen and reopened the same day by its own audit.
@@ -79,6 +81,27 @@ metric review. [`evidence/README.md`](evidence/README.md) indexes the twelve fil
 which are superseded.
 
 ---
+
+## Three things that are true of the whole benchmark, not of one set
+
+Read these before quoting any result from any set.
+
+1. **All fifteen arms use a synthetic small molecule as the effector.** No arm tests classical
+   allosteric enzymology — cooperativity, metabolite feedback, a physiological effector such as
+   AMP, GTP or acetyl-CoA. The cause is measured: of 32 physiological-effector holo entries
+   screened for the secondary set, 23 were killed by the single-chain lining clause, because
+   those phenomena are quaternary. Any claim from this benchmark is a claim about **drug-like
+   allosteric pockets in a single chain**.
+2. **The negative class has an unknown false-negative rate.** Each arm labels one site positive
+   and everything else negative. Beltran 2026 (doi:10.1126/sciadv.aea2726) reports dozens of
+   functionally allosteric surfaces on Src alone. A scored false positive may be a real site
+   nobody annotated, so precision-style endpoints are more trustworthy here than recall-style
+   ones.
+3. **Ground truth is a binding-site label set, not a coupling label set.** No structure pair
+   can establish that a method recovered *coupling* rather than *a pocket*. Allostery is
+   inherited from the cited functional experiments in each arm's `allosteric_evidence`, never
+   from the coordinates. The honest claim is "ranks the experimentally validated allosteric
+   pocket highly on apo input" (ADR 0007).
 
 ## Two rules for everything under this directory
 

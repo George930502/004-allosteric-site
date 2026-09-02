@@ -1,0 +1,45 @@
+# Does normalising the walk's clock by an intrinsic spectral quantity make the coherence
+# window mean the same thing on every protein?
+#
+# `experiments/2026-08-26-stability-and-source` measured the window sweep and found the
+# optimum sits at opposite ends on two arms of the same tier. `docs/method/exploration/
+# results/47-quantum-constructions.md` measured why: the spectral gap varies by 21.7x across
+# the four development arms while the spectral range varies by 1.09.
+#
+# A window in units of the range is therefore a different physical experiment on each
+# protein. At a nominal window of 50 the four arms cover between 0.049 and 5.75 periods of
+# their own slowest mode. `scale: gap` fixes the window in slow-mode periods instead, which
+# is a per-protein adaptation that reads only the graph's own spectrum and never a label.
+#
+# This experiment tests whether that adaptation reduces the between-arm spread. It also
+# re-measures the range-scale curve at step counts that satisfy Nyquist, because the earlier
+# sweep used the default 128 steps and a window of 100 needs at least 200.
+#
+# Development tier only.
+
+arms: [mkp5, ptp1b, hiv_rt, ns5b]
+
+graph: {contact: heavy_min, weighting: unit}
+
+# The finite-window observables. `ctqw_infinite_time_average` has no window and
+# `quantum_perturbation_response` costs N re-diagonalisations per grid, so both are out.
+scorers:
+  - ctqw_average_transfer
+  - ctqw_peak_transfer
+  - ctqw_temporal_variance
+  - ctqw_coherent_source_contrast
+
+# Window in revolutions of the fastest phase. Matches the earlier sweep plus its baseline.
+range_windows: [5.0, 10.0, 25.0, 50.0, 100.0]
+
+# Window in periods of the slowest beat. One full period is already a long walk.
+gap_windows: [0.25, 0.5, 1.0]
+
+# Nyquist on the fastest phase, with headroom. The grid spans `window * 2 pi / unit`, over
+# which the fastest phase turns `window * range / unit` times, so two samples per turn is the
+# floor and four is the setting. Recorded per record so a reader can check it.
+steps_per_fast_period: 4
+steps_floor: 256
+steps_cap: 8192
+
+seed: 0

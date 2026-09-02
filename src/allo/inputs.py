@@ -85,6 +85,25 @@ CATALYTIC_MOTIFS = {
     # PROSITE PS00383 TYR_PHOSPHATASE_1, converted from its PA line
     # `[LIVMF]-H-C-x(2)-G-x(2)-R-[STC]-[STAGP].`
     "PTP": r"[LIVMF]HC.{2}G.{2}R[STC][STAGP]",
+    # PROSITE PS00016 ATP_GTP_A, from its PA line `[AG]-x(4)-G-K-[ST]`. Matches once on both
+    # KRAS apo entries, at residues 10-17. It matches TWICE on MYH7, which is why the myosin
+    # arm uses the family triple below and not this (ADR 0031). Used only by the ADR 0033
+    # source-rule sensitivity comparison; no frozen arm names it.
+    "PLOOP": r"[AG].{4}GK[ST]",
+    # Myosin motor family triple. 5TBY has zero heteroatoms, so no ligand-derived source
+    # exists for the mandated cardiac-myosin arm and a sequence rule is the only route
+    # (ADR 0031). Each matches exactly once in MYH7 and zero times in KRAS or ABL1, measured.
+    # Validated against the ligand-derived source on the APO entry, which is the only
+    # validation a prediction-path module may carry: Jaccard 0.483 on 9GZ3:A, centroid
+    # offset 5.96 A. The holo entry gives 0.516 and 5.92 A -- within 0.03 and 0.04 of the
+    # apo row, so it is redundant and it is deliberately not written here. C1 is about
+    # information, not about file handles, and a design choice on this path validated
+    # against a holo measurement is the second question in the constraint playbook.
+    # These are family motifs, like PTP (PROSITE PS00383), POLA/YXDD (Poch 1989) and GDD
+    # (RdRp motif C). None of the five already here is fold-general either.
+    "MYO_PLOOP": r"GESGAGKT",
+    "MYO_SWITCH1": r"N..SSRFG",
+    "MYO_SWITCH2": r"DI.GFE",
 }
 
 _THREE_TO_ONE = {

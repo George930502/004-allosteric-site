@@ -1,0 +1,43 @@
+{
+ "pdbx_entity_nonpoly": {
+  "comp_id": "PO4",
+  "entity_id": "3",
+  "name": "PHOSPHATE ION"
+ },
+ "rcsb_id": "1A9X_3",
+ "rcsb_nonpolymer_entity": {
+  "formula_weight": 0.095,
+  "pdbx_description": "PHOSPHATE ION",
+  "pdbx_number_of_molecules": 15
+ },
+ "rcsb_nonpolymer_entity_container_identifiers": {
+  "asym_ids": [
+   "AB",
+   "AC",
+   "AD",
+   "BB",
+   "I",
+   "J",
+   "K",
+   "LC",
+   "MA",
+   "MB",
+   "P",
+   "YC",
+   "ZA",
+   "ZB",
+   "ZC"
+  ],
+  "auth_asym_ids": [
+   "A",
+   "C",
+   "E",
+   "G"
+  ],
+  "chem_ref_def_id": "PO4",
+  "entity_id": "3",
+  "entry_id": "1A9X",
+  "nonpolymer_comp_id": "PO4",
+  "rcsb_id": "1A9X_3"
+ }
+}

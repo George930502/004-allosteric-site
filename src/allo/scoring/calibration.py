@@ -32,6 +32,7 @@ from allo.inputs import apo_input
 from allo.scoring.harness import _positives
 from allo.scoring.metrics import rank_vector
 from allo.scoring.nulls import (
+    MatchedPoolUnavailable,
     evaluation_graph,
     field_factor,
     matched_patches,
@@ -96,14 +97,22 @@ def calibrate_arm(
 
     # The cached pool, deliberately: the gate has to calibrate the pool that scoring will
     # actually use, not an independently drawn one.
-    patches, diagnostics = matched_patches(
-        graph,
-        labels,
-        n_patches=replicates,
-        tolerance=tolerance,
-        seed=seed,
-        match_distance=match_distance,
-    )
+    try:
+        patches, diagnostics = matched_patches(
+            graph,
+            labels,
+            n_patches=replicates,
+            tolerance=tolerance,
+            seed=seed,
+            match_distance=match_distance,
+        )
+    except MatchedPoolUnavailable as unavailable:
+        # A tolerance the sweep is *testing* can be too tight for one arm's graph. That is
+        # a result of the sweep, not a failure of it, so the rung is recorded and the sweep
+        # continues. It fired first on `cardiac_myosin_mandated` at 0.05, and not at the
+        # frozen 0.10. A caller that sees it at the chosen tolerance has a different
+        # problem and must read `MatchedPoolUnavailable`.
+        return {"available": False, "tolerance": tolerance, **unavailable.diagnostics()}
     candidate_patches = patches[:, graph.index(graph.candidates)].astype(np.float32)
     patch_sizes = candidate_patches.sum(1)
 
@@ -346,6 +355,10 @@ def run_calibration(config_path: Path) -> int:
             for k in range(1, family + 1)
         }
         for target in config["targets"]:
+            if not results["gate"][target].get("available", True):
+                results["power"][target] = {"available": False}
+                print(f"power: {target} skipped, no matched pool at the gate tolerance")
+                continue
             ratio = float(results["gate"][target]["size_ratio"])
             results["power"][target] = {}
             for label, level in levels.items():

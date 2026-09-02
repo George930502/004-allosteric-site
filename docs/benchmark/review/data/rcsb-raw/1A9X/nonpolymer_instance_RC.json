@@ -1,0 +1,94 @@
+{
+ "rcsb_id": "1A9X.RC",
+ "rcsb_nonpolymer_entity_instance_container_identifiers": {
+  "asym_id": "RC",
+  "auth_asym_id": "G",
+  "auth_seq_id": "7932",
+  "comp_id": "CL",
+  "entity_id": "6",
+  "entry_id": "1A9X",
+  "rcsb_id": "1A9X.RC"
+ },
+ "rcsb_nonpolymer_instance_annotation": [
+  {
+   "comp_id": "CL",
+   "ordinal": 211,
+   "provenance_source": "Primary Data",
+   "type": "HAS_NO_COVALENT_LINKAGE"
+  }
+ ],
+ "rcsb_nonpolymer_instance_validation_score": [
+  {
+   "completeness": 1.0,
+   "intermolecular_clashes": 1,
+   "is_best_instance": "N",
+   "is_subject_of_investigation": "N",
+   "mogul_angle_outliers": 0,
+   "mogul_bond_outliers": 0,
+   "stereo_outliers": 0,
+   "type": "RCSB_LIGAND_QUALITY_SCORE_2021"
+  }
+ ],
+ "rcsb_target_neighbors": [
+  {
+   "atom_id": "CL",
+   "comp_id": "CL",
+   "distance": 3.149,
+   "target_asym_id": "G",
+   "target_atom_id": "N",
+   "target_auth_seq_id": 6902,
+   "target_comp_id": "GLY",
+   "target_entity_id": "1",
+   "target_model_id": 1,
+   "target_seq_id": 902
+  },
+  {
+   "atom_id": "CL",
+   "comp_id": "CL",
+   "distance": 3.192,
+   "target_asym_id": "G",
+   "target_atom_id": "N",
+   "target_auth_seq_id": 6371,
+   "target_comp_id": "ASN",
+   "target_entity_id": "1",
+   "target_model_id": 1,
+   "target_seq_id": 371
+  },
+  {
+   "atom_id": "CL",
+   "comp_id": "CL",
+   "distance": 3.26,
+   "target_asym_id": "G",
+   "target_atom_id": "CD",
+   "target_auth_seq_id": 6901,
+   "target_comp_id": "PRO",
+   "target_entity_id": "1",
+   "target_model_id": 1,
+   "target_seq_id": 901
+  },
+  {
+   "atom_id": "CL",
+   "comp_id": "CL",
+   "distance": 3.388,
+   "target_asym_id": "G",
+   "target_atom_id": "CA",
+   "target_auth_seq_id": 6370,
+   "target_comp_id": "ALA",
+   "target_entity_id": "1",
+   "target_model_id": 1,
+   "target_seq_id": 370
+  },
+  {
+   "atom_id": "CL",
+   "comp_id": "CL",
+   "distance": 3.449,
+   "target_asym_id": "G",
+   "target_atom_id": "C",
+   "target_auth_seq_id": 6900,
+   "target_comp_id": "PHE",
+   "target_entity_id": "1",
+   "target_model_id": 1,
+   "target_seq_id": 900
+  }
+ ]
+}

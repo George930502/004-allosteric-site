@@ -1,0 +1,106 @@
+{
+ "rcsb_id": "1SUG.E",
+ "rcsb_nonpolymer_entity_instance_container_identifiers": {
+  "asym_id": "E",
+  "auth_asym_id": "A",
+  "auth_seq_id": "402",
+  "comp_id": "GOL",
+  "entity_id": "3",
+  "entry_id": "1SUG",
+  "rcsb_id": "1SUG.E"
+ },
+ "rcsb_nonpolymer_instance_annotation": [
+  {
+   "comp_id": "GOL",
+   "ordinal": 4,
+   "provenance_source": "Primary Data",
+   "type": "HAS_NO_COVALENT_LINKAGE"
+  }
+ ],
+ "rcsb_nonpolymer_instance_validation_score": [
+  {
+   "RSCC": 0.851,
+   "RSR": 0.185,
+   "average_occupancy": 1.0,
+   "completeness": 1.0,
+   "intermolecular_clashes": 0,
+   "is_best_instance": "N",
+   "is_subject_of_investigation": "N",
+   "mogul_angle_outliers": 0,
+   "mogul_angles_RMSZ": 0.47,
+   "mogul_bond_outliers": 0,
+   "mogul_bonds_RMSZ": 0.11,
+   "natoms_eds": 6,
+   "num_mogul_angles_RMSZ": 5,
+   "num_mogul_bonds_RMSZ": 5,
+   "ranking_model_fit": 0.1897,
+   "ranking_model_geometry": 0.8881,
+   "score_model_fit": 1.1118,
+   "score_model_geometry": -1.2481,
+   "stereo_outliers": 0,
+   "type": "RCSB_LIGAND_QUALITY_SCORE_2021"
+  }
+ ],
+ "rcsb_target_neighbors": [
+  {
+   "atom_id": "O1",
+   "comp_id": "GOL",
+   "distance": 2.643,
+   "target_asym_id": "A",
+   "target_atom_id": "OD2",
+   "target_auth_seq_id": 48,
+   "target_comp_id": "ASP",
+   "target_entity_id": "1",
+   "target_model_id": 1,
+   "target_seq_id": 48
+  },
+  {
+   "atom_id": "O3",
+   "comp_id": "GOL",
+   "distance": 3.482,
+   "target_asym_id": "A",
+   "target_atom_id": "N",
+   "target_auth_seq_id": 259,
+   "target_comp_id": "GLY",
+   "target_entity_id": "1",
+   "target_model_id": 1,
+   "target_seq_id": 259
+  },
+  {
+   "atom_id": "O2",
+   "comp_id": "GOL",
+   "distance": 3.591,
+   "target_asym_id": "A",
+   "target_atom_id": "SD",
+   "target_auth_seq_id": 258,
+   "target_comp_id": "MET",
+   "target_entity_id": "1",
+   "target_model_id": 1,
+   "target_seq_id": 258
+  },
+  {
+   "atom_id": "O2",
+   "comp_id": "GOL",
+   "distance": 3.777,
+   "target_asym_id": "A",
+   "target_atom_id": "CG2",
+   "target_auth_seq_id": 49,
+   "target_comp_id": "VAL",
+   "target_entity_id": "1",
+   "target_model_id": 1,
+   "target_seq_id": 49
+  },
+  {
+   "atom_id": "C1",
+   "comp_id": "GOL",
+   "distance": 4.407,
+   "target_asym_id": "A",
+   "target_atom_id": "CD1",
+   "target_auth_seq_id": 219,
+   "target_comp_id": "ILE",
+   "target_entity_id": "1",
+   "target_model_id": 1,
+   "target_seq_id": 219
+  }
+ ]
+}

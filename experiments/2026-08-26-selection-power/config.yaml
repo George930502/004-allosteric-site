@@ -1,0 +1,61 @@
+# Every knob that affects the result belongs here, including the seed.
+#
+#   uv run python experiments/2026-08-26-selection-power/run.py
+#
+# Question: the method sweep screens thousands of variants on four arms and reports the
+# best. How much of that best is selection? This run measures three things that decide
+# whether any winner means anything:
+#
+#   1. The null distribution of AUC on each `development` arm for a label-blind method that
+#      is nonetheless spatially structured -- the same smooth-field instrument the frozen
+#      null calibration uses. Not a uniform random score: a uniform score has no spatial
+#      autocorrelation, and every real method does.
+#   2. The effective number of independent variants in the sweep, from the rank-correlation
+#      spectrum of the variants' own score vectors. Thousands of variants that are all
+#      near-copies of one another are not thousands of tests.
+#   3. The minimum detectable effect on each arm at its own calibrated threshold, so the
+#      screen's headline AUC can be read against what the arm can actually resolve.
+#
+# Nothing here changes the frozen evaluation layer. It measures the layer's behaviour.
+name: selection-power
+date: 2026-08-26
+seed: 0
+
+arms: [mkp5, ptp1b, hiv_rt, ns5b]
+
+# Same four correlation lengths as the frozen calibration gate, so the two are comparable.
+# 4 A is about one residue, 20 A is a domain.
+length_scales: [4.0, 8.0, 12.0, 20.0]
+
+# Fields per correlation length per arm. 125 x 4 = 500 null AUCs per arm, which resolves a
+# 95th percentile to about +/- 0.01.
+fields_per_scale: 125
+
+# Variant counts to report the selection ceiling at. The stage-1 sweep screens 792 variants
+# per arm; the stage-2 sweep raises that. 10000 is quoted as the ceiling of any sweep this
+# project would run.
+variant_counts: [1, 10, 100, 792, 3000, 10000]
+
+# The minimum-detectable-effect pass. Fewer fields than the calibration gate used, because
+# this is a sensitivity curve rather than a frozen threshold.
+detectable_effect:
+  power: 0.80
+  n_fields: 200
+  replicates: 9999
+  tolerance: 0.10
+  family_size: 3
+
+# The effective-dimension pass. It sweeps the method sweep's OWN axes -- every graph, every
+# scorer, every confound-removal form -- read from that experiment's config, so it measures
+# the screen that ran rather than a subset. An earlier version measured three graphs by
+# fifty scorers and scaled the ratio linearly to the full sweep. That extrapolation was
+# wrong by more than an order of magnitude, so the full solve is worth its cost.
+#
+# Two arms rather than four. The cost is roughly quadratic in the residue count, so the two
+# 550-residue arms cost about 20 minutes each and the two measured arms already agree to
+# within two directions. `axis_slices` are computed on the first arm only.
+effective_dimension:
+  arms: [mkp5, ptp1b]
+  zero_graph: evaluation_default
+  control_detrend: raw
+  probe_scorer: eigenvector_centrality

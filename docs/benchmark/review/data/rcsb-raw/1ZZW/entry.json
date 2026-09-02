@@ -1,0 +1,594 @@
+{
+ "audit_author": [
+  {
+   "name": "Jeong, D.G.",
+   "pdbx_ordinal": 1
+  },
+  {
+   "name": "Yoon, T.S.",
+   "pdbx_ordinal": 2
+  },
+  {
+   "name": "Kim, J.H.",
+   "pdbx_ordinal": 3
+  },
+  {
+   "name": "Shim, M.Y.",
+   "pdbx_ordinal": 4
+  },
+  {
+   "name": "Jeong, S.K.",
+   "pdbx_ordinal": 5
+  },
+  {
+   "name": "Son, J.H.",
+   "pdbx_ordinal": 6
+  },
+  {
+   "name": "Ryu, S.E.",
+   "pdbx_ordinal": 7
+  },
+  {
+   "name": "Kim, S.J.",
+   "pdbx_ordinal": 8
+  }
+ ],
+ "cell": {
+  "Z_PDB": 2,
+  "angle_alpha": 95.35,
+  "angle_beta": 99.81,
+  "angle_gamma": 117.35,
+  "length_a": 39.533,
+  "length_b": 41.073,
+  "length_c": 55.569
+ },
+ "citation": [
+  {
+   "country": "UK",
+   "id": "primary",
+   "journal_abbrev": "J.Mol.Biol.",
+   "journal_id_ASTM": "JMOBAK",
+   "journal_id_CSD": "0070",
+   "journal_id_ISSN": "0022-2836",
+   "journal_volume": "360",
+   "page_first": "946",
+   "page_last": "955",
+   "pdbx_database_id_DOI": "10.1016/j.jmb.2006.05.059",
+   "pdbx_database_id_PubMed": 16806267,
+   "rcsb_authors": [
+    "Jeong, D.G.",
+    "Yoon, T.S.",
+    "Kim, J.H.",
+    "Shim, M.Y.",
+    "Jeong, S.K.",
+    "Son, J.H.",
+    "Ryu, S.E.",
+    "Kim, S.J."
+   ],
+   "rcsb_is_primary": "Y",
+   "rcsb_journal_abbrev": "J Mol Biol",
+   "title": "Crystal Structure of the Catalytic Domain of Human MAP Kinase Phosphatase 5: Structural Insight into Constitutively Active Phosphatase.",
+   "year": 2006
+  }
+ ],
+ "database_2": [
+  {
+   "database_code": "1ZZW",
+   "database_id": "PDB",
+   "pdbx_DOI": "10.2210/pdb1zzw/pdb",
+   "pdbx_database_accession": "pdb_00001zzw"
+  },
+  {
+   "database_code": "RCSB033318",
+   "database_id": "RCSB"
+  },
+  {
+   "database_code": "D_1000033318",
+   "database_id": "WWPDB"
+  }
+ ],
+ "diffrn": [
+  {
+   "ambient_temp": 100.0,
+   "crystal_id": "1",
+   "id": "1"
+  }
+ ],
+ "diffrn_detector": [
+  {
+   "detector": "CCD",
+   "diffrn_id": "1",
+   "pdbx_collection_date": "2005-02-24T00:00:00.000+00:00",
+   "type": "ADSC QUANTUM 4"
+  }
+ ],
+ "diffrn_radiation": [
+  {
+   "diffrn_id": "1",
+   "monochromator": "mirror",
+   "pdbx_diffrn_protocol": "SINGLE WAVELENGTH",
+   "pdbx_monochromatic_or_laue_m_l": "M",
+   "pdbx_scattering_type": "x-ray",
+   "wavelength_id": "1"
+  }
+ ],
+ "diffrn_source": [
+  {
+   "diffrn_id": "1",
+   "pdbx_synchrotron_beamline": "4A",
+   "pdbx_synchrotron_site": "PAL/PLS",
+   "pdbx_wavelength_list": "1.0",
+   "source": "SYNCHROTRON",
+   "type": "PAL/PLS BEAMLINE 4A"
+  }
+ ],
+ "entry": {
+  "id": "1ZZW"
+ },
+ "exptl": [
+  {
+   "crystals_number": 1,
+   "method": "X-RAY DIFFRACTION"
+  }
+ ],
+ "exptl_crystal": [
+  {
+   "density_Matthews": 2.25,
+   "density_percent_sol": 45.44,
+   "id": "1"
+  }
+ ],
+ "exptl_crystal_grow": [
+  {
+   "crystal_id": "1",
+   "method": "VAPOR DIFFUSION, HANGING DROP",
+   "pH": 7.0,
+   "pdbx_details": "PEG3350, Lithium sulfate, magnesium sulfate, DTT, pH 7.0, VAPOR DIFFUSION, HANGING DROP, temperature 291K",
+   "temp": 291.0
+  }
+ ],
+ "pdbx_audit_revision_category": [
+  {
+   "category": "chem_comp_atom",
+   "data_content_type": "Structure model",
+   "ordinal": 1,
+   "revision_ordinal": 4
+  },
+  {
+   "category": "chem_comp_bond",
+   "data_content_type": "Structure model",
+   "ordinal": 2,
+   "revision_ordinal": 4
+  },
+  {
+   "category": "database_2",
+   "data_content_type": "Structure model",
+   "ordinal": 3,
+   "revision_ordinal": 4
+  },
+  {
+   "category": "struct_ref_seq_dif",
+   "data_content_type": "Structure model",
+   "ordinal": 4,
+   "revision_ordinal": 4
+  },
+  {
+   "category": "struct_site",
+   "data_content_type": "Structure model",
+   "ordinal": 5,
+   "revision_ordinal": 4
+  }
+ ],
+ "pdbx_audit_revision_details": [
+  {
+   "data_content_type": "Structure model",
+   "ordinal": 1,
+   "provider": "repository",
+   "revision_ordinal": 1,
+   "type": "Initial release"
+  }
+ ],
+ "pdbx_audit_revision_group": [
+  {
+   "data_content_type": "Structure model",
+   "group": "Version format compliance",
+   "ordinal": 1,
+   "revision_ordinal": 2
+  },
+  {
+   "data_content_type": "Structure model",
+   "group": "Version format compliance",
+   "ordinal": 2,
+   "revision_ordinal": 3
+  },
+  {
+   "data_content_type": "Structure model",
+   "group": "Data collection",
+   "ordinal": 3,
+   "revision_ordinal": 4
+  },
+  {
+   "data_content_type": "Structure model",
+   "group": "Database references",
+   "ordinal": 4,
+   "revision_ordinal": 4
+  },
+  {
+   "data_content_type": "Structure model",
+   "group": "Derived calculations",
+   "ordinal": 5,
+   "revision_ordinal": 4
+  }
+ ],
+ "pdbx_audit_revision_history": [
+  {
+   "data_content_type": "Structure model",
+   "major_revision": 1,
+   "minor_revision": 0,
+   "ordinal": 1,
+   "revision_date": "2006-07-04T00:00:00.000+00:00"
+  },
+  {
+   "data_content_type": "Structure model",
+   "major_revision": 1,
+   "minor_revision": 1,
+   "ordinal": 2,
+   "revision_date": "2008-04-30T00:00:00.000+00:00"
+  },
+  {
+   "data_content_type": "Structure model",
+   "major_revision": 1,
+   "minor_revision": 2,
+   "ordinal": 3,
+   "revision_date": "2011-07-13T00:00:00.000+00:00"
+  },
+  {
+   "data_content_type": "Structure model",
+   "major_revision": 1,
+   "minor_revision": 3,
+   "ordinal": 4,
+   "revision_date": "2024-03-13T00:00:00.000+00:00"
+  }
+ ],
+ "pdbx_audit_revision_item": [
+  {
+   "data_content_type": "Structure model",
+   "item": "_database_2.pdbx_DOI",
+   "ordinal": 1,
+   "revision_ordinal": 4
+  },
+  {
+   "data_content_type": "Structure model",
+   "item": "_database_2.pdbx_database_accession",
+   "ordinal": 2,
+   "revision_ordinal": 4
+  },
+  {
+   "data_content_type": "Structure model",
+   "item": "_struct_ref_seq_dif.details",
+   "ordinal": 3,
+   "revision_ordinal": 4
+  },
+  {
+   "data_content_type": "Structure model",
+   "item": "_struct_site.pdbx_auth_asym_id",
+   "ordinal": 4,
+   "revision_ordinal": 4
+  },
+  {
+   "data_content_type": "Structure model",
+   "item": "_struct_site.pdbx_auth_comp_id",
+   "ordinal": 5,
+   "revision_ordinal": 4
+  },
+  {
+   "data_content_type": "Structure model",
+   "item": "_struct_site.pdbx_auth_seq_id",
+   "ordinal": 6,
+   "revision_ordinal": 4
+  }
+ ],
+ "pdbx_database_status": {
+  "deposit_site": "RCSB",
+  "pdb_format_compatible": "Y",
+  "process_site": "PDBJ",
+  "recvd_initial_deposition_date": "2005-06-14T00:00:00.000+00:00",
+  "status_code": "REL",
+  "status_code_sf": "REL"
+ },
+ "pdbx_vrpt_summary": {
+  "attempted_validation_steps": "molprobity,validation-pack,xtriage,eds,mogul,validation_schema,percentiles,writexml,writecif,writepdf",
+  "ligands_for_buster_report": "N",
+  "report_creation_date": "2026-04-18T12:02:00.000+00:00"
+ },
+ "pdbx_vrpt_summary_diffraction": [
+  {
+   "B_factor_type": "FULL",
+   "CCP4_version": "9.0.010 (Gargrove)",
+   "DCC_R": 0.1935,
+   "DCC_Rfree": 0.2155,
+   "EDS_R": 0.1927,
+   "EDS_res_high": 1.6,
+   "EDS_res_low": 40.0,
+   "Fo_Fc_correlation": 0.947,
+   "I_over_sigma": "5.62(1.60A)",
+   "Padilla_Yeates_L2_mean": 0.322,
+   "Padilla_Yeates_L_mean": 0.492,
+   "Wilson_B_aniso": "[17.446,15.691,14.666,-1.599,-2.080,-3.117]",
+   "Wilson_B_estimate": 15.331,
+   "acentric_outliers": 2,
+   "bulk_solvent_b": 40.696,
+   "bulk_solvent_k": 0.377,
+   "centric_outliers": 0,
+   "data_anisotropy": 0.174,
+   "data_completeness": 95.7,
+   "density_fitness_version": "1.0.12",
+   "exp_method": "x-ray",
+   "num_miller_indices": 37893,
+   "number_reflns_R_free": 1890,
+   "percent_RSRZ_outliers": 6.12,
+   "percent_free_reflections": 4.99,
+   "trans_NCS_details": "The largest off-origin peak in the Patterson function is 11.06% of the height of the origin peak. No significant pseudotranslation is detected."
+  }
+ ],
+ "pdbx_vrpt_summary_geometry": [
+  {
+   "angles_RMSZ": 0.98,
+   "bonds_RMSZ": 0.58,
+   "clashscore": 7.98,
+   "num_H_reduce": 2362,
+   "num_angles_RMSZ": 3289,
+   "num_bonds_RMSZ": 2436,
+   "percent_ramachandran_outliers": 0.0,
+   "percent_rotamer_outliers": 0.77
+  }
+ ],
+ "rcsb_accession_info": {
+  "deposit_date": "2005-06-14T00:00:00.000+00:00",
+  "has_released_experimental_data": "Y",
+  "initial_release_date": "2006-07-04T00:00:00.000+00:00",
+  "major_revision": 1,
+  "minor_revision": 3,
+  "revision_date": "2024-03-13T00:00:00.000+00:00",
+  "status_code": "REL"
+ },
+ "rcsb_entry_container_identifiers": {
+  "assembly_ids": [
+   "1",
+   "2"
+  ],
+  "entity_ids": [
+   "1",
+   "2",
+   "3",
+   "4"
+  ],
+  "entry_id": "1ZZW",
+  "model_ids": [
+   1
+  ],
+  "non_polymer_entity_ids": [
+   "2",
+   "3"
+  ],
+  "polymer_entity_ids": [
+   "1"
+  ],
+  "pubmed_id": 16806267,
+  "rcsb_id": "1ZZW"
+ },
+ "rcsb_entry_info": {
+  "assembly_count": 2,
+  "branched_entity_count": 0,
+  "cis_peptide_count": 0,
+  "deposited_atom_count": 2661,
+  "deposited_deuterated_water_count": 0,
+  "deposited_hydrogen_atom_count": 0,
+  "deposited_model_count": 1,
+  "deposited_modeled_polymer_monomer_count": 294,
+  "deposited_nonpolymer_entity_instance_count": 3,
+  "deposited_polymer_entity_instance_count": 2,
+  "deposited_polymer_monomer_count": 298,
+  "deposited_solvent_atom_count": 263,
+  "deposited_unmodeled_polymer_monomer_count": 4,
+  "diffrn_radiation_wavelength_maximum": 1.0,
+  "diffrn_radiation_wavelength_minimum": 1.0,
+  "diffrn_resolution_high": {
+   "provenance_source": "Depositor assigned",
+   "value": 1.6
+  },
+  "disulfide_bond_count": 0,
+  "entity_count": 4,
+  "experimental_method": "X-ray",
+  "experimental_method_count": 1,
+  "inter_mol_covalent_bond_count": 0,
+  "inter_mol_metalic_bond_count": 0,
+  "molecular_weight": 34.59,
+  "na_polymer_entity_types": "Other",
+  "nonpolymer_entity_count": 2,
+  "nonpolymer_molecular_weight_maximum": 0.1,
+  "nonpolymer_molecular_weight_minimum": 0.06,
+  "polymer_composition": "homomeric protein",
+  "polymer_entity_count": 1,
+  "polymer_entity_count_DNA": 0,
+  "polymer_entity_count_RNA": 0,
+  "polymer_entity_count_nucleic_acid": 0,
+  "polymer_entity_count_nucleic_acid_hybrid": 0,
+  "polymer_entity_count_protein": 1,
+  "polymer_entity_taxonomy_count": 1,
+  "polymer_molecular_weight_maximum": 17.17,
+  "polymer_molecular_weight_minimum": 17.17,
+  "polymer_monomer_count_maximum": 149,
+  "polymer_monomer_count_minimum": 149,
+  "resolution_combined": [
+   1.6
+  ],
+  "selected_polymer_entity_types": "Protein (only)",
+  "software_programs_combined": [
+   "CCP4",
+   "CNS",
+   "EPMR",
+   "MOSFLM",
+   "SCALA"
+  ],
+  "solvent_entity_count": 1,
+  "structure_determination_methodology": "experimental",
+  "structure_determination_methodology_priority": 10
+ },
+ "rcsb_id": "1ZZW",
+ "rcsb_primary_citation": {
+  "country": "UK",
+  "id": "primary",
+  "journal_abbrev": "J.Mol.Biol.",
+  "journal_id_ASTM": "JMOBAK",
+  "journal_id_CSD": "0070",
+  "journal_id_ISSN": "0022-2836",
+  "journal_volume": "360",
+  "page_first": "946",
+  "page_last": "955",
+  "pdbx_database_id_DOI": "10.1016/j.jmb.2006.05.059",
+  "pdbx_database_id_PubMed": 16806267,
+  "rcsb_ORCID_identifiers": [
+   "?",
+   "?",
+   "?",
+   "?",
+   "?",
+   "?",
+   "?",
+   "?"
+  ],
+  "rcsb_authors": [
+   "Jeong, D.G.",
+   "Yoon, T.S.",
+   "Kim, J.H.",
+   "Shim, M.Y.",
+   "Jeong, S.K.",
+   "Son, J.H.",
+   "Ryu, S.E.",
+   "Kim, S.J."
+  ],
+  "rcsb_journal_abbrev": "J Mol Biol",
+  "title": "Crystal Structure of the Catalytic Domain of Human MAP Kinase Phosphatase 5: Structural Insight into Constitutively Active Phosphatase.",
+  "year": 2006
+ },
+ "refine": [
+  {
+   "ls_R_factor_R_free": 0.217,
+   "ls_R_factor_R_work": 0.193,
+   "ls_R_factor_all": 0.196,
+   "ls_R_factor_obs": 0.193,
+   "ls_d_res_high": 1.6,
+   "ls_d_res_low": 40.0,
+   "ls_number_reflns_R_free": 1890,
+   "ls_number_reflns_all": 39596,
+   "ls_number_reflns_obs": 37891,
+   "pdbx_R_Free_selection_details": "random",
+   "pdbx_diffrn_id": [
+    "1"
+   ],
+   "pdbx_ls_sigma_F": 0.0,
+   "pdbx_method_to_determine_struct": "MOLECULAR REPLACEMENT",
+   "pdbx_refine_id": "X-RAY DIFFRACTION",
+   "pdbx_stereochemistry_target_values": "Engh & Huber"
+  }
+ ],
+ "refine_hist": [
+  {
+   "cycle_id": "LAST",
+   "d_res_high": 1.6,
+   "d_res_low": 40.0,
+   "number_atoms_solvent": 263,
+   "number_atoms_total": 2661,
+   "pdbx_number_atoms_ligand": 14,
+   "pdbx_number_atoms_nucleic_acid": 0,
+   "pdbx_number_atoms_protein": 2384,
+   "pdbx_refine_id": "X-RAY DIFFRACTION"
+  }
+ ],
+ "refine_ls_restr": [
+  {
+   "dev_ideal": 0.01,
+   "pdbx_refine_id": "X-RAY DIFFRACTION",
+   "type": "c_bond_d"
+  },
+  {
+   "dev_ideal": 1.5,
+   "pdbx_refine_id": "X-RAY DIFFRACTION",
+   "type": "c_angle_deg"
+  },
+  {
+   "dev_ideal": 22.4,
+   "pdbx_refine_id": "X-RAY DIFFRACTION",
+   "type": "c_dihedral_angle_d"
+  },
+  {
+   "dev_ideal": 0.95,
+   "pdbx_refine_id": "X-RAY DIFFRACTION",
+   "type": "c_improper_angle_d"
+  }
+ ],
+ "reflns": [
+  {
+   "d_resolution_high": 1.6,
+   "d_resolution_low": 40.0,
+   "number_all": 39596,
+   "number_obs": 37893,
+   "observed_criterion_sigma_F": 1.0,
+   "observed_criterion_sigma_I": 1.0,
+   "pdbx_diffrn_id": [
+    "1"
+   ],
+   "pdbx_ordinal": 1,
+   "percent_possible_obs": 95.7
+  }
+ ],
+ "reflns_shell": [
+  {
+   "d_res_high": 1.6,
+   "d_res_low": 1.69,
+   "pdbx_ordinal": 1,
+   "percent_possible_all": 94.6
+  }
+ ],
+ "software": [
+  {
+   "classification": "data reduction",
+   "name": "MOSFLM",
+   "pdbx_ordinal": 1
+  },
+  {
+   "classification": "data scaling",
+   "name": "SCALA",
+   "pdbx_ordinal": 2
+  },
+  {
+   "classification": "phasing",
+   "name": "EPMR",
+   "pdbx_ordinal": 3
+  },
+  {
+   "classification": "refinement",
+   "name": "CNS",
+   "pdbx_ordinal": 4,
+   "version": "0.9"
+  },
+  {
+   "classification": "data scaling",
+   "name": "CCP4",
+   "pdbx_ordinal": 5,
+   "version": "(SCALA)"
+  }
+ ],
+ "struct": {
+  "title": "Crystal Structure of catalytic domain of Human MAP Kinase Phosphatase 5"
+ },
+ "struct_keywords": {
+  "pdbx_keywords": "HYDROLASE",
+  "text": "phosphatase, MKP, PTP, HYDROLASE"
+ },
+ "symmetry": {
+  "Int_Tables_number": 1,
+  "space_group_name_H_M": "P 1"
+ }
+}

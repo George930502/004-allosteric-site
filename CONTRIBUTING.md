@@ -55,8 +55,11 @@ leak produces excellent results that mean nothing, and no test failure tells you
 
 - All holo-reading code lives in `src/allo/groundtruth/`. That package is a **sink**. Only
   scoring and reporting import it.
-- Five file-read routes bypass the import graph. All five are named in
-  [`tests/test_no_leakage.py`](tests/test_no_leakage.py). If you add a sixth, add it there.
+- **Thirteen** file-read routes bypass the import graph. All thirteen are named in
+  [`tests/test_no_leakage.py`](tests/test_no_leakage.py) and listed in `AGENTS.md`. If you
+  add a fourteenth, add it there. Two of them were found on 2026-09-02 by a sweep whose
+  first version matched bare integers and so could not see `Tyr164`; **normalise
+  three-letter residue codes before trusting any label sweep.**
 - Leakage also has forms that no import reveals: a cutoff tuned until enrichment looked good,
   a `top_k` picked because it matched the known pocket size, a threshold chosen on the
   validation targets. The
@@ -75,7 +78,7 @@ These files are closed. Nothing in them changes once a method has been scored ag
 ```
 docs/benchmark/primary/frozen.json              the primary input layer
 docs/benchmark/secondary/frozen.json    the secondary input layer
-docs/benchmark/evaluation/frozen.json   the evaluation layer, protocol version 2
+docs/benchmark/evaluation/frozen.json   the evaluation layer, protocol version 3
 ```
 
 Their manifests carry the choices, and `frozen.json` carries the consequences. `make verify`
@@ -153,7 +156,7 @@ Write one in [`docs/adr/`](docs/adr/README.md) when a choice is expensive to rev
 - A constraint interpretation is settled.
 
 Do not write one for a routine implementation detail. The index in
-[`docs/adr/README.md`](docs/adr/README.md) groups all 25 by topic, and the format is at the
+[`docs/adr/README.md`](docs/adr/README.md) groups all 36 by topic, and the format is at the
 top of that file. An ADR is never deleted. A decision that stops binding becomes
 `withdrawn` and says why.
 

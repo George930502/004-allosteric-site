@@ -1,0 +1,60 @@
+# Every knob that affects the result belongs here, including the seed.
+# A rerun of this config must reproduce metrics.json exactly.
+#
+#   uv run python experiments/2026-08-27-derived-cutoff-prescreen/run.py
+#
+# Question: review 19 §1.2 defines a two-number pre-screen every derived normalisation must
+# pass before it is implemented. Number (a) is the between-protein spread of the quantity the
+# rule equalises. If that spread is small, the "derived per-protein rule" is a global constant
+# in disguise and there is nothing to normalise. This experiment measures (a) for the three
+# derived contact-cutoff rules, and it scores nothing.
+#
+# It reads apo structures only. No label, no holo, no manifest field beyond what
+# `allo.inputs.apo_input` already redacts.
+name: derived-cutoff-prescreen
+date: 2026-08-27
+seed: 0
+
+# The four `development` arms, plus the four primary arms as a wider sample of the same
+# quantity. Both sets are apo-side only here. `generalisation` stays closed (ADR 0021).
+arms:
+  development: [mkp5, ptp1b, hiv_rt, ns5b]
+  primary:
+    [
+      kras_g12c_mandated,
+      kras_g12c_corrected,
+      bcr_abl1_mandated,
+      bcr_abl1_corrected,
+      cardiac_myosin_corrected,
+    ]
+
+# The cutoff grid the three rules are solved on. 2.0 A is below any heavy-atom contact and
+# 12.0 A is far above every published residue-contact cutoff, so every root is bracketed.
+grid:
+  low: 2.0
+  high: 12.0
+  step: 0.05
+
+# Rule 1, Maxwell counting. The isostatic mean coordination for a central-force network in
+# d = 3 is z = 2d = 6 (review 19 Q1.2). r* is the smallest cutoff whose mean contact number
+# reaches it.
+isostatic_target: 6.0
+
+# The peptide bond puts every sequence-adjacent residue pair at about 1.32 A, 1.4 A below the
+# closest non-bonded contact in any of these structures. The connectivity rule and the RDF
+# rule both read the bottom of the distance distribution, so with the backbone left in they
+# report a cutoff no chemistry supports. Every rule is therefore solved twice: `backbone`
+# keeps all pairs, `tertiary` deletes pairs closer than this in author numbering. 2 removes
+# i to i+1 only, which is exactly the covalent bond.
+min_seq_sep: 2
+
+# Rule 3, the first minimum of the radial distribution of residue-residue heavy-min
+# distances. Smoothed with a moving average before the minimum is taken, because the raw
+# histogram at 0.05 A is noisy enough to have spurious local minima.
+rdf:
+  bin_width: 0.05
+  smoothing_bins: 9
+
+# Review 19 §7's falsifier for rules 7 to 9: if the derived r* varies by less than this
+# across the arms, the rule is a global constant and the experiment stops there.
+constant_threshold_angstrom: 0.3

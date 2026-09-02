@@ -1,0 +1,26 @@
+{
+ "pdbx_entity_nonpoly": {
+  "comp_id": "CMF",
+  "entity_id": "3",
+  "name": "3-CYCLOHEXYL-1-(2-MORPHOLIN-4-YL-2-OXOETHYL)-2-PHENYL-1H-INDOLE-6-CARBOXYLIC ACID"
+ },
+ "rcsb_id": "2BRK_3",
+ "rcsb_nonpolymer_entity": {
+  "formula_weight": 0.447,
+  "pdbx_description": "3-CYCLOHEXYL-1-(2-MORPHOLIN-4-YL-2-OXOETHYL)-2-PHENYL-1H-INDOLE-6-CARBOXYLIC ACID",
+  "pdbx_number_of_molecules": 1
+ },
+ "rcsb_nonpolymer_entity_container_identifiers": {
+  "asym_ids": [
+   "D"
+  ],
+  "auth_asym_ids": [
+   "A"
+  ],
+  "chem_ref_def_id": "CMF",
+  "entity_id": "3",
+  "entry_id": "2BRK",
+  "nonpolymer_comp_id": "CMF",
+  "rcsb_id": "2BRK_3"
+ }
+}
