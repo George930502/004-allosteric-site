@@ -214,8 +214,7 @@ say which claim the achieved N licenses, in the same words the protocol uses els
   `PROTECTED_PATHS`.
 - Pin the primary set's (x), (xi) and (xii) verdicts in a test. A stale falsifier survived a
   re-freeze in both a test docstring and an accepted ADR, which is what unpinned prose does.
-- `docs/adr/0005:68` and `docs/adr/0007:80-81` flatly contradict each other on whether 0005 is
-  in force. Two current-state ADR decisions; the repository does not say which wins.
+- ~~`docs/adr/0005` and `docs/adr/0007` contradict each other~~ **refuted, see §4.**
 
 ---
 
@@ -236,6 +235,16 @@ say which claim the achieved N licenses, in the same words the protocol uses els
   repository's own rule they are pass records and not defects.
 - **Every number in `evaluation/manifest.yaml`.** Checked and correct, including 777 decoys,
   median 45 and 12 of 15 arms at or above the per-arm rejection floor.
+- **ADR 0005 and ADR 0007 flatly contradict each other.** They do not. ADR 0007 keeps "ADR 0005
+  (active site as a rule)" in force, which is 0005's decision and its title. What 0007 withdrew
+  is a different sentence in 0005, about the **distal label set** the evaluation reports over,
+  and 0005's own amendment box says exactly that. Both statements are true and they are about
+  different things.
+- **`bcr_abl1_corrected`'s truncation is undisclosed.** The count is disclosed, at
+  `primary/manifest.yaml:387`. The direction is not, which is §3.4.
+- **The two lost BCR-ABL1 labels are the two most distal.** They are not, on minimum
+  heavy-atom distance to the source: 3.9 and 7.7 angstrom, inside a kept range of 0.0 to 12.6.
+  The endpoint shift is real; that explanation for it is withdrawn.
 
 ---
 
