@@ -67,6 +67,15 @@ Measured, not argued. Scripts and raw output:
 4. **The conjunction costs 3.5 times the family-level power** at a realistic effect: 0.2465
    against 0.8718 at a mean per-arm AUC of 0.77. Dropping Holm does not recover it (0.2631).
 
+   > **The 0.2631 is not in the cited records and the other five numbers are.** Found
+   > 2026-09-03 by the round-5 audit. `s1_fwer.json` holds 0.2465 and 0.87175 at λ = 8 and
+   > δ = 1.0, `s1_lfc.json` holds 0.04025, and both hold the closed form 0.049171. Neither
+   > records an uncorrected run, and this ADR says above that these are recorded outputs
+   > rather than a re-runnable script, so the number cannot be re-derived. What the records
+   > do support is the direction: Holm rejecting all three implies every raw p is at or below
+   > α, so the uncorrected conjunction is **at least 0.2465** and the ratio to 0.8718 stands
+   > whatever its exact value. Read 0.2631 as `[UNVERIFIED]`.
+
 ## Consequences
 
 - `docs/ROADMAP.md` and `evaluation/README.md` §13 stated the conjunctive reading. Under this

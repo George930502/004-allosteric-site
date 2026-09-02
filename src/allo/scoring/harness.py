@@ -352,9 +352,15 @@ def score_arm(
             "auc_pr": round(metrics.auc_pr(values, positive), 4),
             f"precision_at_{k}": round(metrics.precision_at_k(values, positive, k), 4),
             f"hits_at_{k}": int(round(metrics.precision_at_k(values, positive, k) * k)),
-            # One division from hits@k, and the number this field reads first. Of 22 tools
-            # surveyed, 17 report a recall-style top-N success rate and none reports
-            # precision@k alone. Printed because a reader will otherwise compute it.
+            # One division from hits@k. Printed because a reader will otherwise compute it,
+            # and will compute it wrongly. CORRECTED 2026-09-03: this comment used to justify
+            # it as a field convention, citing 17 of 22 surveyed tools reporting a
+            # recall-style top-N rate. Review 07 of the 2026-09-02 audit shows that is a
+            # category error. The field's top-N is a per-protein binary -- did the true
+            # pocket land in the top three of the pockets a detector found -- while this is
+            # the fraction of a multi-residue label set recovered in k picks. Different
+            # quantities, different chance lines. The reason to print it is that it is one
+            # division away, not that the field reports the same thing.
             f"recall_at_{k}": round(
                 metrics.precision_at_k(values, positive, k) * k / len(labels), 4
             ),

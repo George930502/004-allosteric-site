@@ -109,6 +109,16 @@ Under the frozen scheme the chance that an arm's threshold is looser than the tr
 takes a maximum over twelve estimates instead of four, which shrinks that chance further and
 costs more power. The direction is one-sided and disclosed; the magnitude is not zero.
 
+> **MEASURED 2026-09-03, and the last claim is refuted.** Maximising over twelve estimates
+> does **not** shrink that chance: `../benchmark/review/21-protocol-v3-statistics.md` §1.4,
+> finding S4, draws 40 independent 1000-field blocks per arm against a 40 000-field reference
+> and reads **0.275 to 0.300**, which is the same 0.27 the four-estimate scheme carried. The
+> twelve cells are quantiles of the same 1000 p-values at three nearby levels, so they are
+> almost perfectly correlated and the maximum over twelve is close to the maximum over four.
+> The correct disclosure is "the design carries a chance of about 0.3 per arm of
+> under-tightening; on these arms it did not", since both frozen ratios above 1 sit above the
+> out-of-sample reference. The frozen values do not move for this.
+
 **ADR 0018's second disclosed limitation stands.** The patch pool is drawn once per arm and
 shared across field draws, so replicates are conditionally independent given the pool rather
 than independent, and the binomial interval is a screen and not a proof. Sharing the pool has

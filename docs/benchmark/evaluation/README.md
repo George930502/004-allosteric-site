@@ -193,10 +193,18 @@ groups report it, including CryptoSite (doi:10.1016/j.jmb.2016.01.029), PocketMi
 | AUC-ROC against decoy linings | rank-based Mann-Whitney                                      | midrank                      |
 | site pocket rank              | pockets ordered by lining mean midrank                       | pessimistic                  |
 
-**recall@5 is printed, because it is the number this field reads first.** Of 22 tools
-surveyed, 17 report a recall-style top-N success rate. It is one division from hits@5 —
-hits divided by the label-set size — and its chance line is `k / n_candidates`, which does not
-depend on the label-set size. Printing it costs nothing and stops a reader deriving it wrongly.
+**recall@5 is printed, because a reader will otherwise derive it and derive it wrongly.** It
+is one division from hits@5, hits divided by the label-set size, and its chance line is
+`k / n_candidates`, which does not depend on the label-set size.
+
+**It is not the field's top-N number, and this page used to say that it was.** Corrected
+2026-09-03 by [`../review/07-metrics-audit.md`](../review/07-metrics-audit.md), weakness 1.
+The earlier wording cited 17 of 22 surveyed tools reporting a recall-style top-N success rate.
+The count is right and the inference is a category error. The field's top-N is a **per-protein
+binary**: did the true pocket land in the top three of the pockets a detector returned. This
+recall@5 is the **fraction of a multi-residue label set** recovered in five picks. The two have
+different units and different chance lines, so one cannot be read as evidence for the other.
+Printing it still costs nothing. The reason is convenience, not convention.
 
 **The site pocket's rank is printed, because that is the field's own convention.** Every
 detected pocket is ordered by the mean midrank of its lining, and the record carries where the
@@ -721,11 +729,24 @@ Three properties, stated plainly:
   detectable effect at the **effective** threshold, at every Holm level, so the number a
   reader sees is the number the procedure delivers.
 - **The ratio is an estimate, and it is frozen forever.** It comes from tail quantiles of 1000
-  field draws, so it carries real sampling error — `bcr_abl1_corrected`'s `alpha_star` has a
-  95 % interval of about [0.025, 0.048] against a point estimate of 0.036, which is 14–19 %
-  uncertainty. Taking a maximum over twelve estimates biases the ratio up, so the direction is
-  one-sided, but the magnitude is not zero and no later re-run may move it. Re-running at
-  10 000 fields would tighten it and is the obvious improvement if this ever reopens.
+  field draws, so it carries real sampling error. Measured out of sample by
+  [`../review/21-protocol-v3-statistics.md`](../review/21-protocol-v3-statistics.md) §1.4,
+  which draws 40 independent 1000-field blocks per arm against a 40 000-field reference: on
+  `bcr_abl1_corrected` a 1000-field block returns 1.1061 with a standard deviation of 0.0438,
+  against a reference of 1.0818 and a frozen value of 1.0970. Taking a maximum over twelve
+  estimates biases the ratio up, so the direction is one-sided, but the magnitude is not zero
+  and no later re-run may move it. **The chance that a block under-tightens is about 0.3 per
+  arm** — 0.275 to 0.300 on the two arms above 1 — and on these arms it did not, since both
+  frozen ratios sit above the out-of-sample reference. Review 21 finding S4 corrects ADR 0025
+  on that point: maximising over twelve estimates rather than four does not shrink the chance,
+  because the twelve cells are quantiles of the same 1000 p-values at three nearby levels.
+  Re-running at 10 000 fields would tighten it and is the obvious improvement if this ever
+  reopens.
+
+  **CORRECTED 2026-09-03.** This bullet used to give `alpha_star` a 95 % interval of about
+  [0.025, 0.048] and call it 14 to 19 % uncertainty. No record in the repository holds that
+  interval, and review 21 measures the same quantity directly and out of sample, so the
+  measured numbers replace the untraceable ones.
 - **The pool is not centred on the observation, and that is a known residual.** The ±10 %
   matching band is symmetric, but the sampler's frontier growth populates it asymmetrically:
   the sampled patches' mean radius of gyration exceeds the observed value on **15 of 15 arms**,
