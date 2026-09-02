@@ -253,7 +253,7 @@ docs/
   PRINCIPLES.md         R1-R4 in full
   FIELD.md              the field, expert practice, and the traps in this challenge
   targets.md            per-protein chains and ground-truth derivation
-  adr/                  44 decision records, indexed by topic in adr/README.md
+  adr/                  45 decision records, indexed by topic in adr/README.md
   benchmark/            three frozen sets as siblings, indexed by benchmark/README.md
     primary/            the 3 assigned disease areas: manifest, frozen.json, audit
     secondary/          9 further targets in two disjoint tiers

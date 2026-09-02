@@ -829,3 +829,78 @@ def test_no_modified_residue_reaches_a_prediction_structure():
         assert _THREE_TO_ONE.get(modified) == _THREE_TO_ONE[parent], (
             f"{modified}: the sequence map and the topology map disagree on the parent"
         )
+
+
+def test_the_altloc_policy_is_the_one_this_adr_states():
+    """ADR 0045. Three code paths answered the alternate-conformer question three ways.
+
+    `evaluation_graph` takes the LAST conformer's CA, `_chain_ca` takes the FIRST, and the
+    contact graph and the SASA integration consult no altloc field at all. None of the three
+    was a stated policy and two of them disagree, so nothing would have noticed the gap
+    widening. ADR 0045 states the policy in force, measures it, and declines to change it
+    because the effect is uniform across methods and inside the rounding digit.
+
+    This is the pin. Every number in that ADR's three tables is re-derived here, so the
+    disagreement can neither widen nor silently vanish.
+    """
+    import dataclasses
+
+    import numpy as np
+
+    from allo.benchmark import _chain_ca
+    from allo.inputs import apo_input
+    from allo.scoring.nulls import evaluation_graph
+    from allo.structure.pdb import Structure
+    from allo.structure.properties import solvent_accessibility
+
+    # arm -> (CA disagreements, largest in A, altloc-only edges, RSA moves, largest RSA move)
+    expected = {
+        "smyd3": (15, 0.1003, 14, 56, 0.1921),
+        "glucokinase": (3, 0.0496, 2, 12, 0.2130),
+        "ptp1b": (0, 0.0, 0, 2, 0.0933),
+        "ecoli_cps": (0, 0.0, 2, 22, 0.1572),
+    }
+    for arm, (n_ca, max_ca, altloc_edges, n_rsa, max_rsa) in expected.items():
+        apo = apo_input(arm)
+        structure = apo.structure
+        altloc = np.asarray([str(a) for a in structure.altloc])
+        assert not np.isin(altloc, [".", "?", ""]).all(), f"{arm} has no altloc to measure"
+
+        graph = evaluation_graph(apo)
+        first_wins = _chain_ca(structure, apo.chain)
+        gaps = [
+            float(np.linalg.norm(graph.ca_coord[graph.position[r]] - first_wins[r]))
+            for r in graph.order
+            if r in first_wins
+        ]
+        assert sum(gap > 1e-9 for gap in gaps) == n_ca, arm
+        assert round(max(gaps), 4) == max_ca, (arm, round(max(gaps), 4))
+
+        primary = np.isin(altloc, [".", "?", "", "A"])
+        kept = Structure(
+            **{
+                field.name: (
+                    getattr(structure, field.name)[primary]
+                    if isinstance(getattr(structure, field.name), np.ndarray)
+                    else getattr(structure, field.name)
+                )
+                for field in dataclasses.fields(structure)
+            }
+        )
+        without = evaluation_graph(dataclasses.replace(apo, structure=kept))
+        assert list(graph.order) == list(without.order), f"{arm}: the node set is not stable"
+        edges = {(r, n) for r, ns in zip(graph.order, graph.adjacency, strict=True) for n in ns}
+        primary_edges = {
+            (r, n) for r, ns in zip(without.order, without.adjacency, strict=True) for n in ns
+        }
+        assert len(edges - primary_edges) == altloc_edges, (arm, len(edges - primary_edges))
+        assert not primary_edges - edges, (
+            f"{arm}: a primary-only edge exists, which the geometry forbids -- a union of "
+            "conformers can only bring atom pairs closer"
+        )
+
+        with_all = solvent_accessibility(apo)
+        primary_only = solvent_accessibility(dataclasses.replace(apo, structure=kept))
+        moves = [abs(with_all[r] - primary_only[r]) for r in with_all]
+        assert sum(move > 1e-6 for move in moves) == n_rsa, (arm, sum(m > 1e-6 for m in moves))
+        assert round(max(moves), 4) == max_rsa, (arm, round(max(moves), 4))
