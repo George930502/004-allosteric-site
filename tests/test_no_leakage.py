@@ -73,9 +73,10 @@ PROTECTED_PATHS = {
     (ROOT / "docs" / "benchmark" / "evaluation").resolve(),
     # The sixth route, added 2026-08-27 by a design-stage constraint audit. The matched-patch
     # cache is derived from the label set and it says so in its own array shapes: `members`
-    # has width equal to the arm's positive count for all fifteen arms -- 11 on `mkp5`, 18
-    # on `bcr_abl1_corrected`, and 12 to 19 on the five `generalisation` arms that are not
-    # open yet. C1 forbids holo-derived information reaching prediction code and names this
+    # has width equal to the arm's positive count for all fifteen arms, the five sealed
+    # `generalisation` arms included. Redacted 2026-09-03: this comment used to print three of
+    # those counts and the range of the sealed five, which is the payload it warns about.
+    # C1 forbids holo-derived information reaching prediction code and names this
     # exact case: "not even the residue count". Its `diagnostics` string carries more --
     # `observed_median_distance_to_source`, `observed_radius_of_gyration` and
     # `observed_mean_degree` are geometric properties of the true site. `allo.scoring` writes
@@ -136,6 +137,16 @@ PROTECTED_PATHS = {
     # whole rather than file by file, for the reason `evaluation/` and `review/` are: an ADR
     # written next week is protected by default rather than leaked by default.
     (ROOT / "docs" / "adr").resolve(),
+    # The fourteenth route, found 2026-09-03 by an adversarial pass, and it is a class the
+    # label sweep could not see. `09a-power-verification.md` tabulates "m (scoreable labels)"
+    # per arm and `17-generalisation-variance.md` does the same for four secondary arms. Those
+    # are POSITIVE COUNTS, not residue numbers, and C1 names the count in as many words: "not
+    # even the residue count". Every sweep before this one matched residue identities, so a
+    # table of counts passed every one of them. The gap is now closed in two places -- this
+    # entry, and `test_no_unprotected_tracked_file_reproduces_a_positive_count`, which is what
+    # catches the next file rather than this one. Protected whole, on the `evaluation/`
+    # argument: the tree holds 23 documents and a survey written next week joins them.
+    (ROOT / "docs" / "evidence" / "method-landscape").resolve(),
 }
 
 
@@ -2137,4 +2148,50 @@ def test_no_unprotected_tracked_file_reproduces_a_label_set():
                     break
     assert not offenders, "unprotected tracked files reproducing a label set: " + "; ".join(
         sorted(set(offenders))
+    )
+
+
+def test_no_unprotected_tracked_file_reproduces_a_positive_count():
+    """C1 names the count, not only the identities: "not even the residue count".
+
+    Added 2026-09-03. Every label sweep before this one matched residue IDENTITIES, so a
+    table of per-arm positive counts passed all of them. Two files in
+    `docs/evidence/method-landscape/` held exactly that -- "m (scoreable labels)" per arm --
+    and the tree was unprotected. Protecting it closes those two; this closes the class.
+
+    A bare count is a small integer and small integers are everywhere, so the match needs two
+    things in one 250-character window: the arm's own identifier, and its exact count in a
+    context that reads as a count. The cue list is what makes it precise rather than noisy --
+    without it the same sweep returns nine hits and every one is a chain ID or a year.
+    """
+    from allo.scoring.harness import _arms_from_the_input_layer, _positives
+
+    counts = {arm: len(_positives(arm)[0]) for arm in _arms_from_the_input_layer()}
+    assert len(counts) == 15, sorted(counts)
+
+    cue = re.compile(
+        r"scoreable|positive count|n_labels|label(?:s)? count|number of labels|positives|m \(",
+        re.IGNORECASE,
+    )
+    offenders: list[str] = []
+    for name in tracked_files():
+        relative = Path(name)
+        if relative.suffix not in {".md", ".py", ".yaml", ".yml", ".json", ".txt"}:
+            continue
+        absolute = (ROOT / relative).resolve()
+        if any(absolute == root or root in absolute.parents for root in PROTECTED_PATHS):
+            continue
+        if not absolute.is_file():
+            continue
+        text = absolute.read_text(errors="ignore")
+        for arm, count in counts.items():
+            for found in re.finditer(re.escape(arm), text):
+                window = text[max(0, found.start() - 250) : found.start() + 250]
+                if re.search(rf"(?<![\d.]){count}(?![\d.])", window) and cue.search(window):
+                    offenders.append(f"{relative}: {arm}")
+                    break
+    assert not offenders, (
+        "an unprotected tracked file names an arm beside its exact positive count, in a "
+        f"context that reads as a count: {sorted(offenders)}. C1 forbids the count reaching "
+        "the prediction path as plainly as it forbids the residue identities"
     )

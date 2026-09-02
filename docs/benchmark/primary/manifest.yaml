@@ -286,13 +286,23 @@ _myh7_blind: &myh7_blind
 # ---------------------------------------------------------------------------------------
 
 # Clause (xii) resolves against three moving databases, so the releases it was decided
-# against are pinned here. Added 2026-09-03 by ADR 0042 consequence 1. Every `pfam` value
-# below came from RCSB, whose annotations carry `assignment_version: "34.0"`, so the
-# recorded families are Pfam 34.0 in fact; the verdict was re-measured live against the
-# releases named here and did not move. These fields move no frozen value: `freeze()`
-# builds `frozen.json` from six named keys and echoes no other, and `allo.inputs.load`
-# rebuilds from an allow-list, so a field added here is redacted from the prediction path
-# by default.
+# against are pinned here. Added 2026-09-03 by ADR 0042 consequence 1.
+#
+# CORRECTED 2026-09-03, same day. Every `pfam` list below used to come from RCSB, whose
+# annotations carry `assignment_version: "34.0"` and are per deposited entity. That is a
+# different quantity from the one ADR 0042 decides on, which is the families of the
+# target's UniProt accession, and it is a strict subset: `bcr_abl1_corrected` deposits the
+# kinase domain alone, so RCSB gave one family where the protein has four. The field said
+# 38.2 and the values were 34.0 entity assignments. The lists are now the accession-derived
+# Pfam 38.2 sets, taken from `../review/data/clause-xii-2026-09-03.json`, so the values and
+# the pin agree. Seven arms gained families and the clause verdict did not move: under the
+# larger sets the only two family collisions among all fifteen arms are between the two
+# arms of one protein, which are one target. The rule is now applied at its full width
+# rather than to a truncation of it.
+#
+# These fields move no frozen value: `freeze()` builds `frozen.json` from six named keys
+# and echoes no other, and `allo.inputs.load` rebuilds from an allow-list, so a field added
+# here is redacted from the prediction path by default.
 interpro_release: "109.0"
 pfam_release: "38.2"
 panther_release: "19.0"
@@ -349,7 +359,7 @@ targets:
     tier: mandated
     protein: ABL1
     site: myristoyl pocket
-    pfam: [PF00017, PF00018, PF07714]
+    pfam: [PF00017, PF00018, PF07714, PF08919]
     uniprot: P00519
     apo:
       {
@@ -398,7 +408,7 @@ targets:
     tier: corrected
     protein: ABL1
     site: myristoyl pocket
-    pfam: [PF07714]
+    pfam: [PF00017, PF00018, PF07714, PF08919]
     uniprot: P00519
     apo:
       {
@@ -515,7 +525,7 @@ targets:
     tier: corrected
     protein: MYH7
     site: mavacamten site
-    pfam: [PF00063, PF02736]
+    pfam: [PF00063, PF01576, PF02736]
     uniprot: P12883
     apo:
       {

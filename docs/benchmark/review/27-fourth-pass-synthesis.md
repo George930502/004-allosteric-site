@@ -115,7 +115,7 @@ lengths:
 | --- | ---: | ---: |
 | `white_noise` | 0.0001 | 0.0086 |
 | `smooth_gaussian` | 0.0049 | 0.0154 |
-| `cluster_blocks` | 0.0046 | 0.0163 |
+| `cluster_blocks` | 0.0067 | 0.0185 |
 | `distance_shell` | 0.0237 | **0.0548** |
 
 The label form **exceeds alpha**. On `bcr_abl1_corrected` under `distance_shell` it runs 0.0513
@@ -143,8 +143,9 @@ rank test cannot see a marginal distribution at all.** Heavy tails, log-normal m
 any rescaling are the same null; only the copula moves the answer. `cluster_blocks` replaces
 it — piecewise constant over a random Voronoi partition — chosen in the adversarial direction,
 because blockiness is what made `distance_shell` the worst case. The whole run was repeated at
-the same seed and **every conclusion survived**: 0.0163 against the withdrawn 0.0137,
-`distance_shell` still worst at 0.0548 with the identical interval, `site` still 0.0237.
+the same seed and **every conclusion survived**. Round 4 then found that the replacement's own
+two cells were ranked ordinally rather than by midrank, and the run was repeated once more; see
+§1.6. The table above is that second repeat.
 
 **The sealed tier had a public bypass.** `score_arm` checked `unseal`. `compare_methods` was
 exported beside it, takes the same arm and the same score map, reads the same frozen labels,
@@ -186,6 +187,53 @@ three releases and all fifteen arms carry a `uniprot` accession, with a test ass
 none of the five reaches the prediction path.
 
 
+### 1.6 The fourth adversarial round: four findings, four repairs, none refuted
+
+The round verified the round-3 repairs and returned four more. Every one was reproduced here
+before it was accepted, and three of the four are defects in round 3's own repairs.
+
+**The replacement generator was scored with ordinal ranks.** `simulate._ranks` used `argsort`
+and not midranks. Three of the four generators are continuous and tie nothing, so the two
+forms agree on them exactly. `cluster_blocks` is the one exception, and it is the generator
+round 3 had just added: it is piecewise constant, and a column of 80 residues holds a median
+of **3** distinct values. Every tie was therefore broken by residue index, which runs along
+the chain and correlates with space, so the published cells were not the statistic the ADR
+names. This is round 3's own lesson recurring one level down — that round found a generator
+whose ranks were not what they looked like, and the fix introduced a second. `_ranks` now
+calls `scipy.stats.rankdata(..., method="average")`, which is what the shipped
+`metrics.rank_vector` always did, and the run was repeated in full at the same seed. Only the
+`cluster_blocks` row moved, to 0.0067 and 0.0185; the other three are bit-identical, which is
+the check that the defect was confined to ties. Every conclusion survives.
+
+**Conformance was a deny-list, and it bound 6 of 74 manifest leaves.** `_conformance_problems`
+named the settings it checked, so a setting nobody thought to name was unchecked, and the
+evaluation manifest is prose and normative settings in one file. A sweep mutated all 74 leaves:
+**6 were caught**. The rule is inverted now. `DECLARATIVE_SETTINGS` lists the 19 leaves that
+are reviewed prose, `NORMATIVE_DIGEST` hashes everything else, and a changed leaf is named in
+the failure. Re-swept: **55 of 74 caught, and the 19 that survive are exactly the declared
+set**. This is the same inversion `allo.inputs.load` already used for C1 — allow-list, so the
+default for anything new is protected — applied to the second boundary that needed it.
+
+**A whole documentation tree reproduced positive counts.** `docs/evidence/method-landscape/`
+prints a per-arm scoreable count in a power table and four more in a variance note, and it was
+not among the thirteen protected routes. C1 names the count directly. Protected as route 14.
+Sweeping for the same shape then found three more instances **in test comments written during
+round 3**, which are redacted, and a standing sweep now fails on any tracked unprotected file
+that puts an arm identifier, its exact count and a count cue word inside one 250-character
+window.
+
+**Pinning a release did not make the values that release.** Round 3 added `pfam_release: 38.2`
+to both manifests and left the family lists, whose comment said they came from RCSB at
+assignment version 34.0. Measuring the objection made it larger: the two are **different
+quantities**, not two releases of one. RCSB annotates the deposited entity and ADR 0042 decides
+on the accession, so `bcr_abl1_corrected` carried one family where P00519 has four. The
+manifest set is a strict subset of the accession set on all fifteen arms and seven were short,
+`ns5b` by fourteen families. Both manifests now carry the accession-derived Pfam 38.2 sets, and
+**the verdict is unchanged at that full width**: the only two family collisions among fifteen
+arms are between two arms of one protein. The test re-derives both the lists and the verdict.
+See ADR 0042.
+
+
 ## 2. Corrections to the frozen layers
 
 A freeze is not repaired in place (`CONTRIBUTING.md` §3.2). These are the corrections. Read
@@ -201,6 +249,7 @@ this section before quoting any of these numbers.
 | `evaluation/README.md` §0.1 | the 0.05 tolerance rung is an arm the sampler cannot fill | the rung's **budget** was exhausted. At a cap of 10 000 it draws all 999 patches in 47.9 % of budget (ADR 0040) |
 | `evaluation/README.md` §13 | "the positive control rejects on one of three", printed as adverse | one of three **is** clearing, under ADR 0038 |
 | `secondary/evidence/extension-candidates.md` §4.1 | survivors span 158 to 1801 residues, 1.06 dex | that column is UniProt full length. Measured on the deposited entities the same pool spans 157 to 872, 0.74 dex, **narrower** than the frozen set's 0.86 |
+| `secondary/evidence/extension-candidates.md` §5, and its per-arm family tables | "clause (xii) costs only 12 % of an unrestricted frame", screened against the manifests' family lists | those lists were RCSB per-entity assignments and a strict subset of the accession sets the clause resolves on (ADR 0042). A wider blocking set can only reject more, so 12 % is a **lower bound**. No admitted arm moves: all fifteen were re-measured at full width and the clause still holds |
 
 ---
 
@@ -250,8 +299,13 @@ frozen value.** `benchmark.freeze` builds `frozen.json` from six named keys and 
 other, and `derive` builds its record from named fields, so neither freeze moved by one byte.
 `allo.inputs.load` rebuilds from an allow-list, so all five fields are redacted from the
 prediction path by default, and a test asserts that rather than assuming it.
-Note that `ns5b`'s `pfam` value cannot have come from RCSB, which carries no Pfam annotation for
-either of that arm's entries. The value is right; its stated provenance is not.
+
+**Amended the same day, by round 4.** Pinning the release did not make the recorded lists that
+release. They were RCSB per-entity assignments, which is a different quantity from the
+accession assignment the clause resolves on, and a strict subset of it on all fifteen arms.
+Both manifests now carry the accession-derived Pfam 38.2 sets, which resolves the `ns5b`
+provenance note with them, and the clause's verdict is re-derived at that full width and holds.
+See §1.6.
 
 ### 3.3 The occupant instrument is undefined — **closed 2026-09-03 by ADR 0044**
 

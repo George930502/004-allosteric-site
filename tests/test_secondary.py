@@ -25,6 +25,11 @@ from allo.benchmark import size_stratified_split
 from allo.groundtruth.manifest import read_manifest
 from allo.inputs import MANIFEST, ROOT, SECONDARY_MANIFEST
 
+# ADR 0042's own record: the accession, families and PANTHER assignment each arm was
+# resolved to, at the releases the manifests pin. Not on the prediction path -- a test
+# is not a prediction module, and `tests/test_no_leakage.py` names this tree too.
+CLAUSE_XII_EVIDENCE = ROOT / "docs" / "benchmark" / "review" / "data" / "clause-xii-2026-09-03.json"
+
 SECONDARY = ROOT / "docs" / "benchmark" / "secondary"
 FROZEN = SECONDARY / "frozen.json"
 SELECTION = SECONDARY / "selection.json"
@@ -447,13 +452,26 @@ def test_clause_xii_pins_its_releases_and_derives_from_an_accession(manifest):
     keys and echoes no other. Both are redacted from the prediction path, because
     `allo.inputs.load` rebuilds from an allow-list, and the last assertion here says so rather
     than trusting that it stays true.
+
+    Strengthened 2026-09-03, the same day, because pinning a release does not make the values
+    that release. The recorded lists were RCSB per-entity assignments at 34.0 while the field
+    said 38.2, and the two are different quantities: RCSB annotates the deposited construct,
+    so `bcr_abl1_corrected` carried one family where its accession has four. This now checks
+    every list against the accession that produced it, and re-derives the clause's verdict at
+    the full 38.2 width -- where it still holds, with the only collisions between two arms of
+    one protein.
     """
+    import itertools
     import re
 
     import yaml as _yaml
 
     from allo.inputs import load as prediction_load
 
+    record = json.loads(CLAUSE_XII_EVIDENCE.read_text())
+    assert record["releases"]["pfam"]["version"] == "38.2"
+
+    recorded: dict[str, set[str]] = {}
     for name, path in (("secondary", SECONDARY_MANIFEST), ("primary", MANIFEST)):
         raw = _yaml.safe_load(path.read_text())
         for field, expected in (
@@ -476,6 +494,35 @@ def test_clause_xii_pins_its_releases_and_derives_from_an_accession(manifest):
                 f"{name}/{spec['id']}: uniprot is {accession!r}. Clause (xii) must derive "
                 "from an accession, not from a hand-typed family list"
             )
+            arm = record["arms"][spec["id"]]
+            assert arm["uniprot"] == accession, (
+                f"{name}/{spec['id']}: manifest accession {accession!r} is not the one the "
+                f"families were resolved from, {arm['uniprot']!r}"
+            )
+            assert set(spec["pfam"]) == set(arm["pfam_families"]), (
+                f"{name}/{spec['id']}: pfam is {sorted(spec['pfam'])}, but accession "
+                f"{accession} resolves to {sorted(arm['pfam_families'])} at Pfam 38.2. The "
+                "manifest carried the RCSB per-entity assignment at 34.0 until 2026-09-03, "
+                "which is a strict subset of this and is not what ADR 0042 decides on"
+            )
+            recorded[spec["id"]] = set(arm["pfam_families"])
+
+    # And the clause's verdict holds at that full width, not only on the truncation. Two
+    # arms of one protein are one target, so they are allowed to share; nothing else is.
+    same_protein = {
+        frozenset(pair)
+        for pair in itertools.combinations(recorded, 2)
+        if pair[0].rsplit("_", 1)[0] == pair[1].rsplit("_", 1)[0]
+    }
+    collisions = {
+        f"{a} / {b}": sorted(recorded[a] & recorded[b])
+        for a, b in itertools.combinations(sorted(recorded), 2)
+        if recorded[a] & recorded[b] and frozenset((a, b)) not in same_protein
+    }
+    assert not collisions, (
+        f"clause (xii) fails at Pfam 38.2 width: {collisions}. It passes on the manifest "
+        "only because the recorded family lists were truncated"
+    )
 
     # And none of the four reaches a method. The allow-list redacts by default, so this fails
     # only if someone adds them to `_PREDICTION_SCHEMA` on purpose.

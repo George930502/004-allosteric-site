@@ -285,13 +285,23 @@ orthosteric_vocabulary:
   additives: [CL, GOL, SO4]
 
 # Clause (xii) resolves against three moving databases, so the releases it was decided
-# against are pinned here. Added 2026-09-03 by ADR 0042 consequence 1. Every `pfam` value
-# below came from RCSB, whose annotations carry `assignment_version: "34.0"`, so the
-# recorded families are Pfam 34.0 in fact; the verdict was re-measured live against the
-# releases named here and did not move. These fields move no frozen value: `freeze()`
-# builds `frozen.json` from six named keys and echoes no other, and `allo.inputs.load`
-# rebuilds from an allow-list, so a field added here is redacted from the prediction path
-# by default.
+# against are pinned here. Added 2026-09-03 by ADR 0042 consequence 1.
+#
+# CORRECTED 2026-09-03, same day. Every `pfam` list below used to come from RCSB, whose
+# annotations carry `assignment_version: "34.0"` and are per deposited entity. That is a
+# different quantity from the one ADR 0042 decides on, which is the families of the
+# target's UniProt accession, and it is a strict subset: `bcr_abl1_corrected` deposits the
+# kinase domain alone, so RCSB gave one family where the protein has four. The field said
+# 38.2 and the values were 34.0 entity assignments. The lists are now the accession-derived
+# Pfam 38.2 sets, taken from `../review/data/clause-xii-2026-09-03.json`, so the values and
+# the pin agree. Seven arms gained families and the clause verdict did not move: under the
+# larger sets the only two family collisions among all fifteen arms are between the two
+# arms of one protein, which are one target. The rule is now applied at its full width
+# rather than to a truncation of it.
+#
+# These fields move no frozen value: `freeze()` builds `frozen.json` from six named keys
+# and echoes no other, and `allo.inputs.load` rebuilds from an allow-list, so a field added
+# here is redacted from the prediction path by default.
 interpro_release: "109.0"
 pfam_release: "38.2"
 panther_release: "19.0"
@@ -301,7 +311,7 @@ targets:
     tier: development
     protein: MAP kinase phosphatase 5 (DUSP10), catalytic domain
     site: allosteric pocket adjacent to the general acid loop
-    pfam: [PF00782]
+    pfam: [PF00581, PF00782]
     uniprot: Q9Y6W6
     apo:
       {
@@ -516,7 +526,9 @@ targets:
     tier: development
     protein: HIV-1 reverse transcriptase p66
     site: NNRTI pocket
-    pfam: [PF00078, PF06815, PF06817, PF00075]
+    pfam:
+      [PF00075, PF00077, PF00078, PF00098, PF00540, PF00552, PF00665, PF02022, PF06815, PF06817,
+       PF19317]
     uniprot: P04585
     apo:
       {
@@ -561,7 +573,9 @@ targets:
     tier: development
     protein: Hepatitis C virus NS5B RNA polymerase
     site: thumb I (finger-loop) site
-    pfam: [PF00998]
+    pfam:
+      [PF00998, PF01001, PF01006, PF01506, PF01538, PF01539, PF01542, PF01543, PF01560, PF02907,
+       PF07652, PF08300, PF08301, PF12941, PF22027]
     uniprot: P26663
     apo:
       {
@@ -649,7 +663,7 @@ targets:
     tier: generalisation
     protein: E. coli carbamoyl phosphate synthetase, large subunit
     site: UMP allosteric site in the C-terminal regulatory domain
-    pfam: [PF02786, PF02787, PF25596, PF02142]
+    pfam: [PF02142, PF02786, PF02787, PF25596]
     uniprot: P00968
     apo:
       {

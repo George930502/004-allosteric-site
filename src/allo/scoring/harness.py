@@ -12,8 +12,9 @@ import it (`tests/test_no_leakage.py`).
 
 from __future__ import annotations
 
+import hashlib
 import json
-from collections.abc import Mapping
+from collections.abc import Iterator, Mapping
 from pathlib import Path
 
 import numpy as np
@@ -969,6 +970,68 @@ def verify_evaluation(detect: bool = False) -> list[str]:
     return problems
 
 
+# The 18 leaves of the evaluation manifest that are DECLARATIVE: a rationale, a source note,
+# or a statement of why an endpoint was omitted. They may be reworded without changing a
+# number. Everything else is normative, and `NORMATIVE_DIGEST` below pins it.
+#
+# The list is an allow-list on purpose, and it is the same argument `allo.inputs.load` makes
+# for redaction: a leaf added later is NORMATIVE by default and fails until someone reviews
+# it. The earlier design was the other way round -- a hand-maintained list of what to check --
+# so a leaf nobody listed drifted silently. Three did: `nulls.replicates`,
+# `nulls.matched_patch_distance.replicates` and `nulls.matched_patch.tolerance`, each of which
+# moves a p-value, and `decision.alpha`, which moves every decision. Found by two adversarial
+# passes on 2026-09-03, one leaf at a time, which is what closing an instance instead of a
+# class looks like.
+DECLARATIVE_SETTINGS = frozenset(
+    {
+        "confounders.conservation.note",
+        "confounders.degree.source",
+        "confounders.distance_to_source.note",
+        "confounders.distance_to_source.source",
+        "confounders.hydrophobicity.source",
+        "confounders.normalised_b_factor.note",
+        "confounders.normalised_b_factor.source",
+        "confounders.relative_solvent_accessibility.normalised_by",
+        "confounders.statistic",
+        "endpoints.omitted.accuracy",
+        "endpoints.omitted.dvo",
+        "endpoints.omitted.enrichment_factor_bedroc_rie",
+        "endpoints.omitted.jaccard",
+        "endpoints.omitted.mcc_and_f1",
+        "endpoints.omitted.top_5_fragmentation",
+        "frozen_on",
+        "secondary_objectives.classical_comparison.also_report",
+        "secondary_objectives.classical_comparison.pairwise_test",
+        "source",
+    }
+)
+
+# sha256 over the 55 normative leaves, canonical JSON, sorted keys. Recomputed deliberately
+# when the protocol version moves, never to make a failure go away: a mismatch means the
+# manifest and the code disagree, and the manifest is not the authority on what the code does.
+_MISSING = object()
+
+NORMATIVE_DIGEST = "cc9731251793d9613df6ae0ea2a6b6ea9588478a749bd8c552bc7a22f572a0cd"
+
+
+def _settings_leaves(node: object, path: str = "") -> Iterator[tuple[str, object]]:
+    """Every leaf of the settings tree, as a dotted path. Lists are leaves, not branches."""
+    if isinstance(node, dict):
+        for key, value in sorted(node.items()):
+            yield from _settings_leaves(value, f"{path}.{key}" if path else key)
+    else:
+        yield path, node
+
+
+def normative_settings(settings: dict) -> dict[str, object]:
+    """The settings with the declarative leaves removed. What `NORMATIVE_DIGEST` covers."""
+    return {
+        path: value
+        for path, value in _settings_leaves(settings)
+        if path not in DECLARATIVE_SETTINGS
+    }
+
+
 def _conformance_problems(settings: dict) -> list[str]:
     """Manifest fields that describe implemented behaviour, checked against the code.
 
@@ -1008,6 +1071,25 @@ def _conformance_problems(settings: dict) -> list[str]:
         "decision.alpha": 0.05,
     }
     problems: list[str] = []
+    # The digest first, because it covers every normative leaf and the named checks below
+    # cover nine. A mismatch names the leaves rather than only the hash, so the message is
+    # actionable; the named checks then say WHY those nine matter.
+    view = normative_settings(settings)
+    if (
+        hashlib.sha256(json.dumps(view, sort_keys=True, default=str).encode()).hexdigest()
+        != NORMATIVE_DIGEST
+    ):
+        reference = normative_settings(protocol())
+        moved = sorted(
+            path
+            for path in set(view) | set(reference)
+            if view.get(path, _MISSING) != reference.get(path, _MISSING)
+        )
+        changed = moved or ["(none: the tracked manifest itself moved)"]
+        problems.append(
+            "conformance settings digest: the normative leaves do not match "
+            f"NORMATIVE_DIGEST. Changed against the tracked manifest: {changed}"
+        )
     # The calibration invariant, from `alpha_star`: "calibration may tighten a test and may
     # never loosen one", so no arm's calibrated threshold may exceed the decision level. This
     # is derived rather than declared, and it is what would catch alpha being LOWERED under a

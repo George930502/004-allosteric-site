@@ -78,14 +78,34 @@ the two ABL1 arms in CL0016. The full per-arm assignment is
 Three consequences follow from that:
 
 1. **Pin the releases** — **DONE 2026-09-03.** `interpro_release: 109.0`,
-   `pfam_release: 38.2` and `panther_release: 19.0` are in both manifests. A rule that resolves against a moving database and records no version is not
-   frozen. Note that every `pfam` value in both manifests came from RCSB, whose annotations
-   carry `assignment_version: "34.0"`, so the manifests are pinned to Pfam 34.0 in fact and to
-   nothing in writing, while any lookup today resolves against Pfam 38.2.
+   `pfam_release: 38.2` and `panther_release: 19.0` are in both manifests. A rule that
+   resolves against a moving database and records no version is not frozen.
 2. **Add `uniprot:` per target** — **DONE 2026-09-03**, all fifteen arms, so the clause
-   derives from an accession rather than from a hand-typed family list. `ns5b`'s `pfam` value cannot have come from RCSB, which carries no
-   Pfam annotation for either of that arm's entries; the value is right but its stated
-   provenance is not, and it is the sole input to the disjointness test for that arm.
+   derives from an accession rather than from a hand-typed family list.
+
+### Corrected the same day: pinning a release did not make the values that release
+
+The first pass wrote the three release fields and left the `pfam` lists alone, with a comment
+saying they came from RCSB at `assignment_version: "34.0"`. An adversarial pass objected that
+the field then labels values it does not describe. Measuring the objection made it larger than
+it was raised: the two are **different quantities**, not two releases of one. RCSB annotates
+the **deposited entity**, and this ADR decides on the **accession**. `bcr_abl1_corrected`
+deposits the kinase domain alone, so RCSB gives `PF07714` where P00519 carries four families.
+Measured over all fifteen arms, the manifest set is a strict subset of the accession set every
+time, and seven arms were short — `ns5b` by fourteen families, `hiv_rt` by seven.
+
+So the clause was being applied to a truncation of its own instrument. Both manifests now carry
+the accession-derived Pfam 38.2 sets from
+`../benchmark/review/data/clause-xii-2026-09-03.json`, and consequence 2's `ns5b` provenance
+note is resolved with them: that arm's value never came from RCSB, and now it does not claim to.
+
+**The verdict does not move, and it is now measured at full width.** Under the larger sets the
+only two family collisions among all fifteen arms are `bcr_abl1_mandated` against
+`bcr_abl1_corrected` and the two cardiac myosin arms — two arms of one protein, which are one
+target. No secondary arm shares a family with another secondary arm or with any primary arm.
+`test_clause_xii_pins_its_releases_and_derives_from_an_accession` re-derives both halves and
+fails if either the lists or the verdict moves. No frozen value changes: `pfam` is not among
+the six keys `freeze()` echoes, and `frozen.json` contains the string zero times in both sets.
 3. **Say what the guarantee is** — **DONE 2026-09-03** in `secondary/README.md`, directly
    under the clause text: family level, plus PANTHER where families collide. Neither document mentions clans today,
    so the shipped text is already right and only the ADR was wrong.
@@ -101,4 +121,10 @@ Three consequences follow from that:
   target and sit in different PANTHER families. It may not say they are clan-disjoint. They
   are not, and the primary set is not clan-disjoint from itself either.
 - Items 1 and 2 are work, not decisions. They are tracked in
-  `../benchmark/review/27-fourth-pass-synthesis.md` §3.2.
+  `../benchmark/review/27-fourth-pass-synthesis.md` §3.2, and both are done.
+- **One screening claim is now stale and is recorded rather than re-run.**
+  `../benchmark/secondary/evidence/extension-candidates.md` screened its candidate pool against
+  the narrow lists, and a wider blocking set can only reject more. No admitted arm moves, since
+  all fifteen were re-measured above, but that file's "clause (xii) costs only 12 % of an
+  unrestricted frame" is a lower bound rather than the figure. It is a record of a screen that
+  ran, so it is corrected in `27` §2 and not edited.

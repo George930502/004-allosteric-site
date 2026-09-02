@@ -43,6 +43,7 @@ from __future__ import annotations
 import json
 
 import numpy as np
+from scipy.stats import rankdata
 
 from allo.inputs import apo_input
 from allo.scoring.harness import EVALUATION_FROZEN, _positives
@@ -53,13 +54,20 @@ GENERATORS = ("white_noise", "smooth_gaussian", "cluster_blocks", "distance_shel
 
 
 def _ranks(fields: np.ndarray) -> np.ndarray:
-    """Column-wise midranks. The fields are continuous, so there are no ties."""
-    order = np.argsort(fields, axis=0, kind="stable")
-    out = np.empty_like(order, dtype=np.float32)
-    n, b = fields.shape
-    rows = np.arange(1, n + 1, dtype=np.float32)[:, None]
-    np.put_along_axis(out, order, np.broadcast_to(rows, (n, b)), axis=0)
-    return out
+    """Column-wise midranks, the same statistic `allo.scoring.metrics.rank_vector` computes.
+
+    **Corrected 2026-09-03.** This assigned ORDINAL ranks by stable sort, with a docstring
+    saying "the fields are continuous, so there are no ties". That held for the first three
+    generators and stopped holding when `cluster_blocks` arrived, whose whole construction is
+    tied blocks -- a hundred residues take about four distinct values. Residue index was
+    breaking those ties, and residue index runs along the chain, so it correlates with space.
+    The published `cluster_blocks` cells were not the statistic they claimed to be.
+
+    The shipped scoring path never had this defect: `metrics.rank_vector` calls
+    `rankdata(..., method="average")` and says why. This is the same call, over columns, and
+    `test_the_simulation_ranks_agree_with_the_shipped_statistic` pins that they agree.
+    """
+    return rankdata(fields, method="average", axis=0).astype(np.float32)
 
 
 def _p_values(fields: np.ndarray, positive: np.ndarray, decoys: list[np.ndarray]) -> np.ndarray:

@@ -75,8 +75,9 @@ def test_chance_lines_reproduce_the_recorded_benchmark_numbers():
     """`experiments/REGISTRY.md` recorded these before this harness existed.
 
     Two moved on 2026-09-02 and neither is a drift. `bcr_abl1_mandated` is a different chain
-    (ADR 0029), 17 labels in 354 candidates against 20 in 440, and `cardiac_myosin_mandated`
-    is a new arm (ADR 0031). The other three must not move.
+    (ADR 0029) with a different label and candidate count, and `cardiac_myosin_mandated` is a
+    new arm (ADR 0031). Both counts were printed here until 2026-09-03 and are redacted: C1
+    names the residue count, and a comment is as readable as a table. The other three must not move.
     """
     recorded = {
         "kras_g12c_mandated": 0.445,
@@ -983,3 +984,58 @@ def test_the_size_simulation_draws_four_distinct_rank_laws():
             "They are one law under a rank statistic, so the run measures one fewer null than "
             f"it reports. Signatures: {signature}"
         )
+
+
+def test_every_normative_manifest_leaf_is_bound_by_conformance():
+    """Mutate each of the evaluation manifest's leaves in turn and require a problem, unless
+    the leaf is declared prose. Added 2026-09-03.
+
+    The history is the argument for the shape. `_conformance_problems` began as a
+    hand-maintained list of what to check, and a sweep found **6 of 74** leaves bound. Three
+    adversarial passes then found four more, one at a time -- `decision.sided`,
+    `decision.claim_family.sided`, `decision.alpha`, `nulls.replicates` -- each of which moves
+    a number while `allo evaluate verify` exits 0. Closing an instance per pass is not closing
+    a class.
+
+    So the allow-list is inverted. `DECLARATIVE_SETTINGS` names the leaves that may be
+    reworded, `NORMATIVE_DIGEST` covers everything else, and a leaf added later is normative
+    by default. That is the same argument `allo.inputs.load` makes for redaction.
+
+    This test is the proof of coverage, and it is exact: the set that survives mutation must
+    equal the declared set, neither larger nor smaller. Smaller would mean a prose leaf is
+    being treated as normative and a rewording would fail the gate for no reason.
+    """
+    import copy
+
+    from allo.scoring import harness
+    from allo.scoring.harness import DECLARATIVE_SETTINGS, _settings_leaves
+
+    def mutated(value):
+        if isinstance(value, bool):
+            return not value
+        if isinstance(value, (int, float)):
+            return value + 1
+        if isinstance(value, str):
+            return value + "_MUTATED"
+        if isinstance(value, list):
+            return [*value, "MUTATED"]
+        return "MUTATED"
+
+    settings = harness.protocol()
+    assert not harness._conformance_problems(settings), "the tracked manifest is not conformant"
+
+    survived = set()
+    for path, value in _settings_leaves(settings):
+        probe = copy.deepcopy(settings)
+        node, keys = probe, path.split(".")
+        for key in keys[:-1]:
+            node = node[key]
+        node[keys[-1]] = mutated(value)
+        if not harness._conformance_problems(probe):
+            survived.add(path)
+
+    assert survived == set(DECLARATIVE_SETTINGS), (
+        "leaves that drift unnoticed but are not declared prose: "
+        f"{sorted(survived - set(DECLARATIVE_SETTINGS))}; declared prose that is nonetheless "
+        f"bound: {sorted(set(DECLARATIVE_SETTINGS) - survived)}"
+    )

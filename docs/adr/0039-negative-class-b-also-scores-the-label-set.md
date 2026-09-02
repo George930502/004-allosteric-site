@@ -69,7 +69,7 @@ Measured over four generators, `experiments/2026-09-03-endpoint-b/`, 20 000 fiel
 | --- | --- | ---: | ---: |
 | `white_noise` | no spatial structure | 0.0001 | 0.0086 |
 | `smooth_gaussian` | the frozen calibration's instrument | 0.0049 | 0.0154 |
-| `cluster_blocks` | piecewise constant over a random Voronoi partition | 0.0046 | 0.0163 |
+| `cluster_blocks` | piecewise constant over a random Voronoi partition | 0.0067 | 0.0185 |
 | `distance_shell` | blocky, monotone in distance from a random residue | 0.0237 | **0.0548** |
 
 **AMENDED A SECOND TIME, also 2026-09-03: the third generator was not a third law.** The row
@@ -87,9 +87,21 @@ made `distance_shell` the worst case. The run was repeated in full at the same s
 `tests/test_scoring.py::test_the_size_simulation_draws_four_distinct_rank_laws` now pins that
 no two generators share a rank law.
 
-**Every conclusion below survived the repeat.** The replacement measured 0.0163 rather than
-0.0137, still far below alpha and still not the worst case. `distance_shell` remains the worst
-at 0.0548 with the identical interval, and the `site` form still holds at 0.0237.
+**AMENDED A THIRD TIME, also 2026-09-03: the replacement's own two cells were scored with
+the wrong ranks.** `simulate._ranks` assigned **ordinal** ranks and not midranks. Three of the
+four generators are continuous, so they tie nothing and the two forms agree exactly. The new
+generator is the one exception: it is piecewise constant, and a column of 80 residues holds a
+median of **3** distinct values. Every tie was therefore broken by residue index, which runs
+along the chain and correlates with space, so the published `cluster_blocks` cells were not
+the statistic the ADR names. `_ranks` now calls `scipy.stats.rankdata(..., method="average")`,
+which is what the shipped `metrics.rank_vector` always did, and the run was repeated in full at
+the same seed.
+
+**Every conclusion above survived both repeats, and only `cluster_blocks` moved.** The row now
+reads 0.0067 and 0.0185, against 0.0046 and 0.0163 under ordinal ranks. The other three rows
+are bit-identical, which is the check that the defect was confined to ties. `distance_shell`
+remains the worst at 0.0548, interval [0.0516, 0.0580], and the `site` form still holds
+everywhere, worst cell 0.0237.
 
 **The label form exceeds alpha.** On `bcr_abl1_corrected` under `distance_shell` it runs
 0.0513 to 0.0548 across all four correlation lengths, and the worst cell's 95 % interval,

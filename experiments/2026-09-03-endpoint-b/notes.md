@@ -39,7 +39,7 @@ size over four correlation lengths, 20 000 fields per cell:
 | --- | ---: | ---: |
 | `white_noise` | 0.0001 | 0.0086 |
 | `smooth_gaussian` | 0.0049 | 0.0154 |
-| `cluster_blocks` | 0.0046 | 0.0163 |
+| `cluster_blocks` | 0.0067 | 0.0185 |
 | `distance_shell` | 0.0237 | **0.0548** |
 
 On `bcr_abl1_corrected` under `distance_shell` the label form runs 0.0513 to 0.0548 across all
@@ -65,10 +65,21 @@ its nearest of `n // 25` random centres, so the field is piecewise constant with
 boundaries. Blockiness is the direction that made `distance_shell` the worst case, so the
 replacement is adversarial rather than convenient.
 
-The whole run was repeated at the same seed and the table above is the repeat. Nothing
-changed but that row: 0.0163 instead of 0.0137, still far below α and still not the worst
-case. `distance_shell` is still worst at 0.0548 with the same interval, and `site` still
-holds at 0.0237.
+The whole run was repeated at the same seed. Nothing changed but that row.
+
+### Re-run a second time, because the replacement was ranked ordinally
+
+`simulate._ranks` assigned ordinal ranks, not midranks. Three of the four generators are
+continuous and tie nothing, so the two forms agree exactly on them. `cluster_blocks` is the
+exception: it is piecewise constant, and a column of 80 residues holds a median of **3**
+distinct values, so every tie was broken by residue index — which runs along the chain and
+correlates with space. `_ranks` now calls `scipy.stats.rankdata(..., method="average")`, which
+is what the shipped `metrics.rank_vector` always did.
+
+The whole run was repeated again at the same seed and the table above is that repeat. Only the
+`cluster_blocks` row moved, to 0.0067 and 0.0185 from 0.0046 and 0.0163. The other three rows
+are bit-identical, which is the check that the defect was confined to ties. `distance_shell` is
+still worst at 0.0548 with the same interval, and `site` still holds at 0.0237.
 
 ## What this run does not establish
 
