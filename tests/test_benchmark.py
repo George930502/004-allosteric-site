@@ -637,3 +637,82 @@ def test_label_sets_do_not_depend_on_a_minor_conformer(manifest):
         assert full == prim, (
             f"{spec['id']}: labels {sorted(full - prim)} enter only via a minor conformer"
         )
+
+
+def test_the_four_secondary_clauses_still_give_the_verdicts_the_readme_prints(manifest):
+    """Clauses (ix)-(xii) as a DIAGNOSTIC on the primary set. Added 2026-09-03.
+
+    `docs/benchmark/primary/README.md` section 1 applies the secondary set's four
+    selection clauses to this set and prints four verdicts. They are diagnostic: no arm is
+    admitted or rejected on them. Until now they were prose only, and prose does not fail
+    when the set moves. Two of the six arms changed accession on 2026-09-02 and nothing
+    re-derived these rows.
+
+    The failure mode this pins is not hypothetical. A stale falsifier survived a re-freeze
+    in `tests/test_secondary.py`, where a comment justified a live assertion with an arm
+    that contacts ZERO labels, having read a 16.0 A DISTANCE as a count of 16 labels.
+
+    Clause (ix) is left out. It needs the biological assembly and the effector lining, and
+    `tests/test_secondary.py` already measures it against the shared holo entries.
+    """
+    import json
+    import re
+
+    from allo.groundtruth.structures import EVAL_CACHE
+
+    frozen = json.loads(benchmark.FROZEN.read_text())
+
+    # (x) apo occupant classification -- "passes by construction". It is clause (iii)
+    # restricted to the scoreable set, so no apo component may touch a scoreable label.
+    for name, values in frozen["targets"].items():
+        contacted = values["apo_site_occupancy"]["scoreable_labels_contacted"]
+        assert contacted == 0, (
+            f"{name}: clause (x) now FAILS -- an apo component contacts {contacted} "
+            "scoreable labels. The README prints 'passes by construction'"
+        )
+
+    # (xi) structure admission -- "fails on two entries", and the README names which two
+    # and every resolution. Re-derived from the tracked mmCIFs, never from the prose.
+    ceilings, measured, failing = {"ELECTRON MICROSCOPY": 4.0}, {}, set()
+    for accession in frozen["structure_provenance"]:
+        for cache in (EVAL_CACHE, EVAL_CACHE.parent / "apo"):
+            path = cache / f"{accession}.cif"
+            if not path.exists():
+                continue
+            text = path.read_text(errors="ignore")
+            method = re.search(r"_exptl\.method\s+(?:'([^']*)'|\"([^\"]*)\"|(\S+))", text)
+            assert method, f"{accession}: no _exptl.method in the tracked mmCIF"
+            method = "".join(part for part in method.groups() if part)
+            key = (
+                "_em_3d_reconstruction.resolution"
+                if "ELECTRON" in method
+                else ("_refine.ls_d_res_high")
+            )
+            value = re.search(rf"{re.escape(key)}\s+([\d.]+)", text)
+            assert value, f"{accession}: no {key} in the tracked mmCIF"
+            measured[accession] = (float(value.group(1)), method)
+            if float(value.group(1)) > ceilings.get(method, 2.5):
+                failing.add(accession)
+            break
+        else:  # pragma: no cover - a missing cache is a setup failure, not a verdict
+            raise AssertionError(f"{accession}: no tracked mmCIF under data/raw/")
+
+    assert failing == {"1OPL", "5TBY"}, (
+        f"clause (xi) now fails on {sorted(failing)}, and the README says exactly "
+        "{'1OPL', '5TBY'}. Every other pinned entry must clear its method's ceiling"
+    )
+    assert measured["1OPL"][0] == pytest.approx(3.42), measured["1OPL"]
+    assert measured["5TBY"][0] == pytest.approx(20.00), measured["5TBY"]
+
+    # (xii) within-set redundancy -- "fails by design": every protein appears twice,
+    # once mandated and once corrected. That is the tier split, not an accident, and if
+    # it ever stopped being true the README's justification would stop applying.
+    by_protein: dict[str, set[str]] = {}
+    for spec in manifest["targets"]:
+        if spec.get("status") == "excluded":
+            continue
+        by_protein.setdefault(spec["protein"], set()).add(spec["tier"])
+    assert all(tiers == {"mandated", "corrected"} for tiers in by_protein.values()), (
+        f"clause (xii) verdict moved: {by_protein}. The README says it fails by design "
+        "because each protein contributes exactly one mandated and one corrected arm"
+    )

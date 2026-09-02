@@ -252,6 +252,11 @@ Stated plainly, because a set this size is easy to over-claim.
   attainable one-sided p of 2⁻⁵ = 0.031, so a clean sweep rejects at α = 0.05 and nothing
   weaker does. There is no margin: one failure in five leaves p = 0.19. **And 0.031 > α/2 =
   0.025**, so any correction to k ≥ 2 makes this test unable to reject at any effect size.
+  **The two floors are exact and were computed 2026-09-03**, by `scipy.stats.binomtest`
+  against p = 0.5, one-sided. To survive a two-way correction a clean sweep needs
+  **N ≥ 6** (p = 0.0156). To reject while tolerating one failure needs **N ≥ 8**
+  (p = 0.0352, against p = 0.0625 at N = 7). The achieved N = 5 clears neither. It
+  licenses one uncorrected one-sided test that must sweep, and nothing else.
   The project therefore has one confirmatory decision at full α and it is this one; the primary
   arms are supportive (`../evaluation/README.md` §8).
 - **The detectable success rate is 0.956, not "near 0.9" — corrected 2026-08-24.** This bullet

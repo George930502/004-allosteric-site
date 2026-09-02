@@ -1,6 +1,6 @@
 # 0037 — The method layer leaves `main`, and the nine required baselines stay behind
 
-**Status:** accepted · 2026-09-02 · withdraws [`0002`](0002-working-hypothesis-for-the-quantum-metric.md)
+**Status:** accepted · 2026-09-02 · withdraws [`0002`](0002-quantum-metric-hypothesis.md)
 and [`0028`](0028-per-protein-adaptation-is-not-testable-at-four-arms.md)
 
 ## Context

@@ -34,3 +34,12 @@ them. `20-fact-check-17-19.md` does the same for documents 17 to 19.
 runs, the nine experiment directories beside them, and the code that produced them were
 removed from `main` on 2026-09-02. They are preserved whole on the branch
 `method-layer-archive`. A document here that points into `exploration/` points at that branch.
+
+**Read every "already implemented" as "was implemented, and is on the archive branch".**
+Five documents say that a scorer is available in `allo.classical`, `allo.network` or
+`allo.quantum`: `00-conventions.md`, `13-graph-construction.md`, `14-distance-confound.md`,
+`15-ai-preprocessing.md` and `16-quantum-algorithm-survey.md`. No such package is on `main`.
+The cost column that reads "Zero — already implemented" is therefore wrong for a Phase 2
+restart, and the estimate has to be made again. Two modules moved rather than left, because
+the frozen evaluation protocol needs them: the graph builder is `allo.structure.graph`, and
+the eight required baselines are `allo.scoring.baselines` (ADR 0037).

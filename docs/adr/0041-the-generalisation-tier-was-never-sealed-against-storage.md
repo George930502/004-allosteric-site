@@ -1,7 +1,7 @@
 # 0041 — The `generalisation` tier was never sealed against storage, and scoring is what the seal now guards
 
 **Status:** accepted · 2026-09-03 · amends
-[ADR 0021](0021-secondary-set-is-two-disjoint-tiers.md) · no protocol version change
+[ADR 0021](0021-secondary-benchmark-is-two-disjoint-sets.md) · no protocol version change
 
 ## Context
 

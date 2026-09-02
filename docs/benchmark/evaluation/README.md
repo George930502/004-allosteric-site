@@ -847,6 +847,23 @@ choice already fixed.
 That set is disjoint from every primary target on accession, family, homologous site and
 residue overlap (ADR 0012, ADR 0021).
 
+**"Not opened" is a reading discipline, not a storage property.** The five
+`generalisation` arms are **fully materialised** in two of the three `frozen.json` files —
+the secondary set's and this layer's — carrying label
+residues, positive counts, active sites, the matched-patch geometry, and the calibrated
+null thresholds. They were derived and calibrated in August alongside the other ten arms,
+because the freeze and the calibration both run over the whole set. Nothing about the seal
+ever deleted them.
+
+Two things enforce the seal, and each is partial. `PROTECTED_PATHS` in
+`tests/test_no_leakage.py` stops a prediction-path module reading any of the three frozen
+trees or the matched-patch cache. `allo.scoring.harness.score_arm` raises `PermissionError`
+on a `generalisation` arm unless the caller passes `unseal="phase-5"`, so scoring one is a
+deliberate act that leaves a string in the diff. Neither stops a person reading the file,
+and no test can. ADR 0041 states this plainly and records that the tier was already read
+during the August calibration, so its per-arm thresholds are known and the seal now covers
+the **scores**, not the inputs.
+
 ---
 
 ## 10. Endpoints for the secondary objectives

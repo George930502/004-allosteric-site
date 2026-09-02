@@ -156,15 +156,22 @@ def test_clause_x_no_apo_occupant_touches_a_label(frozen):
         )
         # A contact on a label that is ITSELF an active-site residue is permitted, because
         # clause (vii) already removed that residue from the candidate set and a residue
-        # nobody scores cannot leak an answer. MKP5 is the case in this set: a sulfate in
-        # the phosphate-binding catalytic site, 2.9 A from label 413, which is also active
-        # site. So every contacted label must be an active-site residue, and there must be
-        # enough of those to account for the count. An earlier version bounded the count by
-        # `len(excluded_from_scoring)` instead, which the assertion above already implies and
-        # which therefore could not fail on its own. This one can, and `bcr_abl1_mandated` in
-        # the PRIMARY set proves it: 16 labels contacted by myristate with no active-site
-        # overlap at all. That arm is admitted with its defect disclosed; a secondary arm
-        # selected from a pool gets no such licence.
+        # nobody scores cannot leak an answer. MKP5 is the case in this set: a sulfate sits
+        # in the phosphate-binding catalytic site and contacts one label that is also an
+        # active-site residue. So every contacted label must be an active-site residue, and
+        # there must be enough of those to account for the count. An earlier version bounded
+        # the count by `len(excluded_from_scoring)` instead, which the assertion above already
+        # implies and which therefore could not fail on its own. This one can, and it sits at
+        # its boundary on three arms rather than hanging slack: `mkp5` here at 1 == 1, and
+        # both KRAS arms in the PRIMARY set at 5 == 5. One further contacted label with no
+        # active-site overlap fails any of the three.
+        #
+        # Corrected 2026-09-03. This comment previously justified the assertion with
+        # "`bcr_abl1_mandated` proves it: 16 labels contacted by myristate". That is false in
+        # two ways. The arm contacts ZERO labels, and the 16 was read off
+        # `nearest_scoreable_label_angstrom`, which is a DISTANCE of 16.0 A and not a count.
+        # A stale falsifier is worse than none, because it stops the next reader checking.
+        # The same edit redacted a real label residue number this comment used to print.
         overlap = set(values["label_residues"]) & set(values["active_site"])
         assert occupancy["labels_contacted"] <= len(overlap), (
             f"{name}: {occupancy['labels_contacted']} labels contacted by an apo component "
