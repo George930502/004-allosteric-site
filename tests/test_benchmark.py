@@ -743,3 +743,35 @@ def test_the_primary_readme_quotes_the_rmsd_the_freeze_derives():
         assert f"{rmsd:.2f}" in rows[0], (
             f"{arm}: the table row is {rows[0].strip()}, and the freeze says {rmsd}"
         )
+
+
+def test_the_primary_readme_quotes_the_transplant_the_freeze_derives():
+    """The crypticity table too, and the note beside it was wrong about its own source.
+
+    Added 2026-09-03 by the round-5 audit. A note added the day before declared two rows of
+    this table stale and then asserted that neither quantity is in `frozen.json`, so neither
+    could be re-derived. Both are, per arm, for all six arms: `bcr_abl1_mandated` reads
+    2.63 A and 0/31, not 2.60 A, and `cardiac_myosin_mandated` was missing entirely. A claim
+    that a number cannot be derived is itself a claim and needs the same check as the number.
+    """
+    import json
+
+    from allo.inputs import ROOT
+
+    frozen = json.loads((ROOT / "docs/benchmark/primary/frozen.json").read_text())["targets"]
+    page = (ROOT / "docs/benchmark/primary/README.md").read_text()
+    header = (
+        "| Arm                        | Nearest apo atom to the transplanted effector | Clashes |"
+    )
+    assert header in page, "the crypticity table is gone from the page"
+    table = page[page.index(header) :].split("\n\n")[0].splitlines()
+    for arm, values in frozen.items():
+        rows = [one for one in table if one.startswith(f"| `{arm}`")]
+        assert len(rows) == 1, f"{arm} has {len(rows)} rows in the crypticity table"
+        cells = [cell.strip() for cell in rows[0].split("|")]
+        assert cells[2] == f"{values['transplant_min_distance']:.2f} Å", (
+            f"{arm}: the row says {cells[2]}, the freeze says {values['transplant_min_distance']}"
+        )
+        assert cells[3] == values["transplant_clashes"], (
+            f"{arm}: the row says {cells[3]}, the freeze says {values['transplant_clashes']}"
+        )

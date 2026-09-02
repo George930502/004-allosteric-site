@@ -320,15 +320,27 @@ count clashes below 2.5 Å.
 | -------------------------- | --------------------------------------------: | ------- | --------------------------------------------------------- |
 | `kras_g12c_mandated`       |                                        0.75 Å | 14/41   | genuinely cryptic                                         |
 | `kras_g12c_corrected`      |                                        0.69 Å | 18/41   | genuinely cryptic                                         |
-| `bcr_abl1_mandated`        |                                        2.60 Å | 0/31    | pre-formed — and unsurprising, the pocket holds myristate |
+| `bcr_abl1_mandated`        |                                        2.63 Å | 0/31    | pre-formed — and unsurprising, the pocket holds myristate |
 | `bcr_abl1_corrected`       |                                        1.95 Å | 2/31    | pre-formed even with the pocket empty                     |
+| `cardiac_myosin_mandated`  |                                        1.70 Å | 8/20    | between the two readings; see below                       |
 | `cardiac_myosin_corrected` |                                        2.63 Å | 0/20    | pre-formed                                                |
 
-**Two rows of that table are stale and are corrected here rather than in place, 2026-09-03.**
-`bcr_abl1_mandated`'s 2.60 Å predates ADR 0029's move to `1OPL` chain **B**, and
-`cardiac_myosin_mandated` has no row at all although ADR 0031 froze it on 2026-09-02. Neither
-quantity is in `frozen.json`, so neither can be re-derived by a command and neither is guessed
-at here. The pocket-lining RMSD below is in the freeze and is re-derived.
+**Re-derived from `frozen.json` on 2026-09-03, and the note that stood here for a day was
+wrong.** That note said `bcr_abl1_mandated`'s 2.60 Å was stale after ADR 0029's move to `1OPL`
+chain **B**, that `cardiac_myosin_mandated` had no row although ADR 0031 froze it, and then
+that **neither quantity is in `frozen.json`**. Both are: `transplant_min_distance` and
+`transplant_clashes`, per arm, for all six arms. The two rows are now derived from the freeze
+like every other table on this page, and
+`test_the_primary_readme_quotes_the_transplant_the_freeze_derives` re-derives them. The
+lesson is the round's own: a claim that a number cannot be derived is itself a claim, and it
+needs the same check as the number.
+
+`cardiac_myosin_mandated` gets no verdict word, because the two words in that column were
+assigned by judgement and it sits between them: the nearest apo atom is closer than either
+pre-formed arm and further than either cryptic one, and 8 of 20 effector atoms clash. It is a
+homology model on the apo side (ADR 0031), so the geometry behind both numbers is partly
+invented and a crispier reading would be reading the model. The arm is non-confirmatory and
+prints its measured defects, so nothing rests on this.
 
 Pocket-lining RMSD does **not** tell the same story, and the sentence that said it did was
 wrong by a factor of 52 on one arm. Re-derived from `frozen.json` on 2026-09-03:
