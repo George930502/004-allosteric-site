@@ -2509,6 +2509,21 @@ def test_the_counts_the_documents_assert_are_the_counts_the_repository_has():
         f"AGENTS.md lists {routes} routes and its closing sentence says otherwise"
     )
 
+    ordinal = {13: "fourteenth", 14: "fifteenth", 15: "sixteenth", 16: "seventeenth"}
+    for name, pattern in {
+        "README.md": f"{lower[routes]} file-read routes",
+        "CONTRIBUTING.md": (
+            f"**{spelled[routes]}** file-read routes bypass the import graph. "
+            f"All {lower[routes]} are named"
+        ),
+    }.items():
+        assert pattern in (ROOT / name).read_text(), (
+            f"{name} does not state the true route count of {routes}"
+        )
+    assert f"add a {ordinal[routes]}, add it there" in (ROOT / "CONTRIBUTING.md").read_text(), (
+        f"CONTRIBUTING.md names the wrong next route after {routes}"
+    )
+
     from allo.scoring.baselines import REQUIRED_BASELINES
 
     banner = "the required baselines are now"

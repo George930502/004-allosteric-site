@@ -10,9 +10,9 @@ allosteric signal propagation.*
 > channels classically takes months of MD and relies on approximations that are
 > often too linear to capture the real, non-linear signal propagation.
 
-**Status, 2026-09-02.** Phase 1 is closed, and both frozen layers moved once more on
-2026-09-02 — **before any method was scored**, which is the only condition under which they
-may move at all.
+**Status, 2026-09-03.** Phase 1 is closed, and both frozen layers moved again on 2026-09-02
+and 2026-09-03 — **before any method was scored**, which is the only condition under which
+they may move at all.
 
 The organisers answered four questions about the benchmark, and a multi-axis audit of all
 three frozen sets ran against those answers
@@ -24,6 +24,14 @@ now have a contract. The **evaluation layer** is re-frozen at **protocol version
 recalibration reproduced thirteen of the fifteen arms' thresholds to six decimal places and
 moved only the two the input re-freeze changed, which is the check that says they moved for a
 reason.
+
+**Two further audit rounds ran on 2026-09-03**, and the input layer moved once more with them.
+ADR 0044 settled what may sit in an apo entry's catalytic site, on a published roster rather
+than on judgement, and re-froze the occupant annotation. The primary manifest is at version 4
+and the secondary at version 2. **No target moved and no scored quantity moved.** The rounds
+also closed the largest constraint-C1 hole this repository has had — an enumeration returns a
+protected tree's contents without ever naming it — and replaced six hand-typed tables with
+tables a test derives. `docs/benchmark/review/27-fourth-pass-synthesis.md` §1.6 and §1.7.
 
 Every departure from `CHALLENGE.md` Table 1 is on one page:
 [`docs/report/substitutions.md`](docs/report/substitutions.md).
@@ -164,7 +172,7 @@ and the report's claim threshold is **beating that baseline**, not clearing the 
 ### The separation is enforced, not promised
 
 Holo structures build the labels and never enter the prediction path (constraint C1). The
-import graph enforces it, `src/allo/groundtruth/` is a sink, and fourteen file-read routes that no
+import graph enforces it, `src/allo/groundtruth/` is a sink, and sixteen file-read routes that no
 import trace can see are named and guarded in
 [`tests/test_no_leakage.py`](tests/test_no_leakage.py).
 
