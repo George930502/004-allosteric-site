@@ -15,7 +15,34 @@ closes.
 **Current phase: 1 (Classical foundation).** Sub-phase 1.0, the frozen **input** layer, and
 sub-phase 1.6, the frozen **evaluation** layer, are both **closed**. 1.6 was closed on
 2026-08-25, reopened the same day by its own audit
-(`docs/benchmark/evaluation/AUDIT.md`), and closed again as **protocol version 2**.
+(`docs/benchmark/evaluation/AUDIT.md`), and closed again as **protocol version 2**. It is at
+**protocol version 4** today.
+
+> **A FOURTH PASS RAN ON 2026-09-03 and opened protocol version 4.** Read
+> [`docs/benchmark/review/27-fourth-pass-synthesis.md`](benchmark/review/27-fourth-pass-synthesis.md).
+> It is the current ranked list and it supersedes `26`.
+>
+> Three findings would have invalidated a result. The claim family counted a rejection in the
+> wrong direction, so a method significantly **worse** than `cavity_volume` cleared the family
+> that licenses "the method beats the reference". The C1 package scans globbed `src/allo`
+> while the runner scan exempted the whole of `src/`, so a second package at `src/predict/`
+> was read by neither and recovered the positive count for all fifteen arms with the suite
+> green. And negative class (b) did not measure the deliverable: a shift of four standard
+> deviations on every label residue gives power **0** on KRAS and on cardiac myosin, because
+> the statistic ranks the detector's pocket lining and twelve myosin labels sit inside a
+> 295-residue lining. ADR 0039 adds the label-set form beside it; measured size 0.0000, 0.0083
+> and 0.0094 against a nominal 0.05, and power 0.87 and 1.00 where the shipped form has none.
+>
+> **"Clearing a family" had no definition**, and the frozen layer held both readings in
+> documents that cite each other. ADR 0038 freezes the disjunction, in code. Under it,
+> `cavity_volume` **clears** family 1 on one arm of three. The line below and
+> `evaluation/README.md` §13 record that same measurement as a failure, which was the wording
+> and not the arithmetic.
+>
+> The data-route list held eleven routes and two payload notes and called itself thirteen.
+> Two real routes were added on 2026-09-03 — `docs/adr/`, and a protected file's former name
+> after a rename — so the count is **fourteen**. The path resolver was replaced as the primary
+> defence by a segment-cover backstop, because a whitelist of spellings had lost four times.
 
 > **A second audit pass ran on 2026-09-02, audited the first one, and its findings were
 > repaired the same day. Read
