@@ -1,270 +1,291 @@
 {
-  "kras_g12c_mandated": {
-    "set": "primary",
-    "holo": "6OIM:A",
-    "effector": "MOV",
-    "lining_chains_in_AU": [
-      "A"
-    ],
-    "lining_residues_by_chain": {
-      "A": 21
-    },
-    "single_chain_in_AU": true,
-    "assembly": {
-      "id": "1",
-      "polymer_entity_copies": {
-        "1": 1
-      },
-      "selected_chain_entity_copies": 1
-    }
+ "kras_g12c_mandated": {
+  "set": "primary",
+  "holo": "6OIM:A",
+  "effector": "MOV",
+  "lining_chains_in_AU": [
+   "A"
+  ],
+  "lining_residues_by_chain": {
+   "A": 21
   },
-  "kras_g12c_corrected": {
-    "set": "primary",
-    "holo": "6OIM:A",
-    "effector": "MOV",
-    "lining_chains_in_AU": [
-      "A"
-    ],
-    "lining_residues_by_chain": {
-      "A": 21
-    },
-    "single_chain_in_AU": true,
-    "assembly": {
-      "id": "1",
-      "polymer_entity_copies": {
-        "1": 1
-      },
-      "selected_chain_entity_copies": 1
-    }
-  },
-  "bcr_abl1_mandated": {
-    "set": "primary",
-    "holo": "5MO4:A",
-    "effector": "AY7",
-    "lining_chains_in_AU": [
-      "A"
-    ],
-    "lining_residues_by_chain": {
-      "A": 20
-    },
-    "single_chain_in_AU": true,
-    "assembly": {
-      "id": "1",
-      "polymer_entity_copies": {
-        "1": 1
-      },
-      "selected_chain_entity_copies": 1
-    }
-  },
-  "bcr_abl1_corrected": {
-    "set": "primary",
-    "holo": "5MO4:A",
-    "effector": "AY7",
-    "lining_chains_in_AU": [
-      "A"
-    ],
-    "lining_residues_by_chain": {
-      "A": 20
-    },
-    "single_chain_in_AU": true,
-    "assembly": {
-      "id": "1",
-      "polymer_entity_copies": {
-        "1": 1
-      },
-      "selected_chain_entity_copies": 1
-    }
-  },
-  "cardiac_myosin_corrected": {
-    "set": "primary",
-    "holo": "9GZ2:A",
-    "effector": "XB2",
-    "lining_chains_in_AU": [
-      "A"
-    ],
-    "lining_residues_by_chain": {
-      "A": 12
-    },
-    "single_chain_in_AU": true,
-    "assembly": {
-      "id": "1",
-      "polymer_entity_copies": {
-        "1": 1
-      },
-      "selected_chain_entity_copies": 1
-    }
-  },
-  "mkp5": {
-    "set": "secondary",
-    "holo": "7UMV:A",
-    "effector": "NUU",
-    "lining_chains_in_AU": [
-      "A"
-    ],
-    "lining_residues_by_chain": {
-      "A": 12
-    },
-    "single_chain_in_AU": true,
-    "assembly": {
-      "id": "1",
-      "polymer_entity_copies": {
-        "1": 1
-      },
-      "selected_chain_entity_copies": 1
-    }
-  },
-  "chk1": {
-    "set": "secondary",
-    "holo": "3JVR:A",
-    "effector": "AGX",
-    "lining_chains_in_AU": [
-      "A"
-    ],
-    "lining_residues_by_chain": {
-      "A": 12
-    },
-    "single_chain_in_AU": true,
-    "assembly": {
-      "id": "1",
-      "polymer_entity_copies": {
-        "1": 1
-      },
-      "selected_chain_entity_copies": 1
-    }
-  },
-  "ptp1b": {
-    "set": "secondary",
-    "holo": "1T48:A",
-    "effector": "BB3",
-    "lining_chains_in_AU": [
-      "A"
-    ],
-    "lining_residues_by_chain": {
-      "A": 11
-    },
-    "single_chain_in_AU": true,
-    "assembly": {
-      "id": "1",
-      "polymer_entity_copies": {
-        "1": 1
-      },
-      "selected_chain_entity_copies": 1
-    }
-  },
-  "smyd3": {
-    "set": "secondary",
-    "holo": "7BJ1:A",
-    "effector": "QKT",
-    "lining_chains_in_AU": [
-      "A"
-    ],
-    "lining_residues_by_chain": {
-      "A": 12
-    },
-    "single_chain_in_AU": true,
-    "assembly": {
-      "id": "1",
-      "polymer_entity_copies": {
-        "1": 1
-      },
-      "selected_chain_entity_copies": 1
-    }
-  },
-  "glucokinase": {
-    "set": "secondary",
-    "holo": "3F9M:A",
-    "effector": "MRK",
-    "lining_chains_in_AU": [
-      "A"
-    ],
-    "lining_residues_by_chain": {
-      "A": 19
-    },
-    "single_chain_in_AU": true,
-    "assembly": {
-      "id": "1",
-      "polymer_entity_copies": {
-        "1": 1
-      },
-      "selected_chain_entity_copies": 1
-    }
-  },
-  "hiv_rt": {
-    "set": "secondary",
-    "holo": "1VRT:A",
-    "effector": "NVP",
-    "lining_chains_in_AU": [
-      "A"
-    ],
-    "lining_residues_by_chain": {
-      "A": 16
-    },
-    "single_chain_in_AU": true,
-    "assembly": {
-      "id": "1",
-      "polymer_entity_copies": {
-        "1": 1,
-        "2": 1
-      },
-      "selected_chain_entity_copies": 1
-    }
-  },
-  "ns5b": {
-    "set": "secondary",
-    "holo": "2BRK:A",
-    "effector": "CMF",
-    "lining_chains_in_AU": [
-      "A"
-    ],
-    "lining_residues_by_chain": {
-      "A": 16
-    },
-    "single_chain_in_AU": true,
-    "assembly": {
-      "id": "1",
-      "polymer_entity_copies": {
-        "1": 1
-      },
-      "selected_chain_entity_copies": 1
-    }
-  },
-  "p97_vcp": {
-    "set": "secondary",
-    "holo": "5FTJ:A",
-    "effector": "OJA",
-    "lining_chains_in_AU": [
-      "A"
-    ],
-    "lining_residues_by_chain": {
-      "A": 17
-    },
-    "single_chain_in_AU": true,
-    "assembly": {
-      "id": "1",
-      "polymer_entity_copies": {
-        "1": 6
-      },
-      "selected_chain_entity_copies": 6
-    }
-  },
-  "ecoli_cps": {
-    "set": "secondary",
-    "holo": "1T36:A",
-    "effector": "U5P",
-    "lining_chains_in_AU": [
-      "A"
-    ],
-    "lining_residues_by_chain": {
-      "A": 19
-    },
-    "single_chain_in_AU": true,
-    "assembly": {
-      "id": "1",
-      "polymer_entity_copies": {
-        "1": 4,
-        "2": 4
-      },
-      "selected_chain_entity_copies": 4
-    }
+  "single_chain_in_AU": true,
+  "assembly": {
+   "id": "1",
+   "polymer_entity_copies": {
+    "1": 1
+   },
+   "selected_chain_entity_copies": 1
   }
+ },
+ "kras_g12c_corrected": {
+  "set": "primary",
+  "holo": "6OIM:A",
+  "effector": "MOV",
+  "lining_chains_in_AU": [
+   "A"
+  ],
+  "lining_residues_by_chain": {
+   "A": 21
+  },
+  "single_chain_in_AU": true,
+  "assembly": {
+   "id": "1",
+   "polymer_entity_copies": {
+    "1": 1
+   },
+   "selected_chain_entity_copies": 1
+  }
+ },
+ "bcr_abl1_mandated": {
+  "set": "primary",
+  "holo": "5MO4:A",
+  "effector": "AY7",
+  "lining_chains_in_AU": [
+   "A"
+  ],
+  "lining_residues_by_chain": {
+   "A": 20
+  },
+  "single_chain_in_AU": true,
+  "assembly": {
+   "id": "1",
+   "polymer_entity_copies": {
+    "1": 1
+   },
+   "selected_chain_entity_copies": 1
+  }
+ },
+ "bcr_abl1_corrected": {
+  "set": "primary",
+  "holo": "5MO4:A",
+  "effector": "AY7",
+  "lining_chains_in_AU": [
+   "A"
+  ],
+  "lining_residues_by_chain": {
+   "A": 20
+  },
+  "single_chain_in_AU": true,
+  "assembly": {
+   "id": "1",
+   "polymer_entity_copies": {
+    "1": 1
+   },
+   "selected_chain_entity_copies": 1
+  }
+ },
+ "cardiac_myosin_corrected": {
+  "set": "primary",
+  "holo": "9GZ2:A",
+  "effector": "XB2",
+  "lining_chains_in_AU": [
+   "A"
+  ],
+  "lining_residues_by_chain": {
+   "A": 12
+  },
+  "single_chain_in_AU": true,
+  "assembly": {
+   "id": "1",
+   "polymer_entity_copies": {
+    "1": 1
+   },
+   "selected_chain_entity_copies": 1
+  }
+ },
+ "cardiac_myosin_mandated": {
+  "set": "primary",
+  "holo": "9GZ2:A",
+  "effector": "XB2",
+  "lining_chains_in_AU": [
+   "A"
+  ],
+  "lining_residues_by_chain": {
+   "A": 12
+  },
+  "single_chain_in_AU": true,
+  "assembly": {
+   "id": "1",
+   "polymer_entity_copies": {
+    "1": 1
+   },
+   "selected_chain_entity_copies": 1
+  },
+  "measured_on": "2026-09-03",
+  "note": "Added by the fourth pass. The file held fourteen arms and the primary set has held six since ADR 0031. Measured from the tracked 9GZ2 copy rather than copied from the corrected arm, although ADR 0031 gives both arms the same holo."
+ },
+ "mkp5": {
+  "set": "secondary",
+  "holo": "7UMV:A",
+  "effector": "NUU",
+  "lining_chains_in_AU": [
+   "A"
+  ],
+  "lining_residues_by_chain": {
+   "A": 12
+  },
+  "single_chain_in_AU": true,
+  "assembly": {
+   "id": "1",
+   "polymer_entity_copies": {
+    "1": 1
+   },
+   "selected_chain_entity_copies": 1
+  }
+ },
+ "chk1": {
+  "set": "secondary",
+  "holo": "3JVR:A",
+  "effector": "AGX",
+  "lining_chains_in_AU": [
+   "A"
+  ],
+  "lining_residues_by_chain": {
+   "A": 12
+  },
+  "single_chain_in_AU": true,
+  "assembly": {
+   "id": "1",
+   "polymer_entity_copies": {
+    "1": 1
+   },
+   "selected_chain_entity_copies": 1
+  }
+ },
+ "ptp1b": {
+  "set": "secondary",
+  "holo": "1T48:A",
+  "effector": "BB3",
+  "lining_chains_in_AU": [
+   "A"
+  ],
+  "lining_residues_by_chain": {
+   "A": 11
+  },
+  "single_chain_in_AU": true,
+  "assembly": {
+   "id": "1",
+   "polymer_entity_copies": {
+    "1": 1
+   },
+   "selected_chain_entity_copies": 1
+  }
+ },
+ "smyd3": {
+  "set": "secondary",
+  "holo": "7BJ1:A",
+  "effector": "QKT",
+  "lining_chains_in_AU": [
+   "A"
+  ],
+  "lining_residues_by_chain": {
+   "A": 12
+  },
+  "single_chain_in_AU": true,
+  "assembly": {
+   "id": "1",
+   "polymer_entity_copies": {
+    "1": 1
+   },
+   "selected_chain_entity_copies": 1
+  }
+ },
+ "glucokinase": {
+  "set": "secondary",
+  "holo": "3F9M:A",
+  "effector": "MRK",
+  "lining_chains_in_AU": [
+   "A"
+  ],
+  "lining_residues_by_chain": {
+   "A": 19
+  },
+  "single_chain_in_AU": true,
+  "assembly": {
+   "id": "1",
+   "polymer_entity_copies": {
+    "1": 1
+   },
+   "selected_chain_entity_copies": 1
+  }
+ },
+ "hiv_rt": {
+  "set": "secondary",
+  "holo": "1VRT:A",
+  "effector": "NVP",
+  "lining_chains_in_AU": [
+   "A"
+  ],
+  "lining_residues_by_chain": {
+   "A": 16
+  },
+  "single_chain_in_AU": true,
+  "assembly": {
+   "id": "1",
+   "polymer_entity_copies": {
+    "1": 1,
+    "2": 1
+   },
+   "selected_chain_entity_copies": 1
+  }
+ },
+ "ns5b": {
+  "set": "secondary",
+  "holo": "2BRK:A",
+  "effector": "CMF",
+  "lining_chains_in_AU": [
+   "A"
+  ],
+  "lining_residues_by_chain": {
+   "A": 16
+  },
+  "single_chain_in_AU": true,
+  "assembly": {
+   "id": "1",
+   "polymer_entity_copies": {
+    "1": 1
+   },
+   "selected_chain_entity_copies": 1
+  }
+ },
+ "p97_vcp": {
+  "set": "secondary",
+  "holo": "5FTJ:A",
+  "effector": "OJA",
+  "lining_chains_in_AU": [
+   "A"
+  ],
+  "lining_residues_by_chain": {
+   "A": 17
+  },
+  "single_chain_in_AU": true,
+  "assembly": {
+   "id": "1",
+   "polymer_entity_copies": {
+    "1": 6
+   },
+   "selected_chain_entity_copies": 6
+  }
+ },
+ "ecoli_cps": {
+  "set": "secondary",
+  "holo": "1T36:A",
+  "effector": "U5P",
+  "lining_chains_in_AU": [
+   "A"
+  ],
+  "lining_residues_by_chain": {
+   "A": 19
+  },
+  "single_chain_in_AU": true,
+  "assembly": {
+   "id": "1",
+   "polymer_entity_copies": {
+    "1": 4,
+    "2": 4
+   },
+   "selected_chain_entity_copies": 4
+  }
+ }
 }

@@ -208,7 +208,7 @@ say which claim the achieved N licenses, in the same words the protocol uses els
 
 ### 3.7 Smaller, and each measured
 
-- Add `cardiac_myosin_mandated` to `clause-ix-both-sets.json`, which holds fourteen arms.
+- ~~Add `cardiac_myosin_mandated` to `clause-ix-both-sets.json`~~ **done 2026-09-03.** Measured from the tracked `9GZ2` copy: the `XB2` protein lining at 4.5 angstrom is 12 residues, all in chain A, so clause (ix) passes. ADR 0031 gives both myosin arms the same holo, so the two entries agree, and this one was measured rather than entailed. The file now holds fifteen arms and all fifteen pass.
 - Say in `evaluation/README.md` that the sealed tier is fully materialised in `frozen.json`,
   geometry and positive counts included, and that the seal is a reading discipline enforced by
   `PROTECTED_PATHS`.
