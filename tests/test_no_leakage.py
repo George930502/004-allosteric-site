@@ -465,18 +465,46 @@ def constant_paths_from_source(source: str, filename: Path) -> set[Path]:
             base = evaluate(node.value)
             if isinstance(base, Path) and node.attr == "parent":
                 return base.parent
+            # `.parents` is a SEQUENCE, and returning it lets `list(...)`, `tuple(...)` and
+            # plain indexing all fall out of the two cases below. Modelling only the
+            # `x.parents[i]` spelling left `list(x.parents)[i]` open, which reads
+            # `data/patches` from `APO_CACHE` with no protected literal anywhere in the file.
+            # Sixth instance of one failure mode, found 2026-09-03 by an adversarial pass.
+            if isinstance(base, Path) and node.attr == "parents":
+                return list(base.parents)
             if base == "module:allo.inputs" and node.attr in _KNOWN_INPUT_PATHS:
                 return _KNOWN_INPUT_PATHS[node.attr]
             if base == "module:allo.inputs" and node.attr == "inputs":
                 return base
-        if isinstance(node, ast.Subscript) and isinstance(node.value, ast.Attribute):
-            base = evaluate(node.value.value)
+        if isinstance(node, ast.Subscript):
+            base = evaluate(node.value)
             index = evaluate(node.slice)
-            if isinstance(base, Path) and node.value.attr == "parents" and isinstance(index, int):
-                return base.parents[index]
+            if (
+                isinstance(base, list)
+                and isinstance(index, int)
+                and -len(base) <= index < len(base)
+            ):
+                return base[index]
         if isinstance(node, ast.Call):
             name = _dotted_name(node.func)
             args = [evaluate(arg) for arg in node.args]
+            # `"".join(["pat", "ches"])` assembles a component with no literal to cover.
+            # `"pat" + "ches"` was already folded by the BinOp branch; the method spelling
+            # was not, and it reached `data/patches` with every test green. Found 2026-09-03.
+            if (
+                isinstance(node.func, ast.Attribute)
+                and node.func.attr == "join"
+                and isinstance(sep := evaluate(node.func.value), str)
+                and len(node.args) == 1
+                and isinstance(node.args[0], (ast.List, ast.Tuple))
+            ):
+                parts = [evaluate(part) for part in node.args[0].elts]
+                if parts and all(isinstance(part, str) for part in parts):
+                    return sep.join(parts)
+            if name in {"list", "tuple"} and len(args) == 1 and isinstance(args[0], list):
+                return list(args[0])
+            if name == "reversed" and len(args) == 1 and isinstance(args[0], list):
+                return list(reversed(args[0]))
             if name in call_names and all(isinstance(arg, _PATH_PART) for arg in args):
                 return Path(*args)
             if name in join_names and args and all(isinstance(arg, _PATH_PART) for arg in args):
@@ -636,11 +664,15 @@ def segment_cover_violations(source: str) -> set[Path]:
     also covers a deeper path that is explicitly allowed, which is what lets
     `allo.structure.pdb` spell `data/raw/apo` without `data/raw` firing underneath it.
     """
-    segments = literal_segments(source)
+    # Case-folded, because macOS and Windows open `DATA/patches` as `data/patches` and the
+    # comparison is a string one. `Path("DATA")/"patches"` read the whole matched-patch cache
+    # with the cover returning the empty set. Found 2026-09-03. A rule that holds only on a
+    # case-sensitive filesystem is not a rule, it is a property of the developer's laptop.
+    segments = {segment.casefold() for segment in literal_segments(source)}
 
     def covered(path: Path) -> bool:
         parts = path.relative_to(ROOT).parts
-        return len(parts) >= 2 and all(part in segments for part in parts)
+        return len(parts) >= 2 and all(part.casefold() in segments for part in parts)
 
     # A former name enters the cover only when no `FROZEN_TOKEN` already backstops it. Two of
     # the five renames carry their token in the file name (`frozen.json`, `manifest.yaml`) and
@@ -661,15 +693,105 @@ def segment_cover_violations(source: str) -> set[Path]:
     }
 
 
+def _folded(path: Path) -> tuple[str, ...]:
+    """A path as case-folded parts, which is how the filesystem under us compares them."""
+    return tuple(part.casefold() for part in path.parts)
+
+
+def _under(path: Path, root: Path) -> bool:
+    """Is `path` `root` or inside it, ignoring case? See `segment_cover_violations`."""
+    a, b = _folded(path), _folded(root)
+    return a[: len(b)] == b
+
+
+ENUMERATORS = frozenset({"glob", "rglob", "iterdir", "scandir", "listdir", "walk", "walkdirs"})
+
+# A component no real path uses, appended to the base expression so the resolver's answer for
+# THAT expression is identifiable among every other path the file names. Without it the
+# deepest path in the file wins, and for `ROOT.rglob("*.npz")` that is the glob pattern.
+_ENUM_SENTINEL = "__enumeration_base_probe__"
+
+
+def enumeration_violations(source: str, filename: Path) -> set[Path]:
+    """Enumerating a directory that CONTAINS a protected path is reading the protected path.
+
+    Added 2026-09-03, and it is the largest hole this repository has had. `ROOT.rglob("*.npz")`
+    resolves to no protected path, spells no protected component, and hands back every file in
+    `data/patches`. An adversarial pass installed eight such spellings as live prediction
+    modules -- recursive globs, a two-level pattern, `os.walk`, `iterdir` -- and recovered
+    `n_positive` for all fifteen arms, the sealed tier included, with the whole suite green.
+
+    Both existing mechanisms miss it by construction. The resolver models a glob PATTERN as a
+    path component, which works only when the protected component is written out; put a `*`
+    where it goes and the resolved path has no protected ancestor. The segment cover asks
+    whether every component appears as a literal, and a wildcard is the one spelling where the
+    component never has to.
+
+    So the question here is neither "which path is this" nor "are the pieces present". It is
+    "can this call SEE a protected path", which is a containment test in both directions and
+    needs no pattern analysis at all. An unresolvable base fails closed, because a base we
+    cannot resolve is exactly the case we cannot clear. That costs nothing today: `src/` holds
+    no enumeration call of any kind, so the rule is free until someone needs one, and then it
+    is a decision rather than an accident.
+    """
+    tree = ast.parse(source)
+    hits: set[Path] = set()
+    for node in ast.walk(tree):
+        if not isinstance(node, ast.Call) or not isinstance(node.func, ast.Attribute):
+            continue
+        if node.func.attr not in ENUMERATORS:
+            continue
+        # `p.glob(...)` takes its base from the attribute; `os.walk(p)` from the first argument.
+        holder = (
+            node.args[0] if node.func.attr in {"walk", "listdir", "scandir"} else node.func.value
+        )
+        try:
+            base = _resolve_one(holder, tree, filename)
+        except Exception:
+            base = None
+        for protected in PROTECTED_PATHS | FORMER_PROTECTED_PATHS:
+            if base is None or _under(protected, base) or _under(base, protected):
+                if base is not None and any(
+                    _under(base, allowed) for allowed in ALLOWED_PREDICTION_PATHS
+                ):
+                    continue
+                hits.add(protected if base is None else base)
+    return hits
+
+
+def _resolve_one(node: ast.AST, tree: ast.Module, filename: Path) -> Path | None:
+    """The path one expression resolves to, in its own file's context, or None.
+
+    The expression alone is not enough: `ROOT.rglob(...)` needs the file's import of `ROOT`
+    and `base.glob(...)` needs the assignment that made `base`. So the probe is the whole
+    module with one expression appended, which keeps every binding the evaluator uses. A base
+    that still does not resolve is reported as unresolvable and the caller fails closed.
+    """
+    marked = ast.BinOp(left=node, op=ast.Div(), right=ast.Constant(value=_ENUM_SENTINEL))
+    probe = ast.Module(body=[*tree.body, ast.Expr(value=marked)], type_ignores=[])
+    ast.fix_missing_locations(probe)
+    for path in constant_paths_from_source(ast.unparse(probe), filename):
+        if path.name == _ENUM_SENTINEL:
+            return path.parent
+    # One unresolvable COMPONENT must not cost the whole base. `(RAW / pdb).glob(...)` in a
+    # review tool has `pdb` as a loop variable, and answering None there fails closed on every
+    # protected root at once, which floods the report and breaks a tool doing nothing wrong.
+    # The longest resolvable prefix is the honest answer: an enumeration under `RAW / anything`
+    # reaches no more than an enumeration under `RAW`, and `RAW` is a path the exemptions know.
+    if isinstance(node, ast.BinOp) and isinstance(node.op, ast.Div):
+        return _resolve_one(node.left, tree, filename)
+    return None
+
+
 def protected_path_violations(source: str, filename: Path) -> set[Path]:
     violations = set()
     for path in constant_paths_from_source(source, filename):
-        if any(path == allowed or allowed in path.parents for allowed in ALLOWED_PREDICTION_PATHS):
+        if any(_under(path, allowed) for allowed in ALLOWED_PREDICTION_PATHS):
             continue
         for protected in PROTECTED_PATHS | FORMER_PROTECTED_PATHS:
-            if path == protected or protected in path.parents:
+            if _under(path, protected):
                 violations.add(path)
-    return violations | segment_cover_violations(source)
+    return violations | segment_cover_violations(source) | enumeration_violations(source, filename)
 
 
 @pytest.fixture(scope="module")
@@ -2240,3 +2362,49 @@ def test_no_unprotected_tracked_file_reproduces_a_positive_count():
         f"context that reads as a count: {sorted(offenders)}. C1 forbids the count reaching "
         "the prediction path as plainly as it forbids the residue identities"
     )
+
+
+def test_an_enumeration_cannot_see_a_protected_path_by_any_spelling():
+    """The largest hole this repository has had, closed 2026-09-03 and pinned here.
+
+    An adversarial pass installed each of these as a live prediction module and recovered
+    `n_positive` for all fifteen arms, the sealed `generalisation` tier included, with the
+    whole suite green. None resolves to a protected path and none spells a protected
+    component, because a wildcard is exactly the spelling where the component never has to
+    appear.
+
+    The last two are the control. A rule that fires on every enumeration would be trivially
+    safe and useless, so the test also pins that an enumeration nowhere near a protected root
+    stays clean.
+    """
+    probe = Path("/tmp/enumeration_probe.py")
+    root = "from allo.inputs import ROOT\n"
+    cache = "from allo.inputs import APO_CACHE\n"
+    lib = "from pathlib import Path\n"
+    escapes = {
+        "recursive glob from the repository root": root + 'for f in ROOT.rglob("*.npz"): pass',
+        "recursive glob from an unprotected parent": root
+        + 'for f in (ROOT / "data").rglob("*.npz"): pass',
+        "two-level pattern": root + 'for f in (ROOT / "data").glob("*/*.npz"): pass',
+        "pattern reaching both input freezes": root
+        + 'for f in (ROOT / "docs").glob("benchmark/*/*.json"): pass',
+        "os.walk": "import os\n" + root + 'for a, b, c in os.walk(ROOT / "data"): pass',
+        "iterdir": root + 'for f in (ROOT / "data").iterdir(): pass',
+        "a component assembled by str.join": root + 'p = ROOT / "data" / "".join(["pat", "ches"])',
+        "the component inside the pattern": root + 'for f in ROOT.rglob("patches/*.npz"): pass',
+        "a case variant of a protected component": lib + 'p = Path("DATA") / "patches"',
+        "parents converted to a list, then indexed": cache
+        + 'p = list(APO_CACHE.parents)[1] / "patches"',
+    }
+    missed = [
+        name for name, source in escapes.items() if not protected_path_violations(source, probe)
+    ]
+    assert not missed, f"a prediction module can still reach a protected path: {missed}"
+
+    clean = {
+        "a glob well away from any protected root": lib
+        + 'for f in Path("results").glob("*.csv"): pass',
+        "iterdir on an unprotected sibling": root + 'for f in (ROOT / "results").iterdir(): pass',
+    }
+    noisy = [name for name, source in clean.items() if protected_path_violations(source, probe)]
+    assert not noisy, f"the rule fires on an enumeration that reaches nothing protected: {noisy}"
