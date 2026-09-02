@@ -173,7 +173,7 @@ C1 expressed in the import graph: holo structures, ligand contacts and label set
 repo only through it. If anything on the prediction path imports it — directly or
 transitively — the blind prediction is compromised and the submission is invalid.
 
-**Fourteen data routes bypass the import graph, and each is guarded separately.**
+**Fifteen data routes bypass the import graph, and each is guarded separately.**
 
 1. **The freezes, and the trees around them.** `docs/benchmark/primary/` and
    `docs/benchmark/secondary/` are protected **whole**, not file by file. `frozen.json` was
@@ -264,16 +264,28 @@ transitively — the blind prediction is compromised and the submission is inval
     myosin arms, in the same three-letter spelling that hid `docs/targets.md` from the first sweep.
     An ADR argues from evidence, and the evidence lands in it. Protected whole, so ADR 0038
     is protected the day it is written.
-14. **A former name.** A protected path is protected by its name, and a rename gives the same
-    bytes a second name no entry covers. `docs/benchmark/audit/kras-g12c.md` became
-    `docs/benchmark/primary/audit/kras-g12c.md` on 2026-08-31, and
-    `git show <sha>:docs/benchmark/audit/kras-g12c.md` still returns the 21-of-21 KRAS contact
-    shell, from `main`, with no network. Two of the five renames carried a frozen token in the
-    file name and were backstopped; the three audit files carried none. The list is derived
-    from `git log --diff-filter=R` rather than typed, so a rename made next week is protected
-    the day it is made.
+14. **A former name, and a former place.** A protected path is protected by its name, and a
+    rename gives the same bytes a second name no entry covers.
+    `docs/benchmark/audit/kras-g12c.md` became `docs/benchmark/primary/audit/kras-g12c.md` on
+    2026-08-31, and `git show <sha>:docs/benchmark/audit/kras-g12c.md` still returns the whole
+    KRAS contact shell, from `main`, with no network. Two of the five renames carried a frozen
+    token in the file name and were backstopped; the three audit files carried none.
+    **`tests/former_protected_paths.json` is the authority, not git** (ADR 0043). A first fix
+    derived the list at import time and was weakest exactly where a release is verified: a
+    shallow clone, a `git archive` export and a machine with no `git` binary all give the empty
+    set. Git now cross-checks the ledger and never replaces it. The filter is `RD`, because a
+    format conversion is a delete plus an add and not a rename, and **a directory that lost any
+    file to a protected tree is itself a former protected tree** — which is the rule rather than
+    the three names it was found by. Regenerating the ledger is a deliberate act.
+15. **The method-landscape survey.** `docs/evidence/method-landscape/` prints a per-arm
+    scoreable count in a power table and more of them in a variance note. C1 names the count as
+    plainly as it names the identities. Protected whole on 2026-09-03 by the round-4 audit. A
+    standing sweep now fails on any tracked unprotected file that puts a name for an arm, the
+    arm's exact count and a word that reads as a count inside one window — the arm identifier
+    was not enough, because prose says "both myosin arms" and never says
+    `cardiac_myosin_corrected`.
 
-All fourteen are enforced by `tests/test_no_leakage.py`, which names them in
+All fifteen are enforced by `tests/test_no_leakage.py`, which names them in
 `PROTECTED_PATHS`, in `FROZEN_TOKENS` and — for route 10 — in `allowed_experiment_path`. An
 import trace cannot see a file-read route, so the file-read and content tests are what does.
 
