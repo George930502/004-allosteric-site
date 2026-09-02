@@ -115,10 +115,15 @@ stricter one: **produce artifacts for all four, c-Myc included.**
 
 | Target | Mandated apo | Our arm | Note |
 | --- | --- | --- | --- |
-| KRAS G12C | 4OBE | `kras_g12c_mandated`, plus `kras_g12c_corrected` (4LDJ) | both scored, tiered |
-| BCR-ABL1 | 1OPL | `bcr_abl1_mandated`, plus `bcr_abl1_corrected` (2G2H) | both scored, tiered |
-| Cardiac myosin | 5TBY | `cardiac_myosin_mandated` (9GZ2), plus `cardiac_myosin_corrected` (9GZ3) | both scored, tiered. The organisers permit the `9GZ2` substitution and ADR 0031 takes it; the arm is non-confirmatory and prints its measured defects |
+| KRAS G12C | 4OBE | `kras_g12c_mandated`, plus `kras_g12c_corrected` (4LDJ) | both arms admitted and tiered |
+| BCR-ABL1 | 1OPL | `bcr_abl1_mandated`, plus `bcr_abl1_corrected` (2G2H) | both arms admitted and tiered |
+| Cardiac myosin | 5TBY | `cardiac_myosin_mandated` (9GZ2), plus `cardiac_myosin_corrected` (9GZ3) | both arms admitted and tiered. The organisers permit the `9GZ2` substitution and ADR 0031 takes it; the arm is non-confirmatory and prints its measured defects |
 | c-Myc | 1NKP | **none** | **no arm exists**, and the contract now says why. ADR 0036 scores c-Myc against NMR segments and declares it non-blind, superseding ADR 0020 |
+
+"Admitted and tiered" means the arm passed the input clauses and carries a scoring tier. It
+does **not** mean a method has scored it: no method exists on `main` (ADR 0037), which every
+status column above says. The word was "scored" until 2026-09-03, one page above the §6 line
+that round 6 corrected for the identical reason.
 
 Why the substitutions exist is in `docs/benchmark/primary/README.md`. The distinction that
 matters here: a defective pair blocks **scoring**, not **output**. Deliverable rows 1 and 2
