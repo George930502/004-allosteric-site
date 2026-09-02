@@ -237,12 +237,17 @@ transitively — the blind prediction is compromised and the submission is inval
     `PROTECTED_PATHS`; `allowed_experiment_path` is the exemption on top of it, not a
     replacement for it.
 11. **The target dossier.** `docs/targets.md` prints the cardiac myosin site in three-letter
-    codes — `Tyr164, Thr167, Asp168, …` — which is **12 of 12** `label_residues` for both
-    myosin arms, plus the minimum label-to-source distance per arm. The sweep that cleared
-    this file on 2026-09-02 matched bare integers on a word boundary, so `Tyr164` never
-    matched `164` and a true finding was recorded as refuted. **Re-run any label sweep with
-    three-letter codes normalised.** Protecting the file does not change how you read it:
-    `PROTECTED_PATHS` binds prediction modules, not agents.
+    codes, which is **12 of 12** `label_residues` for both myosin arms, plus the minimum
+    label-to-source distance per arm. The sweep that cleared this file on 2026-09-02 matched
+    bare integers on a word boundary, so a three-letter code never matched its own number and
+    a true finding was recorded as refuted. **Re-run any label sweep with three-letter codes
+    normalised.** Protecting the file does not change how you read it: `PROTECTED_PATHS` binds
+    prediction modules, not agents.
+
+    This entry quoted the residues until 2026-09-03, and so did the matching comment in
+    `tests/test_no_leakage.py`. Neither file is protected and neither is scanned, so the note
+    explaining the route was itself the route. **Describe an answer key by its shape and its
+    location. Never by its contents.**
 12. **The two benchmark READMEs.** `primary/README.md` and `secondary/README.md` tabulate a
     `Scoreable` column that **is** the positive count, beside the holo accession, the holo
     chain and the effector component ID — for all five sealed `generalisation` arms as well.

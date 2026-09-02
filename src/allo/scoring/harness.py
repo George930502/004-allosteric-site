@@ -630,6 +630,13 @@ def confirmatory_verdict(
     verdict["family_1"]["n_reject"] = sum(a["reject"] for a in verdict["family_1"]["arms"].values())
     verdict["family_1"]["cleared"] = verdict["family_1"]["n_reject"] >= 1
     if family_2 is None:
+        # ADR 0038 requires BOTH families, so a verdict without family 2 is not cleared. It
+        # used to omit the field, which left a caller unable to tell "not cleared" from a
+        # record written before the field existed. Absent is not the same as unmet.
+        verdict["cleared"] = False
+        verdict["licence"] = (
+            "no claim: the claim family was not supplied, and ADR 0038 requires both families"
+        )
         return verdict
     claim = decision["claim_family"]
     reference = str(claim["reference"])
@@ -959,8 +966,20 @@ def _conformance_problems(settings: dict) -> list[str]:
         "decoys.detector_version": decoy_module.DETECTOR_VERSION,
         "decision.correction": "holm",
         "decision.claim_family.correction": "holm",
+        # Added 2026-09-03. A mutation probe removed the v4 endpoint and flipped both
+        # sidedness declarations, and all three left this function silent. `sided` is not
+        # decoration: `holm` applies it, and turning `decision.sided` from `upper` to `two`
+        # halves every confirmatory p-value's tail without moving one pinned value.
+        "decision.sided": "upper",
+        "decision.claim_family.sided": "two",
     }
     problems: list[str] = []
+    # `endpoints.reported` is a list, so it is checked for membership rather than equality:
+    # the manifest may report more than the code writes, and it may not report less.
+    reported = settings.get("endpoints", {}).get("reported") or []
+    for name in ("auc_roc_vs_decoy_linings", "label_rank_vs_decoy_linings"):
+        if name not in reported:
+            problems.append(f"conformance endpoints.reported: {name} is written but not declared")
     for key, expected in implemented.items():
         node: object = settings
         for part in key.split("."):

@@ -113,27 +113,35 @@ PROTECTED_PATHS = {
     # this path, so protecting the tree costs the runners nothing.
     (ROOT / "experiments").resolve(),
     # The eleventh route, found 2026-09-02 by re-running the label sweep with three-letter
-    # residue codes normalised. `docs/targets.md:170` prints the cardiac myosin site as
-    # "Tyr164, Thr167, Asp168, His666, Pro710, Asn711, Arg712, Ile713, Glu774 ... plus
-    # Arg721, Tyr722, Leu770" -- 12 of 12 `label_residues` for BOTH myosin arms, and line
-    # 172 adds the minimum label-to-source distance per arm, which is a scored quantity.
+    # residue codes normalised. `docs/targets.md:170` prints the cardiac myosin site in
+    # three-letter codes -- 12 of 12 `label_residues` for BOTH myosin arms, and line 172 adds
+    # the minimum label-to-source distance per arm, which is a scored quantity.
     #
-    # The earlier sweep matched bare integers on a word boundary, so `Tyr164` did not match
-    # `164` and the whole set was invisible to it. That sweep cleared this file and the
+    # The residues themselves used to be quoted here, and this file is neither protected nor
+    # scanned, so the comment explaining the route WAS the route. Found 2026-09-03. Describe
+    # an answer key by its shape and its location; never by its contents.
+    #
+    # The earlier sweep matched bare integers on a word boundary, so a three-letter code did
+    # not match its own number and the whole set was invisible to it. That sweep cleared the
+    # file and the
     # clearance was written down as a refutation. A detector's false negative is the one
     # kind of finding that closes a question instead of opening it, which is why the sweep
     # that replaced it normalises the codes.
     (ROOT / "docs" / "targets.md").resolve(),
     # The twelfth route, found 2026-09-03 by the same sweep run over the trees the eleventh
     # cleared. `docs/adr/0031-cardiac-myosin-holo-substitution.md:22` prints the `9GZ2`
-    # contact shell as "Tyr164, Thr167, Asp168, His666, Pro710, Asn711, Arg712, Ile713,
-    # Glu774, Arg721, Tyr722, Leu770" -- 12 of 12 `label_residues` for both myosin arms,
+    # contact shell in three-letter codes -- 12 of 12 `label_residues` for both myosin arms,
     # the same set `docs/targets.md` was protected for one day earlier. An ADR argues from
     # the evidence, so the evidence lands in it, and the tree holds 37 of them. Protected
     # whole rather than file by file, for the reason `evaluation/` and `review/` are: an ADR
     # written next week is protected by default rather than leaked by default.
     (ROOT / "docs" / "adr").resolve(),
 }
+
+
+# The tracked ledger of former names. It is the source rather than the cross-check, so the
+# guard is the same strength in a shallow clone and in a `git archive` export as it is here.
+FORMER_PATH_LEDGER = ROOT / "tests" / "former_protected_paths.json"
 
 
 def renamed_into_protected() -> set[Path]:
@@ -152,22 +160,42 @@ def renamed_into_protected() -> set[Path]:
     made `data/patches` the hole in September. Deriving the list from git closes the class
     instead of the instance: a rename next week is protected the day it is made.
     """
-    result = subprocess.run(
-        [
-            "git",
-            "-C",
-            str(ROOT),
-            "log",
-            "--all",
-            "-M",
-            "--diff-filter=R",
-            "--name-status",
-            "--format=",
-        ],
-        capture_output=True,
-        text=True,
-        check=False,
-    )
+    return {
+        (ROOT / name).resolve()
+        for name in json.loads(FORMER_PATH_LEDGER.read_text())["former_paths"]
+    }
+
+
+def renamed_into_protected_from_git() -> set[Path] | None:
+    """The same list, derived from rename history, or None when there is no history to read.
+
+    This is the cross-check and not the source. Deriving it at import time made the guard
+    depend on clone depth: a `--depth=1` fetch and a `git archive` export both produce an
+    empty set, and a machine with no `git` binary raises during collection. Found 2026-09-03
+    by an adversarial pass, which ran the shallow clone. A guard that is weaker in an export
+    than in a working clone is weakest exactly where a release is verified.
+    """
+    try:
+        result = subprocess.run(
+            [
+                "git",
+                "-C",
+                str(ROOT),
+                "log",
+                "--all",
+                "-M",
+                "--diff-filter=R",
+                "--name-status",
+                "--format=",
+            ],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+    except OSError:
+        return None
+    if result.returncode != 0 or not result.stdout.strip():
+        return None
     former: set[Path] = set()
     for line in result.stdout.splitlines():
         fields = line.split("\t")
@@ -992,7 +1020,13 @@ def test_a_rename_leaves_no_second_unprotected_name(tmp_path):
     The list is derived from git rather than typed, so a rename made next week is protected
     the day it is made.
     """
-    assert FORMER_PROTECTED_PATHS, "no rename history found; the derivation is not running"
+    assert FORMER_PROTECTED_PATHS, "the former-path ledger is empty"
+    # The ledger is the source, because a shallow clone and a `git archive` export have no
+    # rename history and a guard must not be weaker there. Git cross-checks it when it can.
+    derived = renamed_into_protected_from_git()
+    if derived is not None:
+        missing = {p.relative_to(ROOT).as_posix() for p in derived - FORMER_PROTECTED_PATHS}
+        assert not missing, f"rename history holds paths the ledger does not: {sorted(missing)}"
     audits = {p for p in FORMER_PROTECTED_PATHS if p.parent.name == "audit"}
     assert len(audits) == 3, f"expected the three input audits, got {sorted(audits)}"
     for former in sorted(audits):
@@ -1879,8 +1913,8 @@ def test_the_three_new_answer_keys_are_protected():
 def test_the_answer_keys_the_numeric_sweep_could_not_see_are_protected(tmp_path):
     """Routes eleven to thirteen, and the reason the sweep that cleared them was wrong.
 
-    `docs/targets.md` prints the cardiac myosin site in three-letter codes -- `Tyr164`,
-    `Thr167`, ... -- so a sweep matching bare integers on a word boundary scored it zero and
+    `docs/targets.md` prints the cardiac myosin site in three-letter codes, so a sweep
+    matching bare integers on a word boundary scored it zero and
     a true finding was written down as refuted. Re-run with the codes normalised it is 12 of
     12 for both myosin arms. The two benchmark READMEs tabulate a `Scoreable` column that is
     the positive count, beside the holo entry and the effector, for the five sealed
@@ -1927,4 +1961,78 @@ def test_the_boundary_module_is_exempt_for_the_manifests_and_nothing_else():
     readme = "from pathlib import Path\np = Path('docs') / 'benchmark' / 'primary' / 'README.md'\n"
     assert protected_path_violations(readme, inputs) - MANIFEST_READS, (
         "the exemption must not cover the README that publishes the positive count"
+    )
+
+
+# Three-letter codes, so a sweep for `164` also sees `Tyr164`. The 2026-09-02 sweep matched
+# bare integers on a word boundary and recorded a true finding as refuted for want of this.
+THREE_LETTER = (
+    "ALA ARG ASN ASP CYS GLN GLU GLY HIS ILE LEU LYS MET PHE PRO SER THR TRP TYR VAL MSE"
+).split()
+
+
+def tracked_files() -> set[str]:
+    """Every path in the index, as a repo-relative POSIX string."""
+    out = subprocess.run(
+        ["git", "-C", str(ROOT), "ls-files", "-z"], capture_output=True, check=True
+    ).stdout
+    return {name.decode() for name in out.split(b"\0") if name}
+
+
+def label_numbers_in(text: str) -> list[tuple[int, int]]:
+    """Every residue number in `text`, with its offset, three-letter prefixes normalised."""
+    pattern = "|".join(THREE_LETTER)
+    found = []
+    for match in re.finditer(rf"(?i)\b(?:(?:{pattern})[- ]?)?(\d{{1,5}})\b", text):
+        found.append((match.start(), int(match.group(1))))
+    return found
+
+
+def test_no_unprotected_tracked_file_reproduces_a_label_set():
+    """C1 says "not even the residue count"; a residue LIST is the count and the answer.
+
+    The sweep that found `docs/targets.md` on 2026-09-02 ran once, by hand, and the note that
+    recorded what it found quoted the residues it found -- in `AGENTS.md` and in this file,
+    neither of which is protected and neither of which is scanned. **The comment explaining
+    the route was the route**, and it stood for a day before an adversarial pass found it.
+
+    So the sweep is a test now. Describe an answer key by its shape and its location, never by
+    its contents, and this fails if anyone forgets.
+
+    The window is 400 characters. Residue numbers scattered over a whole document are a
+    coincidence; a run of them inside one paragraph is a list. Measured: at 400 characters the
+    unwindowed version of this sweep produced 14 false positives and this one produces none.
+    """
+    from allo.scoring.harness import _arms_from_the_input_layer, _positives
+
+    window = 400
+    indexed = tracked_files()
+    labels = {}
+    for target in _arms_from_the_input_layer():
+        residues, _ = _positives(target)
+        if len(residues) >= 8:  # a short set collides with ordinary numbers too easily
+            labels[target] = set(residues)
+
+    offenders = []
+    for path in sorted(ROOT.rglob("*")):
+        if (
+            path.suffix not in {".md", ".yaml", ".yml", ".json", ".txt", ".py"}
+            or not path.is_file()
+        ):
+            continue
+        resolved = path.resolve()
+        if any(resolved == p or p in resolved.parents for p in PROTECTED_PATHS):
+            continue
+        if path.relative_to(ROOT).as_posix() not in indexed:
+            continue
+        hits = label_numbers_in(path.read_text(errors="ignore"))
+        for target, wanted in labels.items():
+            inside = [(off, n) for off, n in hits if n in wanted]
+            for i, (start, _) in enumerate(inside):
+                near = {n for off, n in inside[i:] if off - start <= window}
+                if near == wanted:
+                    offenders.append(f"{path.relative_to(ROOT)}: complete {target} label set")
+                    break
+    assert not offenders, "unprotected tracked files reproducing a label set: " + "; ".join(
+        sorted(set(offenders))
     )

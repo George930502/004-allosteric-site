@@ -831,9 +831,12 @@ def test_a_family_is_cleared_when_holm_rejects_at_least_one_arm():
     # A rejection in the wrong direction is not a rejection, so it cannot clear either.
     reversed_claim = {a: record(reference, 1e-6) for a in claim["arms"]}
     assert not harness.confirmatory_verdict(one, reversed_claim)["cleared"]
-    # Family 1 alone reports its own verdict and no composite: the composite needs both.
+    # Family 1 alone is not a composite verdict. The field is present and False, because
+    # absent is not the same as unmet and a caller must not have to tell them apart.
     alone = harness.confirmatory_verdict(one)
-    assert alone["family_1"]["cleared"] and "cleared" not in alone
+    assert alone["family_1"]["cleared"]
+    assert alone["cleared"] is False
+    assert "both families" in alone["licence"]
 
 
 def test_negative_class_b_reports_the_label_set_beside_the_site_pocket():

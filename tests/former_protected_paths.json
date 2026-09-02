@@ -1,0 +1,14 @@
+{
+ "why": "A protected path is protected by its name, and a rename gives the same bytes a second name that no entry covers. This ledger is the tracked copy, so the guard works in a shallow clone, in a `git archive` export, and with no git binary at all -- the derivation from `git log --diff-filter=R` only cross-checks it. ADR 0043.",
+ "generated_on": "2026-09-03",
+ "former_paths": [
+  "docs/benchmark/audit/bcr-abl1.md",
+  "docs/benchmark/audit/cardiac-myosin.md",
+  "docs/benchmark/audit/kras-g12c.md",
+  "docs/benchmark/frozen.json",
+  "docs/benchmark/manifest.yaml",
+  "docs/decisions/0001-record-decisions.md",
+  "docs/decisions/0002-quantum-metric-hypothesis.md",
+  "docs/decisions/README.md"
+ ]
+}
