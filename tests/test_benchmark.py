@@ -1036,3 +1036,38 @@ def test_no_document_cites_a_test_the_suite_does_not_define():
     assert not missing, "documents cite tests that do not exist: " + "; ".join(
         f"{cited} in {sorted(where)}" for cited, where in sorted(missing.items())
     )
+
+
+@pytest.mark.network
+def test_the_claim_reference_is_every_detected_cavity():
+    """Which pocket set is `cavity_volume`? Settled by measurement, 2026-09-03.
+
+    Codex pass 9 showed that the frozen reference was a NAME a caller supplied, so
+    `compare_methods` now derives it. Deriving it needs a definition, and choosing one after
+    seeing a result is the hyperparameter this layer exists to prevent. So the two candidate
+    definitions were both measured against the triple ADR 0025 and the manifest already quote:
+
+    | pocket set                        | kras   | abl1   | myosin |
+    | --------------------------------- | ------ | ------ | ------ |
+    | frozen decoys plus the site pocket | 0.0695 | 0.3304 | 0.0046 |
+    | **every detected cavity**         | 0.0715 | 0.3236 | 0.0046 |
+    | quoted                            | 0.0715 | 0.3236 | 0.0046 |
+
+    Every detected cavity reproduces it and the freeze-only set does not, so the reference
+    cannot be rebuilt from `frozen.json`: `excluded_by_halo` is stored as identifiers with no
+    lining and no volume. This test runs the detector and pins the count, which is what makes
+    a detector drift a failure here rather than a silent redefinition of the baseline.
+    """
+    import json
+    import math
+
+    from allo.scoring.harness import EVALUATION_FROZEN, frozen_reference
+
+    frozen = json.loads(EVALUATION_FROZEN.read_text())["targets"]
+    arm = "kras_g12c_corrected"
+    reference = frozen_reference(arm)
+    assert len(reference) == frozen[arm]["n_candidates"]
+    assert all(math.isfinite(v) and v >= 0 for v in reference.values())
+    # The site pocket lines candidates, so the reference is not the all-zero vector the pass
+    # substituted for it.
+    assert max(reference.values()) > 0

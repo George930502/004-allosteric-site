@@ -159,6 +159,18 @@ def classify(
     from both classes and counted, because silently folding it into either would move the
     number.
     """
+    # `near <= halo_angstrom` is False against a NaN, so a pocket bordering the true site was
+    # classed as a DECOY rather than excluded. That enlarges the negative class with a
+    # near-site pocket, which adds a denominator without adding an exceedance: measured on a
+    # three-pocket example, the decoy p-value falls from 1.0 to 0.667. Anti-conservative, and
+    # the fourteenth site of round 6's class. The frozen halo is finite, so no frozen value
+    # moves. Found 2026-09-03 by codex pass 9.
+    halo = float(halo_angstrom)
+    if not math.isfinite(halo) or halo < 0:
+        raise ValueError(
+            f"the halo must be finite and non-negative; got {halo_angstrom}. A NaN makes the "
+            "halo test false, so a pocket bordering the site would be admitted as a decoy"
+        )
     labels = set(labels)
     inside = set(candidates)
     label_coords = np.array([ca_coord[r] for r in sorted(labels)])
@@ -183,7 +195,7 @@ def classify(
             continue
         coords = np.array([ca_coord[r] for r in pocket["lining"]])
         near = np.linalg.norm(coords[:, None, :] - label_coords[None, :, :], axis=-1).min()
-        if set(pocket["lining"]) & labels or near <= halo_angstrom:
+        if set(pocket["lining"]) & labels or near <= halo:
             excluded[name] = dict(pocket, nearest_label_angstrom=round(float(near), 3))
         else:
             decoys[name] = dict(pocket, nearest_label_angstrom=round(float(near), 3))

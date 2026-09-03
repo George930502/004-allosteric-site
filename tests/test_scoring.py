@@ -757,6 +757,21 @@ def test_combining_arms_tests_the_intersection_null_and_is_labelled_as_such():
             harness.combine_arms(wrong)
 
 
+def arm_record(arm: str, p: float, method: str = "ctqw") -> dict:
+    """The shape `confirmatory_verdict` reads for family 1, since 2026-09-03.
+
+    Family 1 took bare floats until codex pass 9 supplied three p-values stamped with three
+    different method names and the verdict cleared. A float carries no method identity, so
+    "one method's per-arm p-values" was a promise the function could not keep. This builds the
+    minimum a `score_arm` record has to carry for the check.
+    """
+    return {
+        "target": arm,
+        "method": method,
+        "nulls": {"matched_patch": {"p_calibrated": float(p), "available": True}},
+    }
+
+
 def test_the_frozen_decision_rule_reads_the_frozen_family():
     """The manifest froze a confirmatory family and until 2026-09-02 no code read it.
 
@@ -768,7 +783,7 @@ def test_the_frozen_decision_rule_reads_the_frozen_family():
     declared = list(settings["decision"]["confirmatory_family"])
     assert len(declared) == 3
 
-    verdict = harness.confirmatory_verdict(dict.fromkeys(declared, 0.001))
+    verdict = harness.confirmatory_verdict({a: arm_record(a, 0.001) for a in declared})
     assert verdict["alpha"] == 0.05
     assert verdict["correction"] == "holm"
     assert verdict["family_1"]["n_reject"] == 3
@@ -778,7 +793,7 @@ def test_the_frozen_decision_rule_reads_the_frozen_family():
     )
 
     # Step-down stops at the first failure, and the count reflects it.
-    ps = dict(zip(declared, [0.001, 0.9, 0.002], strict=True))
+    ps = {a: arm_record(a, v) for a, v in zip(declared, [0.001, 0.9, 0.002], strict=True)}
     assert harness.confirmatory_verdict(ps)["family_1"]["n_reject"] == 2
 
 
@@ -788,9 +803,11 @@ def test_the_decision_rule_refuses_a_family_that_is_not_the_declared_one():
     declared = list(settings["decision"]["confirmatory_family"])
 
     with pytest.raises(ValueError, match="family_1 must be exactly"):
-        harness.confirmatory_verdict(dict.fromkeys([*declared, "kras_g12c_mandated"], 0.01))
+        harness.confirmatory_verdict(
+            {a: arm_record(a, 0.01) for a in [*declared, "kras_g12c_mandated"]}
+        )
     with pytest.raises(ValueError, match="family_1 must be exactly"):
-        harness.confirmatory_verdict(dict.fromkeys(declared[:2], 0.01))
+        harness.confirmatory_verdict({a: arm_record(a, 0.01) for a in declared[:2]})
 
     claim = settings["decision"]["claim_family"]
     reference = claim["reference"]
@@ -799,9 +816,11 @@ def test_the_decision_rule_refuses_a_family_that_is_not_the_declared_one():
         return {"comparison": f"ctqw against {reference}", "leader": "ctqw", "p_calibrated": p}
 
     with pytest.raises(ValueError, match="family_2 must be exactly"):
-        harness.confirmatory_verdict(dict.fromkeys(declared, 0.01), {declared[0]: won()})
+        harness.confirmatory_verdict(
+            {a: arm_record(a, 0.01) for a in declared}, {declared[0]: won()}
+        )
     both = harness.confirmatory_verdict(
-        dict.fromkeys(declared, 0.01), {arm: won() for arm in claim["arms"]}
+        {a: arm_record(a, 0.01) for a in declared}, {arm: won() for arm in claim["arms"]}
     )
     assert both["family_2"]["reference"] == "cavity_volume"
     assert both["family_2"]["sided"] == "two"
@@ -816,7 +835,7 @@ def test_the_claim_family_counts_a_rejection_only_when_the_method_wins():
     verdicts, or the family does not test what the ADR says it tests.
     """
     settings = harness.protocol()
-    family_1 = dict.fromkeys(settings["decision"]["confirmatory_family"], 1e-6)
+    family_1 = {a: arm_record(a, 1e-6) for a in settings["decision"]["confirmatory_family"]}
     claim = settings["decision"]["claim_family"]
     arms, reference = list(claim["arms"]), claim["reference"]
 
@@ -866,8 +885,8 @@ def test_a_family_is_cleared_when_holm_rejects_at_least_one_arm():
     def record(leader, p):
         return {"comparison": f"ctqw against {reference}", "leader": leader, "p_calibrated": p}
 
-    one = {family[0]: 1e-6, family[1]: 0.9, family[2]: 0.9}
-    none = dict.fromkeys(family, 0.9)
+    one = {a: arm_record(a, p) for a, p in zip(family, (1e-6, 0.9, 0.9), strict=True)}
+    none = {a: arm_record(a, 0.9) for a in family}
     wins_one = {claim["arms"][0]: record("ctqw", 1e-6)} | {
         a: record("ctqw", 0.9) for a in claim["arms"][1:]
     }
@@ -1370,7 +1389,7 @@ def test_the_verdict_applies_the_frozen_decision_rule_and_no_other():
         settings = copy.deepcopy(protocol())
         settings["decision"][field] = value
         with pytest.raises(ValueError, match="FROZEN decision rule"):
-            confirmatory_verdict(dict.fromkeys(family, 0.6), claim, settings=settings)
+            confirmatory_verdict({a: arm_record(a, 0.6) for a in family}, claim, settings=settings)
 
     for alpha in (2.0, 0.0, 1.0, -0.1, math.nan, math.inf):
         with pytest.raises(ValueError, match="significance level"):
@@ -1379,9 +1398,9 @@ def test_the_verdict_applies_the_frozen_decision_rule_and_no_other():
     # A cheaper NULL is still allowed, which is what the parameter is for.
     cheap = copy.deepcopy(protocol())
     cheap["nulls"]["replicates"] = 199
-    assert confirmatory_verdict(dict.fromkeys(family, 0.001), settings=cheap)["family_1"][
-        "n_reject"
-    ] == len(family)
+    assert confirmatory_verdict({a: arm_record(a, 0.001) for a in family}, settings=cheap)[
+        "family_1"
+    ]["n_reject"] == len(family)
 
 
 def test_a_bad_matching_tolerance_is_refused_on_both_sides_of_the_comparison():
@@ -1502,6 +1521,23 @@ def test_no_raise_guard_compares_a_float_a_non_finite_value_would_slip_past():
                 for inner in ast.walk(node.test)
             )
             if not ordered or "isfinite" in test or "isnan" in test:
+                continue
+            # `len(x) > 1` cannot hide a NaN: `len` returns an int by construction. The
+            # allow-list below is keyed by FILE, which is far too coarse to say that about one
+            # line, so the rule is expressed here instead. Added 2026-09-03, when a new
+            # `len(names) > 1` guard in `harness.py` was flagged and the only way to silence
+            # it would have been to exempt the whole file -- including the p-value functions
+            # this test exists for.
+            if all(
+                isinstance(operand, ast.Call)
+                and isinstance(operand.func, ast.Name)
+                and operand.func.id == "len"
+                or isinstance(operand, ast.Constant)
+                and isinstance(operand.value, int)
+                for inner in ast.walk(node.test)
+                if isinstance(inner, ast.Compare)
+                for operand in (inner.left, *inner.comparators)
+            ):
                 continue
             relative = str(path.relative_to(ROOT / "src"))
             if relative in integral:
@@ -1673,3 +1709,118 @@ def test_the_pre_declared_reference_refuses_a_non_finite_cavity_volume():
     # A zero volume is legitimate -- it is the default every unlined candidate carries.
     flat = {"site": {"lining": [10], "volume": 0.0}}
     assert cavity_volume_score(flat, candidates) == dict.fromkeys(candidates, 0.0)
+
+
+def test_a_verdict_covers_one_method_and_the_records_say_which():
+    """Codex pass 9. `confirmatory_verdict` promised "one method" and could not check it.
+
+    Family 1 took bare floats, so three p-values from three different scorers were
+    indistinguishable from three p-values from one. That is per-arm method selection:
+    run ten scorers, keep the best on each arm, and Holm over three corrects for three tests
+    while the real search was over thirty. **Anti-conservative.** Reproduced with the pass's
+    own construction, which cleared all three arms.
+
+    The fix is the one family 2 already carried for the direction question: take the record,
+    not the number. Both families now stamp their method into `seen`, and the check spans the
+    whole verdict rather than one family.
+    """
+    settings = harness.protocol()
+    arms = list(settings["decision"]["confirmatory_family"])
+    claim_arms = list(settings["decision"]["claim_family"]["arms"])
+    reference = settings["decision"]["claim_family"]["reference"]
+
+    def claim(method, p=0.001):
+        return {
+            "comparison": f"{method} against {reference}",
+            "leader": method,
+            "p_calibrated": p,
+        }
+
+    # The pass's own demo: bare floats, three different method names in family 2.
+    with pytest.raises(TypeError, match="score_arm record"):
+        harness.confirmatory_verdict(
+            dict.fromkeys(arms, 0.001),
+            {a: claim(f"method_{i}") for i, a in enumerate(claim_arms)},
+        )
+
+    # Valid records, three different methods: refused across the verdict.
+    with pytest.raises(ValueError, match="covers ONE method"):
+        harness.confirmatory_verdict(
+            {a: arm_record(a, 0.001, f"method_{i}") for i, a in enumerate(arms)},
+            {a: claim(f"method_{i}") for i, a in enumerate(claim_arms)},
+        )
+    # One method inside each family, but the two families disagree.
+    with pytest.raises(ValueError, match="covers ONE method"):
+        harness.confirmatory_verdict(
+            {a: arm_record(a, 0.001, "ctqw") for a in arms},
+            {a: claim("something_else") for a in claim_arms},
+        )
+    # A record filed under an arm it was not measured on.
+    with pytest.raises(ValueError, match="holds a record for"):
+        harness.confirmatory_verdict(
+            {a: arm_record(arms[0], 0.001, "ctqw") for a in arms},
+            {a: claim("ctqw") for a in claim_arms},
+        )
+
+    # One method throughout still clears, and the verdict now names it.
+    verdict = harness.confirmatory_verdict(
+        {a: arm_record(a, 0.001, "ctqw") for a in arms},
+        {a: claim("ctqw") for a in claim_arms},
+    )
+    assert verdict["cleared"] and verdict["method"] == "ctqw"
+
+
+def test_the_claim_reference_is_derived_and_cannot_be_supplied_under_its_own_name():
+    """Codex pass 9, and the higher-severity half of the same finding.
+
+    `claim_family.reference` names `cavity_volume` and only `cavity_volume`, and that name
+    was a LABEL: `compare_methods` wrote `names[1]` into the record and `confirmatory_verdict`
+    read the string back. An all-zero vector labelled `cavity_volume` cleared the claim family
+    on all three arms at p = 0.0003 or better. **Anti-conservative**, and measured on
+    `kras_g12c_corrected`: the substituted reference gives p = 0.000296 where the real one
+    gives 0.024592, which is 83 times smaller.
+
+    This test does not run the detector, so it checks the refusal and the offer, not the
+    derived vector. `test_the_reference_vector_is_every_detected_cavity` in the network
+    marker covers the derivation.
+    """
+    reference = harness.protocol()["decision"]["claim_family"]["reference"]
+    arm = "kras_g12c_corrected"
+    flat = {r: 0.0 for r in evaluation_graph(apo_input(arm)).order}
+
+    with pytest.raises(ValueError, match="pass against=None"):
+        harness.compare_methods(arm, flat, flat, names=("candidate", reference))
+
+    # An honestly named baseline is still the caller's to supply. The guard is about one name.
+    assert callable(harness.frozen_reference)
+
+
+def test_a_non_finite_halo_cannot_admit_a_near_site_pocket_as_a_decoy():
+    """The fourteenth site of round 6's class, from codex pass 9.
+
+    `near <= halo_angstrom` is False against a NaN, so a pocket bordering the true site was
+    classed as a DECOY rather than excluded. **Anti-conservative**: it enlarges the negative
+    class with a pocket that is nearly right, which adds a denominator without adding an
+    exceedance. The frozen halo is finite, so no frozen value moves.
+    """
+    import math
+
+    from allo.scoring.decoys import classify
+
+    pockets = {
+        "site": {"lining": [1], "volume": 1.0},
+        "near": {"lining": [2], "volume": 1.0},
+        "far": {"lining": [3], "volume": 1.0},
+    }
+    coords = {
+        1: np.array([0.0, 0.0, 0.0]),
+        2: np.array([1.0, 0.0, 0.0]),
+        3: np.array([10.0, 0.0, 0.0]),
+    }
+    split = classify(pockets, labels={1}, candidates={1, 2, 3}, ca_coord=coords, halo_angstrom=2.0)
+    assert sorted(split["decoys"]) == ["far"]
+    assert sorted(split["excluded_by_halo"]) == ["near"]
+
+    for bad in (math.nan, math.inf, -math.inf, -1.0):
+        with pytest.raises(ValueError, match="finite and non-negative"):
+            classify(pockets, labels={1}, candidates={1, 2, 3}, ca_coord=coords, halo_angstrom=bad)

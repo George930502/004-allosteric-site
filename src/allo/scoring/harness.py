@@ -16,6 +16,7 @@ import hashlib
 import json
 import math
 from collections.abc import Iterator, Mapping
+from functools import cache
 from pathlib import Path
 
 import numpy as np
@@ -745,13 +746,43 @@ def holm(pvalues: Mapping[str, float], alpha: float = 0.05) -> dict[str, dict]:
     return verdict
 
 
+def _one_method(seen: dict[str, str]) -> str:
+    """The single method name every record in a verdict must carry. Round 6, 2026-09-03.
+
+    `confirmatory_verdict` said "one method's per-arm p-values" and could not check it: family
+    1 took bare floats, so three p-values from three different methods were indistinguishable
+    from three p-values from one. That is per-arm method selection, and it is
+    anti-conservative -- run ten scorers, keep the best on each arm, and the family clears at
+    a level no correction accounts for. Found by codex pass 9.
+
+    The fix is the one family 2 already had for the direction question: take the RECORD, not
+    the number. `score_arm` and `compare_methods` both stamp the method into their record, so
+    the check costs the caller nothing it does not already have.
+    """
+    names = sorted(set(seen.values()))
+    if len(names) > 1:
+        where = ", ".join(f"{arm}={name!r}" for arm, name in sorted(seen.items()))
+        raise ValueError(
+            f"a verdict covers ONE method and these records name {len(names)}: {where}. "
+            "Holm over three arms corrects for three tests, not for a per-arm choice among "
+            "methods"
+        )
+    return names[0]
+
+
 def confirmatory_verdict(
-    family_1: Mapping[str, float],
+    family_1: Mapping[str, Mapping],
     family_2: Mapping[str, Mapping] | None = None,
     *,
     settings: dict | None = None,
 ) -> dict:
-    """Apply the frozen decision rule to one method's per-arm p-values.
+    """Apply the frozen decision rule to one method's per-arm records.
+
+    **Both families take records, not bare p-values, and family 1 joined family 2 in that on
+    2026-09-03.** Family 2 needed the record because a two-sided p cannot say which method
+    won. Family 1 needs it because a bare float carries no method identity, so the function
+    could not enforce the "one method" its own first line promises. Codex pass 9 supplied
+    three p-values stamped with three different method names and the verdict cleared.
 
     Until 2026-09-02 the manifest froze a decision rule that no code read. `decision.alpha`,
     `decision.confirmatory_family` and `decision.correction` had no reader anywhere in `src/`
@@ -828,13 +859,32 @@ def confirmatory_verdict(
             raise ValueError(f"{label} must be exactly {sorted(declared)}; got {sorted(supplied)}")
         return holm(supplied, alpha=alpha)
 
+    # Family 1 takes `score_arm` records. A bare float carries no method identity and no arm
+    # identity, so neither "one method" nor "the right arm" was checkable. Round 6, 2026-09-03.
+    seen: dict[str, str] = {}
+    family_1_p: dict[str, float] = {}
+    for arm, record in family_1.items():
+        if not isinstance(record, Mapping) or "method" not in record:
+            raise TypeError(
+                f"family_1[{arm!r}] must be a score_arm record, not a bare p-value: a float "
+                "carries no method name, so three arms could come from three methods"
+            )
+        if str(record.get("target", arm)) != arm:
+            raise ValueError(
+                f"family_1[{arm!r}] holds a record for {record['target']!r}; a verdict is "
+                "keyed by the arm the record was measured on"
+            )
+        seen[arm] = str(record["method"])
+        family_1_p[arm] = float(record["nulls"]["matched_patch"]["p_calibrated"])
+
     verdict = {
         "alpha": alpha,
         "correction": "holm",
+        "method": _one_method(seen) if seen else None,
         "family_1": {
             "test": "matched_patch",
             "sided": decision["sided"],
-            "arms": _check(family_1, list(decision["confirmatory_family"]), "family_1"),
+            "arms": _check(family_1_p, list(decision["confirmatory_family"]), "family_1"),
         },
     }
     verdict["family_1"]["n_reject"] = sum(a["reject"] for a in verdict["family_1"]["arms"].values())
@@ -867,6 +917,10 @@ def confirmatory_verdict(
             )
         pvalues[arm] = float(record["p_calibrated"])
         leads[arm] = str(record["leader"]) != reference
+        # The candidate half of "<candidate> against <reference>". Both families must name
+        # the same method, which is what makes Holm over three arms a correction for three
+        # tests rather than for a per-arm choice among methods.
+        seen[f"{arm} (claim)"] = comparison.rsplit(f" against {reference}", 1)[0]
     arms = _check(pvalues, list(claim["arms"]), "family_2")
     for arm, outcome in arms.items():
         # Holm rejects a two-sided test in either direction. Only one of them is the claim.
@@ -880,6 +934,8 @@ def confirmatory_verdict(
     }
     verdict["family_2"]["n_reject"] = sum(a["reject"] for a in arms.values())
     verdict["family_2"]["cleared"] = verdict["family_2"]["n_reject"] >= 1
+    # Both families are now in `seen`, so this is the check across the whole verdict.
+    verdict["method"] = _one_method(seen)
     verdict["cleared"] = verdict["family_1"]["cleared"] and verdict["family_2"]["cleared"]
     verdict["licence"] = (
         "at least one confirmatory arm separates the site AND beats "
@@ -969,10 +1025,55 @@ def _derive_arm(target: str, settings: dict, *, detect: bool) -> dict:
     return record
 
 
+@cache
+def _reference_pairs(target: str) -> tuple[tuple[int, float], ...]:
+    """The frozen claim reference, derived here rather than accepted from a caller.
+
+    `claim_family.reference` names `cavity_volume` and only `cavity_volume`, and until
+    2026-09-03 that name was a LABEL: `compare_methods` wrote `names[1]` into the record and
+    `confirmatory_verdict` read the string back. A codex pass passed an all-zero vector under
+    that name and the verdict cleared on all three arms at p = 0.0003 or better. A weakened
+    reference is the direction that helps the candidate, so the name is no longer enough.
+
+    The vector is every DETECTED cavity, not the frozen decoys. That was settled by
+    measurement, not by choice: over the decoys plus the site pocket the three arms give
+    0.0695 / 0.3304 / 0.0046, and over every detected pocket they give
+    0.0715 / 0.3236 / 0.0046, which is the triple the manifest and ADR 0025 quote. So the
+    reference needs the detector, and it cannot be rebuilt from `frozen.json` alone --
+    `excluded_by_halo` is stored as identifiers with no lining and no volume.
+
+    `n_detected` is frozen per arm, so a detector that has drifted is caught here rather than
+    silently redefining the baseline the whole claim family rests on.
+    """
+    from allo.scoring import decoys as decoy_module
+
+    settings = protocol()
+    apo = apo_input(target)
+    graph = evaluation_graph(apo)
+    pockets = decoy_module.detect_pockets(apo, **settings["decoys"]["detector_settings"])
+    frozen = json.loads(EVALUATION_FROZEN.read_text())["targets"][target]["decoys"]
+    if len(pockets) != int(frozen["n_detected"]):
+        raise ValueError(
+            f"{target}: the detector found {len(pockets)} pockets and the freeze pins "
+            f"{frozen['n_detected']}. The reference baseline is computed from these cavities, "
+            "so a drifted detector redefines what the claim family is measured against"
+        )
+    return tuple(decoy_module.cavity_volume_score(pockets, graph.candidates).items())
+
+
+def frozen_reference(target: str) -> dict[int, float]:
+    """The one score vector the frozen claim family is measured against. Needs the detector.
+
+    Pass `against=None` to `compare_methods` to use it; this is public so that a report can
+    print the reference beside a method without going through the comparison.
+    """
+    return dict(_reference_pairs(target))
+
+
 def compare_methods(
     target: str,
     scores: Mapping[int, float],
-    against: Mapping[int, float],
+    against: Mapping[int, float] | None = None,
     *,
     names: tuple[str, str] = ("method", "baseline"),
     config: dict | None = None,
@@ -1016,6 +1117,19 @@ def compare_methods(
     """
     _require_unseal(target, unseal)
     settings = config or protocol()
+    # The frozen reference is DERIVED, never named. `names[1]` used to be the only thing that
+    # said which baseline the record compared against, so an all-zero vector labelled
+    # `cavity_volume` cleared the claim family on all three arms. Round 6, 2026-09-03, from
+    # codex pass 9. A caller asks for the frozen comparison by passing `against=None`.
+    reference = str(protocol()["decision"]["claim_family"]["reference"])
+    if against is None:
+        against, names = frozen_reference(target), (names[0], reference)
+    elif names[1] == reference:
+        raise ValueError(
+            f"{target}: pass against=None for the frozen {reference!r} comparison. A supplied "
+            "vector under that name is a label and not the baseline, and a weaker one makes "
+            "the claim family easier to clear"
+        )
     apo = apo_input(target)
     graph = evaluation_graph(apo)
     labels, _ = _positives(target)
