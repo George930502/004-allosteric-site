@@ -572,8 +572,7 @@ def test_the_occupant_annotation_holds_its_evidence_based_classification(frozen,
     """
     import numpy as np
 
-    from allo.groundtruth.structures import parse_mmcif
-    from allo.inputs import MANIFEST as PREDICTION_MANIFEST
+    from allo.groundtruth.structures import fetch_mmcif, parse_mmcif
 
     additives, state = {"CL", "GOL", "SO4"}, {"K"}
     for name, path in (("secondary", SECONDARY_MANIFEST), ("primary", MANIFEST)):
@@ -600,14 +599,13 @@ def test_the_occupant_annotation_holds_its_evidence_based_classification(frozen,
     distances = {}
     for role, cache in (("apo", "apo"), ("holo", "eval")):
         entry = spec[role]["pdb"]
-        structure = parse_mmcif(
-            PREDICTION_MANIFEST.parent.parent.parent.parent
-            / "data"
-            / "raw"
-            / cache
-            / f"{entry}.cif",
-            entry,
-        )
+        # `fetch_mmcif`, not a path into `data/raw`. That directory is a reproducible download
+        # and CI does not carry it, so asserting the file was already there passed on a
+        # developer machine and failed on a clean checkout. Both entries are in the committed
+        # `structures/` archive, so this restores with no network and the test stays in the
+        # offline gate, which is where a measurement that CAN run offline belongs. Found by CI
+        # on 2026-09-03, on the first push of round 6.
+        structure = parse_mmcif(fetch_mmcif(entry, ROOT / "data" / "raw" / cache), entry)
         chain = spec[role]["chain"]
         acid = (
             (structure.chain == chain)

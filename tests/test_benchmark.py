@@ -1082,3 +1082,51 @@ def test_the_claim_reference_is_every_detected_cavity():
     # The site pocket lines candidates, so the reference is not the all-zero vector the pass
     # substituted for it.
     assert max(reference.values()) > 0
+
+
+def test_no_offline_test_assumes_a_downloaded_structure_is_already_on_disk():
+    """CI, 2026-09-03, on the first push of round 6, and it is a whole class.
+
+    `data/raw/**` is gitignored: it is a reproducible download, and a clean checkout has none
+    of it. A test that builds a path into it and parses the result therefore passes on a
+    developer machine, where the file is left over from an earlier run, and fails in CI. That
+    is what happened -- `data/raw/eval/1T48.cif` -- and the failure looked like a missing
+    network dependency when the entry is in the committed `structures/` archive all along.
+
+    `fetch_mmcif` is the restore: it returns the cached file, else gunzips the archived copy,
+    else downloads. So the rule is not "mark it network" -- most of these need no network --
+    but **obtain the path, never assume it**. A network-marked test may still assume nothing,
+    so the rule holds there too and the marker is not an exemption.
+    """
+    import ast
+
+    from allo.inputs import ROOT
+
+    # The rule is about the CALL, not about the word. `parse_mmcif_text` takes text and not a
+    # path, `not hasattr(module, "parse_mmcif")` is an assertion about a capability, and a
+    # comment naming the function is prose. A textual scan flagged all three.
+    def called(node):
+        name = (
+            node.func.attr if isinstance(node.func, ast.Attribute) else getattr(node.func, "id", "")
+        )
+        return name
+
+    offenders = []
+    for path in sorted((ROOT / "tests").glob("test_*.py")):
+        tree = ast.parse(path.read_text())
+        for scope in ast.walk(tree):
+            if not isinstance(scope, ast.FunctionDef) or not scope.name.startswith("test_"):
+                continue
+            for node in ast.walk(scope):
+                if not (isinstance(node, ast.Call) and called(node) == "parse_mmcif"):
+                    continue
+                first = node.args[0] if node.args else None
+                if not (isinstance(first, ast.Call) and called(first) == "fetch_mmcif"):
+                    offenders.append(
+                        f"{path.name}:{node.lineno} {scope.name} "
+                        f"-> parse_mmcif({ast.unparse(first) if first else ''})"
+                    )
+    assert not offenders, (
+        "a test parses a structure from a path it assumed rather than one `fetch_mmcif` "
+        f"returned, so it fails on a clean checkout: {offenders}"
+    )
