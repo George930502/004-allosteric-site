@@ -858,3 +858,55 @@ metrics, in-place checks in `nulls`, `calibration` and `decoys`. The standing te
 `test_no_raise_guard_compares_a_float_a_non_finite_value_would_slip_past` caught the eleventh
 site's own new guard on its first run, which is the first time in this round that the sweep
 found a defect before a pass did.
+
+### 1.9 The ninth pass, and the two findings that were not the NaN class
+
+Round 6 closed with the repository pushed and a ninth pass running. It returned **13 findings**
+and the two that matter are not instances of anything this round had named.
+
+**The confirmatory verdict was not bound to a method, and its reference was a name.** ADR 0032
+freezes a second claim family: the method must beat `cavity_volume`, and the manifest says "the
+reference is `cavity_volume` and ONLY `cavity_volume`". In code that name was a **label**.
+`compare_methods` wrote `names[1]` into its record and `confirmatory_verdict` read the string
+back, so an all-zero vector passed under that name cleared all three arms. Measured on
+`kras_g12c_corrected`: the substitute gives **p = 0.000296** where the real reference gives
+**0.024592**, which is 83 times smaller. The other half is family 1, which took bare floats:
+three p-values from three different scorers were indistinguishable from three from one, so
+Holm over three arms corrected for three tests while the search could have been over thirty.
+Both are anti-conservative and both are closed — family 1 takes `score_arm` records, the method
+name must span the whole verdict, and the reference is derived rather than accepted.
+
+**Which pocket set the reference is was settled by measurement, not by choice.** Deriving it
+needs a definition, and picking one after seeing a result is the hyperparameter this layer
+exists to prevent. Two candidates were run against the triple ADR 0025 and the manifest already
+quote:
+
+| pocket set                        |   kras |   abl1 | myosin |
+| --------------------------------- | -----: | -----: | -----: |
+| the frozen decoys plus the site pocket | 0.0695 | 0.3304 | 0.0046 |
+| **every detected cavity**         | **0.0715** | **0.3236** | **0.0046** |
+| quoted                            | 0.0715 | 0.3236 | 0.0046 |
+
+Every detected cavity reproduces it and the freeze-only set does not. So the reference **cannot
+be rebuilt from `frozen.json`**: `excluded_by_halo` is stored as identifiers with no lining and
+no volume. It needs the detector, and `n_detected` is checked on every derivation so that a
+drifted detector fails loudly instead of quietly redefining what the claim family is measured
+against.
+
+**Four coverage gaps, none with a live offender, all closed at the class.** A shell or Make
+runner could call `git`, which answers by content and needs no path — route 19 removed that
+ingredient from prediction modules and left it in runners. `runpy.run_module` loaded the
+ground-truth package while two lines checked only for `importlib` and `__import__`. The process
+denylist named eight spellings where the standard library has twenty-six, so it is derived from
+`dir(os)` now, as `ENUMERATORS` already was. And a **symlink** under `src/` could point at a
+protected file: the sidecar scan reads a file's content and a link has none of its own.
+
+**The fourteenth NaN site was where round 6 predicted it.** `classify` compared
+`near <= halo_angstrom` with no finiteness check, so a NaN halo admitted a pocket **bordering
+the true site** into the decoy class. Section 1.8 had written "three of the five sit inside a
+computation... if a fourteenth exists, it is there", and it was.
+
+**One guard accepted the value it exists to catch.** The ADR-count check listed
+`"Forty-four decisions"` as a literal alternative, so 45 ADRs, an index saying forty-four and a
+green test were all consistent. That is the same shape as the route-count binding two passes
+earlier: a rule written as a list of accepted strings rather than as a derivation.
