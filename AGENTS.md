@@ -345,6 +345,16 @@ path a reader can act on, and 22 permanent probes hold the backstop. Add a new s
 `test_the_segment_cover_backstop_catches_assembled_paths`, and a new resolver form to
 `test_constant_path_guard_catches_composition_and_quote_variants`, before trusting a new route.
 
+**Four more coverage gaps were found on 2026-09-03 by codex pass 9, none with a live
+offender, and all four were closed at the class rather than the instance.** A shell or Make
+runner could call `git`, which answers by content and needs no path — route 19 removed that
+ingredient from prediction modules and left it in runners. `runpy.run_module` loaded the
+ground-truth package while two lines checked only for `importlib` and `__import__`. The
+process denylist named eight spellings and the standard library has twenty-six, so it is now
+derived from `dir(os)` the way the enumerator set already was. And a **symlink** under `src/`
+could point at a protected file: the sidecar scan reads a file's content, and a link has none
+of its own, so the destination is resolved now.
+
 The race has a second track, and it is the import statement rather than the call. `from os
 import walk as traverse` leaves the call site a bare name, so the capability scan — which
 reads a `Name`, an `Attribute` and a string — saw no traversal word anywhere. A codex pass ran

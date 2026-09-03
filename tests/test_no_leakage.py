@@ -746,6 +746,25 @@ def _module_level_enumerators() -> frozenset[str]:
 
 ENUMERATORS = _enumerator_names()
 
+#: Every standard-library name that starts a process, derived rather than listed. Route 19
+#: banned eight spellings by hand and codex pass 9 named nine more it did not cover --
+#: `posix_spawn`, `posix_spawnp`, `execl`, `execle`, `execlp`, `execlpe`, `execvpe`, `spawnle`
+#: and the rest of the `spawn` family. A hand-written list loses this race exactly as the
+#: enumerator list did, so the set comes from `dir(os)`. `wait` and `kill` are deliberately
+#: out: neither starts a process, and both are ordinary enough words to false-positive a scan
+#: over every attribute in a file.
+PROCESS_STARTERS = frozenset(
+    {"subprocess", "multiprocessing", "pty", "sh"}
+    | {name for name in dir(os) if name.startswith(("exec", "spawn", "posix_spawn", "fork"))}
+    | {"system", "popen"}
+)
+
+#: Every way to bring a module in without a static `import` statement. Two lines checked
+#: `"importlib" in text or "__import__" in text` and codex pass 9 loaded
+#: `allo.groundtruth.manifest` through `runpy.run_module` with both silent. `pkgutil` and
+#: `zipimport` are here for the same reason, before a pass has to find them too.
+DYNAMIC_IMPORTERS = ("importlib", "__import__", "runpy", "pkgutil", "zipimport")
+
 # A component no real path uses, appended to the base expression so the resolver's answer for
 # THAT expression is identifiable among every other path the file names. Without it the
 # deepest path in the file wins, and for `ROOT.rglob("*.npz")` that is the glob pattern.
@@ -1116,7 +1135,7 @@ def test_the_prediction_path_cannot_build_either_route_out_of_pieces():
     for path in sorted(SRC_ROOT.rglob("*.py")):
         module = module_name(path)
         text = path.read_text()
-        if "importlib" in text or "__import__" in text:
+        if any(name in text for name in DYNAMIC_IMPORTERS):
             dynamic.append(module)
         if (
             is_prediction_path(module)
@@ -1154,9 +1173,10 @@ def test_the_prediction_path_cannot_build_either_route_out_of_pieces():
 
     for path in outside_runner_files():
         text = path.read_text(errors="ignore")
-        assert "importlib" not in text and "__import__" not in text, (
-            f"{path.relative_to(ROOT)} imports dynamically, which the runner AST guard "
-            "cannot resolve"
+        used = [name for name in DYNAMIC_IMPORTERS if name in text]
+        assert not used, (
+            f"{path.relative_to(ROOT)} imports dynamically through {used}, which the runner "
+            "AST guard cannot resolve"
         )
 
     # A composed attribute name is the `getattr` analogue of the composed import and the
@@ -1874,6 +1894,18 @@ def runner_violations(path: Path) -> set[str]:
         if re.search(r"\ballo\s+benchmark\s+(?:freeze|show|stats)\b", flat):
             violations.add("allo benchmark evaluation command")
     violations.update(token for token in FROZEN_TOKENS if token in text)
+    # A shell or Make runner can call `git`, and git is a second copy of every protected file,
+    # addressable by CONTENT rather than by name. Route 19 removed the ingredient from
+    # prediction modules and left it in runners: codex pass 9 wrote a two-line `predict.sh`
+    # with `git -C . grep -l <field> HEAD` and this function returned nothing. The Python side
+    # is covered by `PROCESS_STARTERS` through `imports_from_source`; a shell script names the
+    # command itself, so the check is the command word.
+    if path.suffix not in {".py", ".ipynb"}:
+        if re.search(r"(?:^|[\s;|&(`$])git[\s\n]", text, re.M):
+            violations.add("git, which answers by content and needs no path")
+        for starter in ("nohup", "xargs"):
+            if re.search(rf"(?:^|[\s;|&(`$]){starter}[\s\n]", text, re.M):
+                violations.add(f"{starter}, which runs a command this scan cannot read")
     return violations
 
 
@@ -2829,6 +2861,28 @@ def test_a_data_file_beside_prediction_code_cannot_carry_a_protected_path():
         f"protected path: {offenders}"
     )
 
+    # The scan above reads the file's CONTENT, and a symlink has none of its own. Codex pass 9
+    # put `src/allo/structure/defaults.json` as a link to the evaluation freeze: the reading
+    # module named only `Path(__file__).with_name("defaults.json")`, the segment cover ran over
+    # 279619 bytes of frozen values and found no protected path spelled in them, and every
+    # guard returned empty. So the destination is the question, not the text. Every path under
+    # `src/` is resolved, from the filesystem rather than from `git ls-files`, because an
+    # untracked link reads exactly as readily as a tracked one. Found 2026-09-03.
+    links = {}
+    for path in sorted(SRC_ROOT.rglob("*")):
+        if not path.is_symlink():
+            continue
+        destination = path.resolve()
+        if any(
+            destination == root or root in destination.parents
+            for root in PROTECTED_PATHS | FORMER_PROTECTED_PATHS
+        ):
+            links[str(path.relative_to(ROOT))] = str(destination.relative_to(ROOT))
+    assert not links, (
+        "a symlink under src/ resolves into a protected tree, so a module can read an answer "
+        f"key through a name that spells nothing: {links}"
+    )
+
 
 def test_every_importable_module_under_src_has_source_the_guard_can_read():
     """Route 18. A module with no `.py` is invisible to every scan in this file.
@@ -2886,7 +2940,7 @@ def test_no_prediction_module_can_start_a_process():
     move this file already makes for `importlib`: no prediction module starts a process, so
     the first one is a decision rather than an accident.
     """
-    banned = {"subprocess", "system", "popen", "execv", "execve", "execvp", "spawnv", "spawnl"}
+    banned = PROCESS_STARTERS
     offenders = {}
     for path in sorted(SRC_ROOT.rglob("*.py")):
         if not is_prediction_path(module_name(path)):
