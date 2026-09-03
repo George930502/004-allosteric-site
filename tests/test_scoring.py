@@ -1781,7 +1781,7 @@ def test_the_claim_reference_is_derived_and_cannot_be_supplied_under_its_own_nam
     gives 0.024592, which is 83 times smaller.
 
     This test does not run the detector, so it checks the refusal and the offer, not the
-    derived vector. `test_the_reference_vector_is_every_detected_cavity` in the network
+    derived vector. `test_the_claim_reference_is_every_detected_cavity` in the network
     marker covers the derivation.
     """
     reference = harness.protocol()["decision"]["claim_family"]["reference"]
