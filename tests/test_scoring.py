@@ -787,8 +787,12 @@ def test_the_frozen_decision_rule_reads_the_frozen_family():
     assert verdict["alpha"] == 0.05
     assert verdict["correction"] == "holm"
     assert verdict["family_1"]["n_reject"] == 3
-    # Holm over three: the smallest p is tested at alpha/3.
-    assert verdict["family_1"]["arms"][declared[0]]["threshold"] == pytest.approx(
+    # Holm over three: the smallest p is tested at alpha/3. All three p-values are equal here,
+    # so the tie decides which arm that is -- and since 2026-09-03 the tie breaks by NAME
+    # rather than by the caller's dictionary order. This assertion used to read `declared[0]`
+    # and passed only because the caller happened to build the mapping in that order, which is
+    # the non-determinism codex pass 9 found.
+    assert verdict["family_1"]["arms"][sorted(declared)[0]]["threshold"] == pytest.approx(
         0.05 / 3, abs=5e-7
     )
 
@@ -1824,3 +1828,24 @@ def test_a_non_finite_halo_cannot_admit_a_near_site_pocket_as_a_decoy():
     for bad in (math.nan, math.inf, -math.inf, -1.0):
         with pytest.raises(ValueError, match="finite and non-negative"):
             classify(pockets, labels={1}, candidates={1, 2, 3}, ca_coord=coords, halo_angstrom=bad)
+
+
+def test_holm_breaks_a_tie_by_name_and_not_by_the_callers_dictionary_order():
+    """Codex pass 9. Same decisions, different bytes, and this repository requires bytes.
+
+    Holm assigns thresholds by position in the sorted order, so two arms at the same p-value
+    swapped their recorded thresholds when a caller built the mapping the other way round.
+    The rejections never moved -- the defect is invisible to the verdict and visible in the
+    record -- and "a rerun of a committed experiment must reproduce its metrics bit-for-bit"
+    is the working agreement it broke.
+    """
+    a = {"kras": 0.01, "abl": 0.01, "myosin": 0.2}
+    b = {"abl": 0.01, "kras": 0.01, "myosin": 0.2}
+    assert json.dumps(harness.holm(a), sort_keys=True) == json.dumps(
+        harness.holm(b), sort_keys=True
+    )
+    assert harness.holm(a)["abl"]["threshold"] == pytest.approx(0.05 / 3, abs=5e-7)
+    assert harness.holm(a)["kras"]["threshold"] == pytest.approx(0.05 / 2, abs=5e-7)
+    # Untied p-values still order by p, which is what Holm is.
+    ordered = harness.holm({"z": 0.001, "a": 0.04, "m": 0.02})
+    assert ordered["z"]["threshold"] < ordered["m"]["threshold"] < ordered["a"]["threshold"]

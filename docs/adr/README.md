@@ -14,7 +14,7 @@ stopped binding. It is never deleted.
 
 ## The record
 
-Forty-four decisions, grouped by what each one settles. Read the group that covers the
+45 decisions, grouped by what each one settles. Read the group that covers the
 layer you touch. Every entry is one file, and no file is ever deleted.
 
 **Nine were written on 2026-09-02**, and seven more on 2026-09-03 by the fourth pass, after the organisers answered four questions

@@ -52,7 +52,7 @@ That is the shape of an answer, not an answer.
 | Requirement | Clause | Status |
 | --- | --- | --- |
 | Build a **quantum circuit** that simulates signal propagation | §4.1, §8.1 | **not built.** The quantum layer is exact statevector linear algebra in NumPy. No circuit, no gate count, no transpilation. A method-layer document priced circuits on paper and is archived with it (ADR 0037); nothing was ever compiled |
-| Output a **ranking of residues by dynamic connectivity**, in most cases to an active site | §4.1 | **instrument ready, not met.** `allo.scoring.score_arm` returns a residue-keyed ranking for any scorer. No scorer exists on `main` |
+| Output a **ranking of residues by dynamic connectivity**, in most cases to an active site | §4.1 | **not met, and the instrument is narrower than this row used to claim.** `allo.scoring.score_arm` takes a residue-keyed mapping and returns **aggregate endpoints only** — no residue identity appears in its record. `graph.as_scores` carries identity in, and `metrics.top_k_indices` picks the list, but nothing emits it. Corrected 2026-09-03: this said `score_arm` "returns a residue-keyed ranking", which is the same class of false claim §6 was corrected for. No scorer exists on `main` either (ADR 0037) |
 | Score **significantly higher** on known distal regulatory residues than on **random background residues** | §4.1 | **instrument ready, not met.** The matched-patch null is frozen and calibrated. Nothing has been scored against it |
 | …and than on **non-functional surface pockets** | §4.1 | **instrument ready, not met.** The decoy-pocket class is frozen and detector-defined (ADR 0024). Nothing has been scored against it |
 

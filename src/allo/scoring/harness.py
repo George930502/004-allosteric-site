@@ -735,7 +735,12 @@ def holm(pvalues: Mapping[str, float], alpha: float = 0.05) -> dict[str, dict]:
     # significance level outside (0, 1) is not a level.
     if not math.isfinite(alpha) or not 0 < alpha < 1:
         raise ValueError(f"holm needs a significance level inside (0, 1); got {alpha}")
-    ordered = sorted(_checked_pvalues(pvalues, "holm").items(), key=lambda kv: kv[1])
+    # Tie-break by NAME, not by the caller's dictionary order. Holm assigns thresholds by
+    # position, so two arms at the same p-value swapped their recorded thresholds when the
+    # caller built the mapping in a different order -- same decisions, different bytes, and
+    # this repository requires a rerun to reproduce its record bit for bit. Found 2026-09-03
+    # by codex pass 9.
+    ordered = sorted(_checked_pvalues(pvalues, "holm").items(), key=lambda kv: (kv[1], kv[0]))
     m = len(ordered)
     verdict: dict[str, dict] = {}
     still_rejecting = True

@@ -213,7 +213,7 @@ read any number this repo produces.
 |---|---|---|
 | 0 | Repo, harness, agent infrastructure | ✅ done |
 | 1 | Classical foundation: structures, ground truth, frozen benchmark, scoring harness | ✅ **closed** — input layer frozen 2026-08-24, re-frozen 2026-09-02 at six primary arms; evaluation layer frozen 2026-08-25 at protocol version 2, re-frozen 2026-09-02 at version 3 and 2026-09-03 at **version 4**, over fifteen arms |
-| 2 | Quantum propagation metric (statevector) | **open — current phase** |
+| 2 | Quantum propagation metric (statevector) | **open — next**, and nothing on `main` implements it (ADR 0037) |
 | 3 | Circuit implementation, depth budget, noise resilience | |
 | 4 | Coarse-graining and scalability | |
 | 5 | Interpretability, 3D visualisation, report, c-Myc + extra targets | |

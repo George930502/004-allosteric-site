@@ -174,7 +174,7 @@ to need no new dependency:
 
 | Property | Source |
 | --- | --- |
-| Relative solvent accessibility | Shrake-Rupley implemented in `allo.scoring.properties`, cross-checked against biopython at Spearman > 0.99 |
+| Relative solvent accessibility | Shrake-Rupley implemented in `allo.structure.properties` (it was `allo.scoring.properties` when this ADR was written; ADR 0037 moved it), cross-checked against biopython at Spearman > 0.99 |
 | Normalised B-factor | the deposited isotropic B, now carried through the parser, z-scored within the chain |
 | Kyte–Doolittle hydrophobicity | doi:10.1016/0022-2836(82)90515-0, a 20-entry table |
 | Conservation | **absent.** Needs an external alignment the offline gate cannot carry. Reads `null` |

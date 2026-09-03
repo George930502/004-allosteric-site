@@ -2708,7 +2708,10 @@ def test_the_counts_the_documents_assert_are_the_counts_the_repository_has():
     """
     adrs = sorted(ROOT.glob("docs/adr/[0-9][0-9][0-9][0-9]-*.md"))
     stated = {
-        "docs/adr/README.md": f"indexes all {len(adrs)}|{len(adrs)} decisions|Forty-four decisions",
+        # The third alternative used to be the literal "Forty-four decisions", so the
+        # guard accepted the stale spelling it exists to catch: 45 ADRs, an index saying
+        # forty-four, and a green test. Codex pass 9. Only the derived forms remain.
+        "docs/adr/README.md": f"indexes all {len(adrs)}|{len(adrs)} decisions",
         "AGENTS.md": rf"indexes all {len(adrs)} by topic",
         "README.md": rf"{len(adrs)} decision records",
         "CONTRIBUTING.md": rf"groups all {len(adrs)} by topic",

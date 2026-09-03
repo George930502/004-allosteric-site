@@ -572,15 +572,26 @@ def test_methods_and_the_benchmark_agree_on_the_node_set(manifest):
     receives, and counts modelled polymer residues; `benchmark.derive` sets `n_residues`,
     the denominator of label prevalence and of every hypergeometric baseline, and counts
     residues carrying a CA atom. Those are the same set only while every modelled residue
-    has a CA — true on all 11 scoreable arms today, but nothing made it true.
+    has a CA — true on all fifteen arms of both freezes today, but nothing made it true.
 
     If they ever diverge, methods are scored against a denominator that is not the node set
     they were given, and no other test would notice. This is also the guard on ADR 0010
     itself: silently trimming a domain inside the loading code fails here.
+
+    **Both freezes, since 2026-09-03.** ADR 0010 names this test as its enforcement and the
+    test read the primary freeze only, so all nine secondary arms were unenforced -- two
+    thirds of the arms, and the whole tier the generalisation claim rests on. Found by codex
+    pass 9. The ADR's own docstring said "11 scoreable arms" while the two freezes hold
+    fifteen, which is the same defect stated in prose.
     """
     import json
 
-    frozen = json.loads(benchmark.FROZEN.read_text())
+    frozen = {
+        "targets": {
+            **json.loads(benchmark.FROZEN.read_text())["targets"],
+            **json.loads(benchmark.SECONDARY_FROZEN.read_text())["targets"],
+        }
+    }
     from allo.inputs import apo_input
 
     for target, derived in frozen["targets"].items():
