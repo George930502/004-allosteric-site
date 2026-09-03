@@ -40,6 +40,15 @@ Leakage from C1 is the easiest mistake to make and the hardest to notice. Any co
 that loads a holo PDB lives under `src/allo/groundtruth/` and is never imported by
 prediction code. Enforced by `tests/test_no_leakage.py` (added in Phase 1).
 
+**Read "enforced" as "closed against accident, not against intent."** The guard is a
+static scan of the source, so it cannot enforce an information-flow boundary against a
+Turing-complete language: an adversarial pass built both a protected path and a traversal
+function out of arithmetic on character codes and read a frozen manifest with every test
+green. Closing that needs a runtime boundary — an import hook or a sandbox denying the
+protected roots however they are reached — which is a design change with its own cost.
+**ADR 0043 records the limit, the reproduction and the decision to defer it.** Read it
+before answering "is C1 enforced?" — a reviewer who read only this file answered yes.
+
 ---
 
 ## Research principles
@@ -323,6 +332,8 @@ transitively — the blind prediction is compromised and the submission is inval
 All nineteen are enforced by `tests/test_no_leakage.py`, which names them in
 `PROTECTED_PATHS`, in `FROZEN_TOKENS` and — for route 10 — in `allowed_experiment_path`. An
 import trace cannot see a file-read route, so the file-read and content tests are what does.
+The word "enforced" carries the limit stated under C1 above: these close a class of accident,
+and ADR 0043 records why a class of intent needs a runtime boundary instead.
 
 **Protecting a path the detector cannot resolve protects nothing.** On 2026-09-02 a module in
 `allo.network` read the whole matched-patch cache — every arm's positive count, the sealed

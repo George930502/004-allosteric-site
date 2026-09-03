@@ -793,6 +793,11 @@ def _one_method(seen: dict[str, str]) -> str:
     the check costs the caller nothing it does not already have.
     """
     names = sorted(set(seen.values()))
+    if not all(name.strip() for name in names):
+        where = ", ".join(f"{arm}={name!r}" for arm, name in sorted(seen.items()))
+        raise ValueError(
+            f"a verdict names the method it covers and these records name none: {where}"
+        )
     if len(names) > 1:
         where = ", ".join(f"{arm}={name!r}" for arm, name in sorted(seen.items()))
         raise ValueError(
@@ -904,7 +909,20 @@ def confirmatory_verdict(
             )
         _measured_on(record, arm, "family_1")
         seen[arm] = str(record["method"])
-        family_1_p[arm] = float(record["nulls"]["matched_patch"]["p_calibrated"])
+        # The record says whether it MAY be confirmatory, and nothing read it. `score_arm`
+        # writes `confirmatory: False` beside `p_calibrated: None` when the arm has no matched
+        # pool, so the arm was refused only because `float(None)` happens to raise -- one
+        # field's failure standing in for another field's meaning. Reading the declaration
+        # makes it the reason. Found 2026-09-03 by the field enumeration that closed the class
+        # codex passes 9, 11 and 12 each found one instance of.
+        matched = record["nulls"]["matched_patch"]
+        if not matched.get("confirmatory", False):
+            raise ValueError(
+                f"family_1[{arm!r}] carries a matched_patch record that does not declare "
+                "itself confirmatory; an arm with no matched pool reports the failure and "
+                "cannot enter the confirmatory family"
+            )
+        family_1_p[arm] = float(matched["p_calibrated"])
 
     verdict = {
         "alpha": alpha,
@@ -952,11 +970,26 @@ def confirmatory_verdict(
                 f"{reference!r} and it must be the second argument to compare_methods"
             )
         pvalues[arm] = float(record["p_calibrated"])
-        leads[arm] = str(record["leader"]) != reference
         # The candidate half of "<candidate> against <reference>". Both families must name
         # the same method, which is what makes Holm over three arms a correction for three
         # tests rather than for a per-arm choice among methods.
-        seen[f"{arm} (claim)"] = comparison.rsplit(f" against {reference}", 1)[0]
+        candidate = comparison.rsplit(f" against {reference}", 1)[0]
+        seen[f"{arm} (claim)"] = candidate
+        # `leads` used to be `leader != reference`, so ANY value that was not the reference
+        # counted as a candidate win -- `None`, the empty string and `'bogus'` all cleared the
+        # family on all three arms. `compare_methods` writes `names[0] if observed > centre
+        # else names[1]`, so the leader is one of the two names or the record is not one it
+        # wrote. Found by codex pass 12, and it is the third instance of one class: a field
+        # whose absence or garbage value is read in the direction that helps the method. The
+        # first two were family 1's bare float (pass 9) and the defaulted `target` (pass 11).
+        leader = str(record["leader"])
+        if leader not in {candidate, reference}:
+            raise ValueError(
+                f"family_2[{arm!r}] names {leader!r} as the leader of "
+                f"{comparison!r}; compare_methods writes one of the two names it compared, so "
+                "a third value is not a record it wrote"
+            )
+        leads[arm] = leader == candidate
     arms = _check(pvalues, list(claim["arms"]), "family_2")
     for arm, outcome in arms.items():
         # Holm rejects a two-sided test in either direction. Only one of them is the claim.

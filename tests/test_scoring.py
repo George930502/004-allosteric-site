@@ -768,7 +768,15 @@ def arm_record(arm: str, p: float, method: str = "ctqw") -> dict:
     return {
         "target": arm,
         "method": method,
-        "nulls": {"matched_patch": {"p_calibrated": float(p), "available": True}},
+        "nulls": {
+            "matched_patch": {
+                "p_calibrated": float(p),
+                "available": True,
+                # The record's own statement that it MAY license a confirmatory claim.
+                # `confirmatory_verdict` reads it since 2026-09-03; see `score_arm`.
+                "confirmatory": True,
+            }
+        },
     }
 
 
@@ -866,6 +874,27 @@ def test_the_claim_family_counts_a_rejection_only_when_the_method_wins():
     # A bare p-value carries no direction, so it is refused rather than assumed favourable.
     with pytest.raises(TypeError, match="compare_methods record"):
         harness.confirmatory_verdict(family_1, dict.fromkeys(arms, 1e-6))
+    # `leads` was `leader != reference`, so any value that was not the reference read as a
+    # candidate win. `None` and the empty string cleared all three arms, which is the same
+    # shape as the defaulted `target` one pass earlier: a missing field read as favourable.
+    # `compare_methods` writes one of the two names it compared. Codex pass 12, 2026-09-03.
+    for leader in ("bogus", "", None):
+        with pytest.raises(ValueError, match="as the leader of"):
+            harness.confirmatory_verdict(family_1, {a: record(a, leader) for a in arms})
+    # `score_arm` writes `confirmatory: False` beside `p_calibrated: None` for an arm with no
+    # matched pool, and nothing read the declaration -- the arm was refused only because
+    # `float(None)` happens to raise. One field's failure was standing in for another field's
+    # meaning. Found 2026-09-03 by the field enumeration next door.
+    not_confirmatory = {
+        a: {
+            "target": a,
+            "method": "ctqw",
+            "nulls": {"matched_patch": {"p_calibrated": 1e-6, "confirmatory": False}},
+        }
+        for a in settings["decision"]["confirmatory_family"]
+    }
+    with pytest.raises(ValueError, match="does not declare"):
+        harness.confirmatory_verdict(not_confirmatory, {a: record(a, "ctqw") for a in arms})
     # Swapping the two arguments of `compare_methods` would reverse the direction silently.
     with pytest.raises(ValueError, match="the frozen reference is"):
         harness.confirmatory_verdict(
@@ -1729,6 +1758,93 @@ def test_the_pre_declared_reference_refuses_a_non_finite_cavity_volume():
     # A zero volume is legitimate -- it is the default every unlined candidate carries.
     flat = {"site": {"lining": [10], "volume": 0.0}}
     assert cavity_volume_score(flat, candidates) == dict.fromkeys(candidates, 0.0)
+
+
+def test_every_field_a_verdict_reads_is_loud_when_it_is_absent_or_garbage():
+    """The class three codex passes each found one instance of, closed by enumeration.
+
+    Pass 9 found family 1 taking a bare float, so no method identity was checkable. Pass 11
+    found `target` defaulted to the key the record was filed under, so absence read as
+    agreement. Pass 12 found `leads` written as `leader != reference`, so `None` and the empty
+    string read as a candidate win. Three passes, three fields, one shape: **a field whose
+    absent or garbage value is read in the direction that helps the method.**
+
+    Naming a fourth field would invite a fourth pass. This walks every leaf of both record
+    shapes instead and holds one invariant: removing or corrupting a field must either raise,
+    or leave the verdict bit-identical. A field that is read must be loud; a field that is not
+    read may be missing. What must never happen is a field that is read, is absent or
+    nonsense, and quietly moves the verdict.
+
+    **What this does not reach, measured rather than assumed.** Restoring the pass-11 default
+    `record.get("target", arm)` leaves this test green, because every record is edited the same
+    way and each is still filed under its own key, so the verdict does not move. Removing the
+    `confirmatory` check leaves it green too, because the field then becomes one nothing reads.
+    Both holes are "a field that SHOULD be read is not", and this invariant is about fields
+    that ARE read. Each has its own probe next door. Verified 2026-09-03 by disabling all three
+    guards in turn: the leader guard fires here, the other two fire only on their own tests.
+
+    A leaf added to either record later is covered the day it is added.
+    """
+    settings = harness.protocol()
+    arms = list(settings["decision"]["confirmatory_family"])
+    claim = settings["decision"]["claim_family"]
+    claim_arms, reference = list(claim["arms"]), claim["reference"]
+
+    family_1 = {a: arm_record(a, 0.001) for a in arms}
+    family_2 = {
+        a: {
+            "target": a,
+            "comparison": f"ctqw against {reference}",
+            "leader": "ctqw",
+            "p_calibrated": 0.001,
+        }
+        for a in claim_arms
+    }
+    baseline = harness.confirmatory_verdict(family_1, family_2)
+    assert baseline["cleared"]
+
+    def leaves(record, trail=()):
+        for key, value in record.items():
+            if isinstance(value, dict):
+                yield from leaves(value, (*trail, key))
+            else:
+                yield (*trail, key)
+
+    def edited(records, path, *, drop, value=None):
+        out = copy.deepcopy(records)
+        for record in out.values():
+            node = record
+            for key in path[:-1]:
+                node = node[key]
+            if drop:
+                node.pop(path[-1], None)
+            else:
+                node[path[-1]] = value
+        return out
+
+    checked = 0
+    for which, records in (("family_1", family_1), ("family_2", family_2)):
+        for path in leaves(next(iter(records.values()))):
+            for mutation in (
+                {"drop": True},
+                {"drop": False, "value": None},
+                {"drop": False, "value": "!"},
+            ):
+                pair = (
+                    (edited(family_1, path, **mutation), family_2)
+                    if which == "family_1"
+                    else (family_1, edited(family_2, path, **mutation))
+                )
+                checked += 1
+                try:
+                    verdict = harness.confirmatory_verdict(*pair)
+                except (KeyError, TypeError, ValueError):
+                    continue
+                assert verdict == baseline, (
+                    f"{which}.{'.'.join(path)} under {mutation} moved the verdict without "
+                    "raising: a field that is read must be loud when it is absent or nonsense"
+                )
+    assert checked >= 20, f"the enumeration inspected only {checked} mutations"
 
 
 def test_a_verdict_covers_one_method_and_the_records_say_which():

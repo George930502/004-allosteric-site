@@ -983,3 +983,69 @@ the test probes the missing field on both.
 This is the third consecutive pass whose finding is the previous pass's fix. Section 1.10 drew
 the lesson as "a repair is a change like any other". Pass 11 sharpens it: **a repair written in
 two places is two repairs, and the probe must attack the repair rather than confirm it.**
+
+### 1.12 The twelfth pass: the class closed by enumeration, and the first design answers
+
+Two findings, and the pass answered the five design questions the eleventh did not reach.
+
+**A fabricated leader cleared the claim family.** `leads[arm]` was `leader != reference`, so
+**any** value that was not the reference counted as a candidate win. Reproduced: `'bogus'`,
+`''` and `None` each give three Holm rejections and a cleared verdict on all three arms.
+`compare_methods` writes `names[0] if observed > centre else names[1]`, so the leader is one of
+the two names it compared or the record is not one it wrote. The check now derives the
+candidate from the comparison string and requires the leader to be one of the two.
+
+**This is not the previous pass's fix.** Sections 1.10 and 1.11 each found the pass before
+them, and it is tempting to call this a fourth. It is not: `leads = leader != reference` dates
+from `f66bb38`, when family 2 first took records. Same function, same class, earlier origin.
+
+**The class, closed by enumeration rather than by naming a fourth field.** Three passes each
+found one field whose absent or garbage value is read in the direction that helps the method:
+family 1's bare float (pass 9), the defaulted `target` (pass 11), the leader (pass 12). Naming
+a fourth invites a fifth. Every leaf of both record shapes was walked instead, under three
+mutations each — dropped, `None`, and a nonsense string. Result:
+
+| record | leaves | absent | garbage |
+| --- | --- | --- | --- |
+| `score_arm` (family 1) | `method`, `target`, `nulls.matched_patch.{p_calibrated, available, confirmatory}` | loud | loud |
+| `compare_methods` (family 2) | `target`, `comparison`, `leader`, `p_calibrated` | loud | loud |
+
+The walk found two more of its own. A verdict could name **the empty method**, because
+`_one_method` checked how many names there were and never that a name was a name. And
+`nulls.matched_patch.confirmatory` — the record's own statement that it **may** license a
+confirmatory claim — was **never read**: an arm with no matched pool was refused only because
+`score_arm` also writes `p_calibrated: None` there and `float(None)` happens to raise. One
+field's failure was standing in for another field's meaning. Both are closed.
+
+**What the enumeration does not reach, measured rather than assumed.** It holds "a field that
+is read must be loud", so it catches a garbage value that moves the verdict. It does not catch
+"a field that should be read is not". Restoring the pass-11 `target` default leaves it green,
+because every record is edited alike and each stays under its own key. Removing the
+`confirmatory` check leaves it green, because the field then becomes unread. Verified by
+disabling all three guards in turn. Each hole has its own probe next door, and the docstring
+says so where a reader will look.
+
+**The five design questions, answered.** The first pass to reach them.
+
+1. **Protocol v4 measures the right thing, and reports rather than confirms the deliverable.**
+   The confirmatory statistic is statistical enrichment of the label set, which is what
+   `CHALLENGE.md` §4.1 asks be shown. The top-5 list is reported against its hypergeometric
+   chance line and enters no confirmatory family. The repository already states that
+   separation, and the answer is that it is correct rather than adjacent.
+2. **Apo-only isolation does not hold by construction.** Accepted, and it was already decided
+   — see below.
+3. **The three layers are separable.** No finding.
+4. **N is not overclaimed anywhere.** The reviewer looked for an overclaim in the achieved
+   sample size and found none. This is a positive result and it is recorded as one.
+5. **Malformed persisted records failed silently.** That is finding one, now closed. Missing
+   targets and missing confirmatory declarations fail loudly.
+
+**Answer 2 was already decided, and the contract hid the decision.** ADR 0043's Consequences
+record the same limit with the same reproduction — a path and a traversal function built from
+arithmetic on character codes, all tests green — and name a runtime boundary as the next step
+rather than a defect. So the recommendation to build a sandbox now is **declined**, on the
+argument the ADR already makes. The real defect is where the limit is written: `AGENTS.md`
+said "Enforced by `tests/test_no_leakage.py`" and "All nineteen are enforced" with no
+qualifier, and a reviewer who read the repository closely did not find ADR 0043. Both
+sentences now carry the limit and point at the ADR. **A decision recorded only in a consequence
+of an ADR about something else is a decision a reader will miss.**
