@@ -910,3 +910,53 @@ computation... if a fourteenth exists, it is there", and it was.
 `"Forty-four decisions"` as a literal alternative, so 45 ADRs, an index saying forty-four and a
 green test were all consistent. That is the same shape as the route-count binding two passes
 earlier: a rule written as a list of accepted strings rather than as a derivation.
+
+### 1.10 The tenth pass: a repair that landed on one of two symmetric branches
+
+The tenth pass found **five defects and no new one of any class this round had opened**. No
+non-finite site, no determinism failure. `make check`, both freezes and
+`allo evaluate verify --detect` were clean. Two of the five were written the day before, by the
+pass-9 repair itself.
+
+**The target check went to one family and not to the other.** Pass 9 bound the confirmatory
+verdict to a method and made family 1 read `score_arm` records. The same commit added
+`record["target"] == arm` to family 1 and did not add it to family 2. Family 2 is the paired
+comparison against `cavity_volume`, and its record carries its own `target` field, so a verdict
+keyed on `kras_g12c_corrected` accepted a comparison measured on any other arm.
+
+**Measured, the effect is narrower than the grade and it is still real.** Clearing family 2
+needs one Holm rejection, and Holm's tightest threshold is alpha/3 whether the three p-values
+are three measurements or one reused three times. So the reuse does not change `cleared`. It
+changes **which arms hold a licence**: one favourable record at p = 0.01 reused under all three
+keys turns **1 of 3 rejections into 3 of 3**. ADR 0038 prints the licence per arm and the
+deliverable is per target, so the defect manufactures two per-arm claims that were never
+measured. On the one real triple in the repository -- 0.8281 / 0.055021 / 0.0343 from
+`review/data/compare-methods-2026-09-03.json` -- it flips nothing, because 0.0343 is above
+alpha/3 = 0.01667. Anti-conservative on the licence, inert on the verdict, and inert on this
+data. The check is now on both branches, and the test probes both.
+
+**The example in the README stopped running.** Pass 9 made the claim reference derived, so
+`compare_methods` refuses a caller-supplied vector under the reference name. The README still
+showed the old call, which now raises. A repair that changes a signature has to be followed into
+the prose that calls it.
+
+**Two documents described work the repository has not done.** `docs/report/substitutions.md`
+said c-Myc "runs as named" and "is scored", where ADR 0036 says **decided, not built**. This is
+the Class B shape section 1.8 named, and it recurred in the one document a reader reaches first.
+Three smaller contradictions came with it: the evaluation manifest saying a value is "never
+replaced here" two paragraphs below its replacement, a README counting "All four" above five
+items, and `conformance.md` describing a quantum layer that `main` does not carry.
+
+**One coverage gap, no live offender.** `allo.cli` is a third door into `allo.benchmark`.
+`cli.main` does `from allo import benchmark`, and `benchmark show` prints the whole freeze on
+stdout, so `from allo.cli import main` or `python -m allo.cli benchmark show` hands a run script
+the answer key with no `groundtruth`, no `frozen.json` and no `allo.benchmark` in its own text.
+Both spellings are now refused. The name sits in a second tuple rather than in
+`FORBIDDEN_OUTSIDE`, because that tuple is also matched as a bare substring and `pyproject.toml`
+declares the console script as `allo.cli:main`. A declaration is what creates the command. The
+command itself is guarded where it is used.
+
+**The lesson is about repairs, not about guards.** Two of the five findings are the pass-9 fix
+landing on one of two symmetric places. A repair is a change like any other, and the round that
+verifies it must verify its siblings and its documentation. Nothing else in the pass survived as
+a defect.

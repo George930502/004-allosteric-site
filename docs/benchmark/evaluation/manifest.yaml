@@ -73,7 +73,10 @@ endpoints:
     #
     # CORRECTED 2026-09-03. This ran on bcr_abl1_corrected at 0.0003 and 26.5 A against
     # 17.7 A, which are version-2 numbers. That arm reads 0.3236 under version 3 and rejects
-    # nothing, so the example was withdrawn by README section 13 and never replaced here.
+    # nothing, so the example was withdrawn by README section 13 and REPLACED with the
+    # cardiac_myosin_corrected one above, which is a version-3 measurement. The note said
+    # "never replaced here" and the replacement was two paragraphs up; corrected the same day
+    # by codex pass 10.
     - dcc_angstrom
     - auc_roc_vs_decoy_linings
     # ADDED AT v4. ADR 0039. The same permutation as `decoy_pockets.p`, with the LABEL SET as

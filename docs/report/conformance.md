@@ -51,7 +51,7 @@ That is the shape of an answer, not an answer.
 
 | Requirement | Clause | Status |
 | --- | --- | --- |
-| Build a **quantum circuit** that simulates signal propagation | §4.1, §8.1 | **not built.** The quantum layer is exact statevector linear algebra in NumPy. No circuit, no gate count, no transpilation. A method-layer document priced circuits on paper and is archived with it (ADR 0037); nothing was ever compiled |
+| Build a **quantum circuit** that simulates signal propagation | §4.1, §8.1 | **not built, and there is no quantum layer on `main` either.** `src/allo/quantum` does not exist: ADR 0037 removed it. What it held was exact statevector linear algebra in NumPy -- no circuit, no gate count, no transpilation -- and this row described it in the present tense until 2026-09-03. A method-layer document priced circuits on paper and is archived with it (ADR 0037); nothing was ever compiled |
 | Output a **ranking of residues by dynamic connectivity**, in most cases to an active site | §4.1 | **not met, and the instrument is narrower than this row used to claim.** `allo.scoring.score_arm` takes a residue-keyed mapping and returns **aggregate endpoints only** — no residue identity appears in its record. `graph.as_scores` carries identity in, and `metrics.top_k_indices` picks the list, but nothing emits it. Corrected 2026-09-03: this said `score_arm` "returns a residue-keyed ranking", which is the same class of false claim §6 was corrected for. No scorer exists on `main` either (ADR 0037) |
 | Score **significantly higher** on known distal regulatory residues than on **random background residues** | §4.1 | **instrument ready, not met.** The matched-patch null is frozen and calibrated. Nothing has been scored against it |
 | …and than on **non-functional surface pockets** | §4.1 | **instrument ready, not met.** The decoy-pocket class is frozen and detector-defined (ADR 0024). Nothing has been scored against it |
@@ -100,7 +100,7 @@ An archived experiment measured what happens when the source is something else
 | Circuit depth aware, near-term viable | §5.2 | C3 | **open** — no compiled circuit |
 | Credible hardware execution path | §5.1 | C4 | **open** — the statevector layer needs a stated mapping |
 | **Uses AWS Braket and/or Classiq** | §5.4, §9 | — | **open.** `pyproject.toml` carries the `hw` extra. Nothing has been run on either service |
-| **Open-source frameworks, for example Qiskit** | §6, §9 | — | **open.** The quantum layer is NumPy. It is reproducible and open source, but it is not a circuit framework |
+| **Open-source frameworks, for example Qiskit** | §6, §9 | — | **open.** Nothing on `main` uses either service or any circuit framework. The layer that ADR 0037 archived was NumPy: reproducible and open source, but not a circuit framework |
 | All three artifacts per target | §9 | — | **open**, see §1 above |
 | **Minimum four targets** | §9, §8.2 | six primary arms | **open on identity, not on count** — see below |
 

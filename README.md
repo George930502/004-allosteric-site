@@ -195,10 +195,10 @@ result["endpoints"]["recall_at_5"]  # the top-5 deliverable, against its hyperge
 result["endpoints"]["dcc_angstrom"]  # predicted centre to site centre, in angstrom
 result["protocol_is_frozen"]  # False if you passed a `config` that is not the frozen one
 
-# The claim threshold is beating a baseline, so the paired test is part of the protocol.
-compare_methods(
-    "kras_g12c_corrected", scores, baseline_scores, names=("ctqw_transfer", "cavity_volume")
-)["p_calibrated"]
+# The claim threshold is beating the pre-declared reference, so the paired test is part of
+# the protocol. Pass no baseline: the reference is DERIVED, never named, because a name is
+# not a vector and a weaker one under that name would make the claim family easier to clear.
+compare_methods("kras_g12c_corrected", scores, names=("ctqw_transfer", "baseline"))["p_calibrated"]
 ```
 
 The harness chooses the estimator, the tie rule, the null and the replicate count. A method

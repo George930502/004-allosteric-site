@@ -914,6 +914,15 @@ def confirmatory_verdict(
                 "a two-sided p cannot say which method won, and ADR 0032 licenses "
                 f"'the method beats {reference}'"
             )
+        # The same check family 1 carries. It was added there on 2026-09-03 and not here, in
+        # the same commit, so a record measured on ANOTHER target -- or one favourable record
+        # reused under all three keys -- cleared the claim family. Anti-conservative, and my
+        # own asymmetry rather than an old one. Found by codex pass 10 the next day.
+        if str(record.get("target", arm)) != arm:
+            raise ValueError(
+                f"family_2[{arm!r}] holds a record for {record['target']!r}; a verdict is "
+                "keyed by the arm the record was measured on"
+            )
         comparison = str(record.get("comparison", ""))
         if not comparison.endswith(f" against {reference}"):
             raise ValueError(

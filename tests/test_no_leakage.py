@@ -1702,6 +1702,22 @@ def test_the_manifest_guard_would_catch_the_route_it_missed(graph):
 # manifest) and `FROZEN` (the label sets). A run script that imports it has the answer key,
 # by a route with no `groundtruth` and no `frozen.json` anywhere in its text.
 FORBIDDEN_OUTSIDE = (GROUND_TRUTH, "allo.benchmark")
+# `allo.cli` is a third door into the same room. `cli.main` does `from allo import benchmark`
+# and prints the whole freeze on `benchmark show`, so `from allo.cli import main` hands a run
+# script the answer key with no `groundtruth`, no `frozen.json` and no `allo.benchmark` in its
+# text. Found 2026-09-03 by codex pass 10, with no live offender.
+#
+# It is a second tuple rather than a third entry above, because `FORBIDDEN_OUTSIDE` is also
+# matched as a bare substring of a non-Python runner, and `pyproject.toml` declares the console
+# script as `allo.cli:main`. That declaration is what creates the `allo` command, and the
+# command is guarded by the regex below rather than by its own definition.
+#
+# A name rather than a derivation over "reaches `allo.benchmark`", because that derivation
+# sweeps in `allo.scoring`, which a runner is allowed to import -- it takes scores in and
+# numbers out, and its answer-key members are held by `FROZEN_TOKENS` instead. Deriving the
+# set would need an allow-list to put `allo.scoring` back, which is more machinery than the
+# one name it exists to add.
+FORBIDDEN_IMPORTS_OUTSIDE = FORBIDDEN_OUTSIDE + ("allo.cli",)
 # `.yml` and `.toml` joined on 2026-09-03. `.github/workflows/ci.yml` runs commands on every
 # push and `pyproject.toml` declares the console scripts, and neither had a suffix here nor a
 # first path part in `NON_RUNNER_TREES`, so both were scanned by nothing at all. `.yaml` comes
@@ -1860,7 +1876,7 @@ def runner_violations(path: Path) -> set[str]:
         name
         for source in sources
         for name in imports_from_source(source, "")
-        for bad in FORBIDDEN_OUTSIDE
+        for bad in FORBIDDEN_IMPORTS_OUTSIDE
         if name == bad or name.startswith(bad + ".")
     }
     own_tree = REVIEW_TOOLS if is_review_tool(path) else None
@@ -1891,7 +1907,7 @@ def runner_violations(path: Path) -> set[str]:
                 violations.add(bad)
         if re.search(r"\bfrom\s+allo\s+import\s+[^\n;]*\bbenchmark\b", flat):
             violations.add("allo.benchmark")
-        if re.search(r"\ballo\s+benchmark\s+(?:freeze|show|stats)\b", flat):
+        if re.search(r"\ballo(?:\.cli)?\s+benchmark\s+(?:freeze|show|stats)\b", flat):
             violations.add("allo benchmark evaluation command")
     violations.update(token for token in FROZEN_TOKENS if token in text)
     # A shell or Make runner can call `git`, and git is a second copy of every protected file,
@@ -2054,6 +2070,31 @@ def test_a_backslash_split_import_is_caught_at_every_token_boundary(tmp_path):
         probe = tmp_path / f"{name}.sh"
         probe.write_text(f"#!/bin/sh\npython - <<'PY'\n{statement}\nPY\n")
         assert runner_violations(probe), f"split import read as clean: {name}"
+
+
+def test_the_command_line_wrapper_is_forbidden_to_a_runner_by_both_of_its_names(tmp_path):
+    """`allo.cli` prints the freeze, and neither of its two spellings was caught.
+
+    `cli.main` does `from allo import benchmark` and `benchmark show` prints the whole
+    frozen artifact on stdout. A run script reached it as an import or as a module, with no
+    forbidden name in its own text. Found 2026-09-03 by codex pass 10.
+
+    The console-script declaration is the one spelling that must stay clean, because it is
+    what creates the `allo` command rather than a use of it.
+    """
+    probes = {
+        "import.py": "from allo.cli import main\nmain(['benchmark', 'show'])\n",
+        "module.sh": "#!/bin/sh\npython -m allo.cli benchmark show\n",
+    }
+    for name, source in probes.items():
+        probe = tmp_path / name
+        probe.write_text(source)
+        assert runner_violations(probe), f"the cli door read as clean: {name}"
+
+    declaration = tmp_path / "pyproject.toml"
+    declaration.write_text('[project.scripts]\nallo = "allo.cli:main"\n')
+    assert not runner_violations(declaration), "the console-script declaration is not a use"
+    assert not runner_violations(ROOT / "pyproject.toml")
 
 
 def test_the_prediction_manifest_is_built_from_an_allow_list(tmp_path):

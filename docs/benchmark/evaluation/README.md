@@ -1197,7 +1197,7 @@ Written now, so the rebuttal is an argument rather than a scramble.
 
 ## 13. The gate before any number is quotable
 
-All four, together:
+All five, together:
 
 1. `uv run allo benchmark verify` clean — the input layer still is what it claims.
 2. `uv run allo evaluate verify --detect` clean — the evaluation layer too.

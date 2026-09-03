@@ -1733,12 +1733,15 @@ def test_a_verdict_covers_one_method_and_the_records_say_which():
     claim_arms = list(settings["decision"]["claim_family"]["arms"])
     reference = settings["decision"]["claim_family"]["reference"]
 
-    def claim(method, p=0.001):
-        return {
+    def claim(method, p=0.001, target=None):
+        record = {
             "comparison": f"{method} against {reference}",
             "leader": method,
             "p_calibrated": p,
         }
+        if target is not None:
+            record["target"] = target
+        return record
 
     # The pass's own demo: bare floats, three different method names in family 2.
     with pytest.raises(TypeError, match="score_arm record"):
@@ -1765,11 +1768,22 @@ def test_a_verdict_covers_one_method_and_the_records_say_which():
             {a: arm_record(arms[0], 0.001, "ctqw") for a in arms},
             {a: claim("ctqw") for a in claim_arms},
         )
+    # The same, on the claim family. The check went to family 1 and not to family 2 in the
+    # commit that added it, so one favourable comparison reused under all three keys cleared
+    # the family. Found by codex pass 10 on 2026-09-03, the day after the asymmetry was
+    # written. A probe on one branch of a symmetric pair is not a probe.
+    with pytest.raises(ValueError, match="holds a record for"):
+        harness.confirmatory_verdict(
+            {a: arm_record(a, 0.001, "ctqw") for a in arms},
+            {a: claim("ctqw", target=claim_arms[0]) for a in claim_arms},
+        )
 
-    # One method throughout still clears, and the verdict now names it.
+    # One method throughout still clears, and the verdict now names it. The claim records
+    # carry the `target` field a real `compare_methods` record carries, so the check above is
+    # exercised in the passing direction too.
     verdict = harness.confirmatory_verdict(
         {a: arm_record(a, 0.001, "ctqw") for a in arms},
-        {a: claim("ctqw") for a in claim_arms},
+        {a: claim("ctqw", target=a) for a in claim_arms},
     )
     assert verdict["cleared"] and verdict["method"] == "ctqw"
 

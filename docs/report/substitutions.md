@@ -145,14 +145,17 @@ so it cannot have been chosen to suit a result.
 
 ## 5. c-Myc, which needed no substitution and has no holo member
 
-`1NKP` runs as named. It has no substitution because no replacement would help: **no deposited
+`1NKP` **has a contract and no arm.** ADR 0036 decided how it would be scored, and nothing
+builds it. The paragraphs below describe that decision, not a running arm. It has no
+substitution because no replacement would help: **no deposited
 structure anywhere shows a drug-like small molecule bound to human c-Myc.** Across all 25
 human c-Myc PDB entries the complete non-polymer inventory is `K`, `CL`, `CA`, `SO4`, `GOL`,
 `EDO`, `TRS` and `PTD` — salts, cryoprotectants, buffer and crosslinker.
 
-The arm therefore has no holo-derived label set. It is scored against NMR chemical-shift
-segments with a hypergeometric null, it is **declared non-blind**, and it enters no
-confirmatory family. Deciding record:
+The arm therefore has no holo-derived label set. The decision is that it **would be** scored
+against NMR chemical-shift segments with a hypergeometric null, **declared non-blind**, and in
+no confirmatory family. Written in the conditional on 2026-09-03: the present tense here said a
+scored arm exists, and ADR 0036's own consequence is "DECIDED, NOT BUILT". Deciding record:
 [ADR 0036](../adr/0036-cmyc-is-a-reported-deliverable-scored-against-nmr-segments.md).
 
 `6G6K` is recorded as the cleaner alternative — 1.35 Å, DNA-free, no artificial disulfide
