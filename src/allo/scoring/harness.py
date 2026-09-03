@@ -751,6 +751,34 @@ def holm(pvalues: Mapping[str, float], alpha: float = 0.05) -> dict[str, dict]:
     return verdict
 
 
+def _measured_on(record: Mapping, arm: str, label: str) -> None:
+    """A record must SAY which arm it was measured on. Absence is not agreement.
+
+    The first version of this check was `str(record.get("target", arm)) != arm`, so a record
+    with no `target` field was read as agreeing with whatever key it was filed under. One
+    target-less comparison replayed under all three claim arms gave three Holm rejections and
+    a cleared verdict, which is the exact replay the check was written to stop. Found by codex
+    pass 11 on 2026-09-03, one pass after the check itself.
+
+    `score_arm` and `compare_methods` both stamp `target` into every record they write, so
+    requiring it costs a real caller nothing. A permissive default is a trust, and this layer
+    exists so that a verdict is true by construction rather than by the caller's care -- the
+    same argument that made `score_arm` the only scoring path and that closed the bare-float
+    family 1 one pass earlier.
+    """
+    if "target" not in record:
+        raise ValueError(
+            f"{label}[{arm!r}] carries no `target`, so it cannot say which arm it was measured "
+            "on. score_arm and compare_methods both stamp it; a record without one can be "
+            "replayed under every arm"
+        )
+    if str(record["target"]) != arm:
+        raise ValueError(
+            f"{label}[{arm!r}] holds a record for {record['target']!r}; a verdict is "
+            "keyed by the arm the record was measured on"
+        )
+
+
 def _one_method(seen: dict[str, str]) -> str:
     """The single method name every record in a verdict must carry. Round 6, 2026-09-03.
 
@@ -874,11 +902,7 @@ def confirmatory_verdict(
                 f"family_1[{arm!r}] must be a score_arm record, not a bare p-value: a float "
                 "carries no method name, so three arms could come from three methods"
             )
-        if str(record.get("target", arm)) != arm:
-            raise ValueError(
-                f"family_1[{arm!r}] holds a record for {record['target']!r}; a verdict is "
-                "keyed by the arm the record was measured on"
-            )
+        _measured_on(record, arm, "family_1")
         seen[arm] = str(record["method"])
         family_1_p[arm] = float(record["nulls"]["matched_patch"]["p_calibrated"])
 
@@ -917,12 +941,10 @@ def confirmatory_verdict(
         # The same check family 1 carries. It was added there on 2026-09-03 and not here, in
         # the same commit, so a record measured on ANOTHER target -- or one favourable record
         # reused under all three keys -- cleared the claim family. Anti-conservative, and my
-        # own asymmetry rather than an old one. Found by codex pass 10 the next day.
-        if str(record.get("target", arm)) != arm:
-            raise ValueError(
-                f"family_2[{arm!r}] holds a record for {record['target']!r}; a verdict is "
-                "keyed by the arm the record was measured on"
-            )
+        # own asymmetry rather than an old one. Found by codex pass 10 the next day. It is one
+        # shared function now, because writing the same check twice is how the asymmetry
+        # happened, and because both copies then shared a permissive default (pass 11).
+        _measured_on(record, arm, "family_2")
         comparison = str(record.get("comparison", ""))
         if not comparison.endswith(f" against {reference}"):
             raise ValueError(

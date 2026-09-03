@@ -816,15 +816,20 @@ def test_the_decision_rule_refuses_a_family_that_is_not_the_declared_one():
     claim = settings["decision"]["claim_family"]
     reference = claim["reference"]
 
-    def won(p=0.01):
-        return {"comparison": f"ctqw against {reference}", "leader": "ctqw", "p_calibrated": p}
+    def won(arm, p=0.01):
+        return {
+            "target": arm,
+            "comparison": f"ctqw against {reference}",
+            "leader": "ctqw",
+            "p_calibrated": p,
+        }
 
     with pytest.raises(ValueError, match="family_2 must be exactly"):
         harness.confirmatory_verdict(
-            {a: arm_record(a, 0.01) for a in declared}, {declared[0]: won()}
+            {a: arm_record(a, 0.01) for a in declared}, {declared[0]: won(declared[0])}
         )
     both = harness.confirmatory_verdict(
-        {a: arm_record(a, 0.01) for a in declared}, {arm: won() for arm in claim["arms"]}
+        {a: arm_record(a, 0.01) for a in declared}, {arm: won(arm) for arm in claim["arms"]}
     )
     assert both["family_2"]["reference"] == "cavity_volume"
     assert both["family_2"]["sided"] == "two"
@@ -843,15 +848,16 @@ def test_the_claim_family_counts_a_rejection_only_when_the_method_wins():
     claim = settings["decision"]["claim_family"]
     arms, reference = list(claim["arms"]), claim["reference"]
 
-    def record(leader):
+    def record(arm, leader):
         return {
+            "target": arm,
             "comparison": f"ctqw against {reference}",
             "leader": leader,
             "p_calibrated": 1e-6,
         }
 
-    wins = harness.confirmatory_verdict(family_1, {a: record("ctqw") for a in arms})
-    loses = harness.confirmatory_verdict(family_1, {a: record(reference) for a in arms})
+    wins = harness.confirmatory_verdict(family_1, {a: record(a, "ctqw") for a in arms})
+    loses = harness.confirmatory_verdict(family_1, {a: record(a, reference) for a in arms})
     assert wins["family_2"]["n_reject"] == 3
     assert loses["family_2"]["n_reject"] == 0
     assert all(a["leads"] for a in wins["family_2"]["arms"].values())
@@ -865,7 +871,12 @@ def test_the_claim_family_counts_a_rejection_only_when_the_method_wins():
         harness.confirmatory_verdict(
             family_1,
             {
-                a: {"comparison": "ctqw against degree", "leader": "ctqw", "p_calibrated": 1e-6}
+                a: {
+                    "target": a,
+                    "comparison": "ctqw against degree",
+                    "leader": "ctqw",
+                    "p_calibrated": 1e-6,
+                }
                 for a in arms
             },
         )
@@ -886,21 +897,26 @@ def test_a_family_is_cleared_when_holm_rejects_at_least_one_arm():
     claim = settings["decision"]["claim_family"]
     reference = claim["reference"]
 
-    def record(leader, p):
-        return {"comparison": f"ctqw against {reference}", "leader": leader, "p_calibrated": p}
+    def record(arm, leader, p):
+        return {
+            "target": arm,
+            "comparison": f"ctqw against {reference}",
+            "leader": leader,
+            "p_calibrated": p,
+        }
 
     one = {a: arm_record(a, p) for a, p in zip(family, (1e-6, 0.9, 0.9), strict=True)}
     none = {a: arm_record(a, 0.9) for a in family}
-    wins_one = {claim["arms"][0]: record("ctqw", 1e-6)} | {
-        a: record("ctqw", 0.9) for a in claim["arms"][1:]
+    wins_one = {claim["arms"][0]: record(claim["arms"][0], "ctqw", 1e-6)} | {
+        a: record(a, "ctqw", 0.9) for a in claim["arms"][1:]
     }
-    loses_all = {a: record("ctqw", 0.9) for a in claim["arms"]}
+    loses_all = {a: record(a, "ctqw", 0.9) for a in claim["arms"]}
 
     assert harness.confirmatory_verdict(one, wins_one)["cleared"]
     assert not harness.confirmatory_verdict(none, wins_one)["cleared"]
     assert not harness.confirmatory_verdict(one, loses_all)["cleared"]
     # A rejection in the wrong direction is not a rejection, so it cannot clear either.
-    reversed_claim = {a: record(reference, 1e-6) for a in claim["arms"]}
+    reversed_claim = {a: record(a, reference, 1e-6) for a in claim["arms"]}
     assert not harness.confirmatory_verdict(one, reversed_claim)["cleared"]
     # Family 1 alone is not a composite verdict. The field is present and False, because
     # absent is not the same as unmet and a caller must not have to tell them apart.
@@ -1733,40 +1749,40 @@ def test_a_verdict_covers_one_method_and_the_records_say_which():
     claim_arms = list(settings["decision"]["claim_family"]["arms"])
     reference = settings["decision"]["claim_family"]["reference"]
 
-    def claim(method, p=0.001, target=None):
+    def claim(arm, method, p=0.001, *, omit_target=False):
         record = {
             "comparison": f"{method} against {reference}",
             "leader": method,
             "p_calibrated": p,
         }
-        if target is not None:
-            record["target"] = target
+        if not omit_target:
+            record["target"] = arm
         return record
 
     # The pass's own demo: bare floats, three different method names in family 2.
     with pytest.raises(TypeError, match="score_arm record"):
         harness.confirmatory_verdict(
             dict.fromkeys(arms, 0.001),
-            {a: claim(f"method_{i}") for i, a in enumerate(claim_arms)},
+            {a: claim(a, f"method_{i}") for i, a in enumerate(claim_arms)},
         )
 
     # Valid records, three different methods: refused across the verdict.
     with pytest.raises(ValueError, match="covers ONE method"):
         harness.confirmatory_verdict(
             {a: arm_record(a, 0.001, f"method_{i}") for i, a in enumerate(arms)},
-            {a: claim(f"method_{i}") for i, a in enumerate(claim_arms)},
+            {a: claim(a, f"method_{i}") for i, a in enumerate(claim_arms)},
         )
     # One method inside each family, but the two families disagree.
     with pytest.raises(ValueError, match="covers ONE method"):
         harness.confirmatory_verdict(
             {a: arm_record(a, 0.001, "ctqw") for a in arms},
-            {a: claim("something_else") for a in claim_arms},
+            {a: claim(a, "something_else") for a in claim_arms},
         )
     # A record filed under an arm it was not measured on.
     with pytest.raises(ValueError, match="holds a record for"):
         harness.confirmatory_verdict(
             {a: arm_record(arms[0], 0.001, "ctqw") for a in arms},
-            {a: claim("ctqw") for a in claim_arms},
+            {a: claim(a, "ctqw") for a in claim_arms},
         )
     # The same, on the claim family. The check went to family 1 and not to family 2 in the
     # commit that added it, so one favourable comparison reused under all three keys cleared
@@ -1775,7 +1791,26 @@ def test_a_verdict_covers_one_method_and_the_records_say_which():
     with pytest.raises(ValueError, match="holds a record for"):
         harness.confirmatory_verdict(
             {a: arm_record(a, 0.001, "ctqw") for a in arms},
-            {a: claim("ctqw", target=claim_arms[0]) for a in claim_arms},
+            {a: claim(claim_arms[0], "ctqw") for a in claim_arms},
+        )
+
+    # A record with NO target at all, replayed under every key. The check above defaulted the
+    # missing field to the key it was filed under, so absence read as agreement and the exact
+    # replay it was written to stop still cleared the family: three Holm rejections and a
+    # cleared verdict from one comparison. Found by codex pass 11, one pass after the check.
+    # Both families take the same shared function now.
+    with pytest.raises(ValueError, match="carries no `target`"):
+        harness.confirmatory_verdict(
+            {a: arm_record(a, 0.001, "ctqw") for a in arms},
+            {a: claim(a, "ctqw", omit_target=True) for a in claim_arms},
+        )
+    with pytest.raises(ValueError, match="carries no `target`"):
+        harness.confirmatory_verdict(
+            {
+                a: {k: v for k, v in arm_record(a, 0.001, "ctqw").items() if k != "target"}
+                for a in arms
+            },
+            {a: claim(a, "ctqw") for a in claim_arms},
         )
 
     # One method throughout still clears, and the verdict now names it. The claim records
@@ -1783,7 +1818,7 @@ def test_a_verdict_covers_one_method_and_the_records_say_which():
     # exercised in the passing direction too.
     verdict = harness.confirmatory_verdict(
         {a: arm_record(a, 0.001, "ctqw") for a in arms},
-        {a: claim("ctqw", target=a) for a in claim_arms},
+        {a: claim(a, "ctqw") for a in claim_arms},
     )
     assert verdict["cleared"] and verdict["method"] == "ctqw"
 

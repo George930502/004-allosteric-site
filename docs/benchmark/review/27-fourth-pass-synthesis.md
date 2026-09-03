@@ -960,3 +960,26 @@ command itself is guarded where it is used.
 landing on one of two symmetric places. A repair is a change like any other, and the round that
 verifies it must verify its siblings and its documentation. Nothing else in the pass survived as
 a defect.
+
+### 1.11 The eleventh pass: the check the tenth pass added had a permissive default
+
+One finding, and it is the pass-10 repair one layer down. The check was
+`str(record.get("target", arm)) != arm`, so a record with **no** `target` field was read as
+agreeing with whatever key it was filed under. **Absence is not agreement.** One target-less
+comparison record at p = 0.001, replayed under all three claim arms, gives three Holm
+rejections and a cleared verdict. Reproduced on both families: the family-1 half has the
+identical default and the identical hole.
+
+Requiring the field costs a real caller nothing. `score_arm` stamps `target` at
+`harness.py:468` and `compare_methods` at `harness.py:1185`, so every record the repository
+produces already carries it. A record without one is not a record any frozen path writes.
+
+Two things made the hole survive the pass that opened it. The check was **written twice**,
+which is how the pass-10 asymmetry happened in the first place, and both copies then shared the
+same default. And the probe added for it stamped a **wrong** target rather than **no** target,
+so it exercised the branch that worked. Both families call one shared `_measured_on` now, and
+the test probes the missing field on both.
+
+This is the third consecutive pass whose finding is the previous pass's fix. Section 1.10 drew
+the lesson as "a repair is a change like any other". Pass 11 sharpens it: **a repair written in
+two places is two repairs, and the probe must attack the repair rather than confirm it.**
